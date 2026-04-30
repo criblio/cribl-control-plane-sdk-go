@@ -29,6 +29,8 @@ type SavedJobResponseScheduledSearch struct {
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Identifies which search query to run
 	SavedQueryID string `json:"savedQueryId"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Runtime collection state.
 	SavedState map[string]AdditionalPropertiesTypeEnrichedFieldsSavedState `json:"savedState,omitzero"`
 	// Notification targets.
@@ -123,6 +125,13 @@ func (s *SavedJobResponseScheduledSearch) GetSavedQueryID() string {
 	return s.SavedQueryID
 }
 
+func (s *SavedJobResponseScheduledSearch) GetTemplateStreamtags() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateStreamtags
+}
+
 func (s *SavedJobResponseScheduledSearch) GetSavedState() map[string]AdditionalPropertiesTypeEnrichedFieldsSavedState {
 	if s == nil {
 		return nil
@@ -157,6 +166,8 @@ type SavedJobResponseExecutor struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string                        `json:"streamtags,omitzero"`
 	Executor   ExecutorTypeRunnableJobExecutor `json:"executor"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Runtime collection state.
 	SavedState map[string]AdditionalPropertiesTypeEnrichedFieldsSavedState `json:"savedState,omitzero"`
 	// Notification targets.
@@ -251,6 +262,13 @@ func (s *SavedJobResponseExecutor) GetExecutor() ExecutorTypeRunnableJobExecutor
 	return s.Executor
 }
 
+func (s *SavedJobResponseExecutor) GetTemplateStreamtags() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateStreamtags
+}
+
 func (s *SavedJobResponseExecutor) GetSavedState() map[string]AdditionalPropertiesTypeEnrichedFieldsSavedState {
 	if s == nil {
 		return nil
@@ -289,6 +307,8 @@ type SavedJobResponseCollection struct {
 	// Collector configuration
 	Collector Collector                                                         `json:"collector"`
 	Input     *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Runtime collection state.
 	SavedState map[string]AdditionalPropertiesTypeEnrichedFieldsSavedState `json:"savedState,omitzero"`
 	// Notification targets.
@@ -435,6 +455,13 @@ func (s *SavedJobResponseCollection) GetInput() *RunnableJobCollectionTypeCollec
 		return nil
 	}
 	return s.Input
+}
+
+func (s *SavedJobResponseCollection) GetTemplateStreamtags() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateStreamtags
 }
 
 func (s *SavedJobResponseCollection) GetSavedState() map[string]AdditionalPropertiesTypeEnrichedFieldsSavedState {

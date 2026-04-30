@@ -393,6 +393,12 @@ input1 := components.CreateInput1CloudflareHec(components.InputCloudflareHec{/* 
 input1 := components.CreateInput1OpenaiComplianceLogs(components.InputOpenaiComplianceLogs{/* values here */})
 ```
 
+### InputAnthropicCompliance
+
+```go
+input1 := components.CreateInput1AnthropicCompliance(components.InputAnthropicCompliance{/* values here */})
+```
+
 ### InputOkta
 
 ```go
@@ -535,6 +541,8 @@ switch input1.Type {
 		// input1.InputCloudflareHec is populated
 	case components.Input1TypeOpenaiComplianceLogs:
 		// input1.InputOpenaiComplianceLogs is populated
+	case components.Input1TypeAnthropicCompliance:
+		// input1.InputAnthropicCompliance is populated
 	case components.Input1TypeOkta:
 		// input1.InputOkta is populated
 	default:

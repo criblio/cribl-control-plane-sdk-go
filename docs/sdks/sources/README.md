@@ -73,6 +73,62 @@ func main() {
 
 Create a new Source.
 
+### Example Usage: InputCreateExamplesAnthropicCompliance
+
+<!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesAnthropicCompliance" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestAnthropicCompliance(
+        operations.CreateInputInputAnthropicCompliance{
+            ID: "anthropic-compliance-source",
+            Type: operations.CreateInputTypeAnthropicComplianceAnthropicCompliance,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            TextSecret: "anthropic-api-key-secret",
+            ContentConfig: []operations.CreateInputContentConfigAnthropicCompliance{
+                operations.CreateInputContentConfigAnthropicCompliance{
+                    ContentType: "activities",
+                    ContentDescription: criblcontrolplanesdkgo.Pointer("Compliance Activities"),
+                    Enabled: criblcontrolplanesdkgo.Pointer(true),
+                    StateTracking: criblcontrolplanesdkgo.Pointer(true),
+                    StateUpdateExpression: criblcontrolplanesdkgo.Pointer("__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}"),
+                    StateMergeExpression: criblcontrolplanesdkgo.Pointer("prevState.latestTime > newState.latestTime ? prevState : newState"),
+                    CronSchedule: "*/5 * * * *",
+                    Earliest: "-7d@d",
+                    Latest: "now",
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("300"),
+                },
+            },
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInput != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: InputCreateExamplesAppscope
 
 <!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesAppscope" -->
@@ -2995,6 +3051,61 @@ func main() {
 
 Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
 
+### Example Usage: InputCreateExamplesAnthropicCompliance
+
+<!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputCreateExamplesAnthropicCompliance" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2AnthropicCompliance(
+        components.InputAnthropicCompliance{
+            ID: criblcontrolplanesdkgo.Pointer("anthropic-compliance-source"),
+            Type: components.InputAnthropicComplianceTypeAnthropicCompliance,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            TextSecret: "anthropic-api-key-secret",
+            ContentConfig: []components.InputAnthropicComplianceContentConfig{
+                components.InputAnthropicComplianceContentConfig{
+                    ContentType: "activities",
+                    ContentDescription: criblcontrolplanesdkgo.Pointer("Compliance Activities"),
+                    Enabled: criblcontrolplanesdkgo.Pointer(true),
+                    StateTracking: criblcontrolplanesdkgo.Pointer(true),
+                    StateUpdateExpression: criblcontrolplanesdkgo.Pointer("__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}"),
+                    StateMergeExpression: criblcontrolplanesdkgo.Pointer("prevState.latestTime > newState.latestTime ? prevState : newState"),
+                    CronSchedule: "*/5 * * * *",
+                    Earliest: "-7d@d",
+                    Latest: "now",
+                    JobTimeout: criblcontrolplanesdkgo.Pointer("300"),
+                },
+            },
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInput != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: InputCreateExamplesAppscope
 
 <!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputCreateExamplesAppscope" -->

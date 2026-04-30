@@ -171,6 +171,8 @@ type OutputAzureBlob struct {
 	// Select or create a stored text secret
 	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
 	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
 	TemplateContainerName *string `json:"__template_containerName,omitzero"`
 	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
@@ -616,6 +618,13 @@ func (o *OutputAzureBlob) GetCertificate() *CertificateTypeAzureBlobAuthTypeClie
 		return nil
 	}
 	return o.Certificate
+}
+
+func (o *OutputAzureBlob) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputAzureBlob) GetTemplateContainerName() *string {

@@ -10,34 +10,34 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type CreateInputTypeOkta string
+type CreateInputSystemByPackTypeOkta string
 
 const (
-	CreateInputTypeOktaOkta CreateInputTypeOkta = "okta"
+	CreateInputSystemByPackTypeOktaOkta CreateInputSystemByPackTypeOkta = "okta"
 )
 
-func (e CreateInputTypeOkta) ToPointer() *CreateInputTypeOkta {
+func (e CreateInputSystemByPackTypeOkta) ToPointer() *CreateInputSystemByPackTypeOkta {
 	return &e
 }
-func (e *CreateInputTypeOkta) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeOkta) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "okta":
-		*e = CreateInputTypeOkta(v)
+		*e = CreateInputSystemByPackTypeOkta(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeOkta: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeOkta: %v", v)
 	}
 }
 
-type CreateInputInputOkta struct {
+type CreateInputSystemByPackInputOkta struct {
 	// Unique ID for this input
-	ID       string              `json:"id"`
-	Type     CreateInputTypeOkta `json:"type"`
-	Disabled *bool               `json:"disabled,omitzero"`
+	ID       string                          `json:"id"`
+	Type     CreateInputSystemByPackTypeOkta `json:"type"`
+	Disabled *bool                           `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -81,248 +81,617 @@ type CreateInputInputOkta struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'oktaDomain' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oktaDomain' at runtime.
 	TemplateOktaDomain *string `json:"__template_oktaDomain,omitzero"`
 }
 
-func (c CreateInputInputOkta) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputOkta) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputOkta) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputOkta) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputOkta) GetID() string {
+func (c *CreateInputSystemByPackInputOkta) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputOkta) GetType() CreateInputTypeOkta {
+func (c *CreateInputSystemByPackInputOkta) GetType() CreateInputSystemByPackTypeOkta {
 	if c == nil {
-		return CreateInputTypeOkta("")
+		return CreateInputSystemByPackTypeOkta("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputOkta) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputOkta) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputOkta) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputOkta) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputOkta) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputOkta) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputOkta) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputOkta) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputOkta) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputOkta) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputOkta) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputOkta) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputOkta) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputOkta) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputOkta) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputOkta) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputOkta) GetOktaDomain() string {
+func (c *CreateInputSystemByPackInputOkta) GetOktaDomain() string {
 	if c == nil {
 		return ""
 	}
 	return c.OktaDomain
 }
 
-func (c *CreateInputInputOkta) GetOktaToken() *string {
+func (c *CreateInputSystemByPackInputOkta) GetOktaToken() *string {
 	if c == nil {
 		return nil
 	}
 	return c.OktaToken
 }
 
-func (c *CreateInputInputOkta) GetTextSecret() string {
+func (c *CreateInputSystemByPackInputOkta) GetTextSecret() string {
 	if c == nil {
 		return ""
 	}
 	return c.TextSecret
 }
 
-func (c *CreateInputInputOkta) GetCronSchedule() *string {
+func (c *CreateInputSystemByPackInputOkta) GetCronSchedule() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CronSchedule
 }
 
-func (c *CreateInputInputOkta) GetEarliest() *string {
+func (c *CreateInputSystemByPackInputOkta) GetEarliest() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Earliest
 }
 
-func (c *CreateInputInputOkta) GetLatest() *string {
+func (c *CreateInputSystemByPackInputOkta) GetLatest() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Latest
 }
 
-func (c *CreateInputInputOkta) GetJobTimeout() *string {
+func (c *CreateInputSystemByPackInputOkta) GetJobTimeout() *string {
 	if c == nil {
 		return nil
 	}
 	return c.JobTimeout
 }
 
-func (c *CreateInputInputOkta) GetRequestTimeout() *float64 {
+func (c *CreateInputSystemByPackInputOkta) GetRequestTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.RequestTimeout
 }
 
-func (c *CreateInputInputOkta) GetKeepAliveTime() *float64 {
+func (c *CreateInputSystemByPackInputOkta) GetKeepAliveTime() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAliveTime
 }
 
-func (c *CreateInputInputOkta) GetMaxMissedKeepAlives() *float64 {
+func (c *CreateInputSystemByPackInputOkta) GetMaxMissedKeepAlives() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxMissedKeepAlives
 }
 
-func (c *CreateInputInputOkta) GetTTL() *string {
+func (c *CreateInputSystemByPackInputOkta) GetTTL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TTL
 }
 
-func (c *CreateInputInputOkta) GetIgnoreGroupJobsLimit() *bool {
+func (c *CreateInputSystemByPackInputOkta) GetIgnoreGroupJobsLimit() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputOkta) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputOkta) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputOkta) GetRetryRules() *components.RetryRulesType {
+func (c *CreateInputSystemByPackInputOkta) GetRetryRules() *components.RetryRulesType {
 	if c == nil {
 		return nil
 	}
 	return c.RetryRules
 }
 
-func (c *CreateInputInputOkta) GetDescription() *string {
+func (c *CreateInputSystemByPackInputOkta) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputOkta) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputOkta) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputOkta) GetTemplateOktaDomain() *string {
+func (c *CreateInputSystemByPackInputOkta) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputOkta) GetTemplateOktaDomain() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOktaDomain
 }
 
-type CreateInputTypeOpenaiComplianceLogs string
+type CreateInputSystemByPackTypeAnthropicCompliance string
 
 const (
-	CreateInputTypeOpenaiComplianceLogsOpenaiComplianceLogs CreateInputTypeOpenaiComplianceLogs = "openai_compliance_logs"
+	CreateInputSystemByPackTypeAnthropicComplianceAnthropicCompliance CreateInputSystemByPackTypeAnthropicCompliance = "anthropic_compliance"
 )
 
-func (e CreateInputTypeOpenaiComplianceLogs) ToPointer() *CreateInputTypeOpenaiComplianceLogs {
+func (e CreateInputSystemByPackTypeAnthropicCompliance) ToPointer() *CreateInputSystemByPackTypeAnthropicCompliance {
 	return &e
 }
-func (e *CreateInputTypeOpenaiComplianceLogs) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeAnthropicCompliance) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "anthropic_compliance":
+		*e = CreateInputSystemByPackTypeAnthropicCompliance(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeAnthropicCompliance: %v", v)
+	}
+}
+
+type CreateInputSystemByPackManageStateAnthropicCompliance struct {
+}
+
+func (c CreateInputSystemByPackManageStateAnthropicCompliance) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackManageStateAnthropicCompliance) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type CreateInputSystemByPackContentConfigAnthropicCompliance struct {
+	ContentType        string  `json:"contentType"`
+	ContentDescription *string `json:"contentDescription,omitzero"`
+	Enabled            *bool   `json:"enabled,omitzero"`
+	// Track collection progress between consecutive scheduled executions
+	StateTracking *bool `json:"stateTracking,omitzero"`
+	// JavaScript expression that defines how to update the state from an event
+	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
+	// JavaScript expression that defines which state to keep when merging task state
+	StateMergeExpression *string                                                `json:"stateMergeExpression,omitzero"`
+	ManageState          *CreateInputSystemByPackManageStateAnthropicCompliance `json:"manageState,omitzero"`
+	// Schedule on which to run this collection job
+	CronSchedule string `json:"cronSchedule"`
+	// Earliest time for data collection, relative to now
+	Earliest string `json:"earliest"`
+	// Latest time for data collection, relative to now
+	Latest string `json:"latest"`
+	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
+}
+
+func (c CreateInputSystemByPackContentConfigAnthropicCompliance) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackContentConfigAnthropicCompliance) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackContentConfigAnthropicCompliance) GetContentType() string {
+	if c == nil {
+		return ""
+	}
+	return c.ContentType
+}
+
+func (c *CreateInputSystemByPackContentConfigAnthropicCompliance) GetContentDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ContentDescription
+}
+
+func (c *CreateInputSystemByPackContentConfigAnthropicCompliance) GetEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enabled
+}
+
+func (c *CreateInputSystemByPackContentConfigAnthropicCompliance) GetStateTracking() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.StateTracking
+}
+
+func (c *CreateInputSystemByPackContentConfigAnthropicCompliance) GetStateUpdateExpression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.StateUpdateExpression
+}
+
+func (c *CreateInputSystemByPackContentConfigAnthropicCompliance) GetStateMergeExpression() *string {
+	if c == nil {
+		return nil
+	}
+	return c.StateMergeExpression
+}
+
+func (c *CreateInputSystemByPackContentConfigAnthropicCompliance) GetManageState() *CreateInputSystemByPackManageStateAnthropicCompliance {
+	if c == nil {
+		return nil
+	}
+	return c.ManageState
+}
+
+func (c *CreateInputSystemByPackContentConfigAnthropicCompliance) GetCronSchedule() string {
+	if c == nil {
+		return ""
+	}
+	return c.CronSchedule
+}
+
+func (c *CreateInputSystemByPackContentConfigAnthropicCompliance) GetEarliest() string {
+	if c == nil {
+		return ""
+	}
+	return c.Earliest
+}
+
+func (c *CreateInputSystemByPackContentConfigAnthropicCompliance) GetLatest() string {
+	if c == nil {
+		return ""
+	}
+	return c.Latest
+}
+
+func (c *CreateInputSystemByPackContentConfigAnthropicCompliance) GetJobTimeout() *string {
+	if c == nil {
+		return nil
+	}
+	return c.JobTimeout
+}
+
+type CreateInputSystemByPackInputAnthropicCompliance struct {
+	// Unique ID for this input
+	ID       string                                         `json:"id"`
+	Type     CreateInputSystemByPackTypeAnthropicCompliance `json:"type"`
+	Disabled *bool                                          `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
+	APIKey      *string                                   `json:"apiKey,omitzero"`
+	// Select or create a stored Anthropic API key
+	TextSecret    string                                                    `json:"textSecret"`
+	ContentConfig []CreateInputSystemByPackContentConfigAnthropicCompliance `json:"contentConfig"`
+	// HTTP request inactivity timeout. Use 0 to disable.
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitzero"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `json:"ttl,omitzero"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
+	// Fields to add to events from this input
+	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	RetryRules  *components.RetryRulesType     `json:"retryRules,omitzero"`
+	Description *string                        `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+}
+
+func (c CreateInputSystemByPackInputAnthropicCompliance) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetType() CreateInputSystemByPackTypeAnthropicCompliance {
+	if c == nil {
+		return CreateInputSystemByPackTypeAnthropicCompliance("")
+	}
+	return c.Type
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetDisabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Disabled
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetSendToRoutes() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.SendToRoutes
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetPqEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PqEnabled
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
+		return nil
+	}
+	return c.Connections
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetPq() *components.PqType {
+	if c == nil {
+		return nil
+	}
+	return c.Pq
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetAPIKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.APIKey
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetTextSecret() string {
+	if c == nil {
+		return ""
+	}
+	return c.TextSecret
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetContentConfig() []CreateInputSystemByPackContentConfigAnthropicCompliance {
+	if c == nil {
+		return []CreateInputSystemByPackContentConfigAnthropicCompliance{}
+	}
+	return c.ContentConfig
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetRequestTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.RequestTimeout
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetKeepAliveTime() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.KeepAliveTime
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetMaxMissedKeepAlives() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxMissedKeepAlives
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetTTL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TTL
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetIgnoreGroupJobsLimit() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.IgnoreGroupJobsLimit
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetRetryRules() *components.RetryRulesType {
+	if c == nil {
+		return nil
+	}
+	return c.RetryRules
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
+func (c *CreateInputSystemByPackInputAnthropicCompliance) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+type CreateInputSystemByPackTypeOpenaiComplianceLogs string
+
+const (
+	CreateInputSystemByPackTypeOpenaiComplianceLogsOpenaiComplianceLogs CreateInputSystemByPackTypeOpenaiComplianceLogs = "openai_compliance_logs"
+)
+
+func (e CreateInputSystemByPackTypeOpenaiComplianceLogs) ToPointer() *CreateInputSystemByPackTypeOpenaiComplianceLogs {
+	return &e
+}
+func (e *CreateInputSystemByPackTypeOpenaiComplianceLogs) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "openai_compliance_logs":
-		*e = CreateInputTypeOpenaiComplianceLogs(v)
+		*e = CreateInputSystemByPackTypeOpenaiComplianceLogs(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeOpenaiComplianceLogs: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeOpenaiComplianceLogs: %v", v)
 	}
 }
 
-type CreateInputAccountType string
+type CreateInputSystemByPackAccountType string
 
 const (
-	// CreateInputAccountTypeWorkspace Workspace
-	CreateInputAccountTypeWorkspace CreateInputAccountType = "workspace"
-	// CreateInputAccountTypeOrganization Organization
-	CreateInputAccountTypeOrganization CreateInputAccountType = "organization"
+	// CreateInputSystemByPackAccountTypeWorkspace Workspace
+	CreateInputSystemByPackAccountTypeWorkspace CreateInputSystemByPackAccountType = "workspace"
+	// CreateInputSystemByPackAccountTypeOrganization Organization
+	CreateInputSystemByPackAccountTypeOrganization CreateInputSystemByPackAccountType = "organization"
 )
 
-func (e CreateInputAccountType) ToPointer() *CreateInputAccountType {
+func (e CreateInputSystemByPackAccountType) ToPointer() *CreateInputSystemByPackAccountType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputAccountType) IsExact() bool {
+func (e *CreateInputSystemByPackAccountType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "workspace", "organization":
@@ -332,25 +701,25 @@ func (e *CreateInputAccountType) IsExact() bool {
 	return false
 }
 
-type CreateInputManageStateOpenaiComplianceLogs struct {
+type CreateInputSystemByPackManageStateOpenaiComplianceLogs struct {
 }
 
-func (c CreateInputManageStateOpenaiComplianceLogs) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackManageStateOpenaiComplianceLogs) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputManageStateOpenaiComplianceLogs) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackManageStateOpenaiComplianceLogs) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateInputInputOpenaiComplianceLogs struct {
+type CreateInputSystemByPackInputOpenaiComplianceLogs struct {
 	// Unique ID for this input
-	ID       string                              `json:"id"`
-	Type     CreateInputTypeOpenaiComplianceLogs `json:"type"`
-	Disabled *bool                               `json:"disabled,omitzero"`
+	ID       string                                          `json:"id"`
+	Type     CreateInputSystemByPackTypeOpenaiComplianceLogs `json:"type"`
+	Disabled *bool                                           `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -366,9 +735,9 @@ type CreateInputInputOpenaiComplianceLogs struct {
 	Pq          *components.PqType                        `json:"pq,omitzero"`
 	APIKey      *string                                   `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
-	TextSecret   string                 `json:"textSecret"`
-	AccountType  CreateInputAccountType `json:"accountType"`
-	CronSchedule string                 `json:"cronSchedule"`
+	TextSecret   string                             `json:"textSecret"`
+	AccountType  CreateInputSystemByPackAccountType `json:"accountType"`
+	CronSchedule string                             `json:"cronSchedule"`
 	// Relative to the current time. Format: [+|-]<time_integer><time_unit>
 	Earliest *string `json:"earliest,omitzero"`
 	// Relative to the current time. Format: [+|-]<time_integer><time_unit>
@@ -410,343 +779,352 @@ type CreateInputInputOpenaiComplianceLogs struct {
 	// JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
 	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
 	// JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
-	StateMergeExpression *string                                     `json:"stateMergeExpression,omitzero"`
-	ManageState          *CreateInputManageStateOpenaiComplianceLogs `json:"manageState,omitzero"`
+	StateMergeExpression *string                                                 `json:"stateMergeExpression,omitzero"`
+	ManageState          *CreateInputSystemByPackManageStateOpenaiComplianceLogs `json:"manageState,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
 	TemplateWorkspaceID *string `json:"__template_workspaceId,omitzero"`
 	// Binds 'organizationId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'organizationId' at runtime.
 	TemplateOrganizationID *string `json:"__template_organizationId,omitzero"`
 }
 
-func (c CreateInputInputOpenaiComplianceLogs) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputOpenaiComplianceLogs) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetID() string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetType() CreateInputTypeOpenaiComplianceLogs {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetType() CreateInputSystemByPackTypeOpenaiComplianceLogs {
 	if c == nil {
-		return CreateInputTypeOpenaiComplianceLogs("")
+		return CreateInputSystemByPackTypeOpenaiComplianceLogs("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetAPIKey() *string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.APIKey
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetTextSecret() string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetTextSecret() string {
 	if c == nil {
 		return ""
 	}
 	return c.TextSecret
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetAccountType() CreateInputAccountType {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetAccountType() CreateInputSystemByPackAccountType {
 	if c == nil {
-		return CreateInputAccountType("")
+		return CreateInputSystemByPackAccountType("")
 	}
 	return c.AccountType
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetCronSchedule() string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetCronSchedule() string {
 	if c == nil {
 		return ""
 	}
 	return c.CronSchedule
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetEarliest() *string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetEarliest() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Earliest
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetLatest() *string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetLatest() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Latest
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetJobTimeout() *string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetJobTimeout() *string {
 	if c == nil {
 		return nil
 	}
 	return c.JobTimeout
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetLogLevel() *components.LogLevelOptionsContentConfigItemsDebugError {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetLogLevel() *components.LogLevelOptionsContentConfigItemsDebugError {
 	if c == nil {
 		return nil
 	}
 	return c.LogLevel
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetMaxPages() *float64 {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetMaxPages() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPages
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetStateTracking() *bool {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetStateTracking() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.StateTracking
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetRequestTimeout() *float64 {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetRequestTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.RequestTimeout
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetKeepAliveTime() *float64 {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetKeepAliveTime() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAliveTime
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetMaxMissedKeepAlives() *float64 {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetMaxMissedKeepAlives() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxMissedKeepAlives
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetTTL() *string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetTTL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TTL
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetIgnoreGroupJobsLimit() *bool {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetIgnoreGroupJobsLimit() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetBreakerRulesets() []string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetBreakerRulesets() []string {
 	if c == nil {
 		return nil
 	}
 	return c.BreakerRulesets
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetStaleChannelFlushMs() *float64 {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetStaleChannelFlushMs() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetRetryRules() *components.RetryRulesType {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetRetryRules() *components.RetryRulesType {
 	if c == nil {
 		return nil
 	}
 	return c.RetryRules
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetDescription() *string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetWorkspaceID() *string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetWorkspaceID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.WorkspaceID
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetWorkspaceEventTypes() []string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetWorkspaceEventTypes() []string {
 	if c == nil {
 		return nil
 	}
 	return c.WorkspaceEventTypes
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetOrganizationID() *string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetOrganizationID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.OrganizationID
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetOrganizationEventTypes() []string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetOrganizationEventTypes() []string {
 	if c == nil {
 		return nil
 	}
 	return c.OrganizationEventTypes
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetStateUpdateExpression() *string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetStateUpdateExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.StateUpdateExpression
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetStateMergeExpression() *string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetStateMergeExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.StateMergeExpression
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetManageState() *CreateInputManageStateOpenaiComplianceLogs {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetManageState() *CreateInputSystemByPackManageStateOpenaiComplianceLogs {
 	if c == nil {
 		return nil
 	}
 	return c.ManageState
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetTemplateWorkspaceID() *string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetTemplateWorkspaceID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateWorkspaceID
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetTemplateOrganizationID() *string {
+func (c *CreateInputSystemByPackInputOpenaiComplianceLogs) GetTemplateOrganizationID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOrganizationID
 }
 
-type CreateInputTypeCloudflareHec string
+type CreateInputSystemByPackTypeCloudflareHec string
 
 const (
-	CreateInputTypeCloudflareHecCloudflareHec CreateInputTypeCloudflareHec = "cloudflare_hec"
+	CreateInputSystemByPackTypeCloudflareHecCloudflareHec CreateInputSystemByPackTypeCloudflareHec = "cloudflare_hec"
 )
 
-func (e CreateInputTypeCloudflareHec) ToPointer() *CreateInputTypeCloudflareHec {
+func (e CreateInputSystemByPackTypeCloudflareHec) ToPointer() *CreateInputSystemByPackTypeCloudflareHec {
 	return &e
 }
-func (e *CreateInputTypeCloudflareHec) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeCloudflareHec) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "cloudflare_hec":
-		*e = CreateInputTypeCloudflareHec(v)
+		*e = CreateInputSystemByPackTypeCloudflareHec(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeCloudflareHec: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeCloudflareHec: %v", v)
 	}
 }
 
-// CreateInputAuthTokenAuthenticationMethod - Select Secret to use a text secret to authenticate
-type CreateInputAuthTokenAuthenticationMethod string
+// CreateInputSystemByPackAuthTokenAuthenticationMethod - Select Secret to use a text secret to authenticate
+type CreateInputSystemByPackAuthTokenAuthenticationMethod string
 
 const (
-	CreateInputAuthTokenAuthenticationMethodSecret CreateInputAuthTokenAuthenticationMethod = "secret"
+	CreateInputSystemByPackAuthTokenAuthenticationMethodSecret CreateInputSystemByPackAuthTokenAuthenticationMethod = "secret"
 )
 
-func (e CreateInputAuthTokenAuthenticationMethod) ToPointer() *CreateInputAuthTokenAuthenticationMethod {
+func (e CreateInputSystemByPackAuthTokenAuthenticationMethod) ToPointer() *CreateInputSystemByPackAuthTokenAuthenticationMethod {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputAuthTokenAuthenticationMethod) IsExact() bool {
+func (e *CreateInputSystemByPackAuthTokenAuthenticationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "secret":
@@ -756,9 +1134,9 @@ func (e *CreateInputAuthTokenAuthenticationMethod) IsExact() bool {
 	return false
 }
 
-type CreateInputAuthTokenCloudflareHec struct {
+type CreateInputSystemByPackAuthTokenCloudflareHec struct {
 	// Select Secret to use a text secret to authenticate
-	AuthType *CreateInputAuthTokenAuthenticationMethod `json:"authType,omitzero"`
+	AuthType *CreateInputSystemByPackAuthTokenAuthenticationMethod `json:"authType,omitzero"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
 	Enabled     *bool   `json:"enabled,omitzero"`
@@ -769,60 +1147,60 @@ type CreateInputAuthTokenCloudflareHec struct {
 	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 }
 
-func (c CreateInputAuthTokenCloudflareHec) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackAuthTokenCloudflareHec) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputAuthTokenCloudflareHec) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackAuthTokenCloudflareHec) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputAuthTokenCloudflareHec) GetAuthType() *CreateInputAuthTokenAuthenticationMethod {
+func (c *CreateInputSystemByPackAuthTokenCloudflareHec) GetAuthType() *CreateInputSystemByPackAuthTokenAuthenticationMethod {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateInputAuthTokenCloudflareHec) GetTokenSecret() *string {
+func (c *CreateInputSystemByPackAuthTokenCloudflareHec) GetTokenSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TokenSecret
 }
 
-func (c *CreateInputAuthTokenCloudflareHec) GetEnabled() *bool {
+func (c *CreateInputSystemByPackAuthTokenCloudflareHec) GetEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enabled
 }
 
-func (c *CreateInputAuthTokenCloudflareHec) GetDescription() *string {
+func (c *CreateInputSystemByPackAuthTokenCloudflareHec) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputAuthTokenCloudflareHec) GetAllowedIndexesAtToken() []string {
+func (c *CreateInputSystemByPackAuthTokenCloudflareHec) GetAllowedIndexesAtToken() []string {
 	if c == nil {
 		return nil
 	}
 	return c.AllowedIndexesAtToken
 }
 
-func (c *CreateInputAuthTokenCloudflareHec) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackAuthTokenCloudflareHec) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-type CreateInputTLSSettingsServerSide struct {
+type CreateInputSystemByPackTLSSettingsServerSide struct {
 	// Enable or disable TLS. Defaults to enabled for Cloudflare sources.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
@@ -845,99 +1223,99 @@ type CreateInputTLSSettingsServerSide struct {
 	MaxVersion *components.MaximumTLSVersionOptionsTLS `json:"maxVersion,omitzero"`
 }
 
-func (c CreateInputTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackTLSSettingsServerSide) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackTLSSettingsServerSide) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputTLSSettingsServerSide) GetDisabled() *bool {
+func (c *CreateInputSystemByPackTLSSettingsServerSide) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputTLSSettingsServerSide) GetRequestCert() *bool {
+func (c *CreateInputSystemByPackTLSSettingsServerSide) GetRequestCert() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RequestCert
 }
 
-func (c *CreateInputTLSSettingsServerSide) GetRejectUnauthorized() *bool {
+func (c *CreateInputSystemByPackTLSSettingsServerSide) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateInputTLSSettingsServerSide) GetCommonNameRegex() *string {
+func (c *CreateInputSystemByPackTLSSettingsServerSide) GetCommonNameRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CommonNameRegex
 }
 
-func (c *CreateInputTLSSettingsServerSide) GetCertificateName() *string {
+func (c *CreateInputSystemByPackTLSSettingsServerSide) GetCertificateName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CertificateName
 }
 
-func (c *CreateInputTLSSettingsServerSide) GetPrivKeyPath() *string {
+func (c *CreateInputSystemByPackTLSSettingsServerSide) GetPrivKeyPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PrivKeyPath
 }
 
-func (c *CreateInputTLSSettingsServerSide) GetPassphrase() *string {
+func (c *CreateInputSystemByPackTLSSettingsServerSide) GetPassphrase() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Passphrase
 }
 
-func (c *CreateInputTLSSettingsServerSide) GetCertPath() *string {
+func (c *CreateInputSystemByPackTLSSettingsServerSide) GetCertPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CertPath
 }
 
-func (c *CreateInputTLSSettingsServerSide) GetCaPath() *string {
+func (c *CreateInputSystemByPackTLSSettingsServerSide) GetCaPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CaPath
 }
 
-func (c *CreateInputTLSSettingsServerSide) GetMinVersion() *components.MinimumTLSVersionOptionsTLS {
+func (c *CreateInputSystemByPackTLSSettingsServerSide) GetMinVersion() *components.MinimumTLSVersionOptionsTLS {
 	if c == nil {
 		return nil
 	}
 	return c.MinVersion
 }
 
-func (c *CreateInputTLSSettingsServerSide) GetMaxVersion() *components.MaximumTLSVersionOptionsTLS {
+func (c *CreateInputSystemByPackTLSSettingsServerSide) GetMaxVersion() *components.MaximumTLSVersionOptionsTLS {
 	if c == nil {
 		return nil
 	}
 	return c.MaxVersion
 }
 
-type CreateInputInputCloudflareHec struct {
+type CreateInputSystemByPackInputCloudflareHec struct {
 	// Unique ID for this input
-	ID       string                       `json:"id"`
-	Type     CreateInputTypeCloudflareHec `json:"type"`
-	Disabled *bool                        `json:"disabled,omitzero"`
+	ID       string                                   `json:"id"`
+	Type     CreateInputSystemByPackTypeCloudflareHec `json:"type"`
+	Disabled *bool                                    `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -956,8 +1334,8 @@ type CreateInputInputCloudflareHec struct {
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []CreateInputAuthTokenCloudflareHec `json:"authTokens,omitzero"`
-	TLS        *CreateInputTLSSettingsServerSide   `json:"tls,omitzero"`
+	AuthTokens []CreateInputSystemByPackAuthTokenCloudflareHec `json:"authTokens,omitzero"`
+	TLS        *CreateInputSystemByPackTLSSettingsServerSide   `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -997,308 +1375,344 @@ type CreateInputInputCloudflareHec struct {
 	Description      *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
 	// Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
 	TemplateHecAPI *string `json:"__template_hecAPI,omitzero"`
+	// Binds 'allowedIndexes' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedIndexes' at runtime.
+	TemplateAllowedIndexes *string `json:"__template_allowedIndexes,omitzero"`
+	// Binds 'accessControlAllowOrigin' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowOrigin' at runtime.
+	TemplateAccessControlAllowOrigin *string `json:"__template_accessControlAllowOrigin,omitzero"`
+	// Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
+	TemplateAccessControlAllowHeaders *string `json:"__template_accessControlAllowHeaders,omitzero"`
 }
 
-func (c CreateInputInputCloudflareHec) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputCloudflareHec) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputCloudflareHec) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputCloudflareHec) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputCloudflareHec) GetID() string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputCloudflareHec) GetType() CreateInputTypeCloudflareHec {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetType() CreateInputSystemByPackTypeCloudflareHec {
 	if c == nil {
-		return CreateInputTypeCloudflareHec("")
+		return CreateInputSystemByPackTypeCloudflareHec("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputCloudflareHec) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputCloudflareHec) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputCloudflareHec) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputCloudflareHec) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputCloudflareHec) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputCloudflareHec) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputCloudflareHec) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputCloudflareHec) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputCloudflareHec) GetHost() string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputCloudflareHec) GetPort() float64 {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.Port
 }
 
-func (c *CreateInputInputCloudflareHec) GetAuthTokens() []CreateInputAuthTokenCloudflareHec {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetAuthTokens() []CreateInputSystemByPackAuthTokenCloudflareHec {
 	if c == nil {
 		return nil
 	}
 	return c.AuthTokens
 }
 
-func (c *CreateInputInputCloudflareHec) GetTLS() *CreateInputTLSSettingsServerSide {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetTLS() *CreateInputSystemByPackTLSSettingsServerSide {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateInputInputCloudflareHec) GetMaxActiveReq() *float64 {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetMaxActiveReq() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxActiveReq
 }
 
-func (c *CreateInputInputCloudflareHec) GetMaxRequestsPerSocket() *int64 {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetMaxRequestsPerSocket() *int64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRequestsPerSocket
 }
 
-func (c *CreateInputInputCloudflareHec) GetEnableProxyHeader() *bool {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetEnableProxyHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputCloudflareHec) GetCaptureHeaders() *bool {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetCaptureHeaders() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.CaptureHeaders
 }
 
-func (c *CreateInputInputCloudflareHec) GetActivityLogSampleRate() *float64 {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetActivityLogSampleRate() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ActivityLogSampleRate
 }
 
-func (c *CreateInputInputCloudflareHec) GetRequestTimeout() *float64 {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetRequestTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.RequestTimeout
 }
 
-func (c *CreateInputInputCloudflareHec) GetSocketTimeout() *float64 {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetSocketTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketTimeout
 }
 
-func (c *CreateInputInputCloudflareHec) GetKeepAliveTimeout() *float64 {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetKeepAliveTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAliveTimeout
 }
 
-func (c *CreateInputInputCloudflareHec) GetIPAllowlistRegex() *string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetIPAllowlistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPAllowlistRegex
 }
 
-func (c *CreateInputInputCloudflareHec) GetIPDenylistRegex() *string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetIPDenylistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPDenylistRegex
 }
 
-func (c *CreateInputInputCloudflareHec) GetHecAPI() string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetHecAPI() string {
 	if c == nil {
 		return ""
 	}
 	return c.HecAPI
 }
 
-func (c *CreateInputInputCloudflareHec) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputCloudflareHec) GetAllowedIndexes() []string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetAllowedIndexes() []string {
 	if c == nil {
 		return nil
 	}
 	return c.AllowedIndexes
 }
 
-func (c *CreateInputInputCloudflareHec) GetBreakerRulesets() []string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetBreakerRulesets() []string {
 	if c == nil {
 		return nil
 	}
 	return c.BreakerRulesets
 }
 
-func (c *CreateInputInputCloudflareHec) GetStaleChannelFlushMs() *float64 {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetStaleChannelFlushMs() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputCloudflareHec) GetAccessControlAllowOrigin() []string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetAccessControlAllowOrigin() []string {
 	if c == nil {
 		return nil
 	}
 	return c.AccessControlAllowOrigin
 }
 
-func (c *CreateInputInputCloudflareHec) GetAccessControlAllowHeaders() []string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetAccessControlAllowHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.AccessControlAllowHeaders
 }
 
-func (c *CreateInputInputCloudflareHec) GetEmitTokenMetrics() *bool {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetEmitTokenMetrics() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EmitTokenMetrics
 }
 
-func (c *CreateInputInputCloudflareHec) GetDescription() *string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputCloudflareHec) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputCloudflareHec) GetTemplateHost() *string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputCloudflareHec) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateInputInputCloudflareHec) GetTemplatePort() *string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetTemplatePort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePort
 }
 
-func (c *CreateInputInputCloudflareHec) GetTemplateHecAPI() *string {
+func (c *CreateInputSystemByPackInputCloudflareHec) GetTemplateHecAPI() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHecAPI
 }
 
-type CreateInputTypeZscalerHec string
+func (c *CreateInputSystemByPackInputCloudflareHec) GetTemplateAllowedIndexes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAllowedIndexes
+}
+
+func (c *CreateInputSystemByPackInputCloudflareHec) GetTemplateAccessControlAllowOrigin() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAccessControlAllowOrigin
+}
+
+func (c *CreateInputSystemByPackInputCloudflareHec) GetTemplateAccessControlAllowHeaders() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAccessControlAllowHeaders
+}
+
+type CreateInputSystemByPackTypeZscalerHec string
 
 const (
-	CreateInputTypeZscalerHecZscalerHec CreateInputTypeZscalerHec = "zscaler_hec"
+	CreateInputSystemByPackTypeZscalerHecZscalerHec CreateInputSystemByPackTypeZscalerHec = "zscaler_hec"
 )
 
-func (e CreateInputTypeZscalerHec) ToPointer() *CreateInputTypeZscalerHec {
+func (e CreateInputSystemByPackTypeZscalerHec) ToPointer() *CreateInputSystemByPackTypeZscalerHec {
 	return &e
 }
-func (e *CreateInputTypeZscalerHec) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeZscalerHec) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "zscaler_hec":
-		*e = CreateInputTypeZscalerHec(v)
+		*e = CreateInputSystemByPackTypeZscalerHec(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeZscalerHec: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeZscalerHec: %v", v)
 	}
 }
 
-type CreateInputAuthTokenZscalerHec struct {
+type CreateInputSystemByPackAuthTokenZscalerHec struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Select or create a stored text secret
@@ -1313,71 +1727,71 @@ type CreateInputAuthTokenZscalerHec struct {
 	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 }
 
-func (c CreateInputAuthTokenZscalerHec) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackAuthTokenZscalerHec) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputAuthTokenZscalerHec) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackAuthTokenZscalerHec) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputAuthTokenZscalerHec) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {
+func (c *CreateInputSystemByPackAuthTokenZscalerHec) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateInputAuthTokenZscalerHec) GetTokenSecret() *string {
+func (c *CreateInputSystemByPackAuthTokenZscalerHec) GetTokenSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TokenSecret
 }
 
-func (c *CreateInputAuthTokenZscalerHec) GetToken() string {
+func (c *CreateInputSystemByPackAuthTokenZscalerHec) GetToken() string {
 	if c == nil {
 		return ""
 	}
 	return c.Token
 }
 
-func (c *CreateInputAuthTokenZscalerHec) GetEnabled() *bool {
+func (c *CreateInputSystemByPackAuthTokenZscalerHec) GetEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enabled
 }
 
-func (c *CreateInputAuthTokenZscalerHec) GetDescription() *string {
+func (c *CreateInputSystemByPackAuthTokenZscalerHec) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputAuthTokenZscalerHec) GetAllowedIndexesAtToken() []string {
+func (c *CreateInputSystemByPackAuthTokenZscalerHec) GetAllowedIndexesAtToken() []string {
 	if c == nil {
 		return nil
 	}
 	return c.AllowedIndexesAtToken
 }
 
-func (c *CreateInputAuthTokenZscalerHec) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackAuthTokenZscalerHec) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-type CreateInputInputZscalerHec struct {
+type CreateInputSystemByPackInputZscalerHec struct {
 	// Unique ID for this input
-	ID       string                    `json:"id"`
-	Type     CreateInputTypeZscalerHec `json:"type"`
-	Disabled *bool                     `json:"disabled,omitzero"`
+	ID       string                                `json:"id"`
+	Type     CreateInputSystemByPackTypeZscalerHec `json:"type"`
+	Disabled *bool                                 `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -1396,8 +1810,8 @@ type CreateInputInputZscalerHec struct {
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []CreateInputAuthTokenZscalerHec      `json:"authTokens,omitzero"`
-	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	AuthTokens []CreateInputSystemByPackAuthTokenZscalerHec `json:"authTokens,omitzero"`
+	TLS        *components.TLSSettingsServerSideType        `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -1435,6 +1849,8 @@ type CreateInputInputZscalerHec struct {
 	Description      *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -1443,308 +1859,315 @@ type CreateInputInputZscalerHec struct {
 	TemplateHecAPI *string `json:"__template_hecAPI,omitzero"`
 }
 
-func (c CreateInputInputZscalerHec) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputZscalerHec) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputZscalerHec) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputZscalerHec) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputZscalerHec) GetID() string {
+func (c *CreateInputSystemByPackInputZscalerHec) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputZscalerHec) GetType() CreateInputTypeZscalerHec {
+func (c *CreateInputSystemByPackInputZscalerHec) GetType() CreateInputSystemByPackTypeZscalerHec {
 	if c == nil {
-		return CreateInputTypeZscalerHec("")
+		return CreateInputSystemByPackTypeZscalerHec("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputZscalerHec) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputZscalerHec) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputZscalerHec) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputZscalerHec) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputZscalerHec) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputZscalerHec) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputZscalerHec) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputZscalerHec) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputZscalerHec) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputZscalerHec) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputZscalerHec) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputZscalerHec) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputZscalerHec) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputZscalerHec) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputZscalerHec) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputZscalerHec) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputZscalerHec) GetHost() string {
+func (c *CreateInputSystemByPackInputZscalerHec) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputZscalerHec) GetPort() float64 {
+func (c *CreateInputSystemByPackInputZscalerHec) GetPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.Port
 }
 
-func (c *CreateInputInputZscalerHec) GetAuthTokens() []CreateInputAuthTokenZscalerHec {
+func (c *CreateInputSystemByPackInputZscalerHec) GetAuthTokens() []CreateInputSystemByPackAuthTokenZscalerHec {
 	if c == nil {
 		return nil
 	}
 	return c.AuthTokens
 }
 
-func (c *CreateInputInputZscalerHec) GetTLS() *components.TLSSettingsServerSideType {
+func (c *CreateInputSystemByPackInputZscalerHec) GetTLS() *components.TLSSettingsServerSideType {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateInputInputZscalerHec) GetMaxActiveReq() *float64 {
+func (c *CreateInputSystemByPackInputZscalerHec) GetMaxActiveReq() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxActiveReq
 }
 
-func (c *CreateInputInputZscalerHec) GetMaxRequestsPerSocket() *int64 {
+func (c *CreateInputSystemByPackInputZscalerHec) GetMaxRequestsPerSocket() *int64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRequestsPerSocket
 }
 
-func (c *CreateInputInputZscalerHec) GetEnableProxyHeader() *bool {
+func (c *CreateInputSystemByPackInputZscalerHec) GetEnableProxyHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputZscalerHec) GetCaptureHeaders() *bool {
+func (c *CreateInputSystemByPackInputZscalerHec) GetCaptureHeaders() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.CaptureHeaders
 }
 
-func (c *CreateInputInputZscalerHec) GetActivityLogSampleRate() *float64 {
+func (c *CreateInputSystemByPackInputZscalerHec) GetActivityLogSampleRate() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ActivityLogSampleRate
 }
 
-func (c *CreateInputInputZscalerHec) GetRequestTimeout() *float64 {
+func (c *CreateInputSystemByPackInputZscalerHec) GetRequestTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.RequestTimeout
 }
 
-func (c *CreateInputInputZscalerHec) GetSocketTimeout() *float64 {
+func (c *CreateInputSystemByPackInputZscalerHec) GetSocketTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketTimeout
 }
 
-func (c *CreateInputInputZscalerHec) GetKeepAliveTimeout() *float64 {
+func (c *CreateInputSystemByPackInputZscalerHec) GetKeepAliveTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAliveTimeout
 }
 
-func (c *CreateInputInputZscalerHec) GetIPAllowlistRegex() *string {
+func (c *CreateInputSystemByPackInputZscalerHec) GetIPAllowlistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPAllowlistRegex
 }
 
-func (c *CreateInputInputZscalerHec) GetIPDenylistRegex() *string {
+func (c *CreateInputSystemByPackInputZscalerHec) GetIPDenylistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPDenylistRegex
 }
 
-func (c *CreateInputInputZscalerHec) GetHecAPI() string {
+func (c *CreateInputSystemByPackInputZscalerHec) GetHecAPI() string {
 	if c == nil {
 		return ""
 	}
 	return c.HecAPI
 }
 
-func (c *CreateInputInputZscalerHec) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputZscalerHec) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputZscalerHec) GetAllowedIndexes() []string {
+func (c *CreateInputSystemByPackInputZscalerHec) GetAllowedIndexes() []string {
 	if c == nil {
 		return nil
 	}
 	return c.AllowedIndexes
 }
 
-func (c *CreateInputInputZscalerHec) GetHecAcks() *bool {
+func (c *CreateInputSystemByPackInputZscalerHec) GetHecAcks() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.HecAcks
 }
 
-func (c *CreateInputInputZscalerHec) GetAccessControlAllowOrigin() []string {
+func (c *CreateInputSystemByPackInputZscalerHec) GetAccessControlAllowOrigin() []string {
 	if c == nil {
 		return nil
 	}
 	return c.AccessControlAllowOrigin
 }
 
-func (c *CreateInputInputZscalerHec) GetAccessControlAllowHeaders() []string {
+func (c *CreateInputSystemByPackInputZscalerHec) GetAccessControlAllowHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.AccessControlAllowHeaders
 }
 
-func (c *CreateInputInputZscalerHec) GetEmitTokenMetrics() *bool {
+func (c *CreateInputSystemByPackInputZscalerHec) GetEmitTokenMetrics() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EmitTokenMetrics
 }
 
-func (c *CreateInputInputZscalerHec) GetDescription() *string {
+func (c *CreateInputSystemByPackInputZscalerHec) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputZscalerHec) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputZscalerHec) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputZscalerHec) GetTemplateHost() *string {
+func (c *CreateInputSystemByPackInputZscalerHec) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputZscalerHec) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateInputInputZscalerHec) GetTemplatePort() *string {
+func (c *CreateInputSystemByPackInputZscalerHec) GetTemplatePort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePort
 }
 
-func (c *CreateInputInputZscalerHec) GetTemplateHecAPI() *string {
+func (c *CreateInputSystemByPackInputZscalerHec) GetTemplateHecAPI() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHecAPI
 }
 
-type CreateInputTypeServicenowTable string
+type CreateInputSystemByPackTypeServicenowTable string
 
 const (
-	CreateInputTypeServicenowTableServicenowTable CreateInputTypeServicenowTable = "servicenow_table"
+	CreateInputSystemByPackTypeServicenowTableServicenowTable CreateInputSystemByPackTypeServicenowTable = "servicenow_table"
 )
 
-func (e CreateInputTypeServicenowTable) ToPointer() *CreateInputTypeServicenowTable {
+func (e CreateInputSystemByPackTypeServicenowTable) ToPointer() *CreateInputSystemByPackTypeServicenowTable {
 	return &e
 }
-func (e *CreateInputTypeServicenowTable) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeServicenowTable) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "servicenow_table":
-		*e = CreateInputTypeServicenowTable(v)
+		*e = CreateInputSystemByPackTypeServicenowTable(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeServicenowTable: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeServicenowTable: %v", v)
 	}
 }
 
-// CreateInputSortDirection - Used only when Sort by field is set.
-type CreateInputSortDirection string
+// CreateInputSystemByPackSortDirection - Used only when Sort by field is set.
+type CreateInputSystemByPackSortDirection string
 
 const (
-	// CreateInputSortDirectionAsc Ascending
-	CreateInputSortDirectionAsc CreateInputSortDirection = "asc"
-	// CreateInputSortDirectionDesc Descending
-	CreateInputSortDirectionDesc CreateInputSortDirection = "desc"
+	// CreateInputSystemByPackSortDirectionAsc Ascending
+	CreateInputSystemByPackSortDirectionAsc CreateInputSystemByPackSortDirection = "asc"
+	// CreateInputSystemByPackSortDirectionDesc Descending
+	CreateInputSystemByPackSortDirectionDesc CreateInputSystemByPackSortDirection = "desc"
 )
 
-func (e CreateInputSortDirection) ToPointer() *CreateInputSortDirection {
+func (e CreateInputSystemByPackSortDirection) ToPointer() *CreateInputSystemByPackSortDirection {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputSortDirection) IsExact() bool {
+func (e *CreateInputSystemByPackSortDirection) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "asc", "desc":
@@ -1754,24 +2177,24 @@ func (e *CreateInputSortDirection) IsExact() bool {
 	return false
 }
 
-// CreateInputAuthenticationTypeServicenowTable - ServiceNow Table API authentication method
-type CreateInputAuthenticationTypeServicenowTable string
+// CreateInputSystemByPackAuthenticationTypeServicenowTable - ServiceNow Table API authentication method
+type CreateInputSystemByPackAuthenticationTypeServicenowTable string
 
 const (
-	// CreateInputAuthenticationTypeServicenowTableNone None
-	CreateInputAuthenticationTypeServicenowTableNone CreateInputAuthenticationTypeServicenowTable = "none"
-	// CreateInputAuthenticationTypeServicenowTableBasicSecret Basic
-	CreateInputAuthenticationTypeServicenowTableBasicSecret CreateInputAuthenticationTypeServicenowTable = "basicSecret"
-	// CreateInputAuthenticationTypeServicenowTableOauthSecret OAuth
-	CreateInputAuthenticationTypeServicenowTableOauthSecret CreateInputAuthenticationTypeServicenowTable = "oauthSecret"
+	// CreateInputSystemByPackAuthenticationTypeServicenowTableNone None
+	CreateInputSystemByPackAuthenticationTypeServicenowTableNone CreateInputSystemByPackAuthenticationTypeServicenowTable = "none"
+	// CreateInputSystemByPackAuthenticationTypeServicenowTableBasicSecret Basic
+	CreateInputSystemByPackAuthenticationTypeServicenowTableBasicSecret CreateInputSystemByPackAuthenticationTypeServicenowTable = "basicSecret"
+	// CreateInputSystemByPackAuthenticationTypeServicenowTableOauthSecret OAuth
+	CreateInputSystemByPackAuthenticationTypeServicenowTableOauthSecret CreateInputSystemByPackAuthenticationTypeServicenowTable = "oauthSecret"
 )
 
-func (e CreateInputAuthenticationTypeServicenowTable) ToPointer() *CreateInputAuthenticationTypeServicenowTable {
+func (e CreateInputSystemByPackAuthenticationTypeServicenowTable) ToPointer() *CreateInputSystemByPackAuthenticationTypeServicenowTable {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputAuthenticationTypeServicenowTable) IsExact() bool {
+func (e *CreateInputSystemByPackAuthenticationTypeServicenowTable) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "basicSecret", "oauthSecret":
@@ -1781,22 +2204,22 @@ func (e *CreateInputAuthenticationTypeServicenowTable) IsExact() bool {
 	return false
 }
 
-// CreateInputGrantType - ServiceNow OAuth grant type used for token requests
-type CreateInputGrantType string
+// CreateInputSystemByPackGrantType - ServiceNow OAuth grant type used for token requests
+type CreateInputSystemByPackGrantType string
 
 const (
-	// CreateInputGrantTypeClientCredentials Password
-	CreateInputGrantTypeClientCredentials CreateInputGrantType = "client_credentials"
-	// CreateInputGrantTypePassword Client credentials
-	CreateInputGrantTypePassword CreateInputGrantType = "password"
+	// CreateInputSystemByPackGrantTypeClientCredentials Password
+	CreateInputSystemByPackGrantTypeClientCredentials CreateInputSystemByPackGrantType = "client_credentials"
+	// CreateInputSystemByPackGrantTypePassword Client credentials
+	CreateInputSystemByPackGrantTypePassword CreateInputSystemByPackGrantType = "password"
 )
 
-func (e CreateInputGrantType) ToPointer() *CreateInputGrantType {
+func (e CreateInputSystemByPackGrantType) ToPointer() *CreateInputSystemByPackGrantType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputGrantType) IsExact() bool {
+func (e *CreateInputSystemByPackGrantType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "client_credentials", "password":
@@ -1806,25 +2229,25 @@ func (e *CreateInputGrantType) IsExact() bool {
 	return false
 }
 
-type CreateInputManageStateServicenowTable struct {
+type CreateInputSystemByPackManageStateServicenowTable struct {
 }
 
-func (c CreateInputManageStateServicenowTable) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackManageStateServicenowTable) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputManageStateServicenowTable) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackManageStateServicenowTable) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateInputInputServicenowTable struct {
+type CreateInputSystemByPackInputServicenowTable struct {
 	// Unique ID for this input
-	ID       string                         `json:"id"`
-	Type     CreateInputTypeServicenowTable `json:"type"`
-	Disabled *bool                          `json:"disabled,omitzero"`
+	ID       string                                     `json:"id"`
+	Type     CreateInputSystemByPackTypeServicenowTable `json:"type"`
+	Disabled *bool                                      `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -1847,7 +2270,7 @@ type CreateInputInputServicenowTable struct {
 	// Optional. Sort results by this field (for example sys_created_on or parent.name). Leave empty to use the server default order.
 	OrderByField *string `json:"orderByField,omitzero"`
 	// Used only when Sort by field is set.
-	OrderByDirection *CreateInputSortDirection `json:"orderByDirection,omitzero"`
+	OrderByDirection *CreateInputSystemByPackSortDirection `json:"orderByDirection,omitzero"`
 	// Optional ServiceNow encoded query for sysparm_query (for example active=true or sys_updated_onRELATIVEGT@hour@ago@1). Enter a literal or a Cribl expression. When combined with Sort by field, the filter and sort are joined with ^. See ServiceNow Table API documentation for encoded query syntax.
 	Query *string `json:"query,omitzero"`
 	// When enabled, request raw values from ServiceNow (`sysparm_display_value=false`). When disabled, request display values (`sysparm_display_value=true`).
@@ -1859,7 +2282,7 @@ type CreateInputInputServicenowTable struct {
 	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// ServiceNow Table API authentication method
-	AuthType *CreateInputAuthenticationTypeServicenowTable `json:"authType,omitzero"`
+	AuthType *CreateInputSystemByPackAuthenticationTypeServicenowTable `json:"authType,omitzero"`
 	// Cron schedule on which to run this job
 	CronSchedule string `json:"cronSchedule"`
 	// Earliest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
@@ -1891,7 +2314,7 @@ type CreateInputInputServicenowTable struct {
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// ServiceNow OAuth grant type used for token requests
-	OauthGrantType *CreateInputGrantType `json:"oauthGrantType,omitzero"`
+	OauthGrantType *CreateInputSystemByPackGrantType `json:"oauthGrantType,omitzero"`
 	// ServiceNow username for the password grant type
 	Username *string `json:"username,omitzero"`
 	// Select or create a stored text secret for the ServiceNow password value
@@ -1908,10 +2331,12 @@ type CreateInputInputServicenowTable struct {
 	// JavaScript expression that defines how to update the state from an event. This source defaults to checking that `_time` is a finite number (not only `__timestampExtracted`), so state still advances when the event breaker assigns a fallback time. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields).
 	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
 	// JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
-	StateMergeExpression *string                                `json:"stateMergeExpression,omitzero"`
-	ManageState          *CreateInputManageStateServicenowTable `json:"manageState,omitzero"`
+	StateMergeExpression *string                                            `json:"stateMergeExpression,omitzero"`
+	ManageState          *CreateInputSystemByPackManageStateServicenowTable `json:"manageState,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'instance' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'instance' at runtime.
 	TemplateInstance *string `json:"__template_instance,omitzero"`
 	// Binds 'orderByField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'orderByField' at runtime.
@@ -1924,423 +2349,430 @@ type CreateInputInputServicenowTable struct {
 	TemplateClientID *string `json:"__template_clientId,omitzero"`
 }
 
-func (c CreateInputInputServicenowTable) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputServicenowTable) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputServicenowTable) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputServicenowTable) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputServicenowTable) GetID() string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputServicenowTable) GetType() CreateInputTypeServicenowTable {
+func (c *CreateInputSystemByPackInputServicenowTable) GetType() CreateInputSystemByPackTypeServicenowTable {
 	if c == nil {
-		return CreateInputTypeServicenowTable("")
+		return CreateInputSystemByPackTypeServicenowTable("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputServicenowTable) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputServicenowTable) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputServicenowTable) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputServicenowTable) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputServicenowTable) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputServicenowTable) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputServicenowTable) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputServicenowTable) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputServicenowTable) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputServicenowTable) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputServicenowTable) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputServicenowTable) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputServicenowTable) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputServicenowTable) GetInstance() string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetInstance() string {
 	if c == nil {
 		return ""
 	}
 	return c.Instance
 }
 
-func (c *CreateInputInputServicenowTable) GetTableName() string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetTableName() string {
 	if c == nil {
 		return ""
 	}
 	return c.TableName
 }
 
-func (c *CreateInputInputServicenowTable) GetFields() []string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Fields
 }
 
-func (c *CreateInputInputServicenowTable) GetOrderByField() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetOrderByField() *string {
 	if c == nil {
 		return nil
 	}
 	return c.OrderByField
 }
 
-func (c *CreateInputInputServicenowTable) GetOrderByDirection() *CreateInputSortDirection {
+func (c *CreateInputSystemByPackInputServicenowTable) GetOrderByDirection() *CreateInputSystemByPackSortDirection {
 	if c == nil {
 		return nil
 	}
 	return c.OrderByDirection
 }
 
-func (c *CreateInputInputServicenowTable) GetQuery() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetQuery() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Query
 }
 
-func (c *CreateInputInputServicenowTable) GetUseRawValues() *bool {
+func (c *CreateInputSystemByPackInputServicenowTable) GetUseRawValues() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRawValues
 }
 
-func (c *CreateInputInputServicenowTable) GetPageSize() *int64 {
+func (c *CreateInputSystemByPackInputServicenowTable) GetPageSize() *int64 {
 	if c == nil {
 		return nil
 	}
 	return c.PageSize
 }
 
-func (c *CreateInputInputServicenowTable) GetMaxPages() *int64 {
+func (c *CreateInputSystemByPackInputServicenowTable) GetMaxPages() *int64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPages
 }
 
-func (c *CreateInputInputServicenowTable) GetRejectUnauthorized() *bool {
+func (c *CreateInputSystemByPackInputServicenowTable) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateInputInputServicenowTable) GetAuthType() *CreateInputAuthenticationTypeServicenowTable {
+func (c *CreateInputSystemByPackInputServicenowTable) GetAuthType() *CreateInputSystemByPackAuthenticationTypeServicenowTable {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateInputInputServicenowTable) GetCronSchedule() string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetCronSchedule() string {
 	if c == nil {
 		return ""
 	}
 	return c.CronSchedule
 }
 
-func (c *CreateInputInputServicenowTable) GetEarliest() string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetEarliest() string {
 	if c == nil {
 		return ""
 	}
 	return c.Earliest
 }
 
-func (c *CreateInputInputServicenowTable) GetLatest() string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetLatest() string {
 	if c == nil {
 		return ""
 	}
 	return c.Latest
 }
 
-func (c *CreateInputInputServicenowTable) GetStateTracking() *bool {
+func (c *CreateInputSystemByPackInputServicenowTable) GetStateTracking() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.StateTracking
 }
 
-func (c *CreateInputInputServicenowTable) GetLogLevel() *components.LogLevelOptions {
+func (c *CreateInputSystemByPackInputServicenowTable) GetLogLevel() *components.LogLevelOptions {
 	if c == nil {
 		return nil
 	}
 	return c.LogLevel
 }
 
-func (c *CreateInputInputServicenowTable) GetRequestTimeout() *float64 {
+func (c *CreateInputSystemByPackInputServicenowTable) GetRequestTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.RequestTimeout
 }
 
-func (c *CreateInputInputServicenowTable) GetUseRoundRobinDNS() *bool {
+func (c *CreateInputSystemByPackInputServicenowTable) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateInputInputServicenowTable) GetKeepAliveTime() *float64 {
+func (c *CreateInputSystemByPackInputServicenowTable) GetKeepAliveTime() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAliveTime
 }
 
-func (c *CreateInputInputServicenowTable) GetJobTimeout() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetJobTimeout() *string {
 	if c == nil {
 		return nil
 	}
 	return c.JobTimeout
 }
 
-func (c *CreateInputInputServicenowTable) GetMaxMissedKeepAlives() *float64 {
+func (c *CreateInputSystemByPackInputServicenowTable) GetMaxMissedKeepAlives() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxMissedKeepAlives
 }
 
-func (c *CreateInputInputServicenowTable) GetTTL() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetTTL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TTL
 }
 
-func (c *CreateInputInputServicenowTable) GetIgnoreGroupJobsLimit() *bool {
+func (c *CreateInputSystemByPackInputServicenowTable) GetIgnoreGroupJobsLimit() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputServicenowTable) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputServicenowTable) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputServicenowTable) GetRetryRules() *components.RetryRulesType {
+func (c *CreateInputSystemByPackInputServicenowTable) GetRetryRules() *components.RetryRulesType {
 	if c == nil {
 		return nil
 	}
 	return c.RetryRules
 }
 
-func (c *CreateInputInputServicenowTable) GetDescription() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputServicenowTable) GetCredentialsSecret() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CredentialsSecret
 }
 
-func (c *CreateInputInputServicenowTable) GetOauthGrantType() *CreateInputGrantType {
+func (c *CreateInputSystemByPackInputServicenowTable) GetOauthGrantType() *CreateInputSystemByPackGrantType {
 	if c == nil {
 		return nil
 	}
 	return c.OauthGrantType
 }
 
-func (c *CreateInputInputServicenowTable) GetUsername() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetUsername() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Username
 }
 
-func (c *CreateInputInputServicenowTable) GetTextSecret() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateInputInputServicenowTable) GetUseCustomOAuthParamsOrHeaders() *bool {
+func (c *CreateInputSystemByPackInputServicenowTable) GetUseCustomOAuthParamsOrHeaders() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseCustomOAuthParamsOrHeaders
 }
 
-func (c *CreateInputInputServicenowTable) GetOauthParams() []components.ItemsTypeOauthParams {
+func (c *CreateInputSystemByPackInputServicenowTable) GetOauthParams() []components.ItemsTypeOauthParams {
 	if c == nil {
 		return nil
 	}
 	return c.OauthParams
 }
 
-func (c *CreateInputInputServicenowTable) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
+func (c *CreateInputSystemByPackInputServicenowTable) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
 	if c == nil {
 		return nil
 	}
 	return c.OauthHeaders
 }
 
-func (c *CreateInputInputServicenowTable) GetClientID() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetClientID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ClientID
 }
 
-func (c *CreateInputInputServicenowTable) GetClientTextSecret() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetClientTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ClientTextSecret
 }
 
-func (c *CreateInputInputServicenowTable) GetStateUpdateExpression() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetStateUpdateExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.StateUpdateExpression
 }
 
-func (c *CreateInputInputServicenowTable) GetStateMergeExpression() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetStateMergeExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.StateMergeExpression
 }
 
-func (c *CreateInputInputServicenowTable) GetManageState() *CreateInputManageStateServicenowTable {
+func (c *CreateInputSystemByPackInputServicenowTable) GetManageState() *CreateInputSystemByPackManageStateServicenowTable {
 	if c == nil {
 		return nil
 	}
 	return c.ManageState
 }
 
-func (c *CreateInputInputServicenowTable) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputServicenowTable) GetTemplateInstance() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputServicenowTable) GetTemplateInstance() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateInstance
 }
 
-func (c *CreateInputInputServicenowTable) GetTemplateOrderByField() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetTemplateOrderByField() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOrderByField
 }
 
-func (c *CreateInputInputServicenowTable) GetTemplateQuery() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetTemplateQuery() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateQuery
 }
 
-func (c *CreateInputInputServicenowTable) GetTemplateUsername() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetTemplateUsername() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateUsername
 }
 
-func (c *CreateInputInputServicenowTable) GetTemplateClientID() *string {
+func (c *CreateInputSystemByPackInputServicenowTable) GetTemplateClientID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateClientID
 }
 
-type CreateInputTypeSecurityLake string
+type CreateInputSystemByPackTypeSecurityLake string
 
 const (
-	CreateInputTypeSecurityLakeSecurityLake CreateInputTypeSecurityLake = "security_lake"
+	CreateInputSystemByPackTypeSecurityLakeSecurityLake CreateInputSystemByPackTypeSecurityLake = "security_lake"
 )
 
-func (e CreateInputTypeSecurityLake) ToPointer() *CreateInputTypeSecurityLake {
+func (e CreateInputSystemByPackTypeSecurityLake) ToPointer() *CreateInputSystemByPackTypeSecurityLake {
 	return &e
 }
-func (e *CreateInputTypeSecurityLake) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeSecurityLake) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "security_lake":
-		*e = CreateInputTypeSecurityLake(v)
+		*e = CreateInputSystemByPackTypeSecurityLake(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeSecurityLake: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeSecurityLake: %v", v)
 	}
 }
 
-type CreateInputInputSecurityLake struct {
+type CreateInputSystemByPackInputSecurityLake struct {
 	// Unique ID for this input
-	ID       string                      `json:"id"`
-	Type     CreateInputTypeSecurityLake `json:"type"`
-	Disabled *bool                       `json:"disabled,omitzero"`
+	ID       string                                  `json:"id"`
+	Type     CreateInputSystemByPackTypeSecurityLake `json:"type"`
+	Disabled *bool                                   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -2424,6 +2856,8 @@ type CreateInputInputSecurityLake struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
 	TemplateQueueName *string `json:"__template_queueName,omitzero"`
 	// Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
@@ -2442,437 +2876,444 @@ type CreateInputInputSecurityLake struct {
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
 
-func (c CreateInputInputSecurityLake) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputSecurityLake) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputSecurityLake) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputSecurityLake) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputSecurityLake) GetID() string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputSecurityLake) GetType() CreateInputTypeSecurityLake {
+func (c *CreateInputSystemByPackInputSecurityLake) GetType() CreateInputSystemByPackTypeSecurityLake {
 	if c == nil {
-		return CreateInputTypeSecurityLake("")
+		return CreateInputSystemByPackTypeSecurityLake("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputSecurityLake) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputSecurityLake) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputSecurityLake) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputSecurityLake) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputSecurityLake) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputSecurityLake) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputSecurityLake) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputSecurityLake) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputSecurityLake) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputSecurityLake) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputSecurityLake) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputSecurityLake) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputSecurityLake) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputSecurityLake) GetQueueName() string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetQueueName() string {
 	if c == nil {
 		return ""
 	}
 	return c.QueueName
 }
 
-func (c *CreateInputInputSecurityLake) GetFileFilter() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetFileFilter() *string {
 	if c == nil {
 		return nil
 	}
 	return c.FileFilter
 }
 
-func (c *CreateInputInputSecurityLake) GetAwsAccountID() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetAwsAccountID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAccountID
 }
 
-func (c *CreateInputInputSecurityLake) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (c *CreateInputSystemByPackInputSecurityLake) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateInputInputSecurityLake) GetAwsSecretKey() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecretKey
 }
 
-func (c *CreateInputInputSecurityLake) GetRegion() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Region
 }
 
-func (c *CreateInputInputSecurityLake) GetEndpoint() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
 }
 
-func (c *CreateInputInputSecurityLake) GetSignatureVersion() *components.SignatureVersionOptionsS3CollectorConf {
+func (c *CreateInputSystemByPackInputSecurityLake) GetSignatureVersion() *components.SignatureVersionOptionsS3CollectorConf {
 	if c == nil {
 		return nil
 	}
 	return c.SignatureVersion
 }
 
-func (c *CreateInputInputSecurityLake) GetReuseConnections() *bool {
+func (c *CreateInputSystemByPackInputSecurityLake) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateInputInputSecurityLake) GetRejectUnauthorized() *bool {
+func (c *CreateInputSystemByPackInputSecurityLake) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateInputInputSecurityLake) GetBreakerRulesets() []string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetBreakerRulesets() []string {
 	if c == nil {
 		return nil
 	}
 	return c.BreakerRulesets
 }
 
-func (c *CreateInputInputSecurityLake) GetStaleChannelFlushMs() *float64 {
+func (c *CreateInputSystemByPackInputSecurityLake) GetStaleChannelFlushMs() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputSecurityLake) GetMaxMessages() *float64 {
+func (c *CreateInputSystemByPackInputSecurityLake) GetMaxMessages() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxMessages
 }
 
-func (c *CreateInputInputSecurityLake) GetVisibilityTimeout() *float64 {
+func (c *CreateInputSystemByPackInputSecurityLake) GetVisibilityTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.VisibilityTimeout
 }
 
-func (c *CreateInputInputSecurityLake) GetNumReceivers() *float64 {
+func (c *CreateInputSystemByPackInputSecurityLake) GetNumReceivers() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.NumReceivers
 }
 
-func (c *CreateInputInputSecurityLake) GetFileConcurrency() *float64 {
+func (c *CreateInputSystemByPackInputSecurityLake) GetFileConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FileConcurrency
 }
 
-func (c *CreateInputInputSecurityLake) GetSocketTimeout() *float64 {
+func (c *CreateInputSystemByPackInputSecurityLake) GetSocketTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketTimeout
 }
 
-func (c *CreateInputInputSecurityLake) GetSkipOnError() *bool {
+func (c *CreateInputSystemByPackInputSecurityLake) GetSkipOnError() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SkipOnError
 }
 
-func (c *CreateInputInputSecurityLake) GetIncludeSqsMetadata() *bool {
+func (c *CreateInputSystemByPackInputSecurityLake) GetIncludeSqsMetadata() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.IncludeSqsMetadata
 }
 
-func (c *CreateInputInputSecurityLake) GetEnableAssumeRole() *bool {
+func (c *CreateInputSystemByPackInputSecurityLake) GetEnableAssumeRole() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableAssumeRole
 }
 
-func (c *CreateInputInputSecurityLake) GetAssumeRoleArn() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleArn
 }
 
-func (c *CreateInputInputSecurityLake) GetAssumeRoleExternalID() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleExternalID
 }
 
-func (c *CreateInputInputSecurityLake) GetDurationSeconds() *float64 {
+func (c *CreateInputSystemByPackInputSecurityLake) GetDurationSeconds() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DurationSeconds
 }
 
-func (c *CreateInputInputSecurityLake) GetEnableSQSAssumeRole() *bool {
+func (c *CreateInputSystemByPackInputSecurityLake) GetEnableSQSAssumeRole() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableSQSAssumeRole
 }
 
-func (c *CreateInputInputSecurityLake) GetPreprocess() *components.PreprocessType {
+func (c *CreateInputSystemByPackInputSecurityLake) GetPreprocess() *components.PreprocessType {
 	if c == nil {
 		return nil
 	}
 	return c.Preprocess
 }
 
-func (c *CreateInputInputSecurityLake) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputSecurityLake) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputSecurityLake) GetParquetChunkSizeMB() *float64 {
+func (c *CreateInputSystemByPackInputSecurityLake) GetParquetChunkSizeMB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetChunkSizeMB
 }
 
-func (c *CreateInputInputSecurityLake) GetParquetChunkDownloadTimeout() *float64 {
+func (c *CreateInputSystemByPackInputSecurityLake) GetParquetChunkDownloadTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetChunkDownloadTimeout
 }
 
-func (c *CreateInputInputSecurityLake) GetCheckpointing() *components.CheckpointingType {
+func (c *CreateInputSystemByPackInputSecurityLake) GetCheckpointing() *components.CheckpointingType {
 	if c == nil {
 		return nil
 	}
 	return c.Checkpointing
 }
 
-func (c *CreateInputInputSecurityLake) GetPollTimeout() *float64 {
+func (c *CreateInputSystemByPackInputSecurityLake) GetPollTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PollTimeout
 }
 
-func (c *CreateInputInputSecurityLake) GetEncoding() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetEncoding() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Encoding
 }
 
-func (c *CreateInputInputSecurityLake) GetDescription() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputSecurityLake) GetAwsAPIKey() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAPIKey
 }
 
-func (c *CreateInputInputSecurityLake) GetAwsSecret() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateInputInputSecurityLake) GetTagAfterProcessing() *components.TagAfterProcessingOptions {
+func (c *CreateInputSystemByPackInputSecurityLake) GetTagAfterProcessing() *components.TagAfterProcessingOptions {
 	if c == nil {
 		return nil
 	}
 	return c.TagAfterProcessing
 }
 
-func (c *CreateInputInputSecurityLake) GetProcessedTagKey() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetProcessedTagKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ProcessedTagKey
 }
 
-func (c *CreateInputInputSecurityLake) GetProcessedTagValue() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetProcessedTagValue() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ProcessedTagValue
 }
 
-func (c *CreateInputInputSecurityLake) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputSecurityLake) GetTemplateQueueName() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputSecurityLake) GetTemplateQueueName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateQueueName
 }
 
-func (c *CreateInputInputSecurityLake) GetTemplateAwsAccountID() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetTemplateAwsAccountID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAccountID
 }
 
-func (c *CreateInputInputSecurityLake) GetTemplateAwsSecretKey() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetTemplateAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsSecretKey
 }
 
-func (c *CreateInputInputSecurityLake) GetTemplateRegion() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateRegion
 }
 
-func (c *CreateInputInputSecurityLake) GetTemplateEndpoint() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateInputInputSecurityLake) GetTemplateAssumeRoleArn() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleArn
 }
 
-func (c *CreateInputInputSecurityLake) GetTemplateAssumeRoleExternalID() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetTemplateAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
 }
 
-func (c *CreateInputInputSecurityLake) GetTemplateAwsAPIKey() *string {
+func (c *CreateInputSystemByPackInputSecurityLake) GetTemplateAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAPIKey
 }
 
-type CreateInputTypeNetflow string
+type CreateInputSystemByPackTypeNetflow string
 
 const (
-	CreateInputTypeNetflowNetflow CreateInputTypeNetflow = "netflow"
+	CreateInputSystemByPackTypeNetflowNetflow CreateInputSystemByPackTypeNetflow = "netflow"
 )
 
-func (e CreateInputTypeNetflow) ToPointer() *CreateInputTypeNetflow {
+func (e CreateInputSystemByPackTypeNetflow) ToPointer() *CreateInputSystemByPackTypeNetflow {
 	return &e
 }
-func (e *CreateInputTypeNetflow) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeNetflow) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "netflow":
-		*e = CreateInputTypeNetflow(v)
+		*e = CreateInputSystemByPackTypeNetflow(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeNetflow: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeNetflow: %v", v)
 	}
 }
 
-type CreateInputInputNetflow struct {
+type CreateInputSystemByPackInputNetflow struct {
 	// Unique ID for this input
-	ID       string                 `json:"id"`
-	Type     CreateInputTypeNetflow `json:"type"`
-	Disabled *bool                  `json:"disabled,omitzero"`
+	ID       string                             `json:"id"`
+	Type     CreateInputSystemByPackTypeNetflow `json:"type"`
+	Disabled *bool                              `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -2911,226 +3352,235 @@ type CreateInputInputNetflow struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (c CreateInputInputNetflow) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputNetflow) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputNetflow) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputNetflow) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputNetflow) GetID() string {
+func (c *CreateInputSystemByPackInputNetflow) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputNetflow) GetType() CreateInputTypeNetflow {
+func (c *CreateInputSystemByPackInputNetflow) GetType() CreateInputSystemByPackTypeNetflow {
 	if c == nil {
-		return CreateInputTypeNetflow("")
+		return CreateInputSystemByPackTypeNetflow("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputNetflow) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputNetflow) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputNetflow) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputNetflow) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputNetflow) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputNetflow) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputNetflow) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputNetflow) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputNetflow) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputNetflow) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputNetflow) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputNetflow) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputNetflow) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputNetflow) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputNetflow) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputNetflow) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputNetflow) GetHost() string {
+func (c *CreateInputSystemByPackInputNetflow) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputNetflow) GetPort() float64 {
+func (c *CreateInputSystemByPackInputNetflow) GetPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.Port
 }
 
-func (c *CreateInputInputNetflow) GetEnablePassThrough() *bool {
+func (c *CreateInputSystemByPackInputNetflow) GetEnablePassThrough() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnablePassThrough
 }
 
-func (c *CreateInputInputNetflow) GetIPAllowlistRegex() *string {
+func (c *CreateInputSystemByPackInputNetflow) GetIPAllowlistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPAllowlistRegex
 }
 
-func (c *CreateInputInputNetflow) GetIPDenylistRegex() *string {
+func (c *CreateInputSystemByPackInputNetflow) GetIPDenylistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPDenylistRegex
 }
 
-func (c *CreateInputInputNetflow) GetUDPSocketRxBufSize() *float64 {
+func (c *CreateInputSystemByPackInputNetflow) GetUDPSocketRxBufSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.UDPSocketRxBufSize
 }
 
-func (c *CreateInputInputNetflow) GetTemplateCacheMinutes() *float64 {
+func (c *CreateInputSystemByPackInputNetflow) GetTemplateCacheMinutes() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateCacheMinutes
 }
 
-func (c *CreateInputInputNetflow) GetV5Enabled() *bool {
+func (c *CreateInputSystemByPackInputNetflow) GetV5Enabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.V5Enabled
 }
 
-func (c *CreateInputInputNetflow) GetV9Enabled() *bool {
+func (c *CreateInputSystemByPackInputNetflow) GetV9Enabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.V9Enabled
 }
 
-func (c *CreateInputInputNetflow) GetIpfixEnabled() *bool {
+func (c *CreateInputSystemByPackInputNetflow) GetIpfixEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.IpfixEnabled
 }
 
-func (c *CreateInputInputNetflow) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputNetflow) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputNetflow) GetDescription() *string {
+func (c *CreateInputSystemByPackInputNetflow) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputNetflow) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputNetflow) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputNetflow) GetTemplateHost() *string {
+func (c *CreateInputSystemByPackInputNetflow) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputNetflow) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateInputInputNetflow) GetTemplatePort() *string {
+func (c *CreateInputSystemByPackInputNetflow) GetTemplatePort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePort
 }
 
-type CreateInputTypeWizWebhook string
+type CreateInputSystemByPackTypeWizWebhook string
 
 const (
-	CreateInputTypeWizWebhookWizWebhook CreateInputTypeWizWebhook = "wiz_webhook"
+	CreateInputSystemByPackTypeWizWebhookWizWebhook CreateInputSystemByPackTypeWizWebhook = "wiz_webhook"
 )
 
-func (e CreateInputTypeWizWebhook) ToPointer() *CreateInputTypeWizWebhook {
+func (e CreateInputSystemByPackTypeWizWebhook) ToPointer() *CreateInputSystemByPackTypeWizWebhook {
 	return &e
 }
-func (e *CreateInputTypeWizWebhook) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeWizWebhook) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "wiz_webhook":
-		*e = CreateInputTypeWizWebhook(v)
+		*e = CreateInputSystemByPackTypeWizWebhook(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeWizWebhook: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeWizWebhook: %v", v)
 	}
 }
 
-type CreateInputInputWizWebhook struct {
+type CreateInputSystemByPackInputWizWebhook struct {
 	// Unique ID for this input
-	ID       string                    `json:"id"`
-	Type     CreateInputTypeWizWebhook `json:"type"`
-	Disabled *bool                     `json:"disabled,omitzero"`
+	ID       string                                `json:"id"`
+	Type     CreateInputSystemByPackTypeWizWebhook `json:"type"`
+	Disabled *bool                                 `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -3188,324 +3638,351 @@ type CreateInputInputWizWebhook struct {
 	Description   *string                             `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+	TemplateAuthTokens *string `json:"__template_authTokens,omitzero"`
+	// Binds 'allowedPaths' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedPaths' at runtime.
+	TemplateAllowedPaths *string `json:"__template_allowedPaths,omitzero"`
 }
 
-func (c CreateInputInputWizWebhook) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputWizWebhook) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputWizWebhook) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputWizWebhook) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputWizWebhook) GetID() string {
+func (c *CreateInputSystemByPackInputWizWebhook) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputWizWebhook) GetType() CreateInputTypeWizWebhook {
+func (c *CreateInputSystemByPackInputWizWebhook) GetType() CreateInputSystemByPackTypeWizWebhook {
 	if c == nil {
-		return CreateInputTypeWizWebhook("")
+		return CreateInputSystemByPackTypeWizWebhook("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputWizWebhook) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputWizWebhook) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputWizWebhook) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputWizWebhook) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputWizWebhook) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputWizWebhook) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputWizWebhook) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputWizWebhook) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputWizWebhook) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputWizWebhook) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputWizWebhook) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputWizWebhook) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputWizWebhook) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputWizWebhook) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputWizWebhook) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputWizWebhook) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputWizWebhook) GetHost() string {
+func (c *CreateInputSystemByPackInputWizWebhook) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputWizWebhook) GetPort() float64 {
+func (c *CreateInputSystemByPackInputWizWebhook) GetPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.Port
 }
 
-func (c *CreateInputInputWizWebhook) GetAuthTokens() []string {
+func (c *CreateInputSystemByPackInputWizWebhook) GetAuthTokens() []string {
 	if c == nil {
 		return nil
 	}
 	return c.AuthTokens
 }
 
-func (c *CreateInputInputWizWebhook) GetTLS() *components.TLSSettingsServerSideType {
+func (c *CreateInputSystemByPackInputWizWebhook) GetTLS() *components.TLSSettingsServerSideType {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateInputInputWizWebhook) GetMaxActiveReq() *float64 {
+func (c *CreateInputSystemByPackInputWizWebhook) GetMaxActiveReq() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxActiveReq
 }
 
-func (c *CreateInputInputWizWebhook) GetMaxRequestsPerSocket() *int64 {
+func (c *CreateInputSystemByPackInputWizWebhook) GetMaxRequestsPerSocket() *int64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRequestsPerSocket
 }
 
-func (c *CreateInputInputWizWebhook) GetEnableProxyHeader() *bool {
+func (c *CreateInputSystemByPackInputWizWebhook) GetEnableProxyHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputWizWebhook) GetCaptureHeaders() *bool {
+func (c *CreateInputSystemByPackInputWizWebhook) GetCaptureHeaders() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.CaptureHeaders
 }
 
-func (c *CreateInputInputWizWebhook) GetActivityLogSampleRate() *float64 {
+func (c *CreateInputSystemByPackInputWizWebhook) GetActivityLogSampleRate() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ActivityLogSampleRate
 }
 
-func (c *CreateInputInputWizWebhook) GetRequestTimeout() *float64 {
+func (c *CreateInputSystemByPackInputWizWebhook) GetRequestTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.RequestTimeout
 }
 
-func (c *CreateInputInputWizWebhook) GetSocketTimeout() *float64 {
+func (c *CreateInputSystemByPackInputWizWebhook) GetSocketTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketTimeout
 }
 
-func (c *CreateInputInputWizWebhook) GetKeepAliveTimeout() *float64 {
+func (c *CreateInputSystemByPackInputWizWebhook) GetKeepAliveTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAliveTimeout
 }
 
-func (c *CreateInputInputWizWebhook) GetEnableHealthCheck() *bool {
+func (c *CreateInputSystemByPackInputWizWebhook) GetEnableHealthCheck() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableHealthCheck
 }
 
-func (c *CreateInputInputWizWebhook) GetIPAllowlistRegex() *string {
+func (c *CreateInputSystemByPackInputWizWebhook) GetIPAllowlistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPAllowlistRegex
 }
 
-func (c *CreateInputInputWizWebhook) GetIPDenylistRegex() *string {
+func (c *CreateInputSystemByPackInputWizWebhook) GetIPDenylistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPDenylistRegex
 }
 
-func (c *CreateInputInputWizWebhook) GetBreakerRulesets() []string {
+func (c *CreateInputSystemByPackInputWizWebhook) GetBreakerRulesets() []string {
 	if c == nil {
 		return nil
 	}
 	return c.BreakerRulesets
 }
 
-func (c *CreateInputInputWizWebhook) GetStaleChannelFlushMs() *float64 {
+func (c *CreateInputSystemByPackInputWizWebhook) GetStaleChannelFlushMs() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputWizWebhook) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputWizWebhook) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputWizWebhook) GetAllowedPaths() []string {
+func (c *CreateInputSystemByPackInputWizWebhook) GetAllowedPaths() []string {
 	if c == nil {
 		return nil
 	}
 	return c.AllowedPaths
 }
 
-func (c *CreateInputInputWizWebhook) GetAllowedMethods() []string {
+func (c *CreateInputSystemByPackInputWizWebhook) GetAllowedMethods() []string {
 	if c == nil {
 		return nil
 	}
 	return c.AllowedMethods
 }
 
-func (c *CreateInputInputWizWebhook) GetAuthTokensExt() []components.ItemsTypeAuthTokensExt {
+func (c *CreateInputSystemByPackInputWizWebhook) GetAuthTokensExt() []components.ItemsTypeAuthTokensExt {
 	if c == nil {
 		return nil
 	}
 	return c.AuthTokensExt
 }
 
-func (c *CreateInputInputWizWebhook) GetDescription() *string {
+func (c *CreateInputSystemByPackInputWizWebhook) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputWizWebhook) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputWizWebhook) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputWizWebhook) GetTemplateHost() *string {
+func (c *CreateInputSystemByPackInputWizWebhook) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputWizWebhook) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateInputInputWizWebhook) GetTemplatePort() *string {
+func (c *CreateInputSystemByPackInputWizWebhook) GetTemplatePort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePort
 }
 
-type CreateInputTypeOpenai string
+func (c *CreateInputSystemByPackInputWizWebhook) GetTemplateAuthTokens() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAuthTokens
+}
+
+func (c *CreateInputSystemByPackInputWizWebhook) GetTemplateAllowedPaths() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAllowedPaths
+}
+
+type CreateInputSystemByPackTypeOpenai string
 
 const (
-	CreateInputTypeOpenaiOpenai CreateInputTypeOpenai = "openai"
+	CreateInputSystemByPackTypeOpenaiOpenai CreateInputSystemByPackTypeOpenai = "openai"
 )
 
-func (e CreateInputTypeOpenai) ToPointer() *CreateInputTypeOpenai {
+func (e CreateInputSystemByPackTypeOpenai) ToPointer() *CreateInputSystemByPackTypeOpenai {
 	return &e
 }
-func (e *CreateInputTypeOpenai) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeOpenai) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "openai":
-		*e = CreateInputTypeOpenai(v)
+		*e = CreateInputSystemByPackTypeOpenai(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeOpenai: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeOpenai: %v", v)
 	}
 }
 
-type CreateInputManageStateOpenai struct {
+type CreateInputSystemByPackManageStateOpenai struct {
 }
 
-func (c CreateInputManageStateOpenai) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackManageStateOpenai) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputManageStateOpenai) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackManageStateOpenai) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateInputPaginationType string
+type CreateInputSystemByPackPaginationType string
 
 const (
-	// CreateInputPaginationTypeNone None
-	CreateInputPaginationTypeNone CreateInputPaginationType = "none"
-	// CreateInputPaginationTypeResponseBody Response Body Attribute
-	CreateInputPaginationTypeResponseBody CreateInputPaginationType = "response_body"
-	// CreateInputPaginationTypeResponseHeader Response Header Attribute
-	CreateInputPaginationTypeResponseHeader CreateInputPaginationType = "response_header"
-	// CreateInputPaginationTypeResponseHeaderLink RFC 5988 Link Header
-	CreateInputPaginationTypeResponseHeaderLink CreateInputPaginationType = "response_header_link"
+	// CreateInputSystemByPackPaginationTypeNone None
+	CreateInputSystemByPackPaginationTypeNone CreateInputSystemByPackPaginationType = "none"
+	// CreateInputSystemByPackPaginationTypeResponseBody Response Body Attribute
+	CreateInputSystemByPackPaginationTypeResponseBody CreateInputSystemByPackPaginationType = "response_body"
+	// CreateInputSystemByPackPaginationTypeResponseHeader Response Header Attribute
+	CreateInputSystemByPackPaginationTypeResponseHeader CreateInputSystemByPackPaginationType = "response_header"
+	// CreateInputSystemByPackPaginationTypeResponseHeaderLink RFC 5988 Link Header
+	CreateInputSystemByPackPaginationTypeResponseHeaderLink CreateInputSystemByPackPaginationType = "response_header_link"
 )
 
-func (e CreateInputPaginationType) ToPointer() *CreateInputPaginationType {
+func (e CreateInputSystemByPackPaginationType) ToPointer() *CreateInputSystemByPackPaginationType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputPaginationType) IsExact() bool {
+func (e *CreateInputSystemByPackPaginationType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "response_body", "response_header", "response_header_link":
@@ -3515,23 +3992,23 @@ func (e *CreateInputPaginationType) IsExact() bool {
 	return false
 }
 
-// CreateInputContentConfigLogLevel - Collector runtime log level.
-type CreateInputContentConfigLogLevel string
+// CreateInputSystemByPackContentConfigLogLevel - Collector runtime log level.
+type CreateInputSystemByPackContentConfigLogLevel string
 
 const (
-	CreateInputContentConfigLogLevelError CreateInputContentConfigLogLevel = "error"
-	CreateInputContentConfigLogLevelWarn  CreateInputContentConfigLogLevel = "warn"
-	CreateInputContentConfigLogLevelInfo  CreateInputContentConfigLogLevel = "info"
-	CreateInputContentConfigLogLevelDebug CreateInputContentConfigLogLevel = "debug"
-	CreateInputContentConfigLogLevelSilly CreateInputContentConfigLogLevel = "silly"
+	CreateInputSystemByPackContentConfigLogLevelError CreateInputSystemByPackContentConfigLogLevel = "error"
+	CreateInputSystemByPackContentConfigLogLevelWarn  CreateInputSystemByPackContentConfigLogLevel = "warn"
+	CreateInputSystemByPackContentConfigLogLevelInfo  CreateInputSystemByPackContentConfigLogLevel = "info"
+	CreateInputSystemByPackContentConfigLogLevelDebug CreateInputSystemByPackContentConfigLogLevel = "debug"
+	CreateInputSystemByPackContentConfigLogLevelSilly CreateInputSystemByPackContentConfigLogLevel = "silly"
 )
 
-func (e CreateInputContentConfigLogLevel) ToPointer() *CreateInputContentConfigLogLevel {
+func (e CreateInputSystemByPackContentConfigLogLevel) ToPointer() *CreateInputSystemByPackContentConfigLogLevel {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputContentConfigLogLevel) IsExact() bool {
+func (e *CreateInputSystemByPackContentConfigLogLevel) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "error", "warn", "info", "debug", "silly":
@@ -3541,18 +4018,18 @@ func (e *CreateInputContentConfigLogLevel) IsExact() bool {
 	return false
 }
 
-type CreateInputContentConfigInput struct {
+type CreateInputSystemByPackContentConfigInput struct {
 	Disabled *bool `json:"disabled,omitzero"`
 	// Track collection progress between consecutive scheduled executions.
 	StateTracking *bool `json:"stateTracking,omitzero"`
 	// JavaScript expression that defines how to update the state from an event
 	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
 	// JavaScript expression that defines which state to keep when merging task state
-	StateMergeExpression *string                       `json:"stateMergeExpression,omitzero"`
-	ManageState          *CreateInputManageStateOpenai `json:"manageState,omitzero"`
+	StateMergeExpression *string                                   `json:"stateMergeExpression,omitzero"`
+	ManageState          *CreateInputSystemByPackManageStateOpenai `json:"manageState,omitzero"`
 	// Query-string parameters to send with this endpoint
 	RequestParams          []components.ItemsTypeContentConfigItemsRequestParams `json:"requestParams"`
-	PaginationType         CreateInputPaginationType                             `json:"paginationType"`
+	PaginationType         CreateInputSystemByPackPaginationType                 `json:"paginationType"`
 	PaginationAttribute    []string                                              `json:"paginationAttribute,omitzero"`
 	PaginationLastPageExpr *string                                               `json:"paginationLastPageExpr,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Set to 0 only when unlimited pagination is required.
@@ -3570,153 +4047,153 @@ type CreateInputContentConfigInput struct {
 	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
 	JobTimeout *string `json:"jobTimeout,omitzero"`
 	// Collector runtime log level.
-	LogLevel *CreateInputContentConfigLogLevel `json:"logLevel,omitzero"`
+	LogLevel *CreateInputSystemByPackContentConfigLogLevel `json:"logLevel,omitzero"`
 	// Fields automatically added to events from this Content Type
 	EndpointMetadata []components.ItemsTypeMetadata `json:"endpointMetadata,omitzero"`
 }
 
-func (c CreateInputContentConfigInput) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackContentConfigInput) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputContentConfigInput) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackContentConfigInput) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputContentConfigInput) GetDisabled() *bool {
+func (c *CreateInputSystemByPackContentConfigInput) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputContentConfigInput) GetStateTracking() *bool {
+func (c *CreateInputSystemByPackContentConfigInput) GetStateTracking() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.StateTracking
 }
 
-func (c *CreateInputContentConfigInput) GetStateUpdateExpression() *string {
+func (c *CreateInputSystemByPackContentConfigInput) GetStateUpdateExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.StateUpdateExpression
 }
 
-func (c *CreateInputContentConfigInput) GetStateMergeExpression() *string {
+func (c *CreateInputSystemByPackContentConfigInput) GetStateMergeExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.StateMergeExpression
 }
 
-func (c *CreateInputContentConfigInput) GetManageState() *CreateInputManageStateOpenai {
+func (c *CreateInputSystemByPackContentConfigInput) GetManageState() *CreateInputSystemByPackManageStateOpenai {
 	if c == nil {
 		return nil
 	}
 	return c.ManageState
 }
 
-func (c *CreateInputContentConfigInput) GetRequestParams() []components.ItemsTypeContentConfigItemsRequestParams {
+func (c *CreateInputSystemByPackContentConfigInput) GetRequestParams() []components.ItemsTypeContentConfigItemsRequestParams {
 	if c == nil {
 		return []components.ItemsTypeContentConfigItemsRequestParams{}
 	}
 	return c.RequestParams
 }
 
-func (c *CreateInputContentConfigInput) GetPaginationType() CreateInputPaginationType {
+func (c *CreateInputSystemByPackContentConfigInput) GetPaginationType() CreateInputSystemByPackPaginationType {
 	if c == nil {
-		return CreateInputPaginationType("")
+		return CreateInputSystemByPackPaginationType("")
 	}
 	return c.PaginationType
 }
 
-func (c *CreateInputContentConfigInput) GetPaginationAttribute() []string {
+func (c *CreateInputSystemByPackContentConfigInput) GetPaginationAttribute() []string {
 	if c == nil {
 		return nil
 	}
 	return c.PaginationAttribute
 }
 
-func (c *CreateInputContentConfigInput) GetPaginationLastPageExpr() *string {
+func (c *CreateInputSystemByPackContentConfigInput) GetPaginationLastPageExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PaginationLastPageExpr
 }
 
-func (c *CreateInputContentConfigInput) GetMaxPages() *float64 {
+func (c *CreateInputSystemByPackContentConfigInput) GetMaxPages() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPages
 }
 
-func (c *CreateInputContentConfigInput) GetPaginationNextRelationAttribute() *string {
+func (c *CreateInputSystemByPackContentConfigInput) GetPaginationNextRelationAttribute() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PaginationNextRelationAttribute
 }
 
-func (c *CreateInputContentConfigInput) GetPaginationCurRelationAttribute() *string {
+func (c *CreateInputSystemByPackContentConfigInput) GetPaginationCurRelationAttribute() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PaginationCurRelationAttribute
 }
 
-func (c *CreateInputContentConfigInput) GetCronSchedule() string {
+func (c *CreateInputSystemByPackContentConfigInput) GetCronSchedule() string {
 	if c == nil {
 		return ""
 	}
 	return c.CronSchedule
 }
 
-func (c *CreateInputContentConfigInput) GetEarliest() string {
+func (c *CreateInputSystemByPackContentConfigInput) GetEarliest() string {
 	if c == nil {
 		return ""
 	}
 	return c.Earliest
 }
 
-func (c *CreateInputContentConfigInput) GetLatest() string {
+func (c *CreateInputSystemByPackContentConfigInput) GetLatest() string {
 	if c == nil {
 		return ""
 	}
 	return c.Latest
 }
 
-func (c *CreateInputContentConfigInput) GetJobTimeout() *string {
+func (c *CreateInputSystemByPackContentConfigInput) GetJobTimeout() *string {
 	if c == nil {
 		return nil
 	}
 	return c.JobTimeout
 }
 
-func (c *CreateInputContentConfigInput) GetLogLevel() *CreateInputContentConfigLogLevel {
+func (c *CreateInputSystemByPackContentConfigInput) GetLogLevel() *CreateInputSystemByPackContentConfigLogLevel {
 	if c == nil {
 		return nil
 	}
 	return c.LogLevel
 }
 
-func (c *CreateInputContentConfigInput) GetEndpointMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackContentConfigInput) GetEndpointMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.EndpointMetadata
 }
 
-type CreateInputInputOpenai struct {
+type CreateInputSystemByPackInputOpenai struct {
 	// Unique ID for this input
-	ID       string                `json:"id"`
-	Type     CreateInputTypeOpenai `json:"type"`
-	Disabled *bool                 `json:"disabled,omitzero"`
+	ID       string                            `json:"id"`
+	Type     CreateInputSystemByPackTypeOpenai `json:"type"`
+	Disabled *bool                             `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -3733,8 +4210,8 @@ type CreateInputInputOpenai struct {
 	// Optional `OpenAI-Organization` request header value, typically `org-xxxxxxxxxxxxxxxxxxxxxxxx`
 	OpenaiOrganization *string `json:"openaiOrganization,omitzero"`
 	// Optional `OpenAI-Project` request header value, typically `proj_xxxxxxxxxxxxxxxxxxxxxxxx`
-	OpenaiProject *string                         `json:"openaiProject,omitzero"`
-	ContentConfig []CreateInputContentConfigInput `json:"contentConfig"`
+	OpenaiProject *string                                     `json:"openaiProject,omitzero"`
+	ContentConfig []CreateInputSystemByPackContentConfigInput `json:"contentConfig"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	APIKey         *string  `json:"apiKey,omitzero"`
@@ -3754,243 +4231,252 @@ type CreateInputInputOpenai struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'openaiOrganization' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'openaiOrganization' at runtime.
 	TemplateOpenaiOrganization *string `json:"__template_openaiOrganization,omitzero"`
 	// Binds 'openaiProject' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'openaiProject' at runtime.
 	TemplateOpenaiProject *string `json:"__template_openaiProject,omitzero"`
 }
 
-func (c CreateInputInputOpenai) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputOpenai) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputOpenai) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputOpenai) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputOpenai) GetID() string {
+func (c *CreateInputSystemByPackInputOpenai) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputOpenai) GetType() CreateInputTypeOpenai {
+func (c *CreateInputSystemByPackInputOpenai) GetType() CreateInputSystemByPackTypeOpenai {
 	if c == nil {
-		return CreateInputTypeOpenai("")
+		return CreateInputSystemByPackTypeOpenai("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputOpenai) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputOpenai) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputOpenai) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputOpenai) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputOpenai) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputOpenai) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputOpenai) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputOpenai) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputOpenai) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputOpenai) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputOpenai) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputOpenai) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputOpenai) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputOpenai) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputOpenai) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputOpenai) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputOpenai) GetOpenaiOrganization() *string {
+func (c *CreateInputSystemByPackInputOpenai) GetOpenaiOrganization() *string {
 	if c == nil {
 		return nil
 	}
 	return c.OpenaiOrganization
 }
 
-func (c *CreateInputInputOpenai) GetOpenaiProject() *string {
+func (c *CreateInputSystemByPackInputOpenai) GetOpenaiProject() *string {
 	if c == nil {
 		return nil
 	}
 	return c.OpenaiProject
 }
 
-func (c *CreateInputInputOpenai) GetContentConfig() []CreateInputContentConfigInput {
+func (c *CreateInputSystemByPackInputOpenai) GetContentConfig() []CreateInputSystemByPackContentConfigInput {
 	if c == nil {
-		return []CreateInputContentConfigInput{}
+		return []CreateInputSystemByPackContentConfigInput{}
 	}
 	return c.ContentConfig
 }
 
-func (c *CreateInputInputOpenai) GetRequestTimeout() *float64 {
+func (c *CreateInputSystemByPackInputOpenai) GetRequestTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.RequestTimeout
 }
 
-func (c *CreateInputInputOpenai) GetAPIKey() *string {
+func (c *CreateInputSystemByPackInputOpenai) GetAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.APIKey
 }
 
-func (c *CreateInputInputOpenai) GetTextSecret() string {
+func (c *CreateInputSystemByPackInputOpenai) GetTextSecret() string {
 	if c == nil {
 		return ""
 	}
 	return c.TextSecret
 }
 
-func (c *CreateInputInputOpenai) GetKeepAliveTime() *float64 {
+func (c *CreateInputSystemByPackInputOpenai) GetKeepAliveTime() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAliveTime
 }
 
-func (c *CreateInputInputOpenai) GetMaxMissedKeepAlives() *float64 {
+func (c *CreateInputSystemByPackInputOpenai) GetMaxMissedKeepAlives() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxMissedKeepAlives
 }
 
-func (c *CreateInputInputOpenai) GetTTL() *string {
+func (c *CreateInputSystemByPackInputOpenai) GetTTL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TTL
 }
 
-func (c *CreateInputInputOpenai) GetIgnoreGroupJobsLimit() *bool {
+func (c *CreateInputSystemByPackInputOpenai) GetIgnoreGroupJobsLimit() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputOpenai) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputOpenai) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputOpenai) GetRetryRules() *components.RetryRulesType {
+func (c *CreateInputSystemByPackInputOpenai) GetRetryRules() *components.RetryRulesType {
 	if c == nil {
 		return nil
 	}
 	return c.RetryRules
 }
 
-func (c *CreateInputInputOpenai) GetDescription() *string {
+func (c *CreateInputSystemByPackInputOpenai) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputOpenai) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputOpenai) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputOpenai) GetTemplateOpenaiOrganization() *string {
+func (c *CreateInputSystemByPackInputOpenai) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputOpenai) GetTemplateOpenaiOrganization() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOpenaiOrganization
 }
 
-func (c *CreateInputInputOpenai) GetTemplateOpenaiProject() *string {
+func (c *CreateInputSystemByPackInputOpenai) GetTemplateOpenaiProject() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOpenaiProject
 }
 
-type CreateInputTypeWiz string
+type CreateInputSystemByPackTypeWiz string
 
 const (
-	CreateInputTypeWizWiz CreateInputTypeWiz = "wiz"
+	CreateInputSystemByPackTypeWizWiz CreateInputSystemByPackTypeWiz = "wiz"
 )
 
-func (e CreateInputTypeWiz) ToPointer() *CreateInputTypeWiz {
+func (e CreateInputSystemByPackTypeWiz) ToPointer() *CreateInputSystemByPackTypeWiz {
 	return &e
 }
-func (e *CreateInputTypeWiz) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeWiz) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "wiz":
-		*e = CreateInputTypeWiz(v)
+		*e = CreateInputSystemByPackTypeWiz(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeWiz: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeWiz: %v", v)
 	}
 }
 
-type CreateInputManageStateWiz struct {
+type CreateInputSystemByPackManageStateWiz struct {
 }
 
-func (c CreateInputManageStateWiz) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackManageStateWiz) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputManageStateWiz) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackManageStateWiz) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateInputContentConfigWiz struct {
+type CreateInputSystemByPackContentConfigWiz struct {
 	// The name of the Wiz query
 	ContentType        string  `json:"contentType"`
 	ContentDescription *string `json:"contentDescription,omitzero"`
@@ -4000,8 +4486,8 @@ type CreateInputContentConfigWiz struct {
 	// JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
 	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
 	// JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
-	StateMergeExpression *string                    `json:"stateMergeExpression,omitzero"`
-	ManageState          *CreateInputManageStateWiz `json:"manageState,omitzero"`
+	StateMergeExpression *string                                `json:"stateMergeExpression,omitzero"`
+	ManageState          *CreateInputSystemByPackManageStateWiz `json:"manageState,omitzero"`
 	// Template for POST body to send with the Collect request. Reference global variables, or functions using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`.
 	ContentQuery string `json:"contentQuery"`
 	// A cron schedule on which to run this job
@@ -4018,120 +4504,120 @@ type CreateInputContentConfigWiz struct {
 	MaxPages *float64 `json:"maxPages,omitzero"`
 }
 
-func (c CreateInputContentConfigWiz) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackContentConfigWiz) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputContentConfigWiz) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackContentConfigWiz) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputContentConfigWiz) GetContentType() string {
+func (c *CreateInputSystemByPackContentConfigWiz) GetContentType() string {
 	if c == nil {
 		return ""
 	}
 	return c.ContentType
 }
 
-func (c *CreateInputContentConfigWiz) GetContentDescription() *string {
+func (c *CreateInputSystemByPackContentConfigWiz) GetContentDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ContentDescription
 }
 
-func (c *CreateInputContentConfigWiz) GetEnabled() *bool {
+func (c *CreateInputSystemByPackContentConfigWiz) GetEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enabled
 }
 
-func (c *CreateInputContentConfigWiz) GetStateTracking() *bool {
+func (c *CreateInputSystemByPackContentConfigWiz) GetStateTracking() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.StateTracking
 }
 
-func (c *CreateInputContentConfigWiz) GetStateUpdateExpression() *string {
+func (c *CreateInputSystemByPackContentConfigWiz) GetStateUpdateExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.StateUpdateExpression
 }
 
-func (c *CreateInputContentConfigWiz) GetStateMergeExpression() *string {
+func (c *CreateInputSystemByPackContentConfigWiz) GetStateMergeExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.StateMergeExpression
 }
 
-func (c *CreateInputContentConfigWiz) GetManageState() *CreateInputManageStateWiz {
+func (c *CreateInputSystemByPackContentConfigWiz) GetManageState() *CreateInputSystemByPackManageStateWiz {
 	if c == nil {
 		return nil
 	}
 	return c.ManageState
 }
 
-func (c *CreateInputContentConfigWiz) GetContentQuery() string {
+func (c *CreateInputSystemByPackContentConfigWiz) GetContentQuery() string {
 	if c == nil {
 		return ""
 	}
 	return c.ContentQuery
 }
 
-func (c *CreateInputContentConfigWiz) GetCronSchedule() string {
+func (c *CreateInputSystemByPackContentConfigWiz) GetCronSchedule() string {
 	if c == nil {
 		return ""
 	}
 	return c.CronSchedule
 }
 
-func (c *CreateInputContentConfigWiz) GetEarliest() string {
+func (c *CreateInputSystemByPackContentConfigWiz) GetEarliest() string {
 	if c == nil {
 		return ""
 	}
 	return c.Earliest
 }
 
-func (c *CreateInputContentConfigWiz) GetLatest() string {
+func (c *CreateInputSystemByPackContentConfigWiz) GetLatest() string {
 	if c == nil {
 		return ""
 	}
 	return c.Latest
 }
 
-func (c *CreateInputContentConfigWiz) GetJobTimeout() *string {
+func (c *CreateInputSystemByPackContentConfigWiz) GetJobTimeout() *string {
 	if c == nil {
 		return nil
 	}
 	return c.JobTimeout
 }
 
-func (c *CreateInputContentConfigWiz) GetLogLevel() *components.LogLevelOptionsContentConfigItemsDebugError {
+func (c *CreateInputSystemByPackContentConfigWiz) GetLogLevel() *components.LogLevelOptionsContentConfigItemsDebugError {
 	if c == nil {
 		return nil
 	}
 	return c.LogLevel
 }
 
-func (c *CreateInputContentConfigWiz) GetMaxPages() *float64 {
+func (c *CreateInputSystemByPackContentConfigWiz) GetMaxPages() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPages
 }
 
-type CreateInputInputWiz struct {
+type CreateInputSystemByPackInputWiz struct {
 	// Unique ID for this input
-	ID       string             `json:"id"`
-	Type     CreateInputTypeWiz `json:"type"`
-	Disabled *bool              `json:"disabled,omitzero"`
+	ID       string                         `json:"id"`
+	Type     CreateInputSystemByPackTypeWiz `json:"type"`
+	Disabled *bool                          `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -4152,8 +4638,8 @@ type CreateInputInputWiz struct {
 	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
 	AuthAudienceOverride *string `json:"authAudienceOverride,omitzero"`
 	// The client ID of the Wiz application
-	ClientID      string                        `json:"clientId"`
-	ContentConfig []CreateInputContentConfigWiz `json:"contentConfig"`
+	ClientID      string                                    `json:"clientId"`
+	ContentConfig []CreateInputSystemByPackContentConfigWiz `json:"contentConfig"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
@@ -4180,6 +4666,8 @@ type CreateInputInputWiz struct {
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'authUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authUrl' at runtime.
@@ -4188,301 +4676,308 @@ type CreateInputInputWiz struct {
 	TemplateClientID *string `json:"__template_clientId,omitzero"`
 }
 
-func (c CreateInputInputWiz) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputWiz) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputWiz) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputWiz) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputWiz) GetID() string {
+func (c *CreateInputSystemByPackInputWiz) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputWiz) GetType() CreateInputTypeWiz {
+func (c *CreateInputSystemByPackInputWiz) GetType() CreateInputSystemByPackTypeWiz {
 	if c == nil {
-		return CreateInputTypeWiz("")
+		return CreateInputSystemByPackTypeWiz("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputWiz) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputWiz) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputWiz) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputWiz) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputWiz) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputWiz) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputWiz) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputWiz) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputWiz) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputWiz) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputWiz) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputWiz) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputWiz) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputWiz) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputWiz) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputWiz) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputWiz) GetEndpoint() string {
+func (c *CreateInputSystemByPackInputWiz) GetEndpoint() string {
 	if c == nil {
 		return ""
 	}
 	return c.Endpoint
 }
 
-func (c *CreateInputInputWiz) GetAuthURL() string {
+func (c *CreateInputSystemByPackInputWiz) GetAuthURL() string {
 	if c == nil {
 		return ""
 	}
 	return c.AuthURL
 }
 
-func (c *CreateInputInputWiz) GetAuthAudienceOverride() *string {
+func (c *CreateInputSystemByPackInputWiz) GetAuthAudienceOverride() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AuthAudienceOverride
 }
 
-func (c *CreateInputInputWiz) GetClientID() string {
+func (c *CreateInputSystemByPackInputWiz) GetClientID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ClientID
 }
 
-func (c *CreateInputInputWiz) GetContentConfig() []CreateInputContentConfigWiz {
+func (c *CreateInputSystemByPackInputWiz) GetContentConfig() []CreateInputSystemByPackContentConfigWiz {
 	if c == nil {
-		return []CreateInputContentConfigWiz{}
+		return []CreateInputSystemByPackContentConfigWiz{}
 	}
 	return c.ContentConfig
 }
 
-func (c *CreateInputInputWiz) GetRequestTimeout() *float64 {
+func (c *CreateInputSystemByPackInputWiz) GetRequestTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.RequestTimeout
 }
 
-func (c *CreateInputInputWiz) GetKeepAliveTime() *float64 {
+func (c *CreateInputSystemByPackInputWiz) GetKeepAliveTime() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAliveTime
 }
 
-func (c *CreateInputInputWiz) GetMaxMissedKeepAlives() *float64 {
+func (c *CreateInputSystemByPackInputWiz) GetMaxMissedKeepAlives() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxMissedKeepAlives
 }
 
-func (c *CreateInputInputWiz) GetTTL() *string {
+func (c *CreateInputSystemByPackInputWiz) GetTTL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TTL
 }
 
-func (c *CreateInputInputWiz) GetIgnoreGroupJobsLimit() *bool {
+func (c *CreateInputSystemByPackInputWiz) GetIgnoreGroupJobsLimit() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputWiz) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputWiz) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputWiz) GetBreakerRulesets() []string {
+func (c *CreateInputSystemByPackInputWiz) GetBreakerRulesets() []string {
 	if c == nil {
 		return nil
 	}
 	return c.BreakerRulesets
 }
 
-func (c *CreateInputInputWiz) GetStaleChannelFlushMs() *float64 {
+func (c *CreateInputSystemByPackInputWiz) GetStaleChannelFlushMs() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputWiz) GetRetryRules() *components.RetryRulesType {
+func (c *CreateInputSystemByPackInputWiz) GetRetryRules() *components.RetryRulesType {
 	if c == nil {
 		return nil
 	}
 	return c.RetryRules
 }
 
-func (c *CreateInputInputWiz) GetAuthType() *components.AuthenticationMethodOptionsManualSecret {
+func (c *CreateInputSystemByPackInputWiz) GetAuthType() *components.AuthenticationMethodOptionsManualSecret {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateInputInputWiz) GetDescription() *string {
+func (c *CreateInputSystemByPackInputWiz) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputWiz) GetClientSecret() *string {
+func (c *CreateInputSystemByPackInputWiz) GetClientSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ClientSecret
 }
 
-func (c *CreateInputInputWiz) GetTextSecret() *string {
+func (c *CreateInputSystemByPackInputWiz) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateInputInputWiz) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputWiz) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputWiz) GetTemplateEndpoint() *string {
+func (c *CreateInputSystemByPackInputWiz) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputWiz) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateInputInputWiz) GetTemplateAuthURL() *string {
+func (c *CreateInputSystemByPackInputWiz) GetTemplateAuthURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAuthURL
 }
 
-func (c *CreateInputInputWiz) GetTemplateClientID() *string {
+func (c *CreateInputSystemByPackInputWiz) GetTemplateClientID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateClientID
 }
 
-type CreateInputInputJournalFilesType string
+type CreateInputSystemByPackInputJournalFilesType string
 
 const (
-	CreateInputInputJournalFilesTypeJournalFiles CreateInputInputJournalFilesType = "journal_files"
+	CreateInputSystemByPackInputJournalFilesTypeJournalFiles CreateInputSystemByPackInputJournalFilesType = "journal_files"
 )
 
-func (e CreateInputInputJournalFilesType) ToPointer() *CreateInputInputJournalFilesType {
+func (e CreateInputSystemByPackInputJournalFilesType) ToPointer() *CreateInputSystemByPackInputJournalFilesType {
 	return &e
 }
-func (e *CreateInputInputJournalFilesType) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackInputJournalFilesType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "journal_files":
-		*e = CreateInputInputJournalFilesType(v)
+		*e = CreateInputSystemByPackInputJournalFilesType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputInputJournalFilesType: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackInputJournalFilesType: %v", v)
 	}
 }
 
-type CreateInputInputJournalFilesRule struct {
+type CreateInputSystemByPackInputJournalFilesRule struct {
 	// JavaScript expression applied to Journal objects. Return 'true' to include it.
 	Filter string `json:"filter"`
 	// Optional description of this rule's purpose
 	Description *string `json:"description,omitzero"`
 }
 
-func (c CreateInputInputJournalFilesRule) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputJournalFilesRule) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputJournalFilesRule) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputJournalFilesRule) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputJournalFilesRule) GetFilter() string {
+func (c *CreateInputSystemByPackInputJournalFilesRule) GetFilter() string {
 	if c == nil {
 		return ""
 	}
 	return c.Filter
 }
 
-func (c *CreateInputInputJournalFilesRule) GetDescription() *string {
+func (c *CreateInputSystemByPackInputJournalFilesRule) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-type CreateInputInputJournalFiles struct {
+type CreateInputSystemByPackInputJournalFiles struct {
 	// Unique ID for this input
-	ID       string                           `json:"id"`
-	Type     CreateInputInputJournalFilesType `json:"type"`
-	Disabled *bool                            `json:"disabled,omitzero"`
+	ID       string                                       `json:"id"`
+	Type     CreateInputSystemByPackInputJournalFilesType `json:"type"`
+	Disabled *bool                                        `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -4503,7 +4998,7 @@ type CreateInputInputJournalFiles struct {
 	// The full path of discovered journals are matched against this wildcard list.
 	Journals []string `json:"journals"`
 	// Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
-	Rules []CreateInputInputJournalFilesRule `json:"rules,omitzero"`
+	Rules []CreateInputSystemByPackInputJournalFilesRule `json:"rules,omitzero"`
 	// Skip log messages that are not part of the current boot session.
 	CurrentBoot *bool `json:"currentBoot,omitzero"`
 	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
@@ -4514,187 +5009,196 @@ type CreateInputInputJournalFiles struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
-func (c CreateInputInputJournalFiles) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputJournalFiles) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputJournalFiles) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputJournalFiles) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputJournalFiles) GetID() string {
+func (c *CreateInputSystemByPackInputJournalFiles) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputJournalFiles) GetType() CreateInputInputJournalFilesType {
+func (c *CreateInputSystemByPackInputJournalFiles) GetType() CreateInputSystemByPackInputJournalFilesType {
 	if c == nil {
-		return CreateInputInputJournalFilesType("")
+		return CreateInputSystemByPackInputJournalFilesType("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputJournalFiles) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputJournalFiles) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputJournalFiles) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputJournalFiles) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputJournalFiles) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputJournalFiles) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputJournalFiles) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputJournalFiles) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputJournalFiles) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputJournalFiles) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputJournalFiles) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputJournalFiles) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputJournalFiles) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputJournalFiles) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputJournalFiles) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputJournalFiles) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputJournalFiles) GetPath() string {
+func (c *CreateInputSystemByPackInputJournalFiles) GetPath() string {
 	if c == nil {
 		return ""
 	}
 	return c.Path
 }
 
-func (c *CreateInputInputJournalFiles) GetInterval() *float64 {
+func (c *CreateInputSystemByPackInputJournalFiles) GetInterval() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Interval
 }
 
-func (c *CreateInputInputJournalFiles) GetJournals() []string {
+func (c *CreateInputSystemByPackInputJournalFiles) GetJournals() []string {
 	if c == nil {
 		return []string{}
 	}
 	return c.Journals
 }
 
-func (c *CreateInputInputJournalFiles) GetRules() []CreateInputInputJournalFilesRule {
+func (c *CreateInputSystemByPackInputJournalFiles) GetRules() []CreateInputSystemByPackInputJournalFilesRule {
 	if c == nil {
 		return nil
 	}
 	return c.Rules
 }
 
-func (c *CreateInputInputJournalFiles) GetCurrentBoot() *bool {
+func (c *CreateInputSystemByPackInputJournalFiles) GetCurrentBoot() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.CurrentBoot
 }
 
-func (c *CreateInputInputJournalFiles) GetMaxAgeDur() *string {
+func (c *CreateInputSystemByPackInputJournalFiles) GetMaxAgeDur() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MaxAgeDur
 }
 
-func (c *CreateInputInputJournalFiles) GetSuppressMissingPathErrors() *bool {
+func (c *CreateInputSystemByPackInputJournalFiles) GetSuppressMissingPathErrors() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SuppressMissingPathErrors
 }
 
-func (c *CreateInputInputJournalFiles) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputJournalFiles) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputJournalFiles) GetDescription() *string {
+func (c *CreateInputSystemByPackInputJournalFiles) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputJournalFiles) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputJournalFiles) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-type CreateInputTypeRawUDP string
+func (c *CreateInputSystemByPackInputJournalFiles) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+type CreateInputSystemByPackTypeRawUDP string
 
 const (
-	CreateInputTypeRawUDPRawUDP CreateInputTypeRawUDP = "raw_udp"
+	CreateInputSystemByPackTypeRawUDPRawUDP CreateInputSystemByPackTypeRawUDP = "raw_udp"
 )
 
-func (e CreateInputTypeRawUDP) ToPointer() *CreateInputTypeRawUDP {
+func (e CreateInputSystemByPackTypeRawUDP) ToPointer() *CreateInputSystemByPackTypeRawUDP {
 	return &e
 }
-func (e *CreateInputTypeRawUDP) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeRawUDP) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "raw_udp":
-		*e = CreateInputTypeRawUDP(v)
+		*e = CreateInputSystemByPackTypeRawUDP(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeRawUDP: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeRawUDP: %v", v)
 	}
 }
 
-type CreateInputInputRawUDP struct {
+type CreateInputSystemByPackInputRawUDP struct {
 	// Unique ID for this input
-	ID       string                `json:"id"`
-	Type     CreateInputTypeRawUDP `json:"type"`
-	Disabled *bool                 `json:"disabled,omitzero"`
+	ID       string                            `json:"id"`
+	Type     CreateInputSystemByPackTypeRawUDP `json:"type"`
+	Disabled *bool                             `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -4727,216 +5231,225 @@ type CreateInputInputRawUDP struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (c CreateInputInputRawUDP) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputRawUDP) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputRawUDP) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputRawUDP) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputRawUDP) GetID() string {
+func (c *CreateInputSystemByPackInputRawUDP) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputRawUDP) GetType() CreateInputTypeRawUDP {
+func (c *CreateInputSystemByPackInputRawUDP) GetType() CreateInputSystemByPackTypeRawUDP {
 	if c == nil {
-		return CreateInputTypeRawUDP("")
+		return CreateInputSystemByPackTypeRawUDP("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputRawUDP) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputRawUDP) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputRawUDP) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputRawUDP) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputRawUDP) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputRawUDP) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputRawUDP) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputRawUDP) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputRawUDP) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputRawUDP) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputRawUDP) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputRawUDP) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputRawUDP) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputRawUDP) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputRawUDP) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputRawUDP) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputRawUDP) GetHost() string {
+func (c *CreateInputSystemByPackInputRawUDP) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputRawUDP) GetPort() float64 {
+func (c *CreateInputSystemByPackInputRawUDP) GetPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.Port
 }
 
-func (c *CreateInputInputRawUDP) GetMaxBufferSize() *float64 {
+func (c *CreateInputSystemByPackInputRawUDP) GetMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxBufferSize
 }
 
-func (c *CreateInputInputRawUDP) GetIPWhitelistRegex() *string {
+func (c *CreateInputSystemByPackInputRawUDP) GetIPWhitelistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPWhitelistRegex
 }
 
-func (c *CreateInputInputRawUDP) GetSingleMsgUDPPackets() *bool {
+func (c *CreateInputSystemByPackInputRawUDP) GetSingleMsgUDPPackets() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SingleMsgUDPPackets
 }
 
-func (c *CreateInputInputRawUDP) GetIngestRawBytes() *bool {
+func (c *CreateInputSystemByPackInputRawUDP) GetIngestRawBytes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.IngestRawBytes
 }
 
-func (c *CreateInputInputRawUDP) GetUDPSocketRxBufSize() *float64 {
+func (c *CreateInputSystemByPackInputRawUDP) GetUDPSocketRxBufSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.UDPSocketRxBufSize
 }
 
-func (c *CreateInputInputRawUDP) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputRawUDP) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputRawUDP) GetDescription() *string {
+func (c *CreateInputSystemByPackInputRawUDP) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputRawUDP) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputRawUDP) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputRawUDP) GetTemplateHost() *string {
+func (c *CreateInputSystemByPackInputRawUDP) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputRawUDP) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateInputInputRawUDP) GetTemplatePort() *string {
+func (c *CreateInputSystemByPackInputRawUDP) GetTemplatePort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePort
 }
 
-type CreateInputTypeWinEventLogs string
+type CreateInputSystemByPackTypeWinEventLogs string
 
 const (
-	CreateInputTypeWinEventLogsWinEventLogs CreateInputTypeWinEventLogs = "win_event_logs"
+	CreateInputSystemByPackTypeWinEventLogsWinEventLogs CreateInputSystemByPackTypeWinEventLogs = "win_event_logs"
 )
 
-func (e CreateInputTypeWinEventLogs) ToPointer() *CreateInputTypeWinEventLogs {
+func (e CreateInputSystemByPackTypeWinEventLogs) ToPointer() *CreateInputSystemByPackTypeWinEventLogs {
 	return &e
 }
-func (e *CreateInputTypeWinEventLogs) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeWinEventLogs) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "win_event_logs":
-		*e = CreateInputTypeWinEventLogs(v)
+		*e = CreateInputSystemByPackTypeWinEventLogs(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeWinEventLogs: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeWinEventLogs: %v", v)
 	}
 }
 
-// CreateInputReadMode - Read all stored and future event logs, or only future events
-type CreateInputReadMode string
+// CreateInputSystemByPackReadMode - Read all stored and future event logs, or only future events
+type CreateInputSystemByPackReadMode string
 
 const (
-	// CreateInputReadModeOldest Entire log
-	CreateInputReadModeOldest CreateInputReadMode = "oldest"
-	// CreateInputReadModeNewest From last entry
-	CreateInputReadModeNewest CreateInputReadMode = "newest"
+	// CreateInputSystemByPackReadModeOldest Entire log
+	CreateInputSystemByPackReadModeOldest CreateInputSystemByPackReadMode = "oldest"
+	// CreateInputSystemByPackReadModeNewest From last entry
+	CreateInputSystemByPackReadModeNewest CreateInputSystemByPackReadMode = "newest"
 )
 
-func (e CreateInputReadMode) ToPointer() *CreateInputReadMode {
+func (e CreateInputSystemByPackReadMode) ToPointer() *CreateInputSystemByPackReadMode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputReadMode) IsExact() bool {
+func (e *CreateInputSystemByPackReadMode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "oldest", "newest":
@@ -4946,22 +5459,22 @@ func (e *CreateInputReadMode) IsExact() bool {
 	return false
 }
 
-// CreateInputEventFormat - Format of individual events
-type CreateInputEventFormat string
+// CreateInputSystemByPackEventFormat - Format of individual events
+type CreateInputSystemByPackEventFormat string
 
 const (
-	// CreateInputEventFormatJSON JSON
-	CreateInputEventFormatJSON CreateInputEventFormat = "json"
-	// CreateInputEventFormatXML XML
-	CreateInputEventFormatXML CreateInputEventFormat = "xml"
+	// CreateInputSystemByPackEventFormatJSON JSON
+	CreateInputSystemByPackEventFormatJSON CreateInputSystemByPackEventFormat = "json"
+	// CreateInputSystemByPackEventFormatXML XML
+	CreateInputSystemByPackEventFormatXML CreateInputSystemByPackEventFormat = "xml"
 )
 
-func (e CreateInputEventFormat) ToPointer() *CreateInputEventFormat {
+func (e CreateInputSystemByPackEventFormat) ToPointer() *CreateInputSystemByPackEventFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputEventFormat) IsExact() bool {
+func (e *CreateInputSystemByPackEventFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "json", "xml":
@@ -4971,11 +5484,11 @@ func (e *CreateInputEventFormat) IsExact() bool {
 	return false
 }
 
-type CreateInputInputWinEventLogs struct {
+type CreateInputSystemByPackInputWinEventLogs struct {
 	// Unique ID for this input
-	ID       string                      `json:"id"`
-	Type     CreateInputTypeWinEventLogs `json:"type"`
-	Disabled *bool                       `json:"disabled,omitzero"`
+	ID       string                                  `json:"id"`
+	Type     CreateInputSystemByPackTypeWinEventLogs `json:"type"`
+	Disabled *bool                                   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -4992,9 +5505,9 @@ type CreateInputInputWinEventLogs struct {
 	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
 	LogNames []string `json:"logNames"`
 	// Read all stored and future event logs, or only future events
-	ReadMode *CreateInputReadMode `json:"readMode,omitzero"`
+	ReadMode *CreateInputSystemByPackReadMode `json:"readMode,omitzero"`
 	// Format of individual events
-	EventFormat *CreateInputEventFormat `json:"eventFormat,omitzero"`
+	EventFormat *CreateInputSystemByPackEventFormat `json:"eventFormat,omitzero"`
 	// Enable to use built-in tools (PowerShell for JSON, wevtutil for XML) to collect event logs instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-event-logs/#advanced-settings)
 	DisableNativeModule *bool `json:"disableNativeModule,omitzero"`
 	// Time, in seconds, between checking for new entries (Applicable for pre-4.8.0 nodes that use Windows Tools)
@@ -5012,212 +5525,221 @@ type CreateInputInputWinEventLogs struct {
 	DisableXMLRendering *bool `json:"disableXmlRendering,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
-func (c CreateInputInputWinEventLogs) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputWinEventLogs) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputWinEventLogs) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputWinEventLogs) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputWinEventLogs) GetID() string {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputWinEventLogs) GetType() CreateInputTypeWinEventLogs {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetType() CreateInputSystemByPackTypeWinEventLogs {
 	if c == nil {
-		return CreateInputTypeWinEventLogs("")
+		return CreateInputSystemByPackTypeWinEventLogs("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputWinEventLogs) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputWinEventLogs) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputWinEventLogs) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputWinEventLogs) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputWinEventLogs) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputWinEventLogs) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputWinEventLogs) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputWinEventLogs) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputWinEventLogs) GetLogNames() []string {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetLogNames() []string {
 	if c == nil {
 		return []string{}
 	}
 	return c.LogNames
 }
 
-func (c *CreateInputInputWinEventLogs) GetReadMode() *CreateInputReadMode {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetReadMode() *CreateInputSystemByPackReadMode {
 	if c == nil {
 		return nil
 	}
 	return c.ReadMode
 }
 
-func (c *CreateInputInputWinEventLogs) GetEventFormat() *CreateInputEventFormat {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetEventFormat() *CreateInputSystemByPackEventFormat {
 	if c == nil {
 		return nil
 	}
 	return c.EventFormat
 }
 
-func (c *CreateInputInputWinEventLogs) GetDisableNativeModule() *bool {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetDisableNativeModule() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DisableNativeModule
 }
 
-func (c *CreateInputInputWinEventLogs) GetInterval() *float64 {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetInterval() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Interval
 }
 
-func (c *CreateInputInputWinEventLogs) GetBatchSize() *float64 {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetBatchSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.BatchSize
 }
 
-func (c *CreateInputInputWinEventLogs) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputWinEventLogs) GetMaxEventBytes() *float64 {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetMaxEventBytes() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxEventBytes
 }
 
-func (c *CreateInputInputWinEventLogs) GetDescription() *string {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputWinEventLogs) GetDisableJSONRendering() *bool {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetDisableJSONRendering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DisableJSONRendering
 }
 
-func (c *CreateInputInputWinEventLogs) GetDisableXMLRendering() *bool {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetDisableXMLRendering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DisableXMLRendering
 }
 
-func (c *CreateInputInputWinEventLogs) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputWinEventLogs) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-type CreateInputTypeWef string
+func (c *CreateInputSystemByPackInputWinEventLogs) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+type CreateInputSystemByPackTypeWef string
 
 const (
-	CreateInputTypeWefWef CreateInputTypeWef = "wef"
+	CreateInputSystemByPackTypeWefWef CreateInputSystemByPackTypeWef = "wef"
 )
 
-func (e CreateInputTypeWef) ToPointer() *CreateInputTypeWef {
+func (e CreateInputSystemByPackTypeWef) ToPointer() *CreateInputSystemByPackTypeWef {
 	return &e
 }
-func (e *CreateInputTypeWef) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeWef) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "wef":
-		*e = CreateInputTypeWef(v)
+		*e = CreateInputSystemByPackTypeWef(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeWef: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeWef: %v", v)
 	}
 }
 
-// CreateInputAuthMethodAuthenticationMethod - How to authenticate incoming client connections
-type CreateInputAuthMethodAuthenticationMethod string
+// CreateInputSystemByPackAuthMethodAuthenticationMethod - How to authenticate incoming client connections
+type CreateInputSystemByPackAuthMethodAuthenticationMethod string
 
 const (
-	// CreateInputAuthMethodAuthenticationMethodClientCert Client certificate
-	CreateInputAuthMethodAuthenticationMethodClientCert CreateInputAuthMethodAuthenticationMethod = "clientCert"
-	// CreateInputAuthMethodAuthenticationMethodKerberos Kerberos
-	CreateInputAuthMethodAuthenticationMethodKerberos CreateInputAuthMethodAuthenticationMethod = "kerberos"
+	// CreateInputSystemByPackAuthMethodAuthenticationMethodClientCert Client certificate
+	CreateInputSystemByPackAuthMethodAuthenticationMethodClientCert CreateInputSystemByPackAuthMethodAuthenticationMethod = "clientCert"
+	// CreateInputSystemByPackAuthMethodAuthenticationMethodKerberos Kerberos
+	CreateInputSystemByPackAuthMethodAuthenticationMethodKerberos CreateInputSystemByPackAuthMethodAuthenticationMethod = "kerberos"
 )
 
-func (e CreateInputAuthMethodAuthenticationMethod) ToPointer() *CreateInputAuthMethodAuthenticationMethod {
+func (e CreateInputSystemByPackAuthMethodAuthenticationMethod) ToPointer() *CreateInputSystemByPackAuthMethodAuthenticationMethod {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputAuthMethodAuthenticationMethod) IsExact() bool {
+func (e *CreateInputSystemByPackAuthMethodAuthenticationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "clientCert", "kerberos":
@@ -5227,7 +5749,7 @@ func (e *CreateInputAuthMethodAuthenticationMethod) IsExact() bool {
 	return false
 }
 
-type CreateInputMTLSSettings struct {
+type CreateInputSystemByPackMTLSSettings struct {
 	// Enable TLS
 	Disabled *bool `json:"disabled,omitzero"`
 	// Required for WEF certificate authentication
@@ -5254,122 +5776,122 @@ type CreateInputMTLSSettings struct {
 	OcspCheckFailClose *bool `json:"ocspCheckFailClose,omitzero"`
 }
 
-func (c CreateInputMTLSSettings) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackMTLSSettings) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputMTLSSettings) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackMTLSSettings) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputMTLSSettings) GetDisabled() *bool {
+func (c *CreateInputSystemByPackMTLSSettings) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputMTLSSettings) GetRejectUnauthorized() *bool {
+func (c *CreateInputSystemByPackMTLSSettings) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateInputMTLSSettings) GetRequestCert() *bool {
+func (c *CreateInputSystemByPackMTLSSettings) GetRequestCert() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RequestCert
 }
 
-func (c *CreateInputMTLSSettings) GetCertificateName() *string {
+func (c *CreateInputSystemByPackMTLSSettings) GetCertificateName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CertificateName
 }
 
-func (c *CreateInputMTLSSettings) GetPrivKeyPath() string {
+func (c *CreateInputSystemByPackMTLSSettings) GetPrivKeyPath() string {
 	if c == nil {
 		return ""
 	}
 	return c.PrivKeyPath
 }
 
-func (c *CreateInputMTLSSettings) GetPassphrase() *string {
+func (c *CreateInputSystemByPackMTLSSettings) GetPassphrase() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Passphrase
 }
 
-func (c *CreateInputMTLSSettings) GetCertPath() string {
+func (c *CreateInputSystemByPackMTLSSettings) GetCertPath() string {
 	if c == nil {
 		return ""
 	}
 	return c.CertPath
 }
 
-func (c *CreateInputMTLSSettings) GetCaPath() string {
+func (c *CreateInputSystemByPackMTLSSettings) GetCaPath() string {
 	if c == nil {
 		return ""
 	}
 	return c.CaPath
 }
 
-func (c *CreateInputMTLSSettings) GetCommonNameRegex() *string {
+func (c *CreateInputSystemByPackMTLSSettings) GetCommonNameRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CommonNameRegex
 }
 
-func (c *CreateInputMTLSSettings) GetMinVersion() *components.MinimumTLSVersionOptionsTLS {
+func (c *CreateInputSystemByPackMTLSSettings) GetMinVersion() *components.MinimumTLSVersionOptionsTLS {
 	if c == nil {
 		return nil
 	}
 	return c.MinVersion
 }
 
-func (c *CreateInputMTLSSettings) GetMaxVersion() *components.MaximumTLSVersionOptionsTLS {
+func (c *CreateInputSystemByPackMTLSSettings) GetMaxVersion() *components.MaximumTLSVersionOptionsTLS {
 	if c == nil {
 		return nil
 	}
 	return c.MaxVersion
 }
 
-func (c *CreateInputMTLSSettings) GetOcspCheck() *bool {
+func (c *CreateInputSystemByPackMTLSSettings) GetOcspCheck() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.OcspCheck
 }
 
-func (c *CreateInputMTLSSettings) GetOcspCheckFailClose() *bool {
+func (c *CreateInputSystemByPackMTLSSettings) GetOcspCheckFailClose() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.OcspCheckFailClose
 }
 
-// CreateInputFormat - Content format in which the endpoint should deliver events
-type CreateInputFormat string
+// CreateInputSystemByPackFormat - Content format in which the endpoint should deliver events
+type CreateInputSystemByPackFormat string
 
 const (
-	CreateInputFormatRaw          CreateInputFormat = "Raw"
-	CreateInputFormatRenderedText CreateInputFormat = "RenderedText"
+	CreateInputSystemByPackFormatRaw          CreateInputSystemByPackFormat = "Raw"
+	CreateInputSystemByPackFormatRenderedText CreateInputSystemByPackFormat = "RenderedText"
 )
 
-func (e CreateInputFormat) ToPointer() *CreateInputFormat {
+func (e CreateInputSystemByPackFormat) ToPointer() *CreateInputSystemByPackFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputFormat) IsExact() bool {
+func (e *CreateInputSystemByPackFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "Raw", "RenderedText":
@@ -5379,19 +5901,19 @@ func (e *CreateInputFormat) IsExact() bool {
 	return false
 }
 
-type CreateInputQueryBuilderMode string
+type CreateInputSystemByPackQueryBuilderMode string
 
 const (
-	CreateInputQueryBuilderModeSimple CreateInputQueryBuilderMode = "simple"
-	CreateInputQueryBuilderModeXML    CreateInputQueryBuilderMode = "xml"
+	CreateInputSystemByPackQueryBuilderModeSimple CreateInputSystemByPackQueryBuilderMode = "simple"
+	CreateInputSystemByPackQueryBuilderModeXML    CreateInputSystemByPackQueryBuilderMode = "xml"
 )
 
-func (e CreateInputQueryBuilderMode) ToPointer() *CreateInputQueryBuilderMode {
+func (e CreateInputSystemByPackQueryBuilderMode) ToPointer() *CreateInputSystemByPackQueryBuilderMode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputQueryBuilderMode) IsExact() bool {
+func (e *CreateInputSystemByPackQueryBuilderMode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "simple", "xml":
@@ -5401,44 +5923,44 @@ func (e *CreateInputQueryBuilderMode) IsExact() bool {
 	return false
 }
 
-type CreateInputQuery struct {
+type CreateInputSystemByPackQuery struct {
 	// The Path attribute from the relevant XML Select element
 	Path string `json:"path"`
 	// The XPath query inside the relevant XML Select element
 	QueryExpression string `json:"queryExpression"`
 }
 
-func (c CreateInputQuery) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackQuery) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputQuery) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackQuery) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputQuery) GetPath() string {
+func (c *CreateInputSystemByPackQuery) GetPath() string {
 	if c == nil {
 		return ""
 	}
 	return c.Path
 }
 
-func (c *CreateInputQuery) GetQueryExpression() string {
+func (c *CreateInputSystemByPackQuery) GetQueryExpression() string {
 	if c == nil {
 		return ""
 	}
 	return c.QueryExpression
 }
 
-type CreateInputSubscription struct {
+type CreateInputSystemByPackSubscription struct {
 	SubscriptionName string `json:"subscriptionName"`
 	// Version UUID for this subscription. If any subscription parameters are modified, this value will change.
 	Version *string `json:"version,omitzero"`
 	// Content format in which the endpoint should deliver events
-	ContentFormat CreateInputFormat `json:"contentFormat"`
+	ContentFormat CreateInputSystemByPackFormat `json:"contentFormat"`
 	// Maximum time (in seconds) between endpoint checkins before considering it unavailable
 	HeartbeatInterval float64 `json:"heartbeatInterval"`
 	// Interval (in seconds) over which the endpoint should collect events before sending them to Stream
@@ -5452,129 +5974,129 @@ type CreateInputSubscription struct {
 	// The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com
 	Targets []string `json:"targets"`
 	// The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
-	Locale        *string                      `json:"locale,omitzero"`
-	QuerySelector *CreateInputQueryBuilderMode `json:"querySelector,omitzero"`
+	Locale        *string                                  `json:"locale,omitzero"`
+	QuerySelector *CreateInputSystemByPackQueryBuilderMode `json:"querySelector,omitzero"`
 	// Fields to add to events ingested under this subscription
 	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Queries  []CreateInputQuery             `json:"queries,omitzero"`
+	Queries  []CreateInputSystemByPackQuery `json:"queries,omitzero"`
 	// The XPath query to use for selecting events
 	XMLQuery *string `json:"xmlQuery,omitzero"`
 }
 
-func (c CreateInputSubscription) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackSubscription) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputSubscription) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackSubscription) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputSubscription) GetSubscriptionName() string {
+func (c *CreateInputSystemByPackSubscription) GetSubscriptionName() string {
 	if c == nil {
 		return ""
 	}
 	return c.SubscriptionName
 }
 
-func (c *CreateInputSubscription) GetVersion() *string {
+func (c *CreateInputSystemByPackSubscription) GetVersion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Version
 }
 
-func (c *CreateInputSubscription) GetContentFormat() CreateInputFormat {
+func (c *CreateInputSystemByPackSubscription) GetContentFormat() CreateInputSystemByPackFormat {
 	if c == nil {
-		return CreateInputFormat("")
+		return CreateInputSystemByPackFormat("")
 	}
 	return c.ContentFormat
 }
 
-func (c *CreateInputSubscription) GetHeartbeatInterval() float64 {
+func (c *CreateInputSystemByPackSubscription) GetHeartbeatInterval() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.HeartbeatInterval
 }
 
-func (c *CreateInputSubscription) GetBatchTimeout() float64 {
+func (c *CreateInputSystemByPackSubscription) GetBatchTimeout() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.BatchTimeout
 }
 
-func (c *CreateInputSubscription) GetReadExistingEvents() *bool {
+func (c *CreateInputSystemByPackSubscription) GetReadExistingEvents() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReadExistingEvents
 }
 
-func (c *CreateInputSubscription) GetSendBookmarks() *bool {
+func (c *CreateInputSystemByPackSubscription) GetSendBookmarks() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendBookmarks
 }
 
-func (c *CreateInputSubscription) GetCompress() *bool {
+func (c *CreateInputSystemByPackSubscription) GetCompress() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateInputSubscription) GetTargets() []string {
+func (c *CreateInputSystemByPackSubscription) GetTargets() []string {
 	if c == nil {
 		return []string{}
 	}
 	return c.Targets
 }
 
-func (c *CreateInputSubscription) GetLocale() *string {
+func (c *CreateInputSystemByPackSubscription) GetLocale() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Locale
 }
 
-func (c *CreateInputSubscription) GetQuerySelector() *CreateInputQueryBuilderMode {
+func (c *CreateInputSystemByPackSubscription) GetQuerySelector() *CreateInputSystemByPackQueryBuilderMode {
 	if c == nil {
 		return nil
 	}
 	return c.QuerySelector
 }
 
-func (c *CreateInputSubscription) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackSubscription) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputSubscription) GetQueries() []CreateInputQuery {
+func (c *CreateInputSystemByPackSubscription) GetQueries() []CreateInputSystemByPackQuery {
 	if c == nil {
 		return nil
 	}
 	return c.Queries
 }
 
-func (c *CreateInputSubscription) GetXMLQuery() *string {
+func (c *CreateInputSystemByPackSubscription) GetXMLQuery() *string {
 	if c == nil {
 		return nil
 	}
 	return c.XMLQuery
 }
 
-type CreateInputInputWef struct {
+type CreateInputSystemByPackInputWef struct {
 	// Unique ID for this input
-	ID       string             `json:"id"`
-	Type     CreateInputTypeWef `json:"type"`
-	Disabled *bool              `json:"disabled,omitzero"`
+	ID       string                         `json:"id"`
+	Type     CreateInputSystemByPackTypeWef `json:"type"`
+	Disabled *bool                          `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -5593,8 +6115,8 @@ type CreateInputInputWef struct {
 	// Port to listen on
 	Port float64 `json:"port"`
 	// How to authenticate incoming client connections
-	AuthMethod *CreateInputAuthMethodAuthenticationMethod `json:"authMethod,omitzero"`
-	TLS        *CreateInputMTLSSettings                   `json:"tls,omitzero"`
+	AuthMethod *CreateInputSystemByPackAuthMethodAuthenticationMethod `json:"authMethod,omitzero"`
+	TLS        *CreateInputSystemByPackMTLSSettings                   `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -5622,7 +6144,7 @@ type CreateInputInputWef struct {
 	// Allow events to be ingested even if their MachineID does not match the client certificate CN
 	AllowMachineIDMismatch *bool `json:"allowMachineIdMismatch,omitzero"`
 	// Subscriptions to events on forwarding endpoints
-	Subscriptions []CreateInputSubscription `json:"subscriptions"`
+	Subscriptions []CreateInputSystemByPackSubscription `json:"subscriptions"`
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string                        `json:"description,omitzero"`
@@ -5630,6 +6152,8 @@ type CreateInputInputWef struct {
 	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -5640,293 +6164,300 @@ type CreateInputInputWef struct {
 	TemplatePrincipal *string `json:"__template_principal,omitzero"`
 }
 
-func (c CreateInputInputWef) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputWef) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputWef) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputWef) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputWef) GetID() string {
+func (c *CreateInputSystemByPackInputWef) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputWef) GetType() CreateInputTypeWef {
+func (c *CreateInputSystemByPackInputWef) GetType() CreateInputSystemByPackTypeWef {
 	if c == nil {
-		return CreateInputTypeWef("")
+		return CreateInputSystemByPackTypeWef("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputWef) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputWef) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputWef) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputWef) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputWef) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputWef) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputWef) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputWef) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputWef) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputWef) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputWef) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputWef) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputWef) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputWef) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputWef) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputWef) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputWef) GetHost() string {
+func (c *CreateInputSystemByPackInputWef) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputWef) GetPort() float64 {
+func (c *CreateInputSystemByPackInputWef) GetPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.Port
 }
 
-func (c *CreateInputInputWef) GetAuthMethod() *CreateInputAuthMethodAuthenticationMethod {
+func (c *CreateInputSystemByPackInputWef) GetAuthMethod() *CreateInputSystemByPackAuthMethodAuthenticationMethod {
 	if c == nil {
 		return nil
 	}
 	return c.AuthMethod
 }
 
-func (c *CreateInputInputWef) GetTLS() *CreateInputMTLSSettings {
+func (c *CreateInputSystemByPackInputWef) GetTLS() *CreateInputSystemByPackMTLSSettings {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateInputInputWef) GetMaxActiveReq() *float64 {
+func (c *CreateInputSystemByPackInputWef) GetMaxActiveReq() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxActiveReq
 }
 
-func (c *CreateInputInputWef) GetMaxRequestsPerSocket() *int64 {
+func (c *CreateInputSystemByPackInputWef) GetMaxRequestsPerSocket() *int64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRequestsPerSocket
 }
 
-func (c *CreateInputInputWef) GetEnableProxyHeader() *bool {
+func (c *CreateInputSystemByPackInputWef) GetEnableProxyHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputWef) GetCaptureHeaders() *bool {
+func (c *CreateInputSystemByPackInputWef) GetCaptureHeaders() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.CaptureHeaders
 }
 
-func (c *CreateInputInputWef) GetKeepAliveTimeout() *float64 {
+func (c *CreateInputSystemByPackInputWef) GetKeepAliveTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAliveTimeout
 }
 
-func (c *CreateInputInputWef) GetEnableHealthCheck() *bool {
+func (c *CreateInputSystemByPackInputWef) GetEnableHealthCheck() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableHealthCheck
 }
 
-func (c *CreateInputInputWef) GetIPAllowlistRegex() *string {
+func (c *CreateInputSystemByPackInputWef) GetIPAllowlistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPAllowlistRegex
 }
 
-func (c *CreateInputInputWef) GetIPDenylistRegex() *string {
+func (c *CreateInputSystemByPackInputWef) GetIPDenylistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPDenylistRegex
 }
 
-func (c *CreateInputInputWef) GetSocketTimeout() *float64 {
+func (c *CreateInputSystemByPackInputWef) GetSocketTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketTimeout
 }
 
-func (c *CreateInputInputWef) GetCaFingerprint() *string {
+func (c *CreateInputSystemByPackInputWef) GetCaFingerprint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CaFingerprint
 }
 
-func (c *CreateInputInputWef) GetKeytab() *string {
+func (c *CreateInputSystemByPackInputWef) GetKeytab() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Keytab
 }
 
-func (c *CreateInputInputWef) GetPrincipal() *string {
+func (c *CreateInputSystemByPackInputWef) GetPrincipal() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Principal
 }
 
-func (c *CreateInputInputWef) GetAllowMachineIDMismatch() *bool {
+func (c *CreateInputSystemByPackInputWef) GetAllowMachineIDMismatch() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AllowMachineIDMismatch
 }
 
-func (c *CreateInputInputWef) GetSubscriptions() []CreateInputSubscription {
+func (c *CreateInputSystemByPackInputWef) GetSubscriptions() []CreateInputSystemByPackSubscription {
 	if c == nil {
-		return []CreateInputSubscription{}
+		return []CreateInputSystemByPackSubscription{}
 	}
 	return c.Subscriptions
 }
 
-func (c *CreateInputInputWef) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputWef) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputWef) GetDescription() *string {
+func (c *CreateInputSystemByPackInputWef) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputWef) GetLogFingerprintMismatch() *bool {
+func (c *CreateInputSystemByPackInputWef) GetLogFingerprintMismatch() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.LogFingerprintMismatch
 }
 
-func (c *CreateInputInputWef) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputWef) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputWef) GetTemplateHost() *string {
+func (c *CreateInputSystemByPackInputWef) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputWef) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateInputInputWef) GetTemplatePort() *string {
+func (c *CreateInputSystemByPackInputWef) GetTemplatePort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePort
 }
 
-func (c *CreateInputInputWef) GetTemplateKeytab() *string {
+func (c *CreateInputSystemByPackInputWef) GetTemplateKeytab() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateKeytab
 }
 
-func (c *CreateInputInputWef) GetTemplatePrincipal() *string {
+func (c *CreateInputSystemByPackInputWef) GetTemplatePrincipal() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePrincipal
 }
 
-type CreateInputTypeAppscope string
+type CreateInputSystemByPackTypeAppscope string
 
 const (
-	CreateInputTypeAppscopeAppscope CreateInputTypeAppscope = "appscope"
+	CreateInputSystemByPackTypeAppscopeAppscope CreateInputSystemByPackTypeAppscope = "appscope"
 )
 
-func (e CreateInputTypeAppscope) ToPointer() *CreateInputTypeAppscope {
+func (e CreateInputSystemByPackTypeAppscope) ToPointer() *CreateInputSystemByPackTypeAppscope {
 	return &e
 }
-func (e *CreateInputTypeAppscope) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeAppscope) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "appscope":
-		*e = CreateInputTypeAppscope(v)
+		*e = CreateInputSystemByPackTypeAppscope(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeAppscope: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeAppscope: %v", v)
 	}
 }
 
-type CreateInputAllow struct {
+type CreateInputSystemByPackAllow struct {
 	// Specify the name of a process or family of processes.
 	Procname string `json:"procname"`
 	// Specify a string to substring-match against process command-line.
@@ -5935,71 +6466,71 @@ type CreateInputAllow struct {
 	Config string `json:"config"`
 }
 
-func (c CreateInputAllow) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackAllow) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputAllow) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackAllow) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputAllow) GetProcname() string {
+func (c *CreateInputSystemByPackAllow) GetProcname() string {
 	if c == nil {
 		return ""
 	}
 	return c.Procname
 }
 
-func (c *CreateInputAllow) GetArg() *string {
+func (c *CreateInputSystemByPackAllow) GetArg() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Arg
 }
 
-func (c *CreateInputAllow) GetConfig() string {
+func (c *CreateInputSystemByPackAllow) GetConfig() string {
 	if c == nil {
 		return ""
 	}
 	return c.Config
 }
 
-type CreateInputFilterAppscope struct {
+type CreateInputSystemByPackFilterAppscope struct {
 	// Specify processes that AppScope should be loaded into, and the config to use.
-	Allow []CreateInputAllow `json:"allow,omitzero"`
+	Allow []CreateInputSystemByPackAllow `json:"allow,omitzero"`
 	// To override the UNIX domain socket or address/port specified in General Settings (while leaving Authentication settings as is), enter a URL.
 	TransportURL *string `json:"transportURL,omitzero"`
 }
 
-func (c CreateInputFilterAppscope) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackFilterAppscope) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputFilterAppscope) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackFilterAppscope) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputFilterAppscope) GetAllow() []CreateInputAllow {
+func (c *CreateInputSystemByPackFilterAppscope) GetAllow() []CreateInputSystemByPackAllow {
 	if c == nil {
 		return nil
 	}
 	return c.Allow
 }
 
-func (c *CreateInputFilterAppscope) GetTransportURL() *string {
+func (c *CreateInputSystemByPackFilterAppscope) GetTransportURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TransportURL
 }
 
-type CreateInputPersistenceAppscope struct {
+type CreateInputSystemByPackPersistenceAppscope struct {
 	// Spool events and metrics on disk for Cribl Edge and Search
 	Enable *bool `json:"enable,omitzero"`
 	// Time span for each file bucket
@@ -6013,93 +6544,93 @@ type CreateInputPersistenceAppscope struct {
 	DestPath *string `json:"destPath,omitzero"`
 }
 
-func (c CreateInputPersistenceAppscope) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackPersistenceAppscope) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputPersistenceAppscope) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackPersistenceAppscope) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputPersistenceAppscope) GetEnable() *bool {
+func (c *CreateInputSystemByPackPersistenceAppscope) GetEnable() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enable
 }
 
-func (c *CreateInputPersistenceAppscope) GetTimeWindow() *string {
+func (c *CreateInputSystemByPackPersistenceAppscope) GetTimeWindow() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TimeWindow
 }
 
-func (c *CreateInputPersistenceAppscope) GetMaxDataSize() *string {
+func (c *CreateInputSystemByPackPersistenceAppscope) GetMaxDataSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MaxDataSize
 }
 
-func (c *CreateInputPersistenceAppscope) GetMaxDataTime() *string {
+func (c *CreateInputSystemByPackPersistenceAppscope) GetMaxDataTime() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MaxDataTime
 }
 
-func (c *CreateInputPersistenceAppscope) GetCompress() *components.DataCompressionFormatOptionsPersistence {
+func (c *CreateInputSystemByPackPersistenceAppscope) GetCompress() *components.DataCompressionFormatOptionsPersistence {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateInputPersistenceAppscope) GetDestPath() *string {
+func (c *CreateInputSystemByPackPersistenceAppscope) GetDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DestPath
 }
 
-type CreateInputUNIXSocketPermissionsType string
+type CreateInputSystemByPackUNIXSocketPermissionsType string
 
 const (
-	CreateInputUNIXSocketPermissionsTypeStr    CreateInputUNIXSocketPermissionsType = "str"
-	CreateInputUNIXSocketPermissionsTypeNumber CreateInputUNIXSocketPermissionsType = "number"
+	CreateInputSystemByPackUNIXSocketPermissionsTypeStr    CreateInputSystemByPackUNIXSocketPermissionsType = "str"
+	CreateInputSystemByPackUNIXSocketPermissionsTypeNumber CreateInputSystemByPackUNIXSocketPermissionsType = "number"
 )
 
-// CreateInputUNIXSocketPermissions - Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
-type CreateInputUNIXSocketPermissions struct {
+// CreateInputSystemByPackUNIXSocketPermissions - Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+type CreateInputSystemByPackUNIXSocketPermissions struct {
 	Str    *string  `queryParam:"inline" union:"member"`
 	Number *float64 `queryParam:"inline" union:"member"`
 
-	Type CreateInputUNIXSocketPermissionsType
+	Type CreateInputSystemByPackUNIXSocketPermissionsType
 }
 
-func CreateCreateInputUNIXSocketPermissionsStr(str string) CreateInputUNIXSocketPermissions {
-	typ := CreateInputUNIXSocketPermissionsTypeStr
+func CreateCreateInputSystemByPackUNIXSocketPermissionsStr(str string) CreateInputSystemByPackUNIXSocketPermissions {
+	typ := CreateInputSystemByPackUNIXSocketPermissionsTypeStr
 
-	return CreateInputUNIXSocketPermissions{
+	return CreateInputSystemByPackUNIXSocketPermissions{
 		Str:  &str,
 		Type: typ,
 	}
 }
 
-func CreateCreateInputUNIXSocketPermissionsNumber(number float64) CreateInputUNIXSocketPermissions {
-	typ := CreateInputUNIXSocketPermissionsTypeNumber
+func CreateCreateInputSystemByPackUNIXSocketPermissionsNumber(number float64) CreateInputSystemByPackUNIXSocketPermissions {
+	typ := CreateInputSystemByPackUNIXSocketPermissionsTypeNumber
 
-	return CreateInputUNIXSocketPermissions{
+	return CreateInputSystemByPackUNIXSocketPermissions{
 		Number: &number,
 		Type:   typ,
 	}
 }
 
-func (u *CreateInputUNIXSocketPermissions) UnmarshalJSON(data []byte) error {
+func (u *CreateInputSystemByPackUNIXSocketPermissions) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
@@ -6107,7 +6638,7 @@ func (u *CreateInputUNIXSocketPermissions) UnmarshalJSON(data []byte) error {
 	var str string = ""
 	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  CreateInputUNIXSocketPermissionsTypeStr,
+			Type:  CreateInputSystemByPackUNIXSocketPermissionsTypeStr,
 			Value: &str,
 		})
 	}
@@ -6115,36 +6646,36 @@ func (u *CreateInputUNIXSocketPermissions) UnmarshalJSON(data []byte) error {
 	var number float64 = float64(0)
 	if err := utils.UnmarshalJSON(data, &number, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  CreateInputUNIXSocketPermissionsTypeNumber,
+			Type:  CreateInputSystemByPackUNIXSocketPermissionsTypeNumber,
 			Value: &number,
 		})
 	}
 
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputUNIXSocketPermissions", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputSystemByPackUNIXSocketPermissions", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputUNIXSocketPermissions", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputSystemByPackUNIXSocketPermissions", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(CreateInputUNIXSocketPermissionsType)
+	u.Type = best.Type.(CreateInputSystemByPackUNIXSocketPermissionsType)
 	switch best.Type {
-	case CreateInputUNIXSocketPermissionsTypeStr:
+	case CreateInputSystemByPackUNIXSocketPermissionsTypeStr:
 		u.Str = best.Value.(*string)
 		return nil
-	case CreateInputUNIXSocketPermissionsTypeNumber:
+	case CreateInputSystemByPackUNIXSocketPermissionsTypeNumber:
 		u.Number = best.Value.(*float64)
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputUNIXSocketPermissions", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputSystemByPackUNIXSocketPermissions", string(data))
 }
 
-func (u CreateInputUNIXSocketPermissions) MarshalJSON() ([]byte, error) {
+func (u CreateInputSystemByPackUNIXSocketPermissions) MarshalJSON() ([]byte, error) {
 	if u.Str != nil {
 		return utils.MarshalJSON(u.Str, "", true)
 	}
@@ -6153,14 +6684,14 @@ func (u CreateInputUNIXSocketPermissions) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Number, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type CreateInputUNIXSocketPermissions: all fields are null")
+	return nil, errors.New("could not marshal union type CreateInputSystemByPackUNIXSocketPermissions: all fields are null")
 }
 
-type CreateInputInputAppscope struct {
+type CreateInputSystemByPackInputAppscope struct {
 	// Unique ID for this input
-	ID       string                  `json:"id"`
-	Type     CreateInputTypeAppscope `json:"type"`
-	Disabled *bool                   `json:"disabled,omitzero"`
+	ID       string                              `json:"id"`
+	Type     CreateInputSystemByPackTypeAppscope `json:"type"`
+	Disabled *bool                               `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -6193,9 +6724,9 @@ type CreateInputInputAppscope struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
-	EnableUnixPath *bool                           `json:"enableUnixPath,omitzero"`
-	Filter         *CreateInputFilterAppscope      `json:"filter,omitzero"`
-	Persistence    *CreateInputPersistenceAppscope `json:"persistence,omitzero"`
+	EnableUnixPath *bool                                       `json:"enableUnixPath,omitzero"`
+	Filter         *CreateInputSystemByPackFilterAppscope      `json:"filter,omitzero"`
+	Persistence    *CreateInputSystemByPackPersistenceAppscope `json:"persistence,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType    *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	Description *string                                                `json:"description,omitzero"`
@@ -6207,296 +6738,305 @@ type CreateInputInputAppscope struct {
 	// Path to the UNIX domain socket to listen on.
 	UnixSocketPath *string `json:"unixSocketPath,omitzero"`
 	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
-	UnixSocketPerms *CreateInputUNIXSocketPermissions `json:"unixSocketPerms,omitzero"`
+	UnixSocketPerms *CreateInputSystemByPackUNIXSocketPermissions `json:"unixSocketPerms,omitzero"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (c CreateInputInputAppscope) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputAppscope) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputAppscope) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputAppscope) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputAppscope) GetID() string {
+func (c *CreateInputSystemByPackInputAppscope) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputAppscope) GetType() CreateInputTypeAppscope {
+func (c *CreateInputSystemByPackInputAppscope) GetType() CreateInputSystemByPackTypeAppscope {
 	if c == nil {
-		return CreateInputTypeAppscope("")
+		return CreateInputSystemByPackTypeAppscope("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputAppscope) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputAppscope) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputAppscope) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputAppscope) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputAppscope) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputAppscope) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputAppscope) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputAppscope) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputAppscope) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputAppscope) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputAppscope) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputAppscope) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputAppscope) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputAppscope) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputAppscope) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputAppscope) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputAppscope) GetIPWhitelistRegex() *string {
+func (c *CreateInputSystemByPackInputAppscope) GetIPWhitelistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPWhitelistRegex
 }
 
-func (c *CreateInputInputAppscope) GetMaxActiveCxn() *float64 {
+func (c *CreateInputSystemByPackInputAppscope) GetMaxActiveCxn() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxActiveCxn
 }
 
-func (c *CreateInputInputAppscope) GetSocketIdleTimeout() *float64 {
+func (c *CreateInputSystemByPackInputAppscope) GetSocketIdleTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketIdleTimeout
 }
 
-func (c *CreateInputInputAppscope) GetSocketEndingMaxWait() *float64 {
+func (c *CreateInputSystemByPackInputAppscope) GetSocketEndingMaxWait() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketEndingMaxWait
 }
 
-func (c *CreateInputInputAppscope) GetSocketMaxLifespan() *float64 {
+func (c *CreateInputSystemByPackInputAppscope) GetSocketMaxLifespan() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketMaxLifespan
 }
 
-func (c *CreateInputInputAppscope) GetEnableProxyHeader() *bool {
+func (c *CreateInputSystemByPackInputAppscope) GetEnableProxyHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputAppscope) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputAppscope) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputAppscope) GetBreakerRulesets() []string {
+func (c *CreateInputSystemByPackInputAppscope) GetBreakerRulesets() []string {
 	if c == nil {
 		return nil
 	}
 	return c.BreakerRulesets
 }
 
-func (c *CreateInputInputAppscope) GetStaleChannelFlushMs() *float64 {
+func (c *CreateInputSystemByPackInputAppscope) GetStaleChannelFlushMs() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputAppscope) GetEnableUnixPath() *bool {
+func (c *CreateInputSystemByPackInputAppscope) GetEnableUnixPath() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableUnixPath
 }
 
-func (c *CreateInputInputAppscope) GetFilter() *CreateInputFilterAppscope {
+func (c *CreateInputSystemByPackInputAppscope) GetFilter() *CreateInputSystemByPackFilterAppscope {
 	if c == nil {
 		return nil
 	}
 	return c.Filter
 }
 
-func (c *CreateInputInputAppscope) GetPersistence() *CreateInputPersistenceAppscope {
+func (c *CreateInputSystemByPackInputAppscope) GetPersistence() *CreateInputSystemByPackPersistenceAppscope {
 	if c == nil {
 		return nil
 	}
 	return c.Persistence
 }
 
-func (c *CreateInputInputAppscope) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {
+func (c *CreateInputSystemByPackInputAppscope) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateInputInputAppscope) GetDescription() *string {
+func (c *CreateInputSystemByPackInputAppscope) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputAppscope) GetHost() *string {
+func (c *CreateInputSystemByPackInputAppscope) GetHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputAppscope) GetPort() *float64 {
+func (c *CreateInputSystemByPackInputAppscope) GetPort() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Port
 }
 
-func (c *CreateInputInputAppscope) GetTLS() *components.TLSSettingsServerSideType {
+func (c *CreateInputSystemByPackInputAppscope) GetTLS() *components.TLSSettingsServerSideType {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateInputInputAppscope) GetUnixSocketPath() *string {
+func (c *CreateInputSystemByPackInputAppscope) GetUnixSocketPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.UnixSocketPath
 }
 
-func (c *CreateInputInputAppscope) GetUnixSocketPerms() *CreateInputUNIXSocketPermissions {
+func (c *CreateInputSystemByPackInputAppscope) GetUnixSocketPerms() *CreateInputSystemByPackUNIXSocketPermissions {
 	if c == nil {
 		return nil
 	}
 	return c.UnixSocketPerms
 }
 
-func (c *CreateInputInputAppscope) GetAuthToken() *string {
+func (c *CreateInputSystemByPackInputAppscope) GetAuthToken() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AuthToken
 }
 
-func (c *CreateInputInputAppscope) GetTextSecret() *string {
+func (c *CreateInputSystemByPackInputAppscope) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateInputInputAppscope) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputAppscope) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputAppscope) GetTemplateHost() *string {
+func (c *CreateInputSystemByPackInputAppscope) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputAppscope) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateInputInputAppscope) GetTemplatePort() *string {
+func (c *CreateInputSystemByPackInputAppscope) GetTemplatePort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePort
 }
 
-type CreateInputTypeTCP string
+type CreateInputSystemByPackTypeTCP string
 
 const (
-	CreateInputTypeTCPTCP CreateInputTypeTCP = "tcp"
+	CreateInputSystemByPackTypeTCPTCP CreateInputSystemByPackTypeTCP = "tcp"
 )
 
-func (e CreateInputTypeTCP) ToPointer() *CreateInputTypeTCP {
+func (e CreateInputSystemByPackTypeTCP) ToPointer() *CreateInputSystemByPackTypeTCP {
 	return &e
 }
-func (e *CreateInputTypeTCP) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeTCP) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "tcp":
-		*e = CreateInputTypeTCP(v)
+		*e = CreateInputSystemByPackTypeTCP(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeTCP: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeTCP: %v", v)
 	}
 }
 
-type CreateInputInputTCP struct {
+type CreateInputSystemByPackInputTCP struct {
 	// Unique ID for this input
-	ID       string             `json:"id"`
-	Type     CreateInputTypeTCP `json:"type"`
-	Disabled *bool              `json:"disabled,omitzero"`
+	ID       string                         `json:"id"`
+	Type     CreateInputSystemByPackTypeTCP `json:"type"`
+	Disabled *bool                          `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -6545,279 +7085,288 @@ type CreateInputInputTCP struct {
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (c CreateInputInputTCP) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputTCP) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputTCP) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputTCP) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputTCP) GetID() string {
+func (c *CreateInputSystemByPackInputTCP) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputTCP) GetType() CreateInputTypeTCP {
+func (c *CreateInputSystemByPackInputTCP) GetType() CreateInputSystemByPackTypeTCP {
 	if c == nil {
-		return CreateInputTypeTCP("")
+		return CreateInputSystemByPackTypeTCP("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputTCP) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputTCP) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputTCP) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputTCP) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputTCP) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputTCP) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputTCP) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputTCP) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputTCP) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputTCP) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputTCP) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputTCP) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputTCP) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputTCP) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputTCP) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputTCP) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputTCP) GetHost() string {
+func (c *CreateInputSystemByPackInputTCP) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputTCP) GetPort() float64 {
+func (c *CreateInputSystemByPackInputTCP) GetPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.Port
 }
 
-func (c *CreateInputInputTCP) GetTLS() *components.TLSSettingsServerSideType {
+func (c *CreateInputSystemByPackInputTCP) GetTLS() *components.TLSSettingsServerSideType {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateInputInputTCP) GetIPWhitelistRegex() *string {
+func (c *CreateInputSystemByPackInputTCP) GetIPWhitelistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPWhitelistRegex
 }
 
-func (c *CreateInputInputTCP) GetMaxActiveCxn() *float64 {
+func (c *CreateInputSystemByPackInputTCP) GetMaxActiveCxn() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxActiveCxn
 }
 
-func (c *CreateInputInputTCP) GetSocketIdleTimeout() *float64 {
+func (c *CreateInputSystemByPackInputTCP) GetSocketIdleTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketIdleTimeout
 }
 
-func (c *CreateInputInputTCP) GetSocketEndingMaxWait() *float64 {
+func (c *CreateInputSystemByPackInputTCP) GetSocketEndingMaxWait() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketEndingMaxWait
 }
 
-func (c *CreateInputInputTCP) GetSocketMaxLifespan() *float64 {
+func (c *CreateInputSystemByPackInputTCP) GetSocketMaxLifespan() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketMaxLifespan
 }
 
-func (c *CreateInputInputTCP) GetEnableProxyHeader() *bool {
+func (c *CreateInputSystemByPackInputTCP) GetEnableProxyHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputTCP) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputTCP) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputTCP) GetBreakerRulesets() []string {
+func (c *CreateInputSystemByPackInputTCP) GetBreakerRulesets() []string {
 	if c == nil {
 		return nil
 	}
 	return c.BreakerRulesets
 }
 
-func (c *CreateInputInputTCP) GetStaleChannelFlushMs() *float64 {
+func (c *CreateInputSystemByPackInputTCP) GetStaleChannelFlushMs() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputTCP) GetEnableHeader() *bool {
+func (c *CreateInputSystemByPackInputTCP) GetEnableHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableHeader
 }
 
-func (c *CreateInputInputTCP) GetPreprocess() *components.PreprocessType {
+func (c *CreateInputSystemByPackInputTCP) GetPreprocess() *components.PreprocessType {
 	if c == nil {
 		return nil
 	}
 	return c.Preprocess
 }
 
-func (c *CreateInputInputTCP) GetDescription() *string {
+func (c *CreateInputSystemByPackInputTCP) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputTCP) GetAuthToken() *string {
+func (c *CreateInputSystemByPackInputTCP) GetAuthToken() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AuthToken
 }
 
-func (c *CreateInputInputTCP) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {
+func (c *CreateInputSystemByPackInputTCP) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateInputInputTCP) GetTextSecret() *string {
+func (c *CreateInputSystemByPackInputTCP) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateInputInputTCP) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputTCP) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputTCP) GetTemplateHost() *string {
+func (c *CreateInputSystemByPackInputTCP) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputTCP) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateInputInputTCP) GetTemplatePort() *string {
+func (c *CreateInputSystemByPackInputTCP) GetTemplatePort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePort
 }
 
-type CreateInputInputFileType string
+type CreateInputSystemByPackInputFileType string
 
 const (
-	CreateInputInputFileTypeFile CreateInputInputFileType = "file"
+	CreateInputSystemByPackInputFileTypeFile CreateInputSystemByPackInputFileType = "file"
 )
 
-func (e CreateInputInputFileType) ToPointer() *CreateInputInputFileType {
+func (e CreateInputSystemByPackInputFileType) ToPointer() *CreateInputSystemByPackInputFileType {
 	return &e
 }
-func (e *CreateInputInputFileType) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackInputFileType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "file":
-		*e = CreateInputInputFileType(v)
+		*e = CreateInputSystemByPackInputFileType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputInputFileType: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackInputFileType: %v", v)
 	}
 }
 
-// CreateInputInputFileMode - Choose how to discover files to monitor
-type CreateInputInputFileMode string
+// CreateInputSystemByPackInputFileMode - Choose how to discover files to monitor
+type CreateInputSystemByPackInputFileMode string
 
 const (
-	// CreateInputInputFileModeManual Manual
-	CreateInputInputFileModeManual CreateInputInputFileMode = "manual"
-	// CreateInputInputFileModeAuto Auto
-	CreateInputInputFileModeAuto CreateInputInputFileMode = "auto"
+	// CreateInputSystemByPackInputFileModeManual Manual
+	CreateInputSystemByPackInputFileModeManual CreateInputSystemByPackInputFileMode = "manual"
+	// CreateInputSystemByPackInputFileModeAuto Auto
+	CreateInputSystemByPackInputFileModeAuto CreateInputSystemByPackInputFileMode = "auto"
 )
 
-func (e CreateInputInputFileMode) ToPointer() *CreateInputInputFileMode {
+func (e CreateInputSystemByPackInputFileMode) ToPointer() *CreateInputSystemByPackInputFileMode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputInputFileMode) IsExact() bool {
+func (e *CreateInputSystemByPackInputFileMode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "manual", "auto":
@@ -6827,11 +7376,11 @@ func (e *CreateInputInputFileMode) IsExact() bool {
 	return false
 }
 
-type CreateInputInputFile struct {
+type CreateInputSystemByPackInputFile struct {
 	// Unique ID for this input
-	ID       string                   `json:"id"`
-	Type     CreateInputInputFileType `json:"type"`
-	Disabled *bool                    `json:"disabled,omitzero"`
+	ID       string                               `json:"id"`
+	Type     CreateInputSystemByPackInputFileType `json:"type"`
+	Disabled *bool                                `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -6846,7 +7395,7 @@ type CreateInputInputFile struct {
 	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Choose how to discover files to monitor
-	Mode *CreateInputInputFileMode `json:"mode,omitzero"`
+	Mode *CreateInputSystemByPackInputFileMode `json:"mode,omitzero"`
 	// Time, in seconds, between scanning for files
 	Interval *float64 `json:"interval,omitzero"`
 	// The full path of discovered files are matched against this wildcard list
@@ -6889,278 +7438,287 @@ type CreateInputInputFile struct {
 	IncludeUnidentifiableBinary *bool `json:"includeUnidentifiableBinary,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
-func (c CreateInputInputFile) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputFile) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputFile) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputFile) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputFile) GetID() string {
+func (c *CreateInputSystemByPackInputFile) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputFile) GetType() CreateInputInputFileType {
+func (c *CreateInputSystemByPackInputFile) GetType() CreateInputSystemByPackInputFileType {
 	if c == nil {
-		return CreateInputInputFileType("")
+		return CreateInputSystemByPackInputFileType("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputFile) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputFile) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputFile) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputFile) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputFile) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputFile) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputFile) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputFile) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputFile) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputFile) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputFile) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputFile) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputFile) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputFile) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputFile) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputFile) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputFile) GetMode() *CreateInputInputFileMode {
+func (c *CreateInputSystemByPackInputFile) GetMode() *CreateInputSystemByPackInputFileMode {
 	if c == nil {
 		return nil
 	}
 	return c.Mode
 }
 
-func (c *CreateInputInputFile) GetInterval() *float64 {
+func (c *CreateInputSystemByPackInputFile) GetInterval() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Interval
 }
 
-func (c *CreateInputInputFile) GetFilenames() []string {
+func (c *CreateInputSystemByPackInputFile) GetFilenames() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Filenames
 }
 
-func (c *CreateInputInputFile) GetFilterArchivedFiles() *bool {
+func (c *CreateInputSystemByPackInputFile) GetFilterArchivedFiles() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.FilterArchivedFiles
 }
 
-func (c *CreateInputInputFile) GetTailOnly() *bool {
+func (c *CreateInputSystemByPackInputFile) GetTailOnly() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.TailOnly
 }
 
-func (c *CreateInputInputFile) GetIdleTimeout() *float64 {
+func (c *CreateInputSystemByPackInputFile) GetIdleTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.IdleTimeout
 }
 
-func (c *CreateInputInputFile) GetMinAgeDur() *string {
+func (c *CreateInputSystemByPackInputFile) GetMinAgeDur() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MinAgeDur
 }
 
-func (c *CreateInputInputFile) GetMaxAgeDur() *string {
+func (c *CreateInputSystemByPackInputFile) GetMaxAgeDur() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MaxAgeDur
 }
 
-func (c *CreateInputInputFile) GetCheckFileModTime() *bool {
+func (c *CreateInputSystemByPackInputFile) GetCheckFileModTime() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.CheckFileModTime
 }
 
-func (c *CreateInputInputFile) GetForceText() *bool {
+func (c *CreateInputSystemByPackInputFile) GetForceText() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ForceText
 }
 
-func (c *CreateInputInputFile) GetHashLen() *float64 {
+func (c *CreateInputSystemByPackInputFile) GetHashLen() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.HashLen
 }
 
-func (c *CreateInputInputFile) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputFile) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputFile) GetBreakerRulesets() []string {
+func (c *CreateInputSystemByPackInputFile) GetBreakerRulesets() []string {
 	if c == nil {
 		return nil
 	}
 	return c.BreakerRulesets
 }
 
-func (c *CreateInputInputFile) GetStaleChannelFlushMs() *float64 {
+func (c *CreateInputSystemByPackInputFile) GetStaleChannelFlushMs() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputFile) GetDescription() *string {
+func (c *CreateInputSystemByPackInputFile) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputFile) GetPath() *string {
+func (c *CreateInputSystemByPackInputFile) GetPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Path
 }
 
-func (c *CreateInputInputFile) GetDepth() *float64 {
+func (c *CreateInputSystemByPackInputFile) GetDepth() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Depth
 }
 
-func (c *CreateInputInputFile) GetSuppressMissingPathErrors() *bool {
+func (c *CreateInputSystemByPackInputFile) GetSuppressMissingPathErrors() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SuppressMissingPathErrors
 }
 
-func (c *CreateInputInputFile) GetDeleteFiles() *bool {
+func (c *CreateInputSystemByPackInputFile) GetDeleteFiles() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DeleteFiles
 }
 
-func (c *CreateInputInputFile) GetSaltHash() *bool {
+func (c *CreateInputSystemByPackInputFile) GetSaltHash() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SaltHash
 }
 
-func (c *CreateInputInputFile) GetOptimizeLeafDirectories() *bool {
+func (c *CreateInputSystemByPackInputFile) GetOptimizeLeafDirectories() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.OptimizeLeafDirectories
 }
 
-func (c *CreateInputInputFile) GetIncludeUnidentifiableBinary() *bool {
+func (c *CreateInputSystemByPackInputFile) GetIncludeUnidentifiableBinary() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.IncludeUnidentifiableBinary
 }
 
-func (c *CreateInputInputFile) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputFile) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-type CreateInputInputSyslogType2 string
+func (c *CreateInputSystemByPackInputFile) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+type CreateInputSystemByPackInputSyslogType2 string
 
 const (
-	CreateInputInputSyslogType2Syslog CreateInputInputSyslogType2 = "syslog"
+	CreateInputSystemByPackInputSyslogType2Syslog CreateInputSystemByPackInputSyslogType2 = "syslog"
 )
 
-func (e CreateInputInputSyslogType2) ToPointer() *CreateInputInputSyslogType2 {
+func (e CreateInputSystemByPackInputSyslogType2) ToPointer() *CreateInputSystemByPackInputSyslogType2 {
 	return &e
 }
-func (e *CreateInputInputSyslogType2) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackInputSyslogType2) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "syslog":
-		*e = CreateInputInputSyslogType2(v)
+		*e = CreateInputSystemByPackInputSyslogType2(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputInputSyslogType2: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackInputSyslogType2: %v", v)
 	}
 }
 
-type CreateInputInputSyslogSyslog2 struct {
+type CreateInputSystemByPackInputSyslogSyslog2 struct {
 	// Unique ID for this input
-	ID       string                      `json:"id"`
-	Type     CreateInputInputSyslogType2 `json:"type"`
-	Disabled *bool                       `json:"disabled,omitzero"`
+	ID       string                                  `json:"id"`
+	Type     CreateInputSystemByPackInputSyslogType2 `json:"type"`
+	Disabled *bool                                   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -7220,6 +7778,8 @@ type CreateInputInputSyslogSyslog2 struct {
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
@@ -7230,314 +7790,321 @@ type CreateInputInputSyslogSyslog2 struct {
 	TemplateTimestampTimezone *string `json:"__template_timestampTimezone,omitzero"`
 }
 
-func (c CreateInputInputSyslogSyslog2) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputSyslogSyslog2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputSyslogSyslog2) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetID() string {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetType() CreateInputInputSyslogType2 {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetType() CreateInputSystemByPackInputSyslogType2 {
 	if c == nil {
-		return CreateInputInputSyslogType2("")
+		return CreateInputSystemByPackInputSyslogType2("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetHost() string {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetUDPPort() *float64 {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetUDPPort() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.UDPPort
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetTCPPort() float64 {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetTCPPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.TCPPort
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetMaxBufferSize() *float64 {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxBufferSize
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetIPWhitelistRegex() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetIPWhitelistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPWhitelistRegex
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetTimestampTimezone() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetTimestampTimezone() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TimestampTimezone
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetSingleMsgUDPPackets() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetSingleMsgUDPPackets() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SingleMsgUDPPackets
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetEnableProxyHeader() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetEnableProxyHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetKeepFieldsList() []string {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetKeepFieldsList() []string {
 	if c == nil {
 		return nil
 	}
 	return c.KeepFieldsList
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetOctetCounting() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetOctetCounting() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.OctetCounting
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetInferFraming() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetInferFraming() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.InferFraming
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetStrictlyInferOctetCounting() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetStrictlyInferOctetCounting() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.StrictlyInferOctetCounting
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetAllowNonStandardAppName() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetAllowNonStandardAppName() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AllowNonStandardAppName
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetMaxActiveCxn() *float64 {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetMaxActiveCxn() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxActiveCxn
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetSocketIdleTimeout() *float64 {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetSocketIdleTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketIdleTimeout
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetSocketEndingMaxWait() *float64 {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetSocketEndingMaxWait() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketEndingMaxWait
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetSocketMaxLifespan() *float64 {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetSocketMaxLifespan() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketMaxLifespan
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetTLS() *components.TLSSettingsServerSideType {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetTLS() *components.TLSSettingsServerSideType {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetUDPSocketRxBufSize() *float64 {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetUDPSocketRxBufSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.UDPSocketRxBufSize
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetEnableLoadBalancing() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetEnableLoadBalancing() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableLoadBalancing
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetDescription() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetEnableEnhancedProxyHeaderParsing() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetEnableEnhancedProxyHeaderParsing() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableEnhancedProxyHeaderParsing
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetTemplateHost() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetTemplateUDPPort() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetTemplateUDPPort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateUDPPort
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetTemplateTCPPort() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetTemplateTCPPort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateTCPPort
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetTemplateTimestampTimezone() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog2) GetTemplateTimestampTimezone() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateTimestampTimezone
 }
 
-// #region class-body-createinputinputsyslogsyslog2
-// #endregion class-body-createinputinputsyslogsyslog2
+// #region class-body-createinputsystembypackinputsyslogsyslog2
+// #endregion class-body-createinputsystembypackinputsyslogsyslog2
 
-type CreateInputInputSyslogType1 string
+type CreateInputSystemByPackInputSyslogType1 string
 
 const (
-	CreateInputInputSyslogType1Syslog CreateInputInputSyslogType1 = "syslog"
+	CreateInputSystemByPackInputSyslogType1Syslog CreateInputSystemByPackInputSyslogType1 = "syslog"
 )
 
-func (e CreateInputInputSyslogType1) ToPointer() *CreateInputInputSyslogType1 {
+func (e CreateInputSystemByPackInputSyslogType1) ToPointer() *CreateInputSystemByPackInputSyslogType1 {
 	return &e
 }
-func (e *CreateInputInputSyslogType1) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackInputSyslogType1) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "syslog":
-		*e = CreateInputInputSyslogType1(v)
+		*e = CreateInputSystemByPackInputSyslogType1(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputInputSyslogType1: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackInputSyslogType1: %v", v)
 	}
 }
 
-type CreateInputInputSyslogSyslog1 struct {
+type CreateInputSystemByPackInputSyslogSyslog1 struct {
 	// Unique ID for this input
-	ID       string                      `json:"id"`
-	Type     CreateInputInputSyslogType1 `json:"type"`
-	Disabled *bool                       `json:"disabled,omitzero"`
+	ID       string                                  `json:"id"`
+	Type     CreateInputSystemByPackInputSyslogType1 `json:"type"`
+	Disabled *bool                                   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -7597,6 +8164,8 @@ type CreateInputInputSyslogSyslog1 struct {
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
@@ -7607,414 +8176,421 @@ type CreateInputInputSyslogSyslog1 struct {
 	TemplateTimestampTimezone *string `json:"__template_timestampTimezone,omitzero"`
 }
 
-func (c CreateInputInputSyslogSyslog1) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputSyslogSyslog1) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputSyslogSyslog1) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetID() string {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetType() CreateInputInputSyslogType1 {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetType() CreateInputSystemByPackInputSyslogType1 {
 	if c == nil {
-		return CreateInputInputSyslogType1("")
+		return CreateInputSystemByPackInputSyslogType1("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetHost() string {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetUDPPort() float64 {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetUDPPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.UDPPort
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetTCPPort() *float64 {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetTCPPort() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TCPPort
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetMaxBufferSize() *float64 {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxBufferSize
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetIPWhitelistRegex() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetIPWhitelistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPWhitelistRegex
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetTimestampTimezone() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetTimestampTimezone() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TimestampTimezone
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetSingleMsgUDPPackets() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetSingleMsgUDPPackets() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SingleMsgUDPPackets
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetEnableProxyHeader() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetEnableProxyHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetKeepFieldsList() []string {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetKeepFieldsList() []string {
 	if c == nil {
 		return nil
 	}
 	return c.KeepFieldsList
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetOctetCounting() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetOctetCounting() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.OctetCounting
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetInferFraming() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetInferFraming() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.InferFraming
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetStrictlyInferOctetCounting() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetStrictlyInferOctetCounting() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.StrictlyInferOctetCounting
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetAllowNonStandardAppName() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetAllowNonStandardAppName() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AllowNonStandardAppName
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetMaxActiveCxn() *float64 {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetMaxActiveCxn() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxActiveCxn
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetSocketIdleTimeout() *float64 {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetSocketIdleTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketIdleTimeout
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetSocketEndingMaxWait() *float64 {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetSocketEndingMaxWait() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketEndingMaxWait
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetSocketMaxLifespan() *float64 {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetSocketMaxLifespan() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketMaxLifespan
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetTLS() *components.TLSSettingsServerSideType {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetTLS() *components.TLSSettingsServerSideType {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetUDPSocketRxBufSize() *float64 {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetUDPSocketRxBufSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.UDPSocketRxBufSize
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetEnableLoadBalancing() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetEnableLoadBalancing() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableLoadBalancing
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetDescription() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetEnableEnhancedProxyHeaderParsing() *bool {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetEnableEnhancedProxyHeaderParsing() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableEnhancedProxyHeaderParsing
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetTemplateHost() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetTemplateUDPPort() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetTemplateUDPPort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateUDPPort
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetTemplateTCPPort() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetTemplateTCPPort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateTCPPort
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetTemplateTimestampTimezone() *string {
+func (c *CreateInputSystemByPackInputSyslogSyslog1) GetTemplateTimestampTimezone() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateTimestampTimezone
 }
 
-// #region class-body-createinputinputsyslogsyslog1
-// #endregion class-body-createinputinputsyslogsyslog1
+// #region class-body-createinputsystembypackinputsyslogsyslog1
+// #endregion class-body-createinputsystembypackinputsyslogsyslog1
 
-type CreateInputInputSyslogUnionType string
+type CreateInputSystemByPackInputSyslogUnionType string
 
 const (
-	CreateInputInputSyslogUnionTypeCreateInputInputSyslogSyslog1 CreateInputInputSyslogUnionType = "createInput_InputSyslog_Syslog_1"
-	CreateInputInputSyslogUnionTypeCreateInputInputSyslogSyslog2 CreateInputInputSyslogUnionType = "createInput_InputSyslog_Syslog_2"
+	CreateInputSystemByPackInputSyslogUnionTypeCreateInputSystemByPackInputSyslogSyslog1 CreateInputSystemByPackInputSyslogUnionType = "createInputSystemByPack_InputSyslog_Syslog_1"
+	CreateInputSystemByPackInputSyslogUnionTypeCreateInputSystemByPackInputSyslogSyslog2 CreateInputSystemByPackInputSyslogUnionType = "createInputSystemByPack_InputSyslog_Syslog_2"
 )
 
-type CreateInputInputSyslogUnion struct {
-	CreateInputInputSyslogSyslog1 *CreateInputInputSyslogSyslog1 `queryParam:"inline" union:"member"`
-	CreateInputInputSyslogSyslog2 *CreateInputInputSyslogSyslog2 `queryParam:"inline" union:"member"`
+type CreateInputSystemByPackInputSyslogUnion struct {
+	CreateInputSystemByPackInputSyslogSyslog1 *CreateInputSystemByPackInputSyslogSyslog1 `queryParam:"inline" union:"member"`
+	CreateInputSystemByPackInputSyslogSyslog2 *CreateInputSystemByPackInputSyslogSyslog2 `queryParam:"inline" union:"member"`
 
-	Type CreateInputInputSyslogUnionType
+	Type CreateInputSystemByPackInputSyslogUnionType
 }
 
-func CreateCreateInputInputSyslogUnionCreateInputInputSyslogSyslog1(createInputInputSyslogSyslog1 CreateInputInputSyslogSyslog1) CreateInputInputSyslogUnion {
-	typ := CreateInputInputSyslogUnionTypeCreateInputInputSyslogSyslog1
+func CreateCreateInputSystemByPackInputSyslogUnionCreateInputSystemByPackInputSyslogSyslog1(createInputSystemByPackInputSyslogSyslog1 CreateInputSystemByPackInputSyslogSyslog1) CreateInputSystemByPackInputSyslogUnion {
+	typ := CreateInputSystemByPackInputSyslogUnionTypeCreateInputSystemByPackInputSyslogSyslog1
 
-	return CreateInputInputSyslogUnion{
-		CreateInputInputSyslogSyslog1: &createInputInputSyslogSyslog1,
-		Type:                          typ,
+	return CreateInputSystemByPackInputSyslogUnion{
+		CreateInputSystemByPackInputSyslogSyslog1: &createInputSystemByPackInputSyslogSyslog1,
+		Type: typ,
 	}
 }
 
-func CreateCreateInputInputSyslogUnionCreateInputInputSyslogSyslog2(createInputInputSyslogSyslog2 CreateInputInputSyslogSyslog2) CreateInputInputSyslogUnion {
-	typ := CreateInputInputSyslogUnionTypeCreateInputInputSyslogSyslog2
+func CreateCreateInputSystemByPackInputSyslogUnionCreateInputSystemByPackInputSyslogSyslog2(createInputSystemByPackInputSyslogSyslog2 CreateInputSystemByPackInputSyslogSyslog2) CreateInputSystemByPackInputSyslogUnion {
+	typ := CreateInputSystemByPackInputSyslogUnionTypeCreateInputSystemByPackInputSyslogSyslog2
 
-	return CreateInputInputSyslogUnion{
-		CreateInputInputSyslogSyslog2: &createInputInputSyslogSyslog2,
-		Type:                          typ,
+	return CreateInputSystemByPackInputSyslogUnion{
+		CreateInputSystemByPackInputSyslogSyslog2: &createInputSystemByPackInputSyslogSyslog2,
+		Type: typ,
 	}
 }
 
-func (u *CreateInputInputSyslogUnion) UnmarshalJSON(data []byte) error {
+func (u *CreateInputSystemByPackInputSyslogUnion) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
 	// Collect all valid candidates
-	var createInputInputSyslogSyslog1 CreateInputInputSyslogSyslog1 = CreateInputInputSyslogSyslog1{}
-	if err := utils.UnmarshalJSON(data, &createInputInputSyslogSyslog1, "", true, nil); err == nil {
+	var createInputSystemByPackInputSyslogSyslog1 CreateInputSystemByPackInputSyslogSyslog1 = CreateInputSystemByPackInputSyslogSyslog1{}
+	if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputSyslogSyslog1, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  CreateInputInputSyslogUnionTypeCreateInputInputSyslogSyslog1,
-			Value: &createInputInputSyslogSyslog1,
+			Type:  CreateInputSystemByPackInputSyslogUnionTypeCreateInputSystemByPackInputSyslogSyslog1,
+			Value: &createInputSystemByPackInputSyslogSyslog1,
 		})
 	}
 
-	var createInputInputSyslogSyslog2 CreateInputInputSyslogSyslog2 = CreateInputInputSyslogSyslog2{}
-	if err := utils.UnmarshalJSON(data, &createInputInputSyslogSyslog2, "", true, nil); err == nil {
+	var createInputSystemByPackInputSyslogSyslog2 CreateInputSystemByPackInputSyslogSyslog2 = CreateInputSystemByPackInputSyslogSyslog2{}
+	if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputSyslogSyslog2, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  CreateInputInputSyslogUnionTypeCreateInputInputSyslogSyslog2,
-			Value: &createInputInputSyslogSyslog2,
+			Type:  CreateInputSystemByPackInputSyslogUnionTypeCreateInputSystemByPackInputSyslogSyslog2,
+			Value: &createInputSystemByPackInputSyslogSyslog2,
 		})
 	}
 
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputInputSyslogUnion", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputSystemByPackInputSyslogUnion", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputInputSyslogUnion", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputSystemByPackInputSyslogUnion", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(CreateInputInputSyslogUnionType)
+	u.Type = best.Type.(CreateInputSystemByPackInputSyslogUnionType)
 	switch best.Type {
-	case CreateInputInputSyslogUnionTypeCreateInputInputSyslogSyslog1:
-		u.CreateInputInputSyslogSyslog1 = best.Value.(*CreateInputInputSyslogSyslog1)
+	case CreateInputSystemByPackInputSyslogUnionTypeCreateInputSystemByPackInputSyslogSyslog1:
+		u.CreateInputSystemByPackInputSyslogSyslog1 = best.Value.(*CreateInputSystemByPackInputSyslogSyslog1)
 		return nil
-	case CreateInputInputSyslogUnionTypeCreateInputInputSyslogSyslog2:
-		u.CreateInputInputSyslogSyslog2 = best.Value.(*CreateInputInputSyslogSyslog2)
+	case CreateInputSystemByPackInputSyslogUnionTypeCreateInputSystemByPackInputSyslogSyslog2:
+		u.CreateInputSystemByPackInputSyslogSyslog2 = best.Value.(*CreateInputSystemByPackInputSyslogSyslog2)
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputInputSyslogUnion", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateInputSystemByPackInputSyslogUnion", string(data))
 }
 
-func (u CreateInputInputSyslogUnion) MarshalJSON() ([]byte, error) {
-	if u.CreateInputInputSyslogSyslog1 != nil {
-		return utils.MarshalJSON(u.CreateInputInputSyslogSyslog1, "", true)
+func (u CreateInputSystemByPackInputSyslogUnion) MarshalJSON() ([]byte, error) {
+	if u.CreateInputSystemByPackInputSyslogSyslog1 != nil {
+		return utils.MarshalJSON(u.CreateInputSystemByPackInputSyslogSyslog1, "", true)
 	}
 
-	if u.CreateInputInputSyslogSyslog2 != nil {
-		return utils.MarshalJSON(u.CreateInputInputSyslogSyslog2, "", true)
+	if u.CreateInputSystemByPackInputSyslogSyslog2 != nil {
+		return utils.MarshalJSON(u.CreateInputSystemByPackInputSyslogSyslog2, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type CreateInputInputSyslogUnion: all fields are null")
+	return nil, errors.New("could not marshal union type CreateInputSystemByPackInputSyslogUnion: all fields are null")
 }
 
-type CreateInputTypeSqs string
+type CreateInputSystemByPackTypeSqs string
 
 const (
-	CreateInputTypeSqsSqs CreateInputTypeSqs = "sqs"
+	CreateInputSystemByPackTypeSqsSqs CreateInputSystemByPackTypeSqs = "sqs"
 )
 
-func (e CreateInputTypeSqs) ToPointer() *CreateInputTypeSqs {
+func (e CreateInputSystemByPackTypeSqs) ToPointer() *CreateInputSystemByPackTypeSqs {
 	return &e
 }
-func (e *CreateInputTypeSqs) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeSqs) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "sqs":
-		*e = CreateInputTypeSqs(v)
+		*e = CreateInputSystemByPackTypeSqs(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeSqs: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeSqs: %v", v)
 	}
 }
 
-// CreateInputQueueType - The queue type used (or created)
-type CreateInputQueueType string
+// CreateInputSystemByPackQueueType - The queue type used (or created)
+type CreateInputSystemByPackQueueType string
 
 const (
-	// CreateInputQueueTypeStandard Standard
-	CreateInputQueueTypeStandard CreateInputQueueType = "standard"
-	// CreateInputQueueTypeFifo FIFO
-	CreateInputQueueTypeFifo CreateInputQueueType = "fifo"
+	// CreateInputSystemByPackQueueTypeStandard Standard
+	CreateInputSystemByPackQueueTypeStandard CreateInputSystemByPackQueueType = "standard"
+	// CreateInputSystemByPackQueueTypeFifo FIFO
+	CreateInputSystemByPackQueueTypeFifo CreateInputSystemByPackQueueType = "fifo"
 )
 
-func (e CreateInputQueueType) ToPointer() *CreateInputQueueType {
+func (e CreateInputSystemByPackQueueType) ToPointer() *CreateInputSystemByPackQueueType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputQueueType) IsExact() bool {
+func (e *CreateInputSystemByPackQueueType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "standard", "fifo":
@@ -8024,11 +8600,11 @@ func (e *CreateInputQueueType) IsExact() bool {
 	return false
 }
 
-type CreateInputInputSqs struct {
+type CreateInputSystemByPackInputSqs struct {
 	// Unique ID for this input
-	ID       string             `json:"id"`
-	Type     CreateInputTypeSqs `json:"type"`
-	Disabled *bool              `json:"disabled,omitzero"`
+	ID       string                         `json:"id"`
+	Type     CreateInputSystemByPackTypeSqs `json:"type"`
+	Disabled *bool                          `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -8045,7 +8621,7 @@ type CreateInputInputSqs struct {
 	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// The queue type used (or created)
-	QueueType CreateInputQueueType `json:"queueType"`
+	QueueType CreateInputSystemByPackQueueType `json:"queueType"`
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitzero"`
 	// Create queue if it does not exist
@@ -8087,6 +8663,8 @@ type CreateInputInputSqs struct {
 	NumReceivers *float64 `json:"numReceivers,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
 	TemplateQueueName *string `json:"__template_queueName,omitzero"`
 	// Binds 'queueType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueType' at runtime.
@@ -8107,346 +8685,353 @@ type CreateInputInputSqs struct {
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
 
-func (c CreateInputInputSqs) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputSqs) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputSqs) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputSqs) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputSqs) GetID() string {
+func (c *CreateInputSystemByPackInputSqs) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputSqs) GetType() CreateInputTypeSqs {
+func (c *CreateInputSystemByPackInputSqs) GetType() CreateInputSystemByPackTypeSqs {
 	if c == nil {
-		return CreateInputTypeSqs("")
+		return CreateInputSystemByPackTypeSqs("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputSqs) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputSqs) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputSqs) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputSqs) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputSqs) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputSqs) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputSqs) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputSqs) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputSqs) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputSqs) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputSqs) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputSqs) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputSqs) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputSqs) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputSqs) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputSqs) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputSqs) GetQueueName() string {
+func (c *CreateInputSystemByPackInputSqs) GetQueueName() string {
 	if c == nil {
 		return ""
 	}
 	return c.QueueName
 }
 
-func (c *CreateInputInputSqs) GetQueueType() CreateInputQueueType {
+func (c *CreateInputSystemByPackInputSqs) GetQueueType() CreateInputSystemByPackQueueType {
 	if c == nil {
-		return CreateInputQueueType("")
+		return CreateInputSystemByPackQueueType("")
 	}
 	return c.QueueType
 }
 
-func (c *CreateInputInputSqs) GetAwsAccountID() *string {
+func (c *CreateInputSystemByPackInputSqs) GetAwsAccountID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAccountID
 }
 
-func (c *CreateInputInputSqs) GetCreateQueue() *bool {
+func (c *CreateInputSystemByPackInputSqs) GetCreateQueue() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.CreateQueue
 }
 
-func (c *CreateInputInputSqs) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (c *CreateInputSystemByPackInputSqs) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateInputInputSqs) GetAwsSecretKey() *string {
+func (c *CreateInputSystemByPackInputSqs) GetAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecretKey
 }
 
-func (c *CreateInputInputSqs) GetRegion() *string {
+func (c *CreateInputSystemByPackInputSqs) GetRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Region
 }
 
-func (c *CreateInputInputSqs) GetEndpoint() *string {
+func (c *CreateInputSystemByPackInputSqs) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
 }
 
-func (c *CreateInputInputSqs) GetSignatureVersion() *components.SignatureVersionOptionsSqs {
+func (c *CreateInputSystemByPackInputSqs) GetSignatureVersion() *components.SignatureVersionOptionsSqs {
 	if c == nil {
 		return nil
 	}
 	return c.SignatureVersion
 }
 
-func (c *CreateInputInputSqs) GetReuseConnections() *bool {
+func (c *CreateInputSystemByPackInputSqs) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateInputInputSqs) GetRejectUnauthorized() *bool {
+func (c *CreateInputSystemByPackInputSqs) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateInputInputSqs) GetEnableAssumeRole() *bool {
+func (c *CreateInputSystemByPackInputSqs) GetEnableAssumeRole() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableAssumeRole
 }
 
-func (c *CreateInputInputSqs) GetAssumeRoleArn() *string {
+func (c *CreateInputSystemByPackInputSqs) GetAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleArn
 }
 
-func (c *CreateInputInputSqs) GetAssumeRoleExternalID() *string {
+func (c *CreateInputSystemByPackInputSqs) GetAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleExternalID
 }
 
-func (c *CreateInputInputSqs) GetDurationSeconds() *float64 {
+func (c *CreateInputSystemByPackInputSqs) GetDurationSeconds() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DurationSeconds
 }
 
-func (c *CreateInputInputSqs) GetMaxMessages() *float64 {
+func (c *CreateInputSystemByPackInputSqs) GetMaxMessages() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxMessages
 }
 
-func (c *CreateInputInputSqs) GetVisibilityTimeout() *float64 {
+func (c *CreateInputSystemByPackInputSqs) GetVisibilityTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.VisibilityTimeout
 }
 
-func (c *CreateInputInputSqs) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputSqs) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputSqs) GetPollTimeout() *float64 {
+func (c *CreateInputSystemByPackInputSqs) GetPollTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PollTimeout
 }
 
-func (c *CreateInputInputSqs) GetDescription() *string {
+func (c *CreateInputSystemByPackInputSqs) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputSqs) GetAwsAPIKey() *string {
+func (c *CreateInputSystemByPackInputSqs) GetAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAPIKey
 }
 
-func (c *CreateInputInputSqs) GetAwsSecret() *string {
+func (c *CreateInputSystemByPackInputSqs) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateInputInputSqs) GetNumReceivers() *float64 {
+func (c *CreateInputSystemByPackInputSqs) GetNumReceivers() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.NumReceivers
 }
 
-func (c *CreateInputInputSqs) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputSqs) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputSqs) GetTemplateQueueName() *string {
+func (c *CreateInputSystemByPackInputSqs) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputSqs) GetTemplateQueueName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateQueueName
 }
 
-func (c *CreateInputInputSqs) GetTemplateQueueType() *string {
+func (c *CreateInputSystemByPackInputSqs) GetTemplateQueueType() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateQueueType
 }
 
-func (c *CreateInputInputSqs) GetTemplateAwsAccountID() *string {
+func (c *CreateInputSystemByPackInputSqs) GetTemplateAwsAccountID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAccountID
 }
 
-func (c *CreateInputInputSqs) GetTemplateAwsSecretKey() *string {
+func (c *CreateInputSystemByPackInputSqs) GetTemplateAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsSecretKey
 }
 
-func (c *CreateInputInputSqs) GetTemplateRegion() *string {
+func (c *CreateInputSystemByPackInputSqs) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateRegion
 }
 
-func (c *CreateInputInputSqs) GetTemplateEndpoint() *string {
+func (c *CreateInputSystemByPackInputSqs) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateInputInputSqs) GetTemplateAssumeRoleArn() *string {
+func (c *CreateInputSystemByPackInputSqs) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleArn
 }
 
-func (c *CreateInputInputSqs) GetTemplateAssumeRoleExternalID() *string {
+func (c *CreateInputSystemByPackInputSqs) GetTemplateAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
 }
 
-func (c *CreateInputInputSqs) GetTemplateAwsAPIKey() *string {
+func (c *CreateInputSystemByPackInputSqs) GetTemplateAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAPIKey
 }
 
-type CreateInputTypeModelDrivenTelemetry string
+type CreateInputSystemByPackTypeModelDrivenTelemetry string
 
 const (
-	CreateInputTypeModelDrivenTelemetryModelDrivenTelemetry CreateInputTypeModelDrivenTelemetry = "model_driven_telemetry"
+	CreateInputSystemByPackTypeModelDrivenTelemetryModelDrivenTelemetry CreateInputSystemByPackTypeModelDrivenTelemetry = "model_driven_telemetry"
 )
 
-func (e CreateInputTypeModelDrivenTelemetry) ToPointer() *CreateInputTypeModelDrivenTelemetry {
+func (e CreateInputSystemByPackTypeModelDrivenTelemetry) ToPointer() *CreateInputSystemByPackTypeModelDrivenTelemetry {
 	return &e
 }
-func (e *CreateInputTypeModelDrivenTelemetry) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeModelDrivenTelemetry) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "model_driven_telemetry":
-		*e = CreateInputTypeModelDrivenTelemetry(v)
+		*e = CreateInputSystemByPackTypeModelDrivenTelemetry(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeModelDrivenTelemetry: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeModelDrivenTelemetry: %v", v)
 	}
 }
 
-type CreateInputInputModelDrivenTelemetry struct {
+type CreateInputSystemByPackInputModelDrivenTelemetry struct {
 	// Unique ID for this input
-	ID       string                              `json:"id"`
-	Type     CreateInputTypeModelDrivenTelemetry `json:"type"`
-	Disabled *bool                               `json:"disabled,omitzero"`
+	ID       string                                          `json:"id"`
+	Type     CreateInputSystemByPackTypeModelDrivenTelemetry `json:"type"`
+	Disabled *bool                                           `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -8474,202 +9059,211 @@ type CreateInputInputModelDrivenTelemetry struct {
 	Description       *string  `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (c CreateInputInputModelDrivenTelemetry) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputModelDrivenTelemetry) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetID() string {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetType() CreateInputTypeModelDrivenTelemetry {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetType() CreateInputSystemByPackTypeModelDrivenTelemetry {
 	if c == nil {
-		return CreateInputTypeModelDrivenTelemetry("")
+		return CreateInputSystemByPackTypeModelDrivenTelemetry("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetHost() string {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetPort() float64 {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.Port
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetTLS() *components.TLSSettingsServerSideType {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetTLS() *components.TLSSettingsServerSideType {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetMaxActiveCxn() *float64 {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetMaxActiveCxn() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxActiveCxn
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetShutdownTimeoutMs() *float64 {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetShutdownTimeoutMs() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ShutdownTimeoutMs
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetDescription() *string {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetTemplateHost() *string {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetTemplatePort() *string {
+func (c *CreateInputSystemByPackInputModelDrivenTelemetry) GetTemplatePort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePort
 }
 
-type CreateInputTypeOpenTelemetry string
+type CreateInputSystemByPackTypeOpenTelemetry string
 
 const (
-	CreateInputTypeOpenTelemetryOpenTelemetry CreateInputTypeOpenTelemetry = "open_telemetry"
+	CreateInputSystemByPackTypeOpenTelemetryOpenTelemetry CreateInputSystemByPackTypeOpenTelemetry = "open_telemetry"
 )
 
-func (e CreateInputTypeOpenTelemetry) ToPointer() *CreateInputTypeOpenTelemetry {
+func (e CreateInputSystemByPackTypeOpenTelemetry) ToPointer() *CreateInputSystemByPackTypeOpenTelemetry {
 	return &e
 }
-func (e *CreateInputTypeOpenTelemetry) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeOpenTelemetry) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "open_telemetry":
-		*e = CreateInputTypeOpenTelemetry(v)
+		*e = CreateInputSystemByPackTypeOpenTelemetry(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeOpenTelemetry: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeOpenTelemetry: %v", v)
 	}
 }
 
-// CreateInputProtocol - Select whether to leverage gRPC or HTTP for OpenTelemetry
-type CreateInputProtocol string
+// CreateInputSystemByPackProtocol - Select whether to leverage gRPC or HTTP for OpenTelemetry
+type CreateInputSystemByPackProtocol string
 
 const (
-	// CreateInputProtocolGrpc gRPC
-	CreateInputProtocolGrpc CreateInputProtocol = "grpc"
-	// CreateInputProtocolHTTP HTTP
-	CreateInputProtocolHTTP CreateInputProtocol = "http"
+	// CreateInputSystemByPackProtocolGrpc gRPC
+	CreateInputSystemByPackProtocolGrpc CreateInputSystemByPackProtocol = "grpc"
+	// CreateInputSystemByPackProtocolHTTP HTTP
+	CreateInputSystemByPackProtocolHTTP CreateInputSystemByPackProtocol = "http"
 )
 
-func (e CreateInputProtocol) ToPointer() *CreateInputProtocol {
+func (e CreateInputSystemByPackProtocol) ToPointer() *CreateInputSystemByPackProtocol {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputProtocol) IsExact() bool {
+func (e *CreateInputSystemByPackProtocol) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "grpc", "http":
@@ -8679,22 +9273,22 @@ func (e *CreateInputProtocol) IsExact() bool {
 	return false
 }
 
-// CreateInputOTLPVersion - The version of OTLP Protobuf definitions to use when interpreting received data
-type CreateInputOTLPVersion string
+// CreateInputSystemByPackOTLPVersion - The version of OTLP Protobuf definitions to use when interpreting received data
+type CreateInputSystemByPackOTLPVersion string
 
 const (
-	// CreateInputOTLPVersionZeroDot10Dot0 0.10.0
-	CreateInputOTLPVersionZeroDot10Dot0 CreateInputOTLPVersion = "0.10.0"
-	// CreateInputOTLPVersionOneDot3Dot1 1.3.1
-	CreateInputOTLPVersionOneDot3Dot1 CreateInputOTLPVersion = "1.3.1"
+	// CreateInputSystemByPackOTLPVersionZeroDot10Dot0 0.10.0
+	CreateInputSystemByPackOTLPVersionZeroDot10Dot0 CreateInputSystemByPackOTLPVersion = "0.10.0"
+	// CreateInputSystemByPackOTLPVersionOneDot3Dot1 1.3.1
+	CreateInputSystemByPackOTLPVersionOneDot3Dot1 CreateInputSystemByPackOTLPVersion = "1.3.1"
 )
 
-func (e CreateInputOTLPVersion) ToPointer() *CreateInputOTLPVersion {
+func (e CreateInputSystemByPackOTLPVersion) ToPointer() *CreateInputSystemByPackOTLPVersion {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputOTLPVersion) IsExact() bool {
+func (e *CreateInputSystemByPackOTLPVersion) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "0.10.0", "1.3.1":
@@ -8704,28 +9298,28 @@ func (e *CreateInputOTLPVersion) IsExact() bool {
 	return false
 }
 
-// CreateInputAuthenticationTypeOpenTelemetry - OpenTelemetry authentication type
-type CreateInputAuthenticationTypeOpenTelemetry string
+// CreateInputSystemByPackAuthenticationTypeOpenTelemetry - OpenTelemetry authentication type
+type CreateInputSystemByPackAuthenticationTypeOpenTelemetry string
 
 const (
-	// CreateInputAuthenticationTypeOpenTelemetryNone None
-	CreateInputAuthenticationTypeOpenTelemetryNone CreateInputAuthenticationTypeOpenTelemetry = "none"
-	// CreateInputAuthenticationTypeOpenTelemetryBasic Basic
-	CreateInputAuthenticationTypeOpenTelemetryBasic CreateInputAuthenticationTypeOpenTelemetry = "basic"
-	// CreateInputAuthenticationTypeOpenTelemetryCredentialsSecret Basic (credentials secret)
-	CreateInputAuthenticationTypeOpenTelemetryCredentialsSecret CreateInputAuthenticationTypeOpenTelemetry = "credentialsSecret"
-	// CreateInputAuthenticationTypeOpenTelemetryToken Token
-	CreateInputAuthenticationTypeOpenTelemetryToken CreateInputAuthenticationTypeOpenTelemetry = "token"
-	// CreateInputAuthenticationTypeOpenTelemetryTextSecret Token (text secret)
-	CreateInputAuthenticationTypeOpenTelemetryTextSecret CreateInputAuthenticationTypeOpenTelemetry = "textSecret"
+	// CreateInputSystemByPackAuthenticationTypeOpenTelemetryNone None
+	CreateInputSystemByPackAuthenticationTypeOpenTelemetryNone CreateInputSystemByPackAuthenticationTypeOpenTelemetry = "none"
+	// CreateInputSystemByPackAuthenticationTypeOpenTelemetryBasic Basic
+	CreateInputSystemByPackAuthenticationTypeOpenTelemetryBasic CreateInputSystemByPackAuthenticationTypeOpenTelemetry = "basic"
+	// CreateInputSystemByPackAuthenticationTypeOpenTelemetryCredentialsSecret Basic (credentials secret)
+	CreateInputSystemByPackAuthenticationTypeOpenTelemetryCredentialsSecret CreateInputSystemByPackAuthenticationTypeOpenTelemetry = "credentialsSecret"
+	// CreateInputSystemByPackAuthenticationTypeOpenTelemetryToken Token
+	CreateInputSystemByPackAuthenticationTypeOpenTelemetryToken CreateInputSystemByPackAuthenticationTypeOpenTelemetry = "token"
+	// CreateInputSystemByPackAuthenticationTypeOpenTelemetryTextSecret Token (text secret)
+	CreateInputSystemByPackAuthenticationTypeOpenTelemetryTextSecret CreateInputSystemByPackAuthenticationTypeOpenTelemetry = "textSecret"
 )
 
-func (e CreateInputAuthenticationTypeOpenTelemetry) ToPointer() *CreateInputAuthenticationTypeOpenTelemetry {
+func (e CreateInputSystemByPackAuthenticationTypeOpenTelemetry) ToPointer() *CreateInputSystemByPackAuthenticationTypeOpenTelemetry {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputAuthenticationTypeOpenTelemetry) IsExact() bool {
+func (e *CreateInputSystemByPackAuthenticationTypeOpenTelemetry) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "basic", "credentialsSecret", "token", "textSecret":
@@ -8735,25 +9329,25 @@ func (e *CreateInputAuthenticationTypeOpenTelemetry) IsExact() bool {
 	return false
 }
 
-type CreateInputAuthMethodsExtAuthenticationType string
+type CreateInputSystemByPackAuthMethodsExtAuthenticationType string
 
 const (
-	// CreateInputAuthMethodsExtAuthenticationTypeToken Token
-	CreateInputAuthMethodsExtAuthenticationTypeToken CreateInputAuthMethodsExtAuthenticationType = "token"
-	// CreateInputAuthMethodsExtAuthenticationTypeTokenSecret Token (secret)
-	CreateInputAuthMethodsExtAuthenticationTypeTokenSecret CreateInputAuthMethodsExtAuthenticationType = "tokenSecret"
-	// CreateInputAuthMethodsExtAuthenticationTypeBasic Basic
-	CreateInputAuthMethodsExtAuthenticationTypeBasic CreateInputAuthMethodsExtAuthenticationType = "basic"
-	// CreateInputAuthMethodsExtAuthenticationTypeBasicSecret Basic (credentials secret)
-	CreateInputAuthMethodsExtAuthenticationTypeBasicSecret CreateInputAuthMethodsExtAuthenticationType = "basicSecret"
+	// CreateInputSystemByPackAuthMethodsExtAuthenticationTypeToken Token
+	CreateInputSystemByPackAuthMethodsExtAuthenticationTypeToken CreateInputSystemByPackAuthMethodsExtAuthenticationType = "token"
+	// CreateInputSystemByPackAuthMethodsExtAuthenticationTypeTokenSecret Token (secret)
+	CreateInputSystemByPackAuthMethodsExtAuthenticationTypeTokenSecret CreateInputSystemByPackAuthMethodsExtAuthenticationType = "tokenSecret"
+	// CreateInputSystemByPackAuthMethodsExtAuthenticationTypeBasic Basic
+	CreateInputSystemByPackAuthMethodsExtAuthenticationTypeBasic CreateInputSystemByPackAuthMethodsExtAuthenticationType = "basic"
+	// CreateInputSystemByPackAuthMethodsExtAuthenticationTypeBasicSecret Basic (credentials secret)
+	CreateInputSystemByPackAuthMethodsExtAuthenticationTypeBasicSecret CreateInputSystemByPackAuthMethodsExtAuthenticationType = "basicSecret"
 )
 
-func (e CreateInputAuthMethodsExtAuthenticationType) ToPointer() *CreateInputAuthMethodsExtAuthenticationType {
+func (e CreateInputSystemByPackAuthMethodsExtAuthenticationType) ToPointer() *CreateInputSystemByPackAuthMethodsExtAuthenticationType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputAuthMethodsExtAuthenticationType) IsExact() bool {
+func (e *CreateInputSystemByPackAuthMethodsExtAuthenticationType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "token", "tokenSecret", "basic", "basicSecret":
@@ -8763,8 +9357,8 @@ func (e *CreateInputAuthMethodsExtAuthenticationType) IsExact() bool {
 	return false
 }
 
-type CreateInputAuthMethodsExt struct {
-	AuthType CreateInputAuthMethodsExtAuthenticationType `json:"authType"`
+type CreateInputSystemByPackAuthMethodsExt struct {
+	AuthType CreateInputSystemByPackAuthMethodsExtAuthenticationType `json:"authType"`
 	// Bearer token for Authorization header
 	Token       *string `json:"token,omitzero"`
 	Description *string `json:"description,omitzero"`
@@ -8779,85 +9373,85 @@ type CreateInputAuthMethodsExt struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 }
 
-func (c CreateInputAuthMethodsExt) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackAuthMethodsExt) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputAuthMethodsExt) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackAuthMethodsExt) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputAuthMethodsExt) GetAuthType() CreateInputAuthMethodsExtAuthenticationType {
+func (c *CreateInputSystemByPackAuthMethodsExt) GetAuthType() CreateInputSystemByPackAuthMethodsExtAuthenticationType {
 	if c == nil {
-		return CreateInputAuthMethodsExtAuthenticationType("")
+		return CreateInputSystemByPackAuthMethodsExtAuthenticationType("")
 	}
 	return c.AuthType
 }
 
-func (c *CreateInputAuthMethodsExt) GetToken() *string {
+func (c *CreateInputSystemByPackAuthMethodsExt) GetToken() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Token
 }
 
-func (c *CreateInputAuthMethodsExt) GetDescription() *string {
+func (c *CreateInputSystemByPackAuthMethodsExt) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputAuthMethodsExt) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackAuthMethodsExt) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputAuthMethodsExt) GetEnabled() *bool {
+func (c *CreateInputSystemByPackAuthMethodsExt) GetEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enabled
 }
 
-func (c *CreateInputAuthMethodsExt) GetTokenSecret() *string {
+func (c *CreateInputSystemByPackAuthMethodsExt) GetTokenSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TokenSecret
 }
 
-func (c *CreateInputAuthMethodsExt) GetUsername() *string {
+func (c *CreateInputSystemByPackAuthMethodsExt) GetUsername() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Username
 }
 
-func (c *CreateInputAuthMethodsExt) GetPassword() *string {
+func (c *CreateInputSystemByPackAuthMethodsExt) GetPassword() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Password
 }
 
-func (c *CreateInputAuthMethodsExt) GetCredentialsSecret() *string {
+func (c *CreateInputSystemByPackAuthMethodsExt) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CredentialsSecret
 }
 
-type CreateInputInputOpenTelemetry struct {
+type CreateInputSystemByPackInputOpenTelemetry struct {
 	// Unique ID for this input
-	ID       string                       `json:"id"`
-	Type     CreateInputTypeOpenTelemetry `json:"type"`
-	Disabled *bool                        `json:"disabled,omitzero"`
+	ID       string                                   `json:"id"`
+	Type     CreateInputSystemByPackTypeOpenTelemetry `json:"type"`
+	Disabled *bool                                    `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -8893,17 +9487,17 @@ type CreateInputInputOpenTelemetry struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Select whether to leverage gRPC or HTTP for OpenTelemetry
-	Protocol *CreateInputProtocol `json:"protocol,omitzero"`
+	Protocol *CreateInputSystemByPackProtocol `json:"protocol,omitzero"`
 	// Enable to extract each incoming span to a separate event
 	ExtractSpans *bool `json:"extractSpans,omitzero"`
 	// Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
 	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
 	// The version of OTLP Protobuf definitions to use when interpreting received data
-	OtlpVersion *CreateInputOTLPVersion `json:"otlpVersion,omitzero"`
+	OtlpVersion *CreateInputSystemByPackOTLPVersion `json:"otlpVersion,omitzero"`
 	// OpenTelemetry authentication type
-	AuthType *CreateInputAuthenticationTypeOpenTelemetry `json:"authType,omitzero"`
+	AuthType *CreateInputSystemByPackAuthenticationTypeOpenTelemetry `json:"authType,omitzero"`
 	// Shared secrets to authenticate clients. Supports Bearer tokens and Basic auth. If empty, unauthenticated access is permitted.
-	AuthMethodsExt []CreateInputAuthMethodsExt `json:"authMethodsExt,omitzero"`
+	AuthMethodsExt []CreateInputSystemByPackAuthMethodsExt `json:"authMethodsExt,omitzero"`
 	// Fields to add to events from this input
 	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -8921,6 +9515,8 @@ type CreateInputInputOpenTelemetry struct {
 	ExtractLogs *bool `json:"extractLogs,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -8931,328 +9527,335 @@ type CreateInputInputOpenTelemetry struct {
 	TemplateOtlpVersion *string `json:"__template_otlpVersion,omitzero"`
 }
 
-func (c CreateInputInputOpenTelemetry) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputOpenTelemetry) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputOpenTelemetry) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputOpenTelemetry) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputOpenTelemetry) GetID() string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputOpenTelemetry) GetType() CreateInputTypeOpenTelemetry {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetType() CreateInputSystemByPackTypeOpenTelemetry {
 	if c == nil {
-		return CreateInputTypeOpenTelemetry("")
+		return CreateInputSystemByPackTypeOpenTelemetry("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputOpenTelemetry) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputOpenTelemetry) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputOpenTelemetry) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputOpenTelemetry) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputOpenTelemetry) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputOpenTelemetry) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputOpenTelemetry) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputOpenTelemetry) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputOpenTelemetry) GetHost() string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputOpenTelemetry) GetPort() float64 {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.Port
 }
 
-func (c *CreateInputInputOpenTelemetry) GetTLS() *components.TLSSettingsServerSideType {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetTLS() *components.TLSSettingsServerSideType {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateInputInputOpenTelemetry) GetMaxActiveReq() *float64 {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetMaxActiveReq() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxActiveReq
 }
 
-func (c *CreateInputInputOpenTelemetry) GetMaxRequestsPerSocket() *int64 {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetMaxRequestsPerSocket() *int64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRequestsPerSocket
 }
 
-func (c *CreateInputInputOpenTelemetry) GetRequestTimeout() *float64 {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetRequestTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.RequestTimeout
 }
 
-func (c *CreateInputInputOpenTelemetry) GetSocketTimeout() *float64 {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetSocketTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketTimeout
 }
 
-func (c *CreateInputInputOpenTelemetry) GetKeepAliveTimeout() *float64 {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetKeepAliveTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAliveTimeout
 }
 
-func (c *CreateInputInputOpenTelemetry) GetEnableHealthCheck() *bool {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetEnableHealthCheck() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableHealthCheck
 }
 
-func (c *CreateInputInputOpenTelemetry) GetIPAllowlistRegex() *string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetIPAllowlistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPAllowlistRegex
 }
 
-func (c *CreateInputInputOpenTelemetry) GetIPDenylistRegex() *string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetIPDenylistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPDenylistRegex
 }
 
-func (c *CreateInputInputOpenTelemetry) GetProtocol() *CreateInputProtocol {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetProtocol() *CreateInputSystemByPackProtocol {
 	if c == nil {
 		return nil
 	}
 	return c.Protocol
 }
 
-func (c *CreateInputInputOpenTelemetry) GetExtractSpans() *bool {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetExtractSpans() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ExtractSpans
 }
 
-func (c *CreateInputInputOpenTelemetry) GetExtractMetrics() *bool {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetExtractMetrics() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ExtractMetrics
 }
 
-func (c *CreateInputInputOpenTelemetry) GetOtlpVersion() *CreateInputOTLPVersion {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetOtlpVersion() *CreateInputSystemByPackOTLPVersion {
 	if c == nil {
 		return nil
 	}
 	return c.OtlpVersion
 }
 
-func (c *CreateInputInputOpenTelemetry) GetAuthType() *CreateInputAuthenticationTypeOpenTelemetry {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetAuthType() *CreateInputSystemByPackAuthenticationTypeOpenTelemetry {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateInputInputOpenTelemetry) GetAuthMethodsExt() []CreateInputAuthMethodsExt {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetAuthMethodsExt() []CreateInputSystemByPackAuthMethodsExt {
 	if c == nil {
 		return nil
 	}
 	return c.AuthMethodsExt
 }
 
-func (c *CreateInputInputOpenTelemetry) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputOpenTelemetry) GetMaxActiveCxn() *float64 {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetMaxActiveCxn() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxActiveCxn
 }
 
-func (c *CreateInputInputOpenTelemetry) GetDescription() *string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputOpenTelemetry) GetUsername() *string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetUsername() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Username
 }
 
-func (c *CreateInputInputOpenTelemetry) GetPassword() *string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetPassword() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Password
 }
 
-func (c *CreateInputInputOpenTelemetry) GetToken() *string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetToken() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Token
 }
 
-func (c *CreateInputInputOpenTelemetry) GetCredentialsSecret() *string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CredentialsSecret
 }
 
-func (c *CreateInputInputOpenTelemetry) GetTextSecret() *string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateInputInputOpenTelemetry) GetExtractLogs() *bool {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetExtractLogs() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ExtractLogs
 }
 
-func (c *CreateInputInputOpenTelemetry) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputOpenTelemetry) GetTemplateHost() *string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateInputInputOpenTelemetry) GetTemplatePort() *string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetTemplatePort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePort
 }
 
-func (c *CreateInputInputOpenTelemetry) GetTemplateProtocol() *string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetTemplateProtocol() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateProtocol
 }
 
-func (c *CreateInputInputOpenTelemetry) GetTemplateOtlpVersion() *string {
+func (c *CreateInputSystemByPackInputOpenTelemetry) GetTemplateOtlpVersion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOtlpVersion
 }
 
-type CreateInputTypeSnmp string
+type CreateInputSystemByPackTypeSnmp string
 
 const (
-	CreateInputTypeSnmpSnmp CreateInputTypeSnmp = "snmp"
+	CreateInputSystemByPackTypeSnmpSnmp CreateInputSystemByPackTypeSnmp = "snmp"
 )
 
-func (e CreateInputTypeSnmp) ToPointer() *CreateInputTypeSnmp {
+func (e CreateInputSystemByPackTypeSnmp) ToPointer() *CreateInputSystemByPackTypeSnmp {
 	return &e
 }
-func (e *CreateInputTypeSnmp) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeSnmp) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "snmp":
-		*e = CreateInputTypeSnmp(v)
+		*e = CreateInputSystemByPackTypeSnmp(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeSnmp: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeSnmp: %v", v)
 	}
 }
 
-type CreateInputV3User struct {
+type CreateInputSystemByPackV3User struct {
 	Name         string                                                                       `json:"name"`
 	AuthProtocol *components.AuthenticationProtocolOptionsV3User                              `json:"authProtocol,omitzero"`
 	AuthKey      *string                                                                      `json:"authKey,omitzero"`
@@ -9260,104 +9863,104 @@ type CreateInputV3User struct {
 	PrivKey      *string                                                                      `json:"privKey,omitzero"`
 }
 
-func (c CreateInputV3User) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackV3User) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputV3User) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackV3User) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputV3User) GetName() string {
+func (c *CreateInputSystemByPackV3User) GetName() string {
 	if c == nil {
 		return ""
 	}
 	return c.Name
 }
 
-func (c *CreateInputV3User) GetAuthProtocol() *components.AuthenticationProtocolOptionsV3User {
+func (c *CreateInputSystemByPackV3User) GetAuthProtocol() *components.AuthenticationProtocolOptionsV3User {
 	if c == nil {
 		return nil
 	}
 	return c.AuthProtocol
 }
 
-func (c *CreateInputV3User) GetAuthKey() *string {
+func (c *CreateInputSystemByPackV3User) GetAuthKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AuthKey
 }
 
-func (c *CreateInputV3User) GetPrivProtocol() *components.PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone {
+func (c *CreateInputSystemByPackV3User) GetPrivProtocol() *components.PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone {
 	if c == nil {
 		return nil
 	}
 	return c.PrivProtocol
 }
 
-func (c *CreateInputV3User) GetPrivKey() *string {
+func (c *CreateInputSystemByPackV3User) GetPrivKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PrivKey
 }
 
-// #region class-body-createinputv3user
-// #endregion class-body-createinputv3user
+// #region class-body-createinputsystembypackv3user
+// #endregion class-body-createinputsystembypackv3user
 
-// CreateInputSNMPv3Authentication - Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
-type CreateInputSNMPv3Authentication struct {
+// CreateInputSystemByPackSNMPv3Authentication - Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
+type CreateInputSystemByPackSNMPv3Authentication struct {
 	V3AuthEnabled bool `json:"v3AuthEnabled"`
 	// Pass through traps that don't match any of the configured users. @{product} will not attempt to decrypt these traps.
 	AllowUnmatchedTrap *bool `json:"allowUnmatchedTrap,omitzero"`
 	// User credentials for receiving v3 traps
-	V3Users []CreateInputV3User `json:"v3Users,omitzero"`
+	V3Users []CreateInputSystemByPackV3User `json:"v3Users,omitzero"`
 }
 
-func (c CreateInputSNMPv3Authentication) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackSNMPv3Authentication) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputSNMPv3Authentication) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackSNMPv3Authentication) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputSNMPv3Authentication) GetV3AuthEnabled() bool {
+func (c *CreateInputSystemByPackSNMPv3Authentication) GetV3AuthEnabled() bool {
 	if c == nil {
 		return false
 	}
 	return c.V3AuthEnabled
 }
 
-func (c *CreateInputSNMPv3Authentication) GetAllowUnmatchedTrap() *bool {
+func (c *CreateInputSystemByPackSNMPv3Authentication) GetAllowUnmatchedTrap() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AllowUnmatchedTrap
 }
 
-func (c *CreateInputSNMPv3Authentication) GetV3Users() []CreateInputV3User {
+func (c *CreateInputSystemByPackSNMPv3Authentication) GetV3Users() []CreateInputSystemByPackV3User {
 	if c == nil {
 		return nil
 	}
 	return c.V3Users
 }
 
-// #region class-body-createinputsnmpv3authentication
-// #endregion class-body-createinputsnmpv3authentication
+// #region class-body-createinputsystembypacksnmpv3authentication
+// #endregion class-body-createinputsystembypacksnmpv3authentication
 
-type CreateInputInputSnmp struct {
+type CreateInputSystemByPackInputSnmp struct {
 	// Unique ID for this input
-	ID       string              `json:"id"`
-	Type     CreateInputTypeSnmp `json:"type"`
-	Disabled *bool               `json:"disabled,omitzero"`
+	ID       string                          `json:"id"`
+	Type     CreateInputSystemByPackTypeSnmp `json:"type"`
+	Disabled *bool                           `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -9376,7 +9979,7 @@ type CreateInputInputSnmp struct {
 	// UDP port to receive SNMP traps on. Defaults to 162.
 	Port float64 `json:"port"`
 	// Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
-	SnmpV3Auth *CreateInputSNMPv3Authentication `json:"snmpV3Auth,omitzero"`
+	SnmpV3Auth *CreateInputSystemByPackSNMPv3Authentication `json:"snmpV3Auth,omitzero"`
 	// Maximum number of events to buffer when downstream is blocking.
 	MaxBufferSize *float64 `json:"maxBufferSize,omitzero"`
 	// Regex matching IP addresses that are allowed to send data
@@ -9392,212 +9995,221 @@ type CreateInputInputSnmp struct {
 	Description       *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (c CreateInputInputSnmp) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputSnmp) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputSnmp) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputSnmp) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputSnmp) GetID() string {
+func (c *CreateInputSystemByPackInputSnmp) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputSnmp) GetType() CreateInputTypeSnmp {
+func (c *CreateInputSystemByPackInputSnmp) GetType() CreateInputSystemByPackTypeSnmp {
 	if c == nil {
-		return CreateInputTypeSnmp("")
+		return CreateInputSystemByPackTypeSnmp("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputSnmp) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputSnmp) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputSnmp) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputSnmp) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputSnmp) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputSnmp) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputSnmp) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputSnmp) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputSnmp) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputSnmp) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputSnmp) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputSnmp) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputSnmp) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputSnmp) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputSnmp) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputSnmp) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputSnmp) GetHost() string {
+func (c *CreateInputSystemByPackInputSnmp) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputSnmp) GetPort() float64 {
+func (c *CreateInputSystemByPackInputSnmp) GetPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.Port
 }
 
-func (c *CreateInputInputSnmp) GetSnmpV3Auth() *CreateInputSNMPv3Authentication {
+func (c *CreateInputSystemByPackInputSnmp) GetSnmpV3Auth() *CreateInputSystemByPackSNMPv3Authentication {
 	if c == nil {
 		return nil
 	}
 	return c.SnmpV3Auth
 }
 
-func (c *CreateInputInputSnmp) GetMaxBufferSize() *float64 {
+func (c *CreateInputSystemByPackInputSnmp) GetMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxBufferSize
 }
 
-func (c *CreateInputInputSnmp) GetIPWhitelistRegex() *string {
+func (c *CreateInputSystemByPackInputSnmp) GetIPWhitelistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPWhitelistRegex
 }
 
-func (c *CreateInputInputSnmp) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputSnmp) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputSnmp) GetUDPSocketRxBufSize() *float64 {
+func (c *CreateInputSystemByPackInputSnmp) GetUDPSocketRxBufSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.UDPSocketRxBufSize
 }
 
-func (c *CreateInputInputSnmp) GetVarbindsWithTypes() *bool {
+func (c *CreateInputSystemByPackInputSnmp) GetVarbindsWithTypes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.VarbindsWithTypes
 }
 
-func (c *CreateInputInputSnmp) GetBestEffortParsing() *bool {
+func (c *CreateInputSystemByPackInputSnmp) GetBestEffortParsing() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.BestEffortParsing
 }
 
-func (c *CreateInputInputSnmp) GetDescription() *string {
+func (c *CreateInputSystemByPackInputSnmp) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputSnmp) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputSnmp) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputSnmp) GetTemplateHost() *string {
+func (c *CreateInputSystemByPackInputSnmp) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputSnmp) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateInputInputSnmp) GetTemplatePort() *string {
+func (c *CreateInputSystemByPackInputSnmp) GetTemplatePort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePort
 }
 
-type CreateInputTypeS3Inventory string
+type CreateInputSystemByPackTypeS3Inventory string
 
 const (
-	CreateInputTypeS3InventoryS3Inventory CreateInputTypeS3Inventory = "s3_inventory"
+	CreateInputSystemByPackTypeS3InventoryS3Inventory CreateInputSystemByPackTypeS3Inventory = "s3_inventory"
 )
 
-func (e CreateInputTypeS3Inventory) ToPointer() *CreateInputTypeS3Inventory {
+func (e CreateInputSystemByPackTypeS3Inventory) ToPointer() *CreateInputSystemByPackTypeS3Inventory {
 	return &e
 }
-func (e *CreateInputTypeS3Inventory) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeS3Inventory) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "s3_inventory":
-		*e = CreateInputTypeS3Inventory(v)
+		*e = CreateInputSystemByPackTypeS3Inventory(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeS3Inventory: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeS3Inventory: %v", v)
 	}
 }
 
-type CreateInputInputS3Inventory struct {
+type CreateInputSystemByPackInputS3Inventory struct {
 	// Unique ID for this input
-	ID       string                     `json:"id"`
-	Type     CreateInputTypeS3Inventory `json:"type"`
-	Disabled *bool                      `json:"disabled,omitzero"`
+	ID       string                                 `json:"id"`
+	Type     CreateInputSystemByPackTypeS3Inventory `json:"type"`
+	Disabled *bool                                  `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -9685,6 +10297,8 @@ type CreateInputInputS3Inventory struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
 	TemplateQueueName *string `json:"__template_queueName,omitzero"`
 	// Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
@@ -9703,454 +10317,461 @@ type CreateInputInputS3Inventory struct {
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
 
-func (c CreateInputInputS3Inventory) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputS3Inventory) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputS3Inventory) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputS3Inventory) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputS3Inventory) GetID() string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputS3Inventory) GetType() CreateInputTypeS3Inventory {
+func (c *CreateInputSystemByPackInputS3Inventory) GetType() CreateInputSystemByPackTypeS3Inventory {
 	if c == nil {
-		return CreateInputTypeS3Inventory("")
+		return CreateInputSystemByPackTypeS3Inventory("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputS3Inventory) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputS3Inventory) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputS3Inventory) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputS3Inventory) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputS3Inventory) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputS3Inventory) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputS3Inventory) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputS3Inventory) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputS3Inventory) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputS3Inventory) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputS3Inventory) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputS3Inventory) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputS3Inventory) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputS3Inventory) GetQueueName() string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetQueueName() string {
 	if c == nil {
 		return ""
 	}
 	return c.QueueName
 }
 
-func (c *CreateInputInputS3Inventory) GetFileFilter() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetFileFilter() *string {
 	if c == nil {
 		return nil
 	}
 	return c.FileFilter
 }
 
-func (c *CreateInputInputS3Inventory) GetAwsAccountID() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetAwsAccountID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAccountID
 }
 
-func (c *CreateInputInputS3Inventory) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (c *CreateInputSystemByPackInputS3Inventory) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateInputInputS3Inventory) GetAwsSecretKey() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecretKey
 }
 
-func (c *CreateInputInputS3Inventory) GetRegion() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Region
 }
 
-func (c *CreateInputInputS3Inventory) GetEndpoint() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
 }
 
-func (c *CreateInputInputS3Inventory) GetSignatureVersion() *components.SignatureVersionOptionsS3CollectorConf {
+func (c *CreateInputSystemByPackInputS3Inventory) GetSignatureVersion() *components.SignatureVersionOptionsS3CollectorConf {
 	if c == nil {
 		return nil
 	}
 	return c.SignatureVersion
 }
 
-func (c *CreateInputInputS3Inventory) GetReuseConnections() *bool {
+func (c *CreateInputSystemByPackInputS3Inventory) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateInputInputS3Inventory) GetRejectUnauthorized() *bool {
+func (c *CreateInputSystemByPackInputS3Inventory) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateInputInputS3Inventory) GetBreakerRulesets() []string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetBreakerRulesets() []string {
 	if c == nil {
 		return nil
 	}
 	return c.BreakerRulesets
 }
 
-func (c *CreateInputInputS3Inventory) GetStaleChannelFlushMs() *float64 {
+func (c *CreateInputSystemByPackInputS3Inventory) GetStaleChannelFlushMs() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputS3Inventory) GetMaxMessages() *float64 {
+func (c *CreateInputSystemByPackInputS3Inventory) GetMaxMessages() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxMessages
 }
 
-func (c *CreateInputInputS3Inventory) GetVisibilityTimeout() *float64 {
+func (c *CreateInputSystemByPackInputS3Inventory) GetVisibilityTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.VisibilityTimeout
 }
 
-func (c *CreateInputInputS3Inventory) GetNumReceivers() *float64 {
+func (c *CreateInputSystemByPackInputS3Inventory) GetNumReceivers() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.NumReceivers
 }
 
-func (c *CreateInputInputS3Inventory) GetFileConcurrency() *float64 {
+func (c *CreateInputSystemByPackInputS3Inventory) GetFileConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FileConcurrency
 }
 
-func (c *CreateInputInputS3Inventory) GetSocketTimeout() *float64 {
+func (c *CreateInputSystemByPackInputS3Inventory) GetSocketTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketTimeout
 }
 
-func (c *CreateInputInputS3Inventory) GetSkipOnError() *bool {
+func (c *CreateInputSystemByPackInputS3Inventory) GetSkipOnError() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SkipOnError
 }
 
-func (c *CreateInputInputS3Inventory) GetIncludeSqsMetadata() *bool {
+func (c *CreateInputSystemByPackInputS3Inventory) GetIncludeSqsMetadata() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.IncludeSqsMetadata
 }
 
-func (c *CreateInputInputS3Inventory) GetEnableAssumeRole() *bool {
+func (c *CreateInputSystemByPackInputS3Inventory) GetEnableAssumeRole() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableAssumeRole
 }
 
-func (c *CreateInputInputS3Inventory) GetAssumeRoleArn() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleArn
 }
 
-func (c *CreateInputInputS3Inventory) GetAssumeRoleExternalID() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleExternalID
 }
 
-func (c *CreateInputInputS3Inventory) GetDurationSeconds() *float64 {
+func (c *CreateInputSystemByPackInputS3Inventory) GetDurationSeconds() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DurationSeconds
 }
 
-func (c *CreateInputInputS3Inventory) GetEnableSQSAssumeRole() *bool {
+func (c *CreateInputSystemByPackInputS3Inventory) GetEnableSQSAssumeRole() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableSQSAssumeRole
 }
 
-func (c *CreateInputInputS3Inventory) GetPreprocess() *components.PreprocessType {
+func (c *CreateInputSystemByPackInputS3Inventory) GetPreprocess() *components.PreprocessType {
 	if c == nil {
 		return nil
 	}
 	return c.Preprocess
 }
 
-func (c *CreateInputInputS3Inventory) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputS3Inventory) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputS3Inventory) GetParquetChunkSizeMB() *float64 {
+func (c *CreateInputSystemByPackInputS3Inventory) GetParquetChunkSizeMB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetChunkSizeMB
 }
 
-func (c *CreateInputInputS3Inventory) GetParquetChunkDownloadTimeout() *float64 {
+func (c *CreateInputSystemByPackInputS3Inventory) GetParquetChunkDownloadTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetChunkDownloadTimeout
 }
 
-func (c *CreateInputInputS3Inventory) GetCheckpointing() *components.CheckpointingType {
+func (c *CreateInputSystemByPackInputS3Inventory) GetCheckpointing() *components.CheckpointingType {
 	if c == nil {
 		return nil
 	}
 	return c.Checkpointing
 }
 
-func (c *CreateInputInputS3Inventory) GetPollTimeout() *float64 {
+func (c *CreateInputSystemByPackInputS3Inventory) GetPollTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PollTimeout
 }
 
-func (c *CreateInputInputS3Inventory) GetChecksumSuffix() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetChecksumSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ChecksumSuffix
 }
 
-func (c *CreateInputInputS3Inventory) GetMaxManifestSizeKB() *int64 {
+func (c *CreateInputSystemByPackInputS3Inventory) GetMaxManifestSizeKB() *int64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxManifestSizeKB
 }
 
-func (c *CreateInputInputS3Inventory) GetValidateInventoryFiles() *bool {
+func (c *CreateInputSystemByPackInputS3Inventory) GetValidateInventoryFiles() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ValidateInventoryFiles
 }
 
-func (c *CreateInputInputS3Inventory) GetDescription() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputS3Inventory) GetAwsAPIKey() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAPIKey
 }
 
-func (c *CreateInputInputS3Inventory) GetAwsSecret() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateInputInputS3Inventory) GetTagAfterProcessing() *components.TagAfterProcessingOptions {
+func (c *CreateInputSystemByPackInputS3Inventory) GetTagAfterProcessing() *components.TagAfterProcessingOptions {
 	if c == nil {
 		return nil
 	}
 	return c.TagAfterProcessing
 }
 
-func (c *CreateInputInputS3Inventory) GetProcessedTagKey() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetProcessedTagKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ProcessedTagKey
 }
 
-func (c *CreateInputInputS3Inventory) GetProcessedTagValue() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetProcessedTagValue() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ProcessedTagValue
 }
 
-func (c *CreateInputInputS3Inventory) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputS3Inventory) GetTemplateQueueName() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputS3Inventory) GetTemplateQueueName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateQueueName
 }
 
-func (c *CreateInputInputS3Inventory) GetTemplateAwsAccountID() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetTemplateAwsAccountID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAccountID
 }
 
-func (c *CreateInputInputS3Inventory) GetTemplateAwsSecretKey() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetTemplateAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsSecretKey
 }
 
-func (c *CreateInputInputS3Inventory) GetTemplateRegion() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateRegion
 }
 
-func (c *CreateInputInputS3Inventory) GetTemplateEndpoint() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateInputInputS3Inventory) GetTemplateAssumeRoleArn() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleArn
 }
 
-func (c *CreateInputInputS3Inventory) GetTemplateAssumeRoleExternalID() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetTemplateAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
 }
 
-func (c *CreateInputInputS3Inventory) GetTemplateAwsAPIKey() *string {
+func (c *CreateInputSystemByPackInputS3Inventory) GetTemplateAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAPIKey
 }
 
-// #region class-body-createinputinputs3inventory
-// #endregion class-body-createinputinputs3inventory
+// #region class-body-createinputsystembypackinputs3inventory
+// #endregion class-body-createinputsystembypackinputs3inventory
 
-type CreateInputTypeS3 string
+type CreateInputSystemByPackTypeS3 string
 
 const (
-	CreateInputTypeS3S3 CreateInputTypeS3 = "s3"
+	CreateInputSystemByPackTypeS3S3 CreateInputSystemByPackTypeS3 = "s3"
 )
 
-func (e CreateInputTypeS3) ToPointer() *CreateInputTypeS3 {
+func (e CreateInputSystemByPackTypeS3) ToPointer() *CreateInputSystemByPackTypeS3 {
 	return &e
 }
-func (e *CreateInputTypeS3) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeS3) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "s3":
-		*e = CreateInputTypeS3(v)
+		*e = CreateInputSystemByPackTypeS3(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeS3: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeS3: %v", v)
 	}
 }
 
-type CreateInputInputS3 struct {
+type CreateInputSystemByPackInputS3 struct {
 	// Unique ID for this input
-	ID       string            `json:"id"`
-	Type     CreateInputTypeS3 `json:"type"`
-	Disabled *bool             `json:"disabled,omitzero"`
+	ID       string                        `json:"id"`
+	Type     CreateInputSystemByPackTypeS3 `json:"type"`
+	Disabled *bool                         `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -10235,6 +10856,8 @@ type CreateInputInputS3 struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
 	TemplateQueueName *string `json:"__template_queueName,omitzero"`
 	// Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
@@ -10253,440 +10876,447 @@ type CreateInputInputS3 struct {
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
 
-func (c CreateInputInputS3) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputS3) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputS3) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputS3) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputS3) GetID() string {
+func (c *CreateInputSystemByPackInputS3) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputS3) GetType() CreateInputTypeS3 {
+func (c *CreateInputSystemByPackInputS3) GetType() CreateInputSystemByPackTypeS3 {
 	if c == nil {
-		return CreateInputTypeS3("")
+		return CreateInputSystemByPackTypeS3("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputS3) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputS3) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputS3) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputS3) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputS3) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputS3) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputS3) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputS3) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputS3) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputS3) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputS3) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputS3) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputS3) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputS3) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputS3) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputS3) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputS3) GetQueueName() string {
+func (c *CreateInputSystemByPackInputS3) GetQueueName() string {
 	if c == nil {
 		return ""
 	}
 	return c.QueueName
 }
 
-func (c *CreateInputInputS3) GetFileFilter() *string {
+func (c *CreateInputSystemByPackInputS3) GetFileFilter() *string {
 	if c == nil {
 		return nil
 	}
 	return c.FileFilter
 }
 
-func (c *CreateInputInputS3) GetAwsAccountID() *string {
+func (c *CreateInputSystemByPackInputS3) GetAwsAccountID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAccountID
 }
 
-func (c *CreateInputInputS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (c *CreateInputSystemByPackInputS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateInputInputS3) GetAwsSecretKey() *string {
+func (c *CreateInputSystemByPackInputS3) GetAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecretKey
 }
 
-func (c *CreateInputInputS3) GetRegion() *string {
+func (c *CreateInputSystemByPackInputS3) GetRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Region
 }
 
-func (c *CreateInputInputS3) GetEndpoint() *string {
+func (c *CreateInputSystemByPackInputS3) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
 }
 
-func (c *CreateInputInputS3) GetSignatureVersion() *components.SignatureVersionOptionsS3CollectorConf {
+func (c *CreateInputSystemByPackInputS3) GetSignatureVersion() *components.SignatureVersionOptionsS3CollectorConf {
 	if c == nil {
 		return nil
 	}
 	return c.SignatureVersion
 }
 
-func (c *CreateInputInputS3) GetReuseConnections() *bool {
+func (c *CreateInputSystemByPackInputS3) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateInputInputS3) GetRejectUnauthorized() *bool {
+func (c *CreateInputSystemByPackInputS3) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateInputInputS3) GetBreakerRulesets() []string {
+func (c *CreateInputSystemByPackInputS3) GetBreakerRulesets() []string {
 	if c == nil {
 		return nil
 	}
 	return c.BreakerRulesets
 }
 
-func (c *CreateInputInputS3) GetStaleChannelFlushMs() *float64 {
+func (c *CreateInputSystemByPackInputS3) GetStaleChannelFlushMs() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputS3) GetMaxMessages() *float64 {
+func (c *CreateInputSystemByPackInputS3) GetMaxMessages() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxMessages
 }
 
-func (c *CreateInputInputS3) GetVisibilityTimeout() *float64 {
+func (c *CreateInputSystemByPackInputS3) GetVisibilityTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.VisibilityTimeout
 }
 
-func (c *CreateInputInputS3) GetNumReceivers() *float64 {
+func (c *CreateInputSystemByPackInputS3) GetNumReceivers() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.NumReceivers
 }
 
-func (c *CreateInputInputS3) GetFileConcurrency() *float64 {
+func (c *CreateInputSystemByPackInputS3) GetFileConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FileConcurrency
 }
 
-func (c *CreateInputInputS3) GetSocketTimeout() *float64 {
+func (c *CreateInputSystemByPackInputS3) GetSocketTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketTimeout
 }
 
-func (c *CreateInputInputS3) GetSkipOnError() *bool {
+func (c *CreateInputSystemByPackInputS3) GetSkipOnError() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SkipOnError
 }
 
-func (c *CreateInputInputS3) GetIncludeSqsMetadata() *bool {
+func (c *CreateInputSystemByPackInputS3) GetIncludeSqsMetadata() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.IncludeSqsMetadata
 }
 
-func (c *CreateInputInputS3) GetEnableAssumeRole() *bool {
+func (c *CreateInputSystemByPackInputS3) GetEnableAssumeRole() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableAssumeRole
 }
 
-func (c *CreateInputInputS3) GetAssumeRoleArn() *string {
+func (c *CreateInputSystemByPackInputS3) GetAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleArn
 }
 
-func (c *CreateInputInputS3) GetAssumeRoleExternalID() *string {
+func (c *CreateInputSystemByPackInputS3) GetAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleExternalID
 }
 
-func (c *CreateInputInputS3) GetDurationSeconds() *float64 {
+func (c *CreateInputSystemByPackInputS3) GetDurationSeconds() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DurationSeconds
 }
 
-func (c *CreateInputInputS3) GetEnableSQSAssumeRole() *bool {
+func (c *CreateInputSystemByPackInputS3) GetEnableSQSAssumeRole() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableSQSAssumeRole
 }
 
-func (c *CreateInputInputS3) GetPreprocess() *components.PreprocessType {
+func (c *CreateInputSystemByPackInputS3) GetPreprocess() *components.PreprocessType {
 	if c == nil {
 		return nil
 	}
 	return c.Preprocess
 }
 
-func (c *CreateInputInputS3) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputS3) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputS3) GetParquetChunkSizeMB() *float64 {
+func (c *CreateInputSystemByPackInputS3) GetParquetChunkSizeMB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetChunkSizeMB
 }
 
-func (c *CreateInputInputS3) GetParquetChunkDownloadTimeout() *float64 {
+func (c *CreateInputSystemByPackInputS3) GetParquetChunkDownloadTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetChunkDownloadTimeout
 }
 
-func (c *CreateInputInputS3) GetCheckpointing() *components.CheckpointingType {
+func (c *CreateInputSystemByPackInputS3) GetCheckpointing() *components.CheckpointingType {
 	if c == nil {
 		return nil
 	}
 	return c.Checkpointing
 }
 
-func (c *CreateInputInputS3) GetPollTimeout() *float64 {
+func (c *CreateInputSystemByPackInputS3) GetPollTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PollTimeout
 }
 
-func (c *CreateInputInputS3) GetEncoding() *string {
+func (c *CreateInputSystemByPackInputS3) GetEncoding() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Encoding
 }
 
-func (c *CreateInputInputS3) GetTagAfterProcessing() *bool {
+func (c *CreateInputSystemByPackInputS3) GetTagAfterProcessing() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.TagAfterProcessing
 }
 
-func (c *CreateInputInputS3) GetDescription() *string {
+func (c *CreateInputSystemByPackInputS3) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputS3) GetAwsAPIKey() *string {
+func (c *CreateInputSystemByPackInputS3) GetAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAPIKey
 }
 
-func (c *CreateInputInputS3) GetAwsSecret() *string {
+func (c *CreateInputSystemByPackInputS3) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateInputInputS3) GetProcessedTagKey() *string {
+func (c *CreateInputSystemByPackInputS3) GetProcessedTagKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ProcessedTagKey
 }
 
-func (c *CreateInputInputS3) GetProcessedTagValue() *string {
+func (c *CreateInputSystemByPackInputS3) GetProcessedTagValue() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ProcessedTagValue
 }
 
-func (c *CreateInputInputS3) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputS3) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputS3) GetTemplateQueueName() *string {
+func (c *CreateInputSystemByPackInputS3) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputS3) GetTemplateQueueName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateQueueName
 }
 
-func (c *CreateInputInputS3) GetTemplateAwsAccountID() *string {
+func (c *CreateInputSystemByPackInputS3) GetTemplateAwsAccountID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAccountID
 }
 
-func (c *CreateInputInputS3) GetTemplateAwsSecretKey() *string {
+func (c *CreateInputSystemByPackInputS3) GetTemplateAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsSecretKey
 }
 
-func (c *CreateInputInputS3) GetTemplateRegion() *string {
+func (c *CreateInputSystemByPackInputS3) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateRegion
 }
 
-func (c *CreateInputInputS3) GetTemplateEndpoint() *string {
+func (c *CreateInputSystemByPackInputS3) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateInputInputS3) GetTemplateAssumeRoleArn() *string {
+func (c *CreateInputSystemByPackInputS3) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleArn
 }
 
-func (c *CreateInputInputS3) GetTemplateAssumeRoleExternalID() *string {
+func (c *CreateInputSystemByPackInputS3) GetTemplateAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
 }
 
-func (c *CreateInputInputS3) GetTemplateAwsAPIKey() *string {
+func (c *CreateInputSystemByPackInputS3) GetTemplateAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAPIKey
 }
 
-// #region class-body-createinputinputs3
-// #endregion class-body-createinputinputs3
+// #region class-body-createinputsystembypackinputs3
+// #endregion class-body-createinputsystembypackinputs3
 
-type CreateInputTypeMetrics string
+type CreateInputSystemByPackTypeMetrics string
 
 const (
-	CreateInputTypeMetricsMetrics CreateInputTypeMetrics = "metrics"
+	CreateInputSystemByPackTypeMetricsMetrics CreateInputSystemByPackTypeMetrics = "metrics"
 )
 
-func (e CreateInputTypeMetrics) ToPointer() *CreateInputTypeMetrics {
+func (e CreateInputSystemByPackTypeMetrics) ToPointer() *CreateInputSystemByPackTypeMetrics {
 	return &e
 }
-func (e *CreateInputTypeMetrics) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeMetrics) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "metrics":
-		*e = CreateInputTypeMetrics(v)
+		*e = CreateInputSystemByPackTypeMetrics(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeMetrics: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeMetrics: %v", v)
 	}
 }
 
-type CreateInputInputMetrics struct {
+type CreateInputSystemByPackInputMetrics struct {
 	// Unique ID for this input
-	ID       string                 `json:"id"`
-	Type     CreateInputTypeMetrics `json:"type"`
-	Disabled *bool                  `json:"disabled,omitzero"`
+	ID       string                             `json:"id"`
+	Type     CreateInputSystemByPackTypeMetrics `json:"type"`
+	Disabled *bool                              `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -10720,6 +11350,8 @@ type CreateInputInputMetrics struct {
 	Description        *string  `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
@@ -10728,213 +11360,220 @@ type CreateInputInputMetrics struct {
 	TemplateTCPPort *string `json:"__template_tcpPort,omitzero"`
 }
 
-func (c CreateInputInputMetrics) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputMetrics) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputMetrics) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputMetrics) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputMetrics) GetID() string {
+func (c *CreateInputSystemByPackInputMetrics) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputMetrics) GetType() CreateInputTypeMetrics {
+func (c *CreateInputSystemByPackInputMetrics) GetType() CreateInputSystemByPackTypeMetrics {
 	if c == nil {
-		return CreateInputTypeMetrics("")
+		return CreateInputSystemByPackTypeMetrics("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputMetrics) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputMetrics) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputMetrics) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputMetrics) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputMetrics) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputMetrics) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputMetrics) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputMetrics) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputMetrics) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputMetrics) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputMetrics) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputMetrics) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputMetrics) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputMetrics) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputMetrics) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputMetrics) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputMetrics) GetHost() string {
+func (c *CreateInputSystemByPackInputMetrics) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputMetrics) GetUDPPort() *float64 {
+func (c *CreateInputSystemByPackInputMetrics) GetUDPPort() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.UDPPort
 }
 
-func (c *CreateInputInputMetrics) GetTCPPort() *float64 {
+func (c *CreateInputSystemByPackInputMetrics) GetTCPPort() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TCPPort
 }
 
-func (c *CreateInputInputMetrics) GetMaxBufferSize() *float64 {
+func (c *CreateInputSystemByPackInputMetrics) GetMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxBufferSize
 }
 
-func (c *CreateInputInputMetrics) GetIPWhitelistRegex() *string {
+func (c *CreateInputSystemByPackInputMetrics) GetIPWhitelistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPWhitelistRegex
 }
 
-func (c *CreateInputInputMetrics) GetEnableProxyHeader() *bool {
+func (c *CreateInputSystemByPackInputMetrics) GetEnableProxyHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputMetrics) GetTLS() *components.TLSSettingsServerSideType {
+func (c *CreateInputSystemByPackInputMetrics) GetTLS() *components.TLSSettingsServerSideType {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateInputInputMetrics) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputMetrics) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputMetrics) GetUDPSocketRxBufSize() *float64 {
+func (c *CreateInputSystemByPackInputMetrics) GetUDPSocketRxBufSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.UDPSocketRxBufSize
 }
 
-func (c *CreateInputInputMetrics) GetDescription() *string {
+func (c *CreateInputSystemByPackInputMetrics) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputMetrics) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputMetrics) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputMetrics) GetTemplateHost() *string {
+func (c *CreateInputSystemByPackInputMetrics) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputMetrics) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateInputInputMetrics) GetTemplateUDPPort() *string {
+func (c *CreateInputSystemByPackInputMetrics) GetTemplateUDPPort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateUDPPort
 }
 
-func (c *CreateInputInputMetrics) GetTemplateTCPPort() *string {
+func (c *CreateInputSystemByPackInputMetrics) GetTemplateTCPPort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateTCPPort
 }
 
-type CreateInputTypeCriblmetrics string
+type CreateInputSystemByPackTypeCriblmetrics string
 
 const (
-	CreateInputTypeCriblmetricsCriblmetrics CreateInputTypeCriblmetrics = "criblmetrics"
+	CreateInputSystemByPackTypeCriblmetricsCriblmetrics CreateInputSystemByPackTypeCriblmetrics = "criblmetrics"
 )
 
-func (e CreateInputTypeCriblmetrics) ToPointer() *CreateInputTypeCriblmetrics {
+func (e CreateInputSystemByPackTypeCriblmetrics) ToPointer() *CreateInputSystemByPackTypeCriblmetrics {
 	return &e
 }
-func (e *CreateInputTypeCriblmetrics) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeCriblmetrics) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "criblmetrics":
-		*e = CreateInputTypeCriblmetrics(v)
+		*e = CreateInputSystemByPackTypeCriblmetrics(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeCriblmetrics: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeCriblmetrics: %v", v)
 	}
 }
 
-type CreateInputInputCriblmetrics struct {
+type CreateInputSystemByPackInputCriblmetrics struct {
 	// Unique ID for this input
-	ID       string                      `json:"id"`
-	Type     CreateInputTypeCriblmetrics `json:"type"`
-	Disabled *bool                       `json:"disabled,omitzero"`
+	ID       string                                  `json:"id"`
+	Type     CreateInputSystemByPackTypeCriblmetrics `json:"type"`
+	Disabled *bool                                   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -10957,163 +11596,172 @@ type CreateInputInputCriblmetrics struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
-func (c CreateInputInputCriblmetrics) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputCriblmetrics) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputCriblmetrics) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputCriblmetrics) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputCriblmetrics) GetID() string {
+func (c *CreateInputSystemByPackInputCriblmetrics) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputCriblmetrics) GetType() CreateInputTypeCriblmetrics {
+func (c *CreateInputSystemByPackInputCriblmetrics) GetType() CreateInputSystemByPackTypeCriblmetrics {
 	if c == nil {
-		return CreateInputTypeCriblmetrics("")
+		return CreateInputSystemByPackTypeCriblmetrics("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputCriblmetrics) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputCriblmetrics) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputCriblmetrics) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputCriblmetrics) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputCriblmetrics) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputCriblmetrics) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputCriblmetrics) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputCriblmetrics) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputCriblmetrics) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputCriblmetrics) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputCriblmetrics) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputCriblmetrics) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputCriblmetrics) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputCriblmetrics) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputCriblmetrics) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputCriblmetrics) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputCriblmetrics) GetPrefix() *string {
+func (c *CreateInputSystemByPackInputCriblmetrics) GetPrefix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Prefix
 }
 
-func (c *CreateInputInputCriblmetrics) GetFullFidelity() *bool {
+func (c *CreateInputSystemByPackInputCriblmetrics) GetFullFidelity() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.FullFidelity
 }
 
-func (c *CreateInputInputCriblmetrics) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputCriblmetrics) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputCriblmetrics) GetDescription() *string {
+func (c *CreateInputSystemByPackInputCriblmetrics) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputCriblmetrics) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputCriblmetrics) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-type CreateInputTypeKinesis string
+func (c *CreateInputSystemByPackInputCriblmetrics) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+type CreateInputSystemByPackTypeKinesis string
 
 const (
-	CreateInputTypeKinesisKinesis CreateInputTypeKinesis = "kinesis"
+	CreateInputSystemByPackTypeKinesisKinesis CreateInputSystemByPackTypeKinesis = "kinesis"
 )
 
-func (e CreateInputTypeKinesis) ToPointer() *CreateInputTypeKinesis {
+func (e CreateInputSystemByPackTypeKinesis) ToPointer() *CreateInputSystemByPackTypeKinesis {
 	return &e
 }
-func (e *CreateInputTypeKinesis) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeKinesis) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "kinesis":
-		*e = CreateInputTypeKinesis(v)
+		*e = CreateInputSystemByPackTypeKinesis(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeKinesis: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeKinesis: %v", v)
 	}
 }
 
-// CreateInputShardIteratorStart - Location at which to start reading a shard for the first time
-type CreateInputShardIteratorStart string
+// CreateInputSystemByPackShardIteratorStart - Location at which to start reading a shard for the first time
+type CreateInputSystemByPackShardIteratorStart string
 
 const (
-	// CreateInputShardIteratorStartTrimHorizon Earliest record
-	CreateInputShardIteratorStartTrimHorizon CreateInputShardIteratorStart = "TRIM_HORIZON"
-	// CreateInputShardIteratorStartLatest Latest record
-	CreateInputShardIteratorStartLatest CreateInputShardIteratorStart = "LATEST"
+	// CreateInputSystemByPackShardIteratorStartTrimHorizon Earliest record
+	CreateInputSystemByPackShardIteratorStartTrimHorizon CreateInputSystemByPackShardIteratorStart = "TRIM_HORIZON"
+	// CreateInputSystemByPackShardIteratorStartLatest Latest record
+	CreateInputSystemByPackShardIteratorStartLatest CreateInputSystemByPackShardIteratorStart = "LATEST"
 )
 
-func (e CreateInputShardIteratorStart) ToPointer() *CreateInputShardIteratorStart {
+func (e CreateInputSystemByPackShardIteratorStart) ToPointer() *CreateInputSystemByPackShardIteratorStart {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputShardIteratorStart) IsExact() bool {
+func (e *CreateInputSystemByPackShardIteratorStart) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "TRIM_HORIZON", "LATEST":
@@ -11123,26 +11771,26 @@ func (e *CreateInputShardIteratorStart) IsExact() bool {
 	return false
 }
 
-// CreateInputRecordDataFormat - Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
-type CreateInputRecordDataFormat string
+// CreateInputSystemByPackRecordDataFormat - Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+type CreateInputSystemByPackRecordDataFormat string
 
 const (
-	// CreateInputRecordDataFormatCribl Cribl
-	CreateInputRecordDataFormatCribl CreateInputRecordDataFormat = "cribl"
-	// CreateInputRecordDataFormatNdjson Newline JSON
-	CreateInputRecordDataFormatNdjson CreateInputRecordDataFormat = "ndjson"
-	// CreateInputRecordDataFormatCloudwatch Cloudwatch Logs
-	CreateInputRecordDataFormatCloudwatch CreateInputRecordDataFormat = "cloudwatch"
-	// CreateInputRecordDataFormatLine Event per line
-	CreateInputRecordDataFormatLine CreateInputRecordDataFormat = "line"
+	// CreateInputSystemByPackRecordDataFormatCribl Cribl
+	CreateInputSystemByPackRecordDataFormatCribl CreateInputSystemByPackRecordDataFormat = "cribl"
+	// CreateInputSystemByPackRecordDataFormatNdjson Newline JSON
+	CreateInputSystemByPackRecordDataFormatNdjson CreateInputSystemByPackRecordDataFormat = "ndjson"
+	// CreateInputSystemByPackRecordDataFormatCloudwatch Cloudwatch Logs
+	CreateInputSystemByPackRecordDataFormatCloudwatch CreateInputSystemByPackRecordDataFormat = "cloudwatch"
+	// CreateInputSystemByPackRecordDataFormatLine Event per line
+	CreateInputSystemByPackRecordDataFormatLine CreateInputSystemByPackRecordDataFormat = "line"
 )
 
-func (e CreateInputRecordDataFormat) ToPointer() *CreateInputRecordDataFormat {
+func (e CreateInputSystemByPackRecordDataFormat) ToPointer() *CreateInputSystemByPackRecordDataFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputRecordDataFormat) IsExact() bool {
+func (e *CreateInputSystemByPackRecordDataFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "cribl", "ndjson", "cloudwatch", "line":
@@ -11152,22 +11800,22 @@ func (e *CreateInputRecordDataFormat) IsExact() bool {
 	return false
 }
 
-// CreateInputShardLoadBalancing - The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
-type CreateInputShardLoadBalancing string
+// CreateInputSystemByPackShardLoadBalancing - The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+type CreateInputSystemByPackShardLoadBalancing string
 
 const (
-	// CreateInputShardLoadBalancingConsistentHashing Consistent Hashing
-	CreateInputShardLoadBalancingConsistentHashing CreateInputShardLoadBalancing = "ConsistentHashing"
-	// CreateInputShardLoadBalancingRoundRobin Round Robin
-	CreateInputShardLoadBalancingRoundRobin CreateInputShardLoadBalancing = "RoundRobin"
+	// CreateInputSystemByPackShardLoadBalancingConsistentHashing Consistent Hashing
+	CreateInputSystemByPackShardLoadBalancingConsistentHashing CreateInputSystemByPackShardLoadBalancing = "ConsistentHashing"
+	// CreateInputSystemByPackShardLoadBalancingRoundRobin Round Robin
+	CreateInputSystemByPackShardLoadBalancingRoundRobin CreateInputSystemByPackShardLoadBalancing = "RoundRobin"
 )
 
-func (e CreateInputShardLoadBalancing) ToPointer() *CreateInputShardLoadBalancing {
+func (e CreateInputSystemByPackShardLoadBalancing) ToPointer() *CreateInputSystemByPackShardLoadBalancing {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputShardLoadBalancing) IsExact() bool {
+func (e *CreateInputSystemByPackShardLoadBalancing) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "ConsistentHashing", "RoundRobin":
@@ -11177,11 +11825,11 @@ func (e *CreateInputShardLoadBalancing) IsExact() bool {
 	return false
 }
 
-type CreateInputInputKinesis struct {
+type CreateInputSystemByPackInputKinesis struct {
 	// Unique ID for this input
-	ID       string                 `json:"id"`
-	Type     CreateInputTypeKinesis `json:"type"`
-	Disabled *bool                  `json:"disabled,omitzero"`
+	ID       string                             `json:"id"`
+	Type     CreateInputSystemByPackTypeKinesis `json:"type"`
+	Disabled *bool                              `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -11202,15 +11850,15 @@ type CreateInputInputKinesis struct {
 	// A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
 	ShardExpr *string `json:"shardExpr,omitzero"`
 	// Location at which to start reading a shard for the first time
-	ShardIteratorType *CreateInputShardIteratorStart `json:"shardIteratorType,omitzero"`
+	ShardIteratorType *CreateInputSystemByPackShardIteratorStart `json:"shardIteratorType,omitzero"`
 	// Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
-	PayloadFormat *CreateInputRecordDataFormat `json:"payloadFormat,omitzero"`
+	PayloadFormat *CreateInputSystemByPackRecordDataFormat `json:"payloadFormat,omitzero"`
 	// Maximum number of records per getRecords call
 	GetRecordsLimit *float64 `json:"getRecordsLimit,omitzero"`
 	// Maximum number of records, across all shards, to pull down at once per Worker Process
 	GetRecordsLimitTotal *float64 `json:"getRecordsLimitTotal,omitzero"`
 	// The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
-	LoadBalancingAlgorithm *CreateInputShardLoadBalancing `json:"loadBalancingAlgorithm,omitzero"`
+	LoadBalancingAlgorithm *CreateInputSystemByPackShardLoadBalancing `json:"loadBalancingAlgorithm,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
 	AwsSecretKey            *string                                                `json:"awsSecretKey,omitzero"`
@@ -11244,6 +11892,8 @@ type CreateInputInputKinesis struct {
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
 	TemplateStreamName *string `json:"__template_streamName,omitzero"`
 	// Binds 'shardIteratorType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'shardIteratorType' at runtime.
@@ -11264,360 +11914,367 @@ type CreateInputInputKinesis struct {
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
 
-func (c CreateInputInputKinesis) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputKinesis) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputKinesis) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputKinesis) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputKinesis) GetID() string {
+func (c *CreateInputSystemByPackInputKinesis) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputKinesis) GetType() CreateInputTypeKinesis {
+func (c *CreateInputSystemByPackInputKinesis) GetType() CreateInputSystemByPackTypeKinesis {
 	if c == nil {
-		return CreateInputTypeKinesis("")
+		return CreateInputSystemByPackTypeKinesis("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputKinesis) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputKinesis) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputKinesis) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputKinesis) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputKinesis) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputKinesis) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputKinesis) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputKinesis) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputKinesis) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputKinesis) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputKinesis) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputKinesis) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputKinesis) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputKinesis) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputKinesis) GetStreamName() string {
+func (c *CreateInputSystemByPackInputKinesis) GetStreamName() string {
 	if c == nil {
 		return ""
 	}
 	return c.StreamName
 }
 
-func (c *CreateInputInputKinesis) GetServiceInterval() *float64 {
+func (c *CreateInputSystemByPackInputKinesis) GetServiceInterval() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ServiceInterval
 }
 
-func (c *CreateInputInputKinesis) GetShardExpr() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetShardExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ShardExpr
 }
 
-func (c *CreateInputInputKinesis) GetShardIteratorType() *CreateInputShardIteratorStart {
+func (c *CreateInputSystemByPackInputKinesis) GetShardIteratorType() *CreateInputSystemByPackShardIteratorStart {
 	if c == nil {
 		return nil
 	}
 	return c.ShardIteratorType
 }
 
-func (c *CreateInputInputKinesis) GetPayloadFormat() *CreateInputRecordDataFormat {
+func (c *CreateInputSystemByPackInputKinesis) GetPayloadFormat() *CreateInputSystemByPackRecordDataFormat {
 	if c == nil {
 		return nil
 	}
 	return c.PayloadFormat
 }
 
-func (c *CreateInputInputKinesis) GetGetRecordsLimit() *float64 {
+func (c *CreateInputSystemByPackInputKinesis) GetGetRecordsLimit() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.GetRecordsLimit
 }
 
-func (c *CreateInputInputKinesis) GetGetRecordsLimitTotal() *float64 {
+func (c *CreateInputSystemByPackInputKinesis) GetGetRecordsLimitTotal() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.GetRecordsLimitTotal
 }
 
-func (c *CreateInputInputKinesis) GetLoadBalancingAlgorithm() *CreateInputShardLoadBalancing {
+func (c *CreateInputSystemByPackInputKinesis) GetLoadBalancingAlgorithm() *CreateInputSystemByPackShardLoadBalancing {
 	if c == nil {
 		return nil
 	}
 	return c.LoadBalancingAlgorithm
 }
 
-func (c *CreateInputInputKinesis) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (c *CreateInputSystemByPackInputKinesis) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateInputInputKinesis) GetAwsSecretKey() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecretKey
 }
 
-func (c *CreateInputInputKinesis) GetRegion() string {
+func (c *CreateInputSystemByPackInputKinesis) GetRegion() string {
 	if c == nil {
 		return ""
 	}
 	return c.Region
 }
 
-func (c *CreateInputInputKinesis) GetEndpoint() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
 }
 
-func (c *CreateInputInputKinesis) GetSignatureVersion() *components.SignatureVersionOptionsKinesis {
+func (c *CreateInputSystemByPackInputKinesis) GetSignatureVersion() *components.SignatureVersionOptionsKinesis {
 	if c == nil {
 		return nil
 	}
 	return c.SignatureVersion
 }
 
-func (c *CreateInputInputKinesis) GetReuseConnections() *bool {
+func (c *CreateInputSystemByPackInputKinesis) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateInputInputKinesis) GetRejectUnauthorized() *bool {
+func (c *CreateInputSystemByPackInputKinesis) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateInputInputKinesis) GetEnableAssumeRole() *bool {
+func (c *CreateInputSystemByPackInputKinesis) GetEnableAssumeRole() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableAssumeRole
 }
 
-func (c *CreateInputInputKinesis) GetAssumeRoleArn() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleArn
 }
 
-func (c *CreateInputInputKinesis) GetAssumeRoleExternalID() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleExternalID
 }
 
-func (c *CreateInputInputKinesis) GetDurationSeconds() *float64 {
+func (c *CreateInputSystemByPackInputKinesis) GetDurationSeconds() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DurationSeconds
 }
 
-func (c *CreateInputInputKinesis) GetVerifyKPLCheckSums() *bool {
+func (c *CreateInputSystemByPackInputKinesis) GetVerifyKPLCheckSums() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.VerifyKPLCheckSums
 }
 
-func (c *CreateInputInputKinesis) GetAvoidDuplicates() *bool {
+func (c *CreateInputSystemByPackInputKinesis) GetAvoidDuplicates() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AvoidDuplicates
 }
 
-func (c *CreateInputInputKinesis) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputKinesis) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputKinesis) GetDescription() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputKinesis) GetAwsAPIKey() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAPIKey
 }
 
-func (c *CreateInputInputKinesis) GetAwsSecret() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateInputInputKinesis) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputKinesis) GetTemplateStreamName() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputKinesis) GetTemplateStreamName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamName
 }
 
-func (c *CreateInputInputKinesis) GetTemplateShardIteratorType() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetTemplateShardIteratorType() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateShardIteratorType
 }
 
-func (c *CreateInputInputKinesis) GetTemplatePayloadFormat() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetTemplatePayloadFormat() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePayloadFormat
 }
 
-func (c *CreateInputInputKinesis) GetTemplateAwsSecretKey() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetTemplateAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsSecretKey
 }
 
-func (c *CreateInputInputKinesis) GetTemplateRegion() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateRegion
 }
 
-func (c *CreateInputInputKinesis) GetTemplateEndpoint() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateInputInputKinesis) GetTemplateAssumeRoleArn() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleArn
 }
 
-func (c *CreateInputInputKinesis) GetTemplateAssumeRoleExternalID() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetTemplateAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
 }
 
-func (c *CreateInputInputKinesis) GetTemplateAwsAPIKey() *string {
+func (c *CreateInputSystemByPackInputKinesis) GetTemplateAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAPIKey
 }
 
-type CreateInputTypeHTTPRaw string
+type CreateInputSystemByPackTypeHTTPRaw string
 
 const (
-	CreateInputTypeHTTPRawHTTPRaw CreateInputTypeHTTPRaw = "http_raw"
+	CreateInputSystemByPackTypeHTTPRawHTTPRaw CreateInputSystemByPackTypeHTTPRaw = "http_raw"
 )
 
-func (e CreateInputTypeHTTPRaw) ToPointer() *CreateInputTypeHTTPRaw {
+func (e CreateInputSystemByPackTypeHTTPRaw) ToPointer() *CreateInputSystemByPackTypeHTTPRaw {
 	return &e
 }
-func (e *CreateInputTypeHTTPRaw) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeHTTPRaw) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "http_raw":
-		*e = CreateInputTypeHTTPRaw(v)
+		*e = CreateInputSystemByPackTypeHTTPRaw(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeHTTPRaw: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeHTTPRaw: %v", v)
 	}
 }
 
-type CreateInputInputHTTPRaw struct {
+type CreateInputSystemByPackInputHTTPRaw struct {
 	// Unique ID for this input
-	ID       string                 `json:"id"`
-	Type     CreateInputTypeHTTPRaw `json:"type"`
-	Disabled *bool                  `json:"disabled,omitzero"`
+	ID       string                             `json:"id"`
+	Type     CreateInputSystemByPackTypeHTTPRaw `json:"type"`
+	Disabled *bool                              `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -11675,327 +12332,354 @@ type CreateInputInputHTTPRaw struct {
 	Description   *string                             `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+	TemplateAuthTokens *string `json:"__template_authTokens,omitzero"`
+	// Binds 'allowedPaths' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedPaths' at runtime.
+	TemplateAllowedPaths *string `json:"__template_allowedPaths,omitzero"`
 }
 
-func (c CreateInputInputHTTPRaw) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputHTTPRaw) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputHTTPRaw) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputHTTPRaw) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputHTTPRaw) GetID() string {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputHTTPRaw) GetType() CreateInputTypeHTTPRaw {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetType() CreateInputSystemByPackTypeHTTPRaw {
 	if c == nil {
-		return CreateInputTypeHTTPRaw("")
+		return CreateInputSystemByPackTypeHTTPRaw("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputHTTPRaw) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputHTTPRaw) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputHTTPRaw) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputHTTPRaw) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputHTTPRaw) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputHTTPRaw) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputHTTPRaw) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputHTTPRaw) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputHTTPRaw) GetHost() string {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputHTTPRaw) GetPort() float64 {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.Port
 }
 
-func (c *CreateInputInputHTTPRaw) GetAuthTokens() []string {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetAuthTokens() []string {
 	if c == nil {
 		return nil
 	}
 	return c.AuthTokens
 }
 
-func (c *CreateInputInputHTTPRaw) GetTLS() *components.TLSSettingsServerSideType {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetTLS() *components.TLSSettingsServerSideType {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateInputInputHTTPRaw) GetMaxActiveReq() *float64 {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetMaxActiveReq() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxActiveReq
 }
 
-func (c *CreateInputInputHTTPRaw) GetMaxRequestsPerSocket() *int64 {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetMaxRequestsPerSocket() *int64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRequestsPerSocket
 }
 
-func (c *CreateInputInputHTTPRaw) GetEnableProxyHeader() *bool {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetEnableProxyHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputHTTPRaw) GetCaptureHeaders() *bool {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetCaptureHeaders() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.CaptureHeaders
 }
 
-func (c *CreateInputInputHTTPRaw) GetActivityLogSampleRate() *float64 {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetActivityLogSampleRate() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ActivityLogSampleRate
 }
 
-func (c *CreateInputInputHTTPRaw) GetRequestTimeout() *float64 {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetRequestTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.RequestTimeout
 }
 
-func (c *CreateInputInputHTTPRaw) GetSocketTimeout() *float64 {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetSocketTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketTimeout
 }
 
-func (c *CreateInputInputHTTPRaw) GetKeepAliveTimeout() *float64 {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetKeepAliveTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAliveTimeout
 }
 
-func (c *CreateInputInputHTTPRaw) GetEnableHealthCheck() *bool {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetEnableHealthCheck() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableHealthCheck
 }
 
-func (c *CreateInputInputHTTPRaw) GetIPAllowlistRegex() *string {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetIPAllowlistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPAllowlistRegex
 }
 
-func (c *CreateInputInputHTTPRaw) GetIPDenylistRegex() *string {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetIPDenylistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPDenylistRegex
 }
 
-func (c *CreateInputInputHTTPRaw) GetBreakerRulesets() []string {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetBreakerRulesets() []string {
 	if c == nil {
 		return nil
 	}
 	return c.BreakerRulesets
 }
 
-func (c *CreateInputInputHTTPRaw) GetStaleChannelFlushMs() *float64 {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetStaleChannelFlushMs() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputHTTPRaw) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputHTTPRaw) GetAllowedPaths() []string {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetAllowedPaths() []string {
 	if c == nil {
 		return nil
 	}
 	return c.AllowedPaths
 }
 
-func (c *CreateInputInputHTTPRaw) GetAllowedMethods() []string {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetAllowedMethods() []string {
 	if c == nil {
 		return nil
 	}
 	return c.AllowedMethods
 }
 
-func (c *CreateInputInputHTTPRaw) GetAuthTokensExt() []components.ItemsTypeAuthTokensExt {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetAuthTokensExt() []components.ItemsTypeAuthTokensExt {
 	if c == nil {
 		return nil
 	}
 	return c.AuthTokensExt
 }
 
-func (c *CreateInputInputHTTPRaw) GetDescription() *string {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputHTTPRaw) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputHTTPRaw) GetTemplateHost() *string {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputHTTPRaw) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateInputInputHTTPRaw) GetTemplatePort() *string {
+func (c *CreateInputSystemByPackInputHTTPRaw) GetTemplatePort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePort
 }
 
-type CreateInputTypeDatagen string
+func (c *CreateInputSystemByPackInputHTTPRaw) GetTemplateAuthTokens() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAuthTokens
+}
+
+func (c *CreateInputSystemByPackInputHTTPRaw) GetTemplateAllowedPaths() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAllowedPaths
+}
+
+type CreateInputSystemByPackTypeDatagen string
 
 const (
-	CreateInputTypeDatagenDatagen CreateInputTypeDatagen = "datagen"
+	CreateInputSystemByPackTypeDatagenDatagen CreateInputSystemByPackTypeDatagen = "datagen"
 )
 
-func (e CreateInputTypeDatagen) ToPointer() *CreateInputTypeDatagen {
+func (e CreateInputSystemByPackTypeDatagen) ToPointer() *CreateInputSystemByPackTypeDatagen {
 	return &e
 }
-func (e *CreateInputTypeDatagen) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeDatagen) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "datagen":
-		*e = CreateInputTypeDatagen(v)
+		*e = CreateInputSystemByPackTypeDatagen(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeDatagen: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeDatagen: %v", v)
 	}
 }
 
-type CreateInputSample struct {
+type CreateInputSystemByPackSample struct {
 	Sample string `json:"sample"`
 	// Maximum number of events to generate per second per Worker Node. Defaults to 10.
 	EventsPerSec float64 `json:"eventsPerSec"`
 }
 
-func (c CreateInputSample) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackSample) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputSample) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackSample) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputSample) GetSample() string {
+func (c *CreateInputSystemByPackSample) GetSample() string {
 	if c == nil {
 		return ""
 	}
 	return c.Sample
 }
 
-func (c *CreateInputSample) GetEventsPerSec() float64 {
+func (c *CreateInputSystemByPackSample) GetEventsPerSec() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.EventsPerSec
 }
 
-type CreateInputInputDatagen struct {
+type CreateInputSystemByPackInputDatagen struct {
 	// Unique ID for this input
-	ID       string                 `json:"id"`
-	Type     CreateInputTypeDatagen `json:"type"`
-	Disabled *bool                  `json:"disabled,omitzero"`
+	ID       string                             `json:"id"`
+	Type     CreateInputSystemByPackTypeDatagen `json:"type"`
+	Disabled *bool                              `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -12009,183 +12693,192 @@ type CreateInputInputDatagen struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *components.PqType                        `json:"pq,omitzero"`
-	Samples     []CreateInputSample                       `json:"samples"`
+	Samples     []CreateInputSystemByPackSample           `json:"samples"`
 	// Fields to add to events from this input
 	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
-func (c CreateInputInputDatagen) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputDatagen) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputDatagen) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputDatagen) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputDatagen) GetID() string {
+func (c *CreateInputSystemByPackInputDatagen) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputDatagen) GetType() CreateInputTypeDatagen {
+func (c *CreateInputSystemByPackInputDatagen) GetType() CreateInputSystemByPackTypeDatagen {
 	if c == nil {
-		return CreateInputTypeDatagen("")
+		return CreateInputSystemByPackTypeDatagen("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputDatagen) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputDatagen) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputDatagen) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputDatagen) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputDatagen) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputDatagen) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputDatagen) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputDatagen) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputDatagen) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputDatagen) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputDatagen) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputDatagen) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputDatagen) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputDatagen) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputDatagen) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputDatagen) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputDatagen) GetSamples() []CreateInputSample {
+func (c *CreateInputSystemByPackInputDatagen) GetSamples() []CreateInputSystemByPackSample {
 	if c == nil {
-		return []CreateInputSample{}
+		return []CreateInputSystemByPackSample{}
 	}
 	return c.Samples
 }
 
-func (c *CreateInputInputDatagen) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputDatagen) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputDatagen) GetDescription() *string {
+func (c *CreateInputSystemByPackInputDatagen) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputDatagen) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputDatagen) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-type CreateInputTypeDatadogAgent string
+func (c *CreateInputSystemByPackInputDatagen) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+type CreateInputSystemByPackTypeDatadogAgent string
 
 const (
-	CreateInputTypeDatadogAgentDatadogAgent CreateInputTypeDatadogAgent = "datadog_agent"
+	CreateInputSystemByPackTypeDatadogAgentDatadogAgent CreateInputSystemByPackTypeDatadogAgent = "datadog_agent"
 )
 
-func (e CreateInputTypeDatadogAgent) ToPointer() *CreateInputTypeDatadogAgent {
+func (e CreateInputSystemByPackTypeDatadogAgent) ToPointer() *CreateInputSystemByPackTypeDatadogAgent {
 	return &e
 }
-func (e *CreateInputTypeDatadogAgent) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeDatadogAgent) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "datadog_agent":
-		*e = CreateInputTypeDatadogAgent(v)
+		*e = CreateInputSystemByPackTypeDatadogAgent(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeDatadogAgent: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeDatadogAgent: %v", v)
 	}
 }
 
-type CreateInputProxyModeDatadogAgent struct {
+type CreateInputSystemByPackProxyModeDatadogAgent struct {
 	// Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
 	Enabled bool `json:"enabled"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 }
 
-func (c CreateInputProxyModeDatadogAgent) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackProxyModeDatadogAgent) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputProxyModeDatadogAgent) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackProxyModeDatadogAgent) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputProxyModeDatadogAgent) GetEnabled() bool {
+func (c *CreateInputSystemByPackProxyModeDatadogAgent) GetEnabled() bool {
 	if c == nil {
 		return false
 	}
 	return c.Enabled
 }
 
-func (c *CreateInputProxyModeDatadogAgent) GetRejectUnauthorized() *bool {
+func (c *CreateInputSystemByPackProxyModeDatadogAgent) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-type CreateInputInputDatadogAgent struct {
+type CreateInputSystemByPackInputDatadogAgent struct {
 	// Unique ID for this input
-	ID       string                      `json:"id"`
-	Type     CreateInputTypeDatadogAgent `json:"type"`
-	Disabled *bool                       `json:"disabled,omitzero"`
+	ID       string                                  `json:"id"`
+	Type     CreateInputSystemByPackTypeDatadogAgent `json:"type"`
+	Disabled *bool                                   `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -12229,273 +12922,282 @@ type CreateInputInputDatadogAgent struct {
 	// Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
 	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata    `json:"metadata,omitzero"`
-	ProxyMode   *CreateInputProxyModeDatadogAgent `json:"proxyMode,omitzero"`
-	Description *string                           `json:"description,omitzero"`
+	Metadata    []components.ItemsTypeMetadata                `json:"metadata,omitzero"`
+	ProxyMode   *CreateInputSystemByPackProxyModeDatadogAgent `json:"proxyMode,omitzero"`
+	Description *string                                       `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (c CreateInputInputDatadogAgent) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputDatadogAgent) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputDatadogAgent) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputDatadogAgent) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputDatadogAgent) GetID() string {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputDatadogAgent) GetType() CreateInputTypeDatadogAgent {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetType() CreateInputSystemByPackTypeDatadogAgent {
 	if c == nil {
-		return CreateInputTypeDatadogAgent("")
+		return CreateInputSystemByPackTypeDatadogAgent("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputDatadogAgent) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputDatadogAgent) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputDatadogAgent) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputDatadogAgent) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputDatadogAgent) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputDatadogAgent) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputDatadogAgent) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputDatadogAgent) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputDatadogAgent) GetHost() string {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputDatadogAgent) GetPort() float64 {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.Port
 }
 
-func (c *CreateInputInputDatadogAgent) GetTLS() *components.TLSSettingsServerSideType {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetTLS() *components.TLSSettingsServerSideType {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateInputInputDatadogAgent) GetMaxActiveReq() *float64 {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetMaxActiveReq() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxActiveReq
 }
 
-func (c *CreateInputInputDatadogAgent) GetMaxRequestsPerSocket() *int64 {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetMaxRequestsPerSocket() *int64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRequestsPerSocket
 }
 
-func (c *CreateInputInputDatadogAgent) GetEnableProxyHeader() *bool {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetEnableProxyHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputDatadogAgent) GetCaptureHeaders() *bool {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetCaptureHeaders() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.CaptureHeaders
 }
 
-func (c *CreateInputInputDatadogAgent) GetActivityLogSampleRate() *float64 {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetActivityLogSampleRate() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ActivityLogSampleRate
 }
 
-func (c *CreateInputInputDatadogAgent) GetRequestTimeout() *float64 {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetRequestTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.RequestTimeout
 }
 
-func (c *CreateInputInputDatadogAgent) GetSocketTimeout() *float64 {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetSocketTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketTimeout
 }
 
-func (c *CreateInputInputDatadogAgent) GetKeepAliveTimeout() *float64 {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetKeepAliveTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAliveTimeout
 }
 
-func (c *CreateInputInputDatadogAgent) GetEnableHealthCheck() *bool {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetEnableHealthCheck() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableHealthCheck
 }
 
-func (c *CreateInputInputDatadogAgent) GetIPAllowlistRegex() *string {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetIPAllowlistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPAllowlistRegex
 }
 
-func (c *CreateInputInputDatadogAgent) GetIPDenylistRegex() *string {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetIPDenylistRegex() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IPDenylistRegex
 }
 
-func (c *CreateInputInputDatadogAgent) GetExtractMetrics() *bool {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetExtractMetrics() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ExtractMetrics
 }
 
-func (c *CreateInputInputDatadogAgent) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputDatadogAgent) GetProxyMode() *CreateInputProxyModeDatadogAgent {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetProxyMode() *CreateInputSystemByPackProxyModeDatadogAgent {
 	if c == nil {
 		return nil
 	}
 	return c.ProxyMode
 }
 
-func (c *CreateInputInputDatadogAgent) GetDescription() *string {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputDatadogAgent) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputDatadogAgent) GetTemplateHost() *string {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputDatadogAgent) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateInputInputDatadogAgent) GetTemplatePort() *string {
+func (c *CreateInputSystemByPackInputDatadogAgent) GetTemplatePort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePort
 }
 
-type CreateInputTypeCrowdstrike string
+type CreateInputSystemByPackTypeCrowdstrike string
 
 const (
-	CreateInputTypeCrowdstrikeCrowdstrike CreateInputTypeCrowdstrike = "crowdstrike"
+	CreateInputSystemByPackTypeCrowdstrikeCrowdstrike CreateInputSystemByPackTypeCrowdstrike = "crowdstrike"
 )
 
-func (e CreateInputTypeCrowdstrike) ToPointer() *CreateInputTypeCrowdstrike {
+func (e CreateInputSystemByPackTypeCrowdstrike) ToPointer() *CreateInputSystemByPackTypeCrowdstrike {
 	return &e
 }
-func (e *CreateInputTypeCrowdstrike) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeCrowdstrike) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "crowdstrike":
-		*e = CreateInputTypeCrowdstrike(v)
+		*e = CreateInputSystemByPackTypeCrowdstrike(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeCrowdstrike: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeCrowdstrike: %v", v)
 	}
 }
 
-type CreateInputInputCrowdstrike struct {
+type CreateInputSystemByPackInputCrowdstrike struct {
 	// Unique ID for this input
-	ID       string                     `json:"id"`
-	Type     CreateInputTypeCrowdstrike `json:"type"`
-	Disabled *bool                      `json:"disabled,omitzero"`
+	ID       string                                 `json:"id"`
+	Type     CreateInputSystemByPackTypeCrowdstrike `json:"type"`
+	Disabled *bool                                  `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -12575,6 +13277,8 @@ type CreateInputInputCrowdstrike struct {
 	ProcessedTagValue *string `json:"processedTagValue,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
 	TemplateQueueName *string `json:"__template_queueName,omitzero"`
 	// Binds 'awsAccountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsAccountId' at runtime.
@@ -12593,438 +13297,445 @@ type CreateInputInputCrowdstrike struct {
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
 
-func (c CreateInputInputCrowdstrike) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputCrowdstrike) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputCrowdstrike) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputCrowdstrike) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputCrowdstrike) GetID() string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputCrowdstrike) GetType() CreateInputTypeCrowdstrike {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetType() CreateInputSystemByPackTypeCrowdstrike {
 	if c == nil {
-		return CreateInputTypeCrowdstrike("")
+		return CreateInputSystemByPackTypeCrowdstrike("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputCrowdstrike) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputCrowdstrike) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputCrowdstrike) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputCrowdstrike) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputCrowdstrike) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputCrowdstrike) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputCrowdstrike) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputCrowdstrike) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputCrowdstrike) GetQueueName() string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetQueueName() string {
 	if c == nil {
 		return ""
 	}
 	return c.QueueName
 }
 
-func (c *CreateInputInputCrowdstrike) GetFileFilter() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetFileFilter() *string {
 	if c == nil {
 		return nil
 	}
 	return c.FileFilter
 }
 
-func (c *CreateInputInputCrowdstrike) GetAwsAccountID() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetAwsAccountID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAccountID
 }
 
-func (c *CreateInputInputCrowdstrike) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateInputInputCrowdstrike) GetAwsSecretKey() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecretKey
 }
 
-func (c *CreateInputInputCrowdstrike) GetRegion() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Region
 }
 
-func (c *CreateInputInputCrowdstrike) GetEndpoint() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
 }
 
-func (c *CreateInputInputCrowdstrike) GetSignatureVersion() *components.SignatureVersionOptionsS3CollectorConf {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetSignatureVersion() *components.SignatureVersionOptionsS3CollectorConf {
 	if c == nil {
 		return nil
 	}
 	return c.SignatureVersion
 }
 
-func (c *CreateInputInputCrowdstrike) GetReuseConnections() *bool {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateInputInputCrowdstrike) GetRejectUnauthorized() *bool {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateInputInputCrowdstrike) GetBreakerRulesets() []string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetBreakerRulesets() []string {
 	if c == nil {
 		return nil
 	}
 	return c.BreakerRulesets
 }
 
-func (c *CreateInputInputCrowdstrike) GetStaleChannelFlushMs() *float64 {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetStaleChannelFlushMs() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputCrowdstrike) GetMaxMessages() *float64 {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetMaxMessages() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxMessages
 }
 
-func (c *CreateInputInputCrowdstrike) GetVisibilityTimeout() *float64 {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetVisibilityTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.VisibilityTimeout
 }
 
-func (c *CreateInputInputCrowdstrike) GetNumReceivers() *float64 {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetNumReceivers() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.NumReceivers
 }
 
-func (c *CreateInputInputCrowdstrike) GetFileConcurrency() *float64 {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetFileConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FileConcurrency
 }
 
-func (c *CreateInputInputCrowdstrike) GetSocketTimeout() *float64 {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetSocketTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.SocketTimeout
 }
 
-func (c *CreateInputInputCrowdstrike) GetSkipOnError() *bool {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetSkipOnError() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SkipOnError
 }
 
-func (c *CreateInputInputCrowdstrike) GetIncludeSqsMetadata() *bool {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetIncludeSqsMetadata() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.IncludeSqsMetadata
 }
 
-func (c *CreateInputInputCrowdstrike) GetEnableAssumeRole() *bool {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetEnableAssumeRole() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableAssumeRole
 }
 
-func (c *CreateInputInputCrowdstrike) GetAssumeRoleArn() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleArn
 }
 
-func (c *CreateInputInputCrowdstrike) GetAssumeRoleExternalID() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleExternalID
 }
 
-func (c *CreateInputInputCrowdstrike) GetDurationSeconds() *float64 {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetDurationSeconds() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DurationSeconds
 }
 
-func (c *CreateInputInputCrowdstrike) GetEnableSQSAssumeRole() *bool {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetEnableSQSAssumeRole() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableSQSAssumeRole
 }
 
-func (c *CreateInputInputCrowdstrike) GetPreprocess() *components.PreprocessType {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetPreprocess() *components.PreprocessType {
 	if c == nil {
 		return nil
 	}
 	return c.Preprocess
 }
 
-func (c *CreateInputInputCrowdstrike) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputCrowdstrike) GetCheckpointing() *components.CheckpointingType {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetCheckpointing() *components.CheckpointingType {
 	if c == nil {
 		return nil
 	}
 	return c.Checkpointing
 }
 
-func (c *CreateInputInputCrowdstrike) GetPollTimeout() *float64 {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetPollTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PollTimeout
 }
 
-func (c *CreateInputInputCrowdstrike) GetEncoding() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetEncoding() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Encoding
 }
 
-func (c *CreateInputInputCrowdstrike) GetDescription() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputCrowdstrike) GetAwsAPIKey() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAPIKey
 }
 
-func (c *CreateInputInputCrowdstrike) GetAwsSecret() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateInputInputCrowdstrike) GetTagAfterProcessing() *components.TagAfterProcessingOptions {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetTagAfterProcessing() *components.TagAfterProcessingOptions {
 	if c == nil {
 		return nil
 	}
 	return c.TagAfterProcessing
 }
 
-func (c *CreateInputInputCrowdstrike) GetProcessedTagKey() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetProcessedTagKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ProcessedTagKey
 }
 
-func (c *CreateInputInputCrowdstrike) GetProcessedTagValue() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetProcessedTagValue() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ProcessedTagValue
 }
 
-func (c *CreateInputInputCrowdstrike) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-func (c *CreateInputInputCrowdstrike) GetTemplateQueueName() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputCrowdstrike) GetTemplateQueueName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateQueueName
 }
 
-func (c *CreateInputInputCrowdstrike) GetTemplateAwsAccountID() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetTemplateAwsAccountID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAccountID
 }
 
-func (c *CreateInputInputCrowdstrike) GetTemplateAwsSecretKey() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetTemplateAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsSecretKey
 }
 
-func (c *CreateInputInputCrowdstrike) GetTemplateRegion() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateRegion
 }
 
-func (c *CreateInputInputCrowdstrike) GetTemplateEndpoint() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateInputInputCrowdstrike) GetTemplateAssumeRoleArn() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleArn
 }
 
-func (c *CreateInputInputCrowdstrike) GetTemplateAssumeRoleExternalID() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetTemplateAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
 }
 
-func (c *CreateInputInputCrowdstrike) GetTemplateAwsAPIKey() *string {
+func (c *CreateInputSystemByPackInputCrowdstrike) GetTemplateAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAPIKey
 }
 
-type CreateInputTypeWindowsMetrics string
+type CreateInputSystemByPackTypeWindowsMetrics string
 
 const (
-	CreateInputTypeWindowsMetricsWindowsMetrics CreateInputTypeWindowsMetrics = "windows_metrics"
+	CreateInputSystemByPackTypeWindowsMetricsWindowsMetrics CreateInputSystemByPackTypeWindowsMetrics = "windows_metrics"
 )
 
-func (e CreateInputTypeWindowsMetrics) ToPointer() *CreateInputTypeWindowsMetrics {
+func (e CreateInputSystemByPackTypeWindowsMetrics) ToPointer() *CreateInputSystemByPackTypeWindowsMetrics {
 	return &e
 }
-func (e *CreateInputTypeWindowsMetrics) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeWindowsMetrics) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "windows_metrics":
-		*e = CreateInputTypeWindowsMetrics(v)
+		*e = CreateInputSystemByPackTypeWindowsMetrics(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeWindowsMetrics: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeWindowsMetrics: %v", v)
 	}
 }
 
-// CreateInputSystemModeWindowsMetrics - Select the level of details for system metrics
-type CreateInputSystemModeWindowsMetrics string
+// CreateInputSystemByPackSystemModeWindowsMetrics - Select the level of details for system metrics
+type CreateInputSystemByPackSystemModeWindowsMetrics string
 
 const (
-	// CreateInputSystemModeWindowsMetricsBasic Basic
-	CreateInputSystemModeWindowsMetricsBasic CreateInputSystemModeWindowsMetrics = "basic"
-	// CreateInputSystemModeWindowsMetricsAll All
-	CreateInputSystemModeWindowsMetricsAll CreateInputSystemModeWindowsMetrics = "all"
-	// CreateInputSystemModeWindowsMetricsCustom Custom
-	CreateInputSystemModeWindowsMetricsCustom CreateInputSystemModeWindowsMetrics = "custom"
-	// CreateInputSystemModeWindowsMetricsDisabled Disabled
-	CreateInputSystemModeWindowsMetricsDisabled CreateInputSystemModeWindowsMetrics = "disabled"
+	// CreateInputSystemByPackSystemModeWindowsMetricsBasic Basic
+	CreateInputSystemByPackSystemModeWindowsMetricsBasic CreateInputSystemByPackSystemModeWindowsMetrics = "basic"
+	// CreateInputSystemByPackSystemModeWindowsMetricsAll All
+	CreateInputSystemByPackSystemModeWindowsMetricsAll CreateInputSystemByPackSystemModeWindowsMetrics = "all"
+	// CreateInputSystemByPackSystemModeWindowsMetricsCustom Custom
+	CreateInputSystemByPackSystemModeWindowsMetricsCustom CreateInputSystemByPackSystemModeWindowsMetrics = "custom"
+	// CreateInputSystemByPackSystemModeWindowsMetricsDisabled Disabled
+	CreateInputSystemByPackSystemModeWindowsMetricsDisabled CreateInputSystemByPackSystemModeWindowsMetrics = "disabled"
 )
 
-func (e CreateInputSystemModeWindowsMetrics) ToPointer() *CreateInputSystemModeWindowsMetrics {
+func (e CreateInputSystemByPackSystemModeWindowsMetrics) ToPointer() *CreateInputSystemByPackSystemModeWindowsMetrics {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputSystemModeWindowsMetrics) IsExact() bool {
+func (e *CreateInputSystemByPackSystemModeWindowsMetrics) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "basic", "all", "custom", "disabled":
@@ -13034,58 +13745,58 @@ func (e *CreateInputSystemModeWindowsMetrics) IsExact() bool {
 	return false
 }
 
-type CreateInputSystemWindowsMetrics struct {
+type CreateInputSystemByPackSystemWindowsMetrics struct {
 	// Select the level of details for system metrics
-	Mode *CreateInputSystemModeWindowsMetrics `json:"mode,omitzero"`
+	Mode *CreateInputSystemByPackSystemModeWindowsMetrics `json:"mode,omitzero"`
 	// Generate metrics for all system information
 	Detail *bool `json:"detail,omitzero"`
 }
 
-func (c CreateInputSystemWindowsMetrics) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackSystemWindowsMetrics) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputSystemWindowsMetrics) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackSystemWindowsMetrics) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputSystemWindowsMetrics) GetMode() *CreateInputSystemModeWindowsMetrics {
+func (c *CreateInputSystemByPackSystemWindowsMetrics) GetMode() *CreateInputSystemByPackSystemModeWindowsMetrics {
 	if c == nil {
 		return nil
 	}
 	return c.Mode
 }
 
-func (c *CreateInputSystemWindowsMetrics) GetDetail() *bool {
+func (c *CreateInputSystemByPackSystemWindowsMetrics) GetDetail() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Detail
 }
 
-// CreateInputCPUModeWindowsMetrics - Select the level of details for CPU metrics
-type CreateInputCPUModeWindowsMetrics string
+// CreateInputSystemByPackCPUModeWindowsMetrics - Select the level of details for CPU metrics
+type CreateInputSystemByPackCPUModeWindowsMetrics string
 
 const (
-	// CreateInputCPUModeWindowsMetricsBasic Basic
-	CreateInputCPUModeWindowsMetricsBasic CreateInputCPUModeWindowsMetrics = "basic"
-	// CreateInputCPUModeWindowsMetricsAll All
-	CreateInputCPUModeWindowsMetricsAll CreateInputCPUModeWindowsMetrics = "all"
-	// CreateInputCPUModeWindowsMetricsCustom Custom
-	CreateInputCPUModeWindowsMetricsCustom CreateInputCPUModeWindowsMetrics = "custom"
-	// CreateInputCPUModeWindowsMetricsDisabled Disabled
-	CreateInputCPUModeWindowsMetricsDisabled CreateInputCPUModeWindowsMetrics = "disabled"
+	// CreateInputSystemByPackCPUModeWindowsMetricsBasic Basic
+	CreateInputSystemByPackCPUModeWindowsMetricsBasic CreateInputSystemByPackCPUModeWindowsMetrics = "basic"
+	// CreateInputSystemByPackCPUModeWindowsMetricsAll All
+	CreateInputSystemByPackCPUModeWindowsMetricsAll CreateInputSystemByPackCPUModeWindowsMetrics = "all"
+	// CreateInputSystemByPackCPUModeWindowsMetricsCustom Custom
+	CreateInputSystemByPackCPUModeWindowsMetricsCustom CreateInputSystemByPackCPUModeWindowsMetrics = "custom"
+	// CreateInputSystemByPackCPUModeWindowsMetricsDisabled Disabled
+	CreateInputSystemByPackCPUModeWindowsMetricsDisabled CreateInputSystemByPackCPUModeWindowsMetrics = "disabled"
 )
 
-func (e CreateInputCPUModeWindowsMetrics) ToPointer() *CreateInputCPUModeWindowsMetrics {
+func (e CreateInputSystemByPackCPUModeWindowsMetrics) ToPointer() *CreateInputSystemByPackCPUModeWindowsMetrics {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputCPUModeWindowsMetrics) IsExact() bool {
+func (e *CreateInputSystemByPackCPUModeWindowsMetrics) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "basic", "all", "custom", "disabled":
@@ -13095,9 +13806,9 @@ func (e *CreateInputCPUModeWindowsMetrics) IsExact() bool {
 	return false
 }
 
-type CreateInputCPUWindowsMetrics struct {
+type CreateInputSystemByPackCPUWindowsMetrics struct {
 	// Select the level of details for CPU metrics
-	Mode *CreateInputCPUModeWindowsMetrics `json:"mode,omitzero"`
+	Mode *CreateInputSystemByPackCPUModeWindowsMetrics `json:"mode,omitzero"`
 	// Generate metrics for each CPU
 	PerCPU *bool `json:"perCpu,omitzero"`
 	// Generate metrics for all CPU states
@@ -13106,65 +13817,65 @@ type CreateInputCPUWindowsMetrics struct {
 	Time *bool `json:"time,omitzero"`
 }
 
-func (c CreateInputCPUWindowsMetrics) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackCPUWindowsMetrics) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputCPUWindowsMetrics) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackCPUWindowsMetrics) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputCPUWindowsMetrics) GetMode() *CreateInputCPUModeWindowsMetrics {
+func (c *CreateInputSystemByPackCPUWindowsMetrics) GetMode() *CreateInputSystemByPackCPUModeWindowsMetrics {
 	if c == nil {
 		return nil
 	}
 	return c.Mode
 }
 
-func (c *CreateInputCPUWindowsMetrics) GetPerCPU() *bool {
+func (c *CreateInputSystemByPackCPUWindowsMetrics) GetPerCPU() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PerCPU
 }
 
-func (c *CreateInputCPUWindowsMetrics) GetDetail() *bool {
+func (c *CreateInputSystemByPackCPUWindowsMetrics) GetDetail() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Detail
 }
 
-func (c *CreateInputCPUWindowsMetrics) GetTime() *bool {
+func (c *CreateInputSystemByPackCPUWindowsMetrics) GetTime() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Time
 }
 
-// CreateInputMemoryModeWindowsMetrics - Select the level of details for memory metrics
-type CreateInputMemoryModeWindowsMetrics string
+// CreateInputSystemByPackMemoryModeWindowsMetrics - Select the level of details for memory metrics
+type CreateInputSystemByPackMemoryModeWindowsMetrics string
 
 const (
-	// CreateInputMemoryModeWindowsMetricsBasic Basic
-	CreateInputMemoryModeWindowsMetricsBasic CreateInputMemoryModeWindowsMetrics = "basic"
-	// CreateInputMemoryModeWindowsMetricsAll All
-	CreateInputMemoryModeWindowsMetricsAll CreateInputMemoryModeWindowsMetrics = "all"
-	// CreateInputMemoryModeWindowsMetricsCustom Custom
-	CreateInputMemoryModeWindowsMetricsCustom CreateInputMemoryModeWindowsMetrics = "custom"
-	// CreateInputMemoryModeWindowsMetricsDisabled Disabled
-	CreateInputMemoryModeWindowsMetricsDisabled CreateInputMemoryModeWindowsMetrics = "disabled"
+	// CreateInputSystemByPackMemoryModeWindowsMetricsBasic Basic
+	CreateInputSystemByPackMemoryModeWindowsMetricsBasic CreateInputSystemByPackMemoryModeWindowsMetrics = "basic"
+	// CreateInputSystemByPackMemoryModeWindowsMetricsAll All
+	CreateInputSystemByPackMemoryModeWindowsMetricsAll CreateInputSystemByPackMemoryModeWindowsMetrics = "all"
+	// CreateInputSystemByPackMemoryModeWindowsMetricsCustom Custom
+	CreateInputSystemByPackMemoryModeWindowsMetricsCustom CreateInputSystemByPackMemoryModeWindowsMetrics = "custom"
+	// CreateInputSystemByPackMemoryModeWindowsMetricsDisabled Disabled
+	CreateInputSystemByPackMemoryModeWindowsMetricsDisabled CreateInputSystemByPackMemoryModeWindowsMetrics = "disabled"
 )
 
-func (e CreateInputMemoryModeWindowsMetrics) ToPointer() *CreateInputMemoryModeWindowsMetrics {
+func (e CreateInputSystemByPackMemoryModeWindowsMetrics) ToPointer() *CreateInputSystemByPackMemoryModeWindowsMetrics {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputMemoryModeWindowsMetrics) IsExact() bool {
+func (e *CreateInputSystemByPackMemoryModeWindowsMetrics) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "basic", "all", "custom", "disabled":
@@ -13174,58 +13885,58 @@ func (e *CreateInputMemoryModeWindowsMetrics) IsExact() bool {
 	return false
 }
 
-type CreateInputMemoryWindowsMetrics struct {
+type CreateInputSystemByPackMemoryWindowsMetrics struct {
 	// Select the level of details for memory metrics
-	Mode *CreateInputMemoryModeWindowsMetrics `json:"mode,omitzero"`
+	Mode *CreateInputSystemByPackMemoryModeWindowsMetrics `json:"mode,omitzero"`
 	// Generate metrics for all memory states
 	Detail *bool `json:"detail,omitzero"`
 }
 
-func (c CreateInputMemoryWindowsMetrics) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackMemoryWindowsMetrics) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputMemoryWindowsMetrics) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackMemoryWindowsMetrics) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputMemoryWindowsMetrics) GetMode() *CreateInputMemoryModeWindowsMetrics {
+func (c *CreateInputSystemByPackMemoryWindowsMetrics) GetMode() *CreateInputSystemByPackMemoryModeWindowsMetrics {
 	if c == nil {
 		return nil
 	}
 	return c.Mode
 }
 
-func (c *CreateInputMemoryWindowsMetrics) GetDetail() *bool {
+func (c *CreateInputSystemByPackMemoryWindowsMetrics) GetDetail() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Detail
 }
 
-// CreateInputNetworkModeWindowsMetrics - Select the level of details for network metrics
-type CreateInputNetworkModeWindowsMetrics string
+// CreateInputSystemByPackNetworkModeWindowsMetrics - Select the level of details for network metrics
+type CreateInputSystemByPackNetworkModeWindowsMetrics string
 
 const (
-	// CreateInputNetworkModeWindowsMetricsBasic Basic
-	CreateInputNetworkModeWindowsMetricsBasic CreateInputNetworkModeWindowsMetrics = "basic"
-	// CreateInputNetworkModeWindowsMetricsAll All
-	CreateInputNetworkModeWindowsMetricsAll CreateInputNetworkModeWindowsMetrics = "all"
-	// CreateInputNetworkModeWindowsMetricsCustom Custom
-	CreateInputNetworkModeWindowsMetricsCustom CreateInputNetworkModeWindowsMetrics = "custom"
-	// CreateInputNetworkModeWindowsMetricsDisabled Disabled
-	CreateInputNetworkModeWindowsMetricsDisabled CreateInputNetworkModeWindowsMetrics = "disabled"
+	// CreateInputSystemByPackNetworkModeWindowsMetricsBasic Basic
+	CreateInputSystemByPackNetworkModeWindowsMetricsBasic CreateInputSystemByPackNetworkModeWindowsMetrics = "basic"
+	// CreateInputSystemByPackNetworkModeWindowsMetricsAll All
+	CreateInputSystemByPackNetworkModeWindowsMetricsAll CreateInputSystemByPackNetworkModeWindowsMetrics = "all"
+	// CreateInputSystemByPackNetworkModeWindowsMetricsCustom Custom
+	CreateInputSystemByPackNetworkModeWindowsMetricsCustom CreateInputSystemByPackNetworkModeWindowsMetrics = "custom"
+	// CreateInputSystemByPackNetworkModeWindowsMetricsDisabled Disabled
+	CreateInputSystemByPackNetworkModeWindowsMetricsDisabled CreateInputSystemByPackNetworkModeWindowsMetrics = "disabled"
 )
 
-func (e CreateInputNetworkModeWindowsMetrics) ToPointer() *CreateInputNetworkModeWindowsMetrics {
+func (e CreateInputSystemByPackNetworkModeWindowsMetrics) ToPointer() *CreateInputSystemByPackNetworkModeWindowsMetrics {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputNetworkModeWindowsMetrics) IsExact() bool {
+func (e *CreateInputSystemByPackNetworkModeWindowsMetrics) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "basic", "all", "custom", "disabled":
@@ -13235,9 +13946,9 @@ func (e *CreateInputNetworkModeWindowsMetrics) IsExact() bool {
 	return false
 }
 
-type CreateInputNetworkWindowsMetrics struct {
+type CreateInputSystemByPackNetworkWindowsMetrics struct {
 	// Select the level of details for network metrics
-	Mode *CreateInputNetworkModeWindowsMetrics `json:"mode,omitzero"`
+	Mode *CreateInputSystemByPackNetworkModeWindowsMetrics `json:"mode,omitzero"`
 	// Generate full network metrics
 	Detail *bool `json:"detail,omitzero"`
 	// Generate protocol metrics for ICMP, ICMPMsg, IP, TCP, UDP and UDPLite
@@ -13248,72 +13959,72 @@ type CreateInputNetworkWindowsMetrics struct {
 	PerInterface *bool `json:"perInterface,omitzero"`
 }
 
-func (c CreateInputNetworkWindowsMetrics) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackNetworkWindowsMetrics) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputNetworkWindowsMetrics) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackNetworkWindowsMetrics) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputNetworkWindowsMetrics) GetMode() *CreateInputNetworkModeWindowsMetrics {
+func (c *CreateInputSystemByPackNetworkWindowsMetrics) GetMode() *CreateInputSystemByPackNetworkModeWindowsMetrics {
 	if c == nil {
 		return nil
 	}
 	return c.Mode
 }
 
-func (c *CreateInputNetworkWindowsMetrics) GetDetail() *bool {
+func (c *CreateInputSystemByPackNetworkWindowsMetrics) GetDetail() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Detail
 }
 
-func (c *CreateInputNetworkWindowsMetrics) GetProtocols() *bool {
+func (c *CreateInputSystemByPackNetworkWindowsMetrics) GetProtocols() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Protocols
 }
 
-func (c *CreateInputNetworkWindowsMetrics) GetDevices() []string {
+func (c *CreateInputSystemByPackNetworkWindowsMetrics) GetDevices() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Devices
 }
 
-func (c *CreateInputNetworkWindowsMetrics) GetPerInterface() *bool {
+func (c *CreateInputSystemByPackNetworkWindowsMetrics) GetPerInterface() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PerInterface
 }
 
-// CreateInputDiskModeWindowsMetrics - Select the level of details for disk metrics
-type CreateInputDiskModeWindowsMetrics string
+// CreateInputSystemByPackDiskModeWindowsMetrics - Select the level of details for disk metrics
+type CreateInputSystemByPackDiskModeWindowsMetrics string
 
 const (
-	// CreateInputDiskModeWindowsMetricsBasic Basic
-	CreateInputDiskModeWindowsMetricsBasic CreateInputDiskModeWindowsMetrics = "basic"
-	// CreateInputDiskModeWindowsMetricsAll All
-	CreateInputDiskModeWindowsMetricsAll CreateInputDiskModeWindowsMetrics = "all"
-	// CreateInputDiskModeWindowsMetricsCustom Custom
-	CreateInputDiskModeWindowsMetricsCustom CreateInputDiskModeWindowsMetrics = "custom"
-	// CreateInputDiskModeWindowsMetricsDisabled Disabled
-	CreateInputDiskModeWindowsMetricsDisabled CreateInputDiskModeWindowsMetrics = "disabled"
+	// CreateInputSystemByPackDiskModeWindowsMetricsBasic Basic
+	CreateInputSystemByPackDiskModeWindowsMetricsBasic CreateInputSystemByPackDiskModeWindowsMetrics = "basic"
+	// CreateInputSystemByPackDiskModeWindowsMetricsAll All
+	CreateInputSystemByPackDiskModeWindowsMetricsAll CreateInputSystemByPackDiskModeWindowsMetrics = "all"
+	// CreateInputSystemByPackDiskModeWindowsMetricsCustom Custom
+	CreateInputSystemByPackDiskModeWindowsMetricsCustom CreateInputSystemByPackDiskModeWindowsMetrics = "custom"
+	// CreateInputSystemByPackDiskModeWindowsMetricsDisabled Disabled
+	CreateInputSystemByPackDiskModeWindowsMetricsDisabled CreateInputSystemByPackDiskModeWindowsMetrics = "disabled"
 )
 
-func (e CreateInputDiskModeWindowsMetrics) ToPointer() *CreateInputDiskModeWindowsMetrics {
+func (e CreateInputSystemByPackDiskModeWindowsMetrics) ToPointer() *CreateInputSystemByPackDiskModeWindowsMetrics {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputDiskModeWindowsMetrics) IsExact() bool {
+func (e *CreateInputSystemByPackDiskModeWindowsMetrics) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "basic", "all", "custom", "disabled":
@@ -13323,9 +14034,9 @@ func (e *CreateInputDiskModeWindowsMetrics) IsExact() bool {
 	return false
 }
 
-type CreateInputDiskWindowsMetrics struct {
+type CreateInputSystemByPackDiskWindowsMetrics struct {
 	// Select the level of details for disk metrics
-	Mode *CreateInputDiskModeWindowsMetrics `json:"mode,omitzero"`
+	Mode *CreateInputSystemByPackDiskModeWindowsMetrics `json:"mode,omitzero"`
 	// Generate separate metrics for each volume
 	PerVolume *bool `json:"perVolume,omitzero"`
 	// Generate full disk metrics
@@ -13334,131 +14045,131 @@ type CreateInputDiskWindowsMetrics struct {
 	Volumes []string `json:"volumes,omitzero"`
 }
 
-func (c CreateInputDiskWindowsMetrics) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackDiskWindowsMetrics) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputDiskWindowsMetrics) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackDiskWindowsMetrics) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputDiskWindowsMetrics) GetMode() *CreateInputDiskModeWindowsMetrics {
+func (c *CreateInputSystemByPackDiskWindowsMetrics) GetMode() *CreateInputSystemByPackDiskModeWindowsMetrics {
 	if c == nil {
 		return nil
 	}
 	return c.Mode
 }
 
-func (c *CreateInputDiskWindowsMetrics) GetPerVolume() *bool {
+func (c *CreateInputSystemByPackDiskWindowsMetrics) GetPerVolume() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PerVolume
 }
 
-func (c *CreateInputDiskWindowsMetrics) GetDetail() *bool {
+func (c *CreateInputSystemByPackDiskWindowsMetrics) GetDetail() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Detail
 }
 
-func (c *CreateInputDiskWindowsMetrics) GetVolumes() []string {
+func (c *CreateInputSystemByPackDiskWindowsMetrics) GetVolumes() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Volumes
 }
 
-type CreateInputCustomWindowsMetrics struct {
-	System  *CreateInputSystemWindowsMetrics  `json:"system,omitzero"`
-	CPU     *CreateInputCPUWindowsMetrics     `json:"cpu,omitzero"`
-	Memory  *CreateInputMemoryWindowsMetrics  `json:"memory,omitzero"`
-	Network *CreateInputNetworkWindowsMetrics `json:"network,omitzero"`
-	Disk    *CreateInputDiskWindowsMetrics    `json:"disk,omitzero"`
+type CreateInputSystemByPackCustomWindowsMetrics struct {
+	System  *CreateInputSystemByPackSystemWindowsMetrics  `json:"system,omitzero"`
+	CPU     *CreateInputSystemByPackCPUWindowsMetrics     `json:"cpu,omitzero"`
+	Memory  *CreateInputSystemByPackMemoryWindowsMetrics  `json:"memory,omitzero"`
+	Network *CreateInputSystemByPackNetworkWindowsMetrics `json:"network,omitzero"`
+	Disk    *CreateInputSystemByPackDiskWindowsMetrics    `json:"disk,omitzero"`
 }
 
-func (c CreateInputCustomWindowsMetrics) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackCustomWindowsMetrics) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputCustomWindowsMetrics) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackCustomWindowsMetrics) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputCustomWindowsMetrics) GetSystem() *CreateInputSystemWindowsMetrics {
+func (c *CreateInputSystemByPackCustomWindowsMetrics) GetSystem() *CreateInputSystemByPackSystemWindowsMetrics {
 	if c == nil {
 		return nil
 	}
 	return c.System
 }
 
-func (c *CreateInputCustomWindowsMetrics) GetCPU() *CreateInputCPUWindowsMetrics {
+func (c *CreateInputSystemByPackCustomWindowsMetrics) GetCPU() *CreateInputSystemByPackCPUWindowsMetrics {
 	if c == nil {
 		return nil
 	}
 	return c.CPU
 }
 
-func (c *CreateInputCustomWindowsMetrics) GetMemory() *CreateInputMemoryWindowsMetrics {
+func (c *CreateInputSystemByPackCustomWindowsMetrics) GetMemory() *CreateInputSystemByPackMemoryWindowsMetrics {
 	if c == nil {
 		return nil
 	}
 	return c.Memory
 }
 
-func (c *CreateInputCustomWindowsMetrics) GetNetwork() *CreateInputNetworkWindowsMetrics {
+func (c *CreateInputSystemByPackCustomWindowsMetrics) GetNetwork() *CreateInputSystemByPackNetworkWindowsMetrics {
 	if c == nil {
 		return nil
 	}
 	return c.Network
 }
 
-func (c *CreateInputCustomWindowsMetrics) GetDisk() *CreateInputDiskWindowsMetrics {
+func (c *CreateInputSystemByPackCustomWindowsMetrics) GetDisk() *CreateInputSystemByPackDiskWindowsMetrics {
 	if c == nil {
 		return nil
 	}
 	return c.Disk
 }
 
-type CreateInputHostWindowsMetrics struct {
+type CreateInputSystemByPackHostWindowsMetrics struct {
 	// Select level of detail for host metrics
-	Mode   *components.ModeOptionsHost      `json:"mode,omitzero"`
-	Custom *CreateInputCustomWindowsMetrics `json:"custom,omitzero"`
+	Mode   *components.ModeOptionsHost                  `json:"mode,omitzero"`
+	Custom *CreateInputSystemByPackCustomWindowsMetrics `json:"custom,omitzero"`
 }
 
-func (c CreateInputHostWindowsMetrics) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackHostWindowsMetrics) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputHostWindowsMetrics) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackHostWindowsMetrics) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputHostWindowsMetrics) GetMode() *components.ModeOptionsHost {
+func (c *CreateInputSystemByPackHostWindowsMetrics) GetMode() *components.ModeOptionsHost {
 	if c == nil {
 		return nil
 	}
 	return c.Mode
 }
 
-func (c *CreateInputHostWindowsMetrics) GetCustom() *CreateInputCustomWindowsMetrics {
+func (c *CreateInputSystemByPackHostWindowsMetrics) GetCustom() *CreateInputSystemByPackCustomWindowsMetrics {
 	if c == nil {
 		return nil
 	}
 	return c.Custom
 }
 
-type CreateInputPersistenceWindowsMetrics struct {
+type CreateInputSystemByPackPersistenceWindowsMetrics struct {
 	// Spool metrics to disk for Cribl Edge and Search
 	Enable *bool `json:"enable,omitzero"`
 	// Time span for each file bucket
@@ -13472,64 +14183,64 @@ type CreateInputPersistenceWindowsMetrics struct {
 	DestPath *string `json:"destPath,omitzero"`
 }
 
-func (c CreateInputPersistenceWindowsMetrics) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackPersistenceWindowsMetrics) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputPersistenceWindowsMetrics) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackPersistenceWindowsMetrics) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputPersistenceWindowsMetrics) GetEnable() *bool {
+func (c *CreateInputSystemByPackPersistenceWindowsMetrics) GetEnable() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enable
 }
 
-func (c *CreateInputPersistenceWindowsMetrics) GetTimeWindow() *string {
+func (c *CreateInputSystemByPackPersistenceWindowsMetrics) GetTimeWindow() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TimeWindow
 }
 
-func (c *CreateInputPersistenceWindowsMetrics) GetMaxDataSize() *string {
+func (c *CreateInputSystemByPackPersistenceWindowsMetrics) GetMaxDataSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MaxDataSize
 }
 
-func (c *CreateInputPersistenceWindowsMetrics) GetMaxDataTime() *string {
+func (c *CreateInputSystemByPackPersistenceWindowsMetrics) GetMaxDataTime() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MaxDataTime
 }
 
-func (c *CreateInputPersistenceWindowsMetrics) GetCompress() *components.DataCompressionFormatOptionsPersistence {
+func (c *CreateInputSystemByPackPersistenceWindowsMetrics) GetCompress() *components.DataCompressionFormatOptionsPersistence {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateInputPersistenceWindowsMetrics) GetDestPath() *string {
+func (c *CreateInputSystemByPackPersistenceWindowsMetrics) GetDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DestPath
 }
 
-type CreateInputInputWindowsMetrics struct {
+type CreateInputSystemByPackInputWindowsMetrics struct {
 	// Unique ID for this input
-	ID       string                        `json:"id"`
-	Type     CreateInputTypeWindowsMetrics `json:"type"`
-	Disabled *bool                         `json:"disabled,omitzero"`
+	ID       string                                    `json:"id"`
+	Type     CreateInputSystemByPackTypeWindowsMetrics `json:"type"`
+	Disabled *bool                                     `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -13544,192 +14255,201 @@ type CreateInputInputWindowsMetrics struct {
 	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *components.PqType                        `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
-	Interval *float64                       `json:"interval,omitzero"`
-	Host     *CreateInputHostWindowsMetrics `json:"host,omitzero"`
-	Process  *components.ProcessType        `json:"process,omitzero"`
-	Gpu      *components.GpuType            `json:"gpu,omitzero"`
+	Interval *float64                                   `json:"interval,omitzero"`
+	Host     *CreateInputSystemByPackHostWindowsMetrics `json:"host,omitzero"`
+	Process  *components.ProcessType                    `json:"process,omitzero"`
+	Gpu      *components.GpuType                        `json:"gpu,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata        `json:"metadata,omitzero"`
-	Persistence *CreateInputPersistenceWindowsMetrics `json:"persistence,omitzero"`
+	Metadata    []components.ItemsTypeMetadata                    `json:"metadata,omitzero"`
+	Persistence *CreateInputSystemByPackPersistenceWindowsMetrics `json:"persistence,omitzero"`
 	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
 	DisableNativeModule *bool   `json:"disableNativeModule,omitzero"`
 	Description         *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
-func (c CreateInputInputWindowsMetrics) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputWindowsMetrics) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputWindowsMetrics) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputWindowsMetrics) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputWindowsMetrics) GetID() string {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputWindowsMetrics) GetType() CreateInputTypeWindowsMetrics {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetType() CreateInputSystemByPackTypeWindowsMetrics {
 	if c == nil {
-		return CreateInputTypeWindowsMetrics("")
+		return CreateInputSystemByPackTypeWindowsMetrics("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputWindowsMetrics) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputWindowsMetrics) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputWindowsMetrics) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputWindowsMetrics) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputWindowsMetrics) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputWindowsMetrics) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputWindowsMetrics) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputWindowsMetrics) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputWindowsMetrics) GetInterval() *float64 {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetInterval() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Interval
 }
 
-func (c *CreateInputInputWindowsMetrics) GetHost() *CreateInputHostWindowsMetrics {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetHost() *CreateInputSystemByPackHostWindowsMetrics {
 	if c == nil {
 		return nil
 	}
 	return c.Host
 }
 
-func (c *CreateInputInputWindowsMetrics) GetProcess() *components.ProcessType {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetProcess() *components.ProcessType {
 	if c == nil {
 		return nil
 	}
 	return c.Process
 }
 
-func (c *CreateInputInputWindowsMetrics) GetGpu() *components.GpuType {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetGpu() *components.GpuType {
 	if c == nil {
 		return nil
 	}
 	return c.Gpu
 }
 
-func (c *CreateInputInputWindowsMetrics) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputWindowsMetrics) GetPersistence() *CreateInputPersistenceWindowsMetrics {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetPersistence() *CreateInputSystemByPackPersistenceWindowsMetrics {
 	if c == nil {
 		return nil
 	}
 	return c.Persistence
 }
 
-func (c *CreateInputInputWindowsMetrics) GetDisableNativeModule() *bool {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetDisableNativeModule() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DisableNativeModule
 }
 
-func (c *CreateInputInputWindowsMetrics) GetDescription() *string {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputWindowsMetrics) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-type CreateInputTypeKubeEvents string
+func (c *CreateInputSystemByPackInputWindowsMetrics) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+type CreateInputSystemByPackTypeKubeEvents string
 
 const (
-	CreateInputTypeKubeEventsKubeEvents CreateInputTypeKubeEvents = "kube_events"
+	CreateInputSystemByPackTypeKubeEventsKubeEvents CreateInputSystemByPackTypeKubeEvents = "kube_events"
 )
 
-func (e CreateInputTypeKubeEvents) ToPointer() *CreateInputTypeKubeEvents {
+func (e CreateInputSystemByPackTypeKubeEvents) ToPointer() *CreateInputSystemByPackTypeKubeEvents {
 	return &e
 }
-func (e *CreateInputTypeKubeEvents) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeKubeEvents) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "kube_events":
-		*e = CreateInputTypeKubeEvents(v)
+		*e = CreateInputSystemByPackTypeKubeEvents(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeKubeEvents: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeKubeEvents: %v", v)
 	}
 }
 
-type CreateInputInputKubeEvents struct {
+type CreateInputSystemByPackInputKubeEvents struct {
 	// Unique ID for this input
-	ID       string                    `json:"id"`
-	Type     CreateInputTypeKubeEvents `json:"type"`
-	Disabled *bool                     `json:"disabled,omitzero"`
+	ID       string                                `json:"id"`
+	Type     CreateInputSystemByPackTypeKubeEvents `json:"type"`
+	Disabled *bool                                 `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -13750,177 +14470,186 @@ type CreateInputInputKubeEvents struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
-func (c CreateInputInputKubeEvents) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputKubeEvents) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputKubeEvents) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputKubeEvents) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputKubeEvents) GetID() string {
+func (c *CreateInputSystemByPackInputKubeEvents) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputKubeEvents) GetType() CreateInputTypeKubeEvents {
+func (c *CreateInputSystemByPackInputKubeEvents) GetType() CreateInputSystemByPackTypeKubeEvents {
 	if c == nil {
-		return CreateInputTypeKubeEvents("")
+		return CreateInputSystemByPackTypeKubeEvents("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputKubeEvents) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputKubeEvents) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputKubeEvents) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputKubeEvents) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputKubeEvents) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputKubeEvents) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputKubeEvents) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputKubeEvents) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputKubeEvents) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputKubeEvents) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputKubeEvents) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputKubeEvents) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputKubeEvents) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputKubeEvents) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputKubeEvents) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputKubeEvents) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputKubeEvents) GetRules() []components.ItemsTypeRules {
+func (c *CreateInputSystemByPackInputKubeEvents) GetRules() []components.ItemsTypeRules {
 	if c == nil {
 		return nil
 	}
 	return c.Rules
 }
 
-func (c *CreateInputInputKubeEvents) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputKubeEvents) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputKubeEvents) GetDescription() *string {
+func (c *CreateInputSystemByPackInputKubeEvents) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputKubeEvents) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputKubeEvents) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-type CreateInputTypeKubeLogs string
+func (c *CreateInputSystemByPackInputKubeEvents) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+type CreateInputSystemByPackTypeKubeLogs string
 
 const (
-	CreateInputTypeKubeLogsKubeLogs CreateInputTypeKubeLogs = "kube_logs"
+	CreateInputSystemByPackTypeKubeLogsKubeLogs CreateInputSystemByPackTypeKubeLogs = "kube_logs"
 )
 
-func (e CreateInputTypeKubeLogs) ToPointer() *CreateInputTypeKubeLogs {
+func (e CreateInputSystemByPackTypeKubeLogs) ToPointer() *CreateInputSystemByPackTypeKubeLogs {
 	return &e
 }
-func (e *CreateInputTypeKubeLogs) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeKubeLogs) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "kube_logs":
-		*e = CreateInputTypeKubeLogs(v)
+		*e = CreateInputSystemByPackTypeKubeLogs(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeKubeLogs: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeKubeLogs: %v", v)
 	}
 }
 
-type CreateInputRuleKubeLogs struct {
+type CreateInputSystemByPackRuleKubeLogs struct {
 	// JavaScript expression applied to Pod objects. Return 'true' to include it.
 	Filter string `json:"filter"`
 	// Optional description of this rule's purpose
 	Description *string `json:"description,omitzero"`
 }
 
-func (c CreateInputRuleKubeLogs) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackRuleKubeLogs) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputRuleKubeLogs) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackRuleKubeLogs) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputRuleKubeLogs) GetFilter() string {
+func (c *CreateInputSystemByPackRuleKubeLogs) GetFilter() string {
 	if c == nil {
 		return ""
 	}
 	return c.Filter
 }
 
-func (c *CreateInputRuleKubeLogs) GetDescription() *string {
+func (c *CreateInputSystemByPackRuleKubeLogs) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-type CreateInputInputKubeLogs struct {
+type CreateInputSystemByPackInputKubeLogs struct {
 	// Unique ID for this input
-	ID       string                  `json:"id"`
-	Type     CreateInputTypeKubeLogs `json:"type"`
-	Disabled *bool                   `json:"disabled,omitzero"`
+	ID       string                              `json:"id"`
+	Type     CreateInputSystemByPackTypeKubeLogs `json:"type"`
+	Disabled *bool                               `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -13937,7 +14666,7 @@ type CreateInputInputKubeLogs struct {
 	// Time, in seconds, between checks for new containers. Default is 15 secs.
 	Interval *float64 `json:"interval,omitzero"`
 	// Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
-	Rules []CreateInputRuleKubeLogs `json:"rules,omitzero"`
+	Rules []CreateInputSystemByPackRuleKubeLogs `json:"rules,omitzero"`
 	// For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
 	Timestamps *bool `json:"timestamps,omitzero"`
 	// Fields to add to events from this input
@@ -13952,183 +14681,192 @@ type CreateInputInputKubeLogs struct {
 	Description         *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
-func (c CreateInputInputKubeLogs) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputKubeLogs) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputKubeLogs) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputKubeLogs) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputKubeLogs) GetID() string {
+func (c *CreateInputSystemByPackInputKubeLogs) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputKubeLogs) GetType() CreateInputTypeKubeLogs {
+func (c *CreateInputSystemByPackInputKubeLogs) GetType() CreateInputSystemByPackTypeKubeLogs {
 	if c == nil {
-		return CreateInputTypeKubeLogs("")
+		return CreateInputSystemByPackTypeKubeLogs("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputKubeLogs) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputKubeLogs) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputKubeLogs) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputKubeLogs) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputKubeLogs) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputKubeLogs) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputKubeLogs) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputKubeLogs) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputKubeLogs) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputKubeLogs) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputKubeLogs) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputKubeLogs) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputKubeLogs) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputKubeLogs) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputKubeLogs) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputKubeLogs) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputKubeLogs) GetInterval() *float64 {
+func (c *CreateInputSystemByPackInputKubeLogs) GetInterval() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Interval
 }
 
-func (c *CreateInputInputKubeLogs) GetRules() []CreateInputRuleKubeLogs {
+func (c *CreateInputSystemByPackInputKubeLogs) GetRules() []CreateInputSystemByPackRuleKubeLogs {
 	if c == nil {
 		return nil
 	}
 	return c.Rules
 }
 
-func (c *CreateInputInputKubeLogs) GetTimestamps() *bool {
+func (c *CreateInputSystemByPackInputKubeLogs) GetTimestamps() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Timestamps
 }
 
-func (c *CreateInputInputKubeLogs) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputKubeLogs) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputKubeLogs) GetPersistence() *components.DiskSpoolingType {
+func (c *CreateInputSystemByPackInputKubeLogs) GetPersistence() *components.DiskSpoolingType {
 	if c == nil {
 		return nil
 	}
 	return c.Persistence
 }
 
-func (c *CreateInputInputKubeLogs) GetBreakerRulesets() []string {
+func (c *CreateInputSystemByPackInputKubeLogs) GetBreakerRulesets() []string {
 	if c == nil {
 		return nil
 	}
 	return c.BreakerRulesets
 }
 
-func (c *CreateInputInputKubeLogs) GetStaleChannelFlushMs() *float64 {
+func (c *CreateInputSystemByPackInputKubeLogs) GetStaleChannelFlushMs() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputKubeLogs) GetEnableLoadBalancing() *bool {
+func (c *CreateInputSystemByPackInputKubeLogs) GetEnableLoadBalancing() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableLoadBalancing
 }
 
-func (c *CreateInputInputKubeLogs) GetDescription() *string {
+func (c *CreateInputSystemByPackInputKubeLogs) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputKubeLogs) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputKubeLogs) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-type CreateInputTypeKubeMetrics string
+func (c *CreateInputSystemByPackInputKubeLogs) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+type CreateInputSystemByPackTypeKubeMetrics string
 
 const (
-	CreateInputTypeKubeMetricsKubeMetrics CreateInputTypeKubeMetrics = "kube_metrics"
+	CreateInputSystemByPackTypeKubeMetricsKubeMetrics CreateInputSystemByPackTypeKubeMetrics = "kube_metrics"
 )
 
-func (e CreateInputTypeKubeMetrics) ToPointer() *CreateInputTypeKubeMetrics {
+func (e CreateInputSystemByPackTypeKubeMetrics) ToPointer() *CreateInputSystemByPackTypeKubeMetrics {
 	return &e
 }
-func (e *CreateInputTypeKubeMetrics) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeKubeMetrics) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "kube_metrics":
-		*e = CreateInputTypeKubeMetrics(v)
+		*e = CreateInputSystemByPackTypeKubeMetrics(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeKubeMetrics: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeKubeMetrics: %v", v)
 	}
 }
 
-type CreateInputPersistenceKubeMetrics struct {
+type CreateInputSystemByPackPersistenceKubeMetrics struct {
 	// Spool metrics on disk for Cribl Search
 	Enable *bool `json:"enable,omitzero"`
 	// Time span for each file bucket
@@ -14142,64 +14880,64 @@ type CreateInputPersistenceKubeMetrics struct {
 	DestPath *string `json:"destPath,omitzero"`
 }
 
-func (c CreateInputPersistenceKubeMetrics) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackPersistenceKubeMetrics) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputPersistenceKubeMetrics) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackPersistenceKubeMetrics) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputPersistenceKubeMetrics) GetEnable() *bool {
+func (c *CreateInputSystemByPackPersistenceKubeMetrics) GetEnable() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enable
 }
 
-func (c *CreateInputPersistenceKubeMetrics) GetTimeWindow() *string {
+func (c *CreateInputSystemByPackPersistenceKubeMetrics) GetTimeWindow() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TimeWindow
 }
 
-func (c *CreateInputPersistenceKubeMetrics) GetMaxDataSize() *string {
+func (c *CreateInputSystemByPackPersistenceKubeMetrics) GetMaxDataSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MaxDataSize
 }
 
-func (c *CreateInputPersistenceKubeMetrics) GetMaxDataTime() *string {
+func (c *CreateInputSystemByPackPersistenceKubeMetrics) GetMaxDataTime() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MaxDataTime
 }
 
-func (c *CreateInputPersistenceKubeMetrics) GetCompress() *components.DataCompressionFormatOptionsPersistence {
+func (c *CreateInputSystemByPackPersistenceKubeMetrics) GetCompress() *components.DataCompressionFormatOptionsPersistence {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateInputPersistenceKubeMetrics) GetDestPath() *string {
+func (c *CreateInputSystemByPackPersistenceKubeMetrics) GetDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DestPath
 }
 
-type CreateInputInputKubeMetrics struct {
+type CreateInputSystemByPackInputKubeMetrics struct {
 	// Unique ID for this input
-	ID       string                     `json:"id"`
-	Type     CreateInputTypeKubeMetrics `json:"type"`
-	Disabled *bool                      `json:"disabled,omitzero"`
+	ID       string                                 `json:"id"`
+	Type     CreateInputSystemByPackTypeKubeMetrics `json:"type"`
+	Disabled *bool                                  `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -14218,526 +14956,535 @@ type CreateInputInputKubeMetrics struct {
 	// Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
 	Rules []components.ItemsTypeRules `json:"rules,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata     `json:"metadata,omitzero"`
-	Persistence *CreateInputPersistenceKubeMetrics `json:"persistence,omitzero"`
-	Description *string                            `json:"description,omitzero"`
+	Metadata    []components.ItemsTypeMetadata                 `json:"metadata,omitzero"`
+	Persistence *CreateInputSystemByPackPersistenceKubeMetrics `json:"persistence,omitzero"`
+	Description *string                                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
-func (c CreateInputInputKubeMetrics) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputKubeMetrics) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputKubeMetrics) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputKubeMetrics) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputKubeMetrics) GetID() string {
+func (c *CreateInputSystemByPackInputKubeMetrics) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputKubeMetrics) GetType() CreateInputTypeKubeMetrics {
+func (c *CreateInputSystemByPackInputKubeMetrics) GetType() CreateInputSystemByPackTypeKubeMetrics {
 	if c == nil {
-		return CreateInputTypeKubeMetrics("")
+		return CreateInputSystemByPackTypeKubeMetrics("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputKubeMetrics) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputKubeMetrics) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputKubeMetrics) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputKubeMetrics) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputKubeMetrics) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputKubeMetrics) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputKubeMetrics) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputKubeMetrics) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputKubeMetrics) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputKubeMetrics) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputKubeMetrics) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputKubeMetrics) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputKubeMetrics) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputKubeMetrics) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputKubeMetrics) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputKubeMetrics) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputKubeMetrics) GetInterval() *float64 {
+func (c *CreateInputSystemByPackInputKubeMetrics) GetInterval() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Interval
 }
 
-func (c *CreateInputInputKubeMetrics) GetRules() []components.ItemsTypeRules {
+func (c *CreateInputSystemByPackInputKubeMetrics) GetRules() []components.ItemsTypeRules {
 	if c == nil {
 		return nil
 	}
 	return c.Rules
 }
 
-func (c *CreateInputInputKubeMetrics) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputKubeMetrics) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputKubeMetrics) GetPersistence() *CreateInputPersistenceKubeMetrics {
+func (c *CreateInputSystemByPackInputKubeMetrics) GetPersistence() *CreateInputSystemByPackPersistenceKubeMetrics {
 	if c == nil {
 		return nil
 	}
 	return c.Persistence
 }
 
-func (c *CreateInputInputKubeMetrics) GetDescription() *string {
+func (c *CreateInputSystemByPackInputKubeMetrics) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputKubeMetrics) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputKubeMetrics) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-type CreateInputTypeSystemState string
+func (c *CreateInputSystemByPackInputKubeMetrics) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+type CreateInputSystemByPackTypeSystemState string
 
 const (
-	CreateInputTypeSystemStateSystemState CreateInputTypeSystemState = "system_state"
+	CreateInputSystemByPackTypeSystemStateSystemState CreateInputSystemByPackTypeSystemState = "system_state"
 )
 
-func (e CreateInputTypeSystemState) ToPointer() *CreateInputTypeSystemState {
+func (e CreateInputSystemByPackTypeSystemState) ToPointer() *CreateInputSystemByPackTypeSystemState {
 	return &e
 }
-func (e *CreateInputTypeSystemState) UnmarshalJSON(data []byte) error {
+func (e *CreateInputSystemByPackTypeSystemState) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "system_state":
-		*e = CreateInputTypeSystemState(v)
+		*e = CreateInputSystemByPackTypeSystemState(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateInputTypeSystemState: %v", v)
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeSystemState: %v", v)
 	}
 }
 
-// CreateInputHostsFile - Creates events based on entries collected from the hosts file
-type CreateInputHostsFile struct {
+// CreateInputSystemByPackHostsFile - Creates events based on entries collected from the hosts file
+type CreateInputSystemByPackHostsFile struct {
 	Enable *bool `json:"enable,omitzero"`
 }
 
-func (c CreateInputHostsFile) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackHostsFile) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputHostsFile) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackHostsFile) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputHostsFile) GetEnable() *bool {
+func (c *CreateInputSystemByPackHostsFile) GetEnable() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enable
 }
 
-// CreateInputInterfaces - Creates events for each of the host’s network interfaces
-type CreateInputInterfaces struct {
+// CreateInputSystemByPackInterfaces - Creates events for each of the host’s network interfaces
+type CreateInputSystemByPackInterfaces struct {
 	Enable *bool `json:"enable,omitzero"`
 }
 
-func (c CreateInputInterfaces) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInterfaces) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInterfaces) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInterfaces) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInterfaces) GetEnable() *bool {
+func (c *CreateInputSystemByPackInterfaces) GetEnable() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enable
 }
 
-// CreateInputDisksAndFileSystems - Creates events for physical disks, partitions, and file systems
-type CreateInputDisksAndFileSystems struct {
+// CreateInputSystemByPackDisksAndFileSystems - Creates events for physical disks, partitions, and file systems
+type CreateInputSystemByPackDisksAndFileSystems struct {
 	Enable *bool `json:"enable,omitzero"`
 }
 
-func (c CreateInputDisksAndFileSystems) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackDisksAndFileSystems) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputDisksAndFileSystems) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackDisksAndFileSystems) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputDisksAndFileSystems) GetEnable() *bool {
+func (c *CreateInputSystemByPackDisksAndFileSystems) GetEnable() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enable
 }
 
-// CreateInputHostInfo - Creates events based on the host system’s current state
-type CreateInputHostInfo struct {
+// CreateInputSystemByPackHostInfo - Creates events based on the host system’s current state
+type CreateInputSystemByPackHostInfo struct {
 	Enable *bool `json:"enable,omitzero"`
 }
 
-func (c CreateInputHostInfo) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackHostInfo) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputHostInfo) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackHostInfo) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputHostInfo) GetEnable() *bool {
+func (c *CreateInputSystemByPackHostInfo) GetEnable() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enable
 }
 
-// CreateInputRoutes - Creates events based on entries collected from the host’s network routes
-type CreateInputRoutes struct {
+// CreateInputSystemByPackRoutes - Creates events based on entries collected from the host’s network routes
+type CreateInputSystemByPackRoutes struct {
 	Enable *bool `json:"enable,omitzero"`
 }
 
-func (c CreateInputRoutes) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackRoutes) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputRoutes) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackRoutes) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputRoutes) GetEnable() *bool {
+func (c *CreateInputSystemByPackRoutes) GetEnable() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enable
 }
 
-// CreateInputDNS - Creates events for DNS resolvers and search entries
-type CreateInputDNS struct {
+// CreateInputSystemByPackDNS - Creates events for DNS resolvers and search entries
+type CreateInputSystemByPackDNS struct {
 	Enable *bool `json:"enable,omitzero"`
 }
 
-func (c CreateInputDNS) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackDNS) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputDNS) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackDNS) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputDNS) GetEnable() *bool {
+func (c *CreateInputSystemByPackDNS) GetEnable() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enable
 }
 
-// CreateInputUsersAndGroups - Creates events for local users and groups
-type CreateInputUsersAndGroups struct {
+// CreateInputSystemByPackUsersAndGroups - Creates events for local users and groups
+type CreateInputSystemByPackUsersAndGroups struct {
 	Enable *bool `json:"enable,omitzero"`
 }
 
-func (c CreateInputUsersAndGroups) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackUsersAndGroups) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputUsersAndGroups) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackUsersAndGroups) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputUsersAndGroups) GetEnable() *bool {
+func (c *CreateInputSystemByPackUsersAndGroups) GetEnable() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enable
 }
 
-// CreateInputFirewall - Creates events for Firewall rules entries
-type CreateInputFirewall struct {
+// CreateInputSystemByPackFirewall - Creates events for Firewall rules entries
+type CreateInputSystemByPackFirewall struct {
 	Enable *bool `json:"enable,omitzero"`
 }
 
-func (c CreateInputFirewall) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackFirewall) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputFirewall) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackFirewall) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputFirewall) GetEnable() *bool {
+func (c *CreateInputSystemByPackFirewall) GetEnable() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enable
 }
 
-// CreateInputServices - Creates events from the list of services
-type CreateInputServices struct {
+// CreateInputSystemByPackServices - Creates events from the list of services
+type CreateInputSystemByPackServices struct {
 	Enable *bool `json:"enable,omitzero"`
 }
 
-func (c CreateInputServices) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackServices) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputServices) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackServices) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputServices) GetEnable() *bool {
+func (c *CreateInputSystemByPackServices) GetEnable() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enable
 }
 
-// CreateInputListeningPorts - Creates events from list of listening ports
-type CreateInputListeningPorts struct {
+// CreateInputSystemByPackListeningPorts - Creates events from list of listening ports
+type CreateInputSystemByPackListeningPorts struct {
 	Enable *bool `json:"enable,omitzero"`
 }
 
-func (c CreateInputListeningPorts) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackListeningPorts) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputListeningPorts) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackListeningPorts) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputListeningPorts) GetEnable() *bool {
+func (c *CreateInputSystemByPackListeningPorts) GetEnable() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enable
 }
 
-// CreateInputLoggedInUsers - Creates events from list of logged-in users
-type CreateInputLoggedInUsers struct {
+// CreateInputSystemByPackLoggedInUsers - Creates events from list of logged-in users
+type CreateInputSystemByPackLoggedInUsers struct {
 	Enable *bool `json:"enable,omitzero"`
 }
 
-func (c CreateInputLoggedInUsers) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackLoggedInUsers) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputLoggedInUsers) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackLoggedInUsers) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputLoggedInUsers) GetEnable() *bool {
+func (c *CreateInputSystemByPackLoggedInUsers) GetEnable() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enable
 }
 
-type CreateInputCollectors struct {
+type CreateInputSystemByPackCollectors struct {
 	// Creates events based on entries collected from the hosts file
-	Hostsfile *CreateInputHostsFile `json:"hostsfile,omitzero"`
+	Hostsfile *CreateInputSystemByPackHostsFile `json:"hostsfile,omitzero"`
 	// Creates events for each of the host’s network interfaces
-	Interfaces *CreateInputInterfaces `json:"interfaces,omitzero"`
+	Interfaces *CreateInputSystemByPackInterfaces `json:"interfaces,omitzero"`
 	// Creates events for physical disks, partitions, and file systems
-	Disk *CreateInputDisksAndFileSystems `json:"disk,omitzero"`
+	Disk *CreateInputSystemByPackDisksAndFileSystems `json:"disk,omitzero"`
 	// Creates events based on the host system’s current state
-	Metadata *CreateInputHostInfo `json:"metadata,omitzero"`
+	Metadata *CreateInputSystemByPackHostInfo `json:"metadata,omitzero"`
 	// Creates events based on entries collected from the host’s network routes
-	Routes *CreateInputRoutes `json:"routes,omitzero"`
+	Routes *CreateInputSystemByPackRoutes `json:"routes,omitzero"`
 	// Creates events for DNS resolvers and search entries
-	DNS *CreateInputDNS `json:"dns,omitzero"`
+	DNS *CreateInputSystemByPackDNS `json:"dns,omitzero"`
 	// Creates events for local users and groups
-	User *CreateInputUsersAndGroups `json:"user,omitzero"`
+	User *CreateInputSystemByPackUsersAndGroups `json:"user,omitzero"`
 	// Creates events for Firewall rules entries
-	Firewall *CreateInputFirewall `json:"firewall,omitzero"`
+	Firewall *CreateInputSystemByPackFirewall `json:"firewall,omitzero"`
 	// Creates events from the list of services
-	Services *CreateInputServices `json:"services,omitzero"`
+	Services *CreateInputSystemByPackServices `json:"services,omitzero"`
 	// Creates events from list of listening ports
-	Ports *CreateInputListeningPorts `json:"ports,omitzero"`
+	Ports *CreateInputSystemByPackListeningPorts `json:"ports,omitzero"`
 	// Creates events from list of logged-in users
-	LoginUsers *CreateInputLoggedInUsers `json:"loginUsers,omitzero"`
+	LoginUsers *CreateInputSystemByPackLoggedInUsers `json:"loginUsers,omitzero"`
 }
 
-func (c CreateInputCollectors) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackCollectors) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputCollectors) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackCollectors) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputCollectors) GetHostsfile() *CreateInputHostsFile {
+func (c *CreateInputSystemByPackCollectors) GetHostsfile() *CreateInputSystemByPackHostsFile {
 	if c == nil {
 		return nil
 	}
 	return c.Hostsfile
 }
 
-func (c *CreateInputCollectors) GetInterfaces() *CreateInputInterfaces {
+func (c *CreateInputSystemByPackCollectors) GetInterfaces() *CreateInputSystemByPackInterfaces {
 	if c == nil {
 		return nil
 	}
 	return c.Interfaces
 }
 
-func (c *CreateInputCollectors) GetDisk() *CreateInputDisksAndFileSystems {
+func (c *CreateInputSystemByPackCollectors) GetDisk() *CreateInputSystemByPackDisksAndFileSystems {
 	if c == nil {
 		return nil
 	}
 	return c.Disk
 }
 
-func (c *CreateInputCollectors) GetMetadata() *CreateInputHostInfo {
+func (c *CreateInputSystemByPackCollectors) GetMetadata() *CreateInputSystemByPackHostInfo {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputCollectors) GetRoutes() *CreateInputRoutes {
+func (c *CreateInputSystemByPackCollectors) GetRoutes() *CreateInputSystemByPackRoutes {
 	if c == nil {
 		return nil
 	}
 	return c.Routes
 }
 
-func (c *CreateInputCollectors) GetDNS() *CreateInputDNS {
+func (c *CreateInputSystemByPackCollectors) GetDNS() *CreateInputSystemByPackDNS {
 	if c == nil {
 		return nil
 	}
 	return c.DNS
 }
 
-func (c *CreateInputCollectors) GetUser() *CreateInputUsersAndGroups {
+func (c *CreateInputSystemByPackCollectors) GetUser() *CreateInputSystemByPackUsersAndGroups {
 	if c == nil {
 		return nil
 	}
 	return c.User
 }
 
-func (c *CreateInputCollectors) GetFirewall() *CreateInputFirewall {
+func (c *CreateInputSystemByPackCollectors) GetFirewall() *CreateInputSystemByPackFirewall {
 	if c == nil {
 		return nil
 	}
 	return c.Firewall
 }
 
-func (c *CreateInputCollectors) GetServices() *CreateInputServices {
+func (c *CreateInputSystemByPackCollectors) GetServices() *CreateInputSystemByPackServices {
 	if c == nil {
 		return nil
 	}
 	return c.Services
 }
 
-func (c *CreateInputCollectors) GetPorts() *CreateInputListeningPorts {
+func (c *CreateInputSystemByPackCollectors) GetPorts() *CreateInputSystemByPackListeningPorts {
 	if c == nil {
 		return nil
 	}
 	return c.Ports
 }
 
-func (c *CreateInputCollectors) GetLoginUsers() *CreateInputLoggedInUsers {
+func (c *CreateInputSystemByPackCollectors) GetLoginUsers() *CreateInputSystemByPackLoggedInUsers {
 	if c == nil {
 		return nil
 	}
 	return c.LoginUsers
 }
 
-type CreateInputPersistenceSystemState struct {
+type CreateInputSystemByPackPersistenceSystemState struct {
 	// Spool metrics to disk for Cribl Edge and Search
 	Enable *bool `json:"enable,omitzero"`
 	// Time span for each file bucket
@@ -14751,64 +15498,64 @@ type CreateInputPersistenceSystemState struct {
 	DestPath *string `json:"destPath,omitzero"`
 }
 
-func (c CreateInputPersistenceSystemState) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackPersistenceSystemState) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputPersistenceSystemState) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackPersistenceSystemState) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputPersistenceSystemState) GetEnable() *bool {
+func (c *CreateInputSystemByPackPersistenceSystemState) GetEnable() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Enable
 }
 
-func (c *CreateInputPersistenceSystemState) GetTimeWindow() *string {
+func (c *CreateInputSystemByPackPersistenceSystemState) GetTimeWindow() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TimeWindow
 }
 
-func (c *CreateInputPersistenceSystemState) GetMaxDataSize() *string {
+func (c *CreateInputSystemByPackPersistenceSystemState) GetMaxDataSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MaxDataSize
 }
 
-func (c *CreateInputPersistenceSystemState) GetMaxDataTime() *string {
+func (c *CreateInputSystemByPackPersistenceSystemState) GetMaxDataTime() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MaxDataTime
 }
 
-func (c *CreateInputPersistenceSystemState) GetCompress() *components.DataCompressionFormatOptionsPersistence {
+func (c *CreateInputSystemByPackPersistenceSystemState) GetCompress() *components.DataCompressionFormatOptionsPersistence {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateInputPersistenceSystemState) GetDestPath() *string {
+func (c *CreateInputSystemByPackPersistenceSystemState) GetDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DestPath
 }
 
-type CreateInputInputSystemState struct {
+type CreateInputSystemByPackInputSystemState struct {
 	// Unique ID for this input
-	ID       string                     `json:"id"`
-	Type     CreateInputTypeSystemState `json:"type"`
-	Disabled *bool                      `json:"disabled,omitzero"`
+	ID       string                                 `json:"id"`
+	Type     CreateInputSystemByPackTypeSystemState `json:"type"`
+	Disabled *bool                                  `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -14825,9 +15572,9 @@ type CreateInputInputSystemState struct {
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
 	Interval *float64 `json:"interval,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata     `json:"metadata,omitzero"`
-	Collectors  *CreateInputCollectors             `json:"collectors,omitzero"`
-	Persistence *CreateInputPersistenceSystemState `json:"persistence,omitzero"`
+	Metadata    []components.ItemsTypeMetadata                 `json:"metadata,omitzero"`
+	Collectors  *CreateInputSystemByPackCollectors             `json:"collectors,omitzero"`
+	Persistence *CreateInputSystemByPackPersistenceSystemState `json:"persistence,omitzero"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
 	DisableNativeModule *bool `json:"disableNativeModule,omitzero"`
 	// Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
@@ -14835,254 +15582,150 @@ type CreateInputInputSystemState struct {
 	Description                *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
-func (c CreateInputInputSystemState) MarshalJSON() ([]byte, error) {
+func (c CreateInputSystemByPackInputSystemState) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateInputInputSystemState) UnmarshalJSON(data []byte) error {
+func (c *CreateInputSystemByPackInputSystemState) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateInputInputSystemState) GetID() string {
+func (c *CreateInputSystemByPackInputSystemState) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateInputInputSystemState) GetType() CreateInputTypeSystemState {
+func (c *CreateInputSystemByPackInputSystemState) GetType() CreateInputSystemByPackTypeSystemState {
 	if c == nil {
-		return CreateInputTypeSystemState("")
+		return CreateInputSystemByPackTypeSystemState("")
 	}
 	return c.Type
 }
 
-func (c *CreateInputInputSystemState) GetDisabled() *bool {
+func (c *CreateInputSystemByPackInputSystemState) GetDisabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Disabled
 }
 
-func (c *CreateInputInputSystemState) GetPipeline() *string {
+func (c *CreateInputSystemByPackInputSystemState) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateInputInputSystemState) GetSendToRoutes() *bool {
+func (c *CreateInputSystemByPackInputSystemState) GetSendToRoutes() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendToRoutes
 }
 
-func (c *CreateInputInputSystemState) GetEnvironment() *string {
+func (c *CreateInputSystemByPackInputSystemState) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateInputInputSystemState) GetPqEnabled() *bool {
+func (c *CreateInputSystemByPackInputSystemState) GetPqEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqEnabled
 }
 
-func (c *CreateInputInputSystemState) GetStreamtags() []string {
+func (c *CreateInputSystemByPackInputSystemState) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateInputInputSystemState) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputSystemState) GetConnections() []components.ItemsTypeConnectionsOptional {
 	if c == nil {
 		return nil
 	}
 	return c.Connections
 }
 
-func (c *CreateInputInputSystemState) GetPq() *components.PqType {
+func (c *CreateInputSystemByPackInputSystemState) GetPq() *components.PqType {
 	if c == nil {
 		return nil
 	}
 	return c.Pq
 }
 
-func (c *CreateInputInputSystemState) GetInterval() *float64 {
+func (c *CreateInputSystemByPackInputSystemState) GetInterval() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Interval
 }
 
-func (c *CreateInputInputSystemState) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputSystemState) GetMetadata() []components.ItemsTypeMetadata {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateInputInputSystemState) GetCollectors() *CreateInputCollectors {
+func (c *CreateInputSystemByPackInputSystemState) GetCollectors() *CreateInputSystemByPackCollectors {
 	if c == nil {
 		return nil
 	}
 	return c.Collectors
 }
 
-func (c *CreateInputInputSystemState) GetPersistence() *CreateInputPersistenceSystemState {
+func (c *CreateInputSystemByPackInputSystemState) GetPersistence() *CreateInputSystemByPackPersistenceSystemState {
 	if c == nil {
 		return nil
 	}
 	return c.Persistence
 }
 
-func (c *CreateInputInputSystemState) GetDisableNativeModule() *bool {
+func (c *CreateInputSystemByPackInputSystemState) GetDisableNativeModule() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DisableNativeModule
 }
 
-func (c *CreateInputInputSystemState) GetDisableNativeLastLogModule() *bool {
+func (c *CreateInputSystemByPackInputSystemState) GetDisableNativeLastLogModule() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DisableNativeLastLogModule
 }
 
-func (c *CreateInputInputSystemState) GetDescription() *string {
+func (c *CreateInputSystemByPackInputSystemState) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateInputInputSystemState) GetTemplateEnvironment() *string {
+func (c *CreateInputSystemByPackInputSystemState) GetTemplateEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEnvironment
 }
 
-type CreateInputTypeSystemMetrics string
-
-const (
-	CreateInputTypeSystemMetricsSystemMetrics CreateInputTypeSystemMetrics = "system_metrics"
-)
-
-func (e CreateInputTypeSystemMetrics) ToPointer() *CreateInputTypeSystemMetrics {
-	return &e
-}
-func (e *CreateInputTypeSystemMetrics) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "system_metrics":
-		*e = CreateInputTypeSystemMetrics(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CreateInputTypeSystemMetrics: %v", v)
-	}
-}
-
-// CreateInputSystemModeSystemMetrics - Select the level of detail for system metrics
-type CreateInputSystemModeSystemMetrics string
-
-const (
-	// CreateInputSystemModeSystemMetricsBasic Basic
-	CreateInputSystemModeSystemMetricsBasic CreateInputSystemModeSystemMetrics = "basic"
-	// CreateInputSystemModeSystemMetricsAll All
-	CreateInputSystemModeSystemMetricsAll CreateInputSystemModeSystemMetrics = "all"
-	// CreateInputSystemModeSystemMetricsCustom Custom
-	CreateInputSystemModeSystemMetricsCustom CreateInputSystemModeSystemMetrics = "custom"
-	// CreateInputSystemModeSystemMetricsDisabled Disabled
-	CreateInputSystemModeSystemMetricsDisabled CreateInputSystemModeSystemMetrics = "disabled"
-)
-
-func (e CreateInputSystemModeSystemMetrics) ToPointer() *CreateInputSystemModeSystemMetrics {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputSystemModeSystemMetrics) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "basic", "all", "custom", "disabled":
-			return true
-		}
-	}
-	return false
-}
-
-type CreateInputSystemSystemMetrics struct {
-	// Select the level of detail for system metrics
-	Mode *CreateInputSystemModeSystemMetrics `json:"mode,omitzero"`
-	// Generate metrics for the numbers of processes in various states
-	Processes *bool `json:"processes,omitzero"`
-}
-
-func (c CreateInputSystemSystemMetrics) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateInputSystemSystemMetrics) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CreateInputSystemSystemMetrics) GetMode() *CreateInputSystemModeSystemMetrics {
+func (c *CreateInputSystemByPackInputSystemState) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
-	return c.Mode
-}
-
-func (c *CreateInputSystemSystemMetrics) GetProcesses() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Processes
-}
-
-// CreateInputCPUModeSystemMetrics - Select the level of detail for CPU metrics
-type CreateInputCPUModeSystemMetrics string
-
-const (
-	// CreateInputCPUModeSystemMetricsBasic Basic
-	CreateInputCPUModeSystemMetricsBasic CreateInputCPUModeSystemMetrics = "basic"
-	// CreateInputCPUModeSystemMetricsAll All
-	CreateInputCPUModeSystemMetricsAll CreateInputCPUModeSystemMetrics = "all"
-	// CreateInputCPUModeSystemMetricsCustom Custom
-	CreateInputCPUModeSystemMetricsCustom CreateInputCPUModeSystemMetrics = "custom"
-	// CreateInputCPUModeSystemMetricsDisabled Disabled
-	CreateInputCPUModeSystemMetricsDisabled CreateInputCPUModeSystemMetrics = "disabled"
-)
-
-func (e CreateInputCPUModeSystemMetrics) ToPointer() *CreateInputCPUModeSystemMetrics {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputCPUModeSystemMetrics) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "basic", "all", "custom", "disabled":
-			return true
-		}
-	}
-	return false
+	return c.TemplateStreamtags
 }

@@ -294,12 +294,20 @@ type InputCloudflareHec struct {
 	Description      *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
 	// Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
 	TemplateHecAPI *string `json:"__template_hecAPI,omitzero"`
+	// Binds 'allowedIndexes' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedIndexes' at runtime.
+	TemplateAllowedIndexes *string `json:"__template_allowedIndexes,omitzero"`
+	// Binds 'accessControlAllowOrigin' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowOrigin' at runtime.
+	TemplateAccessControlAllowOrigin *string `json:"__template_accessControlAllowOrigin,omitzero"`
+	// Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
+	TemplateAccessControlAllowHeaders *string `json:"__template_accessControlAllowHeaders,omitzero"`
 }
 
 func (i InputCloudflareHec) MarshalJSON() ([]byte, error) {
@@ -551,6 +559,13 @@ func (i *InputCloudflareHec) GetTemplateEnvironment() *string {
 	return i.TemplateEnvironment
 }
 
+func (i *InputCloudflareHec) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
 func (i *InputCloudflareHec) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -570,4 +585,25 @@ func (i *InputCloudflareHec) GetTemplateHecAPI() *string {
 		return nil
 	}
 	return i.TemplateHecAPI
+}
+
+func (i *InputCloudflareHec) GetTemplateAllowedIndexes() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAllowedIndexes
+}
+
+func (i *InputCloudflareHec) GetTemplateAccessControlAllowOrigin() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAccessControlAllowOrigin
+}
+
+func (i *InputCloudflareHec) GetTemplateAccessControlAllowHeaders() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAccessControlAllowHeaders
 }

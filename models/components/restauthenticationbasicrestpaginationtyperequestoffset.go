@@ -9,6 +9,393 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
+	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	// Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
+	DiscoverBody string `json:"discoverBody"`
+	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+	DiscoverType RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
+	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
+	DiscoverURL            string                                              `json:"discoverUrl"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Explicitly set the discover response format. When disabled, best effort parsing is used.
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
+	// If 'Strict discover response parsing' parsing is enabled, provide the response format
+	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
+	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
+	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
+	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
+	ItemList []string `json:"itemList,omitzero"`
+}
+
+func (r RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+	if r == nil {
+		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
+	}
+	return r.DiscoverMethod
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() string {
+	if r == nil {
+		return ""
+	}
+	return r.DiscoverBody
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverType() RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType {
+	if r == nil {
+		return RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType("")
+	}
+	return r.DiscoverType
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverURL() string {
+	if r == nil {
+		return ""
+	}
+	return r.DiscoverURL
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverRequestHeaders
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+	if r == nil {
+		return nil
+	}
+	return r.Pagination
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
+	}
+	return nil
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
+	}
+	return nil
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
+	}
+	return nil
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
+	}
+	return nil
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
+	}
+	return nil
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
+	}
+	return nil
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverDataField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverDataField
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetEnableStrictDiscoverParsing() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.EnableStrictDiscoverParsing
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverResponseFormat() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverResponseFormat
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetEnableDiscoverCode() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.EnableDiscoverCode
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetFormatResultCode() *string {
+	if r == nil {
+		return nil
+	}
+	return r.FormatResultCode
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ManualDiscoverResult
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetItemList() []string {
+	if r == nil {
+		return nil
+	}
+	return r.ItemList
+}
+
+// RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType string
+
+const (
+	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverTypeHTTP RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType = "http"
+	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverTypeJSON RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType = "json"
+	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverTypeList RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType = "list"
+	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverTypeNone RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType = "none"
+)
+
+func (e RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType) ToPointer() *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "http", "json", "list", "none":
+			return true
+		}
+	}
+	return false
+}
+
+type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
+	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
+	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+	DiscoverType RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
+	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
+	DiscoverURL            string                                              `json:"discoverUrl"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Explicitly set the discover response format. When disabled, best effort parsing is used.
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
+	// If 'Strict discover response parsing' parsing is enabled, provide the response format
+	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
+	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
+	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
+	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
+	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
+	ItemList []string `json:"itemList,omitzero"`
+}
+
+func (r RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+	if r == nil {
+		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
+	}
+	return r.DiscoverMethod
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverRequestParams
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverType() RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType {
+	if r == nil {
+		return RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType("")
+	}
+	return r.DiscoverType
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverURL() string {
+	if r == nil {
+		return ""
+	}
+	return r.DiscoverURL
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverRequestHeaders
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+	if r == nil {
+		return nil
+	}
+	return r.Pagination
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
+	}
+	return nil
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
+	}
+	return nil
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
+	}
+	return nil
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
+	}
+	return nil
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
+	}
+	return nil
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
+	}
+	return nil
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverDataField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverDataField
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetEnableStrictDiscoverParsing() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.EnableStrictDiscoverParsing
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverResponseFormat() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverResponseFormat
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetEnableDiscoverCode() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.EnableDiscoverCode
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetFormatResultCode() *string {
+	if r == nil {
+		return nil
+	}
+	return r.FormatResultCode
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ManualDiscoverResult
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetItemList() []string {
+	if r == nil {
+		return nil
+	}
+	return r.ItemList
+}
+
+// RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType string
+
+const (
+	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverTypeHTTP RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType = "http"
+	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverTypeJSON RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType = "json"
+	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverTypeList RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType = "list"
+	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverTypeNone RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType = "none"
+)
+
+func (e RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType) ToPointer() *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "http", "json", "list", "none":
+			return true
+		}
+	}
+	return false
+}
+
 type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
 	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
 	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
@@ -2174,6 +2561,30 @@ func (u RestAuthenticationOauthRetryRules) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type RestAuthenticationOauthRetryRules: all fields are null")
 }
 
+// RestAuthenticationOauthMicrosoftGraphDelta - Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+type RestAuthenticationOauthMicrosoftGraphDelta struct {
+	// Response-body field name to extract as the delta link (typically '@odata.deltaLink')
+	DeltaLinkAttribute *string `json:"deltaLinkAttribute,omitzero"`
+}
+
+func (r RestAuthenticationOauthMicrosoftGraphDelta) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestAuthenticationOauthMicrosoftGraphDelta) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestAuthenticationOauthMicrosoftGraphDelta) GetDeltaLinkAttribute() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DeltaLinkAttribute
+}
+
 type RestAuthenticationOauthStateTracking struct {
 	// Track collection progress between consecutive scheduled executions
 	Enabled *bool `json:"enabled,omitzero"`
@@ -2262,7 +2673,9 @@ type RestAuthenticationOauth struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string                           `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationOauthRetryRules `json:"retryRules,omitzero"`
-	Scheduling  *RestAuthenticationOauthScheduling `json:"__scheduling,omitzero"`
+	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+	MicrosoftGraphDelta *RestAuthenticationOauthMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
+	Scheduling          *RestAuthenticationOauthScheduling          `json:"__scheduling,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Select or create an HMAC Function to use with authentication
@@ -2539,6 +2952,13 @@ func (r *RestAuthenticationOauth) GetRetryRulesBackoff() *RestAuthenticationOaut
 		return v.RestAuthenticationOauthRestRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (r *RestAuthenticationOauth) GetMicrosoftGraphDelta() *RestAuthenticationOauthMicrosoftGraphDelta {
+	if r == nil {
+		return nil
+	}
+	return r.MicrosoftGraphDelta
 }
 
 func (r *RestAuthenticationOauth) GetScheduling() *RestAuthenticationOauthScheduling {
@@ -5871,6 +6291,30 @@ func (u RestAuthenticationLoginSecretRetryRules) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type RestAuthenticationLoginSecretRetryRules: all fields are null")
 }
 
+// RestAuthenticationLoginSecretMicrosoftGraphDelta - Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+type RestAuthenticationLoginSecretMicrosoftGraphDelta struct {
+	// Response-body field name to extract as the delta link (typically '@odata.deltaLink')
+	DeltaLinkAttribute *string `json:"deltaLinkAttribute,omitzero"`
+}
+
+func (r RestAuthenticationLoginSecretMicrosoftGraphDelta) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestAuthenticationLoginSecretMicrosoftGraphDelta) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestAuthenticationLoginSecretMicrosoftGraphDelta) GetDeltaLinkAttribute() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DeltaLinkAttribute
+}
+
 type RestAuthenticationLoginSecretStateTracking struct {
 	// Track collection progress between consecutive scheduled executions
 	Enabled *bool `json:"enabled,omitzero"`
@@ -5959,7 +6403,9 @@ type RestAuthenticationLoginSecret struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string                                 `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationLoginSecretRetryRules `json:"retryRules,omitzero"`
-	Scheduling  *RestAuthenticationLoginSecretScheduling `json:"__scheduling,omitzero"`
+	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+	MicrosoftGraphDelta *RestAuthenticationLoginSecretMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
+	Scheduling          *RestAuthenticationLoginSecretScheduling          `json:"__scheduling,omitzero"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
@@ -6238,6 +6684,13 @@ func (r *RestAuthenticationLoginSecret) GetRetryRulesBackoff() *RestAuthenticati
 		return v.RestAuthenticationLoginSecretRestRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (r *RestAuthenticationLoginSecret) GetMicrosoftGraphDelta() *RestAuthenticationLoginSecretMicrosoftGraphDelta {
+	if r == nil {
+		return nil
+	}
+	return r.MicrosoftGraphDelta
 }
 
 func (r *RestAuthenticationLoginSecret) GetScheduling() *RestAuthenticationLoginSecretScheduling {
@@ -9577,6 +10030,30 @@ func (u RestAuthenticationLoginRetryRules) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type RestAuthenticationLoginRetryRules: all fields are null")
 }
 
+// RestAuthenticationLoginMicrosoftGraphDelta - Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+type RestAuthenticationLoginMicrosoftGraphDelta struct {
+	// Response-body field name to extract as the delta link (typically '@odata.deltaLink')
+	DeltaLinkAttribute *string `json:"deltaLinkAttribute,omitzero"`
+}
+
+func (r RestAuthenticationLoginMicrosoftGraphDelta) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestAuthenticationLoginMicrosoftGraphDelta) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestAuthenticationLoginMicrosoftGraphDelta) GetDeltaLinkAttribute() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DeltaLinkAttribute
+}
+
 type RestAuthenticationLoginStateTracking struct {
 	// Track collection progress between consecutive scheduled executions
 	Enabled *bool `json:"enabled,omitzero"`
@@ -9665,7 +10142,9 @@ type RestAuthenticationLogin struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string                           `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationLoginRetryRules `json:"retryRules,omitzero"`
-	Scheduling  *RestAuthenticationLoginScheduling `json:"__scheduling,omitzero"`
+	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+	MicrosoftGraphDelta *RestAuthenticationLoginMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
+	Scheduling          *RestAuthenticationLoginScheduling          `json:"__scheduling,omitzero"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
@@ -9951,6 +10430,13 @@ func (r *RestAuthenticationLogin) GetRetryRulesBackoff() *RestAuthenticationLogi
 		return v.RestAuthenticationLoginRestRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (r *RestAuthenticationLogin) GetMicrosoftGraphDelta() *RestAuthenticationLoginMicrosoftGraphDelta {
+	if r == nil {
+		return nil
+	}
+	return r.MicrosoftGraphDelta
 }
 
 func (r *RestAuthenticationLogin) GetScheduling() *RestAuthenticationLoginScheduling {
@@ -13290,6 +13776,30 @@ func (u RestAuthenticationBasicSecretRetryRules) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type RestAuthenticationBasicSecretRetryRules: all fields are null")
 }
 
+// RestAuthenticationBasicSecretMicrosoftGraphDelta - Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+type RestAuthenticationBasicSecretMicrosoftGraphDelta struct {
+	// Response-body field name to extract as the delta link (typically '@odata.deltaLink')
+	DeltaLinkAttribute *string `json:"deltaLinkAttribute,omitzero"`
+}
+
+func (r RestAuthenticationBasicSecretMicrosoftGraphDelta) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestAuthenticationBasicSecretMicrosoftGraphDelta) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestAuthenticationBasicSecretMicrosoftGraphDelta) GetDeltaLinkAttribute() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DeltaLinkAttribute
+}
+
 type RestAuthenticationBasicSecretStateTracking struct {
 	// Track collection progress between consecutive scheduled executions
 	Enabled *bool `json:"enabled,omitzero"`
@@ -13365,7 +13875,9 @@ type RestAuthenticationBasicSecret struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string                                 `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationBasicSecretRetryRules `json:"retryRules,omitzero"`
-	Scheduling  *RestAuthenticationBasicSecretScheduling `json:"__scheduling,omitzero"`
+	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+	MicrosoftGraphDelta *RestAuthenticationBasicSecretMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
+	Scheduling          *RestAuthenticationBasicSecretScheduling          `json:"__scheduling,omitzero"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
@@ -13595,6 +14107,13 @@ func (r *RestAuthenticationBasicSecret) GetRetryRulesBackoff() *RestAuthenticati
 		return v.RestAuthenticationBasicSecretRestRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (r *RestAuthenticationBasicSecret) GetMicrosoftGraphDelta() *RestAuthenticationBasicSecretMicrosoftGraphDelta {
+	if r == nil {
+		return nil
+	}
+	return r.MicrosoftGraphDelta
 }
 
 func (r *RestAuthenticationBasicSecret) GetScheduling() *RestAuthenticationBasicSecretScheduling {
@@ -15612,1074 +16131,4 @@ func (r *RestAuthenticationBasicRestPaginationTypeRequestOffset) GetTotalPageFie
 		return nil
 	}
 	return r.TotalPageField
-}
-
-type RestAuthenticationBasicRestPaginationTypeResponseHeaderLink struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute string `json:"nextRelationAttribute"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-	MaxPages float64 `json:"maxPages"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
-}
-
-func (r RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) GetNextRelationAttribute() string {
-	if r == nil {
-		return ""
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) GetMaxPages() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.MaxPages
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-type RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributesType string
-
-const (
-	RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributesType = "arrayOfAny"
-	RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributesTypeStr        RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributesType = "str"
-)
-
-// RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributes - Names of attributes within the response that contain next-page information
-type RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributes struct {
-	ArrayOfAny []any   `queryParam:"inline" union:"member"`
-	Str        *string `queryParam:"inline" union:"member"`
-
-	Type RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributesType
-}
-
-func CreateRestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributesArrayOfAny(arrayOfAny []any) RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributes {
-	typ := RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny
-
-	return RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributes{
-		ArrayOfAny: arrayOfAny,
-		Type:       typ,
-	}
-}
-
-func CreateRestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributesStr(str string) RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributes {
-	typ := RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributesTypeStr
-
-	return RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributes{
-		Str:  &str,
-		Type: typ,
-	}
-}
-
-func (u *RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributes) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var arrayOfAny []any = []any{}
-	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny,
-			Value: arrayOfAny,
-		})
-	}
-
-	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributesTypeStr,
-			Value: &str,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributes", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributes", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributesType)
-	switch best.Type {
-	case RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributesTypeArrayOfAny:
-		u.ArrayOfAny = best.Value.([]any)
-		return nil
-	case RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributesTypeStr:
-		u.Str = best.Value.(*string)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributes", string(data))
-}
-
-func (u RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributes) MarshalJSON() ([]byte, error) {
-	if u.ArrayOfAny != nil {
-		return utils.MarshalJSON(u.ArrayOfAny, "", true)
-	}
-
-	if u.Str != nil {
-		return utils.MarshalJSON(u.Str, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributes: all fields are null")
-}
-
-type RestAuthenticationBasicRestPaginationTypeResponseHeader struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// Names of attributes within the response that contain next-page information
-	Attribute RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributes `json:"attribute"`
-	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-	MaxPages float64 `json:"maxPages"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
-}
-
-func (r RestAuthenticationBasicRestPaginationTypeResponseHeader) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) GetAttribute() RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributes {
-	if r == nil {
-		return RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributes{}
-	}
-	return r.Attribute
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) GetMaxPages() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.MaxPages
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseHeader) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-type RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributesType string
-
-const (
-	RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributesType = "arrayOfAny"
-	RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributesTypeStr        RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributesType = "str"
-)
-
-// RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes - Names of attributes within the response that contain next-page information
-type RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes struct {
-	ArrayOfAny []any   `queryParam:"inline" union:"member"`
-	Str        *string `queryParam:"inline" union:"member"`
-
-	Type RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributesType
-}
-
-func CreateRestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributesArrayOfAny(arrayOfAny []any) RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes {
-	typ := RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny
-
-	return RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes{
-		ArrayOfAny: arrayOfAny,
-		Type:       typ,
-	}
-}
-
-func CreateRestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributesStr(str string) RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes {
-	typ := RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributesTypeStr
-
-	return RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes{
-		Str:  &str,
-		Type: typ,
-	}
-}
-
-func (u *RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var arrayOfAny []any = []any{}
-	if err := utils.UnmarshalJSON(data, &arrayOfAny, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny,
-			Value: arrayOfAny,
-		})
-	}
-
-	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributesTypeStr,
-			Value: &str,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributesType)
-	switch best.Type {
-	case RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributesTypeArrayOfAny:
-		u.ArrayOfAny = best.Value.([]any)
-		return nil
-	case RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributesTypeStr:
-		u.Str = best.Value.(*string)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes", string(data))
-}
-
-func (u RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes) MarshalJSON() ([]byte, error) {
-	if u.ArrayOfAny != nil {
-		return utils.MarshalJSON(u.ArrayOfAny, "", true)
-	}
-
-	if u.Str != nil {
-		return utils.MarshalJSON(u.Str, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes: all fields are null")
-}
-
-type RestAuthenticationBasicRestPaginationTypeResponseBody struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// Names of attributes within the response that contain next-page information
-	Attribute RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes `json:"attribute"`
-	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
-	MaxPages float64 `json:"maxPages"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
-}
-
-func (r RestAuthenticationBasicRestPaginationTypeResponseBody) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) GetAttribute() RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes {
-	if r == nil {
-		return RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes{}
-	}
-	return r.Attribute
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) GetMaxPages() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.MaxPages
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-type RestAuthenticationBasicRestPaginationTypeNone struct {
-	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
-	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
-	LastPageExpr *string `json:"lastPageExpr,omitzero"`
-	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
-	NextRelationAttribute *string `json:"nextRelationAttribute,omitzero"`
-	// Relation name used in the link header that refers to the current result set. Example: rel="self" refers to the current page of results: <https://myHost/curPage>; rel="self"
-	CurRelationAttribute *string `json:"curRelationAttribute,omitzero"`
-	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	OffsetField *string `json:"offsetField,omitzero"`
-	// Offset index from which to start request. Defaults to undefined, which will start collection from the first record.
-	Offset *float64 `json:"offset,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&limit=100&offset=0
-	LimitField *string `json:"limitField,omitzero"`
-	// Maximum number of records to collect per request
-	Limit *float64 `json:"limit,omitzero"`
-	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	PageField *string `json:"pageField,omitzero"`
-	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
-	Page *float64 `json:"page,omitzero"`
-	// Query string parameter that sets the number of records retrieved per request. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
-	SizeField *string `json:"sizeField,omitzero"`
-	// Maximum number of records to collect per page
-	Size *float64 `json:"size,omitzero"`
-	// Name of the attribute in the response that contains the total number of pages for the query
-	TotalPageField *string `json:"totalPageField,omitzero"`
-}
-
-func (r RestAuthenticationBasicRestPaginationTypeNone) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeNone) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeNone) GetType() PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination {
-	if r == nil {
-		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeNone) GetLastPageExpr() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LastPageExpr
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeNone) GetNextRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.NextRelationAttribute
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeNone) GetCurRelationAttribute() *string {
-	if r == nil {
-		return nil
-	}
-	return r.CurRelationAttribute
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeNone) GetOffsetField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.OffsetField
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeNone) GetOffset() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Offset
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeNone) GetLimitField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.LimitField
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeNone) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeNone) GetPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.PageField
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeNone) GetPage() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Page
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeNone) GetSizeField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.SizeField
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeNone) GetSize() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Size
-}
-
-func (r *RestAuthenticationBasicRestPaginationTypeNone) GetTotalPageField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.TotalPageField
-}
-
-type RestAuthenticationBasicPaginationType string
-
-const (
-	RestAuthenticationBasicPaginationTypeNone               RestAuthenticationBasicPaginationType = "none"
-	RestAuthenticationBasicPaginationTypeResponseBody       RestAuthenticationBasicPaginationType = "response_body"
-	RestAuthenticationBasicPaginationTypeResponseHeader     RestAuthenticationBasicPaginationType = "response_header"
-	RestAuthenticationBasicPaginationTypeResponseHeaderLink RestAuthenticationBasicPaginationType = "response_header_link"
-	RestAuthenticationBasicPaginationTypeRequestOffset      RestAuthenticationBasicPaginationType = "request_offset"
-	RestAuthenticationBasicPaginationTypeRequestPage        RestAuthenticationBasicPaginationType = "request_page"
-	RestAuthenticationBasicPaginationTypeUnknown            RestAuthenticationBasicPaginationType = "UNKNOWN"
-)
-
-type RestAuthenticationBasicPagination struct {
-	RestAuthenticationBasicRestPaginationTypeNone               *RestAuthenticationBasicRestPaginationTypeNone               `queryParam:"inline" union:"member"`
-	RestAuthenticationBasicRestPaginationTypeResponseBody       *RestAuthenticationBasicRestPaginationTypeResponseBody       `queryParam:"inline" union:"member"`
-	RestAuthenticationBasicRestPaginationTypeResponseHeader     *RestAuthenticationBasicRestPaginationTypeResponseHeader     `queryParam:"inline" union:"member"`
-	RestAuthenticationBasicRestPaginationTypeResponseHeaderLink *RestAuthenticationBasicRestPaginationTypeResponseHeaderLink `queryParam:"inline" union:"member"`
-	RestAuthenticationBasicRestPaginationTypeRequestOffset      *RestAuthenticationBasicRestPaginationTypeRequestOffset      `queryParam:"inline" union:"member"`
-	RestAuthenticationBasicRestPaginationTypeRequestPage        *RestAuthenticationBasicRestPaginationTypeRequestPage        `queryParam:"inline" union:"member"`
-	UnknownRaw                                                  json.RawMessage                                              `json:"-" union:"unknown"`
-
-	Type RestAuthenticationBasicPaginationType
-}
-
-func CreateRestAuthenticationBasicPaginationNone(none RestAuthenticationBasicRestPaginationTypeNone) RestAuthenticationBasicPagination {
-	typ := RestAuthenticationBasicPaginationTypeNone
-
-	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
-	none.Type = typStr
-
-	return RestAuthenticationBasicPagination{
-		RestAuthenticationBasicRestPaginationTypeNone: &none,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationBasicPaginationResponseBody(responseBody RestAuthenticationBasicRestPaginationTypeResponseBody) RestAuthenticationBasicPagination {
-	typ := RestAuthenticationBasicPaginationTypeResponseBody
-
-	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
-	responseBody.Type = typStr
-
-	return RestAuthenticationBasicPagination{
-		RestAuthenticationBasicRestPaginationTypeResponseBody: &responseBody,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationBasicPaginationResponseHeader(responseHeader RestAuthenticationBasicRestPaginationTypeResponseHeader) RestAuthenticationBasicPagination {
-	typ := RestAuthenticationBasicPaginationTypeResponseHeader
-
-	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
-	responseHeader.Type = typStr
-
-	return RestAuthenticationBasicPagination{
-		RestAuthenticationBasicRestPaginationTypeResponseHeader: &responseHeader,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationBasicPaginationResponseHeaderLink(responseHeaderLink RestAuthenticationBasicRestPaginationTypeResponseHeaderLink) RestAuthenticationBasicPagination {
-	typ := RestAuthenticationBasicPaginationTypeResponseHeaderLink
-
-	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
-	responseHeaderLink.Type = typStr
-
-	return RestAuthenticationBasicPagination{
-		RestAuthenticationBasicRestPaginationTypeResponseHeaderLink: &responseHeaderLink,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationBasicPaginationRequestOffset(requestOffset RestAuthenticationBasicRestPaginationTypeRequestOffset) RestAuthenticationBasicPagination {
-	typ := RestAuthenticationBasicPaginationTypeRequestOffset
-
-	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
-	requestOffset.Type = typStr
-
-	return RestAuthenticationBasicPagination{
-		RestAuthenticationBasicRestPaginationTypeRequestOffset: &requestOffset,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationBasicPaginationRequestPage(requestPage RestAuthenticationBasicRestPaginationTypeRequestPage) RestAuthenticationBasicPagination {
-	typ := RestAuthenticationBasicPaginationTypeRequestPage
-
-	typStr := PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination(typ)
-	requestPage.Type = typStr
-
-	return RestAuthenticationBasicPagination{
-		RestAuthenticationBasicRestPaginationTypeRequestPage: &requestPage,
-		Type: typ,
-	}
-}
-
-func CreateRestAuthenticationBasicPaginationUnknown(raw json.RawMessage) RestAuthenticationBasicPagination {
-	return RestAuthenticationBasicPagination{
-		UnknownRaw: raw,
-		Type:       RestAuthenticationBasicPaginationTypeUnknown,
-	}
-}
-
-func (u RestAuthenticationBasicPagination) GetUnknownRaw() json.RawMessage {
-	return u.UnknownRaw
-}
-
-func (u RestAuthenticationBasicPagination) IsUnknown() bool {
-	return u.Type == RestAuthenticationBasicPaginationTypeUnknown
-}
-
-func (u *RestAuthenticationBasicPagination) UnmarshalJSON(data []byte) error {
-
-	type discriminator struct {
-		Type string `json:"type"`
-	}
-
-	dis := new(discriminator)
-	if err := json.Unmarshal(data, &dis); err != nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationBasicPaginationTypeUnknown
-		return nil
-	}
-	if dis == nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationBasicPaginationTypeUnknown
-		return nil
-	}
-
-	switch dis.Type {
-	case "none":
-		restAuthenticationBasicRestPaginationTypeNone := new(RestAuthenticationBasicRestPaginationTypeNone)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationBasicRestPaginationTypeNone, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == none) type RestAuthenticationBasicRestPaginationTypeNone within RestAuthenticationBasicPagination: %w", string(data), err)
-		}
-
-		u.RestAuthenticationBasicRestPaginationTypeNone = restAuthenticationBasicRestPaginationTypeNone
-		u.Type = RestAuthenticationBasicPaginationTypeNone
-		return nil
-	case "response_body":
-		restAuthenticationBasicRestPaginationTypeResponseBody := new(RestAuthenticationBasicRestPaginationTypeResponseBody)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationBasicRestPaginationTypeResponseBody, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_body) type RestAuthenticationBasicRestPaginationTypeResponseBody within RestAuthenticationBasicPagination: %w", string(data), err)
-		}
-
-		u.RestAuthenticationBasicRestPaginationTypeResponseBody = restAuthenticationBasicRestPaginationTypeResponseBody
-		u.Type = RestAuthenticationBasicPaginationTypeResponseBody
-		return nil
-	case "response_header":
-		restAuthenticationBasicRestPaginationTypeResponseHeader := new(RestAuthenticationBasicRestPaginationTypeResponseHeader)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationBasicRestPaginationTypeResponseHeader, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header) type RestAuthenticationBasicRestPaginationTypeResponseHeader within RestAuthenticationBasicPagination: %w", string(data), err)
-		}
-
-		u.RestAuthenticationBasicRestPaginationTypeResponseHeader = restAuthenticationBasicRestPaginationTypeResponseHeader
-		u.Type = RestAuthenticationBasicPaginationTypeResponseHeader
-		return nil
-	case "response_header_link":
-		restAuthenticationBasicRestPaginationTypeResponseHeaderLink := new(RestAuthenticationBasicRestPaginationTypeResponseHeaderLink)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationBasicRestPaginationTypeResponseHeaderLink, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == response_header_link) type RestAuthenticationBasicRestPaginationTypeResponseHeaderLink within RestAuthenticationBasicPagination: %w", string(data), err)
-		}
-
-		u.RestAuthenticationBasicRestPaginationTypeResponseHeaderLink = restAuthenticationBasicRestPaginationTypeResponseHeaderLink
-		u.Type = RestAuthenticationBasicPaginationTypeResponseHeaderLink
-		return nil
-	case "request_offset":
-		restAuthenticationBasicRestPaginationTypeRequestOffset := new(RestAuthenticationBasicRestPaginationTypeRequestOffset)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationBasicRestPaginationTypeRequestOffset, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_offset) type RestAuthenticationBasicRestPaginationTypeRequestOffset within RestAuthenticationBasicPagination: %w", string(data), err)
-		}
-
-		u.RestAuthenticationBasicRestPaginationTypeRequestOffset = restAuthenticationBasicRestPaginationTypeRequestOffset
-		u.Type = RestAuthenticationBasicPaginationTypeRequestOffset
-		return nil
-	case "request_page":
-		restAuthenticationBasicRestPaginationTypeRequestPage := new(RestAuthenticationBasicRestPaginationTypeRequestPage)
-		if err := utils.UnmarshalJSON(data, &restAuthenticationBasicRestPaginationTypeRequestPage, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == request_page) type RestAuthenticationBasicRestPaginationTypeRequestPage within RestAuthenticationBasicPagination: %w", string(data), err)
-		}
-
-		u.RestAuthenticationBasicRestPaginationTypeRequestPage = restAuthenticationBasicRestPaginationTypeRequestPage
-		u.Type = RestAuthenticationBasicPaginationTypeRequestPage
-		return nil
-	default:
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = RestAuthenticationBasicPaginationTypeUnknown
-		return nil
-	}
-
-}
-
-func (u RestAuthenticationBasicPagination) MarshalJSON() ([]byte, error) {
-	if u.RestAuthenticationBasicRestPaginationTypeNone != nil {
-		return utils.MarshalJSON(u.RestAuthenticationBasicRestPaginationTypeNone, "", true)
-	}
-
-	if u.RestAuthenticationBasicRestPaginationTypeResponseBody != nil {
-		return utils.MarshalJSON(u.RestAuthenticationBasicRestPaginationTypeResponseBody, "", true)
-	}
-
-	if u.RestAuthenticationBasicRestPaginationTypeResponseHeader != nil {
-		return utils.MarshalJSON(u.RestAuthenticationBasicRestPaginationTypeResponseHeader, "", true)
-	}
-
-	if u.RestAuthenticationBasicRestPaginationTypeResponseHeaderLink != nil {
-		return utils.MarshalJSON(u.RestAuthenticationBasicRestPaginationTypeResponseHeaderLink, "", true)
-	}
-
-	if u.RestAuthenticationBasicRestPaginationTypeRequestOffset != nil {
-		return utils.MarshalJSON(u.RestAuthenticationBasicRestPaginationTypeRequestOffset, "", true)
-	}
-
-	if u.RestAuthenticationBasicRestPaginationTypeRequestPage != nil {
-		return utils.MarshalJSON(u.RestAuthenticationBasicRestPaginationTypeRequestPage, "", true)
-	}
-
-	if u.UnknownRaw != nil {
-		return json.RawMessage(u.UnknownRaw), nil
-	}
-	return nil, errors.New("could not marshal union type RestAuthenticationBasicPagination: all fields are null")
-}
-
-type RestAuthenticationBasicRestRetryRulesTypeBackoff struct {
-	// The algorithm to use when performing HTTP retries
-	Type RetryTypeOptionsHealthCheckCollectorConfRetryRules `json:"type"`
-	// Time interval between a failed request and the first retry
-	Interval *float64 `json:"interval,omitzero"`
-	// Maximum number of times to retry a failed HTTP request
-	Limit *float64 `json:"limit,omitzero"`
-	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-	Multiplier    *float64 `json:"multiplier,omitzero"`
-	MaxIntervalMs *float64 `json:"maxIntervalMs,omitzero"`
-	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-	Codes []float64 `json:"codes,omitzero"`
-	// Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to the `Longest interval between retries (ms)` value, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-	EnableHeader *bool `json:"enableHeader,omitzero"`
-	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
-	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool   `json:"retryConnectReset,omitzero"`
-	RetryHeaderName   *string `json:"retryHeaderName,omitzero"`
-}
-
-func (r RestAuthenticationBasicRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoff) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoff) GetType() RetryTypeOptionsHealthCheckCollectorConfRetryRules {
-	if r == nil {
-		return RetryTypeOptionsHealthCheckCollectorConfRetryRules("")
-	}
-	return r.Type
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoff) GetInterval() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Interval
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoff) GetLimit() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Limit
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoff) GetMultiplier() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Multiplier
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoff) GetMaxIntervalMs() *float64 {
-	if r == nil {
-		return nil
-	}
-	return r.MaxIntervalMs
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoff) GetCodes() []float64 {
-	if r == nil {
-		return nil
-	}
-	return r.Codes
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoff) GetEnableHeader() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableHeader
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoff) GetRetryConnectTimeout() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectTimeout
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoff) GetRetryConnectReset() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.RetryConnectReset
-}
-
-func (r *RestAuthenticationBasicRestRetryRulesTypeBackoff) GetRetryHeaderName() *string {
-	if r == nil {
-		return nil
-	}
-	return r.RetryHeaderName
 }
