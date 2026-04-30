@@ -225,6 +225,8 @@ type InputSplunkSearch struct {
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
 	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
 	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
@@ -535,6 +537,13 @@ func (i *InputSplunkSearch) GetTemplateEnvironment() *string {
 		return nil
 	}
 	return i.TemplateEnvironment
+}
+
+func (i *InputSplunkSearch) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
 }
 
 func (i *InputSplunkSearch) GetTemplateSearchHead() *string {

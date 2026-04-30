@@ -102,6 +102,8 @@ type CreateOutputSystemByPackOutputGraphite struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                     `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsGraphite `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
@@ -320,6 +322,13 @@ func (c *CreateOutputSystemByPackOutputGraphite) GetPqControls() *CreateOutputSy
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputGraphite) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputGraphite) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
@@ -420,6 +429,8 @@ type CreateOutputSystemByPackOutputStatsdExt struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                      `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsStatsdExt `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
@@ -638,6 +649,13 @@ func (c *CreateOutputSystemByPackOutputStatsdExt) GetPqControls() *CreateOutputS
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputStatsdExt) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
@@ -738,6 +756,8 @@ type CreateOutputSystemByPackOutputStatsd struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                   `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsStatsd `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
@@ -956,6 +976,13 @@ func (c *CreateOutputSystemByPackOutputStatsd) GetPqControls() *CreateOutputSyst
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputStatsd) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputStatsd) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
@@ -1103,6 +1130,8 @@ type CreateOutputSystemByPackOutputMinio struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
@@ -1566,6 +1595,13 @@ func (c *CreateOutputSystemByPackOutputMinio) GetMaxRetryNum() *float64 {
 	return c.MaxRetryNum
 }
 
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputMinio) GetTemplateAwsSecretKey() *string {
 	if c == nil {
 		return nil
@@ -1778,6 +1814,8 @@ type CreateOutputSystemByPackOutputCloudwatch struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                       `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsCloudwatch `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'logGroupName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logGroupName' at runtime.
 	TemplateLogGroupName *string `json:"__template_logGroupName,omitzero"`
 	// Binds 'logStreamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logStreamName' at runtime.
@@ -2068,6 +2106,13 @@ func (c *CreateOutputSystemByPackOutputCloudwatch) GetPqControls() *CreateOutput
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputCloudwatch) GetTemplateLogGroupName() *string {
 	if c == nil {
 		return nil
@@ -2325,6 +2370,8 @@ type CreateOutputSystemByPackOutputInfluxdb struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
@@ -2684,6 +2731,13 @@ func (c *CreateOutputSystemByPackOutputInfluxdb) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputInfluxdb) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputInfluxdb) GetTemplateURL() *string {
 	if c == nil {
 		return nil
@@ -2836,6 +2890,8 @@ type CreateOutputSystemByPackOutputNewrelicEvents struct {
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'accountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accountId' at runtime.
@@ -3148,6 +3204,13 @@ func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
@@ -3366,6 +3429,8 @@ type CreateOutputSystemByPackOutputNewrelic struct {
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'logType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logType' at runtime.
@@ -3690,6 +3755,13 @@ func (c *CreateOutputSystemByPackOutputNewrelic) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputNewrelic) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputNewrelic) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
@@ -3838,6 +3910,8 @@ type CreateOutputSystemByPackOutputElasticCloud struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                         `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsElasticCloud `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'index' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'index' at runtime.
@@ -4134,6 +4208,13 @@ func (c *CreateOutputSystemByPackOutputElasticCloud) GetPqControls() *CreateOutp
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputElasticCloud) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputElasticCloud) GetTemplateURL() *string {
 	if c == nil {
 		return nil
@@ -4393,6 +4474,8 @@ type CreateOutputSystemByPackOutputElastic struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                    `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsElastic `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'index' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'index' at runtime.
 	TemplateIndex *string `json:"__template_index,omitzero"`
 	// Binds 'docType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'docType' at runtime.
@@ -4761,6 +4844,13 @@ func (c *CreateOutputSystemByPackOutputElastic) GetPqControls() *CreateOutputSys
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputElastic) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputElastic) GetTemplateIndex() *string {
 	if c == nil {
 		return nil
@@ -4940,6 +5030,8 @@ type CreateOutputSystemByPackOutputMsk struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsMsk `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
@@ -5344,6 +5436,13 @@ func (c *CreateOutputSystemByPackOutputMsk) GetPqControls() *CreateOutputSystemB
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputMsk) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputMsk) GetTemplateTopic() *string {
 	if c == nil {
 		return nil
@@ -5529,6 +5628,10 @@ type CreateOutputSystemByPackOutputConfluentCloud struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                           `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsConfluentCloud `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+	TemplateBrokers *string `json:"__template_brokers,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
@@ -5837,6 +5940,20 @@ func (c *CreateOutputSystemByPackOutputConfluentCloud) GetPqControls() *CreateOu
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputConfluentCloud) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateOutputSystemByPackOutputConfluentCloud) GetTemplateBrokers() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBrokers
+}
+
 func (c *CreateOutputSystemByPackOutputConfluentCloud) GetTemplateTopic() *string {
 	if c == nil {
 		return nil
@@ -5980,6 +6097,8 @@ type CreateOutputSystemByPackOutputKafka struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                  `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsKafka `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
@@ -6288,6 +6407,13 @@ func (c *CreateOutputSystemByPackOutputKafka) GetPqControls() *CreateOutputSyste
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputKafka) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputKafka) GetTemplateTopic() *string {
 	if c == nil {
 		return nil
@@ -6412,6 +6538,8 @@ type CreateOutputSystemByPackOutputExabeam struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
@@ -6701,6 +6829,13 @@ func (c *CreateOutputSystemByPackOutputExabeam) GetMaxRetryNum() *float64 {
 	return c.MaxRetryNum
 }
 
+func (c *CreateOutputSystemByPackOutputExabeam) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputExabeam) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
@@ -6837,6 +6972,8 @@ type CreateOutputSystemByPackOutputGooglePubsub struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                         `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsGooglePubsub `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
 	TemplateTopicName *string `json:"__template_topicName,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -7087,6 +7224,13 @@ func (c *CreateOutputSystemByPackOutputGooglePubsub) GetPqControls() *CreateOutp
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputGooglePubsub) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputGooglePubsub) GetTemplateTopicName() *string {
 	if c == nil {
 		return nil
@@ -7334,6 +7478,8 @@ type CreateOutputSystemByPackOutputGoogleCloudLogging struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                               `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsGoogleCloudLogging `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'logLocationType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationType' at runtime.
 	TemplateLogLocationType *string `json:"__template_logLocationType,omitzero"`
 	// Binds 'logNameExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logNameExpression' at runtime.
@@ -7861,6 +8007,13 @@ func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetPqControls() *Crea
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplateLogLocationType() *string {
 	if c == nil {
 		return nil
@@ -8104,6 +8257,8 @@ type CreateOutputSystemByPackOutputGoogleCloudStorage struct {
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -8546,6 +8701,13 @@ func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetAwsSecret() *strin
 	return c.AwsSecret
 }
 
+func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateBucket() *string {
 	if c == nil {
 		return nil
@@ -8913,6 +9075,8 @@ type CreateOutputSystemByPackOutputGoogleChronicle struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                            `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsGoogleChronicle `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'apiVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'apiVersion' at runtime.
 	TemplateAPIVersion *string `json:"__template_apiVersion,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -9286,6 +9450,13 @@ func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetPqControls() *CreateO
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetTemplateAPIVersion() *string {
 	if c == nil {
 		return nil
@@ -9429,6 +9600,10 @@ type CreateOutputSystemByPackOutputAzureEventhub struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                          `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsAzureEventhub `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+	TemplateBrokers *string `json:"__template_brokers,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
@@ -9707,6 +9882,20 @@ func (c *CreateOutputSystemByPackOutputAzureEventhub) GetPqControls() *CreateOut
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputAzureEventhub) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateOutputSystemByPackOutputAzureEventhub) GetTemplateBrokers() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBrokers
+}
+
 func (c *CreateOutputSystemByPackOutputAzureEventhub) GetTemplateTopic() *string {
 	if c == nil {
 		return nil
@@ -9840,6 +10029,8 @@ type CreateOutputSystemByPackOutputHoneycomb struct {
 	Team *string `json:"team,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -10123,6 +10314,13 @@ func (c *CreateOutputSystemByPackOutputHoneycomb) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputHoneycomb) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputHoneycomb) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
@@ -10277,6 +10475,8 @@ type CreateOutputSystemByPackOutputKinesis struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                    `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsKinesis `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
 	TemplateStreamName *string `json:"__template_streamName,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
@@ -10593,6 +10793,13 @@ func (c *CreateOutputSystemByPackOutputKinesis) GetPqControls() *CreateOutputSys
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputKinesis) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputKinesis) GetTemplateStreamName() *string {
 	if c == nil {
 		return nil
@@ -10789,6 +10996,8 @@ type CreateOutputSystemByPackOutputAzureLogs struct {
 	WorkspaceKey *string `json:"workspaceKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	KeypairSecret *string `json:"keypairSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -11095,6 +11304,13 @@ func (c *CreateOutputSystemByPackOutputAzureLogs) GetKeypairSecret() *string {
 		return nil
 	}
 	return c.KeypairSecret
+}
+
+func (c *CreateOutputSystemByPackOutputAzureLogs) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateOutputSystemByPackOutputAzureLogs) GetTemplateFailedRequestLoggingMode() *string {
@@ -11563,6 +11779,8 @@ type CreateOutputSystemByPackOutputAzureDataExplorer struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                              `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsAzureDataExplorer `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'clusterUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clusterUrl' at runtime.
 	TemplateClusterURL *string `json:"__template_clusterUrl,omitzero"`
 	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
@@ -12208,6 +12426,13 @@ func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetPqControls() *Creat
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetTemplateClusterURL() *string {
 	if c == nil {
 		return nil
@@ -12476,6 +12701,8 @@ type CreateOutputSystemByPackOutputAzureBlob struct {
 	// Select or create a stored text secret
 	ClientTextSecret *string                                                `json:"clientTextSecret,omitzero"`
 	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
 	TemplateContainerName *string `json:"__template_containerName,omitzero"`
 	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
@@ -12923,6 +13150,13 @@ func (c *CreateOutputSystemByPackOutputAzureBlob) GetCertificate() *components.C
 	return c.Certificate
 }
 
+func (c *CreateOutputSystemByPackOutputAzureBlob) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputAzureBlob) GetTemplateContainerName() *string {
 	if c == nil {
 		return nil
@@ -13171,6 +13405,8 @@ type CreateOutputSystemByPackOutputS3 struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
@@ -13677,6 +13913,13 @@ func (c *CreateOutputSystemByPackOutputS3) GetMaxRetryNum() *float64 {
 	return c.MaxRetryNum
 }
 
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputS3) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
@@ -13921,6 +14164,8 @@ type CreateOutputSystemByPackOutputFilesystem struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
 	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
@@ -14256,6 +14501,13 @@ func (c *CreateOutputSystemByPackOutputFilesystem) GetMaxRetryNum() *float64 {
 	return c.MaxRetryNum
 }
 
+func (c *CreateOutputSystemByPackOutputFilesystem) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputFilesystem) GetTemplatePartitionExpr() *string {
 	if c == nil {
 		return nil
@@ -14417,6 +14669,8 @@ type CreateOutputSystemByPackOutputSignalfx struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                     `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsSignalfx `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -14700,6 +14954,13 @@ func (c *CreateOutputSystemByPackOutputSignalfx) GetPqControls() *CreateOutputSy
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputSignalfx) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputSignalfx) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
@@ -14826,6 +15087,8 @@ type CreateOutputSystemByPackOutputWavefront struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                      `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsWavefront `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -15109,6 +15372,13 @@ func (c *CreateOutputSystemByPackOutputWavefront) GetPqControls() *CreateOutputS
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputWavefront) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputWavefront) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
@@ -15235,6 +15505,8 @@ type CreateOutputSystemByPackOutputTcpjson struct {
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -15527,6 +15799,13 @@ func (c *CreateOutputSystemByPackOutputTcpjson) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputTcpjson) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputTcpjson) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
@@ -15668,6 +15947,8 @@ type CreateOutputSystemByPackOutputWizHec struct {
 	Token *string `json:"token,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -15992,6 +16273,13 @@ func (c *CreateOutputSystemByPackOutputWizHec) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputWizHec) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputWizHec) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
@@ -16196,6 +16484,8 @@ type CreateOutputSystemByPackOutputSplunkHec struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                      `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsSplunkHec `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -16544,6 +16834,13 @@ func (c *CreateOutputSystemByPackOutputSplunkHec) GetPqControls() *CreateOutputS
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputSplunkHec) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputSplunkHec) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
@@ -16811,6 +17108,8 @@ type CreateOutputSystemByPackOutputSplunkLb struct {
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'nestedFields' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nestedFields' at runtime.
 	TemplateNestedFields *string `json:"__template_nestedFields,omitzero"`
 	// Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
@@ -17126,6 +17425,13 @@ func (c *CreateOutputSystemByPackOutputSplunkLb) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputSplunkLb) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputSplunkLb) GetTemplateNestedFields() *string {
 	if c == nil {
 		return nil
@@ -17260,6 +17566,8 @@ type CreateOutputSystemByPackOutputSplunk struct {
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -17535,6 +17843,13 @@ func (c *CreateOutputSystemByPackOutputSplunk) GetTextSecret() *string {
 		return nil
 	}
 	return c.TextSecret
+}
+
+func (c *CreateOutputSystemByPackOutputSplunk) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateOutputSystemByPackOutputSplunk) GetTemplateHost() *string {
@@ -17854,6 +18169,8 @@ type CreateOutputSystemByPackOutputSyslog struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                   `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsSyslog `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -18174,6 +18491,13 @@ func (c *CreateOutputSystemByPackOutputSyslog) GetPqControls() *CreateOutputSyst
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputSyslog) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputSyslog) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -18230,6 +18554,8 @@ type CreateOutputSystemByPackOutputDevnull struct {
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputDevnull) MarshalJSON() ([]byte, error) {
@@ -18283,6 +18609,13 @@ func (c *CreateOutputSystemByPackOutputDevnull) GetStreamtags() []string {
 		return nil
 	}
 	return c.Streamtags
+}
+
+func (c *CreateOutputSystemByPackOutputDevnull) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 type CreateOutputSystemByPackTypeSentinel string
@@ -18499,6 +18832,8 @@ type CreateOutputSystemByPackOutputSentinel struct {
 	DceEndpoint *string `json:"dceEndpoint,omitzero"`
 	// The name of the stream (Sentinel table) in which to store the events
 	StreamName *string `json:"streamName,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -18917,6 +19252,13 @@ func (c *CreateOutputSystemByPackOutputSentinel) GetStreamName() *string {
 	return c.StreamName
 }
 
+func (c *CreateOutputSystemByPackOutputSentinel) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputSentinel) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
@@ -19262,6 +19604,8 @@ type CreateOutputSystemByPackOutputWebhookWebhook2 struct {
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
 	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -19752,6 +20096,13 @@ func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetLoadBalanceStatsPerio
 		return nil
 	}
 	return c.LoadBalanceStatsPeriodSec
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTemplateFailedRequestLoggingMode() *string {

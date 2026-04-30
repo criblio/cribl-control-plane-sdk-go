@@ -77,6 +77,7 @@ const (
 	Input1TypeZscalerHec           Input1Type = "zscaler_hec"
 	Input1TypeCloudflareHec        Input1Type = "cloudflare_hec"
 	Input1TypeOpenaiComplianceLogs Input1Type = "openai_compliance_logs"
+	Input1TypeAnthropicCompliance  Input1Type = "anthropic_compliance"
 	Input1TypeOkta                 Input1Type = "okta"
 	Input1TypeUnknown              Input1Type = "UNKNOWN"
 )
@@ -147,6 +148,7 @@ type Input1 struct {
 	InputZscalerHec           *InputZscalerHec           `queryParam:"inline" union:"member"`
 	InputCloudflareHec        *InputCloudflareHec        `queryParam:"inline" union:"member"`
 	InputOpenaiComplianceLogs *InputOpenaiComplianceLogs `queryParam:"inline" union:"member"`
+	InputAnthropicCompliance  *InputAnthropicCompliance  `queryParam:"inline" union:"member"`
 	InputOkta                 *InputOkta                 `queryParam:"inline" union:"member"`
 	UnknownRaw                json.RawMessage            `json:"-" union:"unknown"`
 
@@ -927,6 +929,18 @@ func CreateInput1OpenaiComplianceLogs(openaiComplianceLogs InputOpenaiCompliance
 	}
 }
 
+func CreateInput1AnthropicCompliance(anthropicCompliance InputAnthropicCompliance) Input1 {
+	typ := Input1TypeAnthropicCompliance
+
+	typStr := InputAnthropicComplianceType(typ)
+	anthropicCompliance.Type = typStr
+
+	return Input1{
+		InputAnthropicCompliance: &anthropicCompliance,
+		Type:                     typ,
+	}
+}
+
 func CreateInput1Okta(okta InputOkta) Input1 {
 	typ := Input1TypeOkta
 
@@ -1558,6 +1572,15 @@ func (u *Input1) UnmarshalJSON(data []byte) error {
 		u.InputOpenaiComplianceLogs = inputOpenaiComplianceLogs
 		u.Type = Input1TypeOpenaiComplianceLogs
 		return nil
+	case "anthropic_compliance":
+		inputAnthropicCompliance := new(InputAnthropicCompliance)
+		if err := utils.UnmarshalJSON(data, &inputAnthropicCompliance, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == anthropic_compliance) type InputAnthropicCompliance within Input1: %w", string(data), err)
+		}
+
+		u.InputAnthropicCompliance = inputAnthropicCompliance
+		u.Type = Input1TypeAnthropicCompliance
+		return nil
 	case "okta":
 		inputOkta := new(InputOkta)
 		if err := utils.UnmarshalJSON(data, &inputOkta, "", true, nil); err != nil {
@@ -1834,6 +1857,10 @@ func (u Input1) MarshalJSON() ([]byte, error) {
 
 	if u.InputOpenaiComplianceLogs != nil {
 		return utils.MarshalJSON(u.InputOpenaiComplianceLogs, "", true)
+	}
+
+	if u.InputAnthropicCompliance != nil {
+		return utils.MarshalJSON(u.InputAnthropicCompliance, "", true)
 	}
 
 	if u.InputOkta != nil {

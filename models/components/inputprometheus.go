@@ -172,10 +172,18 @@ type InputPrometheus struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'dimensionList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dimensionList' at runtime.
+	TemplateDimensionList *string `json:"__template_dimensionList,omitzero"`
 	// Binds 'discoveryType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoveryType' at runtime.
 	TemplateDiscoveryType *string `json:"__template_discoveryType,omitzero"`
 	// Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
 	TemplateLogLevel *string `json:"__template_logLevel,omitzero"`
+	// Binds 'targetList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'targetList' at runtime.
+	TemplateTargetList *string `json:"__template_targetList,omitzero"`
+	// Binds 'nameList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nameList' at runtime.
+	TemplateNameList *string `json:"__template_nameList,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
@@ -541,6 +549,20 @@ func (i *InputPrometheus) GetTemplateEnvironment() *string {
 	return i.TemplateEnvironment
 }
 
+func (i *InputPrometheus) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputPrometheus) GetTemplateDimensionList() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateDimensionList
+}
+
 func (i *InputPrometheus) GetTemplateDiscoveryType() *string {
 	if i == nil {
 		return nil
@@ -553,6 +575,20 @@ func (i *InputPrometheus) GetTemplateLogLevel() *string {
 		return nil
 	}
 	return i.TemplateLogLevel
+}
+
+func (i *InputPrometheus) GetTemplateTargetList() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTargetList
+}
+
+func (i *InputPrometheus) GetTemplateNameList() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateNameList
 }
 
 func (i *InputPrometheus) GetTemplateAwsAPIKey() *string {

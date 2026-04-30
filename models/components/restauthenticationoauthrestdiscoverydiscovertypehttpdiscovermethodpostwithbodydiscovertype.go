@@ -3311,6 +3311,30 @@ func (u RestAuthenticationHmacRetryRules) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type RestAuthenticationHmacRetryRules: all fields are null")
 }
 
+// RestAuthenticationHmacMicrosoftGraphDelta - Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+type RestAuthenticationHmacMicrosoftGraphDelta struct {
+	// Response-body field name to extract as the delta link (typically '@odata.deltaLink')
+	DeltaLinkAttribute *string `json:"deltaLinkAttribute,omitzero"`
+}
+
+func (r RestAuthenticationHmacMicrosoftGraphDelta) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestAuthenticationHmacMicrosoftGraphDelta) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestAuthenticationHmacMicrosoftGraphDelta) GetDeltaLinkAttribute() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DeltaLinkAttribute
+}
+
 type RestAuthenticationHmacStateTracking struct {
 	// Track collection progress between consecutive scheduled executions
 	Enabled *bool `json:"enabled,omitzero"`
@@ -3386,7 +3410,9 @@ type RestAuthenticationHmac struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string                          `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationHmacRetryRules `json:"retryRules,omitzero"`
-	Scheduling  *RestAuthenticationHmacScheduling `json:"__scheduling,omitzero"`
+	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+	MicrosoftGraphDelta *RestAuthenticationHmacMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
+	Scheduling          *RestAuthenticationHmacScheduling          `json:"__scheduling,omitzero"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
@@ -3614,6 +3640,13 @@ func (r *RestAuthenticationHmac) GetRetryRulesBackoff() *RestAuthenticationHmacR
 		return v.RestAuthenticationHmacRestRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (r *RestAuthenticationHmac) GetMicrosoftGraphDelta() *RestAuthenticationHmacMicrosoftGraphDelta {
+	if r == nil {
+		return nil
+	}
+	return r.MicrosoftGraphDelta
 }
 
 func (r *RestAuthenticationHmac) GetScheduling() *RestAuthenticationHmacScheduling {
@@ -6946,6 +6979,30 @@ func (u RestAuthenticationGoogleOauthSecretRetryRules) MarshalJSON() ([]byte, er
 	return nil, errors.New("could not marshal union type RestAuthenticationGoogleOauthSecretRetryRules: all fields are null")
 }
 
+// RestAuthenticationGoogleOauthSecretMicrosoftGraphDelta - Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+type RestAuthenticationGoogleOauthSecretMicrosoftGraphDelta struct {
+	// Response-body field name to extract as the delta link (typically '@odata.deltaLink')
+	DeltaLinkAttribute *string `json:"deltaLinkAttribute,omitzero"`
+}
+
+func (r RestAuthenticationGoogleOauthSecretMicrosoftGraphDelta) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestAuthenticationGoogleOauthSecretMicrosoftGraphDelta) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestAuthenticationGoogleOauthSecretMicrosoftGraphDelta) GetDeltaLinkAttribute() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DeltaLinkAttribute
+}
+
 type RestAuthenticationGoogleOauthSecretStateTracking struct {
 	// Track collection progress between consecutive scheduled executions
 	Enabled *bool `json:"enabled,omitzero"`
@@ -7025,7 +7082,9 @@ type RestAuthenticationGoogleOauthSecret struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string                                       `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationGoogleOauthSecretRetryRules `json:"retryRules,omitzero"`
-	Scheduling  *RestAuthenticationGoogleOauthSecretScheduling `json:"__scheduling,omitzero"`
+	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+	MicrosoftGraphDelta *RestAuthenticationGoogleOauthSecretMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
+	Scheduling          *RestAuthenticationGoogleOauthSecretScheduling          `json:"__scheduling,omitzero"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
@@ -7269,6 +7328,13 @@ func (r *RestAuthenticationGoogleOauthSecret) GetRetryRulesBackoff() *RestAuthen
 		return v.RestAuthenticationGoogleOauthSecretRestRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (r *RestAuthenticationGoogleOauthSecret) GetMicrosoftGraphDelta() *RestAuthenticationGoogleOauthSecretMicrosoftGraphDelta {
+	if r == nil {
+		return nil
+	}
+	return r.MicrosoftGraphDelta
 }
 
 func (r *RestAuthenticationGoogleOauthSecret) GetScheduling() *RestAuthenticationGoogleOauthSecretScheduling {
@@ -10608,6 +10674,30 @@ func (u RestAuthenticationGoogleOauthRetryRules) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type RestAuthenticationGoogleOauthRetryRules: all fields are null")
 }
 
+// RestAuthenticationGoogleOauthMicrosoftGraphDelta - Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+type RestAuthenticationGoogleOauthMicrosoftGraphDelta struct {
+	// Response-body field name to extract as the delta link (typically '@odata.deltaLink')
+	DeltaLinkAttribute *string `json:"deltaLinkAttribute,omitzero"`
+}
+
+func (r RestAuthenticationGoogleOauthMicrosoftGraphDelta) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestAuthenticationGoogleOauthMicrosoftGraphDelta) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestAuthenticationGoogleOauthMicrosoftGraphDelta) GetDeltaLinkAttribute() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DeltaLinkAttribute
+}
+
 type RestAuthenticationGoogleOauthStateTracking struct {
 	// Track collection progress between consecutive scheduled executions
 	Enabled *bool `json:"enabled,omitzero"`
@@ -10687,7 +10777,9 @@ type RestAuthenticationGoogleOauth struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string                                 `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationGoogleOauthRetryRules `json:"retryRules,omitzero"`
-	Scheduling  *RestAuthenticationGoogleOauthScheduling `json:"__scheduling,omitzero"`
+	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+	MicrosoftGraphDelta *RestAuthenticationGoogleOauthMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
+	Scheduling          *RestAuthenticationGoogleOauthScheduling          `json:"__scheduling,omitzero"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Select or create an HMAC Function to use with authentication
@@ -10929,6 +11021,13 @@ func (r *RestAuthenticationGoogleOauth) GetRetryRulesBackoff() *RestAuthenticati
 		return v.RestAuthenticationGoogleOauthRestRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (r *RestAuthenticationGoogleOauth) GetMicrosoftGraphDelta() *RestAuthenticationGoogleOauthMicrosoftGraphDelta {
+	if r == nil {
+		return nil
+	}
+	return r.MicrosoftGraphDelta
 }
 
 func (r *RestAuthenticationGoogleOauth) GetScheduling() *RestAuthenticationGoogleOauthScheduling {
@@ -14261,6 +14360,30 @@ func (u RestAuthenticationOauthSecretRetryRules) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type RestAuthenticationOauthSecretRetryRules: all fields are null")
 }
 
+// RestAuthenticationOauthSecretMicrosoftGraphDelta - Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+type RestAuthenticationOauthSecretMicrosoftGraphDelta struct {
+	// Response-body field name to extract as the delta link (typically '@odata.deltaLink')
+	DeltaLinkAttribute *string `json:"deltaLinkAttribute,omitzero"`
+}
+
+func (r RestAuthenticationOauthSecretMicrosoftGraphDelta) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestAuthenticationOauthSecretMicrosoftGraphDelta) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestAuthenticationOauthSecretMicrosoftGraphDelta) GetDeltaLinkAttribute() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DeltaLinkAttribute
+}
+
 type RestAuthenticationOauthSecretStateTracking struct {
 	// Track collection progress between consecutive scheduled executions
 	Enabled *bool `json:"enabled,omitzero"`
@@ -14349,7 +14472,9 @@ type RestAuthenticationOauthSecret struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string                                 `json:"safeHeaders,omitzero"`
 	RetryRules  *RestAuthenticationOauthSecretRetryRules `json:"retryRules,omitzero"`
-	Scheduling  *RestAuthenticationOauthSecretScheduling `json:"__scheduling,omitzero"`
+	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+	MicrosoftGraphDelta *RestAuthenticationOauthSecretMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
+	Scheduling          *RestAuthenticationOauthSecretScheduling          `json:"__scheduling,omitzero"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
@@ -14628,6 +14753,13 @@ func (r *RestAuthenticationOauthSecret) GetRetryRulesBackoff() *RestAuthenticati
 		return v.RestAuthenticationOauthSecretRestRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (r *RestAuthenticationOauthSecret) GetMicrosoftGraphDelta() *RestAuthenticationOauthSecretMicrosoftGraphDelta {
+	if r == nil {
+		return nil
+	}
+	return r.MicrosoftGraphDelta
 }
 
 func (r *RestAuthenticationOauthSecret) GetScheduling() *RestAuthenticationOauthSecretScheduling {
@@ -15406,393 +15538,6 @@ func (e RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWi
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
 func (e *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
-	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
-	// Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
-	DiscoverBody string `json:"discoverBody"`
-	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	// If 'Strict discover response parsing' parsing is enabled, provide the response format
-	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
-	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
-}
-
-func (r RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverBody() string {
-	if r == nil {
-		return ""
-	}
-	return r.DiscoverBody
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverType() RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType {
-	if r == nil {
-		return RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType("")
-	}
-	return r.DiscoverType
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverURL() string {
-	if r == nil {
-		return ""
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverDataField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverDataField
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverResponseFormat() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverResponseFormat
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetFormatResultCode() *string {
-	if r == nil {
-		return nil
-	}
-	return r.FormatResultCode
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
-}
-
-// RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType string
-
-const (
-	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverTypeHTTP RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType = "http"
-	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverTypeJSON RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType = "json"
-	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverTypeList RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType = "list"
-	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverTypeNone RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType = "none"
-)
-
-func (e RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType) ToPointer() *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "http", "json", "list", "none":
-			return true
-		}
-	}
-	return false
-}
-
-type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
-	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-	DiscoverType RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
-	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
-	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
-	DiscoverDataField *string `json:"discoverDataField,omitzero"`
-	// Explicitly set the discover response format. When disabled, best effort parsing is used.
-	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	// If 'Strict discover response parsing' parsing is enabled, provide the response format
-	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
-	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatResultCode *string `json:"formatResultCode,omitzero"`
-	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
-	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
-	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
-	ItemList []string `json:"itemList,omitzero"`
-}
-
-func (r RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverMethod() DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP("")
-	}
-	return r.DiscoverMethod
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestParams
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverType() RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType {
-	if r == nil {
-		return RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType("")
-	}
-	return r.DiscoverType
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverURL() string {
-	if r == nil {
-		return ""
-	}
-	return r.DiscoverURL
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverRequestHeaders
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
-	if r == nil {
-		return nil
-	}
-	return r.Pagination
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
-	if v := r.GetPagination(); v != nil {
-		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
-	}
-	return nil
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverDataField() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverDataField
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetEnableStrictDiscoverParsing() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableStrictDiscoverParsing
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverResponseFormat() *string {
-	if r == nil {
-		return nil
-	}
-	return r.DiscoverResponseFormat
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetEnableDiscoverCode() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.EnableDiscoverCode
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetFormatResultCode() *string {
-	if r == nil {
-		return nil
-	}
-	return r.FormatResultCode
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ManualDiscoverResult
-}
-
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetItemList() []string {
-	if r == nil {
-		return nil
-	}
-	return r.ItemList
-}
-
-// RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
-type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType string
-
-const (
-	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverTypeHTTP RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType = "http"
-	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverTypeJSON RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType = "json"
-	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverTypeList RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType = "list"
-	RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverTypeNone RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType = "none"
-)
-
-func (e RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType) ToPointer() *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "http", "json", "list", "none":

@@ -222,6 +222,8 @@ type OutputSentinel struct {
 	DceEndpoint *string `json:"dceEndpoint,omitzero"`
 	// The name of the stream (Sentinel table) in which to store the events
 	StreamName *string `json:"streamName,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -638,6 +640,13 @@ func (o *OutputSentinel) GetStreamName() *string {
 		return nil
 	}
 	return o.StreamName
+}
+
+func (o *OutputSentinel) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputSentinel) GetTemplateFailedRequestLoggingMode() *string {

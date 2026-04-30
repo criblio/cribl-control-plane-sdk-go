@@ -395,6 +395,12 @@ createInputRequest := operations.CreateCreateInputRequestCloudflareHec(operation
 createInputRequest := operations.CreateCreateInputRequestOpenaiComplianceLogs(operations.CreateInputInputOpenaiComplianceLogs{/* values here */})
 ```
 
+### CreateInputInputAnthropicCompliance
+
+```go
+createInputRequest := operations.CreateCreateInputRequestAnthropicCompliance(operations.CreateInputInputAnthropicCompliance{/* values here */})
+```
+
 ### CreateInputInputOkta
 
 ```go
@@ -537,6 +543,8 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputCloudflareHec is populated
 	case operations.CreateInputRequestTypeOpenaiComplianceLogs:
 		// createInputRequest.CreateInputInputOpenaiComplianceLogs is populated
+	case operations.CreateInputRequestTypeAnthropicCompliance:
+		// createInputRequest.CreateInputInputAnthropicCompliance is populated
 	case operations.CreateInputRequestTypeOkta:
 		// createInputRequest.CreateInputInputOkta is populated
 }

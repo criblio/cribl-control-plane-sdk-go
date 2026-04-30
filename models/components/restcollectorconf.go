@@ -9,6 +9,1058 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+type RestCollectMethodPostRetryRulesType string
+
+const (
+	RestCollectMethodPostRetryRulesTypeNone    RestCollectMethodPostRetryRulesType = "none"
+	RestCollectMethodPostRetryRulesTypeStatic  RestCollectMethodPostRetryRulesType = "static"
+	RestCollectMethodPostRetryRulesTypeBackoff RestCollectMethodPostRetryRulesType = "backoff"
+	RestCollectMethodPostRetryRulesTypeUnknown RestCollectMethodPostRetryRulesType = "UNKNOWN"
+)
+
+type RestCollectMethodPostRetryRules struct {
+	RestCollectMethodPostRestRetryRulesTypeNone    *RestCollectMethodPostRestRetryRulesTypeNone    `queryParam:"inline" union:"member"`
+	RestCollectMethodPostRestRetryRulesTypeStatic  *RestCollectMethodPostRestRetryRulesTypeStatic  `queryParam:"inline" union:"member"`
+	RestCollectMethodPostRestRetryRulesTypeBackoff *RestCollectMethodPostRestRetryRulesTypeBackoff `queryParam:"inline" union:"member"`
+	UnknownRaw                                     json.RawMessage                                 `json:"-" union:"unknown"`
+
+	Type RestCollectMethodPostRetryRulesType
+}
+
+func CreateRestCollectMethodPostRetryRulesNone(none RestCollectMethodPostRestRetryRulesTypeNone) RestCollectMethodPostRetryRules {
+	typ := RestCollectMethodPostRetryRulesTypeNone
+
+	typStr := RetryTypeOptionsHealthCheckCollectorConfRetryRules(typ)
+	none.Type = typStr
+
+	return RestCollectMethodPostRetryRules{
+		RestCollectMethodPostRestRetryRulesTypeNone: &none,
+		Type: typ,
+	}
+}
+
+func CreateRestCollectMethodPostRetryRulesStatic(static RestCollectMethodPostRestRetryRulesTypeStatic) RestCollectMethodPostRetryRules {
+	typ := RestCollectMethodPostRetryRulesTypeStatic
+
+	typStr := RetryTypeOptionsHealthCheckCollectorConfRetryRules(typ)
+	static.Type = typStr
+
+	return RestCollectMethodPostRetryRules{
+		RestCollectMethodPostRestRetryRulesTypeStatic: &static,
+		Type: typ,
+	}
+}
+
+func CreateRestCollectMethodPostRetryRulesBackoff(backoff RestCollectMethodPostRestRetryRulesTypeBackoff) RestCollectMethodPostRetryRules {
+	typ := RestCollectMethodPostRetryRulesTypeBackoff
+
+	typStr := RetryTypeOptionsHealthCheckCollectorConfRetryRules(typ)
+	backoff.Type = typStr
+
+	return RestCollectMethodPostRetryRules{
+		RestCollectMethodPostRestRetryRulesTypeBackoff: &backoff,
+		Type: typ,
+	}
+}
+
+func CreateRestCollectMethodPostRetryRulesUnknown(raw json.RawMessage) RestCollectMethodPostRetryRules {
+	return RestCollectMethodPostRetryRules{
+		UnknownRaw: raw,
+		Type:       RestCollectMethodPostRetryRulesTypeUnknown,
+	}
+}
+
+func (u RestCollectMethodPostRetryRules) GetUnknownRaw() json.RawMessage {
+	return u.UnknownRaw
+}
+
+func (u RestCollectMethodPostRetryRules) IsUnknown() bool {
+	return u.Type == RestCollectMethodPostRetryRulesTypeUnknown
+}
+
+func (u *RestCollectMethodPostRetryRules) UnmarshalJSON(data []byte) error {
+
+	type discriminator struct {
+		Type string `json:"type"`
+	}
+
+	dis := new(discriminator)
+	if err := json.Unmarshal(data, &dis); err != nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostRetryRulesTypeUnknown
+		return nil
+	}
+	if dis == nil {
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostRetryRulesTypeUnknown
+		return nil
+	}
+
+	switch dis.Type {
+	case "none":
+		restCollectMethodPostRestRetryRulesTypeNone := new(RestCollectMethodPostRestRetryRulesTypeNone)
+		if err := utils.UnmarshalJSON(data, &restCollectMethodPostRestRetryRulesTypeNone, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == none) type RestCollectMethodPostRestRetryRulesTypeNone within RestCollectMethodPostRetryRules: %w", string(data), err)
+		}
+
+		u.RestCollectMethodPostRestRetryRulesTypeNone = restCollectMethodPostRestRetryRulesTypeNone
+		u.Type = RestCollectMethodPostRetryRulesTypeNone
+		return nil
+	case "static":
+		restCollectMethodPostRestRetryRulesTypeStatic := new(RestCollectMethodPostRestRetryRulesTypeStatic)
+		if err := utils.UnmarshalJSON(data, &restCollectMethodPostRestRetryRulesTypeStatic, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == static) type RestCollectMethodPostRestRetryRulesTypeStatic within RestCollectMethodPostRetryRules: %w", string(data), err)
+		}
+
+		u.RestCollectMethodPostRestRetryRulesTypeStatic = restCollectMethodPostRestRetryRulesTypeStatic
+		u.Type = RestCollectMethodPostRetryRulesTypeStatic
+		return nil
+	case "backoff":
+		restCollectMethodPostRestRetryRulesTypeBackoff := new(RestCollectMethodPostRestRetryRulesTypeBackoff)
+		if err := utils.UnmarshalJSON(data, &restCollectMethodPostRestRetryRulesTypeBackoff, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == backoff) type RestCollectMethodPostRestRetryRulesTypeBackoff within RestCollectMethodPostRetryRules: %w", string(data), err)
+		}
+
+		u.RestCollectMethodPostRestRetryRulesTypeBackoff = restCollectMethodPostRestRetryRulesTypeBackoff
+		u.Type = RestCollectMethodPostRetryRulesTypeBackoff
+		return nil
+	default:
+		u.UnknownRaw = json.RawMessage(data)
+		u.Type = RestCollectMethodPostRetryRulesTypeUnknown
+		return nil
+	}
+
+}
+
+func (u RestCollectMethodPostRetryRules) MarshalJSON() ([]byte, error) {
+	if u.RestCollectMethodPostRestRetryRulesTypeNone != nil {
+		return utils.MarshalJSON(u.RestCollectMethodPostRestRetryRulesTypeNone, "", true)
+	}
+
+	if u.RestCollectMethodPostRestRetryRulesTypeStatic != nil {
+		return utils.MarshalJSON(u.RestCollectMethodPostRestRetryRulesTypeStatic, "", true)
+	}
+
+	if u.RestCollectMethodPostRestRetryRulesTypeBackoff != nil {
+		return utils.MarshalJSON(u.RestCollectMethodPostRestRetryRulesTypeBackoff, "", true)
+	}
+
+	if u.UnknownRaw != nil {
+		return json.RawMessage(u.UnknownRaw), nil
+	}
+	return nil, errors.New("could not marshal union type RestCollectMethodPostRetryRules: all fields are null")
+}
+
+// RestCollectMethodPostMicrosoftGraphDelta - Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+type RestCollectMethodPostMicrosoftGraphDelta struct {
+	// Response-body field name to extract as the delta link (typically '@odata.deltaLink')
+	DeltaLinkAttribute *string `json:"deltaLinkAttribute,omitzero"`
+}
+
+func (r RestCollectMethodPostMicrosoftGraphDelta) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodPostMicrosoftGraphDelta) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPostMicrosoftGraphDelta) GetDeltaLinkAttribute() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DeltaLinkAttribute
+}
+
+type RestCollectMethodPostStateTracking struct {
+	// Track collection progress between consecutive scheduled executions
+	Enabled *bool `json:"enabled,omitzero"`
+}
+
+func (r RestCollectMethodPostStateTracking) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodPostStateTracking) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPostStateTracking) GetEnabled() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.Enabled
+}
+
+type RestCollectMethodPostScheduling struct {
+	StateTracking *RestCollectMethodPostStateTracking `json:"stateTracking,omitzero"`
+}
+
+func (r RestCollectMethodPostScheduling) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodPostScheduling) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPostScheduling) GetStateTracking() *RestCollectMethodPostStateTracking {
+	if r == nil {
+		return nil
+	}
+	return r.StateTracking
+}
+
+type RestCollectMethodPost struct {
+	CollectMethod        RestCollectMethodPostCollectMethod                  `json:"collectMethod"`
+	CollectRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestParams,omitzero"`
+	Discovery            *RestCollectMethodPostDiscovery                     `json:"discovery,omitzero"`
+	// URL (constant or JavaScript expression) to use for the Collect operation
+	CollectURL            string                                              `json:"collectUrl"`
+	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestHeaders,omitzero"`
+	Pagination            *RestCollectMethodPostPagination                    `json:"pagination,omitzero"`
+	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
+	Authentication RestCollectMethodPostAuthentication `json:"authentication"`
+	// HTTP request inactivity timeout. Use 0 to disable.
+	Timeout *float64 `json:"timeout,omitzero"`
+	// Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
+	// Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
+	// Disable Collector event time filtering when a date range is specified
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Decode the URL before sending requests (including pagination requests)
+	DecodeURL *bool `json:"decodeUrl,omitzero"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Enable to add response headers to the resHeaders field under the __collectible object
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
+	// Stop pagination when the Event Breaker produces no events
+	StopOnEmptyResults *bool `json:"stopOnEmptyResults,omitzero"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string                         `json:"safeHeaders,omitzero"`
+	RetryRules  *RestCollectMethodPostRetryRules `json:"retryRules,omitzero"`
+	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+	MicrosoftGraphDelta *RestCollectMethodPostMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
+	Scheduling          *RestCollectMethodPostScheduling          `json:"__scheduling,omitzero"`
+	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
+	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Select or create an HMAC Function to use with authentication
+	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
+}
+
+func (r RestCollectMethodPost) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodPost) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPost) GetCollectMethod() RestCollectMethodPostCollectMethod {
+	if r == nil {
+		return RestCollectMethodPostCollectMethod("")
+	}
+	return r.CollectMethod
+}
+
+func (r *RestCollectMethodPost) GetCollectRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+	if r == nil {
+		return nil
+	}
+	return r.CollectRequestParams
+}
+
+func (r *RestCollectMethodPost) GetDiscovery() *RestCollectMethodPostDiscovery {
+	if r == nil {
+		return nil
+	}
+	return r.Discovery
+}
+
+func (r *RestCollectMethodPost) GetDiscoveryHTTP() *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP {
+	if v := r.GetDiscovery(); v != nil {
+		return v.RestCollectMethodPostRestDiscoveryDiscoverTypeHTTP
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPost) GetDiscoveryJSON() *RestCollectMethodPostRestDiscoveryDiscoverTypeJSON {
+	if v := r.GetDiscovery(); v != nil {
+		return v.RestCollectMethodPostRestDiscoveryDiscoverTypeJSON
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPost) GetDiscoveryList() *RestCollectMethodPostRestDiscoveryDiscoverTypeList {
+	if v := r.GetDiscovery(); v != nil {
+		return v.RestCollectMethodPostRestDiscoveryDiscoverTypeList
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPost) GetDiscoveryNone() *RestCollectMethodPostRestDiscoveryDiscoverTypeNone {
+	if v := r.GetDiscovery(); v != nil {
+		return v.RestCollectMethodPostRestDiscoveryDiscoverTypeNone
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPost) GetCollectURL() string {
+	if r == nil {
+		return ""
+	}
+	return r.CollectURL
+}
+
+func (r *RestCollectMethodPost) GetCollectRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+	if r == nil {
+		return nil
+	}
+	return r.CollectRequestHeaders
+}
+
+func (r *RestCollectMethodPost) GetPagination() *RestCollectMethodPostPagination {
+	if r == nil {
+		return nil
+	}
+	return r.Pagination
+}
+
+func (r *RestCollectMethodPost) GetPaginationNone() *RestCollectMethodPostRestPaginationTypeNone {
+	if v := r.GetPagination(); v != nil {
+		return v.RestCollectMethodPostRestPaginationTypeNone
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPost) GetPaginationResponseBody() *RestCollectMethodPostRestPaginationTypeResponseBody {
+	if v := r.GetPagination(); v != nil {
+		return v.RestCollectMethodPostRestPaginationTypeResponseBody
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPost) GetPaginationResponseHeader() *RestCollectMethodPostRestPaginationTypeResponseHeader {
+	if v := r.GetPagination(); v != nil {
+		return v.RestCollectMethodPostRestPaginationTypeResponseHeader
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPost) GetPaginationResponseHeaderLink() *RestCollectMethodPostRestPaginationTypeResponseHeaderLink {
+	if v := r.GetPagination(); v != nil {
+		return v.RestCollectMethodPostRestPaginationTypeResponseHeaderLink
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPost) GetPaginationRequestOffset() *RestCollectMethodPostRestPaginationTypeRequestOffset {
+	if v := r.GetPagination(); v != nil {
+		return v.RestCollectMethodPostRestPaginationTypeRequestOffset
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPost) GetPaginationRequestPage() *RestCollectMethodPostRestPaginationTypeRequestPage {
+	if v := r.GetPagination(); v != nil {
+		return v.RestCollectMethodPostRestPaginationTypeRequestPage
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPost) GetAuthentication() RestCollectMethodPostAuthentication {
+	if r == nil {
+		return RestCollectMethodPostAuthentication("")
+	}
+	return r.Authentication
+}
+
+func (r *RestCollectMethodPost) GetTimeout() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.Timeout
+}
+
+func (r *RestCollectMethodPost) GetMaxResponseBodySize() *string {
+	if r == nil {
+		return nil
+	}
+	return r.MaxResponseBodySize
+}
+
+func (r *RestCollectMethodPost) GetUseRoundRobinDNS() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.UseRoundRobinDNS
+}
+
+func (r *RestCollectMethodPost) GetDisableTimeFilter() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.DisableTimeFilter
+}
+
+func (r *RestCollectMethodPost) GetDecodeURL() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.DecodeURL
+}
+
+func (r *RestCollectMethodPost) GetRejectUnauthorized() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.RejectUnauthorized
+}
+
+func (r *RestCollectMethodPost) GetCaptureHeaders() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.CaptureHeaders
+}
+
+func (r *RestCollectMethodPost) GetStopOnEmptyResults() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.StopOnEmptyResults
+}
+
+func (r *RestCollectMethodPost) GetSafeHeaders() []string {
+	if r == nil {
+		return nil
+	}
+	return r.SafeHeaders
+}
+
+func (r *RestCollectMethodPost) GetRetryRules() *RestCollectMethodPostRetryRules {
+	if r == nil {
+		return nil
+	}
+	return r.RetryRules
+}
+
+func (r *RestCollectMethodPost) GetRetryRulesNone() *RestCollectMethodPostRestRetryRulesTypeNone {
+	if v := r.GetRetryRules(); v != nil {
+		return v.RestCollectMethodPostRestRetryRulesTypeNone
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPost) GetRetryRulesStatic() *RestCollectMethodPostRestRetryRulesTypeStatic {
+	if v := r.GetRetryRules(); v != nil {
+		return v.RestCollectMethodPostRestRetryRulesTypeStatic
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPost) GetRetryRulesBackoff() *RestCollectMethodPostRestRetryRulesTypeBackoff {
+	if v := r.GetRetryRules(); v != nil {
+		return v.RestCollectMethodPostRestRetryRulesTypeBackoff
+	}
+	return nil
+}
+
+func (r *RestCollectMethodPost) GetMicrosoftGraphDelta() *RestCollectMethodPostMicrosoftGraphDelta {
+	if r == nil {
+		return nil
+	}
+	return r.MicrosoftGraphDelta
+}
+
+func (r *RestCollectMethodPost) GetScheduling() *RestCollectMethodPostScheduling {
+	if r == nil {
+		return nil
+	}
+	return r.Scheduling
+}
+
+func (r *RestCollectMethodPost) GetClientSecretParamValue() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ClientSecretParamValue
+}
+
+func (r *RestCollectMethodPost) GetServiceAccountCredentials() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ServiceAccountCredentials
+}
+
+func (r *RestCollectMethodPost) GetHmacFunctionID() *string {
+	if r == nil {
+		return nil
+	}
+	return r.HmacFunctionID
+}
+
+func (r *RestCollectMethodPost) GetTemplateCollectURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateCollectURL
+}
+
+type RestCollectMethodGetCollectMethod string
+
+const (
+	// RestCollectMethodGetCollectMethodGet GET
+	RestCollectMethodGetCollectMethodGet RestCollectMethodGetCollectMethod = "get"
+	// RestCollectMethodGetCollectMethodPost POST
+	RestCollectMethodGetCollectMethodPost RestCollectMethodGetCollectMethod = "post"
+	// RestCollectMethodGetCollectMethodPostWithBody POST with Body
+	RestCollectMethodGetCollectMethodPostWithBody RestCollectMethodGetCollectMethod = "post_with_body"
+	// RestCollectMethodGetCollectMethodOther Other
+	RestCollectMethodGetCollectMethodOther RestCollectMethodGetCollectMethod = "other"
+)
+
+func (e RestCollectMethodGetCollectMethod) ToPointer() *RestCollectMethodGetCollectMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodGetCollectMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "get", "post", "post_with_body", "other":
+			return true
+		}
+	}
+	return false
+}
+
+// RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+type RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverType string
+
+const (
+	RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverTypeHTTP RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverType = "http"
+	RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverTypeJSON RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverType = "json"
+	RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverTypeList RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverType = "list"
+	RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverTypeNone RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverType = "none"
+)
+
+func (e RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverType) ToPointer() *RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "http", "json", "list", "none":
+			return true
+		}
+	}
+	return false
+}
+
+type RestCollectMethodGetRestDiscoveryDiscoverTypeNone struct {
+	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+	DiscoverType RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverType `json:"discoverType"`
+	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
+	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
+	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	// Explicitly set the discover response format. When disabled, best effort parsing is used.
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
+	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
+	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
+	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
+	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
+	ItemList []string `json:"itemList,omitzero"`
+}
+
+func (r RestCollectMethodGetRestDiscoveryDiscoverTypeNone) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetDiscoverType() RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverType {
+	if r == nil {
+		return RestCollectMethodGetRestDiscoveryDiscoverTypeNoneDiscoverType("")
+	}
+	return r.DiscoverType
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverURL
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverMethod
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverRequestHeaders
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+	if r == nil {
+		return nil
+	}
+	return r.Pagination
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetEnableStrictDiscoverParsing() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.EnableStrictDiscoverParsing
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetEnableDiscoverCode() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.EnableDiscoverCode
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetManualDiscoverResult() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ManualDiscoverResult
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeNone) GetItemList() []string {
+	if r == nil {
+		return nil
+	}
+	return r.ItemList
+}
+
+// RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+type RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverType string
+
+const (
+	RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverTypeHTTP RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverType = "http"
+	RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverTypeJSON RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverType = "json"
+	RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverTypeList RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverType = "list"
+	RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverTypeNone RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverType = "none"
+)
+
+func (e RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverType) ToPointer() *RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "http", "json", "list", "none":
+			return true
+		}
+	}
+	return false
+}
+
+type RestCollectMethodGetRestDiscoveryDiscoverTypeList struct {
+	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+	DiscoverType RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverType `json:"discoverType"`
+	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
+	ItemList []string `json:"itemList"`
+	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
+	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
+	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	// Explicitly set the discover response format. When disabled, best effort parsing is used.
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
+	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
+	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
+	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
+}
+
+func (r RestCollectMethodGetRestDiscoveryDiscoverTypeList) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetDiscoverType() RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverType {
+	if r == nil {
+		return RestCollectMethodGetRestDiscoveryDiscoverTypeListDiscoverType("")
+	}
+	return r.DiscoverType
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetItemList() []string {
+	if r == nil {
+		return []string{}
+	}
+	return r.ItemList
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverURL
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverMethod
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverRequestHeaders
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+	if r == nil {
+		return nil
+	}
+	return r.Pagination
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetEnableStrictDiscoverParsing() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.EnableStrictDiscoverParsing
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetEnableDiscoverCode() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.EnableDiscoverCode
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeList) GetManualDiscoverResult() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ManualDiscoverResult
+}
+
+// RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+type RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverType string
+
+const (
+	RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverTypeHTTP RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverType = "http"
+	RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverTypeJSON RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverType = "json"
+	RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverTypeList RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverType = "list"
+	RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverTypeNone RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverType = "none"
+)
+
+func (e RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverType) ToPointer() *RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "http", "json", "list", "none":
+			return true
+		}
+	}
+	return false
+}
+
+type RestCollectMethodGetRestDiscoveryDiscoverTypeJSON struct {
+	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+	DiscoverType RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverType `json:"discoverType"`
+	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
+	ManualDiscoverResult string `json:"manualDiscoverResult"`
+	// Within the response JSON, the name of the field to pull results from, typically a JSON array. Leave blank if the result itself is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
+	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
+	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
+	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	// Explicitly set the discover response format. When disabled, best effort parsing is used.
+	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
+	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
+	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
+	ItemList []string `json:"itemList,omitzero"`
+}
+
+func (r RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetDiscoverType() RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverType {
+	if r == nil {
+		return RestCollectMethodGetRestDiscoveryDiscoverTypeJSONDiscoverType("")
+	}
+	return r.DiscoverType
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetManualDiscoverResult() string {
+	if r == nil {
+		return ""
+	}
+	return r.ManualDiscoverResult
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetDiscoverDataField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverDataField
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverURL
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverMethod
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverRequestHeaders
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetPagination() *PaginationTypeRestDiscoveryDiscoverTypeHTTP {
+	if r == nil {
+		return nil
+	}
+	return r.Pagination
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetPaginationNone() *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeNone
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetPaginationResponseBody() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetPaginationResponseHeader() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetPaginationResponseHeaderLink() *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetPaginationRequestOffset() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetPaginationRequestPage() *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage {
+	if v := r.GetPagination(); v != nil {
+		return v.RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetEnableStrictDiscoverParsing() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.EnableStrictDiscoverParsing
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetEnableDiscoverCode() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.EnableDiscoverCode
+}
+
+func (r *RestCollectMethodGetRestDiscoveryDiscoverTypeJSON) GetItemList() []string {
+	if r == nil {
+		return nil
+	}
+	return r.ItemList
+}
+
+// RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType - Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
+type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType string
+
+const (
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverTypeHTTP RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType = "http"
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverTypeJSON RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType = "json"
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverTypeList RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType = "list"
+	RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverTypeNone RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType = "none"
+)
+
+func (e RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType) ToPointer() *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "http", "json", "list", "none":
+			return true
+		}
+	}
+	return false
+}
+
 type RestCollectMethodGetRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther struct {
 	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
 	// Custom HTTP method to use for the Discover operation
@@ -2775,6 +3827,30 @@ func (u RestCollectMethodGetRetryRules) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type RestCollectMethodGetRetryRules: all fields are null")
 }
 
+// RestCollectMethodGetMicrosoftGraphDelta - Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+type RestCollectMethodGetMicrosoftGraphDelta struct {
+	// Response-body field name to extract as the delta link (typically '@odata.deltaLink')
+	DeltaLinkAttribute *string `json:"deltaLinkAttribute,omitzero"`
+}
+
+func (r RestCollectMethodGetMicrosoftGraphDelta) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(r, "", false)
+}
+
+func (r *RestCollectMethodGetMicrosoftGraphDelta) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *RestCollectMethodGetMicrosoftGraphDelta) GetDeltaLinkAttribute() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DeltaLinkAttribute
+}
+
 type RestCollectMethodGetStateTracking struct {
 	// Track collection progress between consecutive scheduled executions
 	Enabled *bool `json:"enabled,omitzero"`
@@ -2849,7 +3925,9 @@ type RestCollectMethodGet struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string                        `json:"safeHeaders,omitzero"`
 	RetryRules  *RestCollectMethodGetRetryRules `json:"retryRules,omitzero"`
-	Scheduling  *RestCollectMethodGetScheduling `json:"__scheduling,omitzero"`
+	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
+	MicrosoftGraphDelta *RestCollectMethodGetMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
+	Scheduling          *RestCollectMethodGetScheduling          `json:"__scheduling,omitzero"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
@@ -3079,6 +4157,13 @@ func (r *RestCollectMethodGet) GetRetryRulesBackoff() *RestCollectMethodGetRestR
 		return v.RestCollectMethodGetRestRetryRulesTypeBackoff
 	}
 	return nil
+}
+
+func (r *RestCollectMethodGet) GetMicrosoftGraphDelta() *RestCollectMethodGetMicrosoftGraphDelta {
+	if r == nil {
+		return nil
+	}
+	return r.MicrosoftGraphDelta
 }
 
 func (r *RestCollectMethodGet) GetScheduling() *RestCollectMethodGetScheduling {

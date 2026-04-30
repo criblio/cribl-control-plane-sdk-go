@@ -395,6 +395,12 @@ createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRe
 createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyOpenaiComplianceLogs(operations.CreateInputSystemByPackInputOpenaiComplianceLogs{/* values here */})
 ```
 
+### CreateInputSystemByPackInputAnthropicCompliance
+
+```go
+createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyAnthropicCompliance(operations.CreateInputSystemByPackInputAnthropicCompliance{/* values here */})
+```
+
 ### CreateInputSystemByPackInputOkta
 
 ```go
@@ -537,6 +543,8 @@ switch createInputSystemByPackRequestBody.Type {
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputCloudflareHec is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeOpenaiComplianceLogs:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputOpenaiComplianceLogs is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeAnthropicCompliance:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputAnthropicCompliance is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeOkta:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputOkta is populated
 }

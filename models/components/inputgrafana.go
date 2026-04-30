@@ -226,6 +226,8 @@ type InputGrafanaGrafana2 struct {
 	Description *string             `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -462,6 +464,13 @@ func (i *InputGrafanaGrafana2) GetTemplateEnvironment() *string {
 		return nil
 	}
 	return i.TemplateEnvironment
+}
+
+func (i *InputGrafanaGrafana2) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
 }
 
 func (i *InputGrafanaGrafana2) GetTemplateHost() *string {
@@ -712,6 +721,8 @@ type InputGrafanaGrafana1 struct {
 	Description *string             `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -948,6 +959,13 @@ func (i *InputGrafanaGrafana1) GetTemplateEnvironment() *string {
 		return nil
 	}
 	return i.TemplateEnvironment
+}
+
+func (i *InputGrafanaGrafana1) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
 }
 
 func (i *InputGrafanaGrafana1) GetTemplateHost() *string {

@@ -288,6 +288,10 @@ func (u *UpdateInputByIDRequest) GetInputOpenaiComplianceLogs() *components.Inpu
 	return u.GetInput().InputOpenaiComplianceLogs
 }
 
+func (u *UpdateInputByIDRequest) GetInputAnthropicCompliance() *components.InputAnthropicCompliance {
+	return u.GetInput().InputAnthropicCompliance
+}
+
 func (u *UpdateInputByIDRequest) GetInputOkta() *components.InputOkta {
 	return u.GetInput().InputOkta
 }

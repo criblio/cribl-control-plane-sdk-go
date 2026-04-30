@@ -479,6 +479,8 @@ type RunnableJobCollection struct {
 	Collector Collector                                                         `json:"collector"`
 	Input     *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
 	Run       RunnableJobCollectionRun                                          `json:"run"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (r RunnableJobCollection) MarshalJSON() ([]byte, error) {
@@ -628,4 +630,11 @@ func (r *RunnableJobCollection) GetRun() RunnableJobCollectionRun {
 		return RunnableJobCollectionRun{}
 	}
 	return r.Run
+}
+
+func (r *RunnableJobCollection) GetTemplateStreamtags() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateStreamtags
 }

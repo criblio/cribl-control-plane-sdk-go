@@ -141,6 +141,8 @@ type InputOffice365Service struct {
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
 	TemplatePlanType *string `json:"__template_planType,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
@@ -349,6 +351,13 @@ func (i *InputOffice365Service) GetTemplateEnvironment() *string {
 		return nil
 	}
 	return i.TemplateEnvironment
+}
+
+func (i *InputOffice365Service) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
 }
 
 func (i *InputOffice365Service) GetTemplatePlanType() *string {

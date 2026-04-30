@@ -130,6 +130,8 @@ type InputOffice365MsgTrace struct {
 	CertOptions *CertOptionsType `json:"certOptions,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
@@ -424,6 +426,13 @@ func (i *InputOffice365MsgTrace) GetTemplateEnvironment() *string {
 		return nil
 	}
 	return i.TemplateEnvironment
+}
+
+func (i *InputOffice365MsgTrace) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
 }
 
 func (i *InputOffice365MsgTrace) GetTemplateURL() *string {

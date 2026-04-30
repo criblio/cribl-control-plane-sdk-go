@@ -158,6 +158,8 @@ type OutputDlS3 struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
@@ -188,6 +190,8 @@ type OutputDlS3 struct {
 	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
 	// Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
 	TemplateKmsKeyID *string `json:"__template_kmsKeyId,omitzero"`
+	// Binds 'partitioningFields' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitioningFields' at runtime.
+	TemplatePartitioningFields *string `json:"__template_partitioningFields,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
@@ -662,6 +666,13 @@ func (o *OutputDlS3) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
+func (o *OutputDlS3) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
+}
+
 func (o *OutputDlS3) GetTemplateEndpoint() *string {
 	if o == nil {
 		return nil
@@ -765,6 +776,13 @@ func (o *OutputDlS3) GetTemplateKmsKeyID() *string {
 		return nil
 	}
 	return o.TemplateKmsKeyID
+}
+
+func (o *OutputDlS3) GetTemplatePartitioningFields() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePartitioningFields
 }
 
 func (o *OutputDlS3) GetTemplateAwsAPIKey() *string {

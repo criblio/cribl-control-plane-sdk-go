@@ -139,6 +139,8 @@ type CreateOutputSystemByPackOutputWebhookWebhook1 struct {
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
 	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -631,6 +633,13 @@ func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetLoadBalanceStatsPerio
 	return c.LoadBalanceStatsPeriodSec
 }
 
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
@@ -795,6 +804,8 @@ type CreateOutputSystemByPackOutputDefault struct {
 	Streamtags []string `json:"streamtags,omitzero"`
 	// ID of the default output. This will be used whenever a nonexistent/deleted output is referenced.
 	DefaultID *string `json:"defaultId"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputDefault) MarshalJSON() ([]byte, error) {
@@ -855,6 +866,13 @@ func (c *CreateOutputSystemByPackOutputDefault) GetDefaultID() *string {
 		return nil
 	}
 	return c.DefaultID
+}
+
+func (c *CreateOutputSystemByPackOutputDefault) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 type CreateOutputSystemByPackRequestBodyType string

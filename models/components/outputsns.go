@@ -136,6 +136,8 @@ type OutputSns struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string              `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputSnsPqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'topicArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicArn' at runtime.
 	TemplateTopicArn *string `json:"__template_topicArn,omitzero"`
 	// Binds 'messageGroupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'messageGroupId' at runtime.
@@ -417,6 +419,13 @@ func (o *OutputSns) GetPqControls() *OutputSnsPqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputSns) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputSns) GetTemplateTopicArn() *string {

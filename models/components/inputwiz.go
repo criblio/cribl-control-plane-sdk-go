@@ -235,6 +235,8 @@ type InputWiz struct {
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'authUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authUrl' at runtime.
@@ -455,6 +457,13 @@ func (i *InputWiz) GetTemplateEnvironment() *string {
 		return nil
 	}
 	return i.TemplateEnvironment
+}
+
+func (i *InputWiz) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
 }
 
 func (i *InputWiz) GetTemplateEndpoint() *string {

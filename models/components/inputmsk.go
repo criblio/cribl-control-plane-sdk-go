@@ -128,6 +128,12 @@ type InputMsk struct {
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+	TemplateBrokers *string `json:"__template_brokers,omitzero"`
+	// Binds 'topics' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topics' at runtime.
+	TemplateTopics *string `json:"__template_topics,omitzero"`
 	// Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
 	TemplateGroupID *string `json:"__template_groupId,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
@@ -489,6 +495,27 @@ func (i *InputMsk) GetTemplateEnvironment() *string {
 		return nil
 	}
 	return i.TemplateEnvironment
+}
+
+func (i *InputMsk) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputMsk) GetTemplateBrokers() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateBrokers
+}
+
+func (i *InputMsk) GetTemplateTopics() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTopics
 }
 
 func (i *InputMsk) GetTemplateGroupID() *string {
