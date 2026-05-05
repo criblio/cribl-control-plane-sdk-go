@@ -277,6 +277,8 @@ type InputAppscope struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -320,6 +322,8 @@ type InputAppscope struct {
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -391,6 +395,13 @@ func (i *InputAppscope) GetStreamtags() []string {
 		return nil
 	}
 	return i.Streamtags
+}
+
+func (i *InputAppscope) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
 }
 
 func (i *InputAppscope) GetConnections() []ItemsTypeConnectionsOptional {
@@ -561,6 +572,13 @@ func (i *InputAppscope) GetTemplateEnvironment() *string {
 	return i.TemplateEnvironment
 }
 
+func (i *InputAppscope) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
 func (i *InputAppscope) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -569,6 +587,328 @@ func (i *InputAppscope) GetTemplateHost() *string {
 }
 
 func (i *InputAppscope) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
+}
+
+type InputAppscopeInput struct {
+	// Unique ID for this input
+	ID       *string           `json:"id,omitzero"`
+	Type     InputAppscopeType `json:"type"`
+	Disabled *bool             `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitzero"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitzero"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
+	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
+	EnableUnixPath *bool                     `json:"enableUnixPath,omitzero"`
+	Filter         *InputAppscopeFilter      `json:"filter,omitzero"`
+	Persistence    *InputAppscopePersistence `json:"persistence,omitzero"`
+	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	Description *string                                     `json:"description,omitzero"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host *string `json:"host,omitzero"`
+	// Port to listen on
+	Port *float64                   `json:"port,omitzero"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
+	// Path to the UNIX domain socket to listen on.
+	UnixSocketPath *string `json:"unixSocketPath,omitzero"`
+	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.
+	UnixSocketPerms *UNIXSocketPermissions `json:"unixSocketPerms,omitzero"`
+	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+	AuthToken *string `json:"authToken,omitzero"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+}
+
+func (i InputAppscopeInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAppscopeInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAppscopeInput) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputAppscopeInput) GetType() InputAppscopeType {
+	if i == nil {
+		return InputAppscopeType("")
+	}
+	return i.Type
+}
+
+func (i *InputAppscopeInput) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputAppscopeInput) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputAppscopeInput) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputAppscopeInput) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputAppscopeInput) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputAppscopeInput) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputAppscopeInput) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputAppscopeInput) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputAppscopeInput) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputAppscopeInput) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputAppscopeInput) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputAppscopeInput) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputAppscopeInput) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputAppscopeInput) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputAppscopeInput) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputAppscopeInput) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputAppscopeInput) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputAppscopeInput) GetEnableUnixPath() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableUnixPath
+}
+
+func (i *InputAppscopeInput) GetFilter() *InputAppscopeFilter {
+	if i == nil {
+		return nil
+	}
+	return i.Filter
+}
+
+func (i *InputAppscopeInput) GetPersistence() *InputAppscopePersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputAppscopeInput) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputAppscopeInput) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputAppscopeInput) GetHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputAppscopeInput) GetPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Port
+}
+
+func (i *InputAppscopeInput) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputAppscopeInput) GetUnixSocketPath() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPath
+}
+
+func (i *InputAppscopeInput) GetUnixSocketPerms() *UNIXSocketPermissions {
+	if i == nil {
+		return nil
+	}
+	return i.UnixSocketPerms
+}
+
+func (i *InputAppscopeInput) GetAuthToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.AuthToken
+}
+
+func (i *InputAppscopeInput) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputAppscopeInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputAppscopeInput) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputAppscopeInput) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputAppscopeInput) GetTemplatePort() *string {
 	if i == nil {
 		return nil
 	}

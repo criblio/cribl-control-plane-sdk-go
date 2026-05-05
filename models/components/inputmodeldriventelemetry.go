@@ -46,6 +46,8 @@ type InputModelDrivenTelemetry struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -63,6 +65,8 @@ type InputModelDrivenTelemetry struct {
 	Description       *string  `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -136,6 +140,13 @@ func (i *InputModelDrivenTelemetry) GetStreamtags() []string {
 	return i.Streamtags
 }
 
+func (i *InputModelDrivenTelemetry) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
+}
+
 func (i *InputModelDrivenTelemetry) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
@@ -206,6 +217,13 @@ func (i *InputModelDrivenTelemetry) GetTemplateEnvironment() *string {
 	return i.TemplateEnvironment
 }
 
+func (i *InputModelDrivenTelemetry) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
 func (i *InputModelDrivenTelemetry) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -214,6 +232,204 @@ func (i *InputModelDrivenTelemetry) GetTemplateHost() *string {
 }
 
 func (i *InputModelDrivenTelemetry) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
+}
+
+type InputModelDrivenTelemetryInput struct {
+	// Unique ID for this input
+	ID       *string                       `json:"id,omitzero"`
+	Type     InputModelDrivenTelemetryType `json:"type"`
+	Disabled *bool                         `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host string `json:"host"`
+	// Port to listen on
+	Port float64                    `json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
+	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
+	ShutdownTimeoutMs *float64 `json:"shutdownTimeoutMs,omitzero"`
+	Description       *string  `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+}
+
+func (i InputModelDrivenTelemetryInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputModelDrivenTelemetryInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputModelDrivenTelemetryInput) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputModelDrivenTelemetryInput) GetType() InputModelDrivenTelemetryType {
+	if i == nil {
+		return InputModelDrivenTelemetryType("")
+	}
+	return i.Type
+}
+
+func (i *InputModelDrivenTelemetryInput) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputModelDrivenTelemetryInput) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputModelDrivenTelemetryInput) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputModelDrivenTelemetryInput) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputModelDrivenTelemetryInput) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputModelDrivenTelemetryInput) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputModelDrivenTelemetryInput) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputModelDrivenTelemetryInput) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputModelDrivenTelemetryInput) GetHost() string {
+	if i == nil {
+		return ""
+	}
+	return i.Host
+}
+
+func (i *InputModelDrivenTelemetryInput) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputModelDrivenTelemetryInput) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputModelDrivenTelemetryInput) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputModelDrivenTelemetryInput) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputModelDrivenTelemetryInput) GetShutdownTimeoutMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ShutdownTimeoutMs
+}
+
+func (i *InputModelDrivenTelemetryInput) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputModelDrivenTelemetryInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputModelDrivenTelemetryInput) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputModelDrivenTelemetryInput) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputModelDrivenTelemetryInput) GetTemplatePort() *string {
 	if i == nil {
 		return nil
 	}

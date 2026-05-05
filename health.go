@@ -33,7 +33,7 @@ func newHealth(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, ho
 }
 
 // Get the health status of the server
-// Get the current health status of the server (Leader or Worker Node).
+// Get the current health status of the server (Leader or Worker Node).  In Distributed deployments, requests routed to a Worker or Edge node using the [host context](https://docs.cribl.io/cribl-as-code/api#base-url-group-fleet-host) require a Bearer token for [authentication](https://docs.cribl.io/cribl-as-code/api-auth/).
 func (s *Health) Get(ctx context.Context, opts ...operations.Option) (*operations.GetHealthResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

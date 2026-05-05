@@ -2,14 +2,11 @@
 
 package components
 
-// AuthenticationMethodOptionsAuth - Enter credentials directly, or select a stored secret
 type AuthenticationMethodOptionsAuth string
 
 const (
-	AuthenticationMethodOptionsAuthManual       AuthenticationMethodOptionsAuth = "manual"
-	AuthenticationMethodOptionsAuthSecret       AuthenticationMethodOptionsAuth = "secret"
-	AuthenticationMethodOptionsAuthManualAPIKey AuthenticationMethodOptionsAuth = "manualAPIKey"
-	AuthenticationMethodOptionsAuthTextSecret   AuthenticationMethodOptionsAuth = "textSecret"
+	AuthenticationMethodOptionsAuthSecret      AuthenticationMethodOptionsAuth = "secret"
+	AuthenticationMethodOptionsAuthCertificate AuthenticationMethodOptionsAuth = "certificate"
 )
 
 func (e AuthenticationMethodOptionsAuth) ToPointer() *AuthenticationMethodOptionsAuth {
@@ -20,7 +17,7 @@ func (e AuthenticationMethodOptionsAuth) ToPointer() *AuthenticationMethodOption
 func (e *AuthenticationMethodOptionsAuth) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "manual", "secret", "manualAPIKey", "textSecret":
+		case "secret", "certificate":
 			return true
 		}
 	}

@@ -147,6 +147,8 @@ type InputSnmp struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -171,6 +173,8 @@ type InputSnmp struct {
 	Description       *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -242,6 +246,13 @@ func (i *InputSnmp) GetStreamtags() []string {
 		return nil
 	}
 	return i.Streamtags
+}
+
+func (i *InputSnmp) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
 }
 
 func (i *InputSnmp) GetConnections() []ItemsTypeConnectionsOptional {
@@ -335,6 +346,13 @@ func (i *InputSnmp) GetTemplateEnvironment() *string {
 	return i.TemplateEnvironment
 }
 
+func (i *InputSnmp) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
 func (i *InputSnmp) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -343,6 +361,232 @@ func (i *InputSnmp) GetTemplateHost() *string {
 }
 
 func (i *InputSnmp) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
+}
+
+type InputSnmpInput struct {
+	// Unique ID for this input
+	ID       *string       `json:"id,omitzero"`
+	Type     InputSnmpType `json:"type"`
+	Disabled *bool         `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host string `json:"host"`
+	// UDP port to receive SNMP traps on. Defaults to 162.
+	Port float64 `json:"port"`
+	// Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
+	SnmpV3Auth *SNMPv3Authentication `json:"snmpV3Auth,omitzero"`
+	// Maximum number of events to buffer when downstream is blocking.
+	MaxBufferSize *float64 `json:"maxBufferSize,omitzero"`
+	// Regex matching IP addresses that are allowed to send data
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
+	// If enabled, parses varbinds as an array of objects that include OID, value, and type
+	VarbindsWithTypes *bool `json:"varbindsWithTypes,omitzero"`
+	// If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
+	BestEffortParsing *bool   `json:"bestEffortParsing,omitzero"`
+	Description       *string `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+}
+
+func (i InputSnmpInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSnmpInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSnmpInput) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSnmpInput) GetType() InputSnmpType {
+	if i == nil {
+		return InputSnmpType("")
+	}
+	return i.Type
+}
+
+func (i *InputSnmpInput) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSnmpInput) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSnmpInput) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSnmpInput) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSnmpInput) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSnmpInput) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSnmpInput) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSnmpInput) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSnmpInput) GetHost() string {
+	if i == nil {
+		return ""
+	}
+	return i.Host
+}
+
+func (i *InputSnmpInput) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputSnmpInput) GetSnmpV3Auth() *SNMPv3Authentication {
+	if i == nil {
+		return nil
+	}
+	return i.SnmpV3Auth
+}
+
+func (i *InputSnmpInput) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputSnmpInput) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputSnmpInput) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSnmpInput) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputSnmpInput) GetVarbindsWithTypes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.VarbindsWithTypes
+}
+
+func (i *InputSnmpInput) GetBestEffortParsing() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.BestEffortParsing
+}
+
+func (i *InputSnmpInput) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSnmpInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputSnmpInput) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputSnmpInput) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputSnmpInput) GetTemplatePort() *string {
 	if i == nil {
 		return nil
 	}

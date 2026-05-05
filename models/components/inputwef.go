@@ -414,6 +414,8 @@ type InputWef struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -459,6 +461,8 @@ type InputWef struct {
 	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -534,6 +538,13 @@ func (i *InputWef) GetStreamtags() []string {
 		return nil
 	}
 	return i.Streamtags
+}
+
+func (i *InputWef) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
 }
 
 func (i *InputWef) GetConnections() []ItemsTypeConnectionsOptional {
@@ -704,6 +715,13 @@ func (i *InputWef) GetTemplateEnvironment() *string {
 	return i.TemplateEnvironment
 }
 
+func (i *InputWef) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
 func (i *InputWef) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -726,6 +744,348 @@ func (i *InputWef) GetTemplateKeytab() *string {
 }
 
 func (i *InputWef) GetTemplatePrincipal() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePrincipal
+}
+
+type InputWefInput struct {
+	// Unique ID for this input
+	ID       *string      `json:"id,omitzero"`
+	Type     InputWefType `json:"type"`
+	Disabled *bool        `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host string `json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// How to authenticate incoming client connections
+	AuthMethod *InputWefAuthenticationMethod `json:"authMethod,omitzero"`
+	TLS        *MTLSSettings                 `json:"tls,omitzero"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
+	// Preserve the client’s original IP address in the __srcIpPort field when connecting through an HTTP proxy that supports the X-Forwarded-For header. This does not apply to TCP-layer Proxy Protocol v1/v2.
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
+	// Add request headers to events in the __headers field
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
+	// SHA1 fingerprint expected by the client, if it does not match the first certificate in the configured CA chain
+	CaFingerprint *string `json:"caFingerprint,omitzero"`
+	// Path to the keytab file containing the service principal credentials. @{product} will use `/etc/krb5.keytab` if not provided.
+	Keytab *string `json:"keytab,omitzero"`
+	// Kerberos principal used for authentication, typically in the form HTTP/<hostname>@<REALM>
+	Principal *string `json:"principal,omitzero"`
+	// Allow events to be ingested even if their MachineID does not match the client certificate CN
+	AllowMachineIDMismatch *bool `json:"allowMachineIdMismatch,omitzero"`
+	// Subscriptions to events on forwarding endpoints
+	Subscriptions []Subscription `json:"subscriptions"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string             `json:"description,omitzero"`
+	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
+	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'keytab' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'keytab' at runtime.
+	TemplateKeytab *string `json:"__template_keytab,omitzero"`
+	// Binds 'principal' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'principal' at runtime.
+	TemplatePrincipal *string `json:"__template_principal,omitzero"`
+}
+
+func (i InputWefInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWefInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWefInput) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWefInput) GetType() InputWefType {
+	if i == nil {
+		return InputWefType("")
+	}
+	return i.Type
+}
+
+func (i *InputWefInput) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWefInput) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWefInput) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWefInput) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWefInput) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWefInput) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWefInput) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWefInput) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWefInput) GetHost() string {
+	if i == nil {
+		return ""
+	}
+	return i.Host
+}
+
+func (i *InputWefInput) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputWefInput) GetAuthMethod() *InputWefAuthenticationMethod {
+	if i == nil {
+		return nil
+	}
+	return i.AuthMethod
+}
+
+func (i *InputWefInput) GetTLS() *MTLSSettings {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputWefInput) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputWefInput) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputWefInput) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputWefInput) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputWefInput) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputWefInput) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputWefInput) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputWefInput) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputWefInput) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputWefInput) GetCaFingerprint() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CaFingerprint
+}
+
+func (i *InputWefInput) GetKeytab() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Keytab
+}
+
+func (i *InputWefInput) GetPrincipal() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Principal
+}
+
+func (i *InputWefInput) GetAllowMachineIDMismatch() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.AllowMachineIDMismatch
+}
+
+func (i *InputWefInput) GetSubscriptions() []Subscription {
+	if i == nil {
+		return []Subscription{}
+	}
+	return i.Subscriptions
+}
+
+func (i *InputWefInput) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWefInput) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWefInput) GetLogFingerprintMismatch() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.LogFingerprintMismatch
+}
+
+func (i *InputWefInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputWefInput) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputWefInput) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputWefInput) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
+}
+
+func (i *InputWefInput) GetTemplateKeytab() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateKeytab
+}
+
+func (i *InputWefInput) GetTemplatePrincipal() *string {
 	if i == nil {
 		return nil
 	}

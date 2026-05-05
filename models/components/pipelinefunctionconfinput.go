@@ -63,6 +63,7 @@ const (
 	PipelineFunctionConfInputTypeRename                    PipelineFunctionConfInputType = "rename"
 	PipelineFunctionConfInputTypeRollupMetrics             PipelineFunctionConfInputType = "rollup_metrics"
 	PipelineFunctionConfInputTypeSampling                  PipelineFunctionConfInputType = "sampling"
+	PipelineFunctionConfInputTypeSearchEngineExport        PipelineFunctionConfInputType = "search_engine_export"
 	PipelineFunctionConfInputTypeSend                      PipelineFunctionConfInputType = "send"
 	PipelineFunctionConfInputTypeSensitiveDataScanner      PipelineFunctionConfInputType = "sensitive_data_scanner"
 	PipelineFunctionConfInputTypeSerde                     PipelineFunctionConfInputType = "serde"
@@ -133,6 +134,7 @@ type PipelineFunctionConfInput struct {
 	PipelineFunctionRename                    *PipelineFunctionRename                    `queryParam:"inline" union:"member"`
 	PipelineFunctionRollupMetrics             *PipelineFunctionRollupMetrics             `queryParam:"inline" union:"member"`
 	PipelineFunctionSampling                  *PipelineFunctionSampling                  `queryParam:"inline" union:"member"`
+	PipelineFunctionSearchEngineExport        *PipelineFunctionSearchEngineExport        `queryParam:"inline" union:"member"`
 	PipelineFunctionSend                      *PipelineFunctionSend                      `queryParam:"inline" union:"member"`
 	PipelineFunctionSensitiveDataScanner      *PipelineFunctionSensitiveDataScanner      `queryParam:"inline" union:"member"`
 	PipelineFunctionSerde                     *PipelineFunctionSerde                     `queryParam:"inline" union:"member"`
@@ -762,6 +764,18 @@ func CreatePipelineFunctionConfInputSampling(sampling PipelineFunctionSampling) 
 	return PipelineFunctionConfInput{
 		PipelineFunctionSampling: &sampling,
 		Type:                     typ,
+	}
+}
+
+func CreatePipelineFunctionConfInputSearchEngineExport(searchEngineExport PipelineFunctionSearchEngineExport) PipelineFunctionConfInput {
+	typ := PipelineFunctionConfInputTypeSearchEngineExport
+
+	typStr := PipelineFunctionSearchEngineExportID(typ)
+	searchEngineExport.ID = typStr
+
+	return PipelineFunctionConfInput{
+		PipelineFunctionSearchEngineExport: &searchEngineExport,
+		Type:                               typ,
 	}
 }
 
@@ -1428,6 +1442,15 @@ func (u *PipelineFunctionConfInput) UnmarshalJSON(data []byte) error {
 		u.PipelineFunctionSampling = pipelineFunctionSampling
 		u.Type = PipelineFunctionConfInputTypeSampling
 		return nil
+	case "search_engine_export":
+		pipelineFunctionSearchEngineExport := new(PipelineFunctionSearchEngineExport)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionSearchEngineExport, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == search_engine_export) type PipelineFunctionSearchEngineExport within PipelineFunctionConfInput: %w", string(data), err)
+		}
+
+		u.PipelineFunctionSearchEngineExport = pipelineFunctionSearchEngineExport
+		u.Type = PipelineFunctionConfInputTypeSearchEngineExport
+		return nil
 	case "send":
 		pipelineFunctionSend := new(PipelineFunctionSend)
 		if err := utils.UnmarshalJSON(data, &pipelineFunctionSend, "", true, nil); err != nil {
@@ -1780,6 +1803,10 @@ func (u PipelineFunctionConfInput) MarshalJSON() ([]byte, error) {
 
 	if u.PipelineFunctionSampling != nil {
 		return utils.MarshalJSON(u.PipelineFunctionSampling, "", true)
+	}
+
+	if u.PipelineFunctionSearchEngineExport != nil {
+		return utils.MarshalJSON(u.PipelineFunctionSearchEngineExport, "", true)
 	}
 
 	if u.PipelineFunctionSend != nil {

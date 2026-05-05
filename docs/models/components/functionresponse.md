@@ -309,6 +309,12 @@ functionResponse := components.CreateFunctionResponseRollupMetrics(components.Fu
 functionResponse := components.CreateFunctionResponseSampling(components.FunctionSampling{/* values here */})
 ```
 
+### FunctionSearchEngineExport
+
+```go
+functionResponse := components.CreateFunctionResponseSearchEngineExport(components.FunctionSearchEngineExport{/* values here */})
+```
+
 ### FunctionSend
 
 ```go
@@ -513,6 +519,8 @@ switch functionResponse.Type {
 		// functionResponse.FunctionRollupMetrics is populated
 	case components.FunctionResponseTypeSampling:
 		// functionResponse.FunctionSampling is populated
+	case components.FunctionResponseTypeSearchEngineExport:
+		// functionResponse.FunctionSearchEngineExport is populated
 	case components.FunctionResponseTypeSend:
 		// functionResponse.FunctionSend is populated
 	case components.FunctionResponseTypeSensitiveDataScanner:

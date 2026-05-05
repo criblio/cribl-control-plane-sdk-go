@@ -721,6 +721,8 @@ type InputSystemMetrics struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -736,6 +738,8 @@ type InputSystemMetrics struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (i InputSystemMetrics) MarshalJSON() ([]byte, error) {
@@ -803,6 +807,13 @@ func (i *InputSystemMetrics) GetStreamtags() []string {
 		return nil
 	}
 	return i.Streamtags
+}
+
+func (i *InputSystemMetrics) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
 }
 
 func (i *InputSystemMetrics) GetConnections() []ItemsTypeConnectionsOptional {
@@ -880,4 +891,196 @@ func (i *InputSystemMetrics) GetTemplateEnvironment() *string {
 		return nil
 	}
 	return i.TemplateEnvironment
+}
+
+func (i *InputSystemMetrics) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+type InputSystemMetricsInput struct {
+	// Unique ID for this input
+	ID       *string                `json:"id,omitzero"`
+	Type     InputSystemMetricsType `json:"type"`
+	Disabled *bool                  `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+	Interval  *float64                `json:"interval,omitzero"`
+	Host      *InputSystemMetricsHost `json:"host,omitzero"`
+	Process   *ProcessType            `json:"process,omitzero"`
+	Container *Container              `json:"container,omitzero"`
+	Gpu       *GpuType                `json:"gpu,omitzero"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeMetadata            `json:"metadata,omitzero"`
+	Persistence *InputSystemMetricsPersistence `json:"persistence,omitzero"`
+	Description *string                        `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+}
+
+func (i InputSystemMetricsInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSystemMetricsInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSystemMetricsInput) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSystemMetricsInput) GetType() InputSystemMetricsType {
+	if i == nil {
+		return InputSystemMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputSystemMetricsInput) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSystemMetricsInput) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSystemMetricsInput) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSystemMetricsInput) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSystemMetricsInput) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSystemMetricsInput) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSystemMetricsInput) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSystemMetricsInput) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSystemMetricsInput) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputSystemMetricsInput) GetHost() *InputSystemMetricsHost {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputSystemMetricsInput) GetProcess() *ProcessType {
+	if i == nil {
+		return nil
+	}
+	return i.Process
+}
+
+func (i *InputSystemMetricsInput) GetContainer() *Container {
+	if i == nil {
+		return nil
+	}
+	return i.Container
+}
+
+func (i *InputSystemMetricsInput) GetGpu() *GpuType {
+	if i == nil {
+		return nil
+	}
+	return i.Gpu
+}
+
+func (i *InputSystemMetricsInput) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSystemMetricsInput) GetPersistence() *InputSystemMetricsPersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputSystemMetricsInput) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSystemMetricsInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputSystemMetricsInput) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
 }

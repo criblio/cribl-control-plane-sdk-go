@@ -245,6 +245,8 @@ type InputOpenTelemetry struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -298,6 +300,8 @@ type InputOpenTelemetry struct {
 	ExtractLogs *bool `json:"extractLogs,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -373,6 +377,13 @@ func (i *InputOpenTelemetry) GetStreamtags() []string {
 		return nil
 	}
 	return i.Streamtags
+}
+
+func (i *InputOpenTelemetry) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
 }
 
 func (i *InputOpenTelemetry) GetConnections() []ItemsTypeConnectionsOptional {
@@ -578,6 +589,13 @@ func (i *InputOpenTelemetry) GetTemplateEnvironment() *string {
 	return i.TemplateEnvironment
 }
 
+func (i *InputOpenTelemetry) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
 func (i *InputOpenTelemetry) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -600,6 +618,391 @@ func (i *InputOpenTelemetry) GetTemplateProtocol() *string {
 }
 
 func (i *InputOpenTelemetry) GetTemplateOtlpVersion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateOtlpVersion
+}
+
+type InputOpenTelemetryInput struct {
+	// Unique ID for this input
+	ID       *string                `json:"id,omitzero"`
+	Type     InputOpenTelemetryType `json:"type"`
+	Disabled *bool                  `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host string `json:"host"`
+	// Port to listen on
+	Port float64                    `json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
+	// Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist.
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
+	// Select whether to leverage gRPC or HTTP for OpenTelemetry
+	Protocol *InputOpenTelemetryProtocol `json:"protocol,omitzero"`
+	// Enable to extract each incoming span to a separate event
+	ExtractSpans *bool `json:"extractSpans,omitzero"`
+	// Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
+	// The version of OTLP Protobuf definitions to use when interpreting received data
+	OtlpVersion *InputOpenTelemetryOTLPVersion `json:"otlpVersion,omitzero"`
+	// OpenTelemetry authentication type
+	AuthType *InputOpenTelemetryAuthenticationType `json:"authType,omitzero"`
+	// Shared secrets to authenticate clients. Supports Bearer tokens and Basic auth. If empty, unauthenticated access is permitted.
+	AuthMethodsExt []AuthMethodsExt `json:"authMethodsExt,omitzero"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
+	Description  *string  `json:"description,omitzero"`
+	Username     *string  `json:"username,omitzero"`
+	Password     *string  `json:"password,omitzero"`
+	// Bearer token to include in the authorization header
+	Token *string `json:"token,omitzero"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Enable to extract each incoming log record to a separate event
+	ExtractLogs *bool `json:"extractLogs,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'protocol' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'protocol' at runtime.
+	TemplateProtocol *string `json:"__template_protocol,omitzero"`
+	// Binds 'otlpVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'otlpVersion' at runtime.
+	TemplateOtlpVersion *string `json:"__template_otlpVersion,omitzero"`
+}
+
+func (i InputOpenTelemetryInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputOpenTelemetryInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputOpenTelemetryInput) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputOpenTelemetryInput) GetType() InputOpenTelemetryType {
+	if i == nil {
+		return InputOpenTelemetryType("")
+	}
+	return i.Type
+}
+
+func (i *InputOpenTelemetryInput) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputOpenTelemetryInput) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputOpenTelemetryInput) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputOpenTelemetryInput) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputOpenTelemetryInput) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputOpenTelemetryInput) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputOpenTelemetryInput) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputOpenTelemetryInput) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputOpenTelemetryInput) GetHost() string {
+	if i == nil {
+		return ""
+	}
+	return i.Host
+}
+
+func (i *InputOpenTelemetryInput) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputOpenTelemetryInput) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputOpenTelemetryInput) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputOpenTelemetryInput) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputOpenTelemetryInput) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputOpenTelemetryInput) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputOpenTelemetryInput) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputOpenTelemetryInput) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputOpenTelemetryInput) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputOpenTelemetryInput) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputOpenTelemetryInput) GetProtocol() *InputOpenTelemetryProtocol {
+	if i == nil {
+		return nil
+	}
+	return i.Protocol
+}
+
+func (i *InputOpenTelemetryInput) GetExtractSpans() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractSpans
+}
+
+func (i *InputOpenTelemetryInput) GetExtractMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractMetrics
+}
+
+func (i *InputOpenTelemetryInput) GetOtlpVersion() *InputOpenTelemetryOTLPVersion {
+	if i == nil {
+		return nil
+	}
+	return i.OtlpVersion
+}
+
+func (i *InputOpenTelemetryInput) GetAuthType() *InputOpenTelemetryAuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputOpenTelemetryInput) GetAuthMethodsExt() []AuthMethodsExt {
+	if i == nil {
+		return nil
+	}
+	return i.AuthMethodsExt
+}
+
+func (i *InputOpenTelemetryInput) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputOpenTelemetryInput) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputOpenTelemetryInput) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputOpenTelemetryInput) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputOpenTelemetryInput) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputOpenTelemetryInput) GetToken() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Token
+}
+
+func (i *InputOpenTelemetryInput) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputOpenTelemetryInput) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputOpenTelemetryInput) GetExtractLogs() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractLogs
+}
+
+func (i *InputOpenTelemetryInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputOpenTelemetryInput) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputOpenTelemetryInput) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputOpenTelemetryInput) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
+}
+
+func (i *InputOpenTelemetryInput) GetTemplateProtocol() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateProtocol
+}
+
+func (i *InputOpenTelemetryInput) GetTemplateOtlpVersion() *string {
 	if i == nil {
 		return nil
 	}

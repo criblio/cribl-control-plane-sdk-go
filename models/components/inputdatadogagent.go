@@ -78,6 +78,8 @@ type InputDatadogAgent struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -116,6 +118,8 @@ type InputDatadogAgent struct {
 	Description *string                     `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -187,6 +191,13 @@ func (i *InputDatadogAgent) GetStreamtags() []string {
 		return nil
 	}
 	return i.Streamtags
+}
+
+func (i *InputDatadogAgent) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
 }
 
 func (i *InputDatadogAgent) GetConnections() []ItemsTypeConnectionsOptional {
@@ -336,6 +347,13 @@ func (i *InputDatadogAgent) GetTemplateEnvironment() *string {
 	return i.TemplateEnvironment
 }
 
+func (i *InputDatadogAgent) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
 func (i *InputDatadogAgent) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -344,6 +362,302 @@ func (i *InputDatadogAgent) GetTemplateHost() *string {
 }
 
 func (i *InputDatadogAgent) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
+}
+
+type InputDatadogAgentInput struct {
+	// Unique ID for this input
+	ID       *string               `json:"id,omitzero"`
+	Type     InputDatadogAgentType `json:"type"`
+	Disabled *bool                 `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host string `json:"host"`
+	// Port to listen on
+	Port float64                    `json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
+	// Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+	EnableHealthCheck *bool `json:"enableHealthCheck,omitzero"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
+	// Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
+	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeMetadata         `json:"metadata,omitzero"`
+	ProxyMode   *InputDatadogAgentProxyMode `json:"proxyMode,omitzero"`
+	Description *string                     `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+}
+
+func (i InputDatadogAgentInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatadogAgentInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputDatadogAgentInput) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputDatadogAgentInput) GetType() InputDatadogAgentType {
+	if i == nil {
+		return InputDatadogAgentType("")
+	}
+	return i.Type
+}
+
+func (i *InputDatadogAgentInput) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputDatadogAgentInput) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputDatadogAgentInput) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputDatadogAgentInput) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputDatadogAgentInput) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputDatadogAgentInput) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputDatadogAgentInput) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputDatadogAgentInput) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputDatadogAgentInput) GetHost() string {
+	if i == nil {
+		return ""
+	}
+	return i.Host
+}
+
+func (i *InputDatadogAgentInput) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputDatadogAgentInput) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputDatadogAgentInput) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputDatadogAgentInput) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputDatadogAgentInput) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputDatadogAgentInput) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputDatadogAgentInput) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputDatadogAgentInput) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputDatadogAgentInput) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputDatadogAgentInput) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputDatadogAgentInput) GetEnableHealthCheck() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableHealthCheck
+}
+
+func (i *InputDatadogAgentInput) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputDatadogAgentInput) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputDatadogAgentInput) GetExtractMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractMetrics
+}
+
+func (i *InputDatadogAgentInput) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputDatadogAgentInput) GetProxyMode() *InputDatadogAgentProxyMode {
+	if i == nil {
+		return nil
+	}
+	return i.ProxyMode
+}
+
+func (i *InputDatadogAgentInput) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputDatadogAgentInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputDatadogAgentInput) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputDatadogAgentInput) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputDatadogAgentInput) GetTemplatePort() *string {
 	if i == nil {
 		return nil
 	}

@@ -36,6 +36,8 @@ type AuthenticationMechanism string
 const (
 	// AuthenticationMechanismConnectionString Connection String
 	AuthenticationMechanismConnectionString AuthenticationMechanism = "connection-string"
+	// AuthenticationMechanismOauthBearer OAuth Bearer
+	AuthenticationMechanismOauthBearer AuthenticationMechanism = "oauth-bearer"
 )
 
 func (e AuthenticationMechanism) ToPointer() *AuthenticationMechanism {
@@ -46,7 +48,7 @@ func (e AuthenticationMechanism) ToPointer() *AuthenticationMechanism {
 func (e *AuthenticationMechanism) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "connection-string":
+		case "connection-string", "oauth-bearer":
 			return true
 		}
 	}
@@ -83,7 +85,27 @@ type Auth struct {
 	// Event Hubs namespace or Event Hub-level connection string
 	ConnectionString *string `json:"connectionString,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitzero"`
+	TextSecret           *string                          `json:"textSecret,omitzero"`
+	ClientSecretAuthType *AuthenticationMethodOptionsAuth `json:"clientSecretAuthType,omitzero"`
+	// Select or create a stored text secret
+	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
+	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	// Endpoint used to acquire authentication tokens from Azure
+	OauthEndpoint *MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint,omitzero"`
+	// client_id to pass in the OAuth request parameter
+	ClientID *string `json:"clientId,omitzero"`
+	// Directory ID (tenant identifier) in Azure Active Directory
+	TenantID *string `json:"tenantId,omitzero"`
+	// The fully qualified Event Hubs namespace that the consumer is associated with. This is likely to be similar to {yournamespace}.servicebus.windows.net.
+	FullyQualifiedNamespace *string `json:"fullyQualifiedNamespace,omitzero"`
+	// Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+	TemplateOauthEndpoint *string `json:"__template_oauthEndpoint,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'fullyQualifiedNamespace' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fullyQualifiedNamespace' at runtime.
+	TemplateFullyQualifiedNamespace *string `json:"__template_fullyQualifiedNamespace,omitzero"`
 }
 
 func (a Auth) MarshalJSON() ([]byte, error) {
@@ -123,6 +145,83 @@ func (a *Auth) GetTextSecret() *string {
 		return nil
 	}
 	return a.TextSecret
+}
+
+func (a *Auth) GetClientSecretAuthType() *AuthenticationMethodOptionsAuth {
+	if a == nil {
+		return nil
+	}
+	return a.ClientSecretAuthType
+}
+
+func (a *Auth) GetClientTextSecret() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ClientTextSecret
+}
+
+func (a *Auth) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+	if a == nil {
+		return nil
+	}
+	return a.Certificate
+}
+
+func (a *Auth) GetOauthEndpoint() *MicrosoftEntraIDAuthenticationEndpointOptionsSasl {
+	if a == nil {
+		return nil
+	}
+	return a.OauthEndpoint
+}
+
+func (a *Auth) GetClientID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ClientID
+}
+
+func (a *Auth) GetTenantID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TenantID
+}
+
+func (a *Auth) GetFullyQualifiedNamespace() *string {
+	if a == nil {
+		return nil
+	}
+	return a.FullyQualifiedNamespace
+}
+
+func (a *Auth) GetTemplateOauthEndpoint() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateOauthEndpoint
+}
+
+func (a *Auth) GetTemplateClientID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateClientID
+}
+
+func (a *Auth) GetTemplateTenantID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateTenantID
+}
+
+func (a *Auth) GetTemplateFullyQualifiedNamespace() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateFullyQualifiedNamespace
 }
 
 // CheckpointStore - The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
@@ -352,6 +451,8 @@ type InputEventhubAmqp struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -388,6 +489,8 @@ type InputEventhubAmqp struct {
 	Description *string             `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (i InputEventhubAmqp) MarshalJSON() ([]byte, error) {
@@ -455,6 +558,13 @@ func (i *InputEventhubAmqp) GetStreamtags() []string {
 		return nil
 	}
 	return i.Streamtags
+}
+
+func (i *InputEventhubAmqp) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
 }
 
 func (i *InputEventhubAmqp) GetConnections() []ItemsTypeConnectionsOptional {
@@ -595,4 +705,280 @@ func (i *InputEventhubAmqp) GetTemplateEnvironment() *string {
 		return nil
 	}
 	return i.TemplateEnvironment
+}
+
+func (i *InputEventhubAmqp) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+type InputEventhubAmqpInput struct {
+	// Unique ID for this input
+	ID       *string               `json:"id,omitzero"`
+	Type     InputEventhubAmqpType `json:"type"`
+	Disabled *bool                 `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// The name of the Event Hub to consume from
+	EventHubName *string `json:"eventHubName,omitzero"`
+	// The consumer group this instance belongs to. Default is '$Default'.
+	ConsumerGroup string         `json:"consumerGroup"`
+	Auth          *Auth          `json:"auth,omitzero"`
+	Checkpointing *Checkpointing `json:"checkpointing,omitzero"`
+	// Start reading from earliest available data; relevant only during initial subscription
+	FromBeginning *bool `json:"fromBeginning,omitzero"`
+	// Maximum number of events in each batch delivered to the consumer
+	MaxBatchSize *int64 `json:"maxBatchSize,omitzero"`
+	// Maximum time to wait for a batch of events before delivering a partial batch
+	MaxWaitTimeInSeconds *int64 `json:"maxWaitTimeInSeconds,omitzero"`
+	// Number of events to prefetch from the service for processing
+	PrefetchCount *int64 `json:"prefetchCount,omitzero"`
+	// Maximum number of retries per operation
+	MaxRetries *int64 `json:"maxRetries,omitzero"`
+	// Initial delay before the first retry, in milliseconds
+	InitialBackoff *int64 `json:"initialBackoff,omitzero"`
+	// Maximum delay between retries, in milliseconds
+	MaxBackoff *int64 `json:"maxBackoff,omitzero"`
+	// Maximum time to wait for a request to complete
+	TimeoutInMs *int64 `json:"timeoutInMs,omitzero"`
+	// Initial delay before the first reconnection attempt, in milliseconds
+	ConnectionInitialBackoff *int64 `json:"connectionInitialBackoff,omitzero"`
+	// Maximum delay between reconnection attempts, in milliseconds
+	ConnectionMaxBackoff *int64 `json:"connectionMaxBackoff,omitzero"`
+	// Maximum time to wait for a connection to complete
+	ConnectionTimeoutInMs *int64 `json:"connectionTimeoutInMs,omitzero"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string             `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+}
+
+func (i InputEventhubAmqpInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputEventhubAmqpInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputEventhubAmqpInput) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputEventhubAmqpInput) GetType() InputEventhubAmqpType {
+	if i == nil {
+		return InputEventhubAmqpType("")
+	}
+	return i.Type
+}
+
+func (i *InputEventhubAmqpInput) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputEventhubAmqpInput) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputEventhubAmqpInput) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputEventhubAmqpInput) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputEventhubAmqpInput) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputEventhubAmqpInput) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputEventhubAmqpInput) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputEventhubAmqpInput) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputEventhubAmqpInput) GetEventHubName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.EventHubName
+}
+
+func (i *InputEventhubAmqpInput) GetConsumerGroup() string {
+	if i == nil {
+		return ""
+	}
+	return i.ConsumerGroup
+}
+
+func (i *InputEventhubAmqpInput) GetAuth() *Auth {
+	if i == nil {
+		return nil
+	}
+	return i.Auth
+}
+
+func (i *InputEventhubAmqpInput) GetCheckpointing() *Checkpointing {
+	if i == nil {
+		return nil
+	}
+	return i.Checkpointing
+}
+
+func (i *InputEventhubAmqpInput) GetFromBeginning() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FromBeginning
+}
+
+func (i *InputEventhubAmqpInput) GetMaxBatchSize() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBatchSize
+}
+
+func (i *InputEventhubAmqpInput) GetMaxWaitTimeInSeconds() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxWaitTimeInSeconds
+}
+
+func (i *InputEventhubAmqpInput) GetPrefetchCount() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.PrefetchCount
+}
+
+func (i *InputEventhubAmqpInput) GetMaxRetries() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRetries
+}
+
+func (i *InputEventhubAmqpInput) GetInitialBackoff() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.InitialBackoff
+}
+
+func (i *InputEventhubAmqpInput) GetMaxBackoff() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBackoff
+}
+
+func (i *InputEventhubAmqpInput) GetTimeoutInMs() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.TimeoutInMs
+}
+
+func (i *InputEventhubAmqpInput) GetConnectionInitialBackoff() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionInitialBackoff
+}
+
+func (i *InputEventhubAmqpInput) GetConnectionMaxBackoff() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionMaxBackoff
+}
+
+func (i *InputEventhubAmqpInput) GetConnectionTimeoutInMs() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.ConnectionTimeoutInMs
+}
+
+func (i *InputEventhubAmqpInput) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputEventhubAmqpInput) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputEventhubAmqpInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputEventhubAmqpInput) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
 }

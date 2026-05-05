@@ -10,7 +10,7 @@ import (
 type UpdateOutputSystemByPackAndIDRequest struct {
 	// The <code>id</code> of the Destination to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// The <code>id</code> of the Pack to update.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 	// Output object
 	Output components.Output `request:"mediaType=application/json"`
@@ -325,14 +325,30 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputNutanixObjects() *compon
 	return u.GetOutput().OutputNutanixObjects
 }
 
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputStorjS3() *components.OutputStorjS3 {
+	return u.GetOutput().OutputStorjS3
+}
+
 func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputAlphasocS3() *components.OutputAlphasocS3 {
 	return u.GetOutput().OutputAlphasocS3
+}
+
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputDellS3() *components.OutputDellS3 {
+	return u.GetOutput().OutputDellS3
+}
+
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputCloudianS3() *components.OutputCloudianS3 {
+	return u.GetOutput().OutputCloudianS3
+}
+
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputScalityS3() *components.OutputScalityS3 {
+	return u.GetOutput().OutputScalityS3
 }
 
 type UpdateOutputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the updated Destination object
-	CountedOutput *components.CountedOutput
+	CountedOutputResponse *components.CountedOutputResponse
 }
 
 func (u UpdateOutputSystemByPackAndIDResponse) MarshalJSON() ([]byte, error) {
@@ -353,9 +369,9 @@ func (u *UpdateOutputSystemByPackAndIDResponse) GetHTTPMeta() components.HTTPMet
 	return u.HTTPMeta
 }
 
-func (u *UpdateOutputSystemByPackAndIDResponse) GetCountedOutput() *components.CountedOutput {
+func (u *UpdateOutputSystemByPackAndIDResponse) GetCountedOutputResponse() *components.CountedOutputResponse {
 	if u == nil {
 		return nil
 	}
-	return u.CountedOutput
+	return u.CountedOutputResponse
 }

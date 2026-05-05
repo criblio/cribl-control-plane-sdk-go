@@ -42,7 +42,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -53,7 +53,7 @@ func main() {
 | Parameter                                                                                                                                                        | Type                                                                                                                                                             | Required                                                                                                                                                         | Description                                                                                                                                                      |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                                                            | :heavy_check_mark:                                                                                                                                               | The context to use for the request.                                                                                                                              |
-| `pack`                                                                                                                                                           | `string`                                                                                                                                                         | :heavy_check_mark:                                                                                                                                               | The <code>id</code> of the Pack to list.                                                                                                                         |
+| `pack`                                                                                                                                                           | `string`                                                                                                                                                         | :heavy_check_mark:                                                                                                                                               | The <code>id</code> of the Pack.                                                                                                                                 |
 | `type_`                                                                                                                                                          | [*components.DestinationType](../../models/components/destinationtype.md)                                                                                        | :heavy_minus_sign:                                                                                                                                               | Type of Destination to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported. |
 | `opts`                                                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                                                         | :heavy_minus_sign:                                                                                                                                               | The options for this request.                                                                                                                                    |
 
@@ -109,7 +109,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -150,7 +150,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -201,7 +201,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -244,7 +244,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -287,7 +287,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -330,7 +330,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -372,7 +372,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -414,7 +414,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -456,7 +456,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -499,7 +499,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -538,7 +538,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -577,7 +577,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -703,7 +703,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -744,7 +744,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -787,7 +787,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -833,7 +833,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -873,7 +873,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -912,7 +912,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -951,7 +951,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -993,7 +993,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1037,7 +1037,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1081,7 +1081,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1121,7 +1121,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1162,7 +1162,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1206,7 +1206,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1246,7 +1246,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1288,7 +1288,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1330,7 +1330,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1373,7 +1373,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1413,7 +1413,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1455,7 +1455,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1497,7 +1497,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1537,7 +1537,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1580,7 +1580,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1621,7 +1621,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1664,7 +1664,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1705,7 +1705,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1747,7 +1747,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1787,7 +1787,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1828,7 +1828,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1870,7 +1870,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1915,7 +1915,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1960,7 +1960,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2000,7 +2000,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2042,7 +2042,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2084,7 +2084,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2124,7 +2124,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2164,7 +2164,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2203,7 +2203,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2248,7 +2248,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2290,7 +2290,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2335,7 +2335,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2379,7 +2379,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2420,7 +2420,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2463,7 +2463,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2504,7 +2504,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2549,7 +2549,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2591,7 +2591,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2632,7 +2632,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2671,7 +2671,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2716,7 +2716,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2758,7 +2758,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2800,7 +2800,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2842,7 +2842,49 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesStorjS3
+
+<!-- UsageSnippet language="go" operationID="createOutputSystemByPack" method="post" path="/p/{pack}/system/outputs" example="OutputCreateExamplesStorjS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Create(ctx, "<value>", operations.CreateCreateOutputSystemByPackRequestBodyStorjS3(
+        operations.CreateOutputSystemByPackOutputStorjS3{
+            ID: "storj-s3-output",
+            Type: operations.CreateOutputSystemByPackTypeStorjS3StorjS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://gateway.storjshare.io",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2882,7 +2924,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2923,7 +2965,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2964,7 +3006,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3005,7 +3047,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3047,7 +3089,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3091,7 +3133,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3130,7 +3172,133 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplescloudianS3
+
+<!-- UsageSnippet language="go" operationID="createOutputSystemByPack" method="post" path="/p/{pack}/system/outputs" example="OutputCreateExamplescloudianS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Create(ctx, "<value>", operations.CreateCreateOutputSystemByPackRequestBodyCloudianS3(
+        operations.CreateOutputSystemByPackOutputCloudianS3{
+            ID: "cloudian-s3-output",
+            Type: operations.CreateOutputSystemByPackTypeCloudianS3CloudianS3,
+            Endpoint: "https://s3.hyperstore.example.com",
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesdellS3
+
+<!-- UsageSnippet language="go" operationID="createOutputSystemByPack" method="post" path="/p/{pack}/system/outputs" example="OutputCreateExamplesdellS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Create(ctx, "<value>", operations.CreateCreateOutputSystemByPackRequestBodyDellS3(
+        operations.CreateOutputSystemByPackOutputDellS3{
+            ID: "dell-s3-output",
+            Type: operations.CreateOutputSystemByPackTypeDellS3DellS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://powerscale.example.com:9021",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesscalityS3
+
+<!-- UsageSnippet language="go" operationID="createOutputSystemByPack" method="post" path="/p/{pack}/system/outputs" example="OutputCreateExamplesscalityS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Create(ctx, "<value>", operations.CreateCreateOutputSystemByPackRequestBodyScalityS3(
+        operations.CreateOutputSystemByPackOutputScalityS3{
+            ID: "scality-s3-output",
+            Type: operations.CreateOutputSystemByPackTypeScalityS3ScalityS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://s3.scality.example.com",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3141,7 +3309,7 @@ func main() {
 | Parameter                                                                                                        | Type                                                                                                             | Required                                                                                                         | Description                                                                                                      |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                            | :heavy_check_mark:                                                                                               | The context to use for the request.                                                                              |
-| `pack`                                                                                                           | `string`                                                                                                         | :heavy_check_mark:                                                                                               | The <code>id</code> of the Pack to create.                                                                       |
+| `pack`                                                                                                           | `string`                                                                                                         | :heavy_check_mark:                                                                                               | The <code>id</code> of the Pack.                                                                                 |
 | `requestBody`                                                                                                    | [operations.CreateOutputSystemByPackRequestBody](../../models/operations/createoutputsystembypackrequestbody.md) | :heavy_check_mark:                                                                                               | Output object                                                                                                    |
 | `opts`                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                         | :heavy_minus_sign:                                                                                               | The options for this request.                                                                                    |
 
@@ -3188,7 +3356,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3200,7 +3368,7 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Destination to get.           |
-| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack to get.                  |
+| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack.                         |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
@@ -3254,7 +3422,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3294,7 +3462,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3344,7 +3512,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3386,7 +3554,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3428,7 +3596,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3470,7 +3638,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3511,7 +3679,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3552,7 +3720,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3593,7 +3761,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3635,7 +3803,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3673,7 +3841,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3711,7 +3879,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3836,7 +4004,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3876,7 +4044,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3918,7 +4086,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3963,7 +4131,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4002,7 +4170,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4040,7 +4208,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4078,7 +4246,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4119,7 +4287,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4162,7 +4330,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4205,7 +4373,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4244,7 +4412,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4284,7 +4452,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4327,7 +4495,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4366,7 +4534,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4407,7 +4575,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4448,7 +4616,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4490,7 +4658,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4529,7 +4697,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4570,7 +4738,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4611,7 +4779,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4650,7 +4818,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4692,7 +4860,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4732,7 +4900,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4774,7 +4942,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4814,7 +4982,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4855,7 +5023,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4894,7 +5062,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4934,7 +5102,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4975,7 +5143,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5019,7 +5187,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5063,7 +5231,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5102,7 +5270,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5143,7 +5311,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5184,7 +5352,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5223,7 +5391,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5262,7 +5430,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5300,7 +5468,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5344,7 +5512,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5385,7 +5553,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5429,7 +5597,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5472,7 +5640,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5512,7 +5680,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5554,7 +5722,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5594,7 +5762,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5638,7 +5806,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5679,7 +5847,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5719,7 +5887,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5757,7 +5925,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5801,7 +5969,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5842,7 +6010,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5883,7 +6051,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5924,7 +6092,48 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesStorjS3
+
+<!-- UsageSnippet language="go" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="OutputCreateExamplesStorjS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Update(ctx, "<id>", "<value>", components.CreateOutputStorjS3(
+        components.OutputStorjS3{
+            ID: criblcontrolplanesdkgo.Pointer("storj-s3-output"),
+            Type: components.OutputStorjS3TypeStorjS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://gateway.storjshare.io",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5963,7 +6172,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6003,7 +6212,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6043,7 +6252,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6083,7 +6292,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6124,7 +6333,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6167,7 +6376,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6205,7 +6414,130 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplescloudianS3
+
+<!-- UsageSnippet language="go" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="OutputCreateExamplescloudianS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Update(ctx, "<id>", "<value>", components.CreateOutputCloudianS3(
+        components.OutputCloudianS3{
+            ID: criblcontrolplanesdkgo.Pointer("cloudian-s3-output"),
+            Type: components.OutputCloudianS3TypeCloudianS3,
+            Endpoint: "https://s3.hyperstore.example.com",
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesdellS3
+
+<!-- UsageSnippet language="go" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="OutputCreateExamplesdellS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Update(ctx, "<id>", "<value>", components.CreateOutputDellS3(
+        components.OutputDellS3{
+            ID: criblcontrolplanesdkgo.Pointer("dell-s3-output"),
+            Type: components.OutputDellS3TypeDellS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://powerscale.example.com:9021",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesscalityS3
+
+<!-- UsageSnippet language="go" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="OutputCreateExamplesscalityS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Update(ctx, "<id>", "<value>", components.CreateOutputScalityS3(
+        components.OutputScalityS3{
+            ID: criblcontrolplanesdkgo.Pointer("scality-s3-output"),
+            Type: components.OutputScalityS3TypeScalityS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://s3.scality.example.com",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6244,7 +6576,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6256,7 +6588,7 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Destination to update.        |
-| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack to update.               |
+| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack.                         |
 | `output`                                                 | [components.Output](../../models/components/output.md)   | :heavy_check_mark:                                       | Output object                                            |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
@@ -6303,7 +6635,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6315,7 +6647,7 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Destination to delete.        |
-| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack to delete.               |
+| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack.                         |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response

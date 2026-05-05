@@ -10,7 +10,7 @@ import (
 type Versions struct {
 	Branches *Branches
 	Commits  *Commits
-	Configs  *VersionsConfigs
+	Configs  *Configs
 	Statuses *VersionsStatuses
 
 	rootSDK          *CriblControlPlane
@@ -25,7 +25,7 @@ func newVersions(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, 
 		hooks:            hooks,
 		Branches:         newBranches(rootSDK, sdkConfig, hooks),
 		Commits:          newCommits(rootSDK, sdkConfig, hooks),
-		Configs:          newVersionsConfigs(rootSDK, sdkConfig, hooks),
+		Configs:          newConfigs(rootSDK, sdkConfig, hooks),
 		Statuses:         newVersionsStatuses(rootSDK, sdkConfig, hooks),
 	}
 }

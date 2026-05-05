@@ -90,4 +90,8 @@ custom := components.DestinationType("custom_value")
 | `DestinationTypeDatabricks`             | databricks                              |
 | `DestinationTypeWizHec`                 | wiz_hec                                 |
 | `DestinationTypeNutanixObjects`         | nutanix_objects                         |
+| `DestinationTypeStorjS3`                | storj_s3                                |
 | `DestinationTypeAlphasocS3`             | alphasoc_s3                             |
+| `DestinationTypeDellS3`                 | dell_s3                                 |
+| `DestinationTypeCloudianS3`             | cloudian_s3                             |
+| `DestinationTypeScalityS3`              | scality_s3                              |

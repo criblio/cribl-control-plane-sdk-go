@@ -3,8 +3,16 @@
 package components
 
 type ObjectStorageFilter struct {
-	DataTypeID string `json:"dataTypeId"`
-	Filter     string `json:"filter"`
+	DataPathFormat *PathFilterDataFormat `json:"dataPathFormat,omitzero"`
+	DataTypeID     string                `json:"dataTypeId"`
+	Filter         string                `json:"filter"`
+}
+
+func (o *ObjectStorageFilter) GetDataPathFormat() *PathFilterDataFormat {
+	if o == nil {
+		return nil
+	}
+	return o.DataPathFormat
 }
 
 func (o *ObjectStorageFilter) GetDataTypeID() string {

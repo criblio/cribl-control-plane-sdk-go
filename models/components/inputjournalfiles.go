@@ -78,6 +78,8 @@ type InputJournalFiles struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -92,12 +94,15 @@ type InputJournalFiles struct {
 	// Skip log messages that are not part of the current boot session.
 	CurrentBoot *bool `json:"currentBoot,omitzero"`
 	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
-	MaxAgeDur *string `json:"maxAgeDur,omitzero"`
+	MaxAgeDur                 *string `json:"maxAgeDur,omitzero"`
+	SuppressMissingPathErrors *bool   `json:"suppressMissingPathErrors,omitzero"`
 	// Fields to add to events from this input
 	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
 	Description *string             `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (i InputJournalFiles) MarshalJSON() ([]byte, error) {
@@ -167,6 +172,13 @@ func (i *InputJournalFiles) GetStreamtags() []string {
 	return i.Streamtags
 }
 
+func (i *InputJournalFiles) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
+}
+
 func (i *InputJournalFiles) GetConnections() []ItemsTypeConnectionsOptional {
 	if i == nil {
 		return nil
@@ -223,6 +235,13 @@ func (i *InputJournalFiles) GetMaxAgeDur() *string {
 	return i.MaxAgeDur
 }
 
+func (i *InputJournalFiles) GetSuppressMissingPathErrors() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SuppressMissingPathErrors
+}
+
 func (i *InputJournalFiles) GetMetadata() []ItemsTypeMetadata {
 	if i == nil {
 		return nil
@@ -242,4 +261,209 @@ func (i *InputJournalFiles) GetTemplateEnvironment() *string {
 		return nil
 	}
 	return i.TemplateEnvironment
+}
+
+func (i *InputJournalFiles) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+type InputJournalFilesInput struct {
+	// Unique ID for this input
+	ID       *string               `json:"id,omitzero"`
+	Type     InputJournalFilesType `json:"type"`
+	Disabled *bool                 `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
+	Path string `json:"path"`
+	// Time, in seconds, between scanning for journals.
+	Interval *float64 `json:"interval,omitzero"`
+	// The full path of discovered journals are matched against this wildcard list.
+	Journals []string `json:"journals"`
+	// Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
+	Rules []InputJournalFilesRule `json:"rules,omitzero"`
+	// Skip log messages that are not part of the current boot session.
+	CurrentBoot *bool `json:"currentBoot,omitzero"`
+	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
+	MaxAgeDur                 *string `json:"maxAgeDur,omitzero"`
+	SuppressMissingPathErrors *bool   `json:"suppressMissingPathErrors,omitzero"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string             `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+}
+
+func (i InputJournalFilesInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputJournalFilesInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputJournalFilesInput) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputJournalFilesInput) GetType() InputJournalFilesType {
+	if i == nil {
+		return InputJournalFilesType("")
+	}
+	return i.Type
+}
+
+func (i *InputJournalFilesInput) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputJournalFilesInput) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputJournalFilesInput) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputJournalFilesInput) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputJournalFilesInput) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputJournalFilesInput) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputJournalFilesInput) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputJournalFilesInput) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputJournalFilesInput) GetPath() string {
+	if i == nil {
+		return ""
+	}
+	return i.Path
+}
+
+func (i *InputJournalFilesInput) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputJournalFilesInput) GetJournals() []string {
+	if i == nil {
+		return []string{}
+	}
+	return i.Journals
+}
+
+func (i *InputJournalFilesInput) GetRules() []InputJournalFilesRule {
+	if i == nil {
+		return nil
+	}
+	return i.Rules
+}
+
+func (i *InputJournalFilesInput) GetCurrentBoot() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CurrentBoot
+}
+
+func (i *InputJournalFilesInput) GetMaxAgeDur() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxAgeDur
+}
+
+func (i *InputJournalFilesInput) GetSuppressMissingPathErrors() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SuppressMissingPathErrors
+}
+
+func (i *InputJournalFilesInput) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputJournalFilesInput) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputJournalFilesInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputJournalFilesInput) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
 }

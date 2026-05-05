@@ -129,6 +129,8 @@ type InputSplunk struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -170,6 +172,8 @@ type InputSplunk struct {
 	Compress *InputSplunkCompression `json:"compress,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -245,6 +249,13 @@ func (i *InputSplunk) GetStreamtags() []string {
 		return nil
 	}
 	return i.Streamtags
+}
+
+func (i *InputSplunk) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
 }
 
 func (i *InputSplunk) GetConnections() []ItemsTypeConnectionsOptional {
@@ -401,6 +412,13 @@ func (i *InputSplunk) GetTemplateEnvironment() *string {
 	return i.TemplateEnvironment
 }
 
+func (i *InputSplunk) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
 func (i *InputSplunk) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -423,6 +441,330 @@ func (i *InputSplunk) GetTemplateMaxS2Sversion() *string {
 }
 
 func (i *InputSplunk) GetTemplateCompress() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateCompress
+}
+
+type InputSplunkInput struct {
+	// Unique ID for this input
+	ID       *string         `json:"id,omitzero"`
+	Type     InputSplunkType `json:"type"`
+	Disabled *bool           `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host string `json:"host"`
+	// Port to listen on
+	Port float64                    `json:"port"`
+	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
+	// Regex matching IP addresses that are allowed to establish a connection
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
+	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitzero"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitzero"`
+	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
+	// Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
+	AuthTokens []InputSplunkAuthToken `json:"authTokens,omitzero"`
+	// The highest S2S protocol version to advertise during handshake
+	MaxS2Sversion *MaxS2SVersion `json:"maxS2Sversion,omitzero"`
+	Description   *string        `json:"description,omitzero"`
+	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
+	UseFwdTimezone *bool `json:"useFwdTimezone,omitzero"`
+	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
+	DropControlFields *bool `json:"dropControlFields,omitzero"`
+	// Extract and process Splunk-generated metrics as Cribl metrics
+	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
+	// Controls whether to support reading compressed data from a forwarder. Select 'Automatic' to match the forwarder's configuration, or 'Disabled' to reject compressed connections.
+	Compress *InputSplunkCompression `json:"compress,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
+	TemplateMaxS2Sversion *string `json:"__template_maxS2Sversion,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
+}
+
+func (i InputSplunkInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSplunkInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSplunkInput) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSplunkInput) GetType() InputSplunkType {
+	if i == nil {
+		return InputSplunkType("")
+	}
+	return i.Type
+}
+
+func (i *InputSplunkInput) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSplunkInput) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSplunkInput) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSplunkInput) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSplunkInput) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSplunkInput) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSplunkInput) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSplunkInput) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSplunkInput) GetHost() string {
+	if i == nil {
+		return ""
+	}
+	return i.Host
+}
+
+func (i *InputSplunkInput) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputSplunkInput) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputSplunkInput) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputSplunkInput) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputSplunkInput) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputSplunkInput) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputSplunkInput) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputSplunkInput) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputSplunkInput) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSplunkInput) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputSplunkInput) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputSplunkInput) GetAuthTokens() []InputSplunkAuthToken {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputSplunkInput) GetMaxS2Sversion() *MaxS2SVersion {
+	if i == nil {
+		return nil
+	}
+	return i.MaxS2Sversion
+}
+
+func (i *InputSplunkInput) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSplunkInput) GetUseFwdTimezone() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseFwdTimezone
+}
+
+func (i *InputSplunkInput) GetDropControlFields() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DropControlFields
+}
+
+func (i *InputSplunkInput) GetExtractMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ExtractMetrics
+}
+
+func (i *InputSplunkInput) GetCompress() *InputSplunkCompression {
+	if i == nil {
+		return nil
+	}
+	return i.Compress
+}
+
+func (i *InputSplunkInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputSplunkInput) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputSplunkInput) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputSplunkInput) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
+}
+
+func (i *InputSplunkInput) GetTemplateMaxS2Sversion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateMaxS2Sversion
+}
+
+func (i *InputSplunkInput) GetTemplateCompress() *string {
 	if i == nil {
 		return nil
 	}

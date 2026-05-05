@@ -1,0 +1,24 @@
+# OutputResponseOutputSentinelFormat
+
+## Example Usage
+
+```go
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+)
+
+value := components.OutputResponseOutputSentinelFormatNdjson
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.OutputResponseOutputSentinelFormat("custom_value")
+```
+
+
+## Values
+
+| Name                                          | Value                                         |
+| --------------------------------------------- | --------------------------------------------- |
+| `OutputResponseOutputSentinelFormatNdjson`    | ndjson                                        |
+| `OutputResponseOutputSentinelFormatJSONArray` | json_array                                    |
+| `OutputResponseOutputSentinelFormatCustom`    | custom                                        |
+| `OutputResponseOutputSentinelFormatAdvanced`  | advanced                                      |

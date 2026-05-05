@@ -3,346 +3,352 @@
 
 ## Supported Types
 
-### InputCollection
+### InputCollectionInput
 
 ```go
-input2 := components.CreateInput2Collection(components.InputCollection{/* values here */})
+input2 := components.CreateInput2Collection(components.InputCollectionInput{/* values here */})
 ```
 
-### InputKafka
+### InputKafkaInput
 
 ```go
-input2 := components.CreateInput2Kafka(components.InputKafka{/* values here */})
+input2 := components.CreateInput2Kafka(components.InputKafkaInput{/* values here */})
 ```
 
-### InputMsk
+### InputMskInput
 
 ```go
-input2 := components.CreateInput2Msk(components.InputMsk{/* values here */})
+input2 := components.CreateInput2Msk(components.InputMskInput{/* values here */})
 ```
 
-### InputHTTP
+### InputHTTPInput
 
 ```go
-input2 := components.CreateInput2HTTP(components.InputHTTP{/* values here */})
+input2 := components.CreateInput2HTTP(components.InputHTTPInput{/* values here */})
 ```
 
-### InputSplunk
+### InputSplunkInput
 
 ```go
-input2 := components.CreateInput2Splunk(components.InputSplunk{/* values here */})
+input2 := components.CreateInput2Splunk(components.InputSplunkInput{/* values here */})
 ```
 
-### InputSplunkSearch
+### InputSplunkSearchInput
 
 ```go
-input2 := components.CreateInput2SplunkSearch(components.InputSplunkSearch{/* values here */})
+input2 := components.CreateInput2SplunkSearch(components.InputSplunkSearchInput{/* values here */})
 ```
 
-### InputSplunkHec
+### InputSplunkHecInput
 
 ```go
-input2 := components.CreateInput2SplunkHec(components.InputSplunkHec{/* values here */})
+input2 := components.CreateInput2SplunkHec(components.InputSplunkHecInput{/* values here */})
 ```
 
-### InputAzureBlob
+### InputAzureBlobInput
 
 ```go
-input2 := components.CreateInput2AzureBlob(components.InputAzureBlob{/* values here */})
+input2 := components.CreateInput2AzureBlob(components.InputAzureBlobInput{/* values here */})
 ```
 
-### InputElastic
+### InputElasticInput
 
 ```go
-input2 := components.CreateInput2Elastic(components.InputElastic{/* values here */})
+input2 := components.CreateInput2Elastic(components.InputElasticInput{/* values here */})
 ```
 
-### InputConfluentCloud
+### InputConfluentCloudInput
 
 ```go
-input2 := components.CreateInput2ConfluentCloud(components.InputConfluentCloud{/* values here */})
+input2 := components.CreateInput2ConfluentCloud(components.InputConfluentCloudInput{/* values here */})
 ```
 
-### InputGrafana
+### InputGrafanaInputUnion
 
 ```go
-input2 := components.CreateInput2Grafana(components.InputGrafana{/* values here */})
+input2 := components.CreateInput2Grafana(components.InputGrafanaInputUnion{/* values here */})
 ```
 
-### InputLoki
+### InputLokiInput
 
 ```go
-input2 := components.CreateInput2Loki(components.InputLoki{/* values here */})
+input2 := components.CreateInput2Loki(components.InputLokiInput{/* values here */})
 ```
 
-### InputPrometheusRw
+### InputPrometheusRwInput
 
 ```go
-input2 := components.CreateInput2PrometheusRw(components.InputPrometheusRw{/* values here */})
+input2 := components.CreateInput2PrometheusRw(components.InputPrometheusRwInput{/* values here */})
 ```
 
-### InputPrometheus
+### InputPrometheusInput
 
 ```go
-input2 := components.CreateInput2Prometheus(components.InputPrometheus{/* values here */})
+input2 := components.CreateInput2Prometheus(components.InputPrometheusInput{/* values here */})
 ```
 
-### InputEdgePrometheus
+### InputEdgePrometheusInput
 
 ```go
-input2 := components.CreateInput2EdgePrometheus(components.InputEdgePrometheus{/* values here */})
+input2 := components.CreateInput2EdgePrometheus(components.InputEdgePrometheusInput{/* values here */})
 ```
 
-### InputOffice365Mgmt
+### InputOffice365MgmtInput
 
 ```go
-input2 := components.CreateInput2Office365Mgmt(components.InputOffice365Mgmt{/* values here */})
+input2 := components.CreateInput2Office365Mgmt(components.InputOffice365MgmtInput{/* values here */})
 ```
 
-### InputOffice365Service
+### InputOffice365ServiceInput
 
 ```go
-input2 := components.CreateInput2Office365Service(components.InputOffice365Service{/* values here */})
+input2 := components.CreateInput2Office365Service(components.InputOffice365ServiceInput{/* values here */})
 ```
 
-### InputOffice365MsgTrace
+### InputOffice365MsgTraceInput
 
 ```go
-input2 := components.CreateInput2Office365MsgTrace(components.InputOffice365MsgTrace{/* values here */})
+input2 := components.CreateInput2Office365MsgTrace(components.InputOffice365MsgTraceInput{/* values here */})
 ```
 
-### InputMicrosoftGraph
+### InputMicrosoftGraphInput
 
 ```go
-input2 := components.CreateInput2MicrosoftGraph(components.InputMicrosoftGraph{/* values here */})
+input2 := components.CreateInput2MicrosoftGraph(components.InputMicrosoftGraphInput{/* values here */})
 ```
 
-### InputEventhub
+### InputEventhubInput
 
 ```go
-input2 := components.CreateInput2Eventhub(components.InputEventhub{/* values here */})
+input2 := components.CreateInput2Eventhub(components.InputEventhubInput{/* values here */})
 ```
 
-### InputEventhubAmqp
+### InputEventhubAmqpInput
 
 ```go
-input2 := components.CreateInput2EventhubAmqp(components.InputEventhubAmqp{/* values here */})
+input2 := components.CreateInput2EventhubAmqp(components.InputEventhubAmqpInput{/* values here */})
 ```
 
-### InputExec
+### InputExecInput
 
 ```go
-input2 := components.CreateInput2Exec(components.InputExec{/* values here */})
+input2 := components.CreateInput2Exec(components.InputExecInput{/* values here */})
 ```
 
-### InputFirehose
+### InputFirehoseInput
 
 ```go
-input2 := components.CreateInput2Firehose(components.InputFirehose{/* values here */})
+input2 := components.CreateInput2Firehose(components.InputFirehoseInput{/* values here */})
 ```
 
-### InputGooglePubsub
+### InputGooglePubsubInput
 
 ```go
-input2 := components.CreateInput2GooglePubsub(components.InputGooglePubsub{/* values here */})
+input2 := components.CreateInput2GooglePubsub(components.InputGooglePubsubInput{/* values here */})
 ```
 
-### InputCribl
+### InputCriblInput
 
 ```go
-input2 := components.CreateInput2Cribl(components.InputCribl{/* values here */})
+input2 := components.CreateInput2Cribl(components.InputCriblInput{/* values here */})
 ```
 
-### InputCriblTCP
+### InputCriblTCPInput
 
 ```go
-input2 := components.CreateInput2CriblTCP(components.InputCriblTCP{/* values here */})
+input2 := components.CreateInput2CriblTCP(components.InputCriblTCPInput{/* values here */})
 ```
 
-### InputCriblHTTP
+### InputCriblHTTPInput
 
 ```go
-input2 := components.CreateInput2CriblHTTP(components.InputCriblHTTP{/* values here */})
+input2 := components.CreateInput2CriblHTTP(components.InputCriblHTTPInput{/* values here */})
 ```
 
-### InputCriblLakeHTTP
+### InputCriblLakeHTTPInput
 
 ```go
-input2 := components.CreateInput2CriblLakeHTTP(components.InputCriblLakeHTTP{/* values here */})
+input2 := components.CreateInput2CriblLakeHTTP(components.InputCriblLakeHTTPInput{/* values here */})
 ```
 
-### InputTcpjson
+### InputTcpjsonInput
 
 ```go
-input2 := components.CreateInput2Tcpjson(components.InputTcpjson{/* values here */})
+input2 := components.CreateInput2Tcpjson(components.InputTcpjsonInput{/* values here */})
 ```
 
-### InputSystemMetrics
+### InputSystemMetricsInput
 
 ```go
-input2 := components.CreateInput2SystemMetrics(components.InputSystemMetrics{/* values here */})
+input2 := components.CreateInput2SystemMetrics(components.InputSystemMetricsInput{/* values here */})
 ```
 
-### InputSystemState
+### InputSystemStateInput
 
 ```go
-input2 := components.CreateInput2SystemState(components.InputSystemState{/* values here */})
+input2 := components.CreateInput2SystemState(components.InputSystemStateInput{/* values here */})
 ```
 
-### InputKubeMetrics
+### InputKubeMetricsInput
 
 ```go
-input2 := components.CreateInput2KubeMetrics(components.InputKubeMetrics{/* values here */})
+input2 := components.CreateInput2KubeMetrics(components.InputKubeMetricsInput{/* values here */})
 ```
 
-### InputKubeLogs
+### InputKubeLogsInput
 
 ```go
-input2 := components.CreateInput2KubeLogs(components.InputKubeLogs{/* values here */})
+input2 := components.CreateInput2KubeLogs(components.InputKubeLogsInput{/* values here */})
 ```
 
-### InputKubeEvents
+### InputKubeEventsInput
 
 ```go
-input2 := components.CreateInput2KubeEvents(components.InputKubeEvents{/* values here */})
+input2 := components.CreateInput2KubeEvents(components.InputKubeEventsInput{/* values here */})
 ```
 
-### InputWindowsMetrics
+### InputWindowsMetricsInput
 
 ```go
-input2 := components.CreateInput2WindowsMetrics(components.InputWindowsMetrics{/* values here */})
+input2 := components.CreateInput2WindowsMetrics(components.InputWindowsMetricsInput{/* values here */})
 ```
 
-### InputCrowdstrike
+### InputCrowdstrikeInput
 
 ```go
-input2 := components.CreateInput2Crowdstrike(components.InputCrowdstrike{/* values here */})
+input2 := components.CreateInput2Crowdstrike(components.InputCrowdstrikeInput{/* values here */})
 ```
 
-### InputDatadogAgent
+### InputDatadogAgentInput
 
 ```go
-input2 := components.CreateInput2DatadogAgent(components.InputDatadogAgent{/* values here */})
+input2 := components.CreateInput2DatadogAgent(components.InputDatadogAgentInput{/* values here */})
 ```
 
-### InputDatagen
+### InputDatagenInput
 
 ```go
-input2 := components.CreateInput2Datagen(components.InputDatagen{/* values here */})
+input2 := components.CreateInput2Datagen(components.InputDatagenInput{/* values here */})
 ```
 
-### InputHTTPRaw
+### InputHTTPRawInput
 
 ```go
-input2 := components.CreateInput2HTTPRaw(components.InputHTTPRaw{/* values here */})
+input2 := components.CreateInput2HTTPRaw(components.InputHTTPRawInput{/* values here */})
 ```
 
-### InputKinesis
+### InputKinesisInput
 
 ```go
-input2 := components.CreateInput2Kinesis(components.InputKinesis{/* values here */})
+input2 := components.CreateInput2Kinesis(components.InputKinesisInput{/* values here */})
 ```
 
-### InputCriblmetrics
+### InputCriblmetricsInput
 
 ```go
-input2 := components.CreateInput2Criblmetrics(components.InputCriblmetrics{/* values here */})
+input2 := components.CreateInput2Criblmetrics(components.InputCriblmetricsInput{/* values here */})
 ```
 
-### InputMetrics
+### InputMetricsInput
 
 ```go
-input2 := components.CreateInput2Metrics(components.InputMetrics{/* values here */})
+input2 := components.CreateInput2Metrics(components.InputMetricsInput{/* values here */})
 ```
 
-### InputS3
+### InputS3Input
 
 ```go
-input2 := components.CreateInput2S3(components.InputS3{/* values here */})
+input2 := components.CreateInput2S3(components.InputS3Input{/* values here */})
 ```
 
-### InputS3Inventory
+### InputS3InventoryInput
 
 ```go
-input2 := components.CreateInput2S3Inventory(components.InputS3Inventory{/* values here */})
+input2 := components.CreateInput2S3Inventory(components.InputS3InventoryInput{/* values here */})
 ```
 
-### InputSnmp
+### InputSnmpInput
 
 ```go
-input2 := components.CreateInput2Snmp(components.InputSnmp{/* values here */})
+input2 := components.CreateInput2Snmp(components.InputSnmpInput{/* values here */})
 ```
 
-### InputOpenTelemetry
+### InputOpenTelemetryInput
 
 ```go
-input2 := components.CreateInput2OpenTelemetry(components.InputOpenTelemetry{/* values here */})
+input2 := components.CreateInput2OpenTelemetry(components.InputOpenTelemetryInput{/* values here */})
 ```
 
-### InputModelDrivenTelemetry
+### InputModelDrivenTelemetryInput
 
 ```go
-input2 := components.CreateInput2ModelDrivenTelemetry(components.InputModelDrivenTelemetry{/* values here */})
+input2 := components.CreateInput2ModelDrivenTelemetry(components.InputModelDrivenTelemetryInput{/* values here */})
 ```
 
-### InputSqs
+### InputSqsInput
 
 ```go
-input2 := components.CreateInput2Sqs(components.InputSqs{/* values here */})
+input2 := components.CreateInput2Sqs(components.InputSqsInput{/* values here */})
 ```
 
-### InputSyslog
+### InputSyslogInputUnion
 
 ```go
-input2 := components.CreateInput2Syslog(components.InputSyslog{/* values here */})
+input2 := components.CreateInput2Syslog(components.InputSyslogInputUnion{/* values here */})
 ```
 
-### InputFile
+### InputFileInput
 
 ```go
-input2 := components.CreateInput2File(components.InputFile{/* values here */})
+input2 := components.CreateInput2File(components.InputFileInput{/* values here */})
 ```
 
-### InputTCP
+### InputTCPInput
 
 ```go
-input2 := components.CreateInput2TCP(components.InputTCP{/* values here */})
+input2 := components.CreateInput2TCP(components.InputTCPInput{/* values here */})
 ```
 
-### InputAppscope
+### InputAppscopeInput
 
 ```go
-input2 := components.CreateInput2Appscope(components.InputAppscope{/* values here */})
+input2 := components.CreateInput2Appscope(components.InputAppscopeInput{/* values here */})
 ```
 
-### InputWef
+### InputWefInput
 
 ```go
-input2 := components.CreateInput2Wef(components.InputWef{/* values here */})
+input2 := components.CreateInput2Wef(components.InputWefInput{/* values here */})
 ```
 
-### InputWinEventLogs
+### InputWinEventLogsInput
 
 ```go
-input2 := components.CreateInput2WinEventLogs(components.InputWinEventLogs{/* values here */})
+input2 := components.CreateInput2WinEventLogs(components.InputWinEventLogsInput{/* values here */})
 ```
 
-### InputRawUDP
+### InputAppleUnifiedLogsInput
 
 ```go
-input2 := components.CreateInput2RawUDP(components.InputRawUDP{/* values here */})
+input2 := components.CreateInput2AppleUnifiedLogs(components.InputAppleUnifiedLogsInput{/* values here */})
 ```
 
-### InputJournalFiles
+### InputRawUDPInput
 
 ```go
-input2 := components.CreateInput2JournalFiles(components.InputJournalFiles{/* values here */})
+input2 := components.CreateInput2RawUDP(components.InputRawUDPInput{/* values here */})
 ```
 
-### InputWiz
+### InputJournalFilesInput
 
 ```go
-input2 := components.CreateInput2Wiz(components.InputWiz{/* values here */})
+input2 := components.CreateInput2JournalFiles(components.InputJournalFilesInput{/* values here */})
+```
+
+### InputWizInput
+
+```go
+input2 := components.CreateInput2Wiz(components.InputWizInput{/* values here */})
 ```
 
 ### InputOpenaiInput
@@ -351,52 +357,58 @@ input2 := components.CreateInput2Wiz(components.InputWiz{/* values here */})
 input2 := components.CreateInput2Openai(components.InputOpenaiInput{/* values here */})
 ```
 
-### InputWizWebhook
+### InputWizWebhookInput
 
 ```go
-input2 := components.CreateInput2WizWebhook(components.InputWizWebhook{/* values here */})
+input2 := components.CreateInput2WizWebhook(components.InputWizWebhookInput{/* values here */})
 ```
 
-### InputNetflow
+### InputNetflowInput
 
 ```go
-input2 := components.CreateInput2Netflow(components.InputNetflow{/* values here */})
+input2 := components.CreateInput2Netflow(components.InputNetflowInput{/* values here */})
 ```
 
-### InputSecurityLake
+### InputSecurityLakeInput
 
 ```go
-input2 := components.CreateInput2SecurityLake(components.InputSecurityLake{/* values here */})
+input2 := components.CreateInput2SecurityLake(components.InputSecurityLakeInput{/* values here */})
 ```
 
-### InputServicenowTable
+### InputServicenowTableInput
 
 ```go
-input2 := components.CreateInput2ServicenowTable(components.InputServicenowTable{/* values here */})
+input2 := components.CreateInput2ServicenowTable(components.InputServicenowTableInput{/* values here */})
 ```
 
-### InputZscalerHec
+### InputZscalerHecInput
 
 ```go
-input2 := components.CreateInput2ZscalerHec(components.InputZscalerHec{/* values here */})
+input2 := components.CreateInput2ZscalerHec(components.InputZscalerHecInput{/* values here */})
 ```
 
-### InputCloudflareHec
+### InputCloudflareHecInput
 
 ```go
-input2 := components.CreateInput2CloudflareHec(components.InputCloudflareHec{/* values here */})
+input2 := components.CreateInput2CloudflareHec(components.InputCloudflareHecInput{/* values here */})
 ```
 
-### InputOpenaiComplianceLogs
+### InputOpenaiComplianceLogsInput
 
 ```go
-input2 := components.CreateInput2OpenaiComplianceLogs(components.InputOpenaiComplianceLogs{/* values here */})
+input2 := components.CreateInput2OpenaiComplianceLogs(components.InputOpenaiComplianceLogsInput{/* values here */})
 ```
 
-### InputOkta
+### InputAnthropicComplianceInput
 
 ```go
-input2 := components.CreateInput2Okta(components.InputOkta{/* values here */})
+input2 := components.CreateInput2AnthropicCompliance(components.InputAnthropicComplianceInput{/* values here */})
+```
+
+### InputOktaInput
+
+```go
+input2 := components.CreateInput2Okta(components.InputOktaInput{/* values here */})
 ```
 
 ## Union Discrimination
@@ -406,136 +418,140 @@ Use the `Type` field to determine which variant is active, then access the corre
 ```go
 switch input2.Type {
 	case components.Input2TypeCollection:
-		// input2.InputCollection is populated
+		// input2.InputCollectionInput is populated
 	case components.Input2TypeKafka:
-		// input2.InputKafka is populated
+		// input2.InputKafkaInput is populated
 	case components.Input2TypeMsk:
-		// input2.InputMsk is populated
+		// input2.InputMskInput is populated
 	case components.Input2TypeHTTP:
-		// input2.InputHTTP is populated
+		// input2.InputHTTPInput is populated
 	case components.Input2TypeSplunk:
-		// input2.InputSplunk is populated
+		// input2.InputSplunkInput is populated
 	case components.Input2TypeSplunkSearch:
-		// input2.InputSplunkSearch is populated
+		// input2.InputSplunkSearchInput is populated
 	case components.Input2TypeSplunkHec:
-		// input2.InputSplunkHec is populated
+		// input2.InputSplunkHecInput is populated
 	case components.Input2TypeAzureBlob:
-		// input2.InputAzureBlob is populated
+		// input2.InputAzureBlobInput is populated
 	case components.Input2TypeElastic:
-		// input2.InputElastic is populated
+		// input2.InputElasticInput is populated
 	case components.Input2TypeConfluentCloud:
-		// input2.InputConfluentCloud is populated
+		// input2.InputConfluentCloudInput is populated
 	case components.Input2TypeGrafana:
-		// input2.InputGrafana is populated
+		// input2.InputGrafanaInputUnion is populated
 	case components.Input2TypeLoki:
-		// input2.InputLoki is populated
+		// input2.InputLokiInput is populated
 	case components.Input2TypePrometheusRw:
-		// input2.InputPrometheusRw is populated
+		// input2.InputPrometheusRwInput is populated
 	case components.Input2TypePrometheus:
-		// input2.InputPrometheus is populated
+		// input2.InputPrometheusInput is populated
 	case components.Input2TypeEdgePrometheus:
-		// input2.InputEdgePrometheus is populated
+		// input2.InputEdgePrometheusInput is populated
 	case components.Input2TypeOffice365Mgmt:
-		// input2.InputOffice365Mgmt is populated
+		// input2.InputOffice365MgmtInput is populated
 	case components.Input2TypeOffice365Service:
-		// input2.InputOffice365Service is populated
+		// input2.InputOffice365ServiceInput is populated
 	case components.Input2TypeOffice365MsgTrace:
-		// input2.InputOffice365MsgTrace is populated
+		// input2.InputOffice365MsgTraceInput is populated
 	case components.Input2TypeMicrosoftGraph:
-		// input2.InputMicrosoftGraph is populated
+		// input2.InputMicrosoftGraphInput is populated
 	case components.Input2TypeEventhub:
-		// input2.InputEventhub is populated
+		// input2.InputEventhubInput is populated
 	case components.Input2TypeEventhubAmqp:
-		// input2.InputEventhubAmqp is populated
+		// input2.InputEventhubAmqpInput is populated
 	case components.Input2TypeExec:
-		// input2.InputExec is populated
+		// input2.InputExecInput is populated
 	case components.Input2TypeFirehose:
-		// input2.InputFirehose is populated
+		// input2.InputFirehoseInput is populated
 	case components.Input2TypeGooglePubsub:
-		// input2.InputGooglePubsub is populated
+		// input2.InputGooglePubsubInput is populated
 	case components.Input2TypeCribl:
-		// input2.InputCribl is populated
+		// input2.InputCriblInput is populated
 	case components.Input2TypeCriblTCP:
-		// input2.InputCriblTCP is populated
+		// input2.InputCriblTCPInput is populated
 	case components.Input2TypeCriblHTTP:
-		// input2.InputCriblHTTP is populated
+		// input2.InputCriblHTTPInput is populated
 	case components.Input2TypeCriblLakeHTTP:
-		// input2.InputCriblLakeHTTP is populated
+		// input2.InputCriblLakeHTTPInput is populated
 	case components.Input2TypeTcpjson:
-		// input2.InputTcpjson is populated
+		// input2.InputTcpjsonInput is populated
 	case components.Input2TypeSystemMetrics:
-		// input2.InputSystemMetrics is populated
+		// input2.InputSystemMetricsInput is populated
 	case components.Input2TypeSystemState:
-		// input2.InputSystemState is populated
+		// input2.InputSystemStateInput is populated
 	case components.Input2TypeKubeMetrics:
-		// input2.InputKubeMetrics is populated
+		// input2.InputKubeMetricsInput is populated
 	case components.Input2TypeKubeLogs:
-		// input2.InputKubeLogs is populated
+		// input2.InputKubeLogsInput is populated
 	case components.Input2TypeKubeEvents:
-		// input2.InputKubeEvents is populated
+		// input2.InputKubeEventsInput is populated
 	case components.Input2TypeWindowsMetrics:
-		// input2.InputWindowsMetrics is populated
+		// input2.InputWindowsMetricsInput is populated
 	case components.Input2TypeCrowdstrike:
-		// input2.InputCrowdstrike is populated
+		// input2.InputCrowdstrikeInput is populated
 	case components.Input2TypeDatadogAgent:
-		// input2.InputDatadogAgent is populated
+		// input2.InputDatadogAgentInput is populated
 	case components.Input2TypeDatagen:
-		// input2.InputDatagen is populated
+		// input2.InputDatagenInput is populated
 	case components.Input2TypeHTTPRaw:
-		// input2.InputHTTPRaw is populated
+		// input2.InputHTTPRawInput is populated
 	case components.Input2TypeKinesis:
-		// input2.InputKinesis is populated
+		// input2.InputKinesisInput is populated
 	case components.Input2TypeCriblmetrics:
-		// input2.InputCriblmetrics is populated
+		// input2.InputCriblmetricsInput is populated
 	case components.Input2TypeMetrics:
-		// input2.InputMetrics is populated
+		// input2.InputMetricsInput is populated
 	case components.Input2TypeS3:
-		// input2.InputS3 is populated
+		// input2.InputS3Input is populated
 	case components.Input2TypeS3Inventory:
-		// input2.InputS3Inventory is populated
+		// input2.InputS3InventoryInput is populated
 	case components.Input2TypeSnmp:
-		// input2.InputSnmp is populated
+		// input2.InputSnmpInput is populated
 	case components.Input2TypeOpenTelemetry:
-		// input2.InputOpenTelemetry is populated
+		// input2.InputOpenTelemetryInput is populated
 	case components.Input2TypeModelDrivenTelemetry:
-		// input2.InputModelDrivenTelemetry is populated
+		// input2.InputModelDrivenTelemetryInput is populated
 	case components.Input2TypeSqs:
-		// input2.InputSqs is populated
+		// input2.InputSqsInput is populated
 	case components.Input2TypeSyslog:
-		// input2.InputSyslog is populated
+		// input2.InputSyslogInputUnion is populated
 	case components.Input2TypeFile:
-		// input2.InputFile is populated
+		// input2.InputFileInput is populated
 	case components.Input2TypeTCP:
-		// input2.InputTCP is populated
+		// input2.InputTCPInput is populated
 	case components.Input2TypeAppscope:
-		// input2.InputAppscope is populated
+		// input2.InputAppscopeInput is populated
 	case components.Input2TypeWef:
-		// input2.InputWef is populated
+		// input2.InputWefInput is populated
 	case components.Input2TypeWinEventLogs:
-		// input2.InputWinEventLogs is populated
+		// input2.InputWinEventLogsInput is populated
+	case components.Input2TypeAppleUnifiedLogs:
+		// input2.InputAppleUnifiedLogsInput is populated
 	case components.Input2TypeRawUDP:
-		// input2.InputRawUDP is populated
+		// input2.InputRawUDPInput is populated
 	case components.Input2TypeJournalFiles:
-		// input2.InputJournalFiles is populated
+		// input2.InputJournalFilesInput is populated
 	case components.Input2TypeWiz:
-		// input2.InputWiz is populated
+		// input2.InputWizInput is populated
 	case components.Input2TypeOpenai:
 		// input2.InputOpenaiInput is populated
 	case components.Input2TypeWizWebhook:
-		// input2.InputWizWebhook is populated
+		// input2.InputWizWebhookInput is populated
 	case components.Input2TypeNetflow:
-		// input2.InputNetflow is populated
+		// input2.InputNetflowInput is populated
 	case components.Input2TypeSecurityLake:
-		// input2.InputSecurityLake is populated
+		// input2.InputSecurityLakeInput is populated
 	case components.Input2TypeServicenowTable:
-		// input2.InputServicenowTable is populated
+		// input2.InputServicenowTableInput is populated
 	case components.Input2TypeZscalerHec:
-		// input2.InputZscalerHec is populated
+		// input2.InputZscalerHecInput is populated
 	case components.Input2TypeCloudflareHec:
-		// input2.InputCloudflareHec is populated
+		// input2.InputCloudflareHecInput is populated
 	case components.Input2TypeOpenaiComplianceLogs:
-		// input2.InputOpenaiComplianceLogs is populated
+		// input2.InputOpenaiComplianceLogsInput is populated
+	case components.Input2TypeAnthropicCompliance:
+		// input2.InputAnthropicComplianceInput is populated
 	case components.Input2TypeOkta:
-		// input2.InputOkta is populated
+		// input2.InputOktaInput is populated
 }
 ```

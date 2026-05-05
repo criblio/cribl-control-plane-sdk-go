@@ -19,3 +19,4 @@ custom := components.AuthenticationMechanism("custom_value")
 | Name                                      | Value                                     |
 | ----------------------------------------- | ----------------------------------------- |
 | `AuthenticationMechanismConnectionString` | connection-string                         |
+| `AuthenticationMechanismOauthBearer`      | oauth-bearer                              |

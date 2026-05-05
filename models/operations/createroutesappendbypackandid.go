@@ -10,10 +10,10 @@ import (
 type CreateRoutesAppendByPackAndIDRequest struct {
 	// The <code>id</code> of the Routing table to add the Route to. The supported value is <code>default</code>.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// The <code>id</code> of the Pack to append.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 	// RouteDefinitions object
-	RequestBody []components.RouteConfInput `request:"mediaType=application/json"`
+	RequestBody []components.ItemsTypeRoutesInputRoutes `request:"mediaType=application/json"`
 }
 
 func (c *CreateRoutesAppendByPackAndIDRequest) GetID() string {
@@ -30,9 +30,9 @@ func (c *CreateRoutesAppendByPackAndIDRequest) GetPack() string {
 	return c.Pack
 }
 
-func (c *CreateRoutesAppendByPackAndIDRequest) GetRequestBody() []components.RouteConfInput {
+func (c *CreateRoutesAppendByPackAndIDRequest) GetRequestBody() []components.ItemsTypeRoutesInputRoutes {
 	if c == nil {
-		return []components.RouteConfInput{}
+		return []components.ItemsTypeRoutesInputRoutes{}
 	}
 	return c.RequestBody
 }

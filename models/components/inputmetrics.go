@@ -46,6 +46,8 @@ type InputMetrics struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -69,6 +71,8 @@ type InputMetrics struct {
 	Description        *string  `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
@@ -142,6 +146,13 @@ func (i *InputMetrics) GetStreamtags() []string {
 		return nil
 	}
 	return i.Streamtags
+}
+
+func (i *InputMetrics) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
 }
 
 func (i *InputMetrics) GetConnections() []ItemsTypeConnectionsOptional {
@@ -235,6 +246,13 @@ func (i *InputMetrics) GetTemplateEnvironment() *string {
 	return i.TemplateEnvironment
 }
 
+func (i *InputMetrics) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
 func (i *InputMetrics) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -250,6 +268,240 @@ func (i *InputMetrics) GetTemplateUDPPort() *string {
 }
 
 func (i *InputMetrics) GetTemplateTCPPort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTCPPort
+}
+
+type InputMetricsInput struct {
+	// Unique ID for this input
+	ID       *string          `json:"id,omitzero"`
+	Type     InputMetricsType `json:"type"`
+	Disabled *bool            `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host string `json:"host"`
+	// Enter UDP port number to listen on. Not required if listening on TCP.
+	UDPPort *float64 `json:"udpPort,omitzero"`
+	// Enter TCP port number to listen on. Not required if listening on UDP.
+	TCPPort *float64 `json:"tcpPort,omitzero"`
+	// Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
+	MaxBufferSize *float64 `json:"maxBufferSize,omitzero"`
+	// Regex matching IP addresses that are allowed to send data
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
+	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
+	EnableProxyHeader *bool                      `json:"enableProxyHeader,omitzero"`
+	TLS               *TLSSettingsServerSideType `json:"tls,omitzero"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
+	Description        *string  `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
+	TemplateUDPPort *string `json:"__template_udpPort,omitzero"`
+	// Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
+	TemplateTCPPort *string `json:"__template_tcpPort,omitzero"`
+}
+
+func (i InputMetricsInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputMetricsInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputMetricsInput) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputMetricsInput) GetType() InputMetricsType {
+	if i == nil {
+		return InputMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputMetricsInput) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputMetricsInput) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputMetricsInput) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputMetricsInput) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputMetricsInput) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputMetricsInput) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputMetricsInput) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputMetricsInput) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputMetricsInput) GetHost() string {
+	if i == nil {
+		return ""
+	}
+	return i.Host
+}
+
+func (i *InputMetricsInput) GetUDPPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPPort
+}
+
+func (i *InputMetricsInput) GetTCPPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TCPPort
+}
+
+func (i *InputMetricsInput) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputMetricsInput) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputMetricsInput) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputMetricsInput) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputMetricsInput) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputMetricsInput) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputMetricsInput) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputMetricsInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputMetricsInput) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputMetricsInput) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputMetricsInput) GetTemplateUDPPort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateUDPPort
+}
+
+func (i *InputMetricsInput) GetTemplateTCPPort() *string {
 	if i == nil {
 		return nil
 	}

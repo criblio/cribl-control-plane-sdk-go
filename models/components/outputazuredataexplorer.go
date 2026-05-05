@@ -446,6 +446,8 @@ type OutputAzureDataExplorer struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                            `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputAzureDataExplorerPqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'clusterUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clusterUrl' at runtime.
 	TemplateClusterURL *string `json:"__template_clusterUrl,omitzero"`
 	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
@@ -1089,6 +1091,13 @@ func (o *OutputAzureDataExplorer) GetPqControls() *OutputAzureDataExplorerPqCont
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputAzureDataExplorer) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputAzureDataExplorer) GetTemplateClusterURL() *string {

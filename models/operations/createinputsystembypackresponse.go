@@ -10,6 +10,478 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateInputSystemByPackCollectors struct {
+	// Creates events based on entries collected from the hosts file
+	Hostsfile *CreateInputSystemByPackHostsFile `json:"hostsfile,omitzero"`
+	// Creates events for each of the host’s network interfaces
+	Interfaces *CreateInputSystemByPackInterfaces `json:"interfaces,omitzero"`
+	// Creates events for physical disks, partitions, and file systems
+	Disk *CreateInputSystemByPackDisksAndFileSystems `json:"disk,omitzero"`
+	// Creates events based on the host system’s current state
+	Metadata *CreateInputSystemByPackHostInfo `json:"metadata,omitzero"`
+	// Creates events based on entries collected from the host’s network routes
+	Routes *CreateInputSystemByPackRoutes `json:"routes,omitzero"`
+	// Creates events for DNS resolvers and search entries
+	DNS *CreateInputSystemByPackDNS `json:"dns,omitzero"`
+	// Creates events for local users and groups
+	User *CreateInputSystemByPackUsersAndGroups `json:"user,omitzero"`
+	// Creates events for Firewall rules entries
+	Firewall *CreateInputSystemByPackFirewall `json:"firewall,omitzero"`
+	// Creates events from the list of services
+	Services *CreateInputSystemByPackServices `json:"services,omitzero"`
+	// Creates events from list of listening ports
+	Ports *CreateInputSystemByPackListeningPorts `json:"ports,omitzero"`
+	// Creates events from list of logged-in users
+	LoginUsers *CreateInputSystemByPackLoggedInUsers `json:"loginUsers,omitzero"`
+}
+
+func (c CreateInputSystemByPackCollectors) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackCollectors) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackCollectors) GetHostsfile() *CreateInputSystemByPackHostsFile {
+	if c == nil {
+		return nil
+	}
+	return c.Hostsfile
+}
+
+func (c *CreateInputSystemByPackCollectors) GetInterfaces() *CreateInputSystemByPackInterfaces {
+	if c == nil {
+		return nil
+	}
+	return c.Interfaces
+}
+
+func (c *CreateInputSystemByPackCollectors) GetDisk() *CreateInputSystemByPackDisksAndFileSystems {
+	if c == nil {
+		return nil
+	}
+	return c.Disk
+}
+
+func (c *CreateInputSystemByPackCollectors) GetMetadata() *CreateInputSystemByPackHostInfo {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *CreateInputSystemByPackCollectors) GetRoutes() *CreateInputSystemByPackRoutes {
+	if c == nil {
+		return nil
+	}
+	return c.Routes
+}
+
+func (c *CreateInputSystemByPackCollectors) GetDNS() *CreateInputSystemByPackDNS {
+	if c == nil {
+		return nil
+	}
+	return c.DNS
+}
+
+func (c *CreateInputSystemByPackCollectors) GetUser() *CreateInputSystemByPackUsersAndGroups {
+	if c == nil {
+		return nil
+	}
+	return c.User
+}
+
+func (c *CreateInputSystemByPackCollectors) GetFirewall() *CreateInputSystemByPackFirewall {
+	if c == nil {
+		return nil
+	}
+	return c.Firewall
+}
+
+func (c *CreateInputSystemByPackCollectors) GetServices() *CreateInputSystemByPackServices {
+	if c == nil {
+		return nil
+	}
+	return c.Services
+}
+
+func (c *CreateInputSystemByPackCollectors) GetPorts() *CreateInputSystemByPackListeningPorts {
+	if c == nil {
+		return nil
+	}
+	return c.Ports
+}
+
+func (c *CreateInputSystemByPackCollectors) GetLoginUsers() *CreateInputSystemByPackLoggedInUsers {
+	if c == nil {
+		return nil
+	}
+	return c.LoginUsers
+}
+
+type CreateInputSystemByPackPersistenceSystemState struct {
+	// Spool metrics to disk for Cribl Edge and Search
+	Enable *bool `json:"enable,omitzero"`
+	// Time span for each file bucket
+	TimeWindow *string `json:"timeWindow,omitzero"`
+	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
+	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
+	MaxDataTime *string                                             `json:"maxDataTime,omitzero"`
+	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
+	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
+	DestPath *string `json:"destPath,omitzero"`
+}
+
+func (c CreateInputSystemByPackPersistenceSystemState) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemState) GetEnable() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enable
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemState) GetTimeWindow() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TimeWindow
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemState) GetMaxDataSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.MaxDataSize
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemState) GetMaxDataTime() *string {
+	if c == nil {
+		return nil
+	}
+	return c.MaxDataTime
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemState) GetCompress() *components.DataCompressionFormatOptionsPersistence {
+	if c == nil {
+		return nil
+	}
+	return c.Compress
+}
+
+func (c *CreateInputSystemByPackPersistenceSystemState) GetDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DestPath
+}
+
+type CreateInputSystemByPackInputSystemState struct {
+	// Unique ID for this input
+	ID       string                                 `json:"id"`
+	Type     CreateInputSystemByPackTypeSystemState `json:"type"`
+	Disabled *bool                                  `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
+	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
+	Interval *float64 `json:"interval,omitzero"`
+	// Fields to add to events from this input
+	Metadata    []components.ItemsTypeMetadata                 `json:"metadata,omitzero"`
+	Collectors  *CreateInputSystemByPackCollectors             `json:"collectors,omitzero"`
+	Persistence *CreateInputSystemByPackPersistenceSystemState `json:"persistence,omitzero"`
+	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	DisableNativeModule *bool `json:"disableNativeModule,omitzero"`
+	// Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	DisableNativeLastLogModule *bool   `json:"disableNativeLastLogModule,omitzero"`
+	Description                *string `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+}
+
+func (c CreateInputSystemByPackInputSystemState) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackInputSystemState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetType() CreateInputSystemByPackTypeSystemState {
+	if c == nil {
+		return CreateInputSystemByPackTypeSystemState("")
+	}
+	return c.Type
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetDisabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Disabled
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetSendToRoutes() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.SendToRoutes
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetPqEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PqEnabled
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
+		return nil
+	}
+	return c.Connections
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetPq() *components.PqType {
+	if c == nil {
+		return nil
+	}
+	return c.Pq
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetInterval() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Interval
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetCollectors() *CreateInputSystemByPackCollectors {
+	if c == nil {
+		return nil
+	}
+	return c.Collectors
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetPersistence() *CreateInputSystemByPackPersistenceSystemState {
+	if c == nil {
+		return nil
+	}
+	return c.Persistence
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetDisableNativeModule() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DisableNativeModule
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetDisableNativeLastLogModule() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DisableNativeLastLogModule
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
+func (c *CreateInputSystemByPackInputSystemState) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+type CreateInputSystemByPackTypeSystemMetrics string
+
+const (
+	CreateInputSystemByPackTypeSystemMetricsSystemMetrics CreateInputSystemByPackTypeSystemMetrics = "system_metrics"
+)
+
+func (e CreateInputSystemByPackTypeSystemMetrics) ToPointer() *CreateInputSystemByPackTypeSystemMetrics {
+	return &e
+}
+func (e *CreateInputSystemByPackTypeSystemMetrics) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "system_metrics":
+		*e = CreateInputSystemByPackTypeSystemMetrics(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateInputSystemByPackTypeSystemMetrics: %v", v)
+	}
+}
+
+// CreateInputSystemByPackSystemModeSystemMetrics - Select the level of detail for system metrics
+type CreateInputSystemByPackSystemModeSystemMetrics string
+
+const (
+	// CreateInputSystemByPackSystemModeSystemMetricsBasic Basic
+	CreateInputSystemByPackSystemModeSystemMetricsBasic CreateInputSystemByPackSystemModeSystemMetrics = "basic"
+	// CreateInputSystemByPackSystemModeSystemMetricsAll All
+	CreateInputSystemByPackSystemModeSystemMetricsAll CreateInputSystemByPackSystemModeSystemMetrics = "all"
+	// CreateInputSystemByPackSystemModeSystemMetricsCustom Custom
+	CreateInputSystemByPackSystemModeSystemMetricsCustom CreateInputSystemByPackSystemModeSystemMetrics = "custom"
+	// CreateInputSystemByPackSystemModeSystemMetricsDisabled Disabled
+	CreateInputSystemByPackSystemModeSystemMetricsDisabled CreateInputSystemByPackSystemModeSystemMetrics = "disabled"
+)
+
+func (e CreateInputSystemByPackSystemModeSystemMetrics) ToPointer() *CreateInputSystemByPackSystemModeSystemMetrics {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackSystemModeSystemMetrics) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
+}
+
+type CreateInputSystemByPackSystemSystemMetrics struct {
+	// Select the level of detail for system metrics
+	Mode *CreateInputSystemByPackSystemModeSystemMetrics `json:"mode,omitzero"`
+	// Generate metrics for the numbers of processes in various states
+	Processes *bool `json:"processes,omitzero"`
+}
+
+func (c CreateInputSystemByPackSystemSystemMetrics) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackSystemSystemMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackSystemSystemMetrics) GetMode() *CreateInputSystemByPackSystemModeSystemMetrics {
+	if c == nil {
+		return nil
+	}
+	return c.Mode
+}
+
+func (c *CreateInputSystemByPackSystemSystemMetrics) GetProcesses() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Processes
+}
+
+// CreateInputSystemByPackCPUModeSystemMetrics - Select the level of detail for CPU metrics
+type CreateInputSystemByPackCPUModeSystemMetrics string
+
+const (
+	// CreateInputSystemByPackCPUModeSystemMetricsBasic Basic
+	CreateInputSystemByPackCPUModeSystemMetricsBasic CreateInputSystemByPackCPUModeSystemMetrics = "basic"
+	// CreateInputSystemByPackCPUModeSystemMetricsAll All
+	CreateInputSystemByPackCPUModeSystemMetricsAll CreateInputSystemByPackCPUModeSystemMetrics = "all"
+	// CreateInputSystemByPackCPUModeSystemMetricsCustom Custom
+	CreateInputSystemByPackCPUModeSystemMetricsCustom CreateInputSystemByPackCPUModeSystemMetrics = "custom"
+	// CreateInputSystemByPackCPUModeSystemMetricsDisabled Disabled
+	CreateInputSystemByPackCPUModeSystemMetricsDisabled CreateInputSystemByPackCPUModeSystemMetrics = "disabled"
+)
+
+func (e CreateInputSystemByPackCPUModeSystemMetrics) ToPointer() *CreateInputSystemByPackCPUModeSystemMetrics {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputSystemByPackCPUModeSystemMetrics) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "basic", "all", "custom", "disabled":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputSystemByPackCPUSystemMetrics struct {
 	// Select the level of detail for CPU metrics
 	Mode *CreateInputSystemByPackCPUModeSystemMetrics `json:"mode,omitzero"`
@@ -625,6 +1097,8 @@ type CreateInputSystemByPackInputSystemMetrics struct {
 	Description *string                                          `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputSystemMetrics) MarshalJSON() ([]byte, error) {
@@ -771,6 +1245,13 @@ func (c *CreateInputSystemByPackInputSystemMetrics) GetTemplateEnvironment() *st
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputSystemMetrics) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 type CreateInputSystemByPackTypeTcpjson string
 
 const (
@@ -842,6 +1323,8 @@ type CreateInputSystemByPackInputTcpjson struct {
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -1039,6 +1522,13 @@ func (c *CreateInputSystemByPackInputTcpjson) GetTemplateEnvironment() *string {
 		return nil
 	}
 	return c.TemplateEnvironment
+}
+
+func (c *CreateInputSystemByPackInputTcpjson) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateInputSystemByPackInputTcpjson) GetTemplateHost() *string {
@@ -1261,10 +1751,14 @@ type CreateInputSystemByPackInputCriblLakeHTTP struct {
 	Description   *string                                `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+	TemplateAuthTokens *string `json:"__template_authTokens,omitzero"`
 	// Binds 'criblAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'criblAPI' at runtime.
 	TemplateCriblAPI *string `json:"__template_criblAPI,omitzero"`
 	// Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
@@ -1515,6 +2009,13 @@ func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetTemplateEnvironment() *st
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -1527,6 +2028,13 @@ func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetTemplatePort() *string {
 		return nil
 	}
 	return c.TemplatePort
+}
+
+func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetTemplateAuthTokens() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAuthTokens
 }
 
 func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetTemplateCriblAPI() *string {
@@ -1625,6 +2133,8 @@ type CreateInputSystemByPackInputCriblHTTP struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -1838,6 +2348,13 @@ func (c *CreateInputSystemByPackInputCriblHTTP) GetTemplateEnvironment() *string
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputCriblHTTP) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateInputSystemByPackInputCriblHTTP) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -1917,6 +2434,8 @@ type CreateInputSystemByPackInputCriblTCP struct {
 	Description *string                          `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -2095,6 +2614,13 @@ func (c *CreateInputSystemByPackInputCriblTCP) GetTemplateEnvironment() *string 
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputCriblTCP) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateInputSystemByPackInputCriblTCP) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -2156,6 +2682,8 @@ type CreateInputSystemByPackInputCribl struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputCribl) MarshalJSON() ([]byte, error) {
@@ -2267,6 +2795,13 @@ func (c *CreateInputSystemByPackInputCribl) GetTemplateEnvironment() *string {
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputCribl) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 type CreateInputSystemByPackTypeGooglePubsub string
 
 const (
@@ -2339,6 +2874,8 @@ type CreateInputSystemByPackInputGooglePubsub struct {
 	OrderedDelivery *bool `json:"orderedDelivery,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
 	TemplateTopicName *string `json:"__template_topicName,omitzero"`
 	// Binds 'subscriptionName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subscriptionName' at runtime.
@@ -2540,6 +3077,13 @@ func (c *CreateInputSystemByPackInputGooglePubsub) GetTemplateEnvironment() *str
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputGooglePubsub) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateInputSystemByPackInputGooglePubsub) GetTemplateTopicName() *string {
 	if c == nil {
 		return nil
@@ -2636,10 +3180,14 @@ type CreateInputSystemByPackInputFirehose struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+	TemplateAuthTokens *string `json:"__template_authTokens,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputFirehose) MarshalJSON() ([]byte, error) {
@@ -2849,6 +3397,13 @@ func (c *CreateInputSystemByPackInputFirehose) GetTemplateEnvironment() *string 
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputFirehose) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateInputSystemByPackInputFirehose) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -2861,6 +3416,13 @@ func (c *CreateInputSystemByPackInputFirehose) GetTemplatePort() *string {
 		return nil
 	}
 	return c.TemplatePort
+}
+
+func (c *CreateInputSystemByPackInputFirehose) GetTemplateAuthTokens() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAuthTokens
 }
 
 type CreateInputSystemByPackInputExecType string
@@ -2948,6 +3510,8 @@ type CreateInputSystemByPackInputExec struct {
 	CronSchedule *string `json:"cronSchedule,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputExec) MarshalJSON() ([]byte, error) {
@@ -3108,6 +3672,13 @@ func (c *CreateInputSystemByPackInputExec) GetTemplateEnvironment() *string {
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputExec) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 type CreateInputSystemByPackTypeEventhubAmqp string
 
 const (
@@ -3136,6 +3707,8 @@ type CreateInputSystemByPackAuthenticationMechanism string
 const (
 	// CreateInputSystemByPackAuthenticationMechanismConnectionString Connection String
 	CreateInputSystemByPackAuthenticationMechanismConnectionString CreateInputSystemByPackAuthenticationMechanism = "connection-string"
+	// CreateInputSystemByPackAuthenticationMechanismOauthBearer OAuth Bearer
+	CreateInputSystemByPackAuthenticationMechanismOauthBearer CreateInputSystemByPackAuthenticationMechanism = "oauth-bearer"
 )
 
 func (e CreateInputSystemByPackAuthenticationMechanism) ToPointer() *CreateInputSystemByPackAuthenticationMechanism {
@@ -3146,7 +3719,7 @@ func (e CreateInputSystemByPackAuthenticationMechanism) ToPointer() *CreateInput
 func (e *CreateInputSystemByPackAuthenticationMechanism) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "connection-string":
+		case "connection-string", "oauth-bearer":
 			return true
 		}
 	}
@@ -3183,7 +3756,27 @@ type CreateInputSystemByPackAuth struct {
 	// Event Hubs namespace or Event Hub-level connection string
 	ConnectionString *string `json:"connectionString,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitzero"`
+	TextSecret           *string                                     `json:"textSecret,omitzero"`
+	ClientSecretAuthType *components.AuthenticationMethodOptionsAuth `json:"clientSecretAuthType,omitzero"`
+	// Select or create a stored text secret
+	ClientTextSecret *string                                                `json:"clientTextSecret,omitzero"`
+	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	// Endpoint used to acquire authentication tokens from Azure
+	OauthEndpoint *components.MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint,omitzero"`
+	// client_id to pass in the OAuth request parameter
+	ClientID *string `json:"clientId,omitzero"`
+	// Directory ID (tenant identifier) in Azure Active Directory
+	TenantID *string `json:"tenantId,omitzero"`
+	// The fully qualified Event Hubs namespace that the consumer is associated with. This is likely to be similar to {yournamespace}.servicebus.windows.net.
+	FullyQualifiedNamespace *string `json:"fullyQualifiedNamespace,omitzero"`
+	// Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+	TemplateOauthEndpoint *string `json:"__template_oauthEndpoint,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'fullyQualifiedNamespace' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fullyQualifiedNamespace' at runtime.
+	TemplateFullyQualifiedNamespace *string `json:"__template_fullyQualifiedNamespace,omitzero"`
 }
 
 func (c CreateInputSystemByPackAuth) MarshalJSON() ([]byte, error) {
@@ -3223,6 +3816,83 @@ func (c *CreateInputSystemByPackAuth) GetTextSecret() *string {
 		return nil
 	}
 	return c.TextSecret
+}
+
+func (c *CreateInputSystemByPackAuth) GetClientSecretAuthType() *components.AuthenticationMethodOptionsAuth {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretAuthType
+}
+
+func (c *CreateInputSystemByPackAuth) GetClientTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientTextSecret
+}
+
+func (c *CreateInputSystemByPackAuth) GetCertificate() *components.CertificateTypeAzureBlobAuthTypeClientCert {
+	if c == nil {
+		return nil
+	}
+	return c.Certificate
+}
+
+func (c *CreateInputSystemByPackAuth) GetOauthEndpoint() *components.MicrosoftEntraIDAuthenticationEndpointOptionsSasl {
+	if c == nil {
+		return nil
+	}
+	return c.OauthEndpoint
+}
+
+func (c *CreateInputSystemByPackAuth) GetClientID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientID
+}
+
+func (c *CreateInputSystemByPackAuth) GetTenantID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TenantID
+}
+
+func (c *CreateInputSystemByPackAuth) GetFullyQualifiedNamespace() *string {
+	if c == nil {
+		return nil
+	}
+	return c.FullyQualifiedNamespace
+}
+
+func (c *CreateInputSystemByPackAuth) GetTemplateOauthEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOauthEndpoint
+}
+
+func (c *CreateInputSystemByPackAuth) GetTemplateClientID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateClientID
+}
+
+func (c *CreateInputSystemByPackAuth) GetTemplateTenantID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTenantID
+}
+
+func (c *CreateInputSystemByPackAuth) GetTemplateFullyQualifiedNamespace() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFullyQualifiedNamespace
 }
 
 // CreateInputSystemByPackCheckpointStore - The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
@@ -3488,6 +4158,8 @@ type CreateInputSystemByPackInputEventhubAmqp struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputEventhubAmqp) MarshalJSON() ([]byte, error) {
@@ -3697,6 +4369,13 @@ func (c *CreateInputSystemByPackInputEventhubAmqp) GetTemplateEnvironment() *str
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 type CreateInputSystemByPackTypeEventhub string
 
 const (
@@ -3795,6 +4474,12 @@ type CreateInputSystemByPackInputEventhub struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+	TemplateBrokers *string `json:"__template_brokers,omitzero"`
+	// Binds 'topics' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topics' at runtime.
+	TemplateTopics *string `json:"__template_topics,omitzero"`
 	// Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
 	TemplateGroupID *string `json:"__template_groupId,omitzero"`
 }
@@ -4062,6 +4747,27 @@ func (c *CreateInputSystemByPackInputEventhub) GetTemplateEnvironment() *string 
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputEventhub) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputEventhub) GetTemplateBrokers() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBrokers
+}
+
+func (c *CreateInputSystemByPackInputEventhub) GetTemplateTopics() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTopics
+}
+
 func (c *CreateInputSystemByPackInputEventhub) GetTemplateGroupID() *string {
 	if c == nil {
 		return nil
@@ -4216,6 +4922,8 @@ type CreateInputSystemByPackInputMicrosoftGraph struct {
 	CertOptions *components.CertOptionsType `json:"certOptions,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
@@ -4498,6 +5206,13 @@ func (c *CreateInputSystemByPackInputMicrosoftGraph) GetTemplateEnvironment() *s
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateInputSystemByPackInputMicrosoftGraph) GetTemplateURL() *string {
 	if c == nil {
 		return nil
@@ -4655,6 +5370,8 @@ type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	CertOptions *components.CertOptionsType `json:"certOptions,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
@@ -4951,6 +5668,13 @@ func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetTemplateEnvironment()
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetTemplateURL() *string {
 	if c == nil {
 		return nil
@@ -5122,6 +5846,8 @@ type CreateInputSystemByPackInputOffice365Service struct {
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
 	TemplatePlanType *string `json:"__template_planType,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
@@ -5332,6 +6058,13 @@ func (c *CreateInputSystemByPackInputOffice365Service) GetTemplateEnvironment() 
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputOffice365Service) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateInputSystemByPackInputOffice365Service) GetTemplatePlanType() *string {
 	if c == nil {
 		return nil
@@ -5500,6 +6233,8 @@ type CreateInputSystemByPackInputOffice365Mgmt struct {
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
 	TemplatePlanType *string `json:"__template_planType,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
@@ -5724,6 +6459,13 @@ func (c *CreateInputSystemByPackInputOffice365Mgmt) GetTemplateEnvironment() *st
 		return nil
 	}
 	return c.TemplateEnvironment
+}
+
+func (c *CreateInputSystemByPackInputOffice365Mgmt) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateInputSystemByPackInputOffice365Mgmt) GetTemplatePlanType() *string {
@@ -6014,6 +6756,12 @@ type CreateInputSystemByPackInputEdgePrometheus struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'dimensionList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dimensionList' at runtime.
+	TemplateDimensionList *string `json:"__template_dimensionList,omitzero"`
+	// Binds 'nameList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nameList' at runtime.
+	TemplateNameList *string `json:"__template_nameList,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
@@ -6368,6 +7116,27 @@ func (c *CreateInputSystemByPackInputEdgePrometheus) GetTemplateEnvironment() *s
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputEdgePrometheus) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputEdgePrometheus) GetTemplateDimensionList() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateDimensionList
+}
+
+func (c *CreateInputSystemByPackInputEdgePrometheus) GetTemplateNameList() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateNameList
+}
+
 func (c *CreateInputSystemByPackInputEdgePrometheus) GetTemplateAwsAPIKey() *string {
 	if c == nil {
 		return nil
@@ -6574,10 +7343,18 @@ type CreateInputSystemByPackInputPrometheus struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'dimensionList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dimensionList' at runtime.
+	TemplateDimensionList *string `json:"__template_dimensionList,omitzero"`
 	// Binds 'discoveryType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoveryType' at runtime.
 	TemplateDiscoveryType *string `json:"__template_discoveryType,omitzero"`
 	// Binds 'logLevel' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLevel' at runtime.
 	TemplateLogLevel *string `json:"__template_logLevel,omitzero"`
+	// Binds 'targetList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'targetList' at runtime.
+	TemplateTargetList *string `json:"__template_targetList,omitzero"`
+	// Binds 'nameList' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nameList' at runtime.
+	TemplateNameList *string `json:"__template_nameList,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
@@ -6943,6 +7720,20 @@ func (c *CreateInputSystemByPackInputPrometheus) GetTemplateEnvironment() *strin
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputPrometheus) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputPrometheus) GetTemplateDimensionList() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateDimensionList
+}
+
 func (c *CreateInputSystemByPackInputPrometheus) GetTemplateDiscoveryType() *string {
 	if c == nil {
 		return nil
@@ -6955,6 +7746,20 @@ func (c *CreateInputSystemByPackInputPrometheus) GetTemplateLogLevel() *string {
 		return nil
 	}
 	return c.TemplateLogLevel
+}
+
+func (c *CreateInputSystemByPackInputPrometheus) GetTemplateTargetList() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTargetList
+}
+
+func (c *CreateInputSystemByPackInputPrometheus) GetTemplateNameList() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateNameList
 }
 
 func (c *CreateInputSystemByPackInputPrometheus) GetTemplateAwsAPIKey() *string {
@@ -7098,6 +7903,8 @@ type CreateInputSystemByPackInputPrometheusRw struct {
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -7357,6 +8164,13 @@ func (c *CreateInputSystemByPackInputPrometheusRw) GetTemplateEnvironment() *str
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputPrometheusRw) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateInputSystemByPackInputPrometheusRw) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -7470,6 +8284,8 @@ type CreateInputSystemByPackInputLoki struct {
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -7727,6 +8543,13 @@ func (c *CreateInputSystemByPackInputLoki) GetTemplateEnvironment() *string {
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputLoki) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateInputSystemByPackInputLoki) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -7965,6 +8788,8 @@ type CreateInputSystemByPackInputGrafanaGrafana2 struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -8201,6 +9026,13 @@ func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetTemplateEnvironment() *
 		return nil
 	}
 	return c.TemplateEnvironment
+}
+
+func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetTemplateHost() *string {
@@ -8451,6 +9283,8 @@ type CreateInputSystemByPackInputGrafanaGrafana1 struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -8689,6 +9523,13 @@ func (c *CreateInputSystemByPackInputGrafanaGrafana1) GetTemplateEnvironment() *
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputGrafanaGrafana1) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateInputSystemByPackInputGrafanaGrafana1) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -8907,6 +9748,12 @@ type CreateInputSystemByPackInputConfluentCloud struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+	TemplateBrokers *string `json:"__template_brokers,omitzero"`
+	// Binds 'topics' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topics' at runtime.
+	TemplateTopics *string `json:"__template_topics,omitzero"`
 	// Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
 	TemplateGroupID *string `json:"__template_groupId,omitzero"`
 }
@@ -9172,6 +10019,27 @@ func (c *CreateInputSystemByPackInputConfluentCloud) GetTemplateEnvironment() *s
 		return nil
 	}
 	return c.TemplateEnvironment
+}
+
+func (c *CreateInputSystemByPackInputConfluentCloud) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputConfluentCloud) GetTemplateBrokers() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBrokers
+}
+
+func (c *CreateInputSystemByPackInputConfluentCloud) GetTemplateTopics() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTopics
 }
 
 func (c *CreateInputSystemByPackInputConfluentCloud) GetTemplateGroupID() *string {
@@ -9451,12 +10319,16 @@ type CreateInputSystemByPackInputElastic struct {
 	CustomAPIVersion *string `json:"customAPIVersion,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
 	// Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
 	TemplateElasticAPI *string `json:"__template_elasticAPI,omitzero"`
+	// Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+	TemplateAuthTokens *string `json:"__template_authTokens,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputElastic) MarshalJSON() ([]byte, error) {
@@ -9729,6 +10601,13 @@ func (c *CreateInputSystemByPackInputElastic) GetTemplateEnvironment() *string {
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputElastic) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateInputSystemByPackInputElastic) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -9748,6 +10627,13 @@ func (c *CreateInputSystemByPackInputElastic) GetTemplateElasticAPI() *string {
 		return nil
 	}
 	return c.TemplateElasticAPI
+}
+
+func (c *CreateInputSystemByPackInputElastic) GetTemplateAuthTokens() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAuthTokens
 }
 
 type CreateInputSystemByPackTypeAzureBlob string
@@ -9836,6 +10722,8 @@ type CreateInputSystemByPackInputAzureBlob struct {
 	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
 	TemplateQueueName *string `json:"__template_queueName,omitzero"`
 	// Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
@@ -10099,6 +10987,13 @@ func (c *CreateInputSystemByPackInputAzureBlob) GetTemplateEnvironment() *string
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputAzureBlob) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateInputSystemByPackInputAzureBlob) GetTemplateQueueName() *string {
 	if c == nil {
 		return nil
@@ -10312,6 +11207,8 @@ type CreateInputSystemByPackInputSplunkHec struct {
 	Description      *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -10597,6 +11494,13 @@ func (c *CreateInputSystemByPackInputSplunkHec) GetTemplateEnvironment() *string
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputSplunkHec) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateInputSystemByPackInputSplunkHec) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -10823,10 +11727,10 @@ type CreateInputSystemByPackInputSplunkSearch struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Splunk Search authentication type
-	AuthType    *CreateInputSystemByPackAuthenticationTypeSplunkSearch `json:"authType,omitzero"`
-	Description *string                                                `json:"description,omitzero"`
-	Username    *string                                                `json:"username,omitzero"`
-	Password    *string                                                `json:"password,omitzero"`
+	AuthType    CreateInputSystemByPackAuthenticationTypeSplunkSearch `json:"authType"`
+	Description *string                                               `json:"description,omitzero"`
+	Username    *string                                               `json:"username,omitzero"`
+	Password    *string                                               `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -10835,6 +11739,8 @@ type CreateInputSystemByPackInputSplunkSearch struct {
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
 	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
 	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
@@ -11091,9 +11997,9 @@ func (c *CreateInputSystemByPackInputSplunkSearch) GetStaleChannelFlushMs() *flo
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputSystemByPackInputSplunkSearch) GetAuthType() *CreateInputSystemByPackAuthenticationTypeSplunkSearch {
+func (c *CreateInputSystemByPackInputSplunkSearch) GetAuthType() CreateInputSystemByPackAuthenticationTypeSplunkSearch {
 	if c == nil {
-		return nil
+		return CreateInputSystemByPackAuthenticationTypeSplunkSearch("")
 	}
 	return c.AuthType
 }
@@ -11145,6 +12051,13 @@ func (c *CreateInputSystemByPackInputSplunkSearch) GetTemplateEnvironment() *str
 		return nil
 	}
 	return c.TemplateEnvironment
+}
+
+func (c *CreateInputSystemByPackInputSplunkSearch) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateInputSystemByPackInputSplunkSearch) GetTemplateSearchHead() *string {
@@ -11351,6 +12264,8 @@ type CreateInputSystemByPackInputSplunk struct {
 	Compress *CreateInputSystemByPackCompression `json:"compress,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -11582,6 +12497,13 @@ func (c *CreateInputSystemByPackInputSplunk) GetTemplateEnvironment() *string {
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputSplunk) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateInputSystemByPackInputSplunk) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -11694,10 +12616,14 @@ type CreateInputSystemByPackInputHTTP struct {
 	Description   *string                             `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
 	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'authTokens' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'authTokens' at runtime.
+	TemplateAuthTokens *string `json:"__template_authTokens,omitzero"`
 	// Binds 'criblAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'criblAPI' at runtime.
 	TemplateCriblAPI *string `json:"__template_criblAPI,omitzero"`
 	// Binds 'elasticAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'elasticAPI' at runtime.
@@ -11948,6 +12874,13 @@ func (c *CreateInputSystemByPackInputHTTP) GetTemplateEnvironment() *string {
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputHTTP) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateInputSystemByPackInputHTTP) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -11960,6 +12893,13 @@ func (c *CreateInputSystemByPackInputHTTP) GetTemplatePort() *string {
 		return nil
 	}
 	return c.TemplatePort
+}
+
+func (c *CreateInputSystemByPackInputHTTP) GetTemplateAuthTokens() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAuthTokens
 }
 
 func (c *CreateInputSystemByPackInputHTTP) GetTemplateCriblAPI() *string {
@@ -12103,6 +13043,12 @@ type CreateInputSystemByPackInputMsk struct {
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+	TemplateBrokers *string `json:"__template_brokers,omitzero"`
+	// Binds 'topics' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topics' at runtime.
+	TemplateTopics *string `json:"__template_topics,omitzero"`
 	// Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
 	TemplateGroupID *string `json:"__template_groupId,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
@@ -12466,6 +13412,27 @@ func (c *CreateInputSystemByPackInputMsk) GetTemplateEnvironment() *string {
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputMsk) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputMsk) GetTemplateBrokers() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBrokers
+}
+
+func (c *CreateInputSystemByPackInputMsk) GetTemplateTopics() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTopics
+}
+
 func (c *CreateInputSystemByPackInputMsk) GetTemplateGroupID() *string {
 	if c == nil {
 		return nil
@@ -12613,6 +13580,12 @@ type CreateInputSystemByPackInputKafka struct {
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+	TemplateBrokers *string `json:"__template_brokers,omitzero"`
+	// Binds 'topics' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topics' at runtime.
+	TemplateTopics *string `json:"__template_topics,omitzero"`
 	// Binds 'groupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'groupId' at runtime.
 	TemplateGroupID *string `json:"__template_groupId,omitzero"`
 }
@@ -12880,6 +13853,27 @@ func (c *CreateInputSystemByPackInputKafka) GetTemplateEnvironment() *string {
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputKafka) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputSystemByPackInputKafka) GetTemplateBrokers() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBrokers
+}
+
+func (c *CreateInputSystemByPackInputKafka) GetTemplateTopics() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTopics
+}
+
 func (c *CreateInputSystemByPackInputKafka) GetTemplateGroupID() *string {
 	if c == nil {
 		return nil
@@ -12941,6 +13935,8 @@ type CreateInputSystemByPackInputCollection struct {
 	Output *string `json:"output,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (c CreateInputSystemByPackInputCollection) MarshalJSON() ([]byte, error) {
@@ -13073,6 +14069,13 @@ func (c *CreateInputSystemByPackInputCollection) GetTemplateEnvironment() *strin
 	return c.TemplateEnvironment
 }
 
+func (c *CreateInputSystemByPackInputCollection) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 type CreateInputSystemByPackRequestBodyType string
 
 const (
@@ -13130,6 +14133,7 @@ const (
 	CreateInputSystemByPackRequestBodyTypeAppscope             CreateInputSystemByPackRequestBodyType = "appscope"
 	CreateInputSystemByPackRequestBodyTypeWef                  CreateInputSystemByPackRequestBodyType = "wef"
 	CreateInputSystemByPackRequestBodyTypeWinEventLogs         CreateInputSystemByPackRequestBodyType = "win_event_logs"
+	CreateInputSystemByPackRequestBodyTypeAppleUnifiedLogs     CreateInputSystemByPackRequestBodyType = "apple_unified_logs"
 	CreateInputSystemByPackRequestBodyTypeRawUDP               CreateInputSystemByPackRequestBodyType = "raw_udp"
 	CreateInputSystemByPackRequestBodyTypeJournalFiles         CreateInputSystemByPackRequestBodyType = "journal_files"
 	CreateInputSystemByPackRequestBodyTypeWiz                  CreateInputSystemByPackRequestBodyType = "wiz"
@@ -13141,6 +14145,7 @@ const (
 	CreateInputSystemByPackRequestBodyTypeZscalerHec           CreateInputSystemByPackRequestBodyType = "zscaler_hec"
 	CreateInputSystemByPackRequestBodyTypeCloudflareHec        CreateInputSystemByPackRequestBodyType = "cloudflare_hec"
 	CreateInputSystemByPackRequestBodyTypeOpenaiComplianceLogs CreateInputSystemByPackRequestBodyType = "openai_compliance_logs"
+	CreateInputSystemByPackRequestBodyTypeAnthropicCompliance  CreateInputSystemByPackRequestBodyType = "anthropic_compliance"
 	CreateInputSystemByPackRequestBodyTypeOkta                 CreateInputSystemByPackRequestBodyType = "okta"
 )
 
@@ -13200,6 +14205,7 @@ type CreateInputSystemByPackRequestBody struct {
 	CreateInputSystemByPackInputAppscope             *CreateInputSystemByPackInputAppscope             `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputWef                  *CreateInputSystemByPackInputWef                  `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputWinEventLogs         *CreateInputSystemByPackInputWinEventLogs         `queryParam:"inline" union:"member"`
+	CreateInputSystemByPackInputAppleUnifiedLogs     *CreateInputSystemByPackInputAppleUnifiedLogs     `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputRawUDP               *CreateInputSystemByPackInputRawUDP               `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputJournalFiles         *CreateInputSystemByPackInputJournalFiles         `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputWiz                  *CreateInputSystemByPackInputWiz                  `queryParam:"inline" union:"member"`
@@ -13211,6 +14217,7 @@ type CreateInputSystemByPackRequestBody struct {
 	CreateInputSystemByPackInputZscalerHec           *CreateInputSystemByPackInputZscalerHec           `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputCloudflareHec        *CreateInputSystemByPackInputCloudflareHec        `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputOpenaiComplianceLogs *CreateInputSystemByPackInputOpenaiComplianceLogs `queryParam:"inline" union:"member"`
+	CreateInputSystemByPackInputAnthropicCompliance  *CreateInputSystemByPackInputAnthropicCompliance  `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputOkta                 *CreateInputSystemByPackInputOkta                 `queryParam:"inline" union:"member"`
 
 	Type CreateInputSystemByPackRequestBodyType
@@ -13858,6 +14865,18 @@ func CreateCreateInputSystemByPackRequestBodyWinEventLogs(winEventLogs CreateInp
 	}
 }
 
+func CreateCreateInputSystemByPackRequestBodyAppleUnifiedLogs(appleUnifiedLogs CreateInputSystemByPackInputAppleUnifiedLogs) CreateInputSystemByPackRequestBody {
+	typ := CreateInputSystemByPackRequestBodyTypeAppleUnifiedLogs
+
+	typStr := CreateInputSystemByPackTypeAppleUnifiedLogs(typ)
+	appleUnifiedLogs.Type = typStr
+
+	return CreateInputSystemByPackRequestBody{
+		CreateInputSystemByPackInputAppleUnifiedLogs: &appleUnifiedLogs,
+		Type: typ,
+	}
+}
+
 func CreateCreateInputSystemByPackRequestBodyRawUDP(rawUDP CreateInputSystemByPackInputRawUDP) CreateInputSystemByPackRequestBody {
 	typ := CreateInputSystemByPackRequestBodyTypeRawUDP
 
@@ -13986,6 +15005,18 @@ func CreateCreateInputSystemByPackRequestBodyOpenaiComplianceLogs(openaiComplian
 
 	return CreateInputSystemByPackRequestBody{
 		CreateInputSystemByPackInputOpenaiComplianceLogs: &openaiComplianceLogs,
+		Type: typ,
+	}
+}
+
+func CreateCreateInputSystemByPackRequestBodyAnthropicCompliance(anthropicCompliance CreateInputSystemByPackInputAnthropicCompliance) CreateInputSystemByPackRequestBody {
+	typ := CreateInputSystemByPackRequestBodyTypeAnthropicCompliance
+
+	typStr := CreateInputSystemByPackTypeAnthropicCompliance(typ)
+	anthropicCompliance.Type = typStr
+
+	return CreateInputSystemByPackRequestBody{
+		CreateInputSystemByPackInputAnthropicCompliance: &anthropicCompliance,
 		Type: typ,
 	}
 }
@@ -14500,6 +15531,15 @@ func (u *CreateInputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 		u.CreateInputSystemByPackInputWinEventLogs = createInputSystemByPackInputWinEventLogs
 		u.Type = CreateInputSystemByPackRequestBodyTypeWinEventLogs
 		return nil
+	case "apple_unified_logs":
+		createInputSystemByPackInputAppleUnifiedLogs := new(CreateInputSystemByPackInputAppleUnifiedLogs)
+		if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputAppleUnifiedLogs, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == apple_unified_logs) type CreateInputSystemByPackInputAppleUnifiedLogs within CreateInputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateInputSystemByPackInputAppleUnifiedLogs = createInputSystemByPackInputAppleUnifiedLogs
+		u.Type = CreateInputSystemByPackRequestBodyTypeAppleUnifiedLogs
+		return nil
 	case "raw_udp":
 		createInputSystemByPackInputRawUDP := new(CreateInputSystemByPackInputRawUDP)
 		if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputRawUDP, "", true, nil); err != nil {
@@ -14598,6 +15638,15 @@ func (u *CreateInputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 
 		u.CreateInputSystemByPackInputOpenaiComplianceLogs = createInputSystemByPackInputOpenaiComplianceLogs
 		u.Type = CreateInputSystemByPackRequestBodyTypeOpenaiComplianceLogs
+		return nil
+	case "anthropic_compliance":
+		createInputSystemByPackInputAnthropicCompliance := new(CreateInputSystemByPackInputAnthropicCompliance)
+		if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputAnthropicCompliance, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == anthropic_compliance) type CreateInputSystemByPackInputAnthropicCompliance within CreateInputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateInputSystemByPackInputAnthropicCompliance = createInputSystemByPackInputAnthropicCompliance
+		u.Type = CreateInputSystemByPackRequestBodyTypeAnthropicCompliance
 		return nil
 	case "okta":
 		createInputSystemByPackInputOkta := new(CreateInputSystemByPackInputOkta)
@@ -14830,6 +15879,10 @@ func (u CreateInputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CreateInputSystemByPackInputWinEventLogs, "", true)
 	}
 
+	if u.CreateInputSystemByPackInputAppleUnifiedLogs != nil {
+		return utils.MarshalJSON(u.CreateInputSystemByPackInputAppleUnifiedLogs, "", true)
+	}
+
 	if u.CreateInputSystemByPackInputRawUDP != nil {
 		return utils.MarshalJSON(u.CreateInputSystemByPackInputRawUDP, "", true)
 	}
@@ -14874,6 +15927,10 @@ func (u CreateInputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CreateInputSystemByPackInputOpenaiComplianceLogs, "", true)
 	}
 
+	if u.CreateInputSystemByPackInputAnthropicCompliance != nil {
+		return utils.MarshalJSON(u.CreateInputSystemByPackInputAnthropicCompliance, "", true)
+	}
+
 	if u.CreateInputSystemByPackInputOkta != nil {
 		return utils.MarshalJSON(u.CreateInputSystemByPackInputOkta, "", true)
 	}
@@ -14882,7 +15939,7 @@ func (u CreateInputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 }
 
 type CreateInputSystemByPackRequest struct {
-	// The <code>id</code> of the Pack to create.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 	// Input object
 	RequestBody CreateInputSystemByPackRequestBody `request:"mediaType=application/json"`
@@ -15118,6 +16175,10 @@ func (c *CreateInputSystemByPackRequest) GetRequestBodyWinEventLogs() *CreateInp
 	return c.GetRequestBody().CreateInputSystemByPackInputWinEventLogs
 }
 
+func (c *CreateInputSystemByPackRequest) GetRequestBodyAppleUnifiedLogs() *CreateInputSystemByPackInputAppleUnifiedLogs {
+	return c.GetRequestBody().CreateInputSystemByPackInputAppleUnifiedLogs
+}
+
 func (c *CreateInputSystemByPackRequest) GetRequestBodyRawUDP() *CreateInputSystemByPackInputRawUDP {
 	return c.GetRequestBody().CreateInputSystemByPackInputRawUDP
 }
@@ -15162,6 +16223,10 @@ func (c *CreateInputSystemByPackRequest) GetRequestBodyOpenaiComplianceLogs() *C
 	return c.GetRequestBody().CreateInputSystemByPackInputOpenaiComplianceLogs
 }
 
+func (c *CreateInputSystemByPackRequest) GetRequestBodyAnthropicCompliance() *CreateInputSystemByPackInputAnthropicCompliance {
+	return c.GetRequestBody().CreateInputSystemByPackInputAnthropicCompliance
+}
+
 func (c *CreateInputSystemByPackRequest) GetRequestBodyOkta() *CreateInputSystemByPackInputOkta {
 	return c.GetRequestBody().CreateInputSystemByPackInputOkta
 }
@@ -15169,7 +16234,7 @@ func (c *CreateInputSystemByPackRequest) GetRequestBodyOkta() *CreateInputSystem
 type CreateInputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the created Source object
-	CountedInput *components.CountedInput
+	CountedInputResponse *components.CountedInputResponse
 }
 
 func (c CreateInputSystemByPackResponse) MarshalJSON() ([]byte, error) {
@@ -15190,9 +16255,9 @@ func (c *CreateInputSystemByPackResponse) GetHTTPMeta() components.HTTPMetadata 
 	return c.HTTPMeta
 }
 
-func (c *CreateInputSystemByPackResponse) GetCountedInput() *components.CountedInput {
+func (c *CreateInputSystemByPackResponse) GetCountedInputResponse() *components.CountedInputResponse {
 	if c == nil {
 		return nil
 	}
-	return c.CountedInput
+	return c.CountedInputResponse
 }

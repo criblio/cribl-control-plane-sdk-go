@@ -72,6 +72,8 @@ type InputOffice365MsgTrace struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -130,6 +132,8 @@ type InputOffice365MsgTrace struct {
 	CertOptions *CertOptionsType `json:"certOptions,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
@@ -207,6 +211,13 @@ func (i *InputOffice365MsgTrace) GetStreamtags() []string {
 		return nil
 	}
 	return i.Streamtags
+}
+
+func (i *InputOffice365MsgTrace) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
 }
 
 func (i *InputOffice365MsgTrace) GetConnections() []ItemsTypeConnectionsOptional {
@@ -426,6 +437,13 @@ func (i *InputOffice365MsgTrace) GetTemplateEnvironment() *string {
 	return i.TemplateEnvironment
 }
 
+func (i *InputOffice365MsgTrace) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
 func (i *InputOffice365MsgTrace) GetTemplateURL() *string {
 	if i == nil {
 		return nil
@@ -463,3 +481,419 @@ func (i *InputOffice365MsgTrace) GetTemplatePlanType() *string {
 
 // #region class-body-inputoffice365msgtrace
 // #endregion class-body-inputoffice365msgtrace
+
+type InputOffice365MsgTraceInput struct {
+	// Unique ID for this input
+	ID       *string                    `json:"id,omitzero"`
+	Type     InputOffice365MsgTraceType `json:"type"`
+	Disabled *bool                      `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// URL to use when retrieving report data.
+	URL string `json:"url"`
+	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
+	Interval int64 `json:"interval"`
+	// Backward offset for the search range's head. (E.g.: -3h@h) Message Trace data is delayed; this parameter (with Date range end) compensates for delay and gaps.
+	StartDate *string `json:"startDate,omitzero"`
+	// Backward offset for the search range's tail. (E.g.: -2h@h) Message Trace data is delayed; this parameter (with Date range start) compensates for delay and gaps.
+	EndDate *string `json:"endDate,omitzero"`
+	// HTTP request inactivity timeout. Maximum is 2400 (40 minutes); enter 0 to wait indefinitely.
+	Timeout *float64 `json:"timeout,omitzero"`
+	// Disables time filtering of events when a date range is specified.
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
+	// Select authentication method.
+	AuthType *InputOffice365MsgTraceAuthenticationMethod `json:"authType,omitzero"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
+	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitzero"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `json:"ttl,omitzero"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// Reschedule tasks that failed with non-fatal errors
+	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
+	// Maximum number of times a task can be rescheduled
+	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
+	// Log Level (verbosity) for collection runtime behavior.
+	LogLevel    *LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
+	RetryRules  *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
+	Description *string                          `json:"description,omitzero"`
+	// Username to run Message Trace API call.
+	Username *string `json:"username,omitzero"`
+	// Password to run Message Trace API call.
+	Password *string `json:"password,omitzero"`
+	// Select or create a secret that references your credentials.
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// client_secret to pass in the OAuth request parameter.
+	ClientSecret *string `json:"clientSecret,omitzero"`
+	// Directory ID (tenant identifier) in Azure Active Directory.
+	TenantID *string `json:"tenantId,omitzero"`
+	// client_id to pass in the OAuth request parameter.
+	ClientID *string `json:"clientId,omitzero"`
+	// Resource to pass in the OAuth request parameter.
+	Resource *string `json:"resource,omitzero"`
+	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
+	PlanType *SubscriptionPlanOptions `json:"planType,omitzero"`
+	// Select or create a secret that references your client_secret to pass in the OAuth request parameter.
+	TextSecret  *string          `json:"textSecret,omitzero"`
+	CertOptions *CertOptionsType `json:"certOptions,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'resource' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resource' at runtime.
+	TemplateResource *string `json:"__template_resource,omitzero"`
+	// Binds 'planType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'planType' at runtime.
+	TemplatePlanType *string `json:"__template_planType,omitzero"`
+}
+
+func (i InputOffice365MsgTraceInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputOffice365MsgTraceInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputOffice365MsgTraceInput) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputOffice365MsgTraceInput) GetType() InputOffice365MsgTraceType {
+	if i == nil {
+		return InputOffice365MsgTraceType("")
+	}
+	return i.Type
+}
+
+func (i *InputOffice365MsgTraceInput) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputOffice365MsgTraceInput) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputOffice365MsgTraceInput) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputOffice365MsgTraceInput) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputOffice365MsgTraceInput) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputOffice365MsgTraceInput) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputOffice365MsgTraceInput) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputOffice365MsgTraceInput) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputOffice365MsgTraceInput) GetURL() string {
+	if i == nil {
+		return ""
+	}
+	return i.URL
+}
+
+func (i *InputOffice365MsgTraceInput) GetInterval() int64 {
+	if i == nil {
+		return 0
+	}
+	return i.Interval
+}
+
+func (i *InputOffice365MsgTraceInput) GetStartDate() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StartDate
+}
+
+func (i *InputOffice365MsgTraceInput) GetEndDate() *string {
+	if i == nil {
+		return nil
+	}
+	return i.EndDate
+}
+
+func (i *InputOffice365MsgTraceInput) GetTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Timeout
+}
+
+func (i *InputOffice365MsgTraceInput) GetDisableTimeFilter() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableTimeFilter
+}
+
+func (i *InputOffice365MsgTraceInput) GetAuthType() *InputOffice365MsgTraceAuthenticationMethod {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputOffice365MsgTraceInput) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputOffice365MsgTraceInput) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputOffice365MsgTraceInput) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputOffice365MsgTraceInput) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputOffice365MsgTraceInput) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputOffice365MsgTraceInput) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputOffice365MsgTraceInput) GetRescheduleDroppedTasks() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RescheduleDroppedTasks
+}
+
+func (i *InputOffice365MsgTraceInput) GetMaxTaskReschedule() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxTaskReschedule
+}
+
+func (i *InputOffice365MsgTraceInput) GetLogLevel() *LogLevelOptionsDebugError {
+	if i == nil {
+		return nil
+	}
+	return i.LogLevel
+}
+
+func (i *InputOffice365MsgTraceInput) GetRetryRules() *RetryRulesTypeCodesEnableHeader {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputOffice365MsgTraceInput) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputOffice365MsgTraceInput) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputOffice365MsgTraceInput) GetPassword() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Password
+}
+
+func (i *InputOffice365MsgTraceInput) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputOffice365MsgTraceInput) GetClientSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientSecret
+}
+
+func (i *InputOffice365MsgTraceInput) GetTenantID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TenantID
+}
+
+func (i *InputOffice365MsgTraceInput) GetClientID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientID
+}
+
+func (i *InputOffice365MsgTraceInput) GetResource() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Resource
+}
+
+func (i *InputOffice365MsgTraceInput) GetPlanType() *SubscriptionPlanOptions {
+	if i == nil {
+		return nil
+	}
+	return i.PlanType
+}
+
+func (i *InputOffice365MsgTraceInput) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputOffice365MsgTraceInput) GetCertOptions() *CertOptionsType {
+	if i == nil {
+		return nil
+	}
+	return i.CertOptions
+}
+
+func (i *InputOffice365MsgTraceInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputOffice365MsgTraceInput) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputOffice365MsgTraceInput) GetTemplateURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateURL
+}
+
+func (i *InputOffice365MsgTraceInput) GetTemplateTenantID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTenantID
+}
+
+func (i *InputOffice365MsgTraceInput) GetTemplateClientID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateClientID
+}
+
+func (i *InputOffice365MsgTraceInput) GetTemplateResource() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateResource
+}
+
+func (i *InputOffice365MsgTraceInput) GetTemplatePlanType() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePlanType
+}
+
+// #region class-body-inputoffice365msgtraceinput
+// #endregion class-body-inputoffice365msgtraceinput

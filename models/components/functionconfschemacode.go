@@ -11,7 +11,7 @@ type FunctionConfSchemaCode struct {
 	Code *string `json:"code,omitzero"`
 	// The maximum number of allowed iterations within this Function. Defaults to 5,000.
 	MaxNumOfIterations *float64 `json:"maxNumOfIterations,omitzero"`
-	// Rate at which this Function logs errors. For example, a value of 1 (the default) logs every error, a value of 10 logs every tenth error, and so on.
+	// Rate at which this Function logs errors. For example, a value of 1 logs every error, a value of 1000 (the default) logs every thousandth error, and so on.
 	ActiveLogSampleRate *float64 `json:"activeLogSampleRate,omitzero"`
 	// Logs from this Function will be sent to a unique channel in the form `func:code:${pipelineName}:${functionIndex}`. Disable to use the generic `func:code` log channel instead.
 	UseUniqueLogChannel *bool `json:"useUniqueLogChannel,omitzero"`

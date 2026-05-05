@@ -46,6 +46,8 @@ type InputGooglePubsub struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -80,6 +82,8 @@ type InputGooglePubsub struct {
 	OrderedDelivery *bool `json:"orderedDelivery,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
 	TemplateTopicName *string `json:"__template_topicName,omitzero"`
 	// Binds 'subscriptionName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subscriptionName' at runtime.
@@ -153,6 +157,13 @@ func (i *InputGooglePubsub) GetStreamtags() []string {
 		return nil
 	}
 	return i.Streamtags
+}
+
+func (i *InputGooglePubsub) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
 }
 
 func (i *InputGooglePubsub) GetConnections() []ItemsTypeConnectionsOptional {
@@ -281,6 +292,13 @@ func (i *InputGooglePubsub) GetTemplateEnvironment() *string {
 	return i.TemplateEnvironment
 }
 
+func (i *InputGooglePubsub) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
 func (i *InputGooglePubsub) GetTemplateTopicName() *string {
 	if i == nil {
 		return nil
@@ -296,6 +314,286 @@ func (i *InputGooglePubsub) GetTemplateSubscriptionName() *string {
 }
 
 func (i *InputGooglePubsub) GetTemplateRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateRegion
+}
+
+type InputGooglePubsubInput struct {
+	// Unique ID for this input
+	ID       *string               `json:"id,omitzero"`
+	Type     InputGooglePubsubType `json:"type"`
+	Disabled *bool                 `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
+	TopicName string `json:"topicName"`
+	// ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
+	SubscriptionName string `json:"subscriptionName"`
+	// Use when the subscription is not created by this Source and topic is not known
+	MonitorSubscription *bool `json:"monitorSubscription,omitzero"`
+	// Create topic if it does not exist
+	CreateTopic *bool `json:"createTopic,omitzero"`
+	// Create subscription if it does not exist
+	CreateSubscription *bool `json:"createSubscription,omitzero"`
+	// Region to retrieve messages from. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+	Region *string `json:"region,omitzero"`
+	// Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+	GoogleAuthMethod *GoogleAuthenticationMethodOptions `json:"googleAuthMethod,omitzero"`
+	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Select or create a stored text secret
+	Secret *string `json:"secret,omitzero"`
+	// If Destination exerts backpressure, this setting limits how many inbound events Stream will queue for processing before it stops retrieving events
+	MaxBacklog *float64 `json:"maxBacklog,omitzero"`
+	// How many streams to pull messages from at one time. Doubling the value doubles the number of messages this Source pulls from the topic (if available), while consuming more CPU and memory. Defaults to 5.
+	Concurrency *float64 `json:"concurrency,omitzero"`
+	// Pull request timeout, in milliseconds
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Description *string             `json:"description,omitzero"`
+	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
+	OrderedDelivery *bool `json:"orderedDelivery,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
+	TemplateTopicName *string `json:"__template_topicName,omitzero"`
+	// Binds 'subscriptionName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subscriptionName' at runtime.
+	TemplateSubscriptionName *string `json:"__template_subscriptionName,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+}
+
+func (i InputGooglePubsubInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputGooglePubsubInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputGooglePubsubInput) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputGooglePubsubInput) GetType() InputGooglePubsubType {
+	if i == nil {
+		return InputGooglePubsubType("")
+	}
+	return i.Type
+}
+
+func (i *InputGooglePubsubInput) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputGooglePubsubInput) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputGooglePubsubInput) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputGooglePubsubInput) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputGooglePubsubInput) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputGooglePubsubInput) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputGooglePubsubInput) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputGooglePubsubInput) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputGooglePubsubInput) GetTopicName() string {
+	if i == nil {
+		return ""
+	}
+	return i.TopicName
+}
+
+func (i *InputGooglePubsubInput) GetSubscriptionName() string {
+	if i == nil {
+		return ""
+	}
+	return i.SubscriptionName
+}
+
+func (i *InputGooglePubsubInput) GetMonitorSubscription() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.MonitorSubscription
+}
+
+func (i *InputGooglePubsubInput) GetCreateTopic() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CreateTopic
+}
+
+func (i *InputGooglePubsubInput) GetCreateSubscription() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CreateSubscription
+}
+
+func (i *InputGooglePubsubInput) GetRegion() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Region
+}
+
+func (i *InputGooglePubsubInput) GetGoogleAuthMethod() *GoogleAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.GoogleAuthMethod
+}
+
+func (i *InputGooglePubsubInput) GetServiceAccountCredentials() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ServiceAccountCredentials
+}
+
+func (i *InputGooglePubsubInput) GetSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Secret
+}
+
+func (i *InputGooglePubsubInput) GetMaxBacklog() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBacklog
+}
+
+func (i *InputGooglePubsubInput) GetConcurrency() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Concurrency
+}
+
+func (i *InputGooglePubsubInput) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputGooglePubsubInput) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputGooglePubsubInput) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputGooglePubsubInput) GetOrderedDelivery() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.OrderedDelivery
+}
+
+func (i *InputGooglePubsubInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputGooglePubsubInput) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputGooglePubsubInput) GetTemplateTopicName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTopicName
+}
+
+func (i *InputGooglePubsubInput) GetTemplateSubscriptionName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateSubscriptionName
+}
+
+func (i *InputGooglePubsubInput) GetTemplateRegion() *string {
 	if i == nil {
 		return nil
 	}

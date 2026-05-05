@@ -566,6 +566,8 @@ type InputWindowsMetrics struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -582,6 +584,8 @@ type InputWindowsMetrics struct {
 	Description         *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (i InputWindowsMetrics) MarshalJSON() ([]byte, error) {
@@ -649,6 +653,13 @@ func (i *InputWindowsMetrics) GetStreamtags() []string {
 		return nil
 	}
 	return i.Streamtags
+}
+
+func (i *InputWindowsMetrics) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
 }
 
 func (i *InputWindowsMetrics) GetConnections() []ItemsTypeConnectionsOptional {
@@ -726,4 +737,197 @@ func (i *InputWindowsMetrics) GetTemplateEnvironment() *string {
 		return nil
 	}
 	return i.TemplateEnvironment
+}
+
+func (i *InputWindowsMetrics) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+type InputWindowsMetricsInput struct {
+	// Unique ID for this input
+	ID       *string                 `json:"id,omitzero"`
+	Type     InputWindowsMetricsType `json:"type"`
+	Disabled *bool                   `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
+	Interval *float64                 `json:"interval,omitzero"`
+	Host     *InputWindowsMetricsHost `json:"host,omitzero"`
+	Process  *ProcessType             `json:"process,omitzero"`
+	Gpu      *GpuType                 `json:"gpu,omitzero"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeMetadata             `json:"metadata,omitzero"`
+	Persistence *InputWindowsMetricsPersistence `json:"persistence,omitzero"`
+	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
+	DisableNativeModule *bool   `json:"disableNativeModule,omitzero"`
+	Description         *string `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+}
+
+func (i InputWindowsMetricsInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputWindowsMetricsInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputWindowsMetricsInput) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputWindowsMetricsInput) GetType() InputWindowsMetricsType {
+	if i == nil {
+		return InputWindowsMetricsType("")
+	}
+	return i.Type
+}
+
+func (i *InputWindowsMetricsInput) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputWindowsMetricsInput) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputWindowsMetricsInput) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputWindowsMetricsInput) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputWindowsMetricsInput) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputWindowsMetricsInput) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputWindowsMetricsInput) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputWindowsMetricsInput) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputWindowsMetricsInput) GetInterval() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.Interval
+}
+
+func (i *InputWindowsMetricsInput) GetHost() *InputWindowsMetricsHost {
+	if i == nil {
+		return nil
+	}
+	return i.Host
+}
+
+func (i *InputWindowsMetricsInput) GetProcess() *ProcessType {
+	if i == nil {
+		return nil
+	}
+	return i.Process
+}
+
+func (i *InputWindowsMetricsInput) GetGpu() *GpuType {
+	if i == nil {
+		return nil
+	}
+	return i.Gpu
+}
+
+func (i *InputWindowsMetricsInput) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputWindowsMetricsInput) GetPersistence() *InputWindowsMetricsPersistence {
+	if i == nil {
+		return nil
+	}
+	return i.Persistence
+}
+
+func (i *InputWindowsMetricsInput) GetDisableNativeModule() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableNativeModule
+}
+
+func (i *InputWindowsMetricsInput) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputWindowsMetricsInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputWindowsMetricsInput) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
 }

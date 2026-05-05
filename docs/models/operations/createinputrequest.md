@@ -329,6 +329,12 @@ createInputRequest := operations.CreateCreateInputRequestWef(operations.CreateIn
 createInputRequest := operations.CreateCreateInputRequestWinEventLogs(operations.CreateInputInputWinEventLogs{/* values here */})
 ```
 
+### CreateInputInputAppleUnifiedLogs
+
+```go
+createInputRequest := operations.CreateCreateInputRequestAppleUnifiedLogs(operations.CreateInputInputAppleUnifiedLogs{/* values here */})
+```
+
 ### CreateInputInputRawUDP
 
 ```go
@@ -393,6 +399,12 @@ createInputRequest := operations.CreateCreateInputRequestCloudflareHec(operation
 
 ```go
 createInputRequest := operations.CreateCreateInputRequestOpenaiComplianceLogs(operations.CreateInputInputOpenaiComplianceLogs{/* values here */})
+```
+
+### CreateInputInputAnthropicCompliance
+
+```go
+createInputRequest := operations.CreateCreateInputRequestAnthropicCompliance(operations.CreateInputInputAnthropicCompliance{/* values here */})
 ```
 
 ### CreateInputInputOkta
@@ -515,6 +527,8 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputWef is populated
 	case operations.CreateInputRequestTypeWinEventLogs:
 		// createInputRequest.CreateInputInputWinEventLogs is populated
+	case operations.CreateInputRequestTypeAppleUnifiedLogs:
+		// createInputRequest.CreateInputInputAppleUnifiedLogs is populated
 	case operations.CreateInputRequestTypeRawUDP:
 		// createInputRequest.CreateInputInputRawUDP is populated
 	case operations.CreateInputRequestTypeJournalFiles:
@@ -537,6 +551,8 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputCloudflareHec is populated
 	case operations.CreateInputRequestTypeOpenaiComplianceLogs:
 		// createInputRequest.CreateInputInputOpenaiComplianceLogs is populated
+	case operations.CreateInputRequestTypeAnthropicCompliance:
+		// createInputRequest.CreateInputInputAnthropicCompliance is populated
 	case operations.CreateInputRequestTypeOkta:
 		// createInputRequest.CreateInputInputOkta is populated
 }

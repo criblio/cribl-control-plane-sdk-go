@@ -296,27 +296,6 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [Get](docs/sdks/functions/README.md#get) - Get a Function
 * [List](docs/sdks/functions/README.md#list) - List all Functions
 
-### [Groups](docs/sdks/groups/README.md)
-
-* [List](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
-* [Create](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
-* [Get](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
-* [Update](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
-* [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
-* [Deploy](docs/sdks/groups/README.md#deploy) - Deploy commits to a Worker Group, Outpost Group, or Edge Fleet
-
-#### [Groups.Acl](docs/sdks/acl/README.md)
-
-* [Get](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group, Outpost Group, or Edge Fleet
-
-##### [Groups.Acl.Teams](docs/sdks/teams/README.md)
-
-* [Get](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
-
-#### [Groups.Configs.Versions](docs/sdks/configsversions/README.md)
-
-* [Get](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
-
 ### [Health](docs/sdks/health/README.md)
 
 * [Get](docs/sdks/health/README.md#get) - Get the health status of the server
@@ -481,9 +460,9 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [Count](docs/sdks/files/README.md#count) - Get a count of files that changed since a commit
 * [List](docs/sdks/files/README.md#list) - Get the names and statuses of files that changed since a commit
 
-### [Versions.Configs](docs/sdks/versionsconfigs/README.md)
+### [Versions.Configs](docs/sdks/configs/README.md)
 
-* [Get](docs/sdks/versionsconfigs/README.md#get) - Get the configuration and status for the Git integration
+* [Get](docs/sdks/configs/README.md#get) - Get the configuration and status for the Git integration
 
 ### [Versions.Statuses](docs/sdks/versionsstatuses/README.md)
 

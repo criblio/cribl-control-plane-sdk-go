@@ -19,3 +19,4 @@ custom := operations.CreateInputSystemByPackAuthenticationMechanism("custom_valu
 | Name                                                             | Value                                                            |
 | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
 | `CreateInputSystemByPackAuthenticationMechanismConnectionString` | connection-string                                                |
+| `CreateInputSystemByPackAuthenticationMechanismOauthBearer`      | oauth-bearer                                                     |
