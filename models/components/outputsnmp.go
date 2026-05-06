@@ -98,6 +98,8 @@ type OutputSnmp struct {
 	// How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every trap sent will incur a DNS lookup.
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	Description         *string  `json:"description,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (o OutputSnmp) MarshalJSON() ([]byte, error) {
@@ -172,4 +174,11 @@ func (o *OutputSnmp) GetDescription() *string {
 		return nil
 	}
 	return o.Description
+}
+
+func (o *OutputSnmp) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }

@@ -47,6 +47,8 @@ type InputSyslogSyslog2 struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -96,6 +98,8 @@ type InputSyslogSyslog2 struct {
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
@@ -171,6 +175,13 @@ func (i *InputSyslogSyslog2) GetStreamtags() []string {
 		return nil
 	}
 	return i.Streamtags
+}
+
+func (i *InputSyslogSyslog2) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
 }
 
 func (i *InputSyslogSyslog2) GetConnections() []ItemsTypeConnectionsOptional {
@@ -355,6 +366,13 @@ func (i *InputSyslogSyslog2) GetTemplateEnvironment() *string {
 	return i.TemplateEnvironment
 }
 
+func (i *InputSyslogSyslog2) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
 func (i *InputSyslogSyslog2) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -424,6 +442,8 @@ type InputSyslogSyslog1 struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -473,6 +493,8 @@ type InputSyslogSyslog1 struct {
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
@@ -548,6 +570,13 @@ func (i *InputSyslogSyslog1) GetStreamtags() []string {
 		return nil
 	}
 	return i.Streamtags
+}
+
+func (i *InputSyslogSyslog1) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
 }
 
 func (i *InputSyslogSyslog1) GetConnections() []ItemsTypeConnectionsOptional {
@@ -732,6 +761,13 @@ func (i *InputSyslogSyslog1) GetTemplateEnvironment() *string {
 	return i.TemplateEnvironment
 }
 
+func (i *InputSyslogSyslog1) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
 func (i *InputSyslogSyslog1) GetTemplateHost() *string {
 	if i == nil {
 		return nil
@@ -850,4 +886,819 @@ func (u InputSyslog) MarshalJSON() ([]byte, error) {
 	}
 
 	return nil, errors.New("could not marshal union type InputSyslog: all fields are null")
+}
+
+type InputSyslogSyslogInput2 struct {
+	// Unique ID for this input
+	ID       *string          `json:"id,omitzero"`
+	Type     InputSyslogType2 `json:"type"`
+	Disabled *bool            `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host string `json:"host"`
+	// Enter UDP port number to listen on. Not required if listening on TCP.
+	UDPPort *float64 `json:"udpPort,omitzero"`
+	// Enter TCP port number to listen on. Not required if listening on UDP.
+	TCPPort float64 `json:"tcpPort"`
+	// Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
+	MaxBufferSize *float64 `json:"maxBufferSize,omitzero"`
+	// Regex matching IP addresses that are allowed to send data
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
+	// Timezone to assign to timestamps without timezone info
+	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
+	// Treat UDP packet data received as full syslog message
+	SingleMsgUDPPackets *bool `json:"singleMsgUdpPackets,omitzero"`
+	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
+	// Wildcard list of fields to keep from source data; * = ALL (default)
+	KeepFieldsList []string `json:"keepFieldsList,omitzero"`
+	// Enable if incoming messages use octet counting per RFC 6587.
+	OctetCounting *bool `json:"octetCounting,omitzero"`
+	// Enable if we should infer the syslog framing of the incoming messages.
+	InferFraming *bool `json:"inferFraming,omitzero"`
+	// Enable if we should infer octet counting only if the messages comply with RFC 5424.
+	StrictlyInferOctetCounting *bool `json:"strictlyInferOctetCounting,omitzero"`
+	// Enable if RFC 3164-formatted messages have hyphens in the app name portion of the TAG section. If disabled, only alphanumeric characters and underscores are allowed. Ignored for RFC 5424-formatted messages.
+	AllowNonStandardAppName *bool `json:"allowNonStandardAppName,omitzero"`
+	// Maximum number of active connections allowed per Worker Process for TCP connections. Use 0 for unlimited.
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitzero"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64                   `json:"socketMaxLifespan,omitzero"`
+	TLS               *TLSSettingsServerSideType `json:"tls,omitzero"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
+	// Load balance traffic across all Worker Processes
+	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitzero"`
+	Description         *string `json:"description,omitzero"`
+	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
+	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
+	TemplateUDPPort *string `json:"__template_udpPort,omitzero"`
+	// Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
+	TemplateTCPPort *string `json:"__template_tcpPort,omitzero"`
+	// Binds 'timestampTimezone' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'timestampTimezone' at runtime.
+	TemplateTimestampTimezone *string `json:"__template_timestampTimezone,omitzero"`
+}
+
+func (i InputSyslogSyslogInput2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSyslogSyslogInput2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSyslogSyslogInput2) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSyslogSyslogInput2) GetType() InputSyslogType2 {
+	if i == nil {
+		return InputSyslogType2("")
+	}
+	return i.Type
+}
+
+func (i *InputSyslogSyslogInput2) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSyslogSyslogInput2) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSyslogSyslogInput2) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSyslogSyslogInput2) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSyslogSyslogInput2) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSyslogSyslogInput2) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSyslogSyslogInput2) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSyslogSyslogInput2) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSyslogSyslogInput2) GetHost() string {
+	if i == nil {
+		return ""
+	}
+	return i.Host
+}
+
+func (i *InputSyslogSyslogInput2) GetUDPPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPPort
+}
+
+func (i *InputSyslogSyslogInput2) GetTCPPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.TCPPort
+}
+
+func (i *InputSyslogSyslogInput2) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputSyslogSyslogInput2) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputSyslogSyslogInput2) GetTimestampTimezone() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TimestampTimezone
+}
+
+func (i *InputSyslogSyslogInput2) GetSingleMsgUDPPackets() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SingleMsgUDPPackets
+}
+
+func (i *InputSyslogSyslogInput2) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputSyslogSyslogInput2) GetKeepFieldsList() []string {
+	if i == nil {
+		return nil
+	}
+	return i.KeepFieldsList
+}
+
+func (i *InputSyslogSyslogInput2) GetOctetCounting() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.OctetCounting
+}
+
+func (i *InputSyslogSyslogInput2) GetInferFraming() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.InferFraming
+}
+
+func (i *InputSyslogSyslogInput2) GetStrictlyInferOctetCounting() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.StrictlyInferOctetCounting
+}
+
+func (i *InputSyslogSyslogInput2) GetAllowNonStandardAppName() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.AllowNonStandardAppName
+}
+
+func (i *InputSyslogSyslogInput2) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputSyslogSyslogInput2) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputSyslogSyslogInput2) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputSyslogSyslogInput2) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputSyslogSyslogInput2) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputSyslogSyslogInput2) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSyslogSyslogInput2) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputSyslogSyslogInput2) GetEnableLoadBalancing() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableLoadBalancing
+}
+
+func (i *InputSyslogSyslogInput2) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSyslogSyslogInput2) GetEnableEnhancedProxyHeaderParsing() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableEnhancedProxyHeaderParsing
+}
+
+func (i *InputSyslogSyslogInput2) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputSyslogSyslogInput2) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputSyslogSyslogInput2) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputSyslogSyslogInput2) GetTemplateUDPPort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateUDPPort
+}
+
+func (i *InputSyslogSyslogInput2) GetTemplateTCPPort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTCPPort
+}
+
+func (i *InputSyslogSyslogInput2) GetTemplateTimestampTimezone() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTimestampTimezone
+}
+
+// #region class-body-inputsyslogsysloginput2
+// #endregion class-body-inputsyslogsysloginput2
+
+type InputSyslogSyslogInput1 struct {
+	// Unique ID for this input
+	ID       *string          `json:"id,omitzero"`
+	Type     InputSyslogType1 `json:"type"`
+	Disabled *bool            `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+	Host string `json:"host"`
+	// Enter UDP port number to listen on. Not required if listening on TCP.
+	UDPPort float64 `json:"udpPort"`
+	// Enter TCP port number to listen on. Not required if listening on UDP.
+	TCPPort *float64 `json:"tcpPort,omitzero"`
+	// Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
+	MaxBufferSize *float64 `json:"maxBufferSize,omitzero"`
+	// Regex matching IP addresses that are allowed to send data
+	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
+	// Timezone to assign to timestamps without timezone info
+	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
+	// Treat UDP packet data received as full syslog message
+	SingleMsgUDPPackets *bool `json:"singleMsgUdpPackets,omitzero"`
+	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
+	// Wildcard list of fields to keep from source data; * = ALL (default)
+	KeepFieldsList []string `json:"keepFieldsList,omitzero"`
+	// Enable if incoming messages use octet counting per RFC 6587.
+	OctetCounting *bool `json:"octetCounting,omitzero"`
+	// Enable if we should infer the syslog framing of the incoming messages.
+	InferFraming *bool `json:"inferFraming,omitzero"`
+	// Enable if we should infer octet counting only if the messages comply with RFC 5424.
+	StrictlyInferOctetCounting *bool `json:"strictlyInferOctetCounting,omitzero"`
+	// Enable if RFC 3164-formatted messages have hyphens in the app name portion of the TAG section. If disabled, only alphanumeric characters and underscores are allowed. Ignored for RFC 5424-formatted messages.
+	AllowNonStandardAppName *bool `json:"allowNonStandardAppName,omitzero"`
+	// Maximum number of active connections allowed per Worker Process for TCP connections. Use 0 for unlimited.
+	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
+	SocketIdleTimeout *float64 `json:"socketIdleTimeout,omitzero"`
+	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
+	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
+	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
+	SocketMaxLifespan *float64                   `json:"socketMaxLifespan,omitzero"`
+	TLS               *TLSSettingsServerSideType `json:"tls,omitzero"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
+	// Load balance traffic across all Worker Processes
+	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitzero"`
+	Description         *string `json:"description,omitzero"`
+	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
+	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'udpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'udpPort' at runtime.
+	TemplateUDPPort *string `json:"__template_udpPort,omitzero"`
+	// Binds 'tcpPort' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tcpPort' at runtime.
+	TemplateTCPPort *string `json:"__template_tcpPort,omitzero"`
+	// Binds 'timestampTimezone' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'timestampTimezone' at runtime.
+	TemplateTimestampTimezone *string `json:"__template_timestampTimezone,omitzero"`
+}
+
+func (i InputSyslogSyslogInput1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputSyslogSyslogInput1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputSyslogSyslogInput1) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputSyslogSyslogInput1) GetType() InputSyslogType1 {
+	if i == nil {
+		return InputSyslogType1("")
+	}
+	return i.Type
+}
+
+func (i *InputSyslogSyslogInput1) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputSyslogSyslogInput1) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputSyslogSyslogInput1) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputSyslogSyslogInput1) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputSyslogSyslogInput1) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputSyslogSyslogInput1) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputSyslogSyslogInput1) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputSyslogSyslogInput1) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputSyslogSyslogInput1) GetHost() string {
+	if i == nil {
+		return ""
+	}
+	return i.Host
+}
+
+func (i *InputSyslogSyslogInput1) GetUDPPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.UDPPort
+}
+
+func (i *InputSyslogSyslogInput1) GetTCPPort() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.TCPPort
+}
+
+func (i *InputSyslogSyslogInput1) GetMaxBufferSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxBufferSize
+}
+
+func (i *InputSyslogSyslogInput1) GetIPWhitelistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPWhitelistRegex
+}
+
+func (i *InputSyslogSyslogInput1) GetTimestampTimezone() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TimestampTimezone
+}
+
+func (i *InputSyslogSyslogInput1) GetSingleMsgUDPPackets() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SingleMsgUDPPackets
+}
+
+func (i *InputSyslogSyslogInput1) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputSyslogSyslogInput1) GetKeepFieldsList() []string {
+	if i == nil {
+		return nil
+	}
+	return i.KeepFieldsList
+}
+
+func (i *InputSyslogSyslogInput1) GetOctetCounting() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.OctetCounting
+}
+
+func (i *InputSyslogSyslogInput1) GetInferFraming() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.InferFraming
+}
+
+func (i *InputSyslogSyslogInput1) GetStrictlyInferOctetCounting() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.StrictlyInferOctetCounting
+}
+
+func (i *InputSyslogSyslogInput1) GetAllowNonStandardAppName() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.AllowNonStandardAppName
+}
+
+func (i *InputSyslogSyslogInput1) GetMaxActiveCxn() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveCxn
+}
+
+func (i *InputSyslogSyslogInput1) GetSocketIdleTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketIdleTimeout
+}
+
+func (i *InputSyslogSyslogInput1) GetSocketEndingMaxWait() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketEndingMaxWait
+}
+
+func (i *InputSyslogSyslogInput1) GetSocketMaxLifespan() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketMaxLifespan
+}
+
+func (i *InputSyslogSyslogInput1) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputSyslogSyslogInput1) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputSyslogSyslogInput1) GetUDPSocketRxBufSize() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.UDPSocketRxBufSize
+}
+
+func (i *InputSyslogSyslogInput1) GetEnableLoadBalancing() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableLoadBalancing
+}
+
+func (i *InputSyslogSyslogInput1) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputSyslogSyslogInput1) GetEnableEnhancedProxyHeaderParsing() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableEnhancedProxyHeaderParsing
+}
+
+func (i *InputSyslogSyslogInput1) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputSyslogSyslogInput1) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputSyslogSyslogInput1) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputSyslogSyslogInput1) GetTemplateUDPPort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateUDPPort
+}
+
+func (i *InputSyslogSyslogInput1) GetTemplateTCPPort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTCPPort
+}
+
+func (i *InputSyslogSyslogInput1) GetTemplateTimestampTimezone() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateTimestampTimezone
+}
+
+// #region class-body-inputsyslogsysloginput1
+// #endregion class-body-inputsyslogsysloginput1
+
+type InputSyslogInputUnionType string
+
+const (
+	InputSyslogInputUnionTypeInputSyslogSyslogInput1 InputSyslogInputUnionType = "InputSyslog_Syslog_input_1"
+	InputSyslogInputUnionTypeInputSyslogSyslogInput2 InputSyslogInputUnionType = "InputSyslog_Syslog_input_2"
+)
+
+type InputSyslogInputUnion struct {
+	InputSyslogSyslogInput1 *InputSyslogSyslogInput1 `queryParam:"inline" union:"member"`
+	InputSyslogSyslogInput2 *InputSyslogSyslogInput2 `queryParam:"inline" union:"member"`
+
+	Type InputSyslogInputUnionType
+}
+
+func CreateInputSyslogInputUnionInputSyslogSyslogInput1(inputSyslogSyslogInput1 InputSyslogSyslogInput1) InputSyslogInputUnion {
+	typ := InputSyslogInputUnionTypeInputSyslogSyslogInput1
+
+	return InputSyslogInputUnion{
+		InputSyslogSyslogInput1: &inputSyslogSyslogInput1,
+		Type:                    typ,
+	}
+}
+
+func CreateInputSyslogInputUnionInputSyslogSyslogInput2(inputSyslogSyslogInput2 InputSyslogSyslogInput2) InputSyslogInputUnion {
+	typ := InputSyslogInputUnionTypeInputSyslogSyslogInput2
+
+	return InputSyslogInputUnion{
+		InputSyslogSyslogInput2: &inputSyslogSyslogInput2,
+		Type:                    typ,
+	}
+}
+
+func (u *InputSyslogInputUnion) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var inputSyslogSyslogInput1 InputSyslogSyslogInput1 = InputSyslogSyslogInput1{}
+	if err := utils.UnmarshalJSON(data, &inputSyslogSyslogInput1, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputSyslogInputUnionTypeInputSyslogSyslogInput1,
+			Value: &inputSyslogSyslogInput1,
+		})
+	}
+
+	var inputSyslogSyslogInput2 InputSyslogSyslogInput2 = InputSyslogSyslogInput2{}
+	if err := utils.UnmarshalJSON(data, &inputSyslogSyslogInput2, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  InputSyslogInputUnionTypeInputSyslogSyslogInput2,
+			Value: &inputSyslogSyslogInput2,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSyslogInputUnion", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSyslogInputUnion", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(InputSyslogInputUnionType)
+	switch best.Type {
+	case InputSyslogInputUnionTypeInputSyslogSyslogInput1:
+		u.InputSyslogSyslogInput1 = best.Value.(*InputSyslogSyslogInput1)
+		return nil
+	case InputSyslogInputUnionTypeInputSyslogSyslogInput2:
+		u.InputSyslogSyslogInput2 = best.Value.(*InputSyslogSyslogInput2)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for InputSyslogInputUnion", string(data))
+}
+
+func (u InputSyslogInputUnion) MarshalJSON() ([]byte, error) {
+	if u.InputSyslogSyslogInput1 != nil {
+		return utils.MarshalJSON(u.InputSyslogSyslogInput1, "", true)
+	}
+
+	if u.InputSyslogSyslogInput2 != nil {
+		return utils.MarshalJSON(u.InputSyslogSyslogInput2, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type InputSyslogInputUnion: all fields are null")
 }

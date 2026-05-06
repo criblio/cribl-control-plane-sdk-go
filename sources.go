@@ -290,7 +290,7 @@ func (s *Sources) List(ctx context.Context, type_ []string, opts ...operations.O
 }
 
 // Create a Source
-// Create a new Source.
+// Create a new Source. The system-managed provenance field (JSON <code>criblSourceProvenance</code>) must be omitted from the request body.
 func (s *Sources) Create(ctx context.Context, request operations.CreateInputRequest, opts ...operations.Option) (*operations.CreateInputResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -785,7 +785,7 @@ func (s *Sources) Get(ctx context.Context, id string, opts ...operations.Option)
 }
 
 // Update a Source
-// Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
+// Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes omitted fields when updating the Source, except for <code>criblSourceProvenance</code> (its value is preserved when omitted and cannot be overwritten).<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
 func (s *Sources) Update(ctx context.Context, id string, input components.Input2, opts ...operations.Option) (*operations.UpdateInputByIDResponse, error) {
 	request := operations.UpdateInputByIDRequest{
 		ID:    id,

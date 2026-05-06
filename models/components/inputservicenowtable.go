@@ -137,6 +137,8 @@ type InputServicenowTable struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -214,6 +216,8 @@ type InputServicenowTable struct {
 	ManageState          *InputServicenowTableManageState `json:"manageState,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'instance' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'instance' at runtime.
 	TemplateInstance *string `json:"__template_instance,omitzero"`
 	// Binds 'orderByField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'orderByField' at runtime.
@@ -291,6 +295,13 @@ func (i *InputServicenowTable) GetStreamtags() []string {
 		return nil
 	}
 	return i.Streamtags
+}
+
+func (i *InputServicenowTable) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
 }
 
 func (i *InputServicenowTable) GetConnections() []ItemsTypeConnectionsOptional {
@@ -580,6 +591,13 @@ func (i *InputServicenowTable) GetTemplateEnvironment() *string {
 	return i.TemplateEnvironment
 }
 
+func (i *InputServicenowTable) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
 func (i *InputServicenowTable) GetTemplateInstance() *string {
 	if i == nil {
 		return nil
@@ -609,6 +627,508 @@ func (i *InputServicenowTable) GetTemplateUsername() *string {
 }
 
 func (i *InputServicenowTable) GetTemplateClientID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateClientID
+}
+
+type InputServicenowTableInput struct {
+	// Unique ID for this input
+	ID       *string                  `json:"id,omitzero"`
+	Type     InputServicenowTableType `json:"type"`
+	Disabled *bool                    `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	// ServiceNow instance base URL for Table API requests. Enter a literal URL (http or https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
+	Instance string `json:"instance"`
+	// ServiceNow table name to collect from.
+	TableName string `json:"tableName"`
+	// Field names to return from the Table API (sysparm_fields). Leave empty to return all fields.
+	Fields []string `json:"fields,omitzero"`
+	// Optional. Sort results by this field (for example sys_created_on or parent.name). Leave empty to use the server default order.
+	OrderByField *string `json:"orderByField,omitzero"`
+	// Used only when Sort by field is set.
+	OrderByDirection *SortDirection `json:"orderByDirection,omitzero"`
+	// Optional ServiceNow encoded query for sysparm_query (for example active=true or sys_updated_onRELATIVEGT@hour@ago@1). Enter a literal or a Cribl expression. When combined with Sort by field, the filter and sort are joined with ^. See ServiceNow Table API documentation for encoded query syntax.
+	Query *string `json:"query,omitzero"`
+	// When enabled, request raw values from ServiceNow (`sysparm_display_value=false`). When disabled, request display values (`sysparm_display_value=true`).
+	UseRawValues *bool `json:"useRawValues,omitzero"`
+	// Maximum records per Table API page request (sysparm_limit). Setting a higher value may increase the risk of timeouts.
+	PageSize *int64 `json:"pageSize,omitzero"`
+	// Maximum number of pages to retrieve per collection task. Set to 0 to retrieve all pages.
+	MaxPages *int64 `json:"maxPages,omitzero"`
+	// Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// ServiceNow Table API authentication method
+	AuthType *InputServicenowTableAuthenticationType `json:"authType,omitzero"`
+	// Cron schedule on which to run this job
+	CronSchedule string `json:"cronSchedule"`
+	// Earliest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
+	Earliest string `json:"earliest"`
+	// Latest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
+	Latest string `json:"latest"`
+	// Track collection progress between consecutive scheduled executions
+	StateTracking *bool `json:"stateTracking,omitzero"`
+	// Collector runtime log level
+	LogLevel *LogLevelOptions `json:"logLevel,omitzero"`
+	// HTTP request inactivity timeout. Use 0 to disable.
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
+	// When a DNS server returns multiple addresses, @{product} cycles through them in the order returned
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
+	// Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitzero"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `json:"ttl,omitzero"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
+	// Fields to add to events from this input
+	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
+	RetryRules  *RetryRulesType     `json:"retryRules,omitzero"`
+	Description *string             `json:"description,omitzero"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// ServiceNow OAuth grant type used for token requests
+	OauthGrantType *GrantType `json:"oauthGrantType,omitzero"`
+	// ServiceNow username for the password grant type
+	Username *string `json:"username,omitzero"`
+	// Select or create a stored text secret for the ServiceNow password value
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Enable custom OAuth request parameters or headers for advanced ServiceNow configurations. Leave disabled for standard ServiceNow OAuth flows.
+	UseCustomOAuthParamsOrHeaders *bool `json:"useCustomOAuthParamsOrHeaders,omitzero"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
+	ClientID     *string                 `json:"clientId,omitzero"`
+	// Select or create a stored text secret for the OAuth client secret value
+	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
+	// JavaScript expression that defines how to update the state from an event. This source defaults to checking that `_time` is a finite number (not only `__timestampExtracted`), so state still advances when the event breaker assigns a fallback time. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields).
+	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
+	// JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
+	StateMergeExpression *string                          `json:"stateMergeExpression,omitzero"`
+	ManageState          *InputServicenowTableManageState `json:"manageState,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'instance' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'instance' at runtime.
+	TemplateInstance *string `json:"__template_instance,omitzero"`
+	// Binds 'orderByField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'orderByField' at runtime.
+	TemplateOrderByField *string `json:"__template_orderByField,omitzero"`
+	// Binds 'query' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'query' at runtime.
+	TemplateQuery *string `json:"__template_query,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
+}
+
+func (i InputServicenowTableInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputServicenowTableInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputServicenowTableInput) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputServicenowTableInput) GetType() InputServicenowTableType {
+	if i == nil {
+		return InputServicenowTableType("")
+	}
+	return i.Type
+}
+
+func (i *InputServicenowTableInput) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputServicenowTableInput) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputServicenowTableInput) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputServicenowTableInput) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputServicenowTableInput) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputServicenowTableInput) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputServicenowTableInput) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputServicenowTableInput) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputServicenowTableInput) GetInstance() string {
+	if i == nil {
+		return ""
+	}
+	return i.Instance
+}
+
+func (i *InputServicenowTableInput) GetTableName() string {
+	if i == nil {
+		return ""
+	}
+	return i.TableName
+}
+
+func (i *InputServicenowTableInput) GetFields() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Fields
+}
+
+func (i *InputServicenowTableInput) GetOrderByField() *string {
+	if i == nil {
+		return nil
+	}
+	return i.OrderByField
+}
+
+func (i *InputServicenowTableInput) GetOrderByDirection() *SortDirection {
+	if i == nil {
+		return nil
+	}
+	return i.OrderByDirection
+}
+
+func (i *InputServicenowTableInput) GetQuery() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Query
+}
+
+func (i *InputServicenowTableInput) GetUseRawValues() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseRawValues
+}
+
+func (i *InputServicenowTableInput) GetPageSize() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.PageSize
+}
+
+func (i *InputServicenowTableInput) GetMaxPages() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxPages
+}
+
+func (i *InputServicenowTableInput) GetRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.RejectUnauthorized
+}
+
+func (i *InputServicenowTableInput) GetAuthType() *InputServicenowTableAuthenticationType {
+	if i == nil {
+		return nil
+	}
+	return i.AuthType
+}
+
+func (i *InputServicenowTableInput) GetCronSchedule() string {
+	if i == nil {
+		return ""
+	}
+	return i.CronSchedule
+}
+
+func (i *InputServicenowTableInput) GetEarliest() string {
+	if i == nil {
+		return ""
+	}
+	return i.Earliest
+}
+
+func (i *InputServicenowTableInput) GetLatest() string {
+	if i == nil {
+		return ""
+	}
+	return i.Latest
+}
+
+func (i *InputServicenowTableInput) GetStateTracking() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.StateTracking
+}
+
+func (i *InputServicenowTableInput) GetLogLevel() *LogLevelOptions {
+	if i == nil {
+		return nil
+	}
+	return i.LogLevel
+}
+
+func (i *InputServicenowTableInput) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputServicenowTableInput) GetUseRoundRobinDNS() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseRoundRobinDNS
+}
+
+func (i *InputServicenowTableInput) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputServicenowTableInput) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputServicenowTableInput) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputServicenowTableInput) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputServicenowTableInput) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputServicenowTableInput) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputServicenowTableInput) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputServicenowTableInput) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputServicenowTableInput) GetCredentialsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CredentialsSecret
+}
+
+func (i *InputServicenowTableInput) GetOauthGrantType() *GrantType {
+	if i == nil {
+		return nil
+	}
+	return i.OauthGrantType
+}
+
+func (i *InputServicenowTableInput) GetUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Username
+}
+
+func (i *InputServicenowTableInput) GetTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TextSecret
+}
+
+func (i *InputServicenowTableInput) GetUseCustomOAuthParamsOrHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.UseCustomOAuthParamsOrHeaders
+}
+
+func (i *InputServicenowTableInput) GetOauthParams() []ItemsTypeOauthParams {
+	if i == nil {
+		return nil
+	}
+	return i.OauthParams
+}
+
+func (i *InputServicenowTableInput) GetOauthHeaders() []ItemsTypeOauthHeaders {
+	if i == nil {
+		return nil
+	}
+	return i.OauthHeaders
+}
+
+func (i *InputServicenowTableInput) GetClientID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientID
+}
+
+func (i *InputServicenowTableInput) GetClientTextSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ClientTextSecret
+}
+
+func (i *InputServicenowTableInput) GetStateUpdateExpression() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StateUpdateExpression
+}
+
+func (i *InputServicenowTableInput) GetStateMergeExpression() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StateMergeExpression
+}
+
+func (i *InputServicenowTableInput) GetManageState() *InputServicenowTableManageState {
+	if i == nil {
+		return nil
+	}
+	return i.ManageState
+}
+
+func (i *InputServicenowTableInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputServicenowTableInput) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputServicenowTableInput) GetTemplateInstance() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateInstance
+}
+
+func (i *InputServicenowTableInput) GetTemplateOrderByField() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateOrderByField
+}
+
+func (i *InputServicenowTableInput) GetTemplateQuery() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateQuery
+}
+
+func (i *InputServicenowTableInput) GetTemplateUsername() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateUsername
+}
+
+func (i *InputServicenowTableInput) GetTemplateClientID() *string {
 	if i == nil {
 		return nil
 	}

@@ -327,6 +327,12 @@ input1 := components.CreateInput1Wef(components.InputWef{/* values here */})
 input1 := components.CreateInput1WinEventLogs(components.InputWinEventLogs{/* values here */})
 ```
 
+### InputAppleUnifiedLogs
+
+```go
+input1 := components.CreateInput1AppleUnifiedLogs(components.InputAppleUnifiedLogs{/* values here */})
+```
+
 ### InputRawUDP
 
 ```go
@@ -391,6 +397,12 @@ input1 := components.CreateInput1CloudflareHec(components.InputCloudflareHec{/* 
 
 ```go
 input1 := components.CreateInput1OpenaiComplianceLogs(components.InputOpenaiComplianceLogs{/* values here */})
+```
+
+### InputAnthropicCompliance
+
+```go
+input1 := components.CreateInput1AnthropicCompliance(components.InputAnthropicCompliance{/* values here */})
 ```
 
 ### InputOkta
@@ -513,6 +525,8 @@ switch input1.Type {
 		// input1.InputWef is populated
 	case components.Input1TypeWinEventLogs:
 		// input1.InputWinEventLogs is populated
+	case components.Input1TypeAppleUnifiedLogs:
+		// input1.InputAppleUnifiedLogs is populated
 	case components.Input1TypeRawUDP:
 		// input1.InputRawUDP is populated
 	case components.Input1TypeJournalFiles:
@@ -535,6 +549,8 @@ switch input1.Type {
 		// input1.InputCloudflareHec is populated
 	case components.Input1TypeOpenaiComplianceLogs:
 		// input1.InputOpenaiComplianceLogs is populated
+	case components.Input1TypeAnthropicCompliance:
+		// input1.InputAnthropicCompliance is populated
 	case components.Input1TypeOkta:
 		// input1.InputOkta is populated
 	default:

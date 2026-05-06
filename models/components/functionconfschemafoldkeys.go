@@ -13,6 +13,8 @@ type FunctionConfSchemaFoldkeys struct {
 	Separator *string `json:"separator,omitzero"`
 	// Optional regular expression to select a subset of the keys to fold.
 	SelectionRegExp *string `json:"selectionRegExp,omitzero"`
+	// Maximum recursion depth when traversing nested objects. Prevents infinite loops caused by cyclic references. Defaults to 20.
+	MaxDepth *int64 `json:"maxDepth,omitzero"`
 }
 
 func (f FunctionConfSchemaFoldkeys) MarshalJSON() ([]byte, error) {
@@ -45,4 +47,11 @@ func (f *FunctionConfSchemaFoldkeys) GetSelectionRegExp() *string {
 		return nil
 	}
 	return f.SelectionRegExp
+}
+
+func (f *FunctionConfSchemaFoldkeys) GetMaxDepth() *int64 {
+	if f == nil {
+		return nil
+	}
+	return f.MaxDepth
 }

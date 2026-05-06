@@ -60,27 +60,49 @@ func (e *OutputSyslogProtocol) IsExact() bool {
 type Facility int64
 
 const (
-	FacilityZero      Facility = 0
-	FacilityOne       Facility = 1
-	FacilityTwo       Facility = 2
-	FacilityThree     Facility = 3
-	FacilityFour      Facility = 4
-	FacilityFive      Facility = 5
-	FacilitySix       Facility = 6
-	FacilitySeven     Facility = 7
-	FacilityEight     Facility = 8
-	FacilityNine      Facility = 9
-	FacilityTen       Facility = 10
-	FacilityEleven    Facility = 11
-	FacilityTwelve    Facility = 12
-	FacilityThirteen  Facility = 13
-	FacilityFourteen  Facility = 14
-	FacilityFifteen   Facility = 15
-	FacilitySixteen   Facility = 16
+	// FacilityZero kern
+	FacilityZero Facility = 0
+	// FacilityOne user
+	FacilityOne Facility = 1
+	// FacilityTwo mail
+	FacilityTwo Facility = 2
+	// FacilityThree daemon
+	FacilityThree Facility = 3
+	// FacilityFour auth
+	FacilityFour Facility = 4
+	// FacilityFive syslog
+	FacilityFive Facility = 5
+	// FacilitySix lpr
+	FacilitySix Facility = 6
+	// FacilitySeven news
+	FacilitySeven Facility = 7
+	// FacilityEight uucp
+	FacilityEight Facility = 8
+	// FacilityNine cron
+	FacilityNine Facility = 9
+	// FacilityTen authpriv
+	FacilityTen Facility = 10
+	// FacilityEleven ftp
+	FacilityEleven Facility = 11
+	// FacilityTwelve ntp
+	FacilityTwelve Facility = 12
+	// FacilityThirteen security
+	FacilityThirteen Facility = 13
+	// FacilityFourteen console
+	FacilityFourteen Facility = 14
+	// FacilityFifteen solaris-cron
+	FacilityFifteen Facility = 15
+	// FacilitySixteen local0
+	FacilitySixteen Facility = 16
+	// FacilitySeventeen local1
 	FacilitySeventeen Facility = 17
-	FacilityEighteen  Facility = 18
-	FacilityNineteen  Facility = 19
-	FacilityTwenty    Facility = 20
+	// FacilityEighteen local2
+	FacilityEighteen Facility = 18
+	// FacilityNineteen local3
+	FacilityNineteen Facility = 19
+	// FacilityTwenty local4
+	FacilityTwenty Facility = 20
+	// FacilityTwentyOne local5
 	FacilityTwentyOne Facility = 21
 )
 
@@ -283,6 +305,8 @@ type OutputSyslog struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                 `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputSyslogPqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -601,6 +625,13 @@ func (o *OutputSyslog) GetPqControls() *OutputSyslogPqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputSyslog) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputSyslog) GetTemplateHost() *string {

@@ -63,6 +63,7 @@ const (
 	FunctionResponseTypeRename                    FunctionResponseType = "rename"
 	FunctionResponseTypeRollupMetrics             FunctionResponseType = "rollup_metrics"
 	FunctionResponseTypeSampling                  FunctionResponseType = "sampling"
+	FunctionResponseTypeSearchEngineExport        FunctionResponseType = "search_engine_export"
 	FunctionResponseTypeSend                      FunctionResponseType = "send"
 	FunctionResponseTypeSensitiveDataScanner      FunctionResponseType = "sensitive_data_scanner"
 	FunctionResponseTypeSerde                     FunctionResponseType = "serde"
@@ -134,6 +135,7 @@ type FunctionResponse struct {
 	FunctionRename                    *FunctionRename                    `queryParam:"inline" union:"member"`
 	FunctionRollupMetrics             *FunctionRollupMetrics             `queryParam:"inline" union:"member"`
 	FunctionSampling                  *FunctionSampling                  `queryParam:"inline" union:"member"`
+	FunctionSearchEngineExport        *FunctionSearchEngineExport        `queryParam:"inline" union:"member"`
 	FunctionSend                      *FunctionSend                      `queryParam:"inline" union:"member"`
 	FunctionSensitiveDataScanner      *FunctionSensitiveDataScanner      `queryParam:"inline" union:"member"`
 	FunctionSerde                     *FunctionSerde                     `queryParam:"inline" union:"member"`
@@ -764,6 +766,18 @@ func CreateFunctionResponseSampling(sampling FunctionSampling) FunctionResponse 
 	return FunctionResponse{
 		FunctionSampling: &sampling,
 		Type:             typ,
+	}
+}
+
+func CreateFunctionResponseSearchEngineExport(searchEngineExport FunctionSearchEngineExport) FunctionResponse {
+	typ := FunctionResponseTypeSearchEngineExport
+
+	typStr := FunctionSearchEngineExportID(typ)
+	searchEngineExport.ID = typStr
+
+	return FunctionResponse{
+		FunctionSearchEngineExport: &searchEngineExport,
+		Type:                       typ,
 	}
 }
 
@@ -1452,6 +1466,15 @@ func (u *FunctionResponse) UnmarshalJSON(data []byte) error {
 		u.FunctionSampling = functionSampling
 		u.Type = FunctionResponseTypeSampling
 		return nil
+	case "search_engine_export":
+		functionSearchEngineExport := new(FunctionSearchEngineExport)
+		if err := utils.UnmarshalJSON(data, &functionSearchEngineExport, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == search_engine_export) type FunctionSearchEngineExport within FunctionResponse: %w", string(data), err)
+		}
+
+		u.FunctionSearchEngineExport = functionSearchEngineExport
+		u.Type = FunctionResponseTypeSearchEngineExport
+		return nil
 	case "send":
 		functionSend := new(FunctionSend)
 		if err := utils.UnmarshalJSON(data, &functionSend, "", true, nil); err != nil {
@@ -1807,6 +1830,10 @@ func (u FunctionResponse) MarshalJSON() ([]byte, error) {
 
 	if u.FunctionSampling != nil {
 		return utils.MarshalJSON(u.FunctionSampling, "", true)
+	}
+
+	if u.FunctionSearchEngineExport != nil {
+		return utils.MarshalJSON(u.FunctionSearchEngineExport, "", true)
 	}
 
 	if u.FunctionSend != nil {

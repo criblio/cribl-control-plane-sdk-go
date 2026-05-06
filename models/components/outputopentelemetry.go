@@ -133,6 +133,10 @@ type OutputOpenTelemetry struct {
 	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitzero"`
 	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
 	Metadata []ItemsTypeKeyValueMetadata `json:"metadata,omitzero"`
+	// Batch event data upon dynamic metadata (whether presented or not)
+	DynamicHeadersEnabled *bool `json:"dynamicHeadersEnabled,omitzero"`
+	// When presented, this field which contains metadata, will be injected into the Destination metadata and used to batch events.
+	DynamicHeadersField *string `json:"dynamicHeadersField,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -215,6 +219,8 @@ type OutputOpenTelemetry struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                        `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputOpenTelemetryPqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -344,6 +350,20 @@ func (o *OutputOpenTelemetry) GetMetadata() []ItemsTypeKeyValueMetadata {
 		return nil
 	}
 	return o.Metadata
+}
+
+func (o *OutputOpenTelemetry) GetDynamicHeadersEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicHeadersEnabled
+}
+
+func (o *OutputOpenTelemetry) GetDynamicHeadersField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicHeadersField
 }
 
 func (o *OutputOpenTelemetry) GetConcurrency() *float64 {
@@ -645,6 +665,13 @@ func (o *OutputOpenTelemetry) GetPqControls() *OutputOpenTelemetryPqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputOpenTelemetry) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputOpenTelemetry) GetTemplateFailedRequestLoggingMode() *string {

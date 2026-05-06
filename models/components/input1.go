@@ -66,6 +66,7 @@ const (
 	Input1TypeAppscope             Input1Type = "appscope"
 	Input1TypeWef                  Input1Type = "wef"
 	Input1TypeWinEventLogs         Input1Type = "win_event_logs"
+	Input1TypeAppleUnifiedLogs     Input1Type = "apple_unified_logs"
 	Input1TypeRawUDP               Input1Type = "raw_udp"
 	Input1TypeJournalFiles         Input1Type = "journal_files"
 	Input1TypeWiz                  Input1Type = "wiz"
@@ -77,6 +78,7 @@ const (
 	Input1TypeZscalerHec           Input1Type = "zscaler_hec"
 	Input1TypeCloudflareHec        Input1Type = "cloudflare_hec"
 	Input1TypeOpenaiComplianceLogs Input1Type = "openai_compliance_logs"
+	Input1TypeAnthropicCompliance  Input1Type = "anthropic_compliance"
 	Input1TypeOkta                 Input1Type = "okta"
 	Input1TypeUnknown              Input1Type = "UNKNOWN"
 )
@@ -136,6 +138,7 @@ type Input1 struct {
 	InputAppscope             *InputAppscope             `queryParam:"inline" union:"member"`
 	InputWef                  *InputWef                  `queryParam:"inline" union:"member"`
 	InputWinEventLogs         *InputWinEventLogs         `queryParam:"inline" union:"member"`
+	InputAppleUnifiedLogs     *InputAppleUnifiedLogs     `queryParam:"inline" union:"member"`
 	InputRawUDP               *InputRawUDP               `queryParam:"inline" union:"member"`
 	InputJournalFiles         *InputJournalFiles         `queryParam:"inline" union:"member"`
 	InputWiz                  *InputWiz                  `queryParam:"inline" union:"member"`
@@ -147,6 +150,7 @@ type Input1 struct {
 	InputZscalerHec           *InputZscalerHec           `queryParam:"inline" union:"member"`
 	InputCloudflareHec        *InputCloudflareHec        `queryParam:"inline" union:"member"`
 	InputOpenaiComplianceLogs *InputOpenaiComplianceLogs `queryParam:"inline" union:"member"`
+	InputAnthropicCompliance  *InputAnthropicCompliance  `queryParam:"inline" union:"member"`
 	InputOkta                 *InputOkta                 `queryParam:"inline" union:"member"`
 	UnknownRaw                json.RawMessage            `json:"-" union:"unknown"`
 
@@ -795,6 +799,18 @@ func CreateInput1WinEventLogs(winEventLogs InputWinEventLogs) Input1 {
 	}
 }
 
+func CreateInput1AppleUnifiedLogs(appleUnifiedLogs InputAppleUnifiedLogs) Input1 {
+	typ := Input1TypeAppleUnifiedLogs
+
+	typStr := InputAppleUnifiedLogsType(typ)
+	appleUnifiedLogs.Type = typStr
+
+	return Input1{
+		InputAppleUnifiedLogs: &appleUnifiedLogs,
+		Type:                  typ,
+	}
+}
+
 func CreateInput1RawUDP(rawUDP InputRawUDP) Input1 {
 	typ := Input1TypeRawUDP
 
@@ -924,6 +940,18 @@ func CreateInput1OpenaiComplianceLogs(openaiComplianceLogs InputOpenaiCompliance
 	return Input1{
 		InputOpenaiComplianceLogs: &openaiComplianceLogs,
 		Type:                      typ,
+	}
+}
+
+func CreateInput1AnthropicCompliance(anthropicCompliance InputAnthropicCompliance) Input1 {
+	typ := Input1TypeAnthropicCompliance
+
+	typStr := InputAnthropicComplianceType(typ)
+	anthropicCompliance.Type = typStr
+
+	return Input1{
+		InputAnthropicCompliance: &anthropicCompliance,
+		Type:                     typ,
 	}
 }
 
@@ -1459,6 +1487,15 @@ func (u *Input1) UnmarshalJSON(data []byte) error {
 		u.InputWinEventLogs = inputWinEventLogs
 		u.Type = Input1TypeWinEventLogs
 		return nil
+	case "apple_unified_logs":
+		inputAppleUnifiedLogs := new(InputAppleUnifiedLogs)
+		if err := utils.UnmarshalJSON(data, &inputAppleUnifiedLogs, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == apple_unified_logs) type InputAppleUnifiedLogs within Input1: %w", string(data), err)
+		}
+
+		u.InputAppleUnifiedLogs = inputAppleUnifiedLogs
+		u.Type = Input1TypeAppleUnifiedLogs
+		return nil
 	case "raw_udp":
 		inputRawUDP := new(InputRawUDP)
 		if err := utils.UnmarshalJSON(data, &inputRawUDP, "", true, nil); err != nil {
@@ -1557,6 +1594,15 @@ func (u *Input1) UnmarshalJSON(data []byte) error {
 
 		u.InputOpenaiComplianceLogs = inputOpenaiComplianceLogs
 		u.Type = Input1TypeOpenaiComplianceLogs
+		return nil
+	case "anthropic_compliance":
+		inputAnthropicCompliance := new(InputAnthropicCompliance)
+		if err := utils.UnmarshalJSON(data, &inputAnthropicCompliance, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == anthropic_compliance) type InputAnthropicCompliance within Input1: %w", string(data), err)
+		}
+
+		u.InputAnthropicCompliance = inputAnthropicCompliance
+		u.Type = Input1TypeAnthropicCompliance
 		return nil
 	case "okta":
 		inputOkta := new(InputOkta)
@@ -1792,6 +1838,10 @@ func (u Input1) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.InputWinEventLogs, "", true)
 	}
 
+	if u.InputAppleUnifiedLogs != nil {
+		return utils.MarshalJSON(u.InputAppleUnifiedLogs, "", true)
+	}
+
 	if u.InputRawUDP != nil {
 		return utils.MarshalJSON(u.InputRawUDP, "", true)
 	}
@@ -1834,6 +1884,10 @@ func (u Input1) MarshalJSON() ([]byte, error) {
 
 	if u.InputOpenaiComplianceLogs != nil {
 		return utils.MarshalJSON(u.InputOpenaiComplianceLogs, "", true)
+	}
+
+	if u.InputAnthropicCompliance != nil {
+		return utils.MarshalJSON(u.InputAnthropicCompliance, "", true)
 	}
 
 	if u.InputOkta != nil {

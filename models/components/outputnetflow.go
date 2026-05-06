@@ -102,6 +102,8 @@ type OutputNetflow struct {
 	Description      *string `json:"description,omitzero"`
 	// MTU in bytes. The actual maximum NetFlow payload size will be MTU minus IP and UDP headers (28 bytes for IPv4, 48 bytes for IPv6). For example, with the default MTU of 1500, the max payload is 1472 bytes for IPv4. Payloads exceeding this limit will be dropped.
 	MaxRecordSize *float64 `json:"maxRecordSize,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (o OutputNetflow) MarshalJSON() ([]byte, error) {
@@ -190,4 +192,11 @@ func (o *OutputNetflow) GetMaxRecordSize() *float64 {
 		return nil
 	}
 	return o.MaxRecordSize
+}
+
+func (o *OutputNetflow) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }

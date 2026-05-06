@@ -103,30 +103,30 @@ func main() {
                 PrivKeyPath: "/opt/cribl/local/cribl/auth/cribl.key",
             },
         },
-        Backups: components.CreateBackupsSettingsUnionBackupsSettings1(
-            components.BackupsSettings1{
+        Backups: components.CreateBackupsSettingsUnionBackupsSettings(
+            components.BackupsSettings{
                 BackupPersistence: "24h",
                 BackupsDirectory: "$CRIBL_STATE_DIR/backups",
             },
         ),
-        Pii: components.CreatePiiSettingsUnionPiiSettings1(
-            components.PiiSettings1{
+        Pii: components.CreatePiiSettingsUnionPiiSettings(
+            components.PiiSettings{
                 EnablePiiDetection: false,
             },
         ),
         Proxy: components.ProxyTypeSystemSettingsConf{
             UseEnvVars: false,
         },
-        Rollback: components.CreateRollbackSettingsUnionRollbackSettings1(
-            components.RollbackSettings1{
+        Rollback: components.CreateRollbackSettingsUnionRollbackSettings(
+            components.RollbackSettings{
                 RollbackEnabled: true,
             },
         ),
         Shutdown: components.ShutdownTypeSystemSettingsConf{
             DrainTimeout: 10000.0,
         },
-        Sni: components.CreateSniSettingsUnionSniSettings1(
-            components.SniSettings1{
+        Sni: components.CreateSniSettingsUnionSniSettings(
+            components.SniSettings{
                 DisableSNIRouting: false,
             },
         ),
@@ -134,8 +134,8 @@ func main() {
             Intercom: true,
             Upgrade: components.UpgradeOptionsSystemSettingsConfSystemAPI,
         },
-        TLS: components.CreateTLSSettingsUnionTLSSettings1(
-            components.TLSSettings1{
+        TLS: components.CreateTLSSettingsUnionTLSSettings(
+            components.TLSSettings{
                 DefaultCipherList: "DEFAULT",
                 DefaultEcdhCurve: "auto",
                 MaxVersion: "TLSv1.3",
@@ -143,14 +143,12 @@ func main() {
                 RejectUnauthorized: true,
             },
         ),
-        UpgradeGroupSettings: components.CreateUpgradeGroupSettingsUnionUpgradeGroupSettings1(
-            components.UpgradeGroupSettings1{
-                IsRolling: criblcontrolplanesdkgo.Pointer(true),
-                Quantity: criblcontrolplanesdkgo.Pointer[float64](100.0),
-                RetryCount: criblcontrolplanesdkgo.Pointer[float64](5.0),
-                RetryDelay: criblcontrolplanesdkgo.Pointer[float64](1000.0),
-            },
-        ),
+        UpgradeGroupSettings: components.UpgradeGroupSettings{
+            IsRolling: criblcontrolplanesdkgo.Pointer(true),
+            Quantity: criblcontrolplanesdkgo.Pointer[float64](100.0),
+            RetryCount: criblcontrolplanesdkgo.Pointer[float64](5.0),
+            RetryDelay: criblcontrolplanesdkgo.Pointer[float64](1000.0),
+        },
         UpgradeSettings: components.UpgradeSettings{},
         Workers: components.WorkersTypeSystemSettingsConf{
             Count: 0.0,

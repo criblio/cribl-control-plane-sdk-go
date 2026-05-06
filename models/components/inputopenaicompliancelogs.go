@@ -84,6 +84,8 @@ type InputOpenaiComplianceLogs struct {
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
 	Pq          *PqType                        `json:"pq,omitzero"`
@@ -137,6 +139,8 @@ type InputOpenaiComplianceLogs struct {
 	ManageState          *InputOpenaiComplianceLogsManageState `json:"manageState,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
 	TemplateWorkspaceID *string `json:"__template_workspaceId,omitzero"`
 	// Binds 'organizationId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'organizationId' at runtime.
@@ -208,6 +212,13 @@ func (i *InputOpenaiComplianceLogs) GetStreamtags() []string {
 		return nil
 	}
 	return i.Streamtags
+}
+
+func (i *InputOpenaiComplianceLogs) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
 }
 
 func (i *InputOpenaiComplianceLogs) GetConnections() []ItemsTypeConnectionsOptional {
@@ -420,6 +431,13 @@ func (i *InputOpenaiComplianceLogs) GetTemplateEnvironment() *string {
 	return i.TemplateEnvironment
 }
 
+func (i *InputOpenaiComplianceLogs) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
 func (i *InputOpenaiComplianceLogs) GetTemplateWorkspaceID() *string {
 	if i == nil {
 		return nil
@@ -428,6 +446,380 @@ func (i *InputOpenaiComplianceLogs) GetTemplateWorkspaceID() *string {
 }
 
 func (i *InputOpenaiComplianceLogs) GetTemplateOrganizationID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateOrganizationID
+}
+
+type InputOpenaiComplianceLogsInput struct {
+	// Unique ID for this input
+	ID       *string                       `json:"id,omitzero"`
+	Type     InputOpenaiComplianceLogsType `json:"type"`
+	Disabled *bool                         `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *PqType                        `json:"pq,omitzero"`
+	APIKey      *string                        `json:"apiKey,omitzero"`
+	// Select or create a stored text secret
+	TextSecret   string      `json:"textSecret"`
+	AccountType  AccountType `json:"accountType"`
+	CronSchedule string      `json:"cronSchedule"`
+	// Relative to the current time. Format: [+|-]<time_integer><time_unit>
+	Earliest *string `json:"earliest,omitzero"`
+	// Relative to the current time. Format: [+|-]<time_integer><time_unit>
+	Latest *string `json:"latest,omitzero"`
+	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
+	// Collector runtime log level
+	LogLevel *LogLevelOptionsContentConfigItemsDebugError `json:"logLevel,omitzero"`
+	// Maximum number of log file listing pages to retrieve per run. Set to 0 to retrieve all pages.
+	MaxPages *float64 `json:"maxPages,omitzero"`
+	// Track collection progress between consecutive scheduled executions
+	StateTracking *bool `json:"stateTracking,omitzero"`
+	// HTTP request inactivity timeout. Use 0 to disable.
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
+	// How often workers should check in with the scheduler to keep job subscription alive
+	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
+	// The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+	MaxMissedKeepAlives *float64 `json:"maxMissedKeepAlives,omitzero"`
+	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+	TTL *string `json:"ttl,omitzero"`
+	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
+	// Fields to add to events from this input
+	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64        `json:"staleChannelFlushMs,omitzero"`
+	RetryRules          *RetryRulesType `json:"retryRules,omitzero"`
+	Description         *string         `json:"description,omitzero"`
+	// The ID of the ChatGPT workspace to collect logs from (UUID format)
+	WorkspaceID *string `json:"workspaceId,omitzero"`
+	// One or more compliance log categories to collect
+	WorkspaceEventTypes []string `json:"workspaceEventTypes,omitzero"`
+	// The ID of the OpenAI API Platform Organization (example: org-XXXXXXXXXXXXXXXXXXXXXXXX)
+	OrganizationID *string `json:"organizationId,omitzero"`
+	// One or more compliance log categories to collect
+	OrganizationEventTypes []string `json:"organizationEventTypes,omitzero"`
+	// JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
+	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
+	// JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
+	StateMergeExpression *string                               `json:"stateMergeExpression,omitzero"`
+	ManageState          *InputOpenaiComplianceLogsManageState `json:"manageState,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'workspaceId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'workspaceId' at runtime.
+	TemplateWorkspaceID *string `json:"__template_workspaceId,omitzero"`
+	// Binds 'organizationId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'organizationId' at runtime.
+	TemplateOrganizationID *string `json:"__template_organizationId,omitzero"`
+}
+
+func (i InputOpenaiComplianceLogsInput) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputOpenaiComplianceLogsInput) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetType() InputOpenaiComplianceLogsType {
+	if i == nil {
+		return InputOpenaiComplianceLogsType("")
+	}
+	return i.Type
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetConnections() []ItemsTypeConnectionsOptional {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetAPIKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.APIKey
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetTextSecret() string {
+	if i == nil {
+		return ""
+	}
+	return i.TextSecret
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetAccountType() AccountType {
+	if i == nil {
+		return AccountType("")
+	}
+	return i.AccountType
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetCronSchedule() string {
+	if i == nil {
+		return ""
+	}
+	return i.CronSchedule
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetLogLevel() *LogLevelOptionsContentConfigItemsDebugError {
+	if i == nil {
+		return nil
+	}
+	return i.LogLevel
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetMaxPages() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxPages
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetStateTracking() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.StateTracking
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetKeepAliveTime() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTime
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetMaxMissedKeepAlives() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxMissedKeepAlives
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetTTL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TTL
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetIgnoreGroupJobsLimit() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.IgnoreGroupJobsLimit
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetMetadata() []ItemsTypeMetadata {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetRetryRules() *RetryRulesType {
+	if i == nil {
+		return nil
+	}
+	return i.RetryRules
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetWorkspaceID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.WorkspaceID
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetWorkspaceEventTypes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.WorkspaceEventTypes
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetOrganizationID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.OrganizationID
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetOrganizationEventTypes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.OrganizationEventTypes
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetStateUpdateExpression() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StateUpdateExpression
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetStateMergeExpression() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StateMergeExpression
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetManageState() *InputOpenaiComplianceLogsManageState {
+	if i == nil {
+		return nil
+	}
+	return i.ManageState
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetTemplateWorkspaceID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateWorkspaceID
+}
+
+func (i *InputOpenaiComplianceLogsInput) GetTemplateOrganizationID() *string {
 	if i == nil {
 		return nil
 	}

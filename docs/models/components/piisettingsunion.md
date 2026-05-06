@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### PiiSettings1
+### PiiSettings
 
 ```go
-piiSettingsUnion := components.CreatePiiSettingsUnionPiiSettings1(components.PiiSettings1{/* values here */})
+piiSettingsUnion := components.CreatePiiSettingsUnionPiiSettings(components.PiiSettings{/* values here */})
 ```
 
-### PiiSettings2
+### EmptyObject
 
 ```go
-piiSettingsUnion := components.CreatePiiSettingsUnionPiiSettings2(components.PiiSettings2{/* values here */})
+piiSettingsUnion := components.CreatePiiSettingsUnionEmptyObject(components.EmptyObject{/* values here */})
 ```
 
 ## Union Discrimination
@@ -21,9 +21,9 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch piiSettingsUnion.Type {
-	case components.PiiSettingsUnionTypePiiSettings1:
-		// piiSettingsUnion.PiiSettings1 is populated
-	case components.PiiSettingsUnionTypePiiSettings2:
-		// piiSettingsUnion.PiiSettings2 is populated
+	case components.PiiSettingsUnionTypePiiSettings:
+		// piiSettingsUnion.PiiSettings is populated
+	case components.PiiSettingsUnionTypeEmptyObject:
+		// piiSettingsUnion.EmptyObject is populated
 }
 ```
