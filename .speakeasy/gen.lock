@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 8a502ad83619a0add0fb45b0f62b36bb
-  docVersion: 4.17.2-alpha.1777331376265-2b887cf3
-  speakeasyVersion: 1.761.8
-  generationVersion: 2.881.2
-  releaseVersion: 0.8.0-alpha.1
-  configChecksum: 6aee4a69329aede434274467f6689cb4
+  docChecksum: 74cc52fdd8fe9a8565b32a9ae4377e8a
+  docVersion: 4.17.2-alpha.1778022445373-0aa80216
+  speakeasyVersion: 1.761.11
+  generationVersion: 2.881.17
+  releaseVersion: 0.8.0-alpha.2
+  configChecksum: a1ffedd7fa79df6c5bbf0128e5b6683b
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 6e1cd7ab-b96c-4777-904e-9269a7c8bc9f
-  pristine_commit_hash: 9c463ade191f7c5e019c243e4800c1a880c52c5d
-  pristine_tree_hash: ca81a1cfe10cf6d6e8df90dc2bd4380c207e3609
+  generation_id: e6499e85-2a03-42ee-bb79-0e311615a80a
+  pristine_commit_hash: b4f49179095aa7c48f2188af4054dec62dd98219
+  pristine_tree_hash: acb6c8305540a8b3eea06132c5cb40eddbfaa08e
 features:
   go:
     additionalDependencies: 0.1.0
@@ -36,7 +36,7 @@ features:
     nullables: 0.2.1
     oauth2ClientCredentials: 1.1.5
     openEnums: 0.1.0
-    pagination: 2.82.6
+    pagination: 2.82.7
     responseFormat: 0.1.2
     retries: 2.84.2
     sdkHooks: 0.3.0
@@ -77,8 +77,8 @@ trackedFiles:
     pristine_git_object: 08a245567d914483707221c271fee555d8eba8eb
   captures.go:
     id: 0f5123ff80de
-    last_write_checksum: sha1:c5e547f1c89319f4d1a49939d5b44552e50af977
-    pristine_git_object: 1245e4e44daa2ccbfc272cef53d4687d7bf8fc36
+    last_write_checksum: sha1:cb375a6188e2cd6b8b3d801336f0e54672b6f3d2
+    pristine_git_object: a83e755f0aaac3a0326e9da0b3cc97107bd0ba2e
   collectors.go:
     id: 7e88ffe1ef22
     last_write_checksum: sha1:fce44f1691b1a462feecc6c1dc57d642f9c1dceb
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: a3acad670ea0d3339ed03eb40b091edd389ad7f5
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:b06084a8744bcccec64c1ed241e42636ba0adcd3
-    pristine_git_object: ee73acd50d7d4959c076597a3b4d5755c8274712
+    last_write_checksum: sha1:688ddc7fc9760d852a98b45a4f1be035296ace02
+    pristine_git_object: d1d71b1121213c9adab9d6dc4ddb9b4e9a31dd0d
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:2d55d040fdab532c735d8a32055e6659016f3966
@@ -13137,8 +13137,8 @@ trackedFiles:
     pristine_git_object: a6dd7781e7726bb7245f10d8f1d7935f7067f14c
   docs/models/operations/createsystemcaptureresponse.md:
     id: def1a752bf71
-    last_write_checksum: sha1:9ef26673d5953e805f16c0ce9d142574892072f4
-    pristine_git_object: 0ab4bb50c6bd6f1aacf0b71e39d59b1803d06412
+    last_write_checksum: sha1:a11a690458d87f550014a4b099a302026259c6a1
+    pristine_git_object: 1af7dca1e94bc17204d3c7a4da0be4713582a11b
   docs/models/operations/createsystemsettingsrestartresponse.md:
     id: 7b38b7cfcb44
     last_write_checksum: sha1:d198cd46a2f36a0658346a2cd5077169aa3f3489
@@ -16889,8 +16889,8 @@ trackedFiles:
     pristine_git_object: a1c02fb8b14849bdfd3ee5f63ffeb6b9398b7257
   models/operations/createsystemcapture.go:
     id: e7a20595b029
-    last_write_checksum: sha1:651c13008380d1d0f2b150817724511c5c86ecfc
-    pristine_git_object: 1d4599ef6ce2130e7e78cb3dfc29102c90b655b9
+    last_write_checksum: sha1:b6127819008e7a5e61bf2967c448d8525ce33cfc
+    pristine_git_object: bc12a5d278aa2046b2ccd350e7146790a45c299d
   models/operations/createsystemsettingsrestart.go:
     id: e5d085671604
     last_write_checksum: sha1:f3bc9ac1957917edf8327b05618ee28fcdffdb70
@@ -27931,7 +27931,9 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Packs.Pipelines.Create()`: \n  *  `request.Pipeline.Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n  *  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Packs.Pipelines.List()`:  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Packs.Pipelines.Delete()`:  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Packs.Pipelines.Get()`:  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Packs.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n  *  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Pipelines.Create()`: \n  *  `request.Request.Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n  *  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Pipelines.List()`:  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Pipelines.Delete()`:  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Pipelines.Get()`:  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n* `CriblControlPlane.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n  *  `response.Items[].Conf.Functions[].union(foldkeys).Conf.MaxDepth` **Added**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `CriblControlPlane.System.Captures.Create()`:  `error.status[400]` **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
