@@ -33,7 +33,7 @@ func (l *ListInputRequest) GetType() []string {
 type ListInputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Source objects
-	CountedInput *components.CountedInput
+	CountedInputResponse *components.CountedInputResponse
 }
 
 func (l ListInputResponse) MarshalJSON() ([]byte, error) {
@@ -54,9 +54,9 @@ func (l *ListInputResponse) GetHTTPMeta() components.HTTPMetadata {
 	return l.HTTPMeta
 }
 
-func (l *ListInputResponse) GetCountedInput() *components.CountedInput {
+func (l *ListInputResponse) GetCountedInputResponse() *components.CountedInputResponse {
 	if l == nil {
 		return nil
 	}
-	return l.CountedInput
+	return l.CountedInputResponse
 }

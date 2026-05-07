@@ -625,7 +625,5 @@ switch output.Type {
 		// output.OutputCloudianS3 is populated
 	case components.OutputTypeScalityS3:
 		// output.OutputScalityS3 is populated
-	default:
-		// Unknown type - use output.GetUnknownRaw() for raw JSON
 }
 ```

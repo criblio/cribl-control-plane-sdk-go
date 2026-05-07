@@ -44,9 +44,9 @@ func main() {
             "status",
         },
         Description: criblcontrolplanesdkgo.Pointer("Web server access logs"),
-        Format: components.FormatOptionsJSON.ToPointer(),
+        Format: components.FormatOptionsCriblLakeDatasetJSON.ToPointer(),
         ID: "web_access_logs",
-        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](90.0),
+        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[int64](90),
         StorageLocationID: criblcontrolplanesdkgo.Pointer("my-storage-location"),
     })
     if err != nil {
@@ -118,9 +118,9 @@ func main() {
 
     res, err := s.Lakes.Datasets.Create(ctx, "<id>", components.CriblLakeDataset{
         Description: criblcontrolplanesdkgo.Pointer("Security event data in Parquet format"),
-        Format: components.FormatOptionsParquet.ToPointer(),
+        Format: components.FormatOptionsCriblLakeDatasetParquet.ToPointer(),
         ID: "security_events",
-        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](365.0),
+        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[int64](365),
         SearchConfig: &components.LakeDatasetSearchConfig{
             Datatypes: []string{
                 "palo_alto_firewall",
@@ -144,7 +144,7 @@ func main() {
 | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | `ctx`                                                                      | [context.Context](https://pkg.go.dev/context#Context)                      | :heavy_check_mark:                                                         | The context to use for the request.                                        |
 | `lakeID`                                                                   | `string`                                                                   | :heavy_check_mark:                                                         | The <code>id</code> of the Lake to create the Lake Dataset in.             |
-| `criblLakeDataset`                                                         | [components.CriblLakeDataset](../../models/components/cribllakedataset.md) | :heavy_check_mark:                                                         | CriblLakeDataset object                                                    |
+| `criblLakeDataset`                                                         | [components.CriblLakeDataset](../../models/components/cribllakedataset.md) | :heavy_check_mark:                                                         | CriblLakeDataset object.                                                   |
 | `opts`                                                                     | [][operations.Option](../../models/operations/option.md)                   | :heavy_minus_sign:                                                         | The options for this request.                                              |
 
 ### Response
@@ -409,7 +409,7 @@ func main() {
     )
 
     res, err := s.Lakes.Datasets.Update(ctx, "<id>", "<id>", components.CriblLakeDatasetUpdate{
-        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](180.0),
+        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[int64](180),
     })
     if err != nil {
         log.Fatal(err)
@@ -427,7 +427,7 @@ func main() {
 | `ctx`                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                  | :heavy_check_mark:                                                                     | The context to use for the request.                                                    |
 | `lakeID`                                                                               | `string`                                                                               | :heavy_check_mark:                                                                     | The <code>id</code> of the Lake that contains the Lake Dataset to update.              |
 | `id`                                                                                   | `string`                                                                               | :heavy_check_mark:                                                                     | The <code>id</code> of the Lake Dataset to update.                                     |
-| `criblLakeDatasetUpdate`                                                               | [components.CriblLakeDatasetUpdate](../../models/components/cribllakedatasetupdate.md) | :heavy_check_mark:                                                                     | CriblLakeDatasetUpdate object                                                          |
+| `criblLakeDatasetUpdate`                                                               | [components.CriblLakeDatasetUpdate](../../models/components/cribllakedatasetupdate.md) | :heavy_check_mark:                                                                     | CriblLakeDatasetUpdate object.                                                         |
 | `opts`                                                                                 | [][operations.Option](../../models/operations/option.md)                               | :heavy_minus_sign:                                                                     | The options for this request.                                                          |
 
 ### Response

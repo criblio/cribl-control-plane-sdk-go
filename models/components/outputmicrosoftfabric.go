@@ -31,28 +31,6 @@ func (e *OutputMicrosoftFabricType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type OutputMicrosoftFabricAuthenticationMethod string
-
-const (
-	OutputMicrosoftFabricAuthenticationMethodSecret      OutputMicrosoftFabricAuthenticationMethod = "secret"
-	OutputMicrosoftFabricAuthenticationMethodCertificate OutputMicrosoftFabricAuthenticationMethod = "certificate"
-)
-
-func (e OutputMicrosoftFabricAuthenticationMethod) ToPointer() *OutputMicrosoftFabricAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputMicrosoftFabricAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "secret", "certificate":
-			return true
-		}
-	}
-	return false
-}
-
 // OutputMicrosoftFabricAuthentication - Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
 type OutputMicrosoftFabricAuthentication struct {
 	Disabled  bool                                      `json:"disabled"`
@@ -60,8 +38,8 @@ type OutputMicrosoftFabricAuthentication struct {
 	// The username for authentication. This should always be $ConnectionString.
 	Username *string `json:"username,omitzero"`
 	// Select or create a stored text secret corresponding to the SASL JASS Password Primary or Password Secondary
-	TextSecret           *string                                    `json:"textSecret,omitzero"`
-	ClientSecretAuthType *OutputMicrosoftFabricAuthenticationMethod `json:"clientSecretAuthType,omitzero"`
+	TextSecret           *string                          `json:"textSecret,omitzero"`
+	ClientSecretAuthType *AuthenticationMethodOptionsAuth `json:"clientSecretAuthType,omitzero"`
 	// Select or create a stored text secret
 	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
 	// Select or create a stored certificate
@@ -128,7 +106,7 @@ func (o *OutputMicrosoftFabricAuthentication) GetTextSecret() *string {
 	return o.TextSecret
 }
 
-func (o *OutputMicrosoftFabricAuthentication) GetClientSecretAuthType() *OutputMicrosoftFabricAuthenticationMethod {
+func (o *OutputMicrosoftFabricAuthentication) GetClientSecretAuthType() *AuthenticationMethodOptionsAuth {
 	if o == nil {
 		return nil
 	}

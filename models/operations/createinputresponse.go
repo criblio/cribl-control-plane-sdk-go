@@ -10,6 +10,365 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateInputCollectors struct {
+	// Creates events based on entries collected from the hosts file
+	Hostsfile *CreateInputHostsFile `json:"hostsfile,omitzero"`
+	// Creates events for each of the host’s network interfaces
+	Interfaces *CreateInputInterfaces `json:"interfaces,omitzero"`
+	// Creates events for physical disks, partitions, and file systems
+	Disk *CreateInputDisksAndFileSystems `json:"disk,omitzero"`
+	// Creates events based on the host system’s current state
+	Metadata *CreateInputHostInfo `json:"metadata,omitzero"`
+	// Creates events based on entries collected from the host’s network routes
+	Routes *CreateInputRoutes `json:"routes,omitzero"`
+	// Creates events for DNS resolvers and search entries
+	DNS *CreateInputDNS `json:"dns,omitzero"`
+	// Creates events for local users and groups
+	User *CreateInputUsersAndGroups `json:"user,omitzero"`
+	// Creates events for Firewall rules entries
+	Firewall *CreateInputFirewall `json:"firewall,omitzero"`
+	// Creates events from the list of services
+	Services *CreateInputServices `json:"services,omitzero"`
+	// Creates events from list of listening ports
+	Ports *CreateInputListeningPorts `json:"ports,omitzero"`
+	// Creates events from list of logged-in users
+	LoginUsers *CreateInputLoggedInUsers `json:"loginUsers,omitzero"`
+}
+
+func (c CreateInputCollectors) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputCollectors) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputCollectors) GetHostsfile() *CreateInputHostsFile {
+	if c == nil {
+		return nil
+	}
+	return c.Hostsfile
+}
+
+func (c *CreateInputCollectors) GetInterfaces() *CreateInputInterfaces {
+	if c == nil {
+		return nil
+	}
+	return c.Interfaces
+}
+
+func (c *CreateInputCollectors) GetDisk() *CreateInputDisksAndFileSystems {
+	if c == nil {
+		return nil
+	}
+	return c.Disk
+}
+
+func (c *CreateInputCollectors) GetMetadata() *CreateInputHostInfo {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *CreateInputCollectors) GetRoutes() *CreateInputRoutes {
+	if c == nil {
+		return nil
+	}
+	return c.Routes
+}
+
+func (c *CreateInputCollectors) GetDNS() *CreateInputDNS {
+	if c == nil {
+		return nil
+	}
+	return c.DNS
+}
+
+func (c *CreateInputCollectors) GetUser() *CreateInputUsersAndGroups {
+	if c == nil {
+		return nil
+	}
+	return c.User
+}
+
+func (c *CreateInputCollectors) GetFirewall() *CreateInputFirewall {
+	if c == nil {
+		return nil
+	}
+	return c.Firewall
+}
+
+func (c *CreateInputCollectors) GetServices() *CreateInputServices {
+	if c == nil {
+		return nil
+	}
+	return c.Services
+}
+
+func (c *CreateInputCollectors) GetPorts() *CreateInputListeningPorts {
+	if c == nil {
+		return nil
+	}
+	return c.Ports
+}
+
+func (c *CreateInputCollectors) GetLoginUsers() *CreateInputLoggedInUsers {
+	if c == nil {
+		return nil
+	}
+	return c.LoginUsers
+}
+
+type CreateInputPersistenceSystemState struct {
+	// Spool metrics to disk for Cribl Edge and Search
+	Enable *bool `json:"enable,omitzero"`
+	// Time span for each file bucket
+	TimeWindow *string `json:"timeWindow,omitzero"`
+	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
+	MaxDataSize *string `json:"maxDataSize,omitzero"`
+	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
+	MaxDataTime *string                                             `json:"maxDataTime,omitzero"`
+	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
+	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
+	DestPath *string `json:"destPath,omitzero"`
+}
+
+func (c CreateInputPersistenceSystemState) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputPersistenceSystemState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputPersistenceSystemState) GetEnable() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enable
+}
+
+func (c *CreateInputPersistenceSystemState) GetTimeWindow() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TimeWindow
+}
+
+func (c *CreateInputPersistenceSystemState) GetMaxDataSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.MaxDataSize
+}
+
+func (c *CreateInputPersistenceSystemState) GetMaxDataTime() *string {
+	if c == nil {
+		return nil
+	}
+	return c.MaxDataTime
+}
+
+func (c *CreateInputPersistenceSystemState) GetCompress() *components.DataCompressionFormatOptionsPersistence {
+	if c == nil {
+		return nil
+	}
+	return c.Compress
+}
+
+func (c *CreateInputPersistenceSystemState) GetDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DestPath
+}
+
+type CreateInputInputSystemState struct {
+	// Unique ID for this input
+	ID       string                     `json:"id"`
+	Type     CreateInputTypeSystemState `json:"type"`
+	Disabled *bool                      `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
+	Pq          *components.PqType                        `json:"pq,omitzero"`
+	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
+	Interval *float64 `json:"interval,omitzero"`
+	// Fields to add to events from this input
+	Metadata    []components.ItemsTypeMetadata     `json:"metadata,omitzero"`
+	Collectors  *CreateInputCollectors             `json:"collectors,omitzero"`
+	Persistence *CreateInputPersistenceSystemState `json:"persistence,omitzero"`
+	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	DisableNativeModule *bool `json:"disableNativeModule,omitzero"`
+	// Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+	DisableNativeLastLogModule *bool   `json:"disableNativeLastLogModule,omitzero"`
+	Description                *string `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+}
+
+func (c CreateInputInputSystemState) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputInputSystemState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputInputSystemState) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateInputInputSystemState) GetType() CreateInputTypeSystemState {
+	if c == nil {
+		return CreateInputTypeSystemState("")
+	}
+	return c.Type
+}
+
+func (c *CreateInputInputSystemState) GetDisabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Disabled
+}
+
+func (c *CreateInputInputSystemState) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateInputInputSystemState) GetSendToRoutes() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.SendToRoutes
+}
+
+func (c *CreateInputInputSystemState) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateInputInputSystemState) GetPqEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PqEnabled
+}
+
+func (c *CreateInputInputSystemState) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateInputInputSystemState) GetConnections() []components.ItemsTypeConnectionsOptional {
+	if c == nil {
+		return nil
+	}
+	return c.Connections
+}
+
+func (c *CreateInputInputSystemState) GetPq() *components.PqType {
+	if c == nil {
+		return nil
+	}
+	return c.Pq
+}
+
+func (c *CreateInputInputSystemState) GetInterval() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Interval
+}
+
+func (c *CreateInputInputSystemState) GetMetadata() []components.ItemsTypeMetadata {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *CreateInputInputSystemState) GetCollectors() *CreateInputCollectors {
+	if c == nil {
+		return nil
+	}
+	return c.Collectors
+}
+
+func (c *CreateInputInputSystemState) GetPersistence() *CreateInputPersistenceSystemState {
+	if c == nil {
+		return nil
+	}
+	return c.Persistence
+}
+
+func (c *CreateInputInputSystemState) GetDisableNativeModule() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DisableNativeModule
+}
+
+func (c *CreateInputInputSystemState) GetDisableNativeLastLogModule() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DisableNativeLastLogModule
+}
+
+func (c *CreateInputInputSystemState) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateInputInputSystemState) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
+func (c *CreateInputInputSystemState) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 type CreateInputTypeSystemMetrics string
 
 const (
@@ -3348,6 +3707,8 @@ type CreateInputAuthenticationMechanism string
 const (
 	// CreateInputAuthenticationMechanismConnectionString Connection String
 	CreateInputAuthenticationMechanismConnectionString CreateInputAuthenticationMechanism = "connection-string"
+	// CreateInputAuthenticationMechanismOauthBearer OAuth Bearer
+	CreateInputAuthenticationMechanismOauthBearer CreateInputAuthenticationMechanism = "oauth-bearer"
 )
 
 func (e CreateInputAuthenticationMechanism) ToPointer() *CreateInputAuthenticationMechanism {
@@ -3358,30 +3719,7 @@ func (e CreateInputAuthenticationMechanism) ToPointer() *CreateInputAuthenticati
 func (e *CreateInputAuthenticationMechanism) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "connection-string":
-			return true
-		}
-	}
-	return false
-}
-
-// CreateInputAuthAuthenticationMethod - Enter connection string directly, or select a stored secret
-type CreateInputAuthAuthenticationMethod string
-
-const (
-	CreateInputAuthAuthenticationMethodManual CreateInputAuthAuthenticationMethod = "manual"
-	CreateInputAuthAuthenticationMethodSecret CreateInputAuthAuthenticationMethod = "secret"
-)
-
-func (e CreateInputAuthAuthenticationMethod) ToPointer() *CreateInputAuthAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputAuthAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret":
+		case "connection-string", "oauth-bearer":
 			return true
 		}
 	}
@@ -3390,12 +3728,28 @@ func (e *CreateInputAuthAuthenticationMethod) IsExact() bool {
 
 type CreateInputAuth struct {
 	Mechanism CreateInputAuthenticationMechanism `json:"mechanism"`
-	// Enter connection string directly, or select a stored secret
-	AuthType *CreateInputAuthAuthenticationMethod `json:"authType,omitzero"`
-	// Event Hubs namespace or Event Hub-level connection string
-	ConnectionString *string `json:"connectionString,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitzero"`
+	TextSecret           *string                                     `json:"textSecret,omitzero"`
+	ClientSecretAuthType *components.AuthenticationMethodOptionsAuth `json:"clientSecretAuthType,omitzero"`
+	// Select or create a stored text secret
+	ClientTextSecret *string                                                `json:"clientTextSecret,omitzero"`
+	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	// Endpoint used to acquire authentication tokens from Azure
+	OauthEndpoint *components.MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint,omitzero"`
+	// client_id to pass in the OAuth request parameter
+	ClientID *string `json:"clientId,omitzero"`
+	// Directory ID (tenant identifier) in Azure Active Directory
+	TenantID *string `json:"tenantId,omitzero"`
+	// The fully qualified Event Hubs namespace that the consumer is associated with. This is likely to be similar to {yournamespace}.servicebus.windows.net.
+	FullyQualifiedNamespace *string `json:"fullyQualifiedNamespace,omitzero"`
+	// Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+	TemplateOauthEndpoint *string `json:"__template_oauthEndpoint,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'fullyQualifiedNamespace' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fullyQualifiedNamespace' at runtime.
+	TemplateFullyQualifiedNamespace *string `json:"__template_fullyQualifiedNamespace,omitzero"`
 }
 
 func (c CreateInputAuth) MarshalJSON() ([]byte, error) {
@@ -3416,25 +3770,88 @@ func (c *CreateInputAuth) GetMechanism() CreateInputAuthenticationMechanism {
 	return c.Mechanism
 }
 
-func (c *CreateInputAuth) GetAuthType() *CreateInputAuthAuthenticationMethod {
-	if c == nil {
-		return nil
-	}
-	return c.AuthType
-}
-
-func (c *CreateInputAuth) GetConnectionString() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ConnectionString
-}
-
 func (c *CreateInputAuth) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
+}
+
+func (c *CreateInputAuth) GetClientSecretAuthType() *components.AuthenticationMethodOptionsAuth {
+	if c == nil {
+		return nil
+	}
+	return c.ClientSecretAuthType
+}
+
+func (c *CreateInputAuth) GetClientTextSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientTextSecret
+}
+
+func (c *CreateInputAuth) GetCertificate() *components.CertificateTypeAzureBlobAuthTypeClientCert {
+	if c == nil {
+		return nil
+	}
+	return c.Certificate
+}
+
+func (c *CreateInputAuth) GetOauthEndpoint() *components.MicrosoftEntraIDAuthenticationEndpointOptionsSasl {
+	if c == nil {
+		return nil
+	}
+	return c.OauthEndpoint
+}
+
+func (c *CreateInputAuth) GetClientID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ClientID
+}
+
+func (c *CreateInputAuth) GetTenantID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TenantID
+}
+
+func (c *CreateInputAuth) GetFullyQualifiedNamespace() *string {
+	if c == nil {
+		return nil
+	}
+	return c.FullyQualifiedNamespace
+}
+
+func (c *CreateInputAuth) GetTemplateOauthEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOauthEndpoint
+}
+
+func (c *CreateInputAuth) GetTemplateClientID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateClientID
+}
+
+func (c *CreateInputAuth) GetTemplateTenantID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateTenantID
+}
+
+func (c *CreateInputAuth) GetTemplateFullyQualifiedNamespace() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFullyQualifiedNamespace
 }
 
 // CreateInputCheckpointStore - The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
@@ -3462,12 +3879,35 @@ func (e *CreateInputCheckpointStore) IsExact() bool {
 	return false
 }
 
+type CreateInputBlobStoreAuthenticationMethod string
+
+const (
+	CreateInputBlobStoreAuthenticationMethodSecret             CreateInputBlobStoreAuthenticationMethod = "secret"
+	CreateInputBlobStoreAuthenticationMethodClientSecret       CreateInputBlobStoreAuthenticationMethod = "clientSecret"
+	CreateInputBlobStoreAuthenticationMethodClientCert         CreateInputBlobStoreAuthenticationMethod = "clientCert"
+	CreateInputBlobStoreAuthenticationMethodClientAssertion    CreateInputBlobStoreAuthenticationMethod = "clientAssertion"
+	CreateInputBlobStoreAuthenticationMethodClientAssertionRPC CreateInputBlobStoreAuthenticationMethod = "clientAssertion_rpc"
+)
+
+func (e CreateInputBlobStoreAuthenticationMethod) ToPointer() *CreateInputBlobStoreAuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *CreateInputBlobStoreAuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "secret", "clientSecret", "clientCert", "clientAssertion", "clientAssertion_rpc":
+			return true
+		}
+	}
+	return false
+}
+
 type CreateInputAzureBlobStorage struct {
 	// Azure Blob Storage container used to store checkpoints. Must be 3–63 lowercase alphanumeric characters or hyphens.
-	ContainerName string                                  `json:"containerName"`
-	AuthType      *components.AuthenticationMethodOptions `json:"authType,omitzero"`
-	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
-	ConnectionString *string `json:"connectionString,omitzero"`
+	ContainerName string                                    `json:"containerName"`
+	AuthType      *CreateInputBlobStoreAuthenticationMethod `json:"authType,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
 	// The name of your Azure storage account
@@ -3483,8 +3923,6 @@ type CreateInputAzureBlobStorage struct {
 	// Select or create a stored text secret
 	ClientTextSecret *string                                                `json:"clientTextSecret,omitzero"`
 	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
-	// Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
-	TemplateConnectionString *string `json:"__template_connectionString,omitzero"`
 	// Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
 	TemplateStorageAccountName *string `json:"__template_storageAccountName,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
@@ -3513,18 +3951,11 @@ func (c *CreateInputAzureBlobStorage) GetContainerName() string {
 	return c.ContainerName
 }
 
-func (c *CreateInputAzureBlobStorage) GetAuthType() *components.AuthenticationMethodOptions {
+func (c *CreateInputAzureBlobStorage) GetAuthType() *CreateInputBlobStoreAuthenticationMethod {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
-}
-
-func (c *CreateInputAzureBlobStorage) GetConnectionString() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ConnectionString
 }
 
 func (c *CreateInputAzureBlobStorage) GetTextSecret() *string {
@@ -3581,13 +4012,6 @@ func (c *CreateInputAzureBlobStorage) GetCertificate() *components.CertificateTy
 		return nil
 	}
 	return c.Certificate
-}
-
-func (c *CreateInputAzureBlobStorage) GetTemplateConnectionString() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateConnectionString
 }
 
 func (c *CreateInputAzureBlobStorage) GetTemplateStorageAccountName() *string {
@@ -6265,8 +6689,6 @@ type CreateInputInputEdgePrometheus struct {
 	Region *string `json:"region,omitzero"`
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing EC2 requests
-	SignatureVersion *components.SignatureVersionOptionsV2V4 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -6551,13 +6973,6 @@ func (c *CreateInputInputEdgePrometheus) GetEndpoint() *string {
 		return nil
 	}
 	return c.Endpoint
-}
-
-func (c *CreateInputInputEdgePrometheus) GetSignatureVersion() *components.SignatureVersionOptionsV2V4 {
-	if c == nil {
-		return nil
-	}
-	return c.SignatureVersion
 }
 
 func (c *CreateInputInputEdgePrometheus) GetReuseConnections() *bool {
@@ -6865,8 +7280,6 @@ type CreateInputInputPrometheus struct {
 	Region *string `json:"region,omitzero"`
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing EC2 requests
-	SignatureVersion *components.SignatureVersionOptionsV2V4 `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Use Assume Role credentials to access EC2
@@ -7190,13 +7603,6 @@ func (c *CreateInputInputPrometheus) GetEndpoint() *string {
 		return nil
 	}
 	return c.Endpoint
-}
-
-func (c *CreateInputInputPrometheus) GetSignatureVersion() *components.SignatureVersionOptionsV2V4 {
-	if c == nil {
-		return nil
-	}
-	return c.SignatureVersion
 }
 
 func (c *CreateInputInputPrometheus) GetReuseConnections() *bool {
@@ -11269,10 +11675,10 @@ type CreateInputInputSplunkSearch struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Splunk Search authentication type
-	AuthType    *CreateInputAuthenticationTypeSplunkSearch `json:"authType,omitzero"`
-	Description *string                                    `json:"description,omitzero"`
-	Username    *string                                    `json:"username,omitzero"`
-	Password    *string                                    `json:"password,omitzero"`
+	AuthType    CreateInputAuthenticationTypeSplunkSearch `json:"authType"`
+	Description *string                                   `json:"description,omitzero"`
+	Username    *string                                   `json:"username,omitzero"`
+	Password    *string                                   `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -11539,9 +11945,9 @@ func (c *CreateInputInputSplunkSearch) GetStaleChannelFlushMs() *float64 {
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputSplunkSearch) GetAuthType() *CreateInputAuthenticationTypeSplunkSearch {
+func (c *CreateInputInputSplunkSearch) GetAuthType() CreateInputAuthenticationTypeSplunkSearch {
 	if c == nil {
-		return nil
+		return CreateInputAuthenticationTypeSplunkSearch("")
 	}
 	return c.AuthType
 }
@@ -12554,8 +12960,6 @@ type CreateInputInputMsk struct {
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing MSK cluster requests
-	SignatureVersion *components.SignatureVersionOptions `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -12833,13 +13237,6 @@ func (c *CreateInputInputMsk) GetEndpoint() *string {
 		return nil
 	}
 	return c.Endpoint
-}
-
-func (c *CreateInputInputMsk) GetSignatureVersion() *components.SignatureVersionOptions {
-	if c == nil {
-		return nil
-	}
-	return c.SignatureVersion
 }
 
 func (c *CreateInputInputMsk) GetReuseConnections() *bool {
@@ -13675,6 +14072,7 @@ const (
 	CreateInputRequestTypeAppscope             CreateInputRequestType = "appscope"
 	CreateInputRequestTypeWef                  CreateInputRequestType = "wef"
 	CreateInputRequestTypeWinEventLogs         CreateInputRequestType = "win_event_logs"
+	CreateInputRequestTypeAppleUnifiedLogs     CreateInputRequestType = "apple_unified_logs"
 	CreateInputRequestTypeRawUDP               CreateInputRequestType = "raw_udp"
 	CreateInputRequestTypeJournalFiles         CreateInputRequestType = "journal_files"
 	CreateInputRequestTypeWiz                  CreateInputRequestType = "wiz"
@@ -13690,7 +14088,7 @@ const (
 	CreateInputRequestTypeOkta                 CreateInputRequestType = "okta"
 )
 
-// CreateInputRequest - Input object
+// CreateInputRequest - Input object.
 type CreateInputRequest struct {
 	CreateInputInputCollection           *CreateInputInputCollection           `queryParam:"inline" union:"member"`
 	CreateInputInputKafka                *CreateInputInputKafka                `queryParam:"inline" union:"member"`
@@ -13746,6 +14144,7 @@ type CreateInputRequest struct {
 	CreateInputInputAppscope             *CreateInputInputAppscope             `queryParam:"inline" union:"member"`
 	CreateInputInputWef                  *CreateInputInputWef                  `queryParam:"inline" union:"member"`
 	CreateInputInputWinEventLogs         *CreateInputInputWinEventLogs         `queryParam:"inline" union:"member"`
+	CreateInputInputAppleUnifiedLogs     *CreateInputInputAppleUnifiedLogs     `queryParam:"inline" union:"member"`
 	CreateInputInputRawUDP               *CreateInputInputRawUDP               `queryParam:"inline" union:"member"`
 	CreateInputInputJournalFiles         *CreateInputInputJournalFiles         `queryParam:"inline" union:"member"`
 	CreateInputInputWiz                  *CreateInputInputWiz                  `queryParam:"inline" union:"member"`
@@ -14405,6 +14804,18 @@ func CreateCreateInputRequestWinEventLogs(winEventLogs CreateInputInputWinEventL
 	}
 }
 
+func CreateCreateInputRequestAppleUnifiedLogs(appleUnifiedLogs CreateInputInputAppleUnifiedLogs) CreateInputRequest {
+	typ := CreateInputRequestTypeAppleUnifiedLogs
+
+	typStr := CreateInputTypeAppleUnifiedLogs(typ)
+	appleUnifiedLogs.Type = typStr
+
+	return CreateInputRequest{
+		CreateInputInputAppleUnifiedLogs: &appleUnifiedLogs,
+		Type:                             typ,
+	}
+}
+
 func CreateCreateInputRequestRawUDP(rawUDP CreateInputInputRawUDP) CreateInputRequest {
 	typ := CreateInputRequestTypeRawUDP
 
@@ -15059,6 +15470,15 @@ func (u *CreateInputRequest) UnmarshalJSON(data []byte) error {
 		u.CreateInputInputWinEventLogs = createInputInputWinEventLogs
 		u.Type = CreateInputRequestTypeWinEventLogs
 		return nil
+	case "apple_unified_logs":
+		createInputInputAppleUnifiedLogs := new(CreateInputInputAppleUnifiedLogs)
+		if err := utils.UnmarshalJSON(data, &createInputInputAppleUnifiedLogs, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == apple_unified_logs) type CreateInputInputAppleUnifiedLogs within CreateInputRequest: %w", string(data), err)
+		}
+
+		u.CreateInputInputAppleUnifiedLogs = createInputInputAppleUnifiedLogs
+		u.Type = CreateInputRequestTypeAppleUnifiedLogs
+		return nil
 	case "raw_udp":
 		createInputInputRawUDP := new(CreateInputInputRawUDP)
 		if err := utils.UnmarshalJSON(data, &createInputInputRawUDP, "", true, nil); err != nil {
@@ -15398,6 +15818,10 @@ func (u CreateInputRequest) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CreateInputInputWinEventLogs, "", true)
 	}
 
+	if u.CreateInputInputAppleUnifiedLogs != nil {
+		return utils.MarshalJSON(u.CreateInputInputAppleUnifiedLogs, "", true)
+	}
+
 	if u.CreateInputInputRawUDP != nil {
 		return utils.MarshalJSON(u.CreateInputInputRawUDP, "", true)
 	}
@@ -15456,7 +15880,7 @@ func (u CreateInputRequest) MarshalJSON() ([]byte, error) {
 type CreateInputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the created Source object
-	CountedInput *components.CountedInput
+	CountedInputResponse *components.CountedInputResponse
 }
 
 func (c CreateInputResponse) MarshalJSON() ([]byte, error) {
@@ -15477,9 +15901,9 @@ func (c *CreateInputResponse) GetHTTPMeta() components.HTTPMetadata {
 	return c.HTTPMeta
 }
 
-func (c *CreateInputResponse) GetCountedInput() *components.CountedInput {
+func (c *CreateInputResponse) GetCountedInputResponse() *components.CountedInputResponse {
 	if c == nil {
 		return nil
 	}
-	return c.CountedInput
+	return c.CountedInputResponse
 }

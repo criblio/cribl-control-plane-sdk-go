@@ -74,9 +74,7 @@ type OutputGoogleCloudStorage struct {
 	// Region where the bucket is located
 	Region string `json:"region"`
 	// Google Cloud Storage service endpoint
-	Endpoint string `json:"endpoint"`
-	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion        *SignatureVersionOptionsGoogle                `json:"signatureVersion,omitzero"`
+	Endpoint                string                                        `json:"endpoint"`
 	AwsAuthenticationMethod *OutputGoogleCloudStorageAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
@@ -273,13 +271,6 @@ func (o *OutputGoogleCloudStorage) GetEndpoint() string {
 		return ""
 	}
 	return o.Endpoint
-}
-
-func (o *OutputGoogleCloudStorage) GetSignatureVersion() *SignatureVersionOptionsGoogle {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
 }
 
 func (o *OutputGoogleCloudStorage) GetAwsAuthenticationMethod() *OutputGoogleCloudStorageAuthenticationMethod {

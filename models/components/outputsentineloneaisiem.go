@@ -31,25 +31,25 @@ func (e *OutputSentinelOneAiSiemType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// Region - The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
-type Region string
+// OutputSentinelOneAiSiemRegion - The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+type OutputSentinelOneAiSiemRegion string
 
 const (
-	RegionUs     Region = "US"
-	RegionCa     Region = "CA"
-	RegionEmea   Region = "EMEA"
-	RegionAp     Region = "AP"
-	RegionAps    Region = "APS"
-	RegionAu     Region = "AU"
-	RegionCustom Region = "Custom"
+	OutputSentinelOneAiSiemRegionUs     OutputSentinelOneAiSiemRegion = "US"
+	OutputSentinelOneAiSiemRegionCa     OutputSentinelOneAiSiemRegion = "CA"
+	OutputSentinelOneAiSiemRegionEmea   OutputSentinelOneAiSiemRegion = "EMEA"
+	OutputSentinelOneAiSiemRegionAp     OutputSentinelOneAiSiemRegion = "AP"
+	OutputSentinelOneAiSiemRegionAps    OutputSentinelOneAiSiemRegion = "APS"
+	OutputSentinelOneAiSiemRegionAu     OutputSentinelOneAiSiemRegion = "AU"
+	OutputSentinelOneAiSiemRegionCustom OutputSentinelOneAiSiemRegion = "Custom"
 )
 
-func (e Region) ToPointer() *Region {
+func (e OutputSentinelOneAiSiemRegion) ToPointer() *OutputSentinelOneAiSiemRegion {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Region) IsExact() bool {
+func (e *OutputSentinelOneAiSiemRegion) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "US", "CA", "EMEA", "AP", "APS", "AU", "Custom":
@@ -59,20 +59,20 @@ func (e *Region) IsExact() bool {
 	return false
 }
 
-// AISIEMEndpointPath - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
-type AISIEMEndpointPath string
+// OutputSentinelOneAISIEMAISIEMEndpointPath - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+type OutputSentinelOneAISIEMAISIEMEndpointPath string
 
 const (
-	AISIEMEndpointPathRootServicesCollectorEvent AISIEMEndpointPath = "/services/collector/event"
-	AISIEMEndpointPathRootServicesCollectorRaw   AISIEMEndpointPath = "/services/collector/raw"
+	OutputSentinelOneAISIEMAISIEMEndpointPathRootServicesCollectorEvent OutputSentinelOneAISIEMAISIEMEndpointPath = "/services/collector/event"
+	OutputSentinelOneAISIEMAISIEMEndpointPathRootServicesCollectorRaw   OutputSentinelOneAISIEMAISIEMEndpointPath = "/services/collector/raw"
 )
 
-func (e AISIEMEndpointPath) ToPointer() *AISIEMEndpointPath {
+func (e OutputSentinelOneAISIEMAISIEMEndpointPath) ToPointer() *OutputSentinelOneAISIEMAISIEMEndpointPath {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AISIEMEndpointPath) IsExact() bool {
+func (e *OutputSentinelOneAISIEMAISIEMEndpointPath) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "/services/collector/event", "/services/collector/raw":
@@ -109,9 +109,9 @@ type OutputSentinelOneAiSiem struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
-	Region Region `json:"region"`
+	Region OutputSentinelOneAiSiemRegion `json:"region"`
 	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
-	Endpoint AISIEMEndpointPath `json:"endpoint"`
+	Endpoint OutputSentinelOneAISIEMAISIEMEndpointPath `json:"endpoint"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -262,16 +262,16 @@ func (o *OutputSentinelOneAiSiem) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputSentinelOneAiSiem) GetRegion() Region {
+func (o *OutputSentinelOneAiSiem) GetRegion() OutputSentinelOneAiSiemRegion {
 	if o == nil {
-		return Region("")
+		return OutputSentinelOneAiSiemRegion("")
 	}
 	return o.Region
 }
 
-func (o *OutputSentinelOneAiSiem) GetEndpoint() AISIEMEndpointPath {
+func (o *OutputSentinelOneAiSiem) GetEndpoint() OutputSentinelOneAISIEMAISIEMEndpointPath {
 	if o == nil {
-		return AISIEMEndpointPath("")
+		return OutputSentinelOneAISIEMAISIEMEndpointPath("")
 	}
 	return o.Endpoint
 }

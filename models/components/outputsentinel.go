@@ -31,18 +31,18 @@ func (e *OutputSentinelType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type AuthTypeEnum string
+type OutputSentinelAuthType string
 
 const (
-	AuthTypeEnumOauth AuthTypeEnum = "oauth"
+	OutputSentinelAuthTypeOauth OutputSentinelAuthType = "oauth"
 )
 
-func (e AuthTypeEnum) ToPointer() *AuthTypeEnum {
+func (e OutputSentinelAuthType) ToPointer() *OutputSentinelAuthType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AuthTypeEnum) IsExact() bool {
+func (e *OutputSentinelAuthType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "oauth":
@@ -52,22 +52,22 @@ func (e *AuthTypeEnum) IsExact() bool {
 	return false
 }
 
-// EndpointConfiguration - Enter the data collection endpoint URL or the individual ID
-type EndpointConfiguration string
+// OutputSentinelEndpointConfiguration - Enter the data collection endpoint URL or the individual ID
+type OutputSentinelEndpointConfiguration string
 
 const (
-	// EndpointConfigurationURL URL
-	EndpointConfigurationURL EndpointConfiguration = "url"
-	// EndpointConfigurationID ID
-	EndpointConfigurationID EndpointConfiguration = "ID"
+	// OutputSentinelEndpointConfigurationURL URL
+	OutputSentinelEndpointConfigurationURL OutputSentinelEndpointConfiguration = "url"
+	// OutputSentinelEndpointConfigurationID ID
+	OutputSentinelEndpointConfigurationID OutputSentinelEndpointConfiguration = "ID"
 )
 
-func (e EndpointConfiguration) ToPointer() *EndpointConfiguration {
+func (e OutputSentinelEndpointConfiguration) ToPointer() *OutputSentinelEndpointConfiguration {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *EndpointConfiguration) IsExact() bool {
+func (e *OutputSentinelEndpointConfiguration) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "url", "ID":
@@ -160,7 +160,7 @@ type OutputSentinel struct {
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	AuthType       *AuthTypeEnum                `json:"authType,omitzero"`
+	AuthType       *OutputSentinelAuthType      `json:"authType,omitzero"`
 	// URL for OAuth
 	LoginURL string `json:"loginUrl"`
 	// Secret parameter value to pass in request body
@@ -170,7 +170,7 @@ type OutputSentinel struct {
 	// Scope to pass in the OAuth request
 	Scope *string `json:"scope,omitzero"`
 	// Enter the data collection endpoint URL or the individual ID
-	EndpointURLConfiguration EndpointConfiguration `json:"endpointURLConfiguration"`
+	EndpointURLConfiguration OutputSentinelEndpointConfiguration `json:"endpointURLConfiguration"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64              `json:"totalMemoryLimitKB,omitzero"`
 	Description        *string               `json:"description,omitzero"`
@@ -411,7 +411,7 @@ func (o *OutputSentinel) GetOnBackpressure() *BackpressureBehaviorOptions {
 	return o.OnBackpressure
 }
 
-func (o *OutputSentinel) GetAuthType() *AuthTypeEnum {
+func (o *OutputSentinel) GetAuthType() *OutputSentinelAuthType {
 	if o == nil {
 		return nil
 	}
@@ -446,9 +446,9 @@ func (o *OutputSentinel) GetScope() *string {
 	return o.Scope
 }
 
-func (o *OutputSentinel) GetEndpointURLConfiguration() EndpointConfiguration {
+func (o *OutputSentinel) GetEndpointURLConfiguration() OutputSentinelEndpointConfiguration {
 	if o == nil {
-		return EndpointConfiguration("")
+		return OutputSentinelEndpointConfiguration("")
 	}
 	return o.EndpointURLConfiguration
 }

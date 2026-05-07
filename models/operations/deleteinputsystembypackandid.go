@@ -31,7 +31,7 @@ func (d *DeleteInputSystemByPackAndIDRequest) GetPack() string {
 type DeleteInputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the deleted Source object
-	CountedInput *components.CountedInput
+	CountedInputResponse *components.CountedInputResponse
 }
 
 func (d DeleteInputSystemByPackAndIDResponse) MarshalJSON() ([]byte, error) {
@@ -52,9 +52,9 @@ func (d *DeleteInputSystemByPackAndIDResponse) GetHTTPMeta() components.HTTPMeta
 	return d.HTTPMeta
 }
 
-func (d *DeleteInputSystemByPackAndIDResponse) GetCountedInput() *components.CountedInput {
+func (d *DeleteInputSystemByPackAndIDResponse) GetCountedInputResponse() *components.CountedInputResponse {
 	if d == nil {
 		return nil
 	}
-	return d.CountedInput
+	return d.CountedInputResponse
 }

@@ -309,6 +309,12 @@ pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputRollupMet
 pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputSampling(components.PipelineFunctionSampling{/* values here */})
 ```
 
+### PipelineFunctionSearchEngineExport
+
+```go
+pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputSearchEngineExport(components.PipelineFunctionSearchEngineExport{/* values here */})
+```
+
 ### PipelineFunctionSend
 
 ```go
@@ -513,6 +519,8 @@ switch pipelineFunctionConfInput.Type {
 		// pipelineFunctionConfInput.PipelineFunctionRollupMetrics is populated
 	case components.PipelineFunctionConfInputTypeSampling:
 		// pipelineFunctionConfInput.PipelineFunctionSampling is populated
+	case components.PipelineFunctionConfInputTypeSearchEngineExport:
+		// pipelineFunctionConfInput.PipelineFunctionSearchEngineExport is populated
 	case components.PipelineFunctionConfInputTypeSend:
 		// pipelineFunctionConfInput.PipelineFunctionSend is populated
 	case components.PipelineFunctionConfInputTypeSensitiveDataScanner:

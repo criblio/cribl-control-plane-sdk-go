@@ -42,7 +42,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -109,7 +109,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -150,7 +150,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -201,7 +201,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -244,7 +244,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -287,7 +287,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -330,7 +330,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -372,7 +372,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -414,7 +414,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -456,7 +456,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -499,7 +499,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -538,7 +538,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -577,7 +577,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -703,7 +703,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -744,7 +744,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -787,7 +787,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -833,7 +833,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -873,7 +873,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -912,7 +912,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -951,7 +951,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -993,7 +993,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1037,7 +1037,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1081,7 +1081,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1121,7 +1121,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1162,7 +1162,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1206,7 +1206,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1246,7 +1246,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1288,7 +1288,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1330,7 +1330,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1373,7 +1373,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1413,7 +1413,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1455,7 +1455,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1497,7 +1497,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1537,7 +1537,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1580,7 +1580,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1621,7 +1621,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1664,7 +1664,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1705,7 +1705,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1747,7 +1747,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1787,7 +1787,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1828,7 +1828,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1870,7 +1870,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1915,7 +1915,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1960,7 +1960,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2000,7 +2000,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2042,7 +2042,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2084,7 +2084,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2124,7 +2124,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2164,7 +2164,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2203,7 +2203,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2248,7 +2248,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2290,7 +2290,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2335,7 +2335,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2379,7 +2379,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2420,7 +2420,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2463,7 +2463,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2504,7 +2504,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2549,7 +2549,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2591,7 +2591,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2632,7 +2632,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2671,7 +2671,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2716,7 +2716,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2758,7 +2758,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2800,7 +2800,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2842,7 +2842,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2884,7 +2884,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2924,7 +2924,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2965,7 +2965,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3006,7 +3006,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3047,7 +3047,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3089,7 +3089,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3133,7 +3133,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3172,7 +3172,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3214,7 +3214,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3256,7 +3256,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3298,7 +3298,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3310,7 +3310,7 @@ func main() {
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                            | :heavy_check_mark:                                                                                               | The context to use for the request.                                                                              |
 | `pack`                                                                                                           | `string`                                                                                                         | :heavy_check_mark:                                                                                               | The <code>id</code> of the Pack.                                                                                 |
-| `requestBody`                                                                                                    | [operations.CreateOutputSystemByPackRequestBody](../../models/operations/createoutputsystembypackrequestbody.md) | :heavy_check_mark:                                                                                               | Output object                                                                                                    |
+| `requestBody`                                                                                                    | [operations.CreateOutputSystemByPackRequestBody](../../models/operations/createoutputsystembypackrequestbody.md) | :heavy_check_mark:                                                                                               | Output object.                                                                                                   |
 | `opts`                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                         | :heavy_minus_sign:                                                                                               | The options for this request.                                                                                    |
 
 ### Response
@@ -3356,7 +3356,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3422,7 +3422,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3462,7 +3462,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3498,7 +3498,7 @@ func main() {
             ClusterURL: "https://mycluster.kusto.windows.net",
             Database: "mydatabase",
             Table: "mytable",
-            IngestMode: components.IngestionModeStreaming.ToPointer(),
+            IngestMode: components.OutputAzureDataExplorerIngestionModeStreaming.ToPointer(),
             OauthEndpoint: components.MicrosoftEntraIDAuthenticationEndpointOptionsSaslHTTPSLoginMicrosoftonlineCom,
             TenantID: "tenant-id",
             ClientID: "client-id",
@@ -3512,7 +3512,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3554,7 +3554,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3596,7 +3596,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3638,7 +3638,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3679,7 +3679,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3720,7 +3720,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3761,7 +3761,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3803,7 +3803,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3841,7 +3841,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3879,7 +3879,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4004,7 +4004,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4044,7 +4044,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4086,7 +4086,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4131,7 +4131,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4170,7 +4170,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4208,7 +4208,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4246,7 +4246,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4287,7 +4287,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4322,15 +4322,15 @@ func main() {
             Type: components.OutputDynatraceHTTPTypeDynatraceHTTP,
             AuthType: components.OutputDynatraceHTTPAuthenticationTypeToken.ToPointer(),
             Format: components.OutputDynatraceHTTPFormatJSONArray,
-            Endpoint: components.EndpointCloud,
-            TelemetryType: components.TelemetryTypeLogs,
+            Endpoint: components.OutputDynatraceHTTPEndpointCloud,
+            TelemetryType: components.OutputDynatraceHTTPTelemetryTypeLogs,
             Token: criblcontrolplanesdkgo.Pointer("your-api-key"),
         },
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4366,14 +4366,14 @@ func main() {
             Protocol: components.OutputDynatraceOtlpProtocolHTTP,
             Endpoint: "https://your-environment.live.dynatrace.com/api/v2/otlp",
             OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
-            EndpointType: components.EndpointTypeSaas,
+            EndpointType: components.OutputDynatraceOtlpEndpointTypeSaas,
             TokenSecret: "your-token-secret",
         },
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4412,7 +4412,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4452,7 +4452,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4495,7 +4495,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4534,7 +4534,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4567,7 +4567,7 @@ func main() {
         components.OutputGoogleChronicle{
             ID: criblcontrolplanesdkgo.Pointer("google-chronicle-output"),
             Type: components.OutputGoogleChronicleTypeGoogleChronicle,
-            LogFormatType: components.SendEventsAsUnstructured,
+            LogFormatType: components.OutputGoogleChronicleSendEventsAsUnstructured,
             Region: criblcontrolplanesdkgo.Pointer("us"),
             CustomerID: criblcontrolplanesdkgo.Pointer("customer-id"),
         },
@@ -4575,7 +4575,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4608,7 +4608,7 @@ func main() {
         components.OutputGoogleCloudLogging{
             ID: criblcontrolplanesdkgo.Pointer("google-cloud-logging-output"),
             Type: components.OutputGoogleCloudLoggingTypeGoogleCloudLogging,
-            LogLocationType: components.LogLocationTypeProject,
+            LogLocationType: components.OutputGoogleCloudLoggingLogLocationTypeProject,
             LogNameExpression: "my-log",
             LogLocationExpression: "my-project",
         },
@@ -4616,7 +4616,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4658,7 +4658,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4697,7 +4697,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4738,7 +4738,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4779,7 +4779,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4818,7 +4818,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4860,7 +4860,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4900,7 +4900,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4942,7 +4942,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4982,7 +4982,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5023,7 +5023,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5062,7 +5062,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5102,7 +5102,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5143,7 +5143,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5187,7 +5187,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5231,7 +5231,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5270,7 +5270,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5311,7 +5311,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5352,7 +5352,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5391,7 +5391,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5430,7 +5430,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5468,7 +5468,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5512,7 +5512,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5553,7 +5553,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5597,7 +5597,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5633,14 +5633,14 @@ func main() {
             LoginURL: "https://login.microsoftonline.com",
             Secret: "client-secret",
             ClientID: "client-id",
-            EndpointURLConfiguration: components.EndpointConfigurationURL,
+            EndpointURLConfiguration: components.OutputSentinelEndpointConfigurationURL,
             URL: criblcontrolplanesdkgo.Pointer("https://your-workspace.ingest.monitor.azure.com"),
         },
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5673,14 +5673,14 @@ func main() {
         components.OutputSentinelOneAiSiem{
             ID: criblcontrolplanesdkgo.Pointer("sentinel-one-ai-siem-output"),
             Type: components.OutputSentinelOneAiSiemTypeSentinelOneAiSiem,
-            Region: components.RegionUs,
-            Endpoint: components.AISIEMEndpointPathRootServicesCollectorEvent,
+            Region: components.OutputSentinelOneAiSiemRegionUs,
+            Endpoint: components.OutputSentinelOneAISIEMAISIEMEndpointPathRootServicesCollectorEvent,
         },
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5722,7 +5722,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5762,7 +5762,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5806,7 +5806,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5847,7 +5847,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5887,7 +5887,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5925,7 +5925,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5969,7 +5969,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6010,7 +6010,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6051,7 +6051,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6092,7 +6092,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6133,7 +6133,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6172,7 +6172,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6212,7 +6212,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6252,7 +6252,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6292,7 +6292,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6333,7 +6333,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6376,7 +6376,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6414,7 +6414,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6455,7 +6455,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6496,7 +6496,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6537,7 +6537,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6576,7 +6576,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6589,7 +6589,7 @@ func main() {
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Destination to update.        |
 | `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack.                         |
-| `output`                                                 | [components.Output](../../models/components/output.md)   | :heavy_check_mark:                                       | Output object                                            |
+| `output`                                                 | [components.Output](../../models/components/output.md)   | :heavy_check_mark:                                       | Output object.                                           |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
@@ -6635,7 +6635,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }

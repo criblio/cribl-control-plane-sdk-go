@@ -9,7 +9,7 @@ import (
 
 type CreateVersionUndoResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of boolean objects
+	// The created boolean object in a single-item list.
 	CountedBoolean *components.CountedBoolean
 }
 

@@ -31,30 +31,30 @@ func (e *OutputInfluxdbType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// TimestampPrecision - Sets the precision for the supplied Unix time values. Defaults to milliseconds.
-type TimestampPrecision string
+// OutputInfluxdbTimestampPrecision - Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+type OutputInfluxdbTimestampPrecision string
 
 const (
-	// TimestampPrecisionNs Nanoseconds
-	TimestampPrecisionNs TimestampPrecision = "ns"
-	// TimestampPrecisionU Microseconds
-	TimestampPrecisionU TimestampPrecision = "u"
-	// TimestampPrecisionMs Milliseconds
-	TimestampPrecisionMs TimestampPrecision = "ms"
-	// TimestampPrecisionS Seconds
-	TimestampPrecisionS TimestampPrecision = "s"
-	// TimestampPrecisionM Minutes
-	TimestampPrecisionM TimestampPrecision = "m"
-	// TimestampPrecisionH Hours
-	TimestampPrecisionH TimestampPrecision = "h"
+	// OutputInfluxdbTimestampPrecisionNs Nanoseconds
+	OutputInfluxdbTimestampPrecisionNs OutputInfluxdbTimestampPrecision = "ns"
+	// OutputInfluxdbTimestampPrecisionU Microseconds
+	OutputInfluxdbTimestampPrecisionU OutputInfluxdbTimestampPrecision = "u"
+	// OutputInfluxdbTimestampPrecisionMs Milliseconds
+	OutputInfluxdbTimestampPrecisionMs OutputInfluxdbTimestampPrecision = "ms"
+	// OutputInfluxdbTimestampPrecisionS Seconds
+	OutputInfluxdbTimestampPrecisionS OutputInfluxdbTimestampPrecision = "s"
+	// OutputInfluxdbTimestampPrecisionM Minutes
+	OutputInfluxdbTimestampPrecisionM OutputInfluxdbTimestampPrecision = "m"
+	// OutputInfluxdbTimestampPrecisionH Hours
+	OutputInfluxdbTimestampPrecisionH OutputInfluxdbTimestampPrecision = "h"
 )
 
-func (e TimestampPrecision) ToPointer() *TimestampPrecision {
+func (e OutputInfluxdbTimestampPrecision) ToPointer() *OutputInfluxdbTimestampPrecision {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *TimestampPrecision) IsExact() bool {
+func (e *OutputInfluxdbTimestampPrecision) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "ns", "u", "ms", "s", "m", "h":
@@ -126,7 +126,7 @@ type OutputInfluxdb struct {
 	// The v2 API can be enabled with InfluxDB versions 1.8 and later.
 	UseV2API *bool `json:"useV2API,omitzero"`
 	// Sets the precision for the supplied Unix time values. Defaults to milliseconds.
-	TimestampPrecision *TimestampPrecision `json:"timestampPrecision,omitzero"`
+	TimestampPrecision *OutputInfluxdbTimestampPrecision `json:"timestampPrecision,omitzero"`
 	// Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
 	DynamicValueFieldName *bool `json:"dynamicValueFieldName,omitzero"`
 	// Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
@@ -283,7 +283,7 @@ func (o *OutputInfluxdb) GetUseV2API() *bool {
 	return o.UseV2API
 }
 
-func (o *OutputInfluxdb) GetTimestampPrecision() *TimestampPrecision {
+func (o *OutputInfluxdb) GetTimestampPrecision() *OutputInfluxdbTimestampPrecision {
 	if o == nil {
 		return nil
 	}

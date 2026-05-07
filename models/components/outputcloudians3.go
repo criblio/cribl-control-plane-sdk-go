@@ -31,29 +31,6 @@ func (e *OutputCloudianS3Type) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputCloudianS3SignatureVersion - Signature version to use for signing Cloudian requests
-type OutputCloudianS3SignatureVersion string
-
-const (
-	OutputCloudianS3SignatureVersionV2 OutputCloudianS3SignatureVersion = "v2"
-	OutputCloudianS3SignatureVersionV4 OutputCloudianS3SignatureVersion = "v4"
-)
-
-func (e OutputCloudianS3SignatureVersion) ToPointer() *OutputCloudianS3SignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCloudianS3SignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputCloudianS3 struct {
 	// Unique ID for this output
 	ID   *string              `json:"id,omitzero"`
@@ -69,15 +46,11 @@ type OutputCloudianS3 struct {
 	// Cloudian HyperStore S3-compatible endpoint URL (example: https://s3.hyperstore.example.com)
 	Endpoint string `json:"endpoint"`
 	// Authentication method.
-	AwsAuthenticationMethod *AuthenticationMethodOptionse9c778 `json:"awsAuthenticationMethod,omitzero"`
-	// Signature version to use for signing Cloudian requests
-	SignatureVersion *OutputCloudianS3SignatureVersion `json:"signatureVersion,omitzero"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsSecret `json:"awsAuthenticationMethod,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Name of the destination Cloudian bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
 	// Region where the Cloudian bucket is located
@@ -135,8 +108,6 @@ type OutputCloudianS3 struct {
 	// ID or ARN of the KMS customer-managed key to use for encryption
 	KmsKeyID    *string `json:"kmsKeyId,omitzero"`
 	Description *string `json:"description,omitzero"`
-	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
-	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
@@ -177,8 +148,6 @@ type OutputCloudianS3 struct {
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -203,8 +172,6 @@ type OutputCloudianS3 struct {
 	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
 	// Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
 	TemplateKmsKeyID *string `json:"__template_kmsKeyId,omitzero"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
 	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
@@ -271,18 +238,11 @@ func (o *OutputCloudianS3) GetEndpoint() string {
 	return o.Endpoint
 }
 
-func (o *OutputCloudianS3) GetAwsAuthenticationMethod() *AuthenticationMethodOptionse9c778 {
+func (o *OutputCloudianS3) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsSecret {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
-}
-
-func (o *OutputCloudianS3) GetSignatureVersion() *OutputCloudianS3SignatureVersion {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
 }
 
 func (o *OutputCloudianS3) GetReuseConnections() *bool {
@@ -297,13 +257,6 @@ func (o *OutputCloudianS3) GetRejectUnauthorized() *bool {
 		return nil
 	}
 	return o.RejectUnauthorized
-}
-
-func (o *OutputCloudianS3) GetAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsSecretKey
 }
 
 func (o *OutputCloudianS3) GetBucket() string {
@@ -516,13 +469,6 @@ func (o *OutputCloudianS3) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputCloudianS3) GetAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsAPIKey
-}
-
 func (o *OutputCloudianS3) GetAwsSecret() *string {
 	if o == nil {
 		return nil
@@ -663,13 +609,6 @@ func (o *OutputCloudianS3) GetTemplateEndpoint() *string {
 	return o.TemplateEndpoint
 }
 
-func (o *OutputCloudianS3) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
-}
-
 func (o *OutputCloudianS3) GetTemplateBucket() *string {
 	if o == nil {
 		return nil
@@ -752,13 +691,6 @@ func (o *OutputCloudianS3) GetTemplateKmsKeyID() *string {
 		return nil
 	}
 	return o.TemplateKmsKeyID
-}
-
-func (o *OutputCloudianS3) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
 }
 
 func (o *OutputCloudianS3) GetTemplateCompress() *string {

@@ -72,8 +72,8 @@ func (o *OutputSplunkLbAuthToken) GetTextSecret() *string {
 	return o.TextSecret
 }
 
-// IndexerDiscoveryConfigs - List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
-type IndexerDiscoveryConfigs struct {
+// OutputSplunkLbIndexerDiscoveryConfigs - List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
+type OutputSplunkLbIndexerDiscoveryConfigs struct {
 	// Clustering site of the indexers from where indexers need to be discovered. In case of single site cluster, it defaults to 'default' site.
 	Site string `json:"site"`
 	// Full URI of Splunk cluster manager (scheme://host:port). Example: https://managerAddress:8089
@@ -92,71 +92,71 @@ type IndexerDiscoveryConfigs struct {
 	TextSecret *string `json:"textSecret,omitzero"`
 }
 
-func (i IndexerDiscoveryConfigs) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (o OutputSplunkLbIndexerDiscoveryConfigs) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (i *IndexerDiscoveryConfigs) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (o *OutputSplunkLbIndexerDiscoveryConfigs) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *IndexerDiscoveryConfigs) GetSite() string {
-	if i == nil {
+func (o *OutputSplunkLbIndexerDiscoveryConfigs) GetSite() string {
+	if o == nil {
 		return ""
 	}
-	return i.Site
+	return o.Site
 }
 
-func (i *IndexerDiscoveryConfigs) GetMasterURI() string {
-	if i == nil {
+func (o *OutputSplunkLbIndexerDiscoveryConfigs) GetMasterURI() string {
+	if o == nil {
 		return ""
 	}
-	return i.MasterURI
+	return o.MasterURI
 }
 
-func (i *IndexerDiscoveryConfigs) GetRefreshIntervalSec() float64 {
-	if i == nil {
+func (o *OutputSplunkLbIndexerDiscoveryConfigs) GetRefreshIntervalSec() float64 {
+	if o == nil {
 		return 0.0
 	}
-	return i.RefreshIntervalSec
+	return o.RefreshIntervalSec
 }
 
-func (i *IndexerDiscoveryConfigs) GetRejectUnauthorized() *bool {
-	if i == nil {
+func (o *OutputSplunkLbIndexerDiscoveryConfigs) GetRejectUnauthorized() *bool {
+	if o == nil {
 		return nil
 	}
-	return i.RejectUnauthorized
+	return o.RejectUnauthorized
 }
 
-func (i *IndexerDiscoveryConfigs) GetAuthTokens() []OutputSplunkLbAuthToken {
-	if i == nil {
+func (o *OutputSplunkLbIndexerDiscoveryConfigs) GetAuthTokens() []OutputSplunkLbAuthToken {
+	if o == nil {
 		return nil
 	}
-	return i.AuthTokens
+	return o.AuthTokens
 }
 
-func (i *IndexerDiscoveryConfigs) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
-	if i == nil {
+func (o *OutputSplunkLbIndexerDiscoveryConfigs) GetAuthType() *AuthenticationMethodOptionsAuthTokensItems {
+	if o == nil {
 		return nil
 	}
-	return i.AuthType
+	return o.AuthType
 }
 
-func (i *IndexerDiscoveryConfigs) GetAuthToken() *string {
-	if i == nil {
+func (o *OutputSplunkLbIndexerDiscoveryConfigs) GetAuthToken() *string {
+	if o == nil {
 		return nil
 	}
-	return i.AuthToken
+	return o.AuthToken
 }
 
-func (i *IndexerDiscoveryConfigs) GetTextSecret() *string {
-	if i == nil {
+func (o *OutputSplunkLbIndexerDiscoveryConfigs) GetTextSecret() *string {
+	if o == nil {
 		return nil
 	}
-	return i.TextSecret
+	return o.TextSecret
 }
 
 type OutputSplunkLbPqControls struct {
@@ -222,7 +222,7 @@ type OutputSplunkLb struct {
 	// Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
 	Compress *CompressionOptions `json:"compress,omitzero"`
 	// List of configurations to set up indexer discovery in Splunk Indexer clustering environment.
-	IndexerDiscoveryConfigs *IndexerDiscoveryConfigs `json:"indexerDiscoveryConfigs,omitzero"`
+	IndexerDiscoveryConfigs *OutputSplunkLbIndexerDiscoveryConfigs `json:"indexerDiscoveryConfigs,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
 	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
 	// Set of Splunk indexers to load-balance data to.
@@ -452,7 +452,7 @@ func (o *OutputSplunkLb) GetCompress() *CompressionOptions {
 	return o.Compress
 }
 
-func (o *OutputSplunkLb) GetIndexerDiscoveryConfigs() *IndexerDiscoveryConfigs {
+func (o *OutputSplunkLb) GetIndexerDiscoveryConfigs() *OutputSplunkLbIndexerDiscoveryConfigs {
 	if o == nil {
 		return nil
 	}

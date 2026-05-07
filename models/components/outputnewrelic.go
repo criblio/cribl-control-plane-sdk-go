@@ -31,21 +31,21 @@ func (e *OutputNewrelicType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FieldName string
+type OutputNewrelicFieldName string
 
 const (
-	FieldNameService   FieldName = "service"
-	FieldNameHostname  FieldName = "hostname"
-	FieldNameTimestamp FieldName = "timestamp"
-	FieldNameAuditID   FieldName = "auditId"
+	OutputNewrelicFieldNameService   OutputNewrelicFieldName = "service"
+	OutputNewrelicFieldNameHostname  OutputNewrelicFieldName = "hostname"
+	OutputNewrelicFieldNameTimestamp OutputNewrelicFieldName = "timestamp"
+	OutputNewrelicFieldNameAuditID   OutputNewrelicFieldName = "auditId"
 )
 
-func (e FieldName) ToPointer() *FieldName {
+func (e OutputNewrelicFieldName) ToPointer() *OutputNewrelicFieldName {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FieldName) IsExact() bool {
+func (e *OutputNewrelicFieldName) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "service", "hostname", "timestamp", "auditId":
@@ -55,35 +55,35 @@ func (e *FieldName) IsExact() bool {
 	return false
 }
 
-type Metadatum struct {
-	Name FieldName `json:"name"`
+type OutputNewrelicMetadatum struct {
+	Name OutputNewrelicFieldName `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
 }
 
-func (m Metadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(m, "", false)
+func (o OutputNewrelicMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (m *Metadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
+func (o *OutputNewrelicMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *Metadatum) GetName() FieldName {
-	if m == nil {
-		return FieldName("")
+func (o *OutputNewrelicMetadatum) GetName() OutputNewrelicFieldName {
+	if o == nil {
+		return OutputNewrelicFieldName("")
 	}
-	return m.Name
+	return o.Name
 }
 
-func (m *Metadatum) GetValue() string {
-	if m == nil {
+func (o *OutputNewrelicMetadatum) GetValue() string {
+	if o == nil {
 		return ""
 	}
-	return m.Value
+	return o.Value
 }
 
 type OutputNewrelicPqControls struct {
@@ -119,7 +119,7 @@ type OutputNewrelic struct {
 	// Name of field to send as log message value. If not present, event will be serialized and sent as JSON.
 	MessageField *string `json:"messageField,omitzero"`
 	// Fields to add to events from this input
-	Metadata []Metadatum `json:"metadata,omitzero"`
+	Metadata []OutputNewrelicMetadatum `json:"metadata,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -272,7 +272,7 @@ func (o *OutputNewrelic) GetMessageField() *string {
 	return o.MessageField
 }
 
-func (o *OutputNewrelic) GetMetadata() []Metadatum {
+func (o *OutputNewrelic) GetMetadata() []OutputNewrelicMetadatum {
 	if o == nil {
 		return nil
 	}

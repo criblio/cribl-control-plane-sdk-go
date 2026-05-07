@@ -30,7 +30,7 @@ func (d *DeleteCriblLakeDatasetByLakeIDAndIDRequest) GetID() string {
 
 type DeleteCriblLakeDatasetByLakeIDAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of CriblLakeDataset objects
+	// The deleted CriblLakeDataset object in a single-item list.
 	CountedCriblLakeDataset *components.CountedCriblLakeDataset
 }
 

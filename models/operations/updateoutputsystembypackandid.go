@@ -12,7 +12,7 @@ type UpdateOutputSystemByPackAndIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
-	// Output object
+	// Output object.
 	Output components.Output `request:"mediaType=application/json"`
 }
 
@@ -348,7 +348,7 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputScalityS3() *components.
 type UpdateOutputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the updated Destination object
-	CountedOutput *components.CountedOutput
+	CountedOutputResponse *components.CountedOutputResponse
 }
 
 func (u UpdateOutputSystemByPackAndIDResponse) MarshalJSON() ([]byte, error) {
@@ -369,9 +369,9 @@ func (u *UpdateOutputSystemByPackAndIDResponse) GetHTTPMeta() components.HTTPMet
 	return u.HTTPMeta
 }
 
-func (u *UpdateOutputSystemByPackAndIDResponse) GetCountedOutput() *components.CountedOutput {
+func (u *UpdateOutputSystemByPackAndIDResponse) GetCountedOutputResponse() *components.CountedOutputResponse {
 	if u == nil {
 		return nil
 	}
-	return u.CountedOutput
+	return u.CountedOutputResponse
 }

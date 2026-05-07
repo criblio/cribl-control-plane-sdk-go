@@ -10,7 +10,7 @@ import (
 type CreateCriblLakeDatasetByLakeIDRequest struct {
 	// The <code>id</code> of the Lake to create the Lake Dataset in.
 	LakeID string `pathParam:"style=simple,explode=false,name=lakeId"`
-	// CriblLakeDataset object
+	// CriblLakeDataset object.
 	CriblLakeDataset components.CriblLakeDataset `request:"mediaType=application/json"`
 }
 
@@ -30,7 +30,7 @@ func (c *CreateCriblLakeDatasetByLakeIDRequest) GetCriblLakeDataset() components
 
 type CreateCriblLakeDatasetByLakeIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of CriblLakeDataset objects
+	// The created CriblLakeDataset object in a single-item list.
 	CountedCriblLakeDataset *components.CountedCriblLakeDataset
 }
 

@@ -10,8 +10,8 @@ import (
 type CreateRoutesAppendByIDRequest struct {
 	// The <code>id</code> of the Routing table to add the Route to. The supported value is <code>default</code>.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// RouteDefinitions object
-	RequestBody []components.RouteConfInput `request:"mediaType=application/json"`
+	// RouteDefinitions object.
+	RequestBody []components.ItemsTypeRoutesInputRoutes `request:"mediaType=application/json"`
 }
 
 func (c *CreateRoutesAppendByIDRequest) GetID() string {
@@ -21,16 +21,16 @@ func (c *CreateRoutesAppendByIDRequest) GetID() string {
 	return c.ID
 }
 
-func (c *CreateRoutesAppendByIDRequest) GetRequestBody() []components.RouteConfInput {
+func (c *CreateRoutesAppendByIDRequest) GetRequestBody() []components.ItemsTypeRoutesInputRoutes {
 	if c == nil {
-		return []components.RouteConfInput{}
+		return []components.ItemsTypeRoutesInputRoutes{}
 	}
 	return c.RequestBody
 }
 
 type CreateRoutesAppendByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Routes objects
+	// The created Routes object in a single-item list.
 	CountedRoutes *components.CountedRoutes
 }
 

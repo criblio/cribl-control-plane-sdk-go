@@ -97,8 +97,6 @@ type OutputMsk struct {
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing MSK cluster requests
-	SignatureVersion *SignatureVersionOptions `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -367,13 +365,6 @@ func (o *OutputMsk) GetEndpoint() *string {
 		return nil
 	}
 	return o.Endpoint
-}
-
-func (o *OutputMsk) GetSignatureVersion() *SignatureVersionOptions {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
 }
 
 func (o *OutputMsk) GetReuseConnections() *bool {

@@ -31,29 +31,6 @@ func (e *OutputDellS3Type) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputDellS3SignatureVersion - Signature version to use for signing Dell PowerScale OneFS requests
-type OutputDellS3SignatureVersion string
-
-const (
-	OutputDellS3SignatureVersionV2 OutputDellS3SignatureVersion = "v2"
-	OutputDellS3SignatureVersionV4 OutputDellS3SignatureVersion = "v4"
-)
-
-func (e OutputDellS3SignatureVersion) ToPointer() *OutputDellS3SignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputDellS3SignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputDellS3 struct {
 	// Unique ID for this output
 	ID   *string          `json:"id,omitzero"`
@@ -67,15 +44,11 @@ type OutputDellS3 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Authentication method.
-	AwsAuthenticationMethod *AuthenticationMethodOptionse9c778 `json:"awsAuthenticationMethod,omitzero"`
-	// Signature version to use for signing Dell PowerScale OneFS requests
-	SignatureVersion *OutputDellS3SignatureVersion `json:"signatureVersion,omitzero"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsSecret `json:"awsAuthenticationMethod,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Name of the destination Dell PowerScale OneFS bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
 	// Region where the Dell PowerScale OneFS bucket is located
@@ -129,8 +102,6 @@ type OutputDellS3 struct {
 	// Dell PowerScale OneFS S3-compatible endpoint URL (example: https://powerscale.example.com:9021)
 	Endpoint    string  `json:"endpoint"`
 	Description *string `json:"description,omitzero"`
-	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
-	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
@@ -169,8 +140,6 @@ type OutputDellS3 struct {
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -191,8 +160,6 @@ type OutputDellS3 struct {
 	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
 	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
@@ -252,18 +219,11 @@ func (o *OutputDellS3) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputDellS3) GetAwsAuthenticationMethod() *AuthenticationMethodOptionse9c778 {
+func (o *OutputDellS3) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsSecret {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
-}
-
-func (o *OutputDellS3) GetSignatureVersion() *OutputDellS3SignatureVersion {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
 }
 
 func (o *OutputDellS3) GetReuseConnections() *bool {
@@ -278,13 +238,6 @@ func (o *OutputDellS3) GetRejectUnauthorized() *bool {
 		return nil
 	}
 	return o.RejectUnauthorized
-}
-
-func (o *OutputDellS3) GetAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsSecretKey
 }
 
 func (o *OutputDellS3) GetBucket() string {
@@ -483,13 +436,6 @@ func (o *OutputDellS3) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputDellS3) GetAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsAPIKey
-}
-
 func (o *OutputDellS3) GetAwsSecret() *string {
 	if o == nil {
 		return nil
@@ -623,13 +569,6 @@ func (o *OutputDellS3) GetTemplateStreamtags() *string {
 	return o.TemplateStreamtags
 }
 
-func (o *OutputDellS3) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
-}
-
 func (o *OutputDellS3) GetTemplateBucket() *string {
 	if o == nil {
 		return nil
@@ -698,13 +637,6 @@ func (o *OutputDellS3) GetTemplateEndpoint() *string {
 		return nil
 	}
 	return o.TemplateEndpoint
-}
-
-func (o *OutputDellS3) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
 }
 
 func (o *OutputDellS3) GetTemplateCompress() *string {

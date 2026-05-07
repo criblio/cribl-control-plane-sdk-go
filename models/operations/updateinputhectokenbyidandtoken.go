@@ -12,7 +12,7 @@ type UpdateInputHecTokenByIDAndTokenRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// The HEC token value to update.
 	Token string `pathParam:"style=simple,explode=false,name=token"`
-	// UpdateHecTokenRequest object
+	// UpdateHecTokenRequest object.
 	UpdateHecTokenRequest components.UpdateHecTokenRequest `request:"mediaType=application/json"`
 }
 

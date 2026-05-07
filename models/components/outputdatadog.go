@@ -31,22 +31,22 @@ func (e *OutputDatadogType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// SendLogsAs - The content type to use when sending logs
-type SendLogsAs string
+// OutputDatadogSendLogsAs - The content type to use when sending logs
+type OutputDatadogSendLogsAs string
 
 const (
-	// SendLogsAsText text/plain
-	SendLogsAsText SendLogsAs = "text"
-	// SendLogsAsJSON application/json
-	SendLogsAsJSON SendLogsAs = "json"
+	// OutputDatadogSendLogsAsText text/plain
+	OutputDatadogSendLogsAsText OutputDatadogSendLogsAs = "text"
+	// OutputDatadogSendLogsAsJSON application/json
+	OutputDatadogSendLogsAsJSON OutputDatadogSendLogsAs = "json"
 )
 
-func (e SendLogsAs) ToPointer() *SendLogsAs {
+func (e OutputDatadogSendLogsAs) ToPointer() *OutputDatadogSendLogsAs {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SendLogsAs) IsExact() bool {
+func (e *OutputDatadogSendLogsAs) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "text", "json":
@@ -93,32 +93,32 @@ func (e *OutputDatadogSeverity) IsExact() bool {
 	return false
 }
 
-// DatadogSite - Datadog site to which events should be sent
-type DatadogSite string
+// OutputDatadogDatadogSite - Datadog site to which events should be sent
+type OutputDatadogDatadogSite string
 
 const (
-	// DatadogSiteUs US
-	DatadogSiteUs DatadogSite = "us"
-	// DatadogSiteUs3 US3
-	DatadogSiteUs3 DatadogSite = "us3"
-	// DatadogSiteUs5 US5
-	DatadogSiteUs5 DatadogSite = "us5"
-	// DatadogSiteEu Europe
-	DatadogSiteEu DatadogSite = "eu"
-	// DatadogSiteFed1 US1-FED
-	DatadogSiteFed1 DatadogSite = "fed1"
-	// DatadogSiteAp1 AP1
-	DatadogSiteAp1 DatadogSite = "ap1"
-	// DatadogSiteCustom Custom
-	DatadogSiteCustom DatadogSite = "custom"
+	// OutputDatadogDatadogSiteUs US
+	OutputDatadogDatadogSiteUs OutputDatadogDatadogSite = "us"
+	// OutputDatadogDatadogSiteUs3 US3
+	OutputDatadogDatadogSiteUs3 OutputDatadogDatadogSite = "us3"
+	// OutputDatadogDatadogSiteUs5 US5
+	OutputDatadogDatadogSiteUs5 OutputDatadogDatadogSite = "us5"
+	// OutputDatadogDatadogSiteEu Europe
+	OutputDatadogDatadogSiteEu OutputDatadogDatadogSite = "eu"
+	// OutputDatadogDatadogSiteFed1 US1-FED
+	OutputDatadogDatadogSiteFed1 OutputDatadogDatadogSite = "fed1"
+	// OutputDatadogDatadogSiteAp1 AP1
+	OutputDatadogDatadogSiteAp1 OutputDatadogDatadogSite = "ap1"
+	// OutputDatadogDatadogSiteCustom Custom
+	OutputDatadogDatadogSiteCustom OutputDatadogDatadogSite = "custom"
 )
 
-func (e DatadogSite) ToPointer() *DatadogSite {
+func (e OutputDatadogDatadogSite) ToPointer() *OutputDatadogDatadogSite {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *DatadogSite) IsExact() bool {
+func (e *OutputDatadogDatadogSite) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "us", "us3", "us5", "eu", "fed1", "ap1", "custom":
@@ -155,7 +155,7 @@ type OutputDatadog struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The content type to use when sending logs
-	ContentType *SendLogsAs `json:"contentType,omitzero"`
+	ContentType *OutputDatadogSendLogsAs `json:"contentType,omitzero"`
 	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
 	Message *string `json:"message,omitzero"`
 	// Name of the source to send with logs. When you send logs as JSON objects, the event's 'source' field (if set) will override this value.
@@ -173,7 +173,7 @@ type OutputDatadog struct {
 	// Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
 	Severity *OutputDatadogSeverity `json:"severity,omitzero"`
 	// Datadog site to which events should be sent
-	Site *DatadogSite `json:"site,omitzero"`
+	Site *OutputDatadogDatadogSite `json:"site,omitzero"`
 	// If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
 	SendCountersAsCount *bool `json:"sendCountersAsCount,omitzero"`
 	// Maximum number of ongoing requests before blocking
@@ -303,7 +303,7 @@ func (o *OutputDatadog) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputDatadog) GetContentType() *SendLogsAs {
+func (o *OutputDatadog) GetContentType() *OutputDatadogSendLogsAs {
 	if o == nil {
 		return nil
 	}
@@ -366,7 +366,7 @@ func (o *OutputDatadog) GetSeverity() *OutputDatadogSeverity {
 	return o.Severity
 }
 
-func (o *OutputDatadog) GetSite() *DatadogSite {
+func (o *OutputDatadog) GetSite() *OutputDatadogDatadogSite {
 	if o == nil {
 		return nil
 	}

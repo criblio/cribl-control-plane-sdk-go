@@ -81,7 +81,7 @@ func (e *OutputLocalSearchStorageMappingType) IsExact() bool {
 	return false
 }
 
-type StatsDestination struct {
+type OutputLocalSearchStorageStatsDestination struct {
 	URL         *string `json:"url,omitzero"`
 	Database    *string `json:"database,omitzero"`
 	TableName   *string `json:"tableName,omitzero"`
@@ -91,64 +91,64 @@ type StatsDestination struct {
 	Password    *string `json:"password,omitzero"`
 }
 
-func (s StatsDestination) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
+func (o OutputLocalSearchStorageStatsDestination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (s *StatsDestination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+func (o *OutputLocalSearchStorageStatsDestination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *StatsDestination) GetURL() *string {
-	if s == nil {
+func (o *OutputLocalSearchStorageStatsDestination) GetURL() *string {
+	if o == nil {
 		return nil
 	}
-	return s.URL
+	return o.URL
 }
 
-func (s *StatsDestination) GetDatabase() *string {
-	if s == nil {
+func (o *OutputLocalSearchStorageStatsDestination) GetDatabase() *string {
+	if o == nil {
 		return nil
 	}
-	return s.Database
+	return o.Database
 }
 
-func (s *StatsDestination) GetTableName() *string {
-	if s == nil {
+func (o *OutputLocalSearchStorageStatsDestination) GetTableName() *string {
+	if o == nil {
 		return nil
 	}
-	return s.TableName
+	return o.TableName
 }
 
-func (s *StatsDestination) GetAuthType() *string {
-	if s == nil {
+func (o *OutputLocalSearchStorageStatsDestination) GetAuthType() *string {
+	if o == nil {
 		return nil
 	}
-	return s.AuthType
+	return o.AuthType
 }
 
-func (s *StatsDestination) GetUsername() *string {
-	if s == nil {
+func (o *OutputLocalSearchStorageStatsDestination) GetUsername() *string {
+	if o == nil {
 		return nil
 	}
-	return s.Username
+	return o.Username
 }
 
-func (s *StatsDestination) GetSQLUsername() *string {
-	if s == nil {
+func (o *OutputLocalSearchStorageStatsDestination) GetSQLUsername() *string {
+	if o == nil {
 		return nil
 	}
-	return s.SQLUsername
+	return o.SQLUsername
 }
 
-func (s *StatsDestination) GetPassword() *string {
-	if s == nil {
+func (o *OutputLocalSearchStorageStatsDestination) GetPassword() *string {
+	if o == nil {
 		return nil
 	}
-	return s.Password
+	return o.Password
 }
 
 type OutputLocalSearchStorageColumnMapping struct {
@@ -263,11 +263,11 @@ type OutputLocalSearchStorage struct {
 	// Log the most recent event that fails to match the table schema
 	DumpFormatErrorsToDisk *bool `json:"dumpFormatErrorsToDisk,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure   *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	StatsDestination *StatsDestination            `json:"statsDestination,omitzero"`
-	Description      *string                      `json:"description,omitzero"`
-	Username         *string                      `json:"username,omitzero"`
-	Password         *string                      `json:"password,omitzero"`
+	OnBackpressure   *BackpressureBehaviorOptions              `json:"onBackpressure,omitzero"`
+	StatsDestination *OutputLocalSearchStorageStatsDestination `json:"statsDestination,omitzero"`
+	Description      *string                                   `json:"description,omitzero"`
+	Username         *string                                   `json:"username,omitzero"`
+	Password         *string                                   `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Username for certificate authentication
@@ -537,7 +537,7 @@ func (o *OutputLocalSearchStorage) GetOnBackpressure() *BackpressureBehaviorOpti
 	return o.OnBackpressure
 }
 
-func (o *OutputLocalSearchStorage) GetStatsDestination() *StatsDestination {
+func (o *OutputLocalSearchStorage) GetStatsDestination() *OutputLocalSearchStorageStatsDestination {
 	if o == nil {
 		return nil
 	}

@@ -54,22 +54,22 @@ func (e *OutputDynatraceOtlpProtocol) IsExact() bool {
 	return false
 }
 
-// EndpointType - Select the type of Dynatrace endpoint configured
-type EndpointType string
+// OutputDynatraceOtlpEndpointType - Select the type of Dynatrace endpoint configured
+type OutputDynatraceOtlpEndpointType string
 
 const (
-	// EndpointTypeSaas SaaS
-	EndpointTypeSaas EndpointType = "saas"
-	// EndpointTypeAg ActiveGate
-	EndpointTypeAg EndpointType = "ag"
+	// OutputDynatraceOtlpEndpointTypeSaas SaaS
+	OutputDynatraceOtlpEndpointTypeSaas OutputDynatraceOtlpEndpointType = "saas"
+	// OutputDynatraceOtlpEndpointTypeAg ActiveGate
+	OutputDynatraceOtlpEndpointTypeAg OutputDynatraceOtlpEndpointType = "ag"
 )
 
-func (e EndpointType) ToPointer() *EndpointType {
+func (e OutputDynatraceOtlpEndpointType) ToPointer() *OutputDynatraceOtlpEndpointType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *EndpointType) IsExact() bool {
+func (e *OutputDynatraceOtlpEndpointType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "saas", "ag":
@@ -123,6 +123,10 @@ type OutputDynatraceOtlp struct {
 	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitzero"`
 	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
 	Metadata []ItemsTypeKeyValueMetadata `json:"metadata,omitzero"`
+	// Batch event data upon dynamic metadata (whether presented or not)
+	DynamicHeadersEnabled *bool `json:"dynamicHeadersEnabled,omitzero"`
+	// When presented, this field which contains metadata, will be injected into the Destination metadata and used to batch events.
+	DynamicHeadersField *string `json:"dynamicHeadersField,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size (in KB) of the request body. The maximum payload size is 4 MB. If this limit is exceeded, the entire OTLP message is dropped
@@ -140,7 +144,7 @@ type OutputDynatraceOtlp struct {
 	// Disable to close the connection immediately after sending the outgoing request
 	KeepAlive *bool `json:"keepAlive,omitzero"`
 	// Select the type of Dynatrace endpoint configured
-	EndpointType EndpointType `json:"endpointType"`
+	EndpointType OutputDynatraceOtlpEndpointType `json:"endpointType"`
 	// Select or create a stored text secret
 	TokenSecret   string  `json:"tokenSecret"`
 	AuthTokenName *string `json:"authTokenName,omitzero"`
@@ -309,6 +313,20 @@ func (o *OutputDynatraceOtlp) GetMetadata() []ItemsTypeKeyValueMetadata {
 	return o.Metadata
 }
 
+func (o *OutputDynatraceOtlp) GetDynamicHeadersEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicHeadersEnabled
+}
+
+func (o *OutputDynatraceOtlp) GetDynamicHeadersField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicHeadersField
+}
+
 func (o *OutputDynatraceOtlp) GetConcurrency() *float64 {
 	if o == nil {
 		return nil
@@ -365,9 +383,9 @@ func (o *OutputDynatraceOtlp) GetKeepAlive() *bool {
 	return o.KeepAlive
 }
 
-func (o *OutputDynatraceOtlp) GetEndpointType() EndpointType {
+func (o *OutputDynatraceOtlp) GetEndpointType() OutputDynatraceOtlpEndpointType {
 	if o == nil {
-		return EndpointType("")
+		return OutputDynatraceOtlpEndpointType("")
 	}
 	return o.EndpointType
 }

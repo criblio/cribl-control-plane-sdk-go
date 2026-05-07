@@ -2,16 +2,17 @@
 
 package components
 
+// StorageClassOptionsCriblLakeDataset - Storage class used for objects written to the Dataset.
 type StorageClassOptionsCriblLakeDataset string
 
 const (
-	StorageClassOptionsCriblLakeDatasetStandard           StorageClassOptionsCriblLakeDataset = "STANDARD"
-	StorageClassOptionsCriblLakeDatasetStandardIa         StorageClassOptionsCriblLakeDataset = "STANDARD_IA"
-	StorageClassOptionsCriblLakeDatasetOnezoneIa          StorageClassOptionsCriblLakeDataset = "ONEZONE_IA"
-	StorageClassOptionsCriblLakeDatasetIntelligentTiering StorageClassOptionsCriblLakeDataset = "INTELLIGENT_TIERING"
+	StorageClassOptionsCriblLakeDatasetDeepArchive        StorageClassOptionsCriblLakeDataset = "DEEP_ARCHIVE"
 	StorageClassOptionsCriblLakeDatasetGlacier            StorageClassOptionsCriblLakeDataset = "GLACIER"
 	StorageClassOptionsCriblLakeDatasetGlacierIr          StorageClassOptionsCriblLakeDataset = "GLACIER_IR"
-	StorageClassOptionsCriblLakeDatasetDeepArchive        StorageClassOptionsCriblLakeDataset = "DEEP_ARCHIVE"
+	StorageClassOptionsCriblLakeDatasetIntelligentTiering StorageClassOptionsCriblLakeDataset = "INTELLIGENT_TIERING"
+	StorageClassOptionsCriblLakeDatasetOnezoneIa          StorageClassOptionsCriblLakeDataset = "ONEZONE_IA"
+	StorageClassOptionsCriblLakeDatasetStandard           StorageClassOptionsCriblLakeDataset = "STANDARD"
+	StorageClassOptionsCriblLakeDatasetStandardIa         StorageClassOptionsCriblLakeDataset = "STANDARD_IA"
 )
 
 func (e StorageClassOptionsCriblLakeDataset) ToPointer() *StorageClassOptionsCriblLakeDataset {
@@ -22,7 +23,7 @@ func (e StorageClassOptionsCriblLakeDataset) ToPointer() *StorageClassOptionsCri
 func (e *StorageClassOptionsCriblLakeDataset) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "STANDARD", "STANDARD_IA", "ONEZONE_IA", "INTELLIGENT_TIERING", "GLACIER", "GLACIER_IR", "DEEP_ARCHIVE":
+		case "DEEP_ARCHIVE", "GLACIER", "GLACIER_IR", "INTELLIGENT_TIERING", "ONEZONE_IA", "STANDARD", "STANDARD_IA":
 			return true
 		}
 	}

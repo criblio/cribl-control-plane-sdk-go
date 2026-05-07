@@ -51,8 +51,6 @@ type OutputExabeam struct {
 	StagePath string `json:"stagePath"`
 	// Google Cloud Storage service endpoint
 	Endpoint string `json:"endpoint"`
-	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion *SignatureVersionOptionsGoogle `json:"signatureVersion,omitzero"`
 	// Object ACL to assign to uploaded objects
 	ObjectACL *ObjectACLOptionsAuthenticatedreadBucketownerfullcontrol `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
@@ -197,13 +195,6 @@ func (o *OutputExabeam) GetEndpoint() string {
 		return ""
 	}
 	return o.Endpoint
-}
-
-func (o *OutputExabeam) GetSignatureVersion() *SignatureVersionOptionsGoogle {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
 }
 
 func (o *OutputExabeam) GetObjectACL() *ObjectACLOptionsAuthenticatedreadBucketownerfullcontrol {

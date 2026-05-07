@@ -75,7 +75,7 @@ func (g *GetProductsWorkersByProductRequest) GetOffset() *int64 {
 
 type GetProductsWorkersByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of MasterWorkerEntry objects
+	// List of MasterWorkerEntry objects.
 	CountedMasterWorkerEntry *components.CountedMasterWorkerEntry
 
 	Next func() (*GetProductsWorkersByProductResponse, error)

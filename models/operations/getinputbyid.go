@@ -22,7 +22,7 @@ func (g *GetInputByIDRequest) GetID() string {
 type GetInputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a Source object
-	CountedInput *components.CountedInput
+	CountedInputResponse *components.CountedInputResponse
 }
 
 func (g GetInputByIDResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +43,9 @@ func (g *GetInputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetInputByIDResponse) GetCountedInput() *components.CountedInput {
+func (g *GetInputByIDResponse) GetCountedInputResponse() *components.CountedInputResponse {
 	if g == nil {
 		return nil
 	}
-	return g.CountedInput
+	return g.CountedInputResponse
 }

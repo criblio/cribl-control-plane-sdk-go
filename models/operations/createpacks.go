@@ -9,7 +9,7 @@ import (
 
 type CreatePacksResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of PackInstallInfo objects
+	// The created PackInstallInfo object in a single-item list.
 	CountedPackInstallInfo *components.CountedPackInstallInfo
 }
 

@@ -83,21 +83,21 @@ func (e *OutputGoogleChronicleAuthenticationMethod) IsExact() bool {
 	return false
 }
 
-type SendEventsAs string
+type OutputGoogleChronicleSendEventsAs string
 
 const (
-	// SendEventsAsUnstructured Unstructured
-	SendEventsAsUnstructured SendEventsAs = "unstructured"
-	// SendEventsAsUdm UDM
-	SendEventsAsUdm SendEventsAs = "udm"
+	// OutputGoogleChronicleSendEventsAsUnstructured Unstructured
+	OutputGoogleChronicleSendEventsAsUnstructured OutputGoogleChronicleSendEventsAs = "unstructured"
+	// OutputGoogleChronicleSendEventsAsUdm UDM
+	OutputGoogleChronicleSendEventsAsUdm OutputGoogleChronicleSendEventsAs = "udm"
 )
 
-func (e SendEventsAs) ToPointer() *SendEventsAs {
+func (e OutputGoogleChronicleSendEventsAs) ToPointer() *OutputGoogleChronicleSendEventsAs {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SendEventsAs) IsExact() bool {
+func (e *OutputGoogleChronicleSendEventsAs) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "unstructured", "udm":
@@ -107,50 +107,50 @@ func (e *SendEventsAs) IsExact() bool {
 	return false
 }
 
-type ExtraLogType struct {
+type OutputGoogleChronicleExtraLogType struct {
 	LogType     string  `json:"logType"`
 	Description *string `json:"description,omitzero"`
 }
 
-func (e ExtraLogType) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
+func (o OutputGoogleChronicleExtraLogType) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (e *ExtraLogType) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+func (o *OutputGoogleChronicleExtraLogType) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (e *ExtraLogType) GetLogType() string {
-	if e == nil {
+func (o *OutputGoogleChronicleExtraLogType) GetLogType() string {
+	if o == nil {
 		return ""
 	}
-	return e.LogType
+	return o.LogType
 }
 
-func (e *ExtraLogType) GetDescription() *string {
-	if e == nil {
+func (o *OutputGoogleChronicleExtraLogType) GetDescription() *string {
+	if o == nil {
 		return nil
 	}
-	return e.Description
+	return o.Description
 }
 
-// UDMType - Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
-type UDMType string
+// OutputGoogleChronicleUDMType - Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
+type OutputGoogleChronicleUDMType string
 
 const (
-	UDMTypeEntities UDMType = "entities"
-	UDMTypeLogs     UDMType = "logs"
+	OutputGoogleChronicleUDMTypeEntities OutputGoogleChronicleUDMType = "entities"
+	OutputGoogleChronicleUDMTypeLogs     OutputGoogleChronicleUDMType = "logs"
 )
 
-func (e UDMType) ToPointer() *UDMType {
+func (e OutputGoogleChronicleUDMType) ToPointer() *OutputGoogleChronicleUDMType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *UDMType) IsExact() bool {
+func (e *OutputGoogleChronicleUDMType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "entities", "logs":
@@ -192,8 +192,8 @@ type OutputGoogleChronicle struct {
 	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
 	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool        `json:"responseHonorRetryAfterHeader,omitzero"`
-	LogFormatType                 SendEventsAs `json:"logFormatType"`
+	ResponseHonorRetryAfterHeader *bool                             `json:"responseHonorRetryAfterHeader,omitzero"`
+	LogFormatType                 OutputGoogleChronicleSendEventsAs `json:"logFormatType"`
 	// Regional endpoint to send events to
 	Region *string `json:"region,omitzero"`
 	// Maximum number of ongoing requests before blocking
@@ -226,7 +226,7 @@ type OutputGoogleChronicle struct {
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	Description        *string  `json:"description,omitzero"`
 	// Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
-	ExtraLogTypes []ExtraLogType `json:"extraLogTypes,omitzero"`
+	ExtraLogTypes []OutputGoogleChronicleExtraLogType `json:"extraLogTypes,omitzero"`
 	// Default log type value to send to SecOps. Can be overwritten by event field __logType.
 	LogType *string `json:"logType,omitzero"`
 	// Name of the event field that contains the log text to send. If not specified, Stream sends a JSON representation of the whole event.
@@ -238,7 +238,7 @@ type OutputGoogleChronicle struct {
 	// Custom labels to be added to every batch
 	CustomLabels []ItemsTypeKeyValueMetadata `json:"customLabels,omitzero"`
 	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
-	UdmType *UDMType `json:"udmType,omitzero"`
+	UdmType *OutputGoogleChronicleUDMType `json:"udmType,omitzero"`
 	// Organization's API key in Google SecOps
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
@@ -372,9 +372,9 @@ func (o *OutputGoogleChronicle) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputGoogleChronicle) GetLogFormatType() SendEventsAs {
+func (o *OutputGoogleChronicle) GetLogFormatType() OutputGoogleChronicleSendEventsAs {
 	if o == nil {
-		return SendEventsAs("")
+		return OutputGoogleChronicleSendEventsAs("")
 	}
 	return o.LogFormatType
 }
@@ -484,7 +484,7 @@ func (o *OutputGoogleChronicle) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputGoogleChronicle) GetExtraLogTypes() []ExtraLogType {
+func (o *OutputGoogleChronicle) GetExtraLogTypes() []OutputGoogleChronicleExtraLogType {
 	if o == nil {
 		return nil
 	}
@@ -526,7 +526,7 @@ func (o *OutputGoogleChronicle) GetCustomLabels() []ItemsTypeKeyValueMetadata {
 	return o.CustomLabels
 }
 
-func (o *OutputGoogleChronicle) GetUdmType() *UDMType {
+func (o *OutputGoogleChronicle) GetUdmType() *OutputGoogleChronicleUDMType {
 	if o == nil {
 		return nil
 	}

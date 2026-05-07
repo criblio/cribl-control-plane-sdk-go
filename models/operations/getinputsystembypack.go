@@ -42,7 +42,7 @@ func (g *GetInputSystemByPackRequest) GetPack() string {
 type GetInputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Source objects
-	CountedInput *components.CountedInput
+	CountedInputResponse *components.CountedInputResponse
 }
 
 func (g GetInputSystemByPackResponse) MarshalJSON() ([]byte, error) {
@@ -63,9 +63,9 @@ func (g *GetInputSystemByPackResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetInputSystemByPackResponse) GetCountedInput() *components.CountedInput {
+func (g *GetInputSystemByPackResponse) GetCountedInputResponse() *components.CountedInputResponse {
 	if g == nil {
 		return nil
 	}
-	return g.CountedInput
+	return g.CountedInputResponse
 }

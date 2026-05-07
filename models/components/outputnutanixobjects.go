@@ -31,29 +31,6 @@ func (e *OutputNutanixObjectsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputNutanixObjectsSignatureVersion - Signature version to use for signing Nutanix Objects requests
-type OutputNutanixObjectsSignatureVersion string
-
-const (
-	OutputNutanixObjectsSignatureVersionV2 OutputNutanixObjectsSignatureVersion = "v2"
-	OutputNutanixObjectsSignatureVersionV4 OutputNutanixObjectsSignatureVersion = "v4"
-)
-
-func (e OutputNutanixObjectsSignatureVersion) ToPointer() *OutputNutanixObjectsSignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputNutanixObjectsSignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputNutanixObjects struct {
 	// Unique ID for this output
 	ID   *string                  `json:"id,omitzero"`
@@ -66,16 +43,12 @@ type OutputNutanixObjects struct {
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
-	// AWS authentication method.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsa18be1 `json:"awsAuthenticationMethod,omitzero"`
-	// Signature version to use for signing Nutanix Objects requests
-	SignatureVersion *OutputNutanixObjectsSignatureVersion `json:"signatureVersion,omitzero"`
+	// Authentication method.
+	AwsAuthenticationMethod *AuthenticationMethodOptionsSecret `json:"awsAuthenticationMethod,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Name of the destination Nutanix Objects bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
 	// Region where the Nutanix Objects bucket is located
@@ -127,8 +100,6 @@ type OutputNutanixObjects struct {
 	// Nutanix Objects S3-compatible endpoint URL (example: https://objects.nutanix.local)
 	Endpoint    string  `json:"endpoint"`
 	Description *string `json:"description,omitzero"`
-	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
-	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
@@ -167,8 +138,6 @@ type OutputNutanixObjects struct {
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -187,8 +156,6 @@ type OutputNutanixObjects struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
 	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
@@ -248,18 +215,11 @@ func (o *OutputNutanixObjects) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputNutanixObjects) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsa18be1 {
+func (o *OutputNutanixObjects) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsSecret {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
-}
-
-func (o *OutputNutanixObjects) GetSignatureVersion() *OutputNutanixObjectsSignatureVersion {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
 }
 
 func (o *OutputNutanixObjects) GetReuseConnections() *bool {
@@ -274,13 +234,6 @@ func (o *OutputNutanixObjects) GetRejectUnauthorized() *bool {
 		return nil
 	}
 	return o.RejectUnauthorized
-}
-
-func (o *OutputNutanixObjects) GetAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsSecretKey
 }
 
 func (o *OutputNutanixObjects) GetBucket() string {
@@ -472,13 +425,6 @@ func (o *OutputNutanixObjects) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputNutanixObjects) GetAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsAPIKey
-}
-
 func (o *OutputNutanixObjects) GetAwsSecret() *string {
 	if o == nil {
 		return nil
@@ -612,13 +558,6 @@ func (o *OutputNutanixObjects) GetTemplateStreamtags() *string {
 	return o.TemplateStreamtags
 }
 
-func (o *OutputNutanixObjects) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
-}
-
 func (o *OutputNutanixObjects) GetTemplateBucket() *string {
 	if o == nil {
 		return nil
@@ -680,13 +619,6 @@ func (o *OutputNutanixObjects) GetTemplateEndpoint() *string {
 		return nil
 	}
 	return o.TemplateEndpoint
-}
-
-func (o *OutputNutanixObjects) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
 }
 
 func (o *OutputNutanixObjects) GetTemplateCompress() *string {

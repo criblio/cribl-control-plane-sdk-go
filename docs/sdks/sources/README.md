@@ -44,7 +44,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -71,7 +71,7 @@ func main() {
 
 ## Create
 
-Create a new Source.
+Create a new Source. The system-managed provenance field (JSON <code>criblSourceProvenance</code>) must be omitted from the request body.
 
 ### Example Usage: InputCreateExamplesAnthropicCompliance
 
@@ -124,7 +124,49 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputCreateExamplesAppleUnifiedLogs
+
+<!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesAppleUnifiedLogs" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestAppleUnifiedLogs(
+        operations.CreateInputInputAppleUnifiedLogs{
+            ID: "apple-unified-logs-source",
+            Type: operations.CreateInputTypeAppleUnifiedLogsAppleUnifiedLogs,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            Predicate: "subsystem == \"com.apple.security\"",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -167,7 +209,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -209,7 +251,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -253,7 +295,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -294,7 +336,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -341,7 +383,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -384,7 +426,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -427,7 +469,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -470,7 +512,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -513,7 +555,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -556,7 +598,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -603,7 +645,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -651,7 +693,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -695,7 +737,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -742,7 +784,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -785,7 +827,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -828,7 +870,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -870,7 +912,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -913,7 +955,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -956,7 +998,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1002,7 +1044,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1045,7 +1087,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1088,7 +1130,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1133,7 +1175,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1180,7 +1222,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1223,7 +1265,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1264,7 +1306,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1305,7 +1347,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1346,7 +1388,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1390,7 +1432,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1433,7 +1475,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1476,7 +1518,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1519,7 +1561,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1568,7 +1610,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1611,7 +1653,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1655,7 +1697,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1698,7 +1740,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1741,7 +1783,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1787,7 +1829,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1852,7 +1894,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1903,7 +1945,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1946,7 +1988,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -1993,7 +2035,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2037,7 +2079,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2080,7 +2122,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2123,7 +2165,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2166,7 +2208,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2209,7 +2251,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2262,7 +2304,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2305,7 +2347,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2348,7 +2390,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2392,7 +2434,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2430,15 +2472,16 @@ func main() {
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             SearchHead: "https://localhost:8089",
             Search: "index=main",
-            CronSchedule: "0 * * * *",
-            Endpoint: "/services/search/jobs/export",
+            CronSchedule: "*/15 * * * *",
+            Endpoint: "/services/search/v2/jobs/export",
             OutputMode: components.OutputModeOptionsSplunkCollectorConfJSON,
+            AuthType: operations.CreateInputAuthenticationTypeSplunkSearchBasic,
         },
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2482,7 +2525,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2527,7 +2570,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2568,7 +2611,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2609,7 +2652,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2652,7 +2695,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2695,7 +2738,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2747,7 +2790,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2792,7 +2835,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2833,7 +2876,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2878,7 +2921,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2921,7 +2964,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -2965,7 +3008,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3022,7 +3065,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3049,7 +3092,7 @@ func main() {
 
 ## Update
 
-Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
+Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes omitted fields when updating the Source, except for <code>criblSourceProvenance</code> (its value is preserved when omitted and cannot be overwritten).<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
 
 ### Example Usage: InputCreateExamplesAnthropicCompliance
 
@@ -3075,8 +3118,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2AnthropicCompliance(
-        components.InputAnthropicCompliance{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputAnthropicCompliance(
+        components.InputAnthropicComplianceInput{
             ID: criblcontrolplanesdkgo.Pointer("anthropic-compliance-source"),
             Type: components.InputAnthropicComplianceTypeAnthropicCompliance,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3101,7 +3144,48 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputCreateExamplesAppleUnifiedLogs
+
+<!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputCreateExamplesAppleUnifiedLogs" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputAppleUnifiedLogs(
+        components.InputAppleUnifiedLogsInput{
+            ID: criblcontrolplanesdkgo.Pointer("apple-unified-logs-source"),
+            Type: components.InputAppleUnifiedLogsTypeAppleUnifiedLogs,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            Predicate: "subsystem == \"com.apple.security\"",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3130,8 +3214,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Appscope(
-        components.InputAppscope{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputAppscope(
+        components.InputAppscopeInput{
             ID: criblcontrolplanesdkgo.Pointer("appscope-source"),
             Type: components.InputAppscopeTypeAppscope,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3143,7 +3227,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3172,8 +3256,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2AzureBlob(
-        components.InputAzureBlob{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputAzureBlob(
+        components.InputAzureBlobInput{
             ID: criblcontrolplanesdkgo.Pointer("azure-blob-source"),
             Type: components.InputAzureBlobTypeAzureBlob,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3184,7 +3268,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3213,8 +3297,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2CloudflareHec(
-        components.InputCloudflareHec{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCloudflareHec(
+        components.InputCloudflareHecInput{
             ID: criblcontrolplanesdkgo.Pointer("cloudflare-hec-source"),
             Type: components.InputCloudflareHecTypeCloudflareHec,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3227,7 +3311,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3256,8 +3340,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Collection(
-        components.InputCollection{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCollection(
+        components.InputCollectionInput{
             ID: criblcontrolplanesdkgo.Pointer("collection-source"),
             Type: components.InputCollectionTypeCollection,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3267,7 +3351,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3296,8 +3380,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2ConfluentCloud(
-        components.InputConfluentCloud{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputConfluentCloud(
+        components.InputConfluentCloudInput{
             ID: criblcontrolplanesdkgo.Pointer("confluent-cloud-source"),
             Type: components.InputConfluentCloudTypeConfluentCloud,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3313,7 +3397,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3342,8 +3426,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2CriblHTTP(
-        components.InputCriblHTTP{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCriblHTTP(
+        components.InputCriblHTTPInput{
             ID: criblcontrolplanesdkgo.Pointer("cribl-http-source"),
             Type: components.InputCriblHTTPTypeCriblHTTP,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3355,7 +3439,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3384,8 +3468,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2CriblLakeHTTP(
-        components.InputCriblLakeHTTP{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCriblLakeHTTP(
+        components.InputCriblLakeHTTPInput{
             ID: criblcontrolplanesdkgo.Pointer("cribl-lake-http-source"),
             Type: components.InputCriblLakeHTTPTypeCriblLakeHTTP,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3397,7 +3481,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3426,8 +3510,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2CriblTCP(
-        components.InputCriblTCP{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCriblTCP(
+        components.InputCriblTCPInput{
             ID: criblcontrolplanesdkgo.Pointer("cribl-tcp-source"),
             Type: components.InputCriblTCPTypeCriblTCP,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3439,7 +3523,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3468,8 +3552,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Crowdstrike(
-        components.InputCrowdstrike{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCrowdstrike(
+        components.InputCrowdstrikeInput{
             ID: criblcontrolplanesdkgo.Pointer("crowdstrike-source"),
             Type: components.InputCrowdstrikeTypeCrowdstrike,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3481,7 +3565,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3510,8 +3594,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2DatadogAgent(
-        components.InputDatadogAgent{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputDatadogAgent(
+        components.InputDatadogAgentInput{
             ID: criblcontrolplanesdkgo.Pointer("datadog-agent-source"),
             Type: components.InputDatadogAgentTypeDatadogAgent,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3523,7 +3607,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3552,14 +3636,14 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Datagen(
-        components.InputDatagen{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputDatagen(
+        components.InputDatagenInput{
             ID: criblcontrolplanesdkgo.Pointer("datagen-source"),
             Type: components.InputDatagenTypeDatagen,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
-            Samples: []components.Sample{
-                components.Sample{
+            Samples: []components.InputDatagenSample{
+                components.InputDatagenSample{
                     Sample: "sample.json",
                     EventsPerSec: 10.0,
                 },
@@ -3569,7 +3653,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3598,16 +3682,16 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2EdgePrometheus(
-        components.InputEdgePrometheus{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputEdgePrometheus(
+        components.InputEdgePrometheusInput{
             ID: criblcontrolplanesdkgo.Pointer("edge-prometheus-source"),
             Type: components.InputEdgePrometheusTypeEdgePrometheus,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             DiscoveryType: components.InputEdgePrometheusDiscoveryTypeStatic,
             Interval: 60.0,
-            Targets: []components.Target{
-                components.Target{
+            Targets: []components.InputEdgePrometheusTarget{
+                components.InputEdgePrometheusTarget{
                     Host: "localhost",
                 },
             },
@@ -3616,7 +3700,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3645,8 +3729,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Elastic(
-        components.InputElastic{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputElastic(
+        components.InputElasticInput{
             ID: criblcontrolplanesdkgo.Pointer("elastic-source"),
             Type: components.InputElasticTypeElastic,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3659,7 +3743,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3688,8 +3772,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Eventhub(
-        components.InputEventhub{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputEventhub(
+        components.InputEventhubInput{
             ID: criblcontrolplanesdkgo.Pointer("eventhub-source"),
             Type: components.InputEventhubTypeEventhub,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3705,7 +3789,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3734,8 +3818,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2EventhubAmqp(
-        components.InputEventhubAmqp{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputEventhubAmqp(
+        components.InputEventhubAmqpInput{
             ID: criblcontrolplanesdkgo.Pointer("eventhub-amqp-source"),
             Type: components.InputEventhubAmqpTypeEventhubAmqp,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3747,7 +3831,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3776,8 +3860,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Exec(
-        components.InputExec{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputExec(
+        components.InputExecInput{
             ID: criblcontrolplanesdkgo.Pointer("exec-source"),
             Type: components.InputExecTypeExec,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3789,7 +3873,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3818,8 +3902,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2File(
-        components.InputFile{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputFile(
+        components.InputFileInput{
             ID: criblcontrolplanesdkgo.Pointer("file-source"),
             Type: components.InputFileTypeFile,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3830,7 +3914,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3859,8 +3943,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Firehose(
-        components.InputFirehose{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputFirehose(
+        components.InputFirehoseInput{
             ID: criblcontrolplanesdkgo.Pointer("firehose-source"),
             Type: components.InputFirehoseTypeFirehose,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3872,7 +3956,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3901,8 +3985,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2GooglePubsub(
-        components.InputGooglePubsub{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputGooglePubsub(
+        components.InputGooglePubsubInput{
             ID: criblcontrolplanesdkgo.Pointer("google-pubsub-source"),
             Type: components.InputGooglePubsubTypeGooglePubsub,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3914,7 +3998,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3943,9 +4027,9 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Grafana(
-        components.CreateInputGrafanaInputGrafanaGrafana1(
-            components.InputGrafanaGrafana1{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputGrafana(
+        components.CreateInputGrafanaInputUnionInputGrafanaGrafanaInput1(
+            components.InputGrafanaGrafanaInput1{
                 ID: criblcontrolplanesdkgo.Pointer("grafana-source"),
                 Type: components.InputGrafanaType1Grafana,
                 SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -3959,7 +4043,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -3988,8 +4072,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2HTTP(
-        components.InputHTTP{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputHTTP(
+        components.InputHTTPInput{
             ID: criblcontrolplanesdkgo.Pointer("http-source"),
             Type: components.InputHTTPTypeHTTP,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4001,7 +4085,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4030,8 +4114,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2HTTPRaw(
-        components.InputHTTPRaw{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputHTTPRaw(
+        components.InputHTTPRawInput{
             ID: criblcontrolplanesdkgo.Pointer("http-raw-source"),
             Type: components.InputHTTPRawTypeHTTPRaw,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4043,7 +4127,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4072,8 +4156,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2JournalFiles(
-        components.InputJournalFiles{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputJournalFiles(
+        components.InputJournalFilesInput{
             ID: criblcontrolplanesdkgo.Pointer("journal-files-source"),
             Type: components.InputJournalFilesTypeJournalFiles,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4087,7 +4171,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4116,8 +4200,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Kafka(
-        components.InputKafka{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKafka(
+        components.InputKafkaInput{
             ID: criblcontrolplanesdkgo.Pointer("kafka-source"),
             Type: components.InputKafkaTypeKafka,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4133,7 +4217,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4162,8 +4246,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Kinesis(
-        components.InputKinesis{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKinesis(
+        components.InputKinesisInput{
             ID: criblcontrolplanesdkgo.Pointer("kinesis-source"),
             Type: components.InputKinesisTypeKinesis,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4175,7 +4259,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4204,8 +4288,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2KubeEvents(
-        components.InputKubeEvents{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKubeEvents(
+        components.InputKubeEventsInput{
             ID: criblcontrolplanesdkgo.Pointer("kube-events-source"),
             Type: components.InputKubeEventsTypeKubeEvents,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4215,7 +4299,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4244,8 +4328,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2KubeLogs(
-        components.InputKubeLogs{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKubeLogs(
+        components.InputKubeLogsInput{
             ID: criblcontrolplanesdkgo.Pointer("kube-logs-source"),
             Type: components.InputKubeLogsTypeKubeLogs,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4255,7 +4339,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4284,8 +4368,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2KubeMetrics(
-        components.InputKubeMetrics{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKubeMetrics(
+        components.InputKubeMetricsInput{
             ID: criblcontrolplanesdkgo.Pointer("kube-metrics-source"),
             Type: components.InputKubeMetricsTypeKubeMetrics,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4295,7 +4379,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4324,8 +4408,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Loki(
-        components.InputLoki{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputLoki(
+        components.InputLokiInput{
             ID: criblcontrolplanesdkgo.Pointer("loki-source"),
             Type: components.InputLokiTypeLoki,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4338,7 +4422,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4367,8 +4451,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Metrics(
-        components.InputMetrics{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputMetrics(
+        components.InputMetricsInput{
             ID: criblcontrolplanesdkgo.Pointer("metrics-source"),
             Type: components.InputMetricsTypeMetrics,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4380,7 +4464,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4409,8 +4493,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2MicrosoftGraph(
-        components.InputMicrosoftGraph{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputMicrosoftGraph(
+        components.InputMicrosoftGraphInput{
             ID: criblcontrolplanesdkgo.Pointer("microsoft-graph-source"),
             Type: components.InputMicrosoftGraphTypeMicrosoftGraph,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4422,7 +4506,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4451,8 +4535,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2ModelDrivenTelemetry(
-        components.InputModelDrivenTelemetry{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputModelDrivenTelemetry(
+        components.InputModelDrivenTelemetryInput{
             ID: criblcontrolplanesdkgo.Pointer("mdt-source"),
             Type: components.InputModelDrivenTelemetryTypeModelDrivenTelemetry,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4464,7 +4548,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4493,8 +4577,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Msk(
-        components.InputMsk{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputMsk(
+        components.InputMskInput{
             ID: criblcontrolplanesdkgo.Pointer("msk-source"),
             Type: components.InputMskTypeMsk,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4512,7 +4596,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4541,8 +4625,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Netflow(
-        components.InputNetflow{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputNetflow(
+        components.InputNetflowInput{
             ID: criblcontrolplanesdkgo.Pointer("netflow-source"),
             Type: components.InputNetflowTypeNetflow,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4554,7 +4638,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4583,8 +4667,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Office365Mgmt(
-        components.InputOffice365Mgmt{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputOffice365Mgmt(
+        components.InputOffice365MgmtInput{
             ID: criblcontrolplanesdkgo.Pointer("office365-mgmt-source"),
             Type: components.InputOffice365MgmtTypeOffice365Mgmt,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4597,7 +4681,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4626,8 +4710,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Office365MsgTrace(
-        components.InputOffice365MsgTrace{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputOffice365MsgTrace(
+        components.InputOffice365MsgTraceInput{
             ID: criblcontrolplanesdkgo.Pointer("office365-msg-trace-source"),
             Type: components.InputOffice365MsgTraceTypeOffice365MsgTrace,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4639,7 +4723,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4668,8 +4752,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Office365Service(
-        components.InputOffice365Service{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputOffice365Service(
+        components.InputOffice365ServiceInput{
             ID: criblcontrolplanesdkgo.Pointer("office365-service-source"),
             Type: components.InputOffice365ServiceTypeOffice365Service,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4681,7 +4765,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4710,8 +4794,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Okta(
-        components.InputOkta{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputOkta(
+        components.InputOktaInput{
             ID: criblcontrolplanesdkgo.Pointer("okta-source"),
             Type: components.InputOktaTypeOkta,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4726,7 +4810,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4755,14 +4839,14 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Openai(
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputOpenai(
         components.InputOpenaiInput{
             ID: criblcontrolplanesdkgo.Pointer("openai-source"),
             Type: components.InputOpenaiTypeOpenai,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
-            ContentConfig: []components.ContentConfigInput{
-                components.ContentConfigInput{
+            ContentConfig: []components.InputOpenaiContentConfig{
+                components.InputOpenaiContentConfig{
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
                     RequestParams: []components.ItemsTypeContentConfigItemsRequestParams{
                         components.ItemsTypeContentConfigItemsRequestParams{
@@ -4774,7 +4858,7 @@ func main() {
                             Value: "100",
                         },
                     },
-                    PaginationType: components.PaginationTypeResponseBody,
+                    PaginationType: components.InputOpenaiPaginationTypeResponseBody,
                     PaginationAttribute: []string{
                         "last_id",
                     },
@@ -4790,7 +4874,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4819,14 +4903,14 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2OpenaiComplianceLogs(
-        components.InputOpenaiComplianceLogs{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputOpenaiComplianceLogs(
+        components.InputOpenaiComplianceLogsInput{
             ID: criblcontrolplanesdkgo.Pointer("openai-compliance-logs-source"),
             Type: components.InputOpenaiComplianceLogsTypeOpenaiComplianceLogs,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             TextSecret: "openai-api-key-secret",
-            AccountType: components.AccountTypeWorkspace,
+            AccountType: components.InputOpenaiComplianceLogsAccountTypeWorkspace,
             CronSchedule: "*/15 * * * *",
             Earliest: criblcontrolplanesdkgo.Pointer("-1h"),
             Latest: criblcontrolplanesdkgo.Pointer("now"),
@@ -4840,7 +4924,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4869,8 +4953,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2OpenTelemetry(
-        components.InputOpenTelemetry{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputOpenTelemetry(
+        components.InputOpenTelemetryInput{
             ID: criblcontrolplanesdkgo.Pointer("otel-source"),
             Type: components.InputOpenTelemetryTypeOpenTelemetry,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4882,7 +4966,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4911,8 +4995,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Prometheus(
-        components.InputPrometheus{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputPrometheus(
+        components.InputPrometheusInput{
             ID: criblcontrolplanesdkgo.Pointer("prometheus-source"),
             Type: components.InputPrometheusTypePrometheus,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4928,7 +5012,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -4957,8 +5041,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2PrometheusRw(
-        components.InputPrometheusRw{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputPrometheusRw(
+        components.InputPrometheusRwInput{
             ID: criblcontrolplanesdkgo.Pointer("prometheus-rw-source"),
             Type: components.InputPrometheusRwTypePrometheusRw,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -4971,7 +5055,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5000,8 +5084,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2RawUDP(
-        components.InputRawUDP{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputRawUDP(
+        components.InputRawUDPInput{
             ID: criblcontrolplanesdkgo.Pointer("raw-udp-source"),
             Type: components.InputRawUDPTypeRawUDP,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5013,7 +5097,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5042,8 +5126,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2S3(
-        components.InputS3{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputS3(
+        components.InputS3Input{
             ID: criblcontrolplanesdkgo.Pointer("s3-source"),
             Type: components.InputS3TypeS3,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5055,7 +5139,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5084,8 +5168,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2S3Inventory(
-        components.InputS3Inventory{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputS3Inventory(
+        components.InputS3InventoryInput{
             ID: criblcontrolplanesdkgo.Pointer("s3-inventory-source"),
             Type: components.InputS3InventoryTypeS3Inventory,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5097,7 +5181,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5126,8 +5210,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2SecurityLake(
-        components.InputSecurityLake{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSecurityLake(
+        components.InputSecurityLakeInput{
             ID: criblcontrolplanesdkgo.Pointer("security-lake-source"),
             Type: components.InputSecurityLakeTypeSecurityLake,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5139,7 +5223,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5168,8 +5252,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2ServicenowTable(
-        components.InputServicenowTable{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputServicenowTable(
+        components.InputServicenowTableInput{
             ID: criblcontrolplanesdkgo.Pointer("servicenow-table-source"),
             Type: components.InputServicenowTableTypeServicenowTable,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5191,7 +5275,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5220,8 +5304,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Snmp(
-        components.InputSnmp{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSnmp(
+        components.InputSnmpInput{
             ID: criblcontrolplanesdkgo.Pointer("snmp-source"),
             Type: components.InputSnmpTypeSnmp,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5233,7 +5317,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5262,8 +5346,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Splunk(
-        components.InputSplunk{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSplunk(
+        components.InputSplunkInput{
             ID: criblcontrolplanesdkgo.Pointer("splunk-source"),
             Type: components.InputSplunkTypeSplunk,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5275,7 +5359,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5304,8 +5388,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2SplunkHec(
-        components.InputSplunkHec{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSplunkHec(
+        components.InputSplunkHecInput{
             ID: criblcontrolplanesdkgo.Pointer("splunk-hec-source"),
             Type: components.InputSplunkHecTypeSplunkHec,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5318,7 +5402,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5347,23 +5431,24 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2SplunkSearch(
-        components.InputSplunkSearch{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSplunkSearch(
+        components.InputSplunkSearchInput{
             ID: criblcontrolplanesdkgo.Pointer("splunk-search-source"),
             Type: components.InputSplunkSearchTypeSplunkSearch,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             SearchHead: "https://localhost:8089",
             Search: "index=main",
-            CronSchedule: "0 * * * *",
-            Endpoint: "/services/search/jobs/export",
+            CronSchedule: "*/15 * * * *",
+            Endpoint: "/services/search/v2/jobs/export",
             OutputMode: components.OutputModeOptionsSplunkCollectorConfJSON,
+            AuthType: components.InputSplunkSearchAuthenticationTypeBasic,
         },
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5392,8 +5477,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Sqs(
-        components.InputSqs{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSqs(
+        components.InputSqsInput{
             ID: criblcontrolplanesdkgo.Pointer("sqs-source"),
             Type: components.InputSqsTypeSqs,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5406,7 +5491,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5435,9 +5520,9 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Syslog(
-        components.CreateInputSyslogInputSyslogSyslog1(
-            components.InputSyslogSyslog1{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSyslog(
+        components.CreateInputSyslogInputUnionInputSyslogSyslogInput1(
+            components.InputSyslogSyslogInput1{
                 ID: criblcontrolplanesdkgo.Pointer("syslog-source"),
                 Type: components.InputSyslogType1Syslog,
                 SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5450,7 +5535,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5479,8 +5564,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2SystemMetrics(
-        components.InputSystemMetrics{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSystemMetrics(
+        components.InputSystemMetricsInput{
             ID: criblcontrolplanesdkgo.Pointer("system-metrics-source"),
             Type: components.InputSystemMetricsTypeSystemMetrics,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5490,7 +5575,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5519,8 +5604,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2SystemState(
-        components.InputSystemState{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSystemState(
+        components.InputSystemStateInput{
             ID: criblcontrolplanesdkgo.Pointer("system-state-source"),
             Type: components.InputSystemStateTypeSystemState,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5530,7 +5615,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5559,8 +5644,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2TCP(
-        components.InputTCP{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputTCP(
+        components.InputTCPInput{
             ID: criblcontrolplanesdkgo.Pointer("tcp-source"),
             Type: components.InputTCPTypeTCP,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5572,7 +5657,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5601,8 +5686,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Tcpjson(
-        components.InputTcpjson{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputTcpjson(
+        components.InputTcpjsonInput{
             ID: criblcontrolplanesdkgo.Pointer("tcpjson-source"),
             Type: components.InputTcpjsonTypeTcpjson,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5614,7 +5699,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5643,16 +5728,16 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Wef(
-        components.InputWef{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputWef(
+        components.InputWefInput{
             ID: criblcontrolplanesdkgo.Pointer("wef-source"),
             Type: components.InputWefTypeWef,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
             Port: 5985.0,
-            Subscriptions: []components.Subscription{
-                components.Subscription{
+            Subscriptions: []components.InputWefSubscription{
+                components.InputWefSubscription{
                     SubscriptionName: "subscription-1",
                     ContentFormat: components.InputWefFormatRenderedText,
                     HeartbeatInterval: 60.0,
@@ -5665,7 +5750,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5694,8 +5779,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2WinEventLogs(
-        components.InputWinEventLogs{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputWinEventLogs(
+        components.InputWinEventLogsInput{
             ID: criblcontrolplanesdkgo.Pointer("win-event-logs-source"),
             Type: components.InputWinEventLogsTypeWinEventLogs,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5709,7 +5794,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5738,8 +5823,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2WindowsMetrics(
-        components.InputWindowsMetrics{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputWindowsMetrics(
+        components.InputWindowsMetricsInput{
             ID: criblcontrolplanesdkgo.Pointer("windows-metrics-source"),
             Type: components.InputWindowsMetricsTypeWindowsMetrics,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5749,7 +5834,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5778,8 +5863,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Wiz(
-        components.InputWiz{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputWiz(
+        components.InputWizInput{
             ID: criblcontrolplanesdkgo.Pointer("wiz-source"),
             Type: components.InputWizTypeWiz,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5793,7 +5878,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5822,8 +5907,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2WizWebhook(
-        components.InputWizWebhook{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputWizWebhook(
+        components.InputWizWebhookInput{
             ID: criblcontrolplanesdkgo.Pointer("wiz-webhook-source"),
             Type: components.InputWizWebhookTypeWizWebhook,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5835,7 +5920,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5864,8 +5949,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2ZscalerHec(
-        components.InputZscalerHec{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputZscalerHec(
+        components.InputZscalerHecInput{
             ID: criblcontrolplanesdkgo.Pointer("zscaler-hec-source"),
             Type: components.InputZscalerHecTypeZscalerHec,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5878,7 +5963,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5907,8 +5992,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Cribl(
-        components.InputCribl{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCribl(
+        components.InputCriblInput{
             ID: criblcontrolplanesdkgo.Pointer("cribl-source"),
             Type: components.InputCriblTypeCribl,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5918,7 +6003,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5947,8 +6032,8 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.Update(ctx, "<id>", components.CreateInput2Criblmetrics(
-        components.InputCriblmetrics{
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCriblmetrics(
+        components.InputCriblmetricsInput{
             ID: criblcontrolplanesdkgo.Pointer("cribl-metrics-source"),
             Type: components.InputCriblmetricsTypeCriblmetrics,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
@@ -5958,7 +6043,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }
@@ -5970,7 +6055,7 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Source to update.             |
-| `input`                                                  | [components.Input2](../../models/components/input2.md)   | :heavy_check_mark:                                       | Input object                                             |
+| `input`                                                  | [components.Input](../../models/components/input.md)     | :heavy_check_mark:                                       | Input object.                                            |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
@@ -6016,7 +6101,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInput != nil {
+    if res.CountedInputResponse != nil {
         // handle response
     }
 }

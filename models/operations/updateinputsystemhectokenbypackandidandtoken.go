@@ -14,7 +14,7 @@ type UpdateInputSystemHecTokenByPackAndIDAndTokenRequest struct {
 	Token string `pathParam:"style=simple,explode=false,name=token"`
 	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
-	// UpdateHecTokenRequest object
+	// UpdateHecTokenRequest object.
 	UpdateHecTokenRequest components.UpdateHecTokenRequest `request:"mediaType=application/json"`
 }
 

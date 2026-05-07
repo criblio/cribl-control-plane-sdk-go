@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### RollbackSettings1
+### RollbackSettings
 
 ```go
-rollbackSettingsUnion := components.CreateRollbackSettingsUnionRollbackSettings1(components.RollbackSettings1{/* values here */})
+rollbackSettingsUnion := components.CreateRollbackSettingsUnionRollbackSettings(components.RollbackSettings{/* values here */})
 ```
 
-### RollbackSettings2
+### EmptyObject
 
 ```go
-rollbackSettingsUnion := components.CreateRollbackSettingsUnionRollbackSettings2(components.RollbackSettings2{/* values here */})
+rollbackSettingsUnion := components.CreateRollbackSettingsUnionEmptyObject(components.EmptyObject{/* values here */})
 ```
 
 ## Union Discrimination
@@ -21,9 +21,9 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch rollbackSettingsUnion.Type {
-	case components.RollbackSettingsUnionTypeRollbackSettings1:
-		// rollbackSettingsUnion.RollbackSettings1 is populated
-	case components.RollbackSettingsUnionTypeRollbackSettings2:
-		// rollbackSettingsUnion.RollbackSettings2 is populated
+	case components.RollbackSettingsUnionTypeRollbackSettings:
+		// rollbackSettingsUnion.RollbackSettings is populated
+	case components.RollbackSettingsUnionTypeEmptyObject:
+		// rollbackSettingsUnion.EmptyObject is populated
 }
 ```

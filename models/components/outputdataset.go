@@ -66,24 +66,24 @@ func (e *OutputDatasetSeverity) IsExact() bool {
 	return false
 }
 
-// DataSetSite - DataSet site to which events should be sent
-type DataSetSite string
+// OutputDatasetDataSetSite - DataSet site to which events should be sent
+type OutputDatasetDataSetSite string
 
 const (
-	// DataSetSiteUs US
-	DataSetSiteUs DataSetSite = "us"
-	// DataSetSiteEu Europe
-	DataSetSiteEu DataSetSite = "eu"
-	// DataSetSiteCustom Custom
-	DataSetSiteCustom DataSetSite = "custom"
+	// OutputDatasetDataSetSiteUs US
+	OutputDatasetDataSetSiteUs OutputDatasetDataSetSite = "us"
+	// OutputDatasetDataSetSiteEu Europe
+	OutputDatasetDataSetSiteEu OutputDatasetDataSetSite = "eu"
+	// OutputDatasetDataSetSiteCustom Custom
+	OutputDatasetDataSetSiteCustom OutputDatasetDataSetSite = "custom"
 )
 
-func (e DataSetSite) ToPointer() *DataSetSite {
+func (e OutputDatasetDataSetSite) ToPointer() *OutputDatasetDataSetSite {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *DataSetSite) IsExact() bool {
+func (e *OutputDatasetDataSetSite) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "us", "eu", "custom":
@@ -135,7 +135,7 @@ type OutputDataset struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// DataSet site to which events should be sent
-	Site *DataSetSite `json:"site,omitzero"`
+	Site *OutputDatasetDataSetSite `json:"site,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -314,7 +314,7 @@ func (o *OutputDataset) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputDataset) GetSite() *DataSetSite {
+func (o *OutputDataset) GetSite() *OutputDatasetDataSetSite {
 	if o == nil {
 		return nil
 	}
