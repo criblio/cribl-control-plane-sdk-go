@@ -8,93 +8,73 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type RollbackSettings2 struct {
-}
-
-func (r RollbackSettings2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RollbackSettings2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-// #region class-body-rollbacksettings2
-// #endregion class-body-rollbacksettings2
-
-type RollbackSettings1 struct {
+type RollbackSettings struct {
 	RollbackEnabled bool     `json:"rollbackEnabled"`
 	RollbackRetries *float64 `json:"rollbackRetries,omitzero"`
 	RollbackTimeout *float64 `json:"rollbackTimeout,omitzero"`
 }
 
-func (r RollbackSettings1) MarshalJSON() ([]byte, error) {
+func (r RollbackSettings) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(r, "", false)
 }
 
-func (r *RollbackSettings1) UnmarshalJSON(data []byte) error {
+func (r *RollbackSettings) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (r *RollbackSettings1) GetRollbackEnabled() bool {
+func (r *RollbackSettings) GetRollbackEnabled() bool {
 	if r == nil {
 		return false
 	}
 	return r.RollbackEnabled
 }
 
-func (r *RollbackSettings1) GetRollbackRetries() *float64 {
+func (r *RollbackSettings) GetRollbackRetries() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.RollbackRetries
 }
 
-func (r *RollbackSettings1) GetRollbackTimeout() *float64 {
+func (r *RollbackSettings) GetRollbackTimeout() *float64 {
 	if r == nil {
 		return nil
 	}
 	return r.RollbackTimeout
 }
 
-// #region class-body-rollbacksettings1
-// #endregion class-body-rollbacksettings1
-
 type RollbackSettingsUnionType string
 
 const (
-	RollbackSettingsUnionTypeRollbackSettings1 RollbackSettingsUnionType = "RollbackSettings_1"
-	RollbackSettingsUnionTypeRollbackSettings2 RollbackSettingsUnionType = "RollbackSettings_2"
+	RollbackSettingsUnionTypeRollbackSettings RollbackSettingsUnionType = "RollbackSettings"
+	RollbackSettingsUnionTypeEmptyObject      RollbackSettingsUnionType = "EmptyObject"
 )
 
 type RollbackSettingsUnion struct {
-	RollbackSettings1 *RollbackSettings1 `queryParam:"inline" union:"member"`
-	RollbackSettings2 *RollbackSettings2 `queryParam:"inline" union:"member"`
+	RollbackSettings *RollbackSettings `queryParam:"inline" union:"member"`
+	EmptyObject      *EmptyObject      `queryParam:"inline" union:"member"`
 
 	Type RollbackSettingsUnionType
 }
 
-func CreateRollbackSettingsUnionRollbackSettings1(rollbackSettings1 RollbackSettings1) RollbackSettingsUnion {
-	typ := RollbackSettingsUnionTypeRollbackSettings1
+func CreateRollbackSettingsUnionRollbackSettings(rollbackSettings RollbackSettings) RollbackSettingsUnion {
+	typ := RollbackSettingsUnionTypeRollbackSettings
 
 	return RollbackSettingsUnion{
-		RollbackSettings1: &rollbackSettings1,
-		Type:              typ,
+		RollbackSettings: &rollbackSettings,
+		Type:             typ,
 	}
 }
 
-func CreateRollbackSettingsUnionRollbackSettings2(rollbackSettings2 RollbackSettings2) RollbackSettingsUnion {
-	typ := RollbackSettingsUnionTypeRollbackSettings2
+func CreateRollbackSettingsUnionEmptyObject(emptyObject EmptyObject) RollbackSettingsUnion {
+	typ := RollbackSettingsUnionTypeEmptyObject
 
 	return RollbackSettingsUnion{
-		RollbackSettings2: &rollbackSettings2,
-		Type:              typ,
+		EmptyObject: &emptyObject,
+		Type:        typ,
 	}
 }
 
@@ -103,19 +83,19 @@ func (u *RollbackSettingsUnion) UnmarshalJSON(data []byte) error {
 	var candidates []utils.UnionCandidate
 
 	// Collect all valid candidates
-	var rollbackSettings1 RollbackSettings1 = RollbackSettings1{}
-	if err := utils.UnmarshalJSON(data, &rollbackSettings1, "", true, nil); err == nil {
+	var rollbackSettings RollbackSettings = RollbackSettings{}
+	if err := utils.UnmarshalJSON(data, &rollbackSettings, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  RollbackSettingsUnionTypeRollbackSettings1,
-			Value: &rollbackSettings1,
+			Type:  RollbackSettingsUnionTypeRollbackSettings,
+			Value: &rollbackSettings,
 		})
 	}
 
-	var rollbackSettings2 RollbackSettings2 = RollbackSettings2{}
-	if err := utils.UnmarshalJSON(data, &rollbackSettings2, "", true, nil); err == nil {
+	var emptyObject EmptyObject = EmptyObject{}
+	if err := utils.UnmarshalJSON(data, &emptyObject, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  RollbackSettingsUnionTypeRollbackSettings2,
-			Value: &rollbackSettings2,
+			Type:  RollbackSettingsUnionTypeEmptyObject,
+			Value: &emptyObject,
 		})
 	}
 
@@ -132,11 +112,11 @@ func (u *RollbackSettingsUnion) UnmarshalJSON(data []byte) error {
 	// Set the union type and value based on the best candidate
 	u.Type = best.Type.(RollbackSettingsUnionType)
 	switch best.Type {
-	case RollbackSettingsUnionTypeRollbackSettings1:
-		u.RollbackSettings1 = best.Value.(*RollbackSettings1)
+	case RollbackSettingsUnionTypeRollbackSettings:
+		u.RollbackSettings = best.Value.(*RollbackSettings)
 		return nil
-	case RollbackSettingsUnionTypeRollbackSettings2:
-		u.RollbackSettings2 = best.Value.(*RollbackSettings2)
+	case RollbackSettingsUnionTypeEmptyObject:
+		u.EmptyObject = best.Value.(*EmptyObject)
 		return nil
 	}
 
@@ -144,12 +124,12 @@ func (u *RollbackSettingsUnion) UnmarshalJSON(data []byte) error {
 }
 
 func (u RollbackSettingsUnion) MarshalJSON() ([]byte, error) {
-	if u.RollbackSettings1 != nil {
-		return utils.MarshalJSON(u.RollbackSettings1, "", true)
+	if u.RollbackSettings != nil {
+		return utils.MarshalJSON(u.RollbackSettings, "", true)
 	}
 
-	if u.RollbackSettings2 != nil {
-		return utils.MarshalJSON(u.RollbackSettings2, "", true)
+	if u.EmptyObject != nil {
+		return utils.MarshalJSON(u.EmptyObject, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type RollbackSettingsUnion: all fields are null")

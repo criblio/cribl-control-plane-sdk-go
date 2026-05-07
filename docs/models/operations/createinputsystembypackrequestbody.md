@@ -1,6 +1,6 @@
 # CreateInputSystemByPackRequestBody
 
-Input object
+Input object.
 
 
 ## Supported Types
@@ -329,6 +329,12 @@ createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRe
 createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyWinEventLogs(operations.CreateInputSystemByPackInputWinEventLogs{/* values here */})
 ```
 
+### CreateInputSystemByPackInputAppleUnifiedLogs
+
+```go
+createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyAppleUnifiedLogs(operations.CreateInputSystemByPackInputAppleUnifiedLogs{/* values here */})
+```
+
 ### CreateInputSystemByPackInputRawUDP
 
 ```go
@@ -521,6 +527,8 @@ switch createInputSystemByPackRequestBody.Type {
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputWef is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeWinEventLogs:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputWinEventLogs is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeAppleUnifiedLogs:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputAppleUnifiedLogs is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeRawUDP:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputRawUDP is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeJournalFiles:

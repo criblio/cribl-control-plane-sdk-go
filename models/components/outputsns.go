@@ -31,29 +31,6 @@ func (e *OutputSnsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputSnsSignatureVersion - Signature version to use for signing SNS requests
-type OutputSnsSignatureVersion string
-
-const (
-	OutputSnsSignatureVersionV2 OutputSnsSignatureVersion = "v2"
-	OutputSnsSignatureVersionV4 OutputSnsSignatureVersion = "v4"
-)
-
-func (e OutputSnsSignatureVersion) ToPointer() *OutputSnsSignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSnsSignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputSnsPqControls struct {
 }
 
@@ -93,8 +70,6 @@ type OutputSns struct {
 	Region *string `json:"region,omitzero"`
 	// SNS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SNS-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing SNS requests
-	SignatureVersion *OutputSnsSignatureVersion `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -258,13 +233,6 @@ func (o *OutputSns) GetEndpoint() *string {
 		return nil
 	}
 	return o.Endpoint
-}
-
-func (o *OutputSns) GetSignatureVersion() *OutputSnsSignatureVersion {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
 }
 
 func (o *OutputSns) GetReuseConnections() *bool {

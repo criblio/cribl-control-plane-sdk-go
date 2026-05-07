@@ -31,24 +31,24 @@ func (e *OutputElasticType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// ElasticVersion - Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
-type ElasticVersion string
+// OutputElasticElasticVersion - Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
+type OutputElasticElasticVersion string
 
 const (
-	// ElasticVersionAuto Auto
-	ElasticVersionAuto ElasticVersion = "auto"
-	// ElasticVersionSix 6.x
-	ElasticVersionSix ElasticVersion = "6"
-	// ElasticVersionSeven 7.x
-	ElasticVersionSeven ElasticVersion = "7"
+	// OutputElasticElasticVersionAuto Auto
+	OutputElasticElasticVersionAuto OutputElasticElasticVersion = "auto"
+	// OutputElasticElasticVersionSix 6.x
+	OutputElasticElasticVersionSix OutputElasticElasticVersion = "6"
+	// OutputElasticElasticVersionSeven 7.x
+	OutputElasticElasticVersionSeven OutputElasticElasticVersion = "7"
 )
 
-func (e ElasticVersion) ToPointer() *ElasticVersion {
+func (e OutputElasticElasticVersion) ToPointer() *OutputElasticElasticVersion {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ElasticVersion) IsExact() bool {
+func (e *OutputElasticElasticVersion) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "auto", "6", "7":
@@ -58,22 +58,22 @@ func (e *ElasticVersion) IsExact() bool {
 	return false
 }
 
-// WriteAction - Action to use when writing events. Must be set to `Create` when writing to a data stream.
-type WriteAction string
+// OutputElasticWriteAction - Action to use when writing events. Must be set to `Create` when writing to a data stream.
+type OutputElasticWriteAction string
 
 const (
-	// WriteActionIndex Index
-	WriteActionIndex WriteAction = "index"
-	// WriteActionCreate Create
-	WriteActionCreate WriteAction = "create"
+	// OutputElasticWriteActionIndex Index
+	OutputElasticWriteActionIndex OutputElasticWriteAction = "index"
+	// OutputElasticWriteActionCreate Create
+	OutputElasticWriteActionCreate OutputElasticWriteAction = "create"
 )
 
-func (e WriteAction) ToPointer() *WriteAction {
+func (e OutputElasticWriteAction) ToPointer() *OutputElasticWriteAction {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *WriteAction) IsExact() bool {
+func (e *OutputElasticWriteAction) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "index", "create":
@@ -186,13 +186,13 @@ type OutputElastic struct {
 	ExtraParams                   []ItemsTypeSaslSaslExtensions         `json:"extraParams,omitzero"`
 	Auth                          *AuthTypeTemplatemanualAPIKeyAuthType `json:"auth,omitzero"`
 	// Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
-	ElasticVersion *ElasticVersion `json:"elasticVersion,omitzero"`
+	ElasticVersion *OutputElasticElasticVersion `json:"elasticVersion,omitzero"`
 	// Optional Elasticsearch destination pipeline
 	ElasticPipeline *string `json:"elasticPipeline,omitzero"`
 	// Include the `document_id` field when sending events to an Elastic TSDS (time series data stream)
 	IncludeDocID *bool `json:"includeDocId,omitzero"`
 	// Action to use when writing events. Must be set to `Create` when writing to a data stream.
-	WriteAction *WriteAction `json:"writeAction,omitzero"`
+	WriteAction *OutputElasticWriteAction `json:"writeAction,omitzero"`
 	// Retry failed events when a bulk request to Elastic is successful, but the response body returns an error for one or more events in the batch
 	RetryPartialErrors *bool `json:"retryPartialErrors,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -427,7 +427,7 @@ func (o *OutputElastic) GetAuth() *AuthTypeTemplatemanualAPIKeyAuthType {
 	return o.Auth
 }
 
-func (o *OutputElastic) GetElasticVersion() *ElasticVersion {
+func (o *OutputElastic) GetElasticVersion() *OutputElasticElasticVersion {
 	if o == nil {
 		return nil
 	}
@@ -448,7 +448,7 @@ func (o *OutputElastic) GetIncludeDocID() *bool {
 	return o.IncludeDocID
 }
 
-func (o *OutputElastic) GetWriteAction() *WriteAction {
+func (o *OutputElastic) GetWriteAction() *OutputElasticWriteAction {
 	if o == nil {
 		return nil
 	}

@@ -53,43 +53,43 @@ func (e *OutputChronicleAuthenticationMethod) IsExact() bool {
 	return false
 }
 
-type CustomLabel struct {
+type OutputChronicleCustomLabel struct {
 	Key   string `json:"key"`
 	Value string `json:"value"`
 	// Designate this label for role-based access control and filtering
 	RbacEnabled *bool `json:"rbacEnabled,omitzero"`
 }
 
-func (c CustomLabel) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
+func (o OutputChronicleCustomLabel) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (c *CustomLabel) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+func (o *OutputChronicleCustomLabel) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CustomLabel) GetKey() string {
-	if c == nil {
+func (o *OutputChronicleCustomLabel) GetKey() string {
+	if o == nil {
 		return ""
 	}
-	return c.Key
+	return o.Key
 }
 
-func (c *CustomLabel) GetValue() string {
-	if c == nil {
+func (o *OutputChronicleCustomLabel) GetValue() string {
+	if o == nil {
 		return ""
 	}
-	return c.Value
+	return o.Value
 }
 
-func (c *CustomLabel) GetRbacEnabled() *bool {
-	if c == nil {
+func (o *OutputChronicleCustomLabel) GetRbacEnabled() *bool {
+	if o == nil {
 		return nil
 	}
-	return c.RbacEnabled
+	return o.RbacEnabled
 }
 
 type OutputChroniclePqControls struct {
@@ -167,7 +167,7 @@ type OutputChronicle struct {
 	// The Google Cloud Platform (GCP) instance to send events to. This is the Chronicle customer uuid.
 	GcpInstance string `json:"gcpInstance"`
 	// Custom labels to be added to every event
-	CustomLabels []CustomLabel `json:"customLabels,omitzero"`
+	CustomLabels []OutputChronicleCustomLabel `json:"customLabels,omitzero"`
 	// Chronicle API service endpoint. If empty, defaults to the Region-specific endpoint. Otherwise, it must point to a Chronicle API-compatible endpoint. (Example: https://custom-endpoint.googleapis.com)
 	Endpoint    *string `json:"endpoint,omitzero"`
 	Description *string `json:"description,omitzero"`
@@ -448,7 +448,7 @@ func (o *OutputChronicle) GetGcpInstance() string {
 	return o.GcpInstance
 }
 
-func (o *OutputChronicle) GetCustomLabels() []CustomLabel {
+func (o *OutputChronicle) GetCustomLabels() []OutputChronicleCustomLabel {
 	if o == nil {
 		return nil
 	}

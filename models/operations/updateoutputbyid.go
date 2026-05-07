@@ -10,7 +10,7 @@ import (
 type UpdateOutputByIDRequest struct {
 	// The <code>id</code> of the Destination to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// Output object
+	// Output object.
 	Output components.Output `request:"mediaType=application/json"`
 }
 
@@ -339,7 +339,7 @@ func (u *UpdateOutputByIDRequest) GetOutputScalityS3() *components.OutputScality
 type UpdateOutputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the updated Destination object
-	CountedOutput *components.CountedOutput
+	CountedOutputResponse *components.CountedOutputResponse
 }
 
 func (u UpdateOutputByIDResponse) MarshalJSON() ([]byte, error) {
@@ -360,9 +360,9 @@ func (u *UpdateOutputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return u.HTTPMeta
 }
 
-func (u *UpdateOutputByIDResponse) GetCountedOutput() *components.CountedOutput {
+func (u *UpdateOutputByIDResponse) GetCountedOutputResponse() *components.CountedOutputResponse {
 	if u == nil {
 		return nil
 	}
-	return u.CountedOutput
+	return u.CountedOutputResponse
 }

@@ -31,21 +31,21 @@ func (e *OutputAzureDataExplorerType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type IngestionMode string
+type OutputAzureDataExplorerIngestionMode string
 
 const (
-	// IngestionModeBatching Batching
-	IngestionModeBatching IngestionMode = "batching"
-	// IngestionModeStreaming Streaming
-	IngestionModeStreaming IngestionMode = "streaming"
+	// OutputAzureDataExplorerIngestionModeBatching Batching
+	OutputAzureDataExplorerIngestionModeBatching OutputAzureDataExplorerIngestionMode = "batching"
+	// OutputAzureDataExplorerIngestionModeStreaming Streaming
+	OutputAzureDataExplorerIngestionModeStreaming OutputAzureDataExplorerIngestionMode = "streaming"
 )
 
-func (e IngestionMode) ToPointer() *IngestionMode {
+func (e OutputAzureDataExplorerIngestionMode) ToPointer() *OutputAzureDataExplorerIngestionMode {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *IngestionMode) IsExact() bool {
+func (e *OutputAzureDataExplorerIngestionMode) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "batching", "streaming":
@@ -82,44 +82,44 @@ func (e *OutputAzureDataExplorerAuthenticationMethod) IsExact() bool {
 	return false
 }
 
-type Certificate struct {
+type OutputAzureDataExplorerCertificate struct {
 	// The certificate you registered as credentials for your app in the Azure portal
 	CertificateName *string `json:"certificateName,omitzero"`
 }
 
-func (c Certificate) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
+func (o OutputAzureDataExplorerCertificate) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (c *Certificate) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+func (o *OutputAzureDataExplorerCertificate) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *Certificate) GetCertificateName() *string {
-	if c == nil {
+func (o *OutputAzureDataExplorerCertificate) GetCertificateName() *string {
+	if o == nil {
 		return nil
 	}
-	return c.CertificateName
+	return o.CertificateName
 }
 
-type PrefixOptional string
+type OutputAzureDataExplorerPrefixOptional string
 
 const (
-	// PrefixOptionalDropBy drop-by
-	PrefixOptionalDropBy PrefixOptional = "dropBy"
-	// PrefixOptionalIngestBy ingest-by
-	PrefixOptionalIngestBy PrefixOptional = "ingestBy"
+	// OutputAzureDataExplorerPrefixOptionalDropBy drop-by
+	OutputAzureDataExplorerPrefixOptionalDropBy OutputAzureDataExplorerPrefixOptional = "dropBy"
+	// OutputAzureDataExplorerPrefixOptionalIngestBy ingest-by
+	OutputAzureDataExplorerPrefixOptionalIngestBy OutputAzureDataExplorerPrefixOptional = "ingestBy"
 )
 
-func (e PrefixOptional) ToPointer() *PrefixOptional {
+func (e OutputAzureDataExplorerPrefixOptional) ToPointer() *OutputAzureDataExplorerPrefixOptional {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PrefixOptional) IsExact() bool {
+func (e *OutputAzureDataExplorerPrefixOptional) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "dropBy", "ingestBy":
@@ -129,76 +129,76 @@ func (e *PrefixOptional) IsExact() bool {
 	return false
 }
 
-type ExtentTag struct {
-	Prefix *PrefixOptional `json:"prefix,omitzero"`
-	Value  string          `json:"value"`
+type OutputAzureDataExplorerExtentTag struct {
+	Prefix *OutputAzureDataExplorerPrefixOptional `json:"prefix,omitzero"`
+	Value  string                                 `json:"value"`
 }
 
-func (e ExtentTag) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(e, "", false)
+func (o OutputAzureDataExplorerExtentTag) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (e *ExtentTag) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &e, "", false, nil); err != nil {
+func (o *OutputAzureDataExplorerExtentTag) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (e *ExtentTag) GetPrefix() *PrefixOptional {
-	if e == nil {
+func (o *OutputAzureDataExplorerExtentTag) GetPrefix() *OutputAzureDataExplorerPrefixOptional {
+	if o == nil {
 		return nil
 	}
-	return e.Prefix
+	return o.Prefix
 }
 
-func (e *ExtentTag) GetValue() string {
-	if e == nil {
+func (o *OutputAzureDataExplorerExtentTag) GetValue() string {
+	if o == nil {
 		return ""
 	}
-	return e.Value
+	return o.Value
 }
 
-type IngestIfNotExist struct {
+type OutputAzureDataExplorerIngestIfNotExist struct {
 	Value string `json:"value"`
 }
 
-func (i IngestIfNotExist) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
+func (o OutputAzureDataExplorerIngestIfNotExist) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (i *IngestIfNotExist) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+func (o *OutputAzureDataExplorerIngestIfNotExist) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *IngestIfNotExist) GetValue() string {
-	if i == nil {
+func (o *OutputAzureDataExplorerIngestIfNotExist) GetValue() string {
+	if o == nil {
 		return ""
 	}
-	return i.Value
+	return o.Value
 }
 
-// ReportLevel - Level of ingestion status reporting. Defaults to FailuresOnly.
-type ReportLevel string
+// OutputAzureDataExplorerReportLevel - Level of ingestion status reporting. Defaults to FailuresOnly.
+type OutputAzureDataExplorerReportLevel string
 
 const (
-	// ReportLevelFailuresOnly FailuresOnly
-	ReportLevelFailuresOnly ReportLevel = "failuresOnly"
-	// ReportLevelDoNotReport DoNotReport
-	ReportLevelDoNotReport ReportLevel = "doNotReport"
-	// ReportLevelFailuresAndSuccesses FailuresAndSuccesses
-	ReportLevelFailuresAndSuccesses ReportLevel = "failuresAndSuccesses"
+	// OutputAzureDataExplorerReportLevelFailuresOnly FailuresOnly
+	OutputAzureDataExplorerReportLevelFailuresOnly OutputAzureDataExplorerReportLevel = "failuresOnly"
+	// OutputAzureDataExplorerReportLevelDoNotReport DoNotReport
+	OutputAzureDataExplorerReportLevelDoNotReport OutputAzureDataExplorerReportLevel = "doNotReport"
+	// OutputAzureDataExplorerReportLevelFailuresAndSuccesses FailuresAndSuccesses
+	OutputAzureDataExplorerReportLevelFailuresAndSuccesses OutputAzureDataExplorerReportLevel = "failuresAndSuccesses"
 )
 
-func (e ReportLevel) ToPointer() *ReportLevel {
+func (e OutputAzureDataExplorerReportLevel) ToPointer() *OutputAzureDataExplorerReportLevel {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ReportLevel) IsExact() bool {
+func (e *OutputAzureDataExplorerReportLevel) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "failuresOnly", "doNotReport", "failuresAndSuccesses":
@@ -208,24 +208,24 @@ func (e *ReportLevel) IsExact() bool {
 	return false
 }
 
-// ReportMethod - Target of the ingestion status reporting. Defaults to Queue.
-type ReportMethod string
+// OutputAzureDataExplorerReportMethod - Target of the ingestion status reporting. Defaults to Queue.
+type OutputAzureDataExplorerReportMethod string
 
 const (
-	// ReportMethodQueue Queue
-	ReportMethodQueue ReportMethod = "queue"
-	// ReportMethodTable Table
-	ReportMethodTable ReportMethod = "table"
-	// ReportMethodQueueAndTable QueueAndTable
-	ReportMethodQueueAndTable ReportMethod = "queueAndTable"
+	// OutputAzureDataExplorerReportMethodQueue Queue
+	OutputAzureDataExplorerReportMethodQueue OutputAzureDataExplorerReportMethod = "queue"
+	// OutputAzureDataExplorerReportMethodTable Table
+	OutputAzureDataExplorerReportMethodTable OutputAzureDataExplorerReportMethod = "table"
+	// OutputAzureDataExplorerReportMethodQueueAndTable QueueAndTable
+	OutputAzureDataExplorerReportMethodQueueAndTable OutputAzureDataExplorerReportMethod = "queueAndTable"
 )
 
-func (e ReportMethod) ToPointer() *ReportMethod {
+func (e OutputAzureDataExplorerReportMethod) ToPointer() *OutputAzureDataExplorerReportMethod {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *ReportMethod) IsExact() bool {
+func (e *OutputAzureDataExplorerReportMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "queue", "table", "queueAndTable":
@@ -235,34 +235,34 @@ func (e *ReportMethod) IsExact() bool {
 	return false
 }
 
-type AdditionalProperty struct {
+type OutputAzureDataExplorerAdditionalProperty struct {
 	Key   string `json:"key"`
 	Value string `json:"value"`
 }
 
-func (a AdditionalProperty) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
+func (o OutputAzureDataExplorerAdditionalProperty) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (a *AdditionalProperty) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+func (o *OutputAzureDataExplorerAdditionalProperty) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *AdditionalProperty) GetKey() string {
-	if a == nil {
+func (o *OutputAzureDataExplorerAdditionalProperty) GetKey() string {
+	if o == nil {
 		return ""
 	}
-	return a.Key
+	return o.Key
 }
 
-func (a *AdditionalProperty) GetValue() string {
-	if a == nil {
+func (o *OutputAzureDataExplorerAdditionalProperty) GetValue() string {
+	if o == nil {
 		return ""
 	}
-	return a.Value
+	return o.Value
 }
 
 type OutputAzureDataExplorerPqControls struct {
@@ -298,8 +298,8 @@ type OutputAzureDataExplorer struct {
 	// Name of the table to ingest data into
 	Table string `json:"table"`
 	// When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
-	ValidateDatabaseSettings *bool          `json:"validateDatabaseSettings,omitzero"`
-	IngestMode               *IngestionMode `json:"ingestMode,omitzero"`
+	ValidateDatabaseSettings *bool                                 `json:"validateDatabaseSettings,omitzero"`
+	IngestMode               *OutputAzureDataExplorerIngestionMode `json:"ingestMode,omitzero"`
 	// Endpoint used to acquire authentication tokens from Azure
 	OauthEndpoint MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint"`
 	// Directory ID (tenant identifier) in Azure Active Directory
@@ -314,8 +314,8 @@ type OutputAzureDataExplorer struct {
 	// The client secret that you generated for your app in the Azure portal
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
-	TextSecret  *string      `json:"textSecret,omitzero"`
-	Certificate *Certificate `json:"certificate,omitzero"`
+	TextSecret  *string                             `json:"textSecret,omitzero"`
+	Certificate *OutputAzureDataExplorerCertificate `json:"certificate,omitzero"`
 	// Format of the output data
 	Format *DataFormatOptions `json:"format,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
@@ -393,15 +393,15 @@ type OutputAzureDataExplorer struct {
 	// Prevent blob deletion after ingestion is complete
 	RetainBlobOnSuccess *bool `json:"retainBlobOnSuccess,omitzero"`
 	// Strings or tags associated with the extent (ingested data shard)
-	ExtentTags []ExtentTag `json:"extentTags,omitzero"`
+	ExtentTags []OutputAzureDataExplorerExtentTag `json:"extentTags,omitzero"`
 	// Prevents duplicate ingestion by verifying whether an extent with the specified ingest-by tag already exists
-	IngestIfNotExists []IngestIfNotExist `json:"ingestIfNotExists,omitzero"`
+	IngestIfNotExists []OutputAzureDataExplorerIngestIfNotExist `json:"ingestIfNotExists,omitzero"`
 	// Level of ingestion status reporting. Defaults to FailuresOnly.
-	ReportLevel *ReportLevel `json:"reportLevel,omitzero"`
+	ReportLevel *OutputAzureDataExplorerReportLevel `json:"reportLevel,omitzero"`
 	// Target of the ingestion status reporting. Defaults to Queue.
-	ReportMethod *ReportMethod `json:"reportMethod,omitzero"`
+	ReportMethod *OutputAzureDataExplorerReportMethod `json:"reportMethod,omitzero"`
 	// Optionally, enter additional configuration properties to send to the ingestion service
-	AdditionalProperties []AdditionalProperty `json:"additionalProperties,omitzero"`
+	AdditionalProperties []OutputAzureDataExplorerAdditionalProperty `json:"additionalProperties,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
 	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
 	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
@@ -561,7 +561,7 @@ func (o *OutputAzureDataExplorer) GetValidateDatabaseSettings() *bool {
 	return o.ValidateDatabaseSettings
 }
 
-func (o *OutputAzureDataExplorer) GetIngestMode() *IngestionMode {
+func (o *OutputAzureDataExplorer) GetIngestMode() *OutputAzureDataExplorerIngestionMode {
 	if o == nil {
 		return nil
 	}
@@ -624,7 +624,7 @@ func (o *OutputAzureDataExplorer) GetTextSecret() *string {
 	return o.TextSecret
 }
 
-func (o *OutputAzureDataExplorer) GetCertificate() *Certificate {
+func (o *OutputAzureDataExplorer) GetCertificate() *OutputAzureDataExplorerCertificate {
 	if o == nil {
 		return nil
 	}
@@ -904,35 +904,35 @@ func (o *OutputAzureDataExplorer) GetRetainBlobOnSuccess() *bool {
 	return o.RetainBlobOnSuccess
 }
 
-func (o *OutputAzureDataExplorer) GetExtentTags() []ExtentTag {
+func (o *OutputAzureDataExplorer) GetExtentTags() []OutputAzureDataExplorerExtentTag {
 	if o == nil {
 		return nil
 	}
 	return o.ExtentTags
 }
 
-func (o *OutputAzureDataExplorer) GetIngestIfNotExists() []IngestIfNotExist {
+func (o *OutputAzureDataExplorer) GetIngestIfNotExists() []OutputAzureDataExplorerIngestIfNotExist {
 	if o == nil {
 		return nil
 	}
 	return o.IngestIfNotExists
 }
 
-func (o *OutputAzureDataExplorer) GetReportLevel() *ReportLevel {
+func (o *OutputAzureDataExplorer) GetReportLevel() *OutputAzureDataExplorerReportLevel {
 	if o == nil {
 		return nil
 	}
 	return o.ReportLevel
 }
 
-func (o *OutputAzureDataExplorer) GetReportMethod() *ReportMethod {
+func (o *OutputAzureDataExplorer) GetReportMethod() *OutputAzureDataExplorerReportMethod {
 	if o == nil {
 		return nil
 	}
 	return o.ReportMethod
 }
 
-func (o *OutputAzureDataExplorer) GetAdditionalProperties() []AdditionalProperty {
+func (o *OutputAzureDataExplorer) GetAdditionalProperties() []OutputAzureDataExplorerAdditionalProperty {
 	if o == nil {
 		return nil
 	}

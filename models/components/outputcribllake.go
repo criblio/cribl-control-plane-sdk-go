@@ -31,23 +31,46 @@ func (e *OutputCriblLakeType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type AwsAuthenticationMethod string
+type OutputCriblLakeAwsAuthenticationMethod string
 
 const (
-	AwsAuthenticationMethodAuto    AwsAuthenticationMethod = "auto"
-	AwsAuthenticationMethodAutoRPC AwsAuthenticationMethod = "auto_rpc"
-	AwsAuthenticationMethodManual  AwsAuthenticationMethod = "manual"
+	OutputCriblLakeAwsAuthenticationMethodAuto    OutputCriblLakeAwsAuthenticationMethod = "auto"
+	OutputCriblLakeAwsAuthenticationMethodAutoRPC OutputCriblLakeAwsAuthenticationMethod = "auto_rpc"
+	OutputCriblLakeAwsAuthenticationMethodManual  OutputCriblLakeAwsAuthenticationMethod = "manual"
 )
 
-func (e AwsAuthenticationMethod) ToPointer() *AwsAuthenticationMethod {
+func (e OutputCriblLakeAwsAuthenticationMethod) ToPointer() *OutputCriblLakeAwsAuthenticationMethod {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AwsAuthenticationMethod) IsExact() bool {
+func (e *OutputCriblLakeAwsAuthenticationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "auto", "auto_rpc", "manual":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputCriblLakeFormat string
+
+const (
+	OutputCriblLakeFormatJSON    OutputCriblLakeFormat = "json"
+	OutputCriblLakeFormatParquet OutputCriblLakeFormat = "parquet"
+	OutputCriblLakeFormatDdss    OutputCriblLakeFormat = "ddss"
+)
+
+func (e OutputCriblLakeFormat) ToPointer() *OutputCriblLakeFormat {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblLakeFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "parquet", "ddss":
 			return true
 		}
 	}
@@ -76,14 +99,10 @@ type OutputCriblLake struct {
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
-	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket *string `json:"bucket,omitzero"`
 	// Region where the S3 bucket is located
@@ -126,6 +145,8 @@ type OutputCriblLake struct {
 	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
 	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Object ACL to assign to uploaded objects
 	ObjectACL *ObjectACLOptions `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
@@ -133,9 +154,9 @@ type OutputCriblLake struct {
 	// Server-side encryption to use for uploaded objects
 	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
 	// ID or ARN of the KMS customer-managed key to use for encryption
-	KmsKeyID                *string                  `json:"kmsKeyId,omitzero"`
-	AwsAuthenticationMethod *AwsAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
-	Format                  *FormatOptions           `json:"format,omitzero"`
+	KmsKeyID                *string                                 `json:"kmsKeyId,omitzero"`
+	AwsAuthenticationMethod *OutputCriblLakeAwsAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
+	Format                  *OutputCriblLakeFormat                  `json:"format,omitzero"`
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
 	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
 	Description            *string  `json:"description,omitzero"`
@@ -155,8 +176,6 @@ type OutputCriblLake struct {
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -169,6 +188,8 @@ type OutputCriblLake struct {
 	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
 	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
 	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
@@ -267,13 +288,6 @@ func (o *OutputCriblLake) GetDurationSeconds() *float64 {
 	return o.DurationSeconds
 }
 
-func (o *OutputCriblLake) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
-}
-
 func (o *OutputCriblLake) GetReuseConnections() *bool {
 	if o == nil {
 		return nil
@@ -286,13 +300,6 @@ func (o *OutputCriblLake) GetRejectUnauthorized() *bool {
 		return nil
 	}
 	return o.RejectUnauthorized
-}
-
-func (o *OutputCriblLake) GetAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsSecretKey
 }
 
 func (o *OutputCriblLake) GetBucket() *string {
@@ -449,6 +456,13 @@ func (o *OutputCriblLake) GetOrphans() *OrphanFileRecoveryType {
 	return o.Orphans
 }
 
+func (o *OutputCriblLake) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
 func (o *OutputCriblLake) GetObjectACL() *ObjectACLOptions {
 	if o == nil {
 		return nil
@@ -477,14 +491,14 @@ func (o *OutputCriblLake) GetKmsKeyID() *string {
 	return o.KmsKeyID
 }
 
-func (o *OutputCriblLake) GetAwsAuthenticationMethod() *AwsAuthenticationMethod {
+func (o *OutputCriblLake) GetAwsAuthenticationMethod() *OutputCriblLakeAwsAuthenticationMethod {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
 }
 
-func (o *OutputCriblLake) GetFormat() *FormatOptions {
+func (o *OutputCriblLake) GetFormat() *OutputCriblLakeFormat {
 	if o == nil {
 		return nil
 	}
@@ -561,13 +575,6 @@ func (o *OutputCriblLake) GetTemplateAssumeRoleExternalID() *string {
 	return o.TemplateAssumeRoleExternalID
 }
 
-func (o *OutputCriblLake) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
-}
-
 func (o *OutputCriblLake) GetTemplateBucket() *string {
 	if o == nil {
 		return nil
@@ -608,6 +615,13 @@ func (o *OutputCriblLake) GetTemplateOnBackpressure() *string {
 		return nil
 	}
 	return o.TemplateOnBackpressure
+}
+
+func (o *OutputCriblLake) GetTemplateAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAwsSecretKey
 }
 
 func (o *OutputCriblLake) GetTemplateObjectACL() *string {

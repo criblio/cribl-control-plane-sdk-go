@@ -12,7 +12,7 @@ type UpdateRoutesByPackAndIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
-	// RoutesInput object
+	// RoutesInput object.
 	RoutesInput components.RoutesInput `request:"mediaType=application/json"`
 }
 

@@ -12,8 +12,8 @@ type CreateRoutesAppendByPackAndIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
-	// RouteDefinitions object
-	RequestBody []components.RouteConfInput `request:"mediaType=application/json"`
+	// RouteDefinitions object.
+	RequestBody []components.ItemsTypeRoutesInputRoutes `request:"mediaType=application/json"`
 }
 
 func (c *CreateRoutesAppendByPackAndIDRequest) GetID() string {
@@ -30,16 +30,16 @@ func (c *CreateRoutesAppendByPackAndIDRequest) GetPack() string {
 	return c.Pack
 }
 
-func (c *CreateRoutesAppendByPackAndIDRequest) GetRequestBody() []components.RouteConfInput {
+func (c *CreateRoutesAppendByPackAndIDRequest) GetRequestBody() []components.ItemsTypeRoutesInputRoutes {
 	if c == nil {
-		return []components.RouteConfInput{}
+		return []components.ItemsTypeRoutesInputRoutes{}
 	}
 	return c.RequestBody
 }
 
 type CreateRoutesAppendByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Routes objects
+	// The created Routes object in a single-item list.
 	CountedRoutes *components.CountedRoutes
 }
 

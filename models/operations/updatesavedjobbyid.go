@@ -10,7 +10,7 @@ import (
 type UpdateSavedJobByIDRequest struct {
 	// The <code>id</code> of the Collector to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// SavedJob object
+	// SavedJob object.
 	SavedJob components.SavedJob `request:"mediaType=application/json"`
 }
 
@@ -30,7 +30,7 @@ func (u *UpdateSavedJobByIDRequest) GetSavedJob() components.SavedJob {
 
 type UpdateSavedJobByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of SavedJobResponse objects
+	// The updated SavedJobResponse object in a single-item list.
 	CountedSavedJobResponse *components.CountedSavedJobResponse
 }
 

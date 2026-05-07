@@ -31,29 +31,6 @@ func (e *OutputScalityS3Type) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputScalityS3SignatureVersion - Signature version to use for signing Scality requests
-type OutputScalityS3SignatureVersion string
-
-const (
-	OutputScalityS3SignatureVersionV2 OutputScalityS3SignatureVersion = "v2"
-	OutputScalityS3SignatureVersionV4 OutputScalityS3SignatureVersion = "v4"
-)
-
-func (e OutputScalityS3SignatureVersion) ToPointer() *OutputScalityS3SignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputScalityS3SignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputScalityS3 struct {
 	// Unique ID for this output
 	ID   *string             `json:"id,omitzero"`
@@ -67,15 +44,11 @@ type OutputScalityS3 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Authentication method.
-	AwsAuthenticationMethod *AuthenticationMethodOptionse9c778 `json:"awsAuthenticationMethod,omitzero"`
-	// Signature version to use for signing Scality requests
-	SignatureVersion *OutputScalityS3SignatureVersion `json:"signatureVersion,omitzero"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsSecret `json:"awsAuthenticationMethod,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Name of the destination Scality bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
 	// Region where the Scality bucket is located
@@ -127,8 +100,6 @@ type OutputScalityS3 struct {
 	// Scality RING S3-compatible endpoint URL (example: https://s3.scality.example.com)
 	Endpoint    string  `json:"endpoint"`
 	Description *string `json:"description,omitzero"`
-	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
-	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
@@ -167,8 +138,6 @@ type OutputScalityS3 struct {
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -187,8 +156,6 @@ type OutputScalityS3 struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
 	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
@@ -248,18 +215,11 @@ func (o *OutputScalityS3) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputScalityS3) GetAwsAuthenticationMethod() *AuthenticationMethodOptionse9c778 {
+func (o *OutputScalityS3) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsSecret {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
-}
-
-func (o *OutputScalityS3) GetSignatureVersion() *OutputScalityS3SignatureVersion {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
 }
 
 func (o *OutputScalityS3) GetReuseConnections() *bool {
@@ -274,13 +234,6 @@ func (o *OutputScalityS3) GetRejectUnauthorized() *bool {
 		return nil
 	}
 	return o.RejectUnauthorized
-}
-
-func (o *OutputScalityS3) GetAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsSecretKey
 }
 
 func (o *OutputScalityS3) GetBucket() string {
@@ -472,13 +425,6 @@ func (o *OutputScalityS3) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputScalityS3) GetAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsAPIKey
-}
-
 func (o *OutputScalityS3) GetAwsSecret() *string {
 	if o == nil {
 		return nil
@@ -612,13 +558,6 @@ func (o *OutputScalityS3) GetTemplateStreamtags() *string {
 	return o.TemplateStreamtags
 }
 
-func (o *OutputScalityS3) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
-}
-
 func (o *OutputScalityS3) GetTemplateBucket() *string {
 	if o == nil {
 		return nil
@@ -680,13 +619,6 @@ func (o *OutputScalityS3) GetTemplateEndpoint() *string {
 		return nil
 	}
 	return o.TemplateEndpoint
-}
-
-func (o *OutputScalityS3) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
 }
 
 func (o *OutputScalityS3) GetTemplateCompress() *string {

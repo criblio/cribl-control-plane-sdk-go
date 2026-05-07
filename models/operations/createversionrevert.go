@@ -9,7 +9,7 @@ import (
 
 type CreateVersionRevertResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of GitRevertResult objects
+	// The created GitRevertResult object in a single-item list.
 	CountedGitRevertResult *components.CountedGitRevertResult
 }
 

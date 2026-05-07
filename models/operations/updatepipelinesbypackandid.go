@@ -12,7 +12,7 @@ type UpdatePipelinesByPackAndIDRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
-	// Pipeline object
+	// Pipeline object.
 	Pipeline components.PipelineInput `request:"mediaType=application/json"`
 }
 

@@ -227,7 +227,7 @@ type RunSettingsTypeSavedJobResponseCollectionSchedule struct {
 	// Latest time to collect data for the selected timezone
 	Latest            *RunSettingsTypeSavedJobResponseCollectionScheduleLatest `json:"latest,omitzero"`
 	TimestampTimezone any                                                      `json:"timestampTimezone,omitzero"`
-	TimeWarning       *MetricsStore                                            `json:"timeWarning,omitzero"`
+	TimeWarning       *BrokenEventProcessor                                    `json:"timeWarning,omitzero"`
 	// A filter for tokens in the provided collect path and/or the events being collected
 	Expression *string `json:"expression,omitzero"`
 	// Limits the bundle size for small tasks. For example,
@@ -323,7 +323,7 @@ func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetTimestampTimezone
 	return r.TimestampTimezone
 }
 
-func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetTimeWarning() *MetricsStore {
+func (r *RunSettingsTypeSavedJobResponseCollectionSchedule) GetTimeWarning() *BrokenEventProcessor {
 	if r == nil {
 		return nil
 	}

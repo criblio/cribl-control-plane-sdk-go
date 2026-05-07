@@ -19,7 +19,7 @@ type SystemSettingsConf struct {
 	Support              *SupportTypeSystemSettingsConf    `json:"support,omitzero"`
 	System               SystemTypeSystemSettingsConf      `json:"system"`
 	TLS                  TLSSettingsUnion                  `json:"tls"`
-	UpgradeGroupSettings UpgradeGroupSettingsUnion         `json:"upgradeGroupSettings"`
+	UpgradeGroupSettings UpgradeGroupSettings              `json:"upgradeGroupSettings"`
 	UpgradeSettings      UpgradeSettings                   `json:"upgradeSettings"`
 	Workers              WorkersTypeSystemSettingsConf     `json:"workers"`
 }
@@ -119,9 +119,9 @@ func (s *SystemSettingsConf) GetTLS() TLSSettingsUnion {
 	return s.TLS
 }
 
-func (s *SystemSettingsConf) GetUpgradeGroupSettings() UpgradeGroupSettingsUnion {
+func (s *SystemSettingsConf) GetUpgradeGroupSettings() UpgradeGroupSettings {
 	if s == nil {
-		return UpgradeGroupSettingsUnion{}
+		return UpgradeGroupSettings{}
 	}
 	return s.UpgradeGroupSettings
 }

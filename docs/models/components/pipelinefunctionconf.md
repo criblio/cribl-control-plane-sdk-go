@@ -309,6 +309,12 @@ pipelineFunctionConf := components.CreatePipelineFunctionConfRollupMetrics(compo
 pipelineFunctionConf := components.CreatePipelineFunctionConfSampling(components.PipelineFunctionSampling{/* values here */})
 ```
 
+### PipelineFunctionSearchEngineExport
+
+```go
+pipelineFunctionConf := components.CreatePipelineFunctionConfSearchEngineExport(components.PipelineFunctionSearchEngineExport{/* values here */})
+```
+
 ### PipelineFunctionSend
 
 ```go
@@ -513,6 +519,8 @@ switch pipelineFunctionConf.Type {
 		// pipelineFunctionConf.PipelineFunctionRollupMetrics is populated
 	case components.PipelineFunctionConfTypeSampling:
 		// pipelineFunctionConf.PipelineFunctionSampling is populated
+	case components.PipelineFunctionConfTypeSearchEngineExport:
+		// pipelineFunctionConf.PipelineFunctionSearchEngineExport is populated
 	case components.PipelineFunctionConfTypeSend:
 		// pipelineFunctionConf.PipelineFunctionSend is populated
 	case components.PipelineFunctionConfTypeSensitiveDataScanner:

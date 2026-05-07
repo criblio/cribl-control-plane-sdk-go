@@ -80,23 +80,23 @@ func (e *OutputDynatraceHTTPFormat) IsExact() bool {
 	return false
 }
 
-type Endpoint string
+type OutputDynatraceHTTPEndpoint string
 
 const (
-	// EndpointCloud Cloud
-	EndpointCloud Endpoint = "cloud"
-	// EndpointActiveGate ActiveGate
-	EndpointActiveGate Endpoint = "activeGate"
-	// EndpointManual Manual
-	EndpointManual Endpoint = "manual"
+	// OutputDynatraceHTTPEndpointCloud Cloud
+	OutputDynatraceHTTPEndpointCloud OutputDynatraceHTTPEndpoint = "cloud"
+	// OutputDynatraceHTTPEndpointActiveGate ActiveGate
+	OutputDynatraceHTTPEndpointActiveGate OutputDynatraceHTTPEndpoint = "activeGate"
+	// OutputDynatraceHTTPEndpointManual Manual
+	OutputDynatraceHTTPEndpointManual OutputDynatraceHTTPEndpoint = "manual"
 )
 
-func (e Endpoint) ToPointer() *Endpoint {
+func (e OutputDynatraceHTTPEndpoint) ToPointer() *OutputDynatraceHTTPEndpoint {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Endpoint) IsExact() bool {
+func (e *OutputDynatraceHTTPEndpoint) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "cloud", "activeGate", "manual":
@@ -106,21 +106,21 @@ func (e *Endpoint) IsExact() bool {
 	return false
 }
 
-type TelemetryType string
+type OutputDynatraceHTTPTelemetryType string
 
 const (
-	// TelemetryTypeLogs Logs
-	TelemetryTypeLogs TelemetryType = "logs"
-	// TelemetryTypeMetrics Metrics
-	TelemetryTypeMetrics TelemetryType = "metrics"
+	// OutputDynatraceHTTPTelemetryTypeLogs Logs
+	OutputDynatraceHTTPTelemetryTypeLogs OutputDynatraceHTTPTelemetryType = "logs"
+	// OutputDynatraceHTTPTelemetryTypeMetrics Metrics
+	OutputDynatraceHTTPTelemetryTypeMetrics OutputDynatraceHTTPTelemetryType = "metrics"
 )
 
-func (e TelemetryType) ToPointer() *TelemetryType {
+func (e OutputDynatraceHTTPTelemetryType) ToPointer() *OutputDynatraceHTTPTelemetryType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *TelemetryType) IsExact() bool {
+func (e *OutputDynatraceHTTPTelemetryType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "logs", "metrics":
@@ -193,9 +193,9 @@ type OutputDynatraceHTTP struct {
 	OnBackpressure *BackpressureBehaviorOptions           `json:"onBackpressure,omitzero"`
 	AuthType       *OutputDynatraceHTTPAuthenticationType `json:"authType,omitzero"`
 	// How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
-	Format        OutputDynatraceHTTPFormat `json:"format"`
-	Endpoint      Endpoint                  `json:"endpoint"`
-	TelemetryType TelemetryType             `json:"telemetryType"`
+	Format        OutputDynatraceHTTPFormat        `json:"format"`
+	Endpoint      OutputDynatraceHTTPEndpoint      `json:"endpoint"`
+	TelemetryType OutputDynatraceHTTPTelemetryType `json:"telemetryType"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	Description        *string  `json:"description,omitzero"`
@@ -428,16 +428,16 @@ func (o *OutputDynatraceHTTP) GetFormat() OutputDynatraceHTTPFormat {
 	return o.Format
 }
 
-func (o *OutputDynatraceHTTP) GetEndpoint() Endpoint {
+func (o *OutputDynatraceHTTP) GetEndpoint() OutputDynatraceHTTPEndpoint {
 	if o == nil {
-		return Endpoint("")
+		return OutputDynatraceHTTPEndpoint("")
 	}
 	return o.Endpoint
 }
 
-func (o *OutputDynatraceHTTP) GetTelemetryType() TelemetryType {
+func (o *OutputDynatraceHTTP) GetTelemetryType() OutputDynatraceHTTPTelemetryType {
 	if o == nil {
-		return TelemetryType("")
+		return OutputDynatraceHTTPTelemetryType("")
 	}
 	return o.TelemetryType
 }

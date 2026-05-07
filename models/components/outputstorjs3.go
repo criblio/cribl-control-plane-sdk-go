@@ -31,53 +31,6 @@ func (e *OutputStorjS3Type) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type OutputStorjS3AuthenticationMethod string
-
-const (
-	// OutputStorjS3AuthenticationMethodManual Manual
-	OutputStorjS3AuthenticationMethodManual OutputStorjS3AuthenticationMethod = "manual"
-	// OutputStorjS3AuthenticationMethodSecret Secret Key pair
-	OutputStorjS3AuthenticationMethodSecret OutputStorjS3AuthenticationMethod = "secret"
-)
-
-func (e OutputStorjS3AuthenticationMethod) ToPointer() *OutputStorjS3AuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputStorjS3AuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "manual", "secret":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputStorjS3SignatureVersion - Signature version to use for signing Storj requests
-type OutputStorjS3SignatureVersion string
-
-const (
-	OutputStorjS3SignatureVersionV2 OutputStorjS3SignatureVersion = "v2"
-	OutputStorjS3SignatureVersionV4 OutputStorjS3SignatureVersion = "v4"
-)
-
-func (e OutputStorjS3SignatureVersion) ToPointer() *OutputStorjS3SignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputStorjS3SignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputStorjS3 struct {
 	// Unique ID for this output
 	ID   *string           `json:"id,omitzero"`
@@ -89,16 +42,13 @@ type OutputStorjS3 struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags              []string                           `json:"streamtags,omitzero"`
-	AwsAuthenticationMethod *OutputStorjS3AuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
-	// Signature version to use for signing Storj requests
-	SignatureVersion *OutputStorjS3SignatureVersion `json:"signatureVersion,omitzero"`
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Authentication method.
+	AwsAuthenticationMethod *AuthenticationMethodOptionsSecret `json:"awsAuthenticationMethod,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Name of the destination Storj bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
 	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
@@ -148,8 +98,6 @@ type OutputStorjS3 struct {
 	// Storj S3-compatible gateway endpoint URL (example: https://gateway.storjshare.io)
 	Endpoint    string  `json:"endpoint"`
 	Description *string `json:"description,omitzero"`
-	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
-	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
@@ -188,8 +136,6 @@ type OutputStorjS3 struct {
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
@@ -206,8 +152,6 @@ type OutputStorjS3 struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
 	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
@@ -267,18 +211,11 @@ func (o *OutputStorjS3) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputStorjS3) GetAwsAuthenticationMethod() *OutputStorjS3AuthenticationMethod {
+func (o *OutputStorjS3) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsSecret {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
-}
-
-func (o *OutputStorjS3) GetSignatureVersion() *OutputStorjS3SignatureVersion {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
 }
 
 func (o *OutputStorjS3) GetReuseConnections() *bool {
@@ -293,13 +230,6 @@ func (o *OutputStorjS3) GetRejectUnauthorized() *bool {
 		return nil
 	}
 	return o.RejectUnauthorized
-}
-
-func (o *OutputStorjS3) GetAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsSecretKey
 }
 
 func (o *OutputStorjS3) GetBucket() string {
@@ -484,13 +414,6 @@ func (o *OutputStorjS3) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputStorjS3) GetAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsAPIKey
-}
-
 func (o *OutputStorjS3) GetAwsSecret() *string {
 	if o == nil {
 		return nil
@@ -624,13 +547,6 @@ func (o *OutputStorjS3) GetTemplateStreamtags() *string {
 	return o.TemplateStreamtags
 }
 
-func (o *OutputStorjS3) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
-}
-
 func (o *OutputStorjS3) GetTemplateBucket() *string {
 	if o == nil {
 		return nil
@@ -685,13 +601,6 @@ func (o *OutputStorjS3) GetTemplateEndpoint() *string {
 		return nil
 	}
 	return o.TemplateEndpoint
-}
-
-func (o *OutputStorjS3) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
 }
 
 func (o *OutputStorjS3) GetTemplateCompress() *string {

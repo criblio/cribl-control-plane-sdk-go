@@ -14,7 +14,7 @@ type RoutesInput struct {
 	// Unique identifier for the Routing table. The supported value is <code>default</code>.
 	ID string `json:"id"`
 	// Array of Route configurations that define how events are processed and routed.
-	Routes []RouteConfInput `json:"routes"`
+	Routes []ItemsTypeRoutesInputRoutes `json:"routes"`
 }
 
 func (r RoutesInput) MarshalJSON() ([]byte, error) {
@@ -49,9 +49,9 @@ func (r *RoutesInput) GetID() string {
 	return r.ID
 }
 
-func (r *RoutesInput) GetRoutes() []RouteConfInput {
+func (r *RoutesInput) GetRoutes() []ItemsTypeRoutesInputRoutes {
 	if r == nil {
-		return []RouteConfInput{}
+		return []ItemsTypeRoutesInputRoutes{}
 	}
 	return r.Routes
 }

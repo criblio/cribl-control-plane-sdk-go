@@ -10,7 +10,7 @@ import (
 type UpdateProductsWorkersRestartByProductRequest struct {
 	// Name of the Cribl product whose Worker or Edge Nodes you want to restart.
 	Product components.ProductsBase `pathParam:"style=simple,explode=false,name=product"`
-	// RestartRequest object
+	// RestartRequest object.
 	RestartRequest components.RestartRequest `request:"mediaType=application/json"`
 }
 
@@ -30,7 +30,7 @@ func (u *UpdateProductsWorkersRestartByProductRequest) GetRestartRequest() compo
 
 type UpdateProductsWorkersRestartByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of RestartResponse objects
+	// The updated RestartResponse object in a single-item list.
 	CountedRestartResponse *components.CountedRestartResponse
 }
 

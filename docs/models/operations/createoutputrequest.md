@@ -1,6 +1,6 @@
 # CreateOutputRequest
 
-Output object
+Output object.
 
 
 ## Supported Types

@@ -780,7 +780,7 @@ func (s *PacksRoutes) List(ctx context.Context, pack string, opts ...operations.
 
 // Append - Add a Route to the end of the Routing table within a Pack
 // Add a Route to the end of the specified Routing table within the specified Pack.
-func (s *PacksRoutes) Append(ctx context.Context, id string, pack string, requestBody []components.RouteConfInput, opts ...operations.Option) (*operations.CreateRoutesAppendByPackAndIDResponse, error) {
+func (s *PacksRoutes) Append(ctx context.Context, id string, pack string, requestBody []components.ItemsTypeRoutesInputRoutes, opts ...operations.Option) (*operations.CreateRoutesAppendByPackAndIDResponse, error) {
 	request := operations.CreateRoutesAppendByPackAndIDRequest{
 		ID:          id,
 		Pack:        pack,

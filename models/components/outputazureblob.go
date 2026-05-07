@@ -31,27 +31,27 @@ func (e *OutputAzureBlobType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type BlobAccessTier string
+type OutputAzureBlobBlobAccessTier string
 
 const (
-	// BlobAccessTierInferred Default account access tier
-	BlobAccessTierInferred BlobAccessTier = "Inferred"
-	// BlobAccessTierHot Hot tier
-	BlobAccessTierHot BlobAccessTier = "Hot"
-	// BlobAccessTierCool Cool tier
-	BlobAccessTierCool BlobAccessTier = "Cool"
-	// BlobAccessTierCold Cold tier
-	BlobAccessTierCold BlobAccessTier = "Cold"
-	// BlobAccessTierArchive Archive tier
-	BlobAccessTierArchive BlobAccessTier = "Archive"
+	// OutputAzureBlobBlobAccessTierInferred Default account access tier
+	OutputAzureBlobBlobAccessTierInferred OutputAzureBlobBlobAccessTier = "Inferred"
+	// OutputAzureBlobBlobAccessTierHot Hot tier
+	OutputAzureBlobBlobAccessTierHot OutputAzureBlobBlobAccessTier = "Hot"
+	// OutputAzureBlobBlobAccessTierCool Cool tier
+	OutputAzureBlobBlobAccessTierCool OutputAzureBlobBlobAccessTier = "Cool"
+	// OutputAzureBlobBlobAccessTierCold Cold tier
+	OutputAzureBlobBlobAccessTierCold OutputAzureBlobBlobAccessTier = "Cold"
+	// OutputAzureBlobBlobAccessTierArchive Archive tier
+	OutputAzureBlobBlobAccessTierArchive OutputAzureBlobBlobAccessTier = "Archive"
 )
 
-func (e BlobAccessTier) ToPointer() *BlobAccessTier {
+func (e OutputAzureBlobBlobAccessTier) ToPointer() *OutputAzureBlobBlobAccessTier {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *BlobAccessTier) IsExact() bool {
+func (e *OutputAzureBlobBlobAccessTier) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "Inferred", "Hot", "Cool", "Cold", "Archive":
@@ -114,12 +114,12 @@ type OutputAzureBlob struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                        `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType           `json:"retrySettings,omitzero"`
-	Orphans              *OrphanFileRecoveryType      `json:"orphans,omitzero"`
-	AuthType             *AuthenticationMethodOptions `json:"authType,omitzero"`
-	StorageClass         *BlobAccessTier              `json:"storageClass,omitzero"`
-	Description          *string                      `json:"description,omitzero"`
+	ForceCloseOnShutdown *bool                          `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType             `json:"retrySettings,omitzero"`
+	Orphans              *OrphanFileRecoveryType        `json:"orphans,omitzero"`
+	AuthType             *AuthenticationMethodOptions   `json:"authType,omitzero"`
+	StorageClass         *OutputAzureBlobBlobAccessTier `json:"storageClass,omitzero"`
+	Description          *string                        `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
@@ -424,7 +424,7 @@ func (o *OutputAzureBlob) GetAuthType() *AuthenticationMethodOptions {
 	return o.AuthType
 }
 
-func (o *OutputAzureBlob) GetStorageClass() *BlobAccessTier {
+func (o *OutputAzureBlob) GetStorageClass() *OutputAzureBlobBlobAccessTier {
 	if o == nil {
 		return nil
 	}

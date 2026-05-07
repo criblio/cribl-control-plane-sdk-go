@@ -80,6 +80,10 @@ type OutputServiceNow struct {
 	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitzero"`
 	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
 	Metadata []ItemsTypeKeyValueMetadata `json:"metadata,omitzero"`
+	// Batch event data upon dynamic metadata (whether presented or not)
+	DynamicHeadersEnabled *bool `json:"dynamicHeadersEnabled,omitzero"`
+	// When presented, this field which contains metadata, will be injected into the Destination metadata and used to batch events.
+	DynamicHeadersField *string `json:"dynamicHeadersField,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
@@ -279,6 +283,20 @@ func (o *OutputServiceNow) GetMetadata() []ItemsTypeKeyValueMetadata {
 		return nil
 	}
 	return o.Metadata
+}
+
+func (o *OutputServiceNow) GetDynamicHeadersEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicHeadersEnabled
+}
+
+func (o *OutputServiceNow) GetDynamicHeadersField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicHeadersField
 }
 
 func (o *OutputServiceNow) GetConcurrency() *float64 {

@@ -31,7 +31,7 @@ func (g *GetOutputSystemByPackRequest) GetPack() string {
 type GetOutputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Destination objects
-	CountedOutput *components.CountedOutput
+	CountedOutputResponse *components.CountedOutputResponse
 }
 
 func (g GetOutputSystemByPackResponse) MarshalJSON() ([]byte, error) {
@@ -52,9 +52,9 @@ func (g *GetOutputSystemByPackResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetOutputSystemByPackResponse) GetCountedOutput() *components.CountedOutput {
+func (g *GetOutputSystemByPackResponse) GetCountedOutputResponse() *components.CountedOutputResponse {
 	if g == nil {
 		return nil
 	}
-	return g.CountedOutput
+	return g.CountedOutputResponse
 }

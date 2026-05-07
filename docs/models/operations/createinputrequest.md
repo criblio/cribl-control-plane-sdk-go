@@ -1,6 +1,6 @@
 # CreateInputRequest
 
-Input object
+Input object.
 
 
 ## Supported Types
@@ -329,6 +329,12 @@ createInputRequest := operations.CreateCreateInputRequestWef(operations.CreateIn
 createInputRequest := operations.CreateCreateInputRequestWinEventLogs(operations.CreateInputInputWinEventLogs{/* values here */})
 ```
 
+### CreateInputInputAppleUnifiedLogs
+
+```go
+createInputRequest := operations.CreateCreateInputRequestAppleUnifiedLogs(operations.CreateInputInputAppleUnifiedLogs{/* values here */})
+```
+
 ### CreateInputInputRawUDP
 
 ```go
@@ -521,6 +527,8 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputWef is populated
 	case operations.CreateInputRequestTypeWinEventLogs:
 		// createInputRequest.CreateInputInputWinEventLogs is populated
+	case operations.CreateInputRequestTypeAppleUnifiedLogs:
+		// createInputRequest.CreateInputInputAppleUnifiedLogs is populated
 	case operations.CreateInputRequestTypeRawUDP:
 		// createInputRequest.CreateInputInputRawUDP is populated
 	case operations.CreateInputRequestTypeJournalFiles:

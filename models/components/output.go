@@ -89,7 +89,6 @@ const (
 	OutputTypeDellS3                 OutputType = "dell_s3"
 	OutputTypeCloudianS3             OutputType = "cloudian_s3"
 	OutputTypeScalityS3              OutputType = "scality_s3"
-	OutputTypeUnknown                OutputType = "UNKNOWN"
 )
 
 type Output struct {
@@ -170,7 +169,6 @@ type Output struct {
 	OutputDellS3                 *OutputDellS3                 `queryParam:"inline" union:"member"`
 	OutputCloudianS3             *OutputCloudianS3             `queryParam:"inline" union:"member"`
 	OutputScalityS3              *OutputScalityS3              `queryParam:"inline" union:"member"`
-	UnknownRaw                   json.RawMessage               `json:"-" union:"unknown"`
 
 	Type OutputType
 }
@@ -1093,21 +1091,6 @@ func CreateOutputScalityS3(scalityS3 OutputScalityS3) Output {
 	}
 }
 
-func CreateOutputUnknown(raw json.RawMessage) Output {
-	return Output{
-		UnknownRaw: raw,
-		Type:       OutputTypeUnknown,
-	}
-}
-
-func (u Output) GetUnknownRaw() json.RawMessage {
-	return u.UnknownRaw
-}
-
-func (u Output) IsUnknown() bool {
-	return u.Type == OutputTypeUnknown
-}
-
 func (u *Output) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1116,14 +1099,7 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = OutputTypeUnknown
-		return nil
-	}
-	if dis == nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = OutputTypeUnknown
-		return nil
+		return fmt.Errorf("could not unmarshal discriminator: %w", err)
 	}
 
 	switch dis.Type {
@@ -1820,12 +1796,9 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputScalityS3 = outputScalityS3
 		u.Type = OutputTypeScalityS3
 		return nil
-	default:
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = OutputTypeUnknown
-		return nil
 	}
 
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Output", string(data))
 }
 
 func (u Output) MarshalJSON() ([]byte, error) {
@@ -2137,8 +2110,5 @@ func (u Output) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.OutputScalityS3, "", true)
 	}
 
-	if u.UnknownRaw != nil {
-		return json.RawMessage(u.UnknownRaw), nil
-	}
 	return nil, errors.New("could not marshal union type Output: all fields are null")
 }

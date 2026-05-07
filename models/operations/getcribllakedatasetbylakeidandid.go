@@ -30,7 +30,7 @@ func (g *GetCriblLakeDatasetByLakeIDAndIDRequest) GetID() string {
 
 type GetCriblLakeDatasetByLakeIDAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of CriblLakeDataset objects
+	// List of CriblLakeDataset objects.
 	CountedCriblLakeDataset *components.CountedCriblLakeDataset
 }
 
