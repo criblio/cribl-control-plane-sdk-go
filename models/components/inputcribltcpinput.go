@@ -47,8 +47,8 @@ type InputCriblTCPInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -65,12 +65,12 @@ type InputCriblTCPInput struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []Metadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
-	AuthTokens  []AuthToken `json:"authTokens,omitzero"`
-	Description *string     `json:"description,omitzero"`
+	AuthTokens  []AuthTokenConfInputCriblTCP `json:"authTokens,omitzero"`
+	Description *string                      `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -148,7 +148,7 @@ func (i *InputCriblTCPInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputCriblTCPInput) GetConnections() []Connection {
+func (i *InputCriblTCPInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -218,7 +218,7 @@ func (i *InputCriblTCPInput) GetEnableProxyHeader() *bool {
 	return i.EnableProxyHeader
 }
 
-func (i *InputCriblTCPInput) GetMetadata() []Metadata {
+func (i *InputCriblTCPInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -232,7 +232,7 @@ func (i *InputCriblTCPInput) GetEnableLoadBalancing() *bool {
 	return i.EnableLoadBalancing
 }
 
-func (i *InputCriblTCPInput) GetAuthTokens() []AuthToken {
+func (i *InputCriblTCPInput) GetAuthTokens() []AuthTokenConfInputCriblTCP {
 	if i == nil {
 		return nil
 	}

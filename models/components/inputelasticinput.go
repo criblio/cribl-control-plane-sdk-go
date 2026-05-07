@@ -228,8 +228,8 @@ type InputElasticInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -263,13 +263,13 @@ type InputElasticInput struct {
 	// The API version to use for communicating with the server
 	APIVersion *InputElasticAPIVersion `json:"apiVersion,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []Metadata             `json:"metadata,omitzero"`
-	ProxyMode   *InputElasticProxyMode `json:"proxyMode,omitzero"`
-	Description *string                `json:"description,omitzero"`
-	Username    *string                `json:"username,omitzero"`
-	Password    *string                `json:"password,omitzero"`
+	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
+	ProxyMode   *InputElasticProxyMode        `json:"proxyMode,omitzero"`
+	Description *string                       `json:"description,omitzero"`
+	Username    *string                       `json:"username,omitzero"`
+	Password    *string                       `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Bearer tokens to include in the authorization header
@@ -357,7 +357,7 @@ func (i *InputElasticInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputElasticInput) GetConnections() []Connection {
+func (i *InputElasticInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -490,14 +490,14 @@ func (i *InputElasticInput) GetAPIVersion() *InputElasticAPIVersion {
 	return i.APIVersion
 }
 
-func (i *InputElasticInput) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (i *InputElasticInput) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if i == nil {
 		return nil
 	}
 	return i.ExtraHTTPHeaders
 }
 
-func (i *InputElasticInput) GetMetadata() []Metadata {
+func (i *InputElasticInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

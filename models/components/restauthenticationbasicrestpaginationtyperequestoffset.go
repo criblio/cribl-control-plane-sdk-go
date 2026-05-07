@@ -16,9 +16,9 @@ type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithB
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -73,7 +73,7 @@ func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostW
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -204,14 +204,14 @@ func (e *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostD
 }
 
 type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -245,7 +245,7 @@ func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost)
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -266,7 +266,7 @@ func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost)
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -397,14 +397,14 @@ func (e *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDi
 }
 
 type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -438,7 +438,7 @@ func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) 
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -459,7 +459,7 @@ func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) 
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -2646,14 +2646,14 @@ type RestAuthenticationOauth struct {
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue string `json:"clientSecretParamValue"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-	AuthRequestParams  []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"authRequestParams,omitzero"`
-	AuthRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"authRequestHeaders,omitzero"`
-	Discovery          *RestAuthenticationOauthDiscovery                   `json:"discovery,omitzero"`
+	AuthRequestParams  []CollectRequestParamConfRestCollectMethodGet `json:"authRequestParams,omitzero"`
+	AuthRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"authRequestHeaders,omitzero"`
+	Discovery          *RestAuthenticationOauthDiscovery             `json:"discovery,omitzero"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
-	CollectURL            string                                              `json:"collectUrl"`
-	CollectMethod         RestAuthenticationOauthCollectMethod                `json:"collectMethod"`
-	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestHeaders,omitzero"`
-	Pagination            *RestAuthenticationOauthPagination                  `json:"pagination,omitzero"`
+	CollectURL            string                                        `json:"collectUrl"`
+	CollectMethod         RestAuthenticationOauthCollectMethod          `json:"collectMethod"`
+	CollectRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"collectRequestHeaders,omitzero"`
+	Pagination            *RestAuthenticationOauthPagination            `json:"pagination,omitzero"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `json:"timeout,omitzero"`
 	// Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
@@ -2744,14 +2744,14 @@ func (r *RestAuthenticationOauth) GetClientSecretParamValue() string {
 	return r.ClientSecretParamValue
 }
 
-func (r *RestAuthenticationOauth) GetAuthRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationOauth) GetAuthRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
 	return r.AuthRequestParams
 }
 
-func (r *RestAuthenticationOauth) GetAuthRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationOauth) GetAuthRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -2807,7 +2807,7 @@ func (r *RestAuthenticationOauth) GetCollectMethod() RestAuthenticationOauthColl
 	return r.CollectMethod
 }
 
-func (r *RestAuthenticationOauth) GetCollectRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationOauth) GetCollectRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -3051,7 +3051,7 @@ type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
@@ -3094,7 +3094,7 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone) GetDiscover
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -3211,7 +3211,7 @@ type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
@@ -3259,7 +3259,7 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList) GetDiscover
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -3371,7 +3371,7 @@ type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJSON struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
@@ -3426,7 +3426,7 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJSON) GetDiscover
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -3533,14 +3533,14 @@ type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOth
 	// Custom HTTP method to use for the Discover operation
 	DiscoverVerb string `json:"discoverVerb"`
 	// Template for body to send with the discover request
-	DiscoverBody          *string                                             `json:"discoverBody,omitzero"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverBody          *string                                       `json:"discoverBody,omitzero"`
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -3588,7 +3588,7 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverBody
 }
 
-func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -3609,7 +3609,7 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -3746,9 +3746,9 @@ type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPos
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -3803,7 +3803,7 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -3934,14 +3934,14 @@ func (e *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 }
 
 type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -3975,7 +3975,7 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -3996,7 +3996,7 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -4127,14 +4127,14 @@ func (e *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 }
 
 type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -4168,7 +4168,7 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -4189,7 +4189,7 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -6374,16 +6374,16 @@ type RestAuthenticationLoginSecret struct {
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `json:"authHeaderKey,omitzero"`
 	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     string                                              `json:"authHeaderExpr"`
-	AuthRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"authRequestHeaders,omitzero"`
+	AuthHeaderExpr     string                                        `json:"authHeaderExpr"`
+	AuthRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"authRequestHeaders,omitzero"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string                                 `json:"tokenRespAttribute,omitzero"`
 	Discovery          *RestAuthenticationLoginSecretDiscovery `json:"discovery,omitzero"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
-	CollectURL            string                                              `json:"collectUrl"`
-	CollectMethod         RestAuthenticationLoginSecretCollectMethod          `json:"collectMethod"`
-	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestHeaders,omitzero"`
-	Pagination            *RestAuthenticationLoginSecretPagination            `json:"pagination,omitzero"`
+	CollectURL            string                                        `json:"collectUrl"`
+	CollectMethod         RestAuthenticationLoginSecretCollectMethod    `json:"collectMethod"`
+	CollectRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"collectRequestHeaders,omitzero"`
+	Pagination            *RestAuthenticationLoginSecretPagination      `json:"pagination,omitzero"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `json:"timeout,omitzero"`
 	// Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
@@ -6476,7 +6476,7 @@ func (r *RestAuthenticationLoginSecret) GetAuthHeaderExpr() string {
 	return r.AuthHeaderExpr
 }
 
-func (r *RestAuthenticationLoginSecret) GetAuthRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginSecret) GetAuthRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -6539,7 +6539,7 @@ func (r *RestAuthenticationLoginSecret) GetCollectMethod() RestAuthenticationLog
 	return r.CollectMethod
 }
 
-func (r *RestAuthenticationLoginSecret) GetCollectRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginSecret) GetCollectRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -6790,7 +6790,7 @@ type RestAuthenticationLoginRestDiscoveryDiscoverTypeNone struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
@@ -6833,7 +6833,7 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeNone) GetDiscoverMethod
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -6950,7 +6950,7 @@ type RestAuthenticationLoginRestDiscoveryDiscoverTypeList struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
@@ -6998,7 +6998,7 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeList) GetDiscoverMethod
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -7110,7 +7110,7 @@ type RestAuthenticationLoginRestDiscoveryDiscoverTypeJSON struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
@@ -7165,7 +7165,7 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeJSON) GetDiscoverMethod
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -7272,14 +7272,14 @@ type RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther str
 	// Custom HTTP method to use for the Discover operation
 	DiscoverVerb string `json:"discoverVerb"`
 	// Template for body to send with the discover request
-	DiscoverBody          *string                                             `json:"discoverBody,omitzero"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverBody          *string                                       `json:"discoverBody,omitzero"`
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -7327,7 +7327,7 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 	return r.DiscoverBody
 }
 
-func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -7348,7 +7348,7 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -7485,9 +7485,9 @@ type RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithB
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -7542,7 +7542,7 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostW
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -7673,14 +7673,14 @@ func (e *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostD
 }
 
 type RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -7714,7 +7714,7 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost)
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -7735,7 +7735,7 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost)
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -7866,14 +7866,14 @@ func (e *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDi
 }
 
 type RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -7907,7 +7907,7 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) 
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -7928,7 +7928,7 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) 
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -10113,16 +10113,16 @@ type RestAuthenticationLogin struct {
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `json:"authHeaderKey,omitzero"`
 	// JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     string                                              `json:"authHeaderExpr"`
-	AuthRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"authRequestHeaders,omitzero"`
+	AuthHeaderExpr     string                                        `json:"authHeaderExpr"`
+	AuthRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"authRequestHeaders,omitzero"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string                           `json:"tokenRespAttribute,omitzero"`
 	Discovery          *RestAuthenticationLoginDiscovery `json:"discovery,omitzero"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
-	CollectURL            string                                              `json:"collectUrl"`
-	CollectMethod         RestAuthenticationLoginCollectMethod                `json:"collectMethod"`
-	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestHeaders,omitzero"`
-	Pagination            *RestAuthenticationLoginPagination                  `json:"pagination,omitzero"`
+	CollectURL            string                                        `json:"collectUrl"`
+	CollectMethod         RestAuthenticationLoginCollectMethod          `json:"collectMethod"`
+	CollectRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"collectRequestHeaders,omitzero"`
+	Pagination            *RestAuthenticationLoginPagination            `json:"pagination,omitzero"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `json:"timeout,omitzero"`
 	// Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
@@ -10222,7 +10222,7 @@ func (r *RestAuthenticationLogin) GetAuthHeaderExpr() string {
 	return r.AuthHeaderExpr
 }
 
-func (r *RestAuthenticationLogin) GetAuthRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLogin) GetAuthRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -10285,7 +10285,7 @@ func (r *RestAuthenticationLogin) GetCollectMethod() RestAuthenticationLoginColl
 	return r.CollectMethod
 }
 
-func (r *RestAuthenticationLogin) GetCollectRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationLogin) GetCollectRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -10536,7 +10536,7 @@ type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
@@ -10579,7 +10579,7 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone) GetDiscover
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -10696,7 +10696,7 @@ type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
@@ -10744,7 +10744,7 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList) GetDiscover
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -10856,7 +10856,7 @@ type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJSON struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
@@ -10911,7 +10911,7 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJSON) GetDiscover
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -11018,14 +11018,14 @@ type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOth
 	// Custom HTTP method to use for the Discover operation
 	DiscoverVerb string `json:"discoverVerb"`
 	// Template for body to send with the discover request
-	DiscoverBody          *string                                             `json:"discoverBody,omitzero"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverBody          *string                                       `json:"discoverBody,omitzero"`
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -11073,7 +11073,7 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverBody
 }
 
-func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -11094,7 +11094,7 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -11231,9 +11231,9 @@ type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPos
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -11288,7 +11288,7 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -11419,14 +11419,14 @@ func (e *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 }
 
 type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -11460,7 +11460,7 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -11481,7 +11481,7 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -11612,14 +11612,14 @@ func (e *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 }
 
 type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -11653,7 +11653,7 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -11674,7 +11674,7 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -13852,10 +13852,10 @@ type RestAuthenticationBasicSecret struct {
 	CredentialsSecret string                                  `json:"credentialsSecret"`
 	Discovery         *RestAuthenticationBasicSecretDiscovery `json:"discovery,omitzero"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
-	CollectURL            string                                              `json:"collectUrl"`
-	CollectMethod         RestAuthenticationBasicSecretCollectMethod          `json:"collectMethod"`
-	CollectRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"collectRequestHeaders,omitzero"`
-	Pagination            *RestAuthenticationBasicSecretPagination            `json:"pagination,omitzero"`
+	CollectURL            string                                        `json:"collectUrl"`
+	CollectMethod         RestAuthenticationBasicSecretCollectMethod    `json:"collectMethod"`
+	CollectRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"collectRequestHeaders,omitzero"`
+	Pagination            *RestAuthenticationBasicSecretPagination      `json:"pagination,omitzero"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	Timeout *float64 `json:"timeout,omitzero"`
 	// Maximum amount of data to buffer from a single response body. Responses exceeding this limit will be rejected. Maximum allowed value is 512 MB. Leave unset to rely on default error handling.
@@ -13962,7 +13962,7 @@ func (r *RestAuthenticationBasicSecret) GetCollectMethod() RestAuthenticationBas
 	return r.CollectMethod
 }
 
-func (r *RestAuthenticationBasicSecret) GetCollectRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicSecret) GetCollectRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -14213,7 +14213,7 @@ type RestAuthenticationBasicRestDiscoveryDiscoverTypeNone struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
@@ -14256,7 +14256,7 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeNone) GetDiscoverMethod
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -14373,7 +14373,7 @@ type RestAuthenticationBasicRestDiscoveryDiscoverTypeList struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
@@ -14421,7 +14421,7 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeList) GetDiscoverMethod
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -14533,7 +14533,7 @@ type RestAuthenticationBasicRestDiscoveryDiscoverTypeJSON struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
@@ -14588,7 +14588,7 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeJSON) GetDiscoverMethod
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -14695,14 +14695,14 @@ type RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther str
 	// Custom HTTP method to use for the Discover operation
 	DiscoverVerb string `json:"discoverVerb"`
 	// Template for body to send with the discover request
-	DiscoverBody          *string                                             `json:"discoverBody,omitzero"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverBody          *string                                       `json:"discoverBody,omitzero"`
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -14750,7 +14750,7 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 	return r.DiscoverBody
 }
 
-func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -14771,7 +14771,7 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -14908,9 +14908,9 @@ type RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithB
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -14965,7 +14965,7 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostW
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -15096,14 +15096,14 @@ func (e *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostD
 }
 
 type RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -15137,7 +15137,7 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost)
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -15158,7 +15158,7 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost)
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -15289,14 +15289,14 @@ func (e *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDi
 }
 
 type RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP  `json:"discoverMethod"`
-	DiscoverRequestParams []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                              `json:"discoverUrl"`
-	DiscoverRequestHeaders []ItemsTypeRestCollectMethodGetCollectRequestParams `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
@@ -15330,7 +15330,7 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) 
 	return r.DiscoverMethod
 }
 
-func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}
@@ -15351,7 +15351,7 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) 
 	return r.DiscoverURL
 }
 
-func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeRestCollectMethodGetCollectRequestParams {
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
 	}

@@ -138,8 +138,8 @@ type InputServicenowTableInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// ServiceNow instance base URL for Table API requests. Enter a literal URL (http or https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
 	Instance string `json:"instance"`
 	// ServiceNow table name to collect from.
@@ -185,9 +185,9 @@ type InputServicenowTableInput struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []Metadata      `json:"metadata,omitzero"`
-	RetryRules  *RetryRulesType `json:"retryRules,omitzero"`
-	Description *string         `json:"description,omitzero"`
+	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
+	RetryRules  *RetryRulesType               `json:"retryRules,omitzero"`
+	Description *string                       `json:"description,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// ServiceNow OAuth grant type used for token requests
@@ -199,10 +199,10 @@ type InputServicenowTableInput struct {
 	// Enable custom OAuth request parameters or headers for advanced ServiceNow configurations. Leave disabled for standard ServiceNow OAuth flows.
 	UseCustomOAuthParamsOrHeaders *bool `json:"useCustomOAuthParamsOrHeaders,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
+	OauthParams []OauthParamConfInputServicenowTable `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
-	ClientID     *string                 `json:"clientId,omitzero"`
+	OauthHeaders []OauthHeaderConfInputServicenowTable `json:"oauthHeaders,omitzero"`
+	ClientID     *string                               `json:"clientId,omitzero"`
 	// Select or create a stored text secret for the OAuth client secret value
 	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
 	// JavaScript expression that defines how to update the state from an event. This source defaults to checking that `_time` is a finite number (not only `__timestampExtracted`), so state still advances when the event breaker assigns a fallback time. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields).
@@ -293,7 +293,7 @@ func (i *InputServicenowTableInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputServicenowTableInput) GetConnections() []Connection {
+func (i *InputServicenowTableInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -461,7 +461,7 @@ func (i *InputServicenowTableInput) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputServicenowTableInput) GetMetadata() []Metadata {
+func (i *InputServicenowTableInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -517,14 +517,14 @@ func (i *InputServicenowTableInput) GetUseCustomOAuthParamsOrHeaders() *bool {
 	return i.UseCustomOAuthParamsOrHeaders
 }
 
-func (i *InputServicenowTableInput) GetOauthParams() []ItemsTypeOauthParams {
+func (i *InputServicenowTableInput) GetOauthParams() []OauthParamConfInputServicenowTable {
 	if i == nil {
 		return nil
 	}
 	return i.OauthParams
 }
 
-func (i *InputServicenowTableInput) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (i *InputServicenowTableInput) GetOauthHeaders() []OauthHeaderConfInputServicenowTable {
 	if i == nil {
 		return nil
 	}

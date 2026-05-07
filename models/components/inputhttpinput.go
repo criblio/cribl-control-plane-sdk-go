@@ -47,8 +47,8 @@ type InputHTTPInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -86,10 +86,10 @@ type InputHTTPInput struct {
 	SplunkHecAPI  *string `json:"splunkHecAPI,omitzero"`
 	SplunkHecAcks *bool   `json:"splunkHecAcks,omitzero"`
 	// Fields to add to events from this input
-	Metadata []Metadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokensExt []ItemsTypeAuthTokensExt `json:"authTokensExt,omitzero"`
-	Description   *string                  `json:"description,omitzero"`
+	AuthTokensExt []AuthTokensExtConfInputHTTP `json:"authTokensExt,omitzero"`
+	Description   *string                      `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -175,7 +175,7 @@ func (i *InputHTTPInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputHTTPInput) GetConnections() []Connection {
+func (i *InputHTTPInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -322,14 +322,14 @@ func (i *InputHTTPInput) GetSplunkHecAcks() *bool {
 	return i.SplunkHecAcks
 }
 
-func (i *InputHTTPInput) GetMetadata() []Metadata {
+func (i *InputHTTPInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}
 	return i.Metadata
 }
 
-func (i *InputHTTPInput) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
+func (i *InputHTTPInput) GetAuthTokensExt() []AuthTokensExtConfInputHTTP {
 	if i == nil {
 		return nil
 	}

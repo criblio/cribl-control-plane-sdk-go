@@ -132,7 +132,7 @@ type OutputOpenTelemetry struct {
 	// If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitzero"`
 	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
-	Metadata []ItemsTypeKeyValueMetadata `json:"metadata,omitzero"`
+	Metadata []KeyValueMetadataConfOutputFilesystem `json:"metadata,omitzero"`
 	// Batch event data upon dynamic metadata (whether presented or not)
 	DynamicHeadersEnabled *bool `json:"dynamicHeadersEnabled,omitzero"`
 	// When presented, this field which contains metadata, will be injected into the Destination metadata and used to batch events.
@@ -177,9 +177,9 @@ type OutputOpenTelemetry struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
+	OauthParams []OauthParamConfInputServicenowTable `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
+	OauthHeaders []OauthHeaderConfInputServicenowTable `json:"oauthHeaders,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
@@ -187,12 +187,12 @@ type OutputOpenTelemetry struct {
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool                              `json:"responseHonorRetryAfterHeader,omitzero"`
 	TLS                           *TLSSettingsClientSideTypeExtended `json:"tls,omitzero"`
@@ -345,7 +345,7 @@ func (o *OutputOpenTelemetry) GetHTTPLogsEndpointOverride() *string {
 	return o.HTTPLogsEndpointOverride
 }
 
-func (o *OutputOpenTelemetry) GetMetadata() []ItemsTypeKeyValueMetadata {
+func (o *OutputOpenTelemetry) GetMetadata() []KeyValueMetadataConfOutputFilesystem {
 	if o == nil {
 		return nil
 	}
@@ -513,14 +513,14 @@ func (o *OutputOpenTelemetry) GetTokenTimeoutSecs() *float64 {
 	return o.TokenTimeoutSecs
 }
 
-func (o *OutputOpenTelemetry) GetOauthParams() []ItemsTypeOauthParams {
+func (o *OutputOpenTelemetry) GetOauthParams() []OauthParamConfInputServicenowTable {
 	if o == nil {
 		return nil
 	}
 	return o.OauthParams
 }
 
-func (o *OutputOpenTelemetry) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (o *OutputOpenTelemetry) GetOauthHeaders() []OauthHeaderConfInputServicenowTable {
 	if o == nil {
 		return nil
 	}
@@ -541,7 +541,7 @@ func (o *OutputOpenTelemetry) GetUseRoundRobinDNS() *bool {
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputOpenTelemetry) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputOpenTelemetry) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -555,7 +555,7 @@ func (o *OutputOpenTelemetry) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputOpenTelemetry) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputOpenTelemetry) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}

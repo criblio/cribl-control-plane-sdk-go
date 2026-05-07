@@ -635,56 +635,56 @@ func main() {
             FailedRequestLoggingMode: components.FailedRequestLoggingModeOptionsNone.ToPointer(),
             SafeHeaders: []string{},
             ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("0"),
-            ResponseRetrySettings: []components.ItemsTypeResponseRetrySettings{
-                components.ItemsTypeResponseRetrySettings{
+            ResponseRetrySettings: []components.ResponseRetrySettingConfOutputWebhook{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 401.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](20000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 403.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](20000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 408.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 429.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 500.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 502.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 503.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 504.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 509.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
@@ -2705,8 +2705,8 @@ func main() {
         operations.CreateOutputSystemByPackOutputSplunkLb{
             ID: "splunk-lb-output",
             Type: operations.CreateOutputSystemByPackTypeSplunkLbSplunkLb,
-            Hosts: []components.ItemsTypeHosts{
-                components.ItemsTypeHosts{
+            Hosts: []components.HostConfOutputSyslog{
+                components.HostConfOutputSyslog{
                     Host: "localhost",
                     Port: 9997.0,
                 },
@@ -3936,56 +3936,56 @@ func main() {
             FailedRequestLoggingMode: components.FailedRequestLoggingModeOptionsNone.ToPointer(),
             SafeHeaders: []string{},
             ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("0"),
-            ResponseRetrySettings: []components.ItemsTypeResponseRetrySettings{
-                components.ItemsTypeResponseRetrySettings{
+            ResponseRetrySettings: []components.ResponseRetrySettingConfOutputWebhook{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 401.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](20000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 403.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](20000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 408.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 429.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 500.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 502.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 503.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 504.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 509.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
@@ -5958,8 +5958,8 @@ func main() {
         components.OutputSplunkLb{
             ID: criblcontrolplanesdkgo.Pointer("splunk-lb-output"),
             Type: components.OutputSplunkLbTypeSplunkLb,
-            Hosts: []components.ItemsTypeHosts{
-                components.ItemsTypeHosts{
+            Hosts: []components.HostConfOutputSyslog{
+                components.HostConfOutputSyslog{
                     Host: "localhost",
                     Port: 9997.0,
                 },

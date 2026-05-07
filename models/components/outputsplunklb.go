@@ -226,7 +226,7 @@ type OutputSplunkLb struct {
 	// Exclude all IPs of the current host from the list of any resolved hostnames
 	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
 	// Set of Splunk indexers to load-balance data to.
-	Hosts []ItemsTypeHosts `json:"hosts"`
+	Hosts []HostConfOutputSyslog `json:"hosts"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -466,9 +466,9 @@ func (o *OutputSplunkLb) GetExcludeSelf() *bool {
 	return o.ExcludeSelf
 }
 
-func (o *OutputSplunkLb) GetHosts() []ItemsTypeHosts {
+func (o *OutputSplunkLb) GetHosts() []HostConfOutputSyslog {
 	if o == nil {
-		return []ItemsTypeHosts{}
+		return []HostConfOutputSyslog{}
 	}
 	return o.Hosts
 }

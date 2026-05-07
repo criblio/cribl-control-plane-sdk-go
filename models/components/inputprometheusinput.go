@@ -97,8 +97,8 @@ type InputPrometheusInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitzero"`
 	// When enabled, each metric name is used as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
@@ -124,7 +124,7 @@ type InputPrometheusInput struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []Metadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
 	AuthType    *AuthenticationMethodOptionsSasl `json:"authType,omitzero"`
 	Description *string                          `json:"description,omitzero"`
@@ -148,8 +148,8 @@ type InputPrometheusInput struct {
 	// Use public IP address for discovered targets. Disable to use the private IP address.
 	UsePublicIP *bool `json:"usePublicIp,omitzero"`
 	// Filter to apply when searching for EC2 instances
-	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitzero"`
-	AwsSecretKey *string                 `json:"awsSecretKey,omitzero"`
+	SearchFilter []SearchFilterConfInputPrometheus `json:"searchFilter,omitzero"`
+	AwsSecretKey *string                           `json:"awsSecretKey,omitzero"`
 	// Region where the EC2 is located
 	Region *string `json:"region,omitzero"`
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
@@ -269,7 +269,7 @@ func (i *InputPrometheusInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputPrometheusInput) GetConnections() []Connection {
+func (i *InputPrometheusInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -367,7 +367,7 @@ func (i *InputPrometheusInput) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputPrometheusInput) GetMetadata() []Metadata {
+func (i *InputPrometheusInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -458,7 +458,7 @@ func (i *InputPrometheusInput) GetUsePublicIP() *bool {
 	return i.UsePublicIP
 }
 
-func (i *InputPrometheusInput) GetSearchFilter() []ItemsTypeSearchFilter {
+func (i *InputPrometheusInput) GetSearchFilter() []SearchFilterConfInputPrometheus {
 	if i == nil {
 		return nil
 	}

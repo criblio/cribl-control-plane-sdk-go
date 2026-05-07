@@ -19,8 +19,12 @@ type RouteConf struct {
 	EnableOutputExpression *bool `json:"enableOutputExpression,omitzero"`
 	// JavaScript expression to select events for routing.
 	Filter *string `json:"filter,omitzero"`
+	// If <code>true</code> the Route processes matched events and sends them to the specified Pipeline. Matched events do not continue to the next Route, but non-matched events do continue to the next Route. If <code>false</code>, the Route processes matched events and sends them to the specified Pipeline, and all events (matched and non-matched) continue to the next Route. Must be <code>false</code> to clone events.
+	Final bool `json:"final"`
 	// Unique identifier for the Route Group that the Route is associated with.
 	GroupID *string `json:"groupId,omitzero"`
+	// Unique identifier for the Route.
+	ID string `json:"id"`
 	// Name of the Route.
 	Name string `json:"name"`
 	// Destination that the Route sends matching events to after the Pipeline processes the events.
@@ -30,10 +34,6 @@ type RouteConf struct {
 	// Pipeline that the Route sends matching events to.
 	Pipeline      string         `json:"pipeline"`
 	TargetContext *TargetContext `json:"targetContext,omitzero"`
-	// If <code>true</code> (default), the Route processes matched events and sends them to the specified Pipeline. Matched events do not continue to the next Route, but non-matched events do continue to the next Route. If <code>false</code>, the Route processes matched events and sends them to the specified Pipeline, and all events (matched and non-matched) continue to the next Route. Must be <code>false</code> to clone events.
-	Final *bool `json:"final,omitzero"`
-	// Unique identifier for the Route. If omitted, the server generates a deterministic identifier.
-	ID *string `json:"id,omitzero"`
 }
 
 func (r RouteConf) MarshalJSON() ([]byte, error) {
@@ -89,11 +89,25 @@ func (r *RouteConf) GetFilter() *string {
 	return r.Filter
 }
 
+func (r *RouteConf) GetFinal() bool {
+	if r == nil {
+		return false
+	}
+	return r.Final
+}
+
 func (r *RouteConf) GetGroupID() *string {
 	if r == nil {
 		return nil
 	}
 	return r.GroupID
+}
+
+func (r *RouteConf) GetID() string {
+	if r == nil {
+		return ""
+	}
+	return r.ID
 }
 
 func (r *RouteConf) GetName() string {
@@ -129,18 +143,4 @@ func (r *RouteConf) GetTargetContext() *TargetContext {
 		return nil
 	}
 	return r.TargetContext
-}
-
-func (r *RouteConf) GetFinal() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.Final
-}
-
-func (r *RouteConf) GetID() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ID
 }

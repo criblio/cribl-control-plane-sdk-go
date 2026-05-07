@@ -78,12 +78,12 @@ type InputDatagenInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection         `json:"connections,omitzero"`
-	Pq          *PqType              `json:"pq,omitzero"`
-	Samples     []InputDatagenSample `json:"samples"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
+	Samples     []InputDatagenSample            `json:"samples"`
 	// Fields to add to events from this input
-	Metadata    []Metadata `json:"metadata,omitzero"`
-	Description *string    `json:"description,omitzero"`
+	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
+	Description *string                       `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -157,7 +157,7 @@ func (i *InputDatagenInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputDatagenInput) GetConnections() []Connection {
+func (i *InputDatagenInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -178,7 +178,7 @@ func (i *InputDatagenInput) GetSamples() []InputDatagenSample {
 	return i.Samples
 }
 
-func (i *InputDatagenInput) GetMetadata() []Metadata {
+func (i *InputDatagenInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

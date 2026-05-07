@@ -47,8 +47,8 @@ type InputSecurityLakeInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -96,7 +96,7 @@ type InputSecurityLakeInput struct {
 	EnableSQSAssumeRole *bool           `json:"enableSQSAssumeRole,omitzero"`
 	Preprocess          *PreprocessType `json:"preprocess,omitzero"`
 	// Fields to add to events from this input
-	Metadata []Metadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
@@ -204,7 +204,7 @@ func (i *InputSecurityLakeInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSecurityLakeInput) GetConnections() []Connection {
+func (i *InputSecurityLakeInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -386,7 +386,7 @@ func (i *InputSecurityLakeInput) GetPreprocess() *PreprocessType {
 	return i.Preprocess
 }
 
-func (i *InputSecurityLakeInput) GetMetadata() []Metadata {
+func (i *InputSecurityLakeInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

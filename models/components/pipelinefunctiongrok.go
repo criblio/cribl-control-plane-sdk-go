@@ -34,8 +34,8 @@ func (e *PipelineFunctionGrokID) UnmarshalJSON(data []byte) error {
 
 type PipelineFunctionGrokConf struct {
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     string                              `json:"pattern"`
-	PatternList []ItemsTypeSerdeTypeGrokPatternList `json:"patternList,omitzero"`
+	Pattern     string                         `json:"pattern"`
+	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
 	// Field on which to perform Grok extractions
 	Source *string `json:"source,omitzero"`
 }
@@ -58,7 +58,7 @@ func (p *PipelineFunctionGrokConf) GetPattern() string {
 	return p.Pattern
 }
 
-func (p *PipelineFunctionGrokConf) GetPatternList() []ItemsTypeSerdeTypeGrokPatternList {
+func (p *PipelineFunctionGrokConf) GetPatternList() []PatternListConfSerdeTypeGrok {
 	if p == nil {
 		return nil
 	}

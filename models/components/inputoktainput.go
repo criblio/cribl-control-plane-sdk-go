@@ -47,8 +47,8 @@ type InputOktaInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Your Okta domain (example: your-org). Do not include .okta.com, https://, or trailing slashes.
 	OktaDomain string `json:"oktaDomain"`
 	// Your Okta API token for authentication
@@ -74,9 +74,9 @@ type InputOktaInput struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []Metadata      `json:"metadata,omitzero"`
-	RetryRules  *RetryRulesType `json:"retryRules,omitzero"`
-	Description *string         `json:"description,omitzero"`
+	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
+	RetryRules  *RetryRulesType               `json:"retryRules,omitzero"`
+	Description *string                       `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -152,7 +152,7 @@ func (i *InputOktaInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputOktaInput) GetConnections() []Connection {
+func (i *InputOktaInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -250,7 +250,7 @@ func (i *InputOktaInput) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOktaInput) GetMetadata() []Metadata {
+func (i *InputOktaInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

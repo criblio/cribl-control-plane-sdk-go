@@ -186,8 +186,8 @@ type InputGrafanaGrafanaInput2 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -222,8 +222,8 @@ type InputGrafanaGrafanaInput2 struct {
 	PrometheusAuth *PrometheusAuth2 `json:"prometheusAuth,omitzero"`
 	LokiAuth       *LokiAuth2       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []Metadata `json:"metadata,omitzero"`
-	Description *string    `json:"description,omitzero"`
+	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
+	Description *string                       `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -305,7 +305,7 @@ func (i *InputGrafanaGrafanaInput2) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputGrafanaGrafanaInput2) GetConnections() []Connection {
+func (i *InputGrafanaGrafanaInput2) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -445,7 +445,7 @@ func (i *InputGrafanaGrafanaInput2) GetLokiAuth() *LokiAuth2 {
 	return i.LokiAuth
 }
 
-func (i *InputGrafanaGrafanaInput2) GetMetadata() []Metadata {
+func (i *InputGrafanaGrafanaInput2) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -681,8 +681,8 @@ type InputGrafanaGrafanaInput1 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -717,8 +717,8 @@ type InputGrafanaGrafanaInput1 struct {
 	PrometheusAuth *PrometheusAuth1 `json:"prometheusAuth,omitzero"`
 	LokiAuth       *LokiAuth1       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []Metadata `json:"metadata,omitzero"`
-	Description *string    `json:"description,omitzero"`
+	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
+	Description *string                       `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -800,7 +800,7 @@ func (i *InputGrafanaGrafanaInput1) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputGrafanaGrafanaInput1) GetConnections() []Connection {
+func (i *InputGrafanaGrafanaInput1) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -940,7 +940,7 @@ func (i *InputGrafanaGrafanaInput1) GetLokiAuth() *LokiAuth1 {
 	return i.LokiAuth
 }
 
-func (i *InputGrafanaGrafanaInput1) GetMetadata() []Metadata {
+func (i *InputGrafanaGrafanaInput1) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

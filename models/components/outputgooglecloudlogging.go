@@ -117,11 +117,11 @@ type OutputGoogleCloudLogging struct {
 	// Format to use when sending payload. Defaults to Text.
 	PayloadFormat *OutputGoogleCloudLoggingPayloadFormat `json:"payloadFormat,omitzero"`
 	// Labels to apply to the log entry
-	LogLabels []ItemsTypeLogLabels `json:"logLabels,omitzero"`
+	LogLabels []LogLabelConfOutputGoogleCloudLogging `json:"logLabels,omitzero"`
 	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
 	ResourceTypeExpression *string `json:"resourceTypeExpression,omitzero"`
 	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
-	ResourceTypeLabels []ItemsTypeLogLabels `json:"resourceTypeLabels,omitzero"`
+	ResourceTypeLabels []LogLabelConfOutputGoogleCloudLogging `json:"resourceTypeLabels,omitzero"`
 	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
 	SeverityExpression *string `json:"severityExpression,omitzero"`
 	// JavaScript expression to compute the value of the insert ID field.
@@ -343,7 +343,7 @@ func (o *OutputGoogleCloudLogging) GetPayloadFormat() *OutputGoogleCloudLoggingP
 	return o.PayloadFormat
 }
 
-func (o *OutputGoogleCloudLogging) GetLogLabels() []ItemsTypeLogLabels {
+func (o *OutputGoogleCloudLogging) GetLogLabels() []LogLabelConfOutputGoogleCloudLogging {
 	if o == nil {
 		return nil
 	}
@@ -357,7 +357,7 @@ func (o *OutputGoogleCloudLogging) GetResourceTypeExpression() *string {
 	return o.ResourceTypeExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetResourceTypeLabels() []ItemsTypeLogLabels {
+func (o *OutputGoogleCloudLogging) GetResourceTypeLabels() []LogLabelConfOutputGoogleCloudLogging {
 	if o == nil {
 		return nil
 	}

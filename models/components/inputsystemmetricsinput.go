@@ -722,8 +722,8 @@ type InputSystemMetricsInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
 	Interval  *float64                     `json:"interval,omitzero"`
 	Host      *InputSystemMetricsHost      `json:"host,omitzero"`
@@ -731,7 +731,7 @@ type InputSystemMetricsInput struct {
 	Container *InputSystemMetricsContainer `json:"container,omitzero"`
 	Gpu       *GpuType                     `json:"gpu,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []Metadata                     `json:"metadata,omitzero"`
+	Metadata    []MetadataConfInputCollection  `json:"metadata,omitzero"`
 	Persistence *InputSystemMetricsPersistence `json:"persistence,omitzero"`
 	Description *string                        `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -807,7 +807,7 @@ func (i *InputSystemMetricsInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSystemMetricsInput) GetConnections() []Connection {
+func (i *InputSystemMetricsInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -856,7 +856,7 @@ func (i *InputSystemMetricsInput) GetGpu() *GpuType {
 	return i.Gpu
 }
 
-func (i *InputSystemMetricsInput) GetMetadata() []Metadata {
+func (i *InputSystemMetricsInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

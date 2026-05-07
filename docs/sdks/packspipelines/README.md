@@ -1137,7 +1137,7 @@ func main() {
                         ID: components.PipelineFunctionGrokIDGrok,
                         Conf: components.PipelineFunctionGrokConf{
                             Pattern: "%{TIMESTAMP_ISO8601:event_time} %{LOGLEVEL:log_level} %{GREEDYDATA:log_message}",
-                            PatternList: []components.ItemsTypeSerdeTypeGrokPatternList{},
+                            PatternList: []components.PatternListConfSerdeTypeGrok{},
                             Source: criblcontrolplanesdkgo.Pointer("_raw"),
                         },
                     },
@@ -3853,7 +3853,7 @@ func main() {
                         ID: components.PipelineFunctionGrokIDGrok,
                         Conf: components.PipelineFunctionGrokConf{
                             Pattern: "%{TIMESTAMP_ISO8601:event_time} %{LOGLEVEL:log_level} %{GREEDYDATA:log_message}",
-                            PatternList: []components.ItemsTypeSerdeTypeGrokPatternList{},
+                            PatternList: []components.PatternListConfSerdeTypeGrok{},
                             Source: criblcontrolplanesdkgo.Pointer("_raw"),
                         },
                     },

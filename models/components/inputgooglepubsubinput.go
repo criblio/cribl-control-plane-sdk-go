@@ -47,8 +47,8 @@ type InputGooglePubsubInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
 	TopicName string `json:"topicName"`
 	// ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
@@ -74,8 +74,8 @@ type InputGooglePubsubInput struct {
 	// Pull request timeout, in milliseconds
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []Metadata `json:"metadata,omitzero"`
-	Description *string    `json:"description,omitzero"`
+	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
+	Description *string                       `json:"description,omitzero"`
 	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
 	OrderedDelivery *bool `json:"orderedDelivery,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -157,7 +157,7 @@ func (i *InputGooglePubsubInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputGooglePubsubInput) GetConnections() []Connection {
+func (i *InputGooglePubsubInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -255,7 +255,7 @@ func (i *InputGooglePubsubInput) GetRequestTimeout() *float64 {
 	return i.RequestTimeout
 }
 
-func (i *InputGooglePubsubInput) GetMetadata() []Metadata {
+func (i *InputGooglePubsubInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

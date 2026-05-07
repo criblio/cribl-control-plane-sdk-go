@@ -2,45 +2,21 @@
 
 package components
 
-import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-)
-
 type AuthToken struct {
-	// Select or create a stored text secret
-	TokenSecret string  `json:"tokenSecret"`
-	Enabled     *bool   `json:"enabled,omitzero"`
-	Description *string `json:"description,omitzero"`
+	ForcePasswordChange bool   `json:"forcePasswordChange"`
+	Token               string `json:"token"`
 }
 
-func (a AuthToken) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
-}
-
-func (a *AuthToken) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
-		return err
+func (a *AuthToken) GetForcePasswordChange() bool {
+	if a == nil {
+		return false
 	}
-	return nil
+	return a.ForcePasswordChange
 }
 
-func (a *AuthToken) GetTokenSecret() string {
+func (a *AuthToken) GetToken() string {
 	if a == nil {
 		return ""
 	}
-	return a.TokenSecret
-}
-
-func (a *AuthToken) GetEnabled() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.Enabled
-}
-
-func (a *AuthToken) GetDescription() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Description
+	return a.Token
 }
