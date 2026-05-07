@@ -47,8 +47,8 @@ type InputMetricsInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
@@ -63,7 +63,7 @@ type InputMetricsInput struct {
 	EnableProxyHeader *bool                      `json:"enableProxyHeader,omitzero"`
 	TLS               *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	Description        *string  `json:"description,omitzero"`
@@ -146,7 +146,7 @@ func (i *InputMetricsInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputMetricsInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputMetricsInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -209,7 +209,7 @@ func (i *InputMetricsInput) GetTLS() *TLSSettingsServerSideType {
 	return i.TLS
 }
 
-func (i *InputMetricsInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputMetricsInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

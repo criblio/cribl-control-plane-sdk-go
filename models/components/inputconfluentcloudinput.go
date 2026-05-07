@@ -47,8 +47,8 @@ type InputConfluentCloudInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
 	Brokers []string                                 `json:"brokers"`
 	TLS     *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
@@ -102,8 +102,8 @@ type InputConfluentCloudInput struct {
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -183,7 +183,7 @@ func (i *InputConfluentCloudInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputConfluentCloudInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputConfluentCloudInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -358,7 +358,7 @@ func (i *InputConfluentCloudInput) GetMaxSocketErrors() *float64 {
 	return i.MaxSocketErrors
 }
 
-func (i *InputConfluentCloudInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputConfluentCloudInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

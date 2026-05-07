@@ -98,8 +98,8 @@ func main() {
 
     res, err := s.Routes.Update(ctx, "<id>", components.RoutesInput{
         ID: "default",
-        Routes: []components.ItemsTypeRoutesInputRoutes{
-            components.ItemsTypeRoutesInputRoutes{
+        Routes: []components.RouteConf{
+            components.RouteConf{
                 Description: criblcontrolplanesdkgo.Pointer("Route access logs to main Pipeline"),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"access.log\""),
                 Name: "my-route",
@@ -143,8 +143,8 @@ func main() {
 
     res, err := s.Routes.Update(ctx, "<id>", components.RoutesInput{
         ID: "default",
-        Routes: []components.ItemsTypeRoutesInputRoutes{
-            components.ItemsTypeRoutesInputRoutes{
+        Routes: []components.RouteConf{
+            components.RouteConf{
                 Description: criblcontrolplanesdkgo.Pointer("Route speedtest logs"),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"speedtest.log\""),
                 Name: "speedtest",
@@ -153,7 +153,7 @@ func main() {
                 Final: criblcontrolplanesdkgo.Pointer(false),
                 ID: criblcontrolplanesdkgo.Pointer("route-speedtest"),
             },
-            components.ItemsTypeRoutesInputRoutes{
+            components.RouteConf{
                 Description: criblcontrolplanesdkgo.Pointer("Route mtr logs"),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"mtr.log\""),
                 Name: "mtr",
@@ -162,7 +162,7 @@ func main() {
                 Final: criblcontrolplanesdkgo.Pointer(false),
                 ID: criblcontrolplanesdkgo.Pointer("route-mtr"),
             },
-            components.ItemsTypeRoutesInputRoutes{
+            components.RouteConf{
                 Description: criblcontrolplanesdkgo.Pointer("Route statsd metrics"),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"statsd.log\""),
                 Name: "statsd",
@@ -171,7 +171,7 @@ func main() {
                 Final: criblcontrolplanesdkgo.Pointer(false),
                 ID: criblcontrolplanesdkgo.Pointer("route-statsd"),
             },
-            components.ItemsTypeRoutesInputRoutes{
+            components.RouteConf{
                 Description: criblcontrolplanesdkgo.Pointer("Catch-all Route for all other events"),
                 Filter: criblcontrolplanesdkgo.Pointer("true"),
                 Name: "default",
@@ -216,8 +216,8 @@ func main() {
 
     res, err := s.Routes.Update(ctx, "<id>", components.RoutesInput{
         ID: "default",
-        Routes: []components.ItemsTypeRoutesInputRoutes{
-            components.ItemsTypeRoutesInputRoutes{
+        Routes: []components.RouteConf{
+            components.RouteConf{
                 Description: criblcontrolplanesdkgo.Pointer("Route access logs to main Pipeline"),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"access.log\""),
                 Name: "my-route",
@@ -259,8 +259,8 @@ func main() {
 
     res, err := s.Routes.Update(ctx, "<id>", components.RoutesInput{
         ID: "default",
-        Routes: []components.ItemsTypeRoutesInputRoutes{
-            components.ItemsTypeRoutesInputRoutes{
+        Routes: []components.RouteConf{
+            components.RouteConf{
                 Description: criblcontrolplanesdkgo.Pointer("Route with dynamic Destination based on environment"),
                 EnableOutputExpression: criblcontrolplanesdkgo.Pointer(true),
                 Filter: criblcontrolplanesdkgo.Pointer("source == \"dynamic.log\""),
@@ -385,8 +385,8 @@ func main() {
         }),
     )
 
-    res, err := s.Routes.Append(ctx, "<id>", []components.ItemsTypeRoutesInputRoutes{
-        components.ItemsTypeRoutesInputRoutes{
+    res, err := s.Routes.Append(ctx, "<id>", []components.RouteConf{
+        components.RouteConf{
             Description: criblcontrolplanesdkgo.Pointer("Route audit logs"),
             Filter: criblcontrolplanesdkgo.Pointer("source == \"audit.log\""),
             Name: "audit",
@@ -395,7 +395,7 @@ func main() {
             Final: criblcontrolplanesdkgo.Pointer(false),
             ID: criblcontrolplanesdkgo.Pointer("route-audit"),
         },
-        components.ItemsTypeRoutesInputRoutes{
+        components.RouteConf{
             Description: criblcontrolplanesdkgo.Pointer("Route security logs"),
             Filter: criblcontrolplanesdkgo.Pointer("source == \"security.log\""),
             Name: "security",
@@ -437,8 +437,8 @@ func main() {
         }),
     )
 
-    res, err := s.Routes.Append(ctx, "<id>", []components.ItemsTypeRoutesInputRoutes{
-        components.ItemsTypeRoutesInputRoutes{
+    res, err := s.Routes.Append(ctx, "<id>", []components.RouteConf{
+        components.RouteConf{
             Description: criblcontrolplanesdkgo.Pointer("Route with server-generated id and default final value"),
             Filter: criblcontrolplanesdkgo.Pointer("source == \"new.log\""),
             Name: "new-route",
@@ -477,8 +477,8 @@ func main() {
         }),
     )
 
-    res, err := s.Routes.Append(ctx, "<id>", []components.ItemsTypeRoutesInputRoutes{
-        components.ItemsTypeRoutesInputRoutes{
+    res, err := s.Routes.Append(ctx, "<id>", []components.RouteConf{
+        components.RouteConf{
             Description: criblcontrolplanesdkgo.Pointer("Route with dynamic Destination based on environment"),
             EnableOutputExpression: criblcontrolplanesdkgo.Pointer(true),
             Filter: criblcontrolplanesdkgo.Pointer("source == \"dynamic.log\""),
@@ -521,8 +521,8 @@ func main() {
         }),
     )
 
-    res, err := s.Routes.Append(ctx, "<id>", []components.ItemsTypeRoutesInputRoutes{
-        components.ItemsTypeRoutesInputRoutes{
+    res, err := s.Routes.Append(ctx, "<id>", []components.RouteConf{
+        components.RouteConf{
             Description: criblcontrolplanesdkgo.Pointer("Route new logs to main pipeline"),
             Filter: criblcontrolplanesdkgo.Pointer("source == \"new.log\""),
             Name: "new-route",
@@ -546,7 +546,7 @@ func main() {
 | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                      | [context.Context](https://pkg.go.dev/context#Context)                                                      | :heavy_check_mark:                                                                                         | The context to use for the request.                                                                        |
 | `id`                                                                                                       | `string`                                                                                                   | :heavy_check_mark:                                                                                         | The <code>id</code> of the Routing table to add the Route to. The supported value is <code>default</code>. |
-| `requestBody`                                                                                              | [][components.ItemsTypeRoutesInputRoutes](../../models/components/itemstyperoutesinputroutes.md)           | :heavy_check_mark:                                                                                         | RouteDefinitions object.                                                                                   |
+| `requestBody`                                                                                              | [][components.RouteConf](../../models/components/routeconf.md)                                             | :heavy_check_mark:                                                                                         | RouteDefinitions object.                                                                                   |
 | `opts`                                                                                                     | [][operations.Option](../../models/operations/option.md)                                                   | :heavy_minus_sign:                                                                                         | The options for this request.                                                                              |
 
 ### Response

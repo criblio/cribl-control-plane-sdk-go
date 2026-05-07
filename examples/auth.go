@@ -137,7 +137,7 @@ func createOnpremClient(ctx context.Context) (*criblcontrolplanesdkgo.CriblContr
 		return nil, fmt.Errorf("failed to authenticate with on-prem server: %w", err)
 	}
 
-	if response.AuthToken == nil || response.AuthToken.Token == "" {
+	if response.AuthToken == nil || response.AuthToken.TokenSecret == "" {
 		return nil, fmt.Errorf("no token received from authentication response")
 	}
 
@@ -145,7 +145,7 @@ func createOnpremClient(ctx context.Context) (*criblcontrolplanesdkgo.CriblContr
 	client := criblcontrolplanesdkgo.New(
 		BaseURL,
 		criblcontrolplanesdkgo.WithSecurity(components.Security{
-			BearerAuth: &response.AuthToken.Token,
+			BearerAuth: &response.AuthToken.TokenSecret,
 		}),
 	)
 

@@ -52,11 +52,11 @@ const (
 	AWS_REGION      = "us-east-2"            // Replace with your S3 bucket region
 )
 
-// routeConfsToInput converts RouteConf (API response) to ItemsTypeRoutesInputRoutes (API request).
-func routeConfsToInput(routes []components.RouteConf) []components.ItemsTypeRoutesInputRoutes {
-	result := make([]components.ItemsTypeRoutesInputRoutes, len(routes))
+// routeConfsToInput converts RouteConf list for RoutesInput requests.
+func routeConfsToInput(routes []components.RouteConf) []components.RouteConf {
+	result := make([]components.RouteConf, len(routes))
 	for i, r := range routes {
-		result[i] = components.ItemsTypeRoutesInputRoutes{
+		result[i] = components.RouteConf{
 			Clones:                 r.Clones,
 			Context:                r.Context,
 			Description:            r.Description,
@@ -69,8 +69,8 @@ func routeConfsToInput(routes []components.RouteConf) []components.ItemsTypeRout
 			OutputExpression:       r.OutputExpression,
 			Pipeline:               r.Pipeline,
 			TargetContext:          r.TargetContext,
-			Final:                  criblcontrolplanesdkgo.Bool(r.Final),
-			ID:                     criblcontrolplanesdkgo.String(r.ID),
+			Final:                  r.Final,
+			ID:                     r.ID,
 		}
 	}
 	return result
@@ -202,8 +202,8 @@ func main() {
 		// Get the first Routes configuration
 		existingRoutes := routesListResponse.CountedRoutes.Items[0]
 
-		// Create new Route (Routes.Update expects RoutesInput with ItemsTypeRoutesInputRoutes)
-		newRoute := components.ItemsTypeRoutesInputRoutes{
+		// Create new Route.
+		newRoute := components.RouteConf{
 			Final:                  criblcontrolplanesdkgo.Bool(false),
 			ID:                     criblcontrolplanesdkgo.String("my-route"),
 			Name:                   "my-route",
@@ -214,8 +214,8 @@ func main() {
 			Description:            criblcontrolplanesdkgo.String("This is my new route"),
 		}
 
-		// Add new route to existing Routes (convert RouteConf to ItemsTypeRoutesInputRoutes)
-		updatedRoutesInput := append([]components.ItemsTypeRoutesInputRoutes{newRoute}, routeConfsToInput(existingRoutes.Routes)...)
+		// Add new route to existing Routes.
+		updatedRoutesInput := append([]components.RouteConf{newRoute}, routeConfsToInput(existingRoutes.Routes)...)
 
 		// Update Routes configuration
 		if existingRoutes.ID != "" {

@@ -130,7 +130,7 @@ type InputOpenaiContentConfig struct {
 	// Collector runtime log level.
 	LogLevel *InputOpenaiLogLevel `json:"logLevel,omitzero"`
 	// Fields automatically added to events from this Content Type
-	EndpointMetadata []ItemsTypeMetadata `json:"endpointMetadata,omitzero"`
+	EndpointMetadata []Metadata `json:"endpointMetadata,omitzero"`
 }
 
 func (i InputOpenaiContentConfig) MarshalJSON() ([]byte, error) {
@@ -263,7 +263,7 @@ func (i *InputOpenaiContentConfig) GetLogLevel() *InputOpenaiLogLevel {
 	return i.LogLevel
 }
 
-func (i *InputOpenaiContentConfig) GetEndpointMetadata() []ItemsTypeMetadata {
+func (i *InputOpenaiContentConfig) GetEndpointMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -286,8 +286,8 @@ type InputOpenaiInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Optional `OpenAI-Organization` request header value, typically `org-xxxxxxxxxxxxxxxxxxxxxxxx`
 	OpenaiOrganization *string `json:"openaiOrganization,omitzero"`
 	// Optional `OpenAI-Project` request header value, typically `proj_xxxxxxxxxxxxxxxxxxxxxxxx`
@@ -307,9 +307,9 @@ type InputOpenaiInput struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	RetryRules  *RetryRulesType     `json:"retryRules,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata      `json:"metadata,omitzero"`
+	RetryRules  *RetryRulesType `json:"retryRules,omitzero"`
+	Description *string         `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -387,7 +387,7 @@ func (i *InputOpenaiInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputOpenaiInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputOpenaiInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -471,7 +471,7 @@ func (i *InputOpenaiInput) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOpenaiInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputOpenaiInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

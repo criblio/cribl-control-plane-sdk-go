@@ -47,8 +47,8 @@ type InputMskInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
 	Brokers []string `json:"brokers"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
@@ -72,7 +72,7 @@ type InputMskInput struct {
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
 	HeartbeatInterval *float64 `json:"heartbeatInterval,omitzero"`
 	// Fields to add to events from this input
-	Metadata            []ItemsTypeMetadata                    `json:"metadata,omitzero"`
+	Metadata            []Metadata                             `json:"metadata,omitzero"`
 	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
@@ -215,7 +215,7 @@ func (i *InputMskInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputMskInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputMskInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -278,7 +278,7 @@ func (i *InputMskInput) GetHeartbeatInterval() *float64 {
 	return i.HeartbeatInterval
 }
 
-func (i *InputMskInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputMskInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

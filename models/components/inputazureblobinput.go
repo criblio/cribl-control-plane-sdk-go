@@ -47,8 +47,8 @@ type InputAzureBlobInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -64,7 +64,7 @@ type InputAzureBlobInput struct {
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
 	SkipOnError *bool `json:"skipOnError,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -177,7 +177,7 @@ func (i *InputAzureBlobInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputAzureBlobInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputAzureBlobInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -240,7 +240,7 @@ func (i *InputAzureBlobInput) GetSkipOnError() *bool {
 	return i.SkipOnError
 }
 
-func (i *InputAzureBlobInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputAzureBlobInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

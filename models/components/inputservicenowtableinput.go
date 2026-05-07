@@ -138,8 +138,8 @@ type InputServicenowTableInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// ServiceNow instance base URL for Table API requests. Enter a literal URL (http or https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
 	Instance string `json:"instance"`
 	// ServiceNow table name to collect from.
@@ -152,8 +152,6 @@ type InputServicenowTableInput struct {
 	OrderByDirection *InputServicenowTableSortDirection `json:"orderByDirection,omitzero"`
 	// Optional ServiceNow encoded query for sysparm_query (for example active=true or sys_updated_onRELATIVEGT@hour@ago@1). Enter a literal or a Cribl expression. When combined with Sort by field, the filter and sort are joined with ^. See ServiceNow Table API documentation for encoded query syntax.
 	Query *string `json:"query,omitzero"`
-	// When enabled, request raw values from ServiceNow (`sysparm_display_value=false`). When disabled, request display values (`sysparm_display_value=true`).
-	UseRawValues *bool `json:"useRawValues,omitzero"`
 	// Maximum records per Table API page request (sysparm_limit). Setting a higher value may increase the risk of timeouts.
 	PageSize *int64 `json:"pageSize,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Set to 0 to retrieve all pages.
@@ -187,9 +185,9 @@ type InputServicenowTableInput struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	RetryRules  *RetryRulesType     `json:"retryRules,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata      `json:"metadata,omitzero"`
+	RetryRules  *RetryRulesType `json:"retryRules,omitzero"`
+	Description *string         `json:"description,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// ServiceNow OAuth grant type used for token requests
@@ -295,7 +293,7 @@ func (i *InputServicenowTableInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputServicenowTableInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputServicenowTableInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -349,13 +347,6 @@ func (i *InputServicenowTableInput) GetQuery() *string {
 		return nil
 	}
 	return i.Query
-}
-
-func (i *InputServicenowTableInput) GetUseRawValues() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.UseRawValues
 }
 
 func (i *InputServicenowTableInput) GetPageSize() *int64 {
@@ -470,7 +461,7 @@ func (i *InputServicenowTableInput) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputServicenowTableInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputServicenowTableInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

@@ -13464,7 +13464,7 @@ type CreateOutputSystemByPackOutputCriblSearchEngine struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.
-	AuthTokens []components.ItemsTypeAuthTokensTokenSecret `json:"authTokens,omitzero"`
+	AuthTokens []components.AuthToken `json:"authTokens,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
@@ -13691,7 +13691,7 @@ func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetResponseHonorRetryA
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetAuthTokens() []components.ItemsTypeAuthTokensTokenSecret {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetAuthTokens() []components.AuthToken {
 	if c == nil {
 		return nil
 	}
@@ -13952,7 +13952,7 @@ type CreateOutputSystemByPackOutputCriblHTTP struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
-	AuthTokens []components.ItemsTypeAuthTokensTokenSecret `json:"authTokens,omitzero"`
+	AuthTokens []components.AuthToken `json:"authTokens,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	Description    *string                                 `json:"description,omitzero"`
@@ -14179,7 +14179,7 @@ func (c *CreateOutputSystemByPackOutputCriblHTTP) GetResponseHonorRetryAfterHead
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputSystemByPackOutputCriblHTTP) GetAuthTokens() []components.ItemsTypeAuthTokensTokenSecret {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetAuthTokens() []components.AuthToken {
 	if c == nil {
 		return nil
 	}
@@ -14419,7 +14419,7 @@ type CreateOutputSystemByPackOutputCriblTCP struct {
 	// The number of minutes before the internally generated authentication token expires, valid values between 1 and 60
 	TokenTTLMinutes *float64 `json:"tokenTTLMinutes,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
-	AuthTokens []components.ItemsTypeAuthTokens `json:"authTokens,omitzero"`
+	AuthTokens []components.AuthToken `json:"authTokens,omitzero"`
 	// Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
 	ExcludeFields []string `json:"excludeFields,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -14581,7 +14581,7 @@ func (c *CreateOutputSystemByPackOutputCriblTCP) GetTokenTTLMinutes() *float64 {
 	return c.TokenTTLMinutes
 }
 
-func (c *CreateOutputSystemByPackOutputCriblTCP) GetAuthTokens() []components.ItemsTypeAuthTokens {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetAuthTokens() []components.AuthToken {
 	if c == nil {
 		return nil
 	}

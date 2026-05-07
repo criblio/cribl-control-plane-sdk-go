@@ -47,8 +47,8 @@ type InputHTTPInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -86,7 +86,7 @@ type InputHTTPInput struct {
 	SplunkHecAPI  *string `json:"splunkHecAPI,omitzero"`
 	SplunkHecAcks *bool   `json:"splunkHecAcks,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokensExt []ItemsTypeAuthTokensExt `json:"authTokensExt,omitzero"`
 	Description   *string                  `json:"description,omitzero"`
@@ -175,7 +175,7 @@ func (i *InputHTTPInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputHTTPInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputHTTPInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -322,7 +322,7 @@ func (i *InputHTTPInput) GetSplunkHecAcks() *bool {
 	return i.SplunkHecAcks
 }
 
-func (i *InputHTTPInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputHTTPInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

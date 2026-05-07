@@ -73,8 +73,8 @@ type InputOffice365MsgTraceInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// URL to use when retrieving report data.
 	URL string `json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
@@ -100,7 +100,7 @@ type InputOffice365MsgTraceInput struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Reschedule tasks that failed with non-fatal errors
 	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
 	// Maximum number of times a task can be rescheduled
@@ -211,7 +211,7 @@ func (i *InputOffice365MsgTraceInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputOffice365MsgTraceInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputOffice365MsgTraceInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -309,7 +309,7 @@ func (i *InputOffice365MsgTraceInput) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365MsgTraceInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputOffice365MsgTraceInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

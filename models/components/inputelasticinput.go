@@ -228,8 +228,8 @@ type InputElasticInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -265,7 +265,7 @@ type InputElasticInput struct {
 	// Headers to add to all events
 	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata    `json:"metadata,omitzero"`
+	Metadata    []Metadata             `json:"metadata,omitzero"`
 	ProxyMode   *InputElasticProxyMode `json:"proxyMode,omitzero"`
 	Description *string                `json:"description,omitzero"`
 	Username    *string                `json:"username,omitzero"`
@@ -357,7 +357,7 @@ func (i *InputElasticInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputElasticInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputElasticInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -497,7 +497,7 @@ func (i *InputElasticInput) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
 	return i.ExtraHTTPHeaders
 }
 
-func (i *InputElasticInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputElasticInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

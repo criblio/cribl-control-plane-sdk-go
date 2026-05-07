@@ -47,8 +47,8 @@ type InputWizWebhookInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -83,7 +83,7 @@ type InputWizWebhookInput struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// List of URI paths accepted by this input. Wildcards are supported (such as /api/v*/hook). Defaults to allow all.
 	AllowedPaths []string `json:"allowedPaths,omitzero"`
 	// List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
@@ -172,7 +172,7 @@ func (i *InputWizWebhookInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputWizWebhookInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputWizWebhookInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -305,7 +305,7 @@ func (i *InputWizWebhookInput) GetStaleChannelFlushMs() *float64 {
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputWizWebhookInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputWizWebhookInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

@@ -97,10 +97,12 @@ type InputPrometheusInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitzero"`
+	// When enabled, each metric name is used as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
+	FieldPerMetric *bool `json:"fieldPerMetric,omitzero"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
 	DiscoveryType *InputPrometheusDiscoveryType `json:"discoveryType,omitzero"`
 	// How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
@@ -122,7 +124,7 @@ type InputPrometheusInput struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
 	AuthType    *AuthenticationMethodOptionsSasl `json:"authType,omitzero"`
 	Description *string                          `json:"description,omitzero"`
@@ -267,7 +269,7 @@ func (i *InputPrometheusInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputPrometheusInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputPrometheusInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -286,6 +288,13 @@ func (i *InputPrometheusInput) GetDimensionList() []string {
 		return nil
 	}
 	return i.DimensionList
+}
+
+func (i *InputPrometheusInput) GetFieldPerMetric() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FieldPerMetric
 }
 
 func (i *InputPrometheusInput) GetDiscoveryType() *InputPrometheusDiscoveryType {
@@ -358,7 +367,7 @@ func (i *InputPrometheusInput) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputPrometheusInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputPrometheusInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

@@ -1,4 +1,4 @@
-# ItemsTypeMetadata
+# Metadata
 
 
 ## Fields

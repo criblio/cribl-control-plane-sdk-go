@@ -49,8 +49,8 @@ type CreateInputInputOkta struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Your Okta domain (example: your-org). Do not include .okta.com, https://, or trailing slashes.
 	OktaDomain string `json:"oktaDomain"`
 	// Your Okta API token for authentication
@@ -76,9 +76,9 @@ type CreateInputInputOkta struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	RetryRules  *components.RetryRulesType     `json:"retryRules,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata      `json:"metadata,omitzero"`
+	RetryRules  *components.RetryRulesType `json:"retryRules,omitzero"`
+	Description *string                    `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -154,7 +154,7 @@ func (c *CreateInputInputOkta) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputOkta) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputOkta) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -252,7 +252,7 @@ func (c *CreateInputInputOkta) GetIgnoreGroupJobsLimit() *bool {
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputOkta) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputOkta) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -456,9 +456,9 @@ type CreateInputInputAnthropicCompliance struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
-	APIKey      *string                                   `json:"apiKey,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
+	APIKey      *string                 `json:"apiKey,omitzero"`
 	// Select or create a stored Anthropic API key
 	TextSecret    string                                        `json:"textSecret"`
 	ContentConfig []CreateInputContentConfigAnthropicCompliance `json:"contentConfig"`
@@ -473,9 +473,9 @@ type CreateInputInputAnthropicCompliance struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	RetryRules  *components.RetryRulesType     `json:"retryRules,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata      `json:"metadata,omitzero"`
+	RetryRules  *components.RetryRulesType `json:"retryRules,omitzero"`
+	Description *string                    `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -549,7 +549,7 @@ func (c *CreateInputInputAnthropicCompliance) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputAnthropicCompliance) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputAnthropicCompliance) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -619,7 +619,7 @@ func (c *CreateInputInputAnthropicCompliance) GetIgnoreGroupJobsLimit() *bool {
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputAnthropicCompliance) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputAnthropicCompliance) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -731,9 +731,9 @@ type CreateInputInputOpenaiComplianceLogs struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
-	APIKey      *string                                   `json:"apiKey,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
+	APIKey      *string                 `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
 	TextSecret   string                 `json:"textSecret"`
 	AccountType  CreateInputAccountType `json:"accountType"`
@@ -761,7 +761,7 @@ type CreateInputInputOpenaiComplianceLogs struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -858,7 +858,7 @@ func (c *CreateInputInputOpenaiComplianceLogs) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputOpenaiComplianceLogs) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -977,7 +977,7 @@ func (c *CreateInputInputOpenaiComplianceLogs) GetIgnoreGroupJobsLimit() *bool {
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputOpenaiComplianceLogs) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputOpenaiComplianceLogs) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -1144,7 +1144,7 @@ type CreateInputAuthTokenCloudflareHec struct {
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 }
 
 func (c CreateInputAuthTokenCloudflareHec) MarshalJSON() ([]byte, error) {
@@ -1193,7 +1193,7 @@ func (c *CreateInputAuthTokenCloudflareHec) GetAllowedIndexesAtToken() []string 
 	return c.AllowedIndexesAtToken
 }
 
-func (c *CreateInputAuthTokenCloudflareHec) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputAuthTokenCloudflareHec) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -1327,8 +1327,8 @@ type CreateInputInputCloudflareHec struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -1359,7 +1359,7 @@ type CreateInputInputCloudflareHec struct {
 	// Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
 	HecAPI string `json:"hecAPI"`
 	// Fields to add to every event. May be overridden by fields added at the token or request level.
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
@@ -1458,7 +1458,7 @@ func (c *CreateInputInputCloudflareHec) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputCloudflareHec) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputCloudflareHec) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -1577,7 +1577,7 @@ func (c *CreateInputInputCloudflareHec) GetHecAPI() string {
 	return c.HecAPI
 }
 
-func (c *CreateInputInputCloudflareHec) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputCloudflareHec) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -1724,7 +1724,7 @@ type CreateInputAuthTokenZscalerHec struct {
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 }
 
 func (c CreateInputAuthTokenZscalerHec) MarshalJSON() ([]byte, error) {
@@ -1780,7 +1780,7 @@ func (c *CreateInputAuthTokenZscalerHec) GetAllowedIndexesAtToken() []string {
 	return c.AllowedIndexesAtToken
 }
 
-func (c *CreateInputAuthTokenZscalerHec) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputAuthTokenZscalerHec) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -1803,8 +1803,8 @@ type CreateInputInputZscalerHec struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -1835,7 +1835,7 @@ type CreateInputInputZscalerHec struct {
 	// Absolute path on which to listen for the Zscaler HTTP Event Collector API requests. This input supports the /event endpoint.
 	HecAPI string `json:"hecAPI"`
 	// Fields to add to every event. May be overridden by fields added at the token or request level.
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
 	// Whether to enable Zscaler HEC acknowledgements
@@ -1926,7 +1926,7 @@ func (c *CreateInputInputZscalerHec) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputZscalerHec) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputZscalerHec) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -2045,7 +2045,7 @@ func (c *CreateInputInputZscalerHec) GetHecAPI() string {
 	return c.HecAPI
 }
 
-func (c *CreateInputInputZscalerHec) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputZscalerHec) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -2259,8 +2259,8 @@ type CreateInputInputServicenowTable struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// ServiceNow instance base URL for Table API requests. Enter a literal URL (http or https and the instance host, for example a hostname ending in .service-now.com) or a Cribl expression that resolves to a URL.
 	Instance string `json:"instance"`
 	// ServiceNow table name to collect from.
@@ -2273,8 +2273,6 @@ type CreateInputInputServicenowTable struct {
 	OrderByDirection *CreateInputSortDirection `json:"orderByDirection,omitzero"`
 	// Optional ServiceNow encoded query for sysparm_query (for example active=true or sys_updated_onRELATIVEGT@hour@ago@1). Enter a literal or a Cribl expression. When combined with Sort by field, the filter and sort are joined with ^. See ServiceNow Table API documentation for encoded query syntax.
 	Query *string `json:"query,omitzero"`
-	// When enabled, request raw values from ServiceNow (`sysparm_display_value=false`). When disabled, request display values (`sysparm_display_value=true`).
-	UseRawValues *bool `json:"useRawValues,omitzero"`
 	// Maximum records per Table API page request (sysparm_limit). Setting a higher value may increase the risk of timeouts.
 	PageSize *int64 `json:"pageSize,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Set to 0 to retrieve all pages.
@@ -2308,9 +2306,9 @@ type CreateInputInputServicenowTable struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	RetryRules  *components.RetryRulesType     `json:"retryRules,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata      `json:"metadata,omitzero"`
+	RetryRules  *components.RetryRulesType `json:"retryRules,omitzero"`
+	Description *string                    `json:"description,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// ServiceNow OAuth grant type used for token requests
@@ -2416,7 +2414,7 @@ func (c *CreateInputInputServicenowTable) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputServicenowTable) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputServicenowTable) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -2470,13 +2468,6 @@ func (c *CreateInputInputServicenowTable) GetQuery() *string {
 		return nil
 	}
 	return c.Query
-}
-
-func (c *CreateInputInputServicenowTable) GetUseRawValues() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.UseRawValues
 }
 
 func (c *CreateInputInputServicenowTable) GetPageSize() *int64 {
@@ -2591,7 +2582,7 @@ func (c *CreateInputInputServicenowTable) GetIgnoreGroupJobsLimit() *bool {
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputServicenowTable) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputServicenowTable) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -2784,8 +2775,8 @@ type CreateInputInputSecurityLake struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -2833,7 +2824,7 @@ type CreateInputInputSecurityLake struct {
 	EnableSQSAssumeRole *bool                      `json:"enableSQSAssumeRole,omitzero"`
 	Preprocess          *components.PreprocessType `json:"preprocess,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
@@ -2941,7 +2932,7 @@ func (c *CreateInputInputSecurityLake) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputSecurityLake) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputSecurityLake) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -3123,7 +3114,7 @@ func (c *CreateInputInputSecurityLake) GetPreprocess() *components.PreprocessTyp
 	return c.Preprocess
 }
 
-func (c *CreateInputInputSecurityLake) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputSecurityLake) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -3316,8 +3307,8 @@ type CreateInputInputNetflow struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// Port to listen on
@@ -3339,8 +3330,8 @@ type CreateInputInputNetflow struct {
 	// Accept messages in IPFIX format.
 	IpfixEnabled *bool `json:"ipfixEnabled,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -3418,7 +3409,7 @@ func (c *CreateInputInputNetflow) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputNetflow) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputNetflow) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -3502,7 +3493,7 @@ func (c *CreateInputInputNetflow) GetIpfixEnabled() *bool {
 	return c.IpfixEnabled
 }
 
-func (c *CreateInputInputNetflow) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputNetflow) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -3583,8 +3574,8 @@ type CreateInputInputWizWebhook struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -3619,7 +3610,7 @@ type CreateInputInputWizWebhook struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// List of URI paths accepted by this input. Wildcards are supported (such as /api/v*/hook). Defaults to allow all.
 	AllowedPaths []string `json:"allowedPaths,omitzero"`
 	// List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
@@ -3708,7 +3699,7 @@ func (c *CreateInputInputWizWebhook) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputWizWebhook) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputWizWebhook) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -3841,7 +3832,7 @@ func (c *CreateInputInputWizWebhook) GetStaleChannelFlushMs() *float64 {
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputWizWebhook) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputWizWebhook) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -4040,7 +4031,7 @@ type CreateInputContentConfigInput struct {
 	// Collector runtime log level.
 	LogLevel *CreateInputContentConfigLogLevel `json:"logLevel,omitzero"`
 	// Fields automatically added to events from this Content Type
-	EndpointMetadata []components.ItemsTypeMetadata `json:"endpointMetadata,omitzero"`
+	EndpointMetadata []components.Metadata `json:"endpointMetadata,omitzero"`
 }
 
 func (c CreateInputContentConfigInput) MarshalJSON() ([]byte, error) {
@@ -4173,7 +4164,7 @@ func (c *CreateInputContentConfigInput) GetLogLevel() *CreateInputContentConfigL
 	return c.LogLevel
 }
 
-func (c *CreateInputContentConfigInput) GetEndpointMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputContentConfigInput) GetEndpointMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -4196,8 +4187,8 @@ type CreateInputInputOpenai struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Optional `OpenAI-Organization` request header value, typically `org-xxxxxxxxxxxxxxxxxxxxxxxx`
 	OpenaiOrganization *string `json:"openaiOrganization,omitzero"`
 	// Optional `OpenAI-Project` request header value, typically `proj_xxxxxxxxxxxxxxxxxxxxxxxx`
@@ -4217,9 +4208,9 @@ type CreateInputInputOpenai struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	RetryRules  *components.RetryRulesType     `json:"retryRules,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata      `json:"metadata,omitzero"`
+	RetryRules  *components.RetryRulesType `json:"retryRules,omitzero"`
+	Description *string                    `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -4297,7 +4288,7 @@ func (c *CreateInputInputOpenai) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputOpenai) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputOpenai) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -4381,7 +4372,7 @@ func (c *CreateInputInputOpenai) GetIgnoreGroupJobsLimit() *bool {
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputOpenai) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputOpenai) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -4620,8 +4611,8 @@ type CreateInputInputWiz struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
 	Endpoint string `json:"endpoint"`
 	// The authentication URL to generate an OAuth token
@@ -4642,7 +4633,7 @@ type CreateInputInputWiz struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -4734,7 +4725,7 @@ func (c *CreateInputInputWiz) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputWiz) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputWiz) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -4818,7 +4809,7 @@ func (c *CreateInputInputWiz) GetIgnoreGroupJobsLimit() *bool {
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputInputWiz) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputWiz) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -4980,8 +4971,8 @@ type CreateInputInputJournalFiles struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Directory path to search for journals. Environment variables will be resolved, e.g. $CRIBL_EDGE_FS_ROOT/var/log/journal/$MACHINE_ID.
 	Path string `json:"path"`
 	// Time, in seconds, between scanning for journals.
@@ -4996,8 +4987,8 @@ type CreateInputInputJournalFiles struct {
 	MaxAgeDur                 *string `json:"maxAgeDur,omitzero"`
 	SuppressMissingPathErrors *bool   `json:"suppressMissingPathErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -5071,7 +5062,7 @@ func (c *CreateInputInputJournalFiles) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputJournalFiles) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputJournalFiles) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -5134,7 +5125,7 @@ func (c *CreateInputInputJournalFiles) GetSuppressMissingPathErrors() *bool {
 	return c.SuppressMissingPathErrors
 }
 
-func (c *CreateInputInputJournalFiles) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputJournalFiles) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -5201,8 +5192,8 @@ type CreateInputInputRawUDP struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// Port to listen on
@@ -5218,8 +5209,8 @@ type CreateInputInputRawUDP struct {
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -5297,7 +5288,7 @@ func (c *CreateInputInputRawUDP) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputRawUDP) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputRawUDP) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -5360,7 +5351,7 @@ func (c *CreateInputInputRawUDP) GetUDPSocketRxBufSize() *float64 {
 	return c.UDPSocketRxBufSize
 }
 
-func (c *CreateInputInputRawUDP) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputRawUDP) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -5466,8 +5457,8 @@ type CreateInputInputAppleUnifiedLogs struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Predicate format reference](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Predicates/AdditionalChapters/Introduction.html) for more information.
 	Predicate string `json:"predicate"`
 	// Read all log entries (historical and upcoming), or only upcoming, from the last entry
@@ -5477,8 +5468,8 @@ type CreateInputInputAppleUnifiedLogs struct {
 	// [TO BE REMOVED BEFORE RELEASE] Maximum number of entries to read in each native module call
 	BatchSize *float64 `json:"batchSize,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -5552,7 +5543,7 @@ func (c *CreateInputInputAppleUnifiedLogs) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputAppleUnifiedLogs) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputAppleUnifiedLogs) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -5594,7 +5585,7 @@ func (c *CreateInputInputAppleUnifiedLogs) GetBatchSize() *float64 {
 	return c.BatchSize
 }
 
-func (c *CreateInputInputAppleUnifiedLogs) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputAppleUnifiedLogs) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -5711,8 +5702,8 @@ type CreateInputInputWinEventLogs struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
 	LogNames []string `json:"logNames"`
 	// Read all stored and future event logs, or only future events
@@ -5726,7 +5717,7 @@ type CreateInputInputWinEventLogs struct {
 	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
 	BatchSize *float64 `json:"batchSize,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// The maximum number of bytes in an event before it is flushed to the pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	Description   *string  `json:"description,omitzero"`
@@ -5807,7 +5798,7 @@ func (c *CreateInputInputWinEventLogs) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputWinEventLogs) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputWinEventLogs) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -5863,7 +5854,7 @@ func (c *CreateInputInputWinEventLogs) GetBatchSize() *float64 {
 	return c.BatchSize
 }
 
-func (c *CreateInputInputWinEventLogs) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputWinEventLogs) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -6188,8 +6179,8 @@ type CreateInputSubscription struct {
 	Locale        *string                      `json:"locale,omitzero"`
 	QuerySelector *CreateInputQueryBuilderMode `json:"querySelector,omitzero"`
 	// Fields to add to events ingested under this subscription
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Queries  []CreateInputQuery             `json:"queries,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
+	Queries  []CreateInputQuery    `json:"queries,omitzero"`
 	// The XPath query to use for selecting events
 	XMLQuery *string `json:"xmlQuery,omitzero"`
 }
@@ -6282,7 +6273,7 @@ func (c *CreateInputSubscription) GetQuerySelector() *CreateInputQueryBuilderMod
 	return c.QuerySelector
 }
 
-func (c *CreateInputSubscription) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSubscription) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -6319,8 +6310,8 @@ type CreateInputInputWef struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -6357,8 +6348,8 @@ type CreateInputInputWef struct {
 	// Subscriptions to events on forwarding endpoints
 	Subscriptions []CreateInputSubscription `json:"subscriptions"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
 	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -6442,7 +6433,7 @@ func (c *CreateInputInputWef) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputWef) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputWef) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -6582,7 +6573,7 @@ func (c *CreateInputInputWef) GetSubscriptions() []CreateInputSubscription {
 	return c.Subscriptions
 }
 
-func (c *CreateInputInputWef) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputWef) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -6914,8 +6905,8 @@ type CreateInputInputAppscope struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Regex matching IP addresses that are allowed to establish a connection
 	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -6929,7 +6920,7 @@ type CreateInputInputAppscope struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -7031,7 +7022,7 @@ func (c *CreateInputInputAppscope) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputAppscope) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputAppscope) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -7087,7 +7078,7 @@ func (c *CreateInputInputAppscope) GetEnableProxyHeader() *bool {
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputAppscope) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputAppscope) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -7259,8 +7250,8 @@ type CreateInputInputTCP struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -7279,7 +7270,7 @@ type CreateInputInputTCP struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -7371,7 +7362,7 @@ func (c *CreateInputInputTCP) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputTCP) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputTCP) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -7448,7 +7439,7 @@ func (c *CreateInputInputTCP) GetEnableProxyHeader() *bool {
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputInputTCP) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputTCP) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -7603,8 +7594,8 @@ type CreateInputInputFile struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Choose how to discover files to monitor
 	Mode *CreateInputInputFileMode `json:"mode,omitzero"`
 	// Time, in seconds, between scanning for files
@@ -7628,7 +7619,7 @@ type CreateInputInputFile struct {
 	// Length of file header bytes to use in hash for unique file identification
 	HashLen *float64 `json:"hashLen,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -7720,7 +7711,7 @@ func (c *CreateInputInputFile) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputFile) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputFile) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -7811,7 +7802,7 @@ func (c *CreateInputInputFile) GetHashLen() *float64 {
 	return c.HashLen
 }
 
-func (c *CreateInputInputFile) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputFile) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -7941,8 +7932,8 @@ type CreateInputInputSyslogSyslog2 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
@@ -7979,7 +7970,7 @@ type CreateInputInputSyslogSyslog2 struct {
 	SocketMaxLifespan *float64                              `json:"socketMaxLifespan,omitzero"`
 	TLS               *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Load balance traffic across all Worker Processes
@@ -8068,7 +8059,7 @@ func (c *CreateInputInputSyslogSyslog2) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputSyslogSyslog2) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -8208,7 +8199,7 @@ func (c *CreateInputInputSyslogSyslog2) GetTLS() *components.TLSSettingsServerSi
 	return c.TLS
 }
 
-func (c *CreateInputInputSyslogSyslog2) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputSyslogSyslog2) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -8327,8 +8318,8 @@ type CreateInputInputSyslogSyslog1 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
@@ -8365,7 +8356,7 @@ type CreateInputInputSyslogSyslog1 struct {
 	SocketMaxLifespan *float64                              `json:"socketMaxLifespan,omitzero"`
 	TLS               *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Load balance traffic across all Worker Processes
@@ -8454,7 +8445,7 @@ func (c *CreateInputInputSyslogSyslog1) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputSyslogSyslog1) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -8594,7 +8585,7 @@ func (c *CreateInputInputSyslogSyslog1) GetTLS() *components.TLSSettingsServerSi
 	return c.TLS
 }
 
-func (c *CreateInputInputSyslogSyslog1) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputSyslogSyslog1) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -8827,8 +8818,8 @@ type CreateInputInputSqs struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// The name, URL, or ARN of the SQS queue to read events from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can only be evaluated at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// The queue type used (or created)
@@ -8861,7 +8852,7 @@ type CreateInputInputSqs struct {
 	// After messages are retrieved by a ReceiveMessage request, @{product} will hide them from subsequent retrieve requests for at least this duration. You can set this as high as 43200 sec. (12 hours).
 	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `json:"pollTimeout,omitzero"`
 	Description *string  `json:"description,omitzero"`
@@ -8961,7 +8952,7 @@ func (c *CreateInputInputSqs) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputSqs) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputSqs) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -9087,7 +9078,7 @@ func (c *CreateInputInputSqs) GetVisibilityTimeout() *float64 {
 	return c.VisibilityTimeout
 }
 
-func (c *CreateInputInputSqs) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputSqs) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -9245,15 +9236,15 @@ type CreateInputInputModelDrivenTelemetry struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                               `json:"port"`
 	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
@@ -9336,7 +9327,7 @@ func (c *CreateInputInputModelDrivenTelemetry) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputModelDrivenTelemetry) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -9371,7 +9362,7 @@ func (c *CreateInputInputModelDrivenTelemetry) GetTLS() *components.TLSSettingsS
 	return c.TLS
 }
 
-func (c *CreateInputInputModelDrivenTelemetry) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputModelDrivenTelemetry) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -9565,8 +9556,8 @@ type CreateInputAuthMethodsExt struct {
 	Token       *string `json:"token,omitzero"`
 	Description *string `json:"description,omitzero"`
 	// Fields to add to events referencing this auth method
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Enabled  *bool                          `json:"enabled,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
+	Enabled  *bool                 `json:"enabled,omitzero"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
 	Username    *string `json:"username,omitzero"`
@@ -9607,7 +9598,7 @@ func (c *CreateInputAuthMethodsExt) GetDescription() *string {
 	return c.Description
 }
 
-func (c *CreateInputAuthMethodsExt) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputAuthMethodsExt) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -9665,8 +9656,8 @@ type CreateInputInputOpenTelemetry struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -9701,7 +9692,7 @@ type CreateInputInputOpenTelemetry struct {
 	// Shared secrets to authenticate clients. Supports Bearer tokens and Basic auth. If empty, unauthenticated access is permitted.
 	AuthMethodsExt []CreateInputAuthMethodsExt `json:"authMethodsExt,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	Description  *string  `json:"description,omitzero"`
@@ -9796,7 +9787,7 @@ func (c *CreateInputInputOpenTelemetry) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputOpenTelemetry) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputOpenTelemetry) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -9929,7 +9920,7 @@ func (c *CreateInputInputOpenTelemetry) GetAuthMethodsExt() []CreateInputAuthMet
 	return c.AuthMethodsExt
 }
 
-func (c *CreateInputInputOpenTelemetry) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputOpenTelemetry) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -10174,8 +10165,8 @@ type CreateInputInputSnmp struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// UDP port to receive SNMP traps on. Defaults to 162.
@@ -10187,7 +10178,7 @@ type CreateInputInputSnmp struct {
 	// Regex matching IP addresses that are allowed to send data
 	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// If enabled, parses varbinds as an array of objects that include OID, value, and type
@@ -10272,7 +10263,7 @@ func (c *CreateInputInputSnmp) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputSnmp) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputSnmp) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -10321,7 +10312,7 @@ func (c *CreateInputInputSnmp) GetIPWhitelistRegex() *string {
 	return c.IPWhitelistRegex
 }
 
-func (c *CreateInputInputSnmp) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputSnmp) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -10423,8 +10414,8 @@ type CreateInputInputS3Inventory struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -10472,7 +10463,7 @@ type CreateInputInputS3Inventory struct {
 	EnableSQSAssumeRole *bool                      `json:"enableSQSAssumeRole,omitzero"`
 	Preprocess          *components.PreprocessType `json:"preprocess,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
@@ -10584,7 +10575,7 @@ func (c *CreateInputInputS3Inventory) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputS3Inventory) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputS3Inventory) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -10766,7 +10757,7 @@ func (c *CreateInputInputS3Inventory) GetPreprocess() *components.PreprocessType
 	return c.Preprocess
 }
 
-func (c *CreateInputInputS3Inventory) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputS3Inventory) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -10976,8 +10967,8 @@ type CreateInputInputS3 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -11025,7 +11016,7 @@ type CreateInputInputS3 struct {
 	EnableSQSAssumeRole *bool                      `json:"enableSQSAssumeRole,omitzero"`
 	Preprocess          *components.PreprocessType `json:"preprocess,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
@@ -11134,7 +11125,7 @@ func (c *CreateInputInputS3) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputS3) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputS3) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -11316,7 +11307,7 @@ func (c *CreateInputInputS3) GetPreprocess() *components.PreprocessType {
 	return c.Preprocess
 }
 
-func (c *CreateInputInputS3) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputS3) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -11512,8 +11503,8 @@ type CreateInputInputMetrics struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
@@ -11528,7 +11519,7 @@ type CreateInputInputMetrics struct {
 	EnableProxyHeader *bool                                 `json:"enableProxyHeader,omitzero"`
 	TLS               *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	Description        *string  `json:"description,omitzero"`
@@ -11611,7 +11602,7 @@ func (c *CreateInputInputMetrics) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputMetrics) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputMetrics) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -11674,7 +11665,7 @@ func (c *CreateInputInputMetrics) GetTLS() *components.TLSSettingsServerSideType
 	return c.TLS
 }
 
-func (c *CreateInputInputMetrics) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputMetrics) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -11769,15 +11760,15 @@ type CreateInputInputCriblmetrics struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// A prefix that is applied to the metrics provided by Cribl Stream
 	Prefix *string `json:"prefix,omitzero"`
 	// Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
 	FullFidelity *bool `json:"fullFidelity,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -11851,7 +11842,7 @@ func (c *CreateInputInputCriblmetrics) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputCriblmetrics) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputCriblmetrics) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -11879,7 +11870,7 @@ func (c *CreateInputInputCriblmetrics) GetFullFidelity() *bool {
 	return c.FullFidelity
 }
 
-func (c *CreateInputInputCriblmetrics) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputCriblmetrics) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -12025,8 +12016,8 @@ type CreateInputInputKinesis struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Kinesis Data Stream to read data from
 	StreamName string `json:"streamName"`
 	// Time interval in minutes between consecutive service calls
@@ -12067,9 +12058,9 @@ type CreateInputInputKinesis struct {
 	// When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
 	AvoidDuplicates *bool `json:"avoidDuplicates,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
-	AwsAPIKey   *string                        `json:"awsApiKey,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
+	AwsAPIKey   *string               `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -12163,7 +12154,7 @@ func (c *CreateInputInputKinesis) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputKinesis) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputKinesis) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -12317,7 +12308,7 @@ func (c *CreateInputInputKinesis) GetAvoidDuplicates() *bool {
 	return c.AvoidDuplicates
 }
 
-func (c *CreateInputInputKinesis) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputKinesis) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -12461,8 +12452,8 @@ type CreateInputInputHTTPRaw struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -12497,7 +12488,7 @@ type CreateInputInputHTTPRaw struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// List of URI paths accepted by this input, wildcards are supported, e.g /api/v*/hook. Defaults to allow all.
 	AllowedPaths []string `json:"allowedPaths,omitzero"`
 	// List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
@@ -12586,7 +12577,7 @@ func (c *CreateInputInputHTTPRaw) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputHTTPRaw) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputHTTPRaw) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -12719,7 +12710,7 @@ func (c *CreateInputInputHTTPRaw) GetStaleChannelFlushMs() *float64 {
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputInputHTTPRaw) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputHTTPRaw) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -12866,12 +12857,12 @@ type CreateInputInputDatagen struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
-	Samples     []CreateInputSample                       `json:"samples"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
+	Samples     []CreateInputSample     `json:"samples"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -12945,7 +12936,7 @@ func (c *CreateInputInputDatagen) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputDatagen) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputDatagen) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -12966,7 +12957,7 @@ func (c *CreateInputInputDatagen) GetSamples() []CreateInputSample {
 	return c.Samples
 }
 
-func (c *CreateInputInputDatagen) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputDatagen) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -13065,8 +13056,8 @@ type CreateInputInputDatadogAgent struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -13097,7 +13088,7 @@ type CreateInputInputDatadogAgent struct {
 	// Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
 	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata    `json:"metadata,omitzero"`
+	Metadata    []components.Metadata             `json:"metadata,omitzero"`
 	ProxyMode   *CreateInputProxyModeDatadogAgent `json:"proxyMode,omitzero"`
 	Description *string                           `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -13177,7 +13168,7 @@ func (c *CreateInputInputDatadogAgent) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputDatadogAgent) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputDatadogAgent) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -13296,7 +13287,7 @@ func (c *CreateInputInputDatadogAgent) GetExtractMetrics() *bool {
 	return c.ExtractMetrics
 }
 
-func (c *CreateInputInputDatadogAgent) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputDatadogAgent) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -13384,8 +13375,8 @@ type CreateInputInputCrowdstrike struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -13433,8 +13424,8 @@ type CreateInputInputCrowdstrike struct {
 	EnableSQSAssumeRole *bool                      `json:"enableSQSAssumeRole,omitzero"`
 	Preprocess          *components.PreprocessType `json:"preprocess,omitzero"`
 	// Fields to add to events from this input
-	Metadata      []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Checkpointing *components.CheckpointingType  `json:"checkpointing,omitzero"`
+	Metadata      []components.Metadata         `json:"metadata,omitzero"`
+	Checkpointing *components.CheckpointingType `json:"checkpointing,omitzero"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `json:"pollTimeout,omitzero"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
@@ -13537,7 +13528,7 @@ func (c *CreateInputInputCrowdstrike) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputCrowdstrike) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputCrowdstrike) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -13719,7 +13710,7 @@ func (c *CreateInputInputCrowdstrike) GetPreprocess() *components.PreprocessType
 	return c.Preprocess
 }
 
-func (c *CreateInputInputCrowdstrike) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputCrowdstrike) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -14418,15 +14409,15 @@ type CreateInputInputWindowsMetrics struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
 	Interval *float64                       `json:"interval,omitzero"`
 	Host     *CreateInputHostWindowsMetrics `json:"host,omitzero"`
 	Process  *components.ProcessType        `json:"process,omitzero"`
 	Gpu      *components.GpuType            `json:"gpu,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata        `json:"metadata,omitzero"`
+	Metadata    []components.Metadata                 `json:"metadata,omitzero"`
 	Persistence *CreateInputPersistenceWindowsMetrics `json:"persistence,omitzero"`
 	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
 	DisableNativeModule *bool   `json:"disableNativeModule,omitzero"`
@@ -14504,7 +14495,7 @@ func (c *CreateInputInputWindowsMetrics) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputWindowsMetrics) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputWindowsMetrics) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -14546,7 +14537,7 @@ func (c *CreateInputInputWindowsMetrics) GetGpu() *components.GpuType {
 	return c.Gpu
 }
 
-func (c *CreateInputInputWindowsMetrics) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputWindowsMetrics) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -14627,13 +14618,13 @@ type CreateInputInputKubeEvents struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Filtering on event fields
 	Rules []components.ItemsTypeRules `json:"rules,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -14707,7 +14698,7 @@ func (c *CreateInputInputKubeEvents) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputKubeEvents) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputKubeEvents) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -14728,7 +14719,7 @@ func (c *CreateInputInputKubeEvents) GetRules() []components.ItemsTypeRules {
 	return c.Rules
 }
 
-func (c *CreateInputInputKubeEvents) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputKubeEvents) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -14827,8 +14818,8 @@ type CreateInputInputKubeLogs struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Time, in seconds, between checks for new containers. Default is 15 secs.
 	Interval *float64 `json:"interval,omitzero"`
 	// Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
@@ -14836,8 +14827,8 @@ type CreateInputInputKubeLogs struct {
 	// For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
 	Timestamps *bool `json:"timestamps,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Persistence *components.DiskSpoolingType   `json:"persistence,omitzero"`
+	Metadata    []components.Metadata        `json:"metadata,omitzero"`
+	Persistence *components.DiskSpoolingType `json:"persistence,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -14918,7 +14909,7 @@ func (c *CreateInputInputKubeLogs) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputKubeLogs) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputKubeLogs) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -14953,7 +14944,7 @@ func (c *CreateInputInputKubeLogs) GetTimestamps() *bool {
 	return c.Timestamps
 }
 
-func (c *CreateInputInputKubeLogs) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputKubeLogs) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -15115,14 +15106,14 @@ type CreateInputInputKubeMetrics struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive metrics collections. Default is 15 secs.
 	Interval *float64 `json:"interval,omitzero"`
 	// Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
 	Rules []components.ItemsTypeRules `json:"rules,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata     `json:"metadata,omitzero"`
+	Metadata    []components.Metadata              `json:"metadata,omitzero"`
 	Persistence *CreateInputPersistenceKubeMetrics `json:"persistence,omitzero"`
 	Description *string                            `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -15198,7 +15189,7 @@ func (c *CreateInputInputKubeMetrics) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputInputKubeMetrics) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputInputKubeMetrics) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -15226,7 +15217,7 @@ func (c *CreateInputInputKubeMetrics) GetRules() []components.ItemsTypeRules {
 	return c.Rules
 }
 
-func (c *CreateInputInputKubeMetrics) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputInputKubeMetrics) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}

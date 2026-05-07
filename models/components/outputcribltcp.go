@@ -73,7 +73,7 @@ type OutputCriblTCP struct {
 	// The number of minutes before the internally generated authentication token expires, valid values between 1 and 60
 	TokenTTLMinutes *float64 `json:"tokenTTLMinutes,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
-	AuthTokens []ItemsTypeAuthTokens `json:"authTokens,omitzero"`
+	AuthTokens []AuthToken `json:"authTokens,omitzero"`
 	// Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
 	ExcludeFields []string `json:"excludeFields,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -235,7 +235,7 @@ func (o *OutputCriblTCP) GetTokenTTLMinutes() *float64 {
 	return o.TokenTTLMinutes
 }
 
-func (o *OutputCriblTCP) GetAuthTokens() []ItemsTypeAuthTokens {
+func (o *OutputCriblTCP) GetAuthTokens() []AuthToken {
 	if o == nil {
 		return nil
 	}

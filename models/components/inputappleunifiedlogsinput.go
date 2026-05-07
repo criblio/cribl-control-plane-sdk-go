@@ -72,8 +72,8 @@ type InputAppleUnifiedLogsInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Predicate format reference](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Predicates/AdditionalChapters/Introduction.html) for more information.
 	Predicate string `json:"predicate"`
 	// Read all log entries (historical and upcoming), or only upcoming, from the last entry
@@ -83,8 +83,8 @@ type InputAppleUnifiedLogsInput struct {
 	// [TO BE REMOVED BEFORE RELEASE] Maximum number of entries to read in each native module call
 	BatchSize *float64 `json:"batchSize,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -158,7 +158,7 @@ func (i *InputAppleUnifiedLogsInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputAppleUnifiedLogsInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputAppleUnifiedLogsInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -200,7 +200,7 @@ func (i *InputAppleUnifiedLogsInput) GetBatchSize() *float64 {
 	return i.BatchSize
 }
 
-func (i *InputAppleUnifiedLogsInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputAppleUnifiedLogsInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

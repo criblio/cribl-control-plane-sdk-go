@@ -146,8 +146,8 @@ type InputOpenTelemetryAuthMethodsExt struct {
 	Token       *string `json:"token,omitzero"`
 	Description *string `json:"description,omitzero"`
 	// Fields to add to events referencing this auth method
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Enabled  *bool               `json:"enabled,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
+	Enabled  *bool      `json:"enabled,omitzero"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
 	Username    *string `json:"username,omitzero"`
@@ -188,7 +188,7 @@ func (i *InputOpenTelemetryAuthMethodsExt) GetDescription() *string {
 	return i.Description
 }
 
-func (i *InputOpenTelemetryAuthMethodsExt) GetMetadata() []ItemsTypeMetadata {
+func (i *InputOpenTelemetryAuthMethodsExt) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -246,8 +246,8 @@ type InputOpenTelemetryInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -282,7 +282,7 @@ type InputOpenTelemetryInput struct {
 	// Shared secrets to authenticate clients. Supports Bearer tokens and Basic auth. If empty, unauthenticated access is permitted.
 	AuthMethodsExt []InputOpenTelemetryAuthMethodsExt `json:"authMethodsExt,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	Description  *string  `json:"description,omitzero"`
@@ -377,7 +377,7 @@ func (i *InputOpenTelemetryInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputOpenTelemetryInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputOpenTelemetryInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -510,7 +510,7 @@ func (i *InputOpenTelemetryInput) GetAuthMethodsExt() []InputOpenTelemetryAuthMe
 	return i.AuthMethodsExt
 }
 
-func (i *InputOpenTelemetryInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputOpenTelemetryInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

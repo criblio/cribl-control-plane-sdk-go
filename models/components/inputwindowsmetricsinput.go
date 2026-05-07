@@ -567,15 +567,15 @@ type InputWindowsMetricsInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
 	Interval *float64                 `json:"interval,omitzero"`
 	Host     *InputWindowsMetricsHost `json:"host,omitzero"`
 	Process  *ProcessType             `json:"process,omitzero"`
 	Gpu      *GpuType                 `json:"gpu,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata             `json:"metadata,omitzero"`
+	Metadata    []Metadata                      `json:"metadata,omitzero"`
 	Persistence *InputWindowsMetricsPersistence `json:"persistence,omitzero"`
 	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
 	DisableNativeModule *bool   `json:"disableNativeModule,omitzero"`
@@ -653,7 +653,7 @@ func (i *InputWindowsMetricsInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputWindowsMetricsInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputWindowsMetricsInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -695,7 +695,7 @@ func (i *InputWindowsMetricsInput) GetGpu() *GpuType {
 	return i.Gpu
 }
 
-func (i *InputWindowsMetricsInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputWindowsMetricsInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

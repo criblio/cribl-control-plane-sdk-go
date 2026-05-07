@@ -248,7 +248,7 @@ type Notification3 struct {
 	// Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
 	Conf *ConditionSpecificConfigurations3 `json:"conf,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// The worker group/fleet this notification belongs to
 	Group *string `json:"group,omitzero"`
 	// The pack this notification belongs to
@@ -317,7 +317,7 @@ func (n *Notification3) GetConf() *ConditionSpecificConfigurations3 {
 	return n.Conf
 }
 
-func (n *Notification3) GetMetadata() []ItemsTypeMetadata {
+func (n *Notification3) GetMetadata() []Metadata {
 	if n == nil {
 		return nil
 	}
@@ -590,7 +590,7 @@ type Notification2 struct {
 	// Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
 	Conf *ConditionSpecificConfigurations2 `json:"conf,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// The worker group/fleet this notification belongs to
 	Group *string `json:"group,omitzero"`
 	// The pack this notification belongs to
@@ -664,7 +664,7 @@ func (n *Notification2) GetConf() *ConditionSpecificConfigurations2 {
 	return n.Conf
 }
 
-func (n *Notification2) GetMetadata() []ItemsTypeMetadata {
+func (n *Notification2) GetMetadata() []Metadata {
 	if n == nil {
 		return nil
 	}
@@ -930,7 +930,7 @@ type Notification1 struct {
 	// Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
 	Conf *ConditionSpecificConfigurations1 `json:"conf,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// The worker group/fleet this notification belongs to
 	Group *string `json:"group,omitzero"`
 	// The pack this notification belongs to
@@ -1004,7 +1004,7 @@ func (n *Notification1) GetConf() *ConditionSpecificConfigurations1 {
 	return n.Conf
 }
 
-func (n *Notification1) GetMetadata() []ItemsTypeMetadata {
+func (n *Notification1) GetMetadata() []Metadata {
 	if n == nil {
 		return nil
 	}
