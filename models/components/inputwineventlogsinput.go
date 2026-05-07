@@ -97,8 +97,8 @@ type InputWinEventLogsInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
 	LogNames []string `json:"logNames"`
 	// Read all stored and future event logs, or only future events
@@ -112,7 +112,7 @@ type InputWinEventLogsInput struct {
 	// The maximum number of events to read in one polling interval. A batch size higher than 500 can cause delays when pulling from multiple event logs. (Applicable for pre-4.8.0 nodes that use Windows Tools)
 	BatchSize *float64 `json:"batchSize,omitzero"`
 	// Fields to add to events from this input
-	Metadata []Metadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// The maximum number of bytes in an event before it is flushed to the pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	Description   *string  `json:"description,omitzero"`
@@ -193,7 +193,7 @@ func (i *InputWinEventLogsInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputWinEventLogsInput) GetConnections() []Connection {
+func (i *InputWinEventLogsInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -249,7 +249,7 @@ func (i *InputWinEventLogsInput) GetBatchSize() *float64 {
 	return i.BatchSize
 }
 
-func (i *InputWinEventLogsInput) GetMetadata() []Metadata {
+func (i *InputWinEventLogsInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

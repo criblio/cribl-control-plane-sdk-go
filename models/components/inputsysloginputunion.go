@@ -48,8 +48,8 @@ type InputSyslogSyslogInput2 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
@@ -86,7 +86,7 @@ type InputSyslogSyslogInput2 struct {
 	SocketMaxLifespan *float64                   `json:"socketMaxLifespan,omitzero"`
 	TLS               *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []Metadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Load balance traffic across all Worker Processes
@@ -175,7 +175,7 @@ func (i *InputSyslogSyslogInput2) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSyslogSyslogInput2) GetConnections() []Connection {
+func (i *InputSyslogSyslogInput2) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -315,7 +315,7 @@ func (i *InputSyslogSyslogInput2) GetTLS() *TLSSettingsServerSideType {
 	return i.TLS
 }
 
-func (i *InputSyslogSyslogInput2) GetMetadata() []Metadata {
+func (i *InputSyslogSyslogInput2) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -434,8 +434,8 @@ type InputSyslogSyslogInput1 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// Enter UDP port number to listen on. Not required if listening on TCP.
@@ -472,7 +472,7 @@ type InputSyslogSyslogInput1 struct {
 	SocketMaxLifespan *float64                   `json:"socketMaxLifespan,omitzero"`
 	TLS               *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []Metadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Load balance traffic across all Worker Processes
@@ -561,7 +561,7 @@ func (i *InputSyslogSyslogInput1) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSyslogSyslogInput1) GetConnections() []Connection {
+func (i *InputSyslogSyslogInput1) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -701,7 +701,7 @@ func (i *InputSyslogSyslogInput1) GetTLS() *TLSSettingsServerSideType {
 	return i.TLS
 }
 
-func (i *InputSyslogSyslogInput1) GetMetadata() []Metadata {
+func (i *InputSyslogSyslogInput1) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

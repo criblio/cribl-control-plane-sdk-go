@@ -47,8 +47,8 @@ type InputTCPInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -67,7 +67,7 @@ type InputTCPInput struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []Metadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -159,7 +159,7 @@ func (i *InputTCPInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputTCPInput) GetConnections() []Connection {
+func (i *InputTCPInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -236,7 +236,7 @@ func (i *InputTCPInput) GetEnableProxyHeader() *bool {
 	return i.EnableProxyHeader
 }
 
-func (i *InputTCPInput) GetMetadata() []Metadata {
+func (i *InputTCPInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

@@ -262,7 +262,7 @@ type OutputSyslog struct {
 	// Exclude all IPs of the current host from the list of any resolved hostnames
 	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
 	// Set of hosts to load-balance data to
-	Hosts []ItemsTypeHosts `json:"hosts,omitzero"`
+	Hosts []HostConfOutputSyslog `json:"hosts,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -466,7 +466,7 @@ func (o *OutputSyslog) GetExcludeSelf() *bool {
 	return o.ExcludeSelf
 }
 
-func (o *OutputSyslog) GetHosts() []ItemsTypeHosts {
+func (o *OutputSyslog) GetHosts() []HostConfOutputSyslog {
 	if o == nil {
 		return nil
 	}

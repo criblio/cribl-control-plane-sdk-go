@@ -79,8 +79,8 @@ type InputKubeLogsInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Time, in seconds, between checks for new containers. Default is 15 secs.
 	Interval *float64 `json:"interval,omitzero"`
 	// Add rules to decide which Pods to collect logs from. Logs are collected if no rules are given or if all the rules' expressions evaluate to true.
@@ -88,8 +88,8 @@ type InputKubeLogsInput struct {
 	// For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
 	Timestamps *bool `json:"timestamps,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []Metadata        `json:"metadata,omitzero"`
-	Persistence *DiskSpoolingType `json:"persistence,omitzero"`
+	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
+	Persistence *DiskSpoolingType             `json:"persistence,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -170,7 +170,7 @@ func (i *InputKubeLogsInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputKubeLogsInput) GetConnections() []Connection {
+func (i *InputKubeLogsInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -205,7 +205,7 @@ func (i *InputKubeLogsInput) GetTimestamps() *bool {
 	return i.Timestamps
 }
 
-func (i *InputKubeLogsInput) GetMetadata() []Metadata {
+func (i *InputKubeLogsInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

@@ -107,8 +107,8 @@ type InputOffice365ServiceInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
 	PlanType *SubscriptionPlanOptions `json:"planType,omitzero"`
 	// Microsoft 365 Azure Tenant ID
@@ -128,7 +128,7 @@ type InputOffice365ServiceInput struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []Metadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Enable Microsoft 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []InputOffice365ServiceContentConfig `json:"contentConfig,omitzero"`
 	RetryRules    *RetryRulesTypeCodesEnableHeader     `json:"retryRules,omitzero"`
@@ -220,7 +220,7 @@ func (i *InputOffice365ServiceInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputOffice365ServiceInput) GetConnections() []Connection {
+func (i *InputOffice365ServiceInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -297,7 +297,7 @@ func (i *InputOffice365ServiceInput) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOffice365ServiceInput) GetMetadata() []Metadata {
+func (i *InputOffice365ServiceInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

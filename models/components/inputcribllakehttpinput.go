@@ -103,7 +103,7 @@ type InputCriblLakeHTTPAuthTokensExt struct {
 	Token       string  `json:"token"`
 	Description *string `json:"description,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata              []Metadata                               `json:"metadata,omitzero"`
+	Metadata              []MetadataConfInputCollection            `json:"metadata,omitzero"`
 	SplunkHecMetadata     *InputCriblLakeHTTPSplunkHecMetadata     `json:"splunkHecMetadata,omitzero"`
 	ElasticsearchMetadata *InputCriblLakeHTTPElasticsearchMetadata `json:"elasticsearchMetadata,omitzero"`
 }
@@ -133,7 +133,7 @@ func (i *InputCriblLakeHTTPAuthTokensExt) GetDescription() *string {
 	return i.Description
 }
 
-func (i *InputCriblLakeHTTPAuthTokensExt) GetMetadata() []Metadata {
+func (i *InputCriblLakeHTTPAuthTokensExt) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -170,8 +170,8 @@ type InputCriblLakeHTTPInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -209,7 +209,7 @@ type InputCriblLakeHTTPInput struct {
 	SplunkHecAPI  *string `json:"splunkHecAPI,omitzero"`
 	SplunkHecAcks *bool   `json:"splunkHecAcks,omitzero"`
 	// Fields to add to events from this input
-	Metadata      []Metadata                        `json:"metadata,omitzero"`
+	Metadata      []MetadataConfInputCollection     `json:"metadata,omitzero"`
 	AuthTokensExt []InputCriblLakeHTTPAuthTokensExt `json:"authTokensExt,omitzero"`
 	Description   *string                           `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -297,7 +297,7 @@ func (i *InputCriblLakeHTTPInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputCriblLakeHTTPInput) GetConnections() []Connection {
+func (i *InputCriblLakeHTTPInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -444,7 +444,7 @@ func (i *InputCriblLakeHTTPInput) GetSplunkHecAcks() *bool {
 	return i.SplunkHecAcks
 }
 
-func (i *InputCriblLakeHTTPInput) GetMetadata() []Metadata {
+func (i *InputCriblLakeHTTPInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

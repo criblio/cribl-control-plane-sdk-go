@@ -47,8 +47,8 @@ type InputWizWebhookInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -83,14 +83,14 @@ type InputWizWebhookInput struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata []Metadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// List of URI paths accepted by this input. Wildcards are supported (such as /api/v*/hook). Defaults to allow all.
 	AllowedPaths []string `json:"allowedPaths,omitzero"`
 	// List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
 	AllowedMethods []string `json:"allowedMethods,omitzero"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokensExt []ItemsTypeAuthTokensExt `json:"authTokensExt,omitzero"`
-	Description   *string                  `json:"description,omitzero"`
+	AuthTokensExt []AuthTokensExtConfInputHTTP `json:"authTokensExt,omitzero"`
+	Description   *string                      `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -172,7 +172,7 @@ func (i *InputWizWebhookInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputWizWebhookInput) GetConnections() []Connection {
+func (i *InputWizWebhookInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -305,7 +305,7 @@ func (i *InputWizWebhookInput) GetStaleChannelFlushMs() *float64 {
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputWizWebhookInput) GetMetadata() []Metadata {
+func (i *InputWizWebhookInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -326,7 +326,7 @@ func (i *InputWizWebhookInput) GetAllowedMethods() []string {
 	return i.AllowedMethods
 }
 
-func (i *InputWizWebhookInput) GetAuthTokensExt() []ItemsTypeAuthTokensExt {
+func (i *InputWizWebhookInput) GetAuthTokensExt() []AuthTokensExtConfInputHTTP {
 	if i == nil {
 		return nil
 	}

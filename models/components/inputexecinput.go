@@ -70,8 +70,8 @@ type InputExecInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Command to execute; supports Bourne shell (or CMD on Windows) syntax
 	Command string `json:"command"`
 	// Optional script content to pipe into the command's stdin. The stdin stream is closed after the script is written.
@@ -85,8 +85,8 @@ type InputExecInput struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []Metadata `json:"metadata,omitzero"`
-	Description *string    `json:"description,omitzero"`
+	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
+	Description *string                       `json:"description,omitzero"`
 	// Interval between command executions in seconds.
 	Interval *float64 `json:"interval,omitzero"`
 	// Cron schedule to execute the command on.
@@ -164,7 +164,7 @@ func (i *InputExecInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputExecInput) GetConnections() []Connection {
+func (i *InputExecInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -220,7 +220,7 @@ func (i *InputExecInput) GetStaleChannelFlushMs() *float64 {
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputExecInput) GetMetadata() []Metadata {
+func (i *InputExecInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

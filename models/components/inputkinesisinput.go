@@ -126,8 +126,8 @@ type InputKinesisInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Kinesis Data Stream to read data from
 	StreamName string `json:"streamName"`
 	// Time interval in minutes between consecutive service calls
@@ -168,9 +168,9 @@ type InputKinesisInput struct {
 	// When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
 	AvoidDuplicates *bool `json:"avoidDuplicates,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []Metadata `json:"metadata,omitzero"`
-	Description *string    `json:"description,omitzero"`
-	AwsAPIKey   *string    `json:"awsApiKey,omitzero"`
+	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
+	Description *string                       `json:"description,omitzero"`
+	AwsAPIKey   *string                       `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -264,7 +264,7 @@ func (i *InputKinesisInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputKinesisInput) GetConnections() []Connection {
+func (i *InputKinesisInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -418,7 +418,7 @@ func (i *InputKinesisInput) GetAvoidDuplicates() *bool {
 	return i.AvoidDuplicates
 }
 
-func (i *InputKinesisInput) GetMetadata() []Metadata {
+func (i *InputKinesisInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

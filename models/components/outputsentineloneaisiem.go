@@ -129,7 +129,7 @@ type OutputSentinelOneAiSiem struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
@@ -137,8 +137,8 @@ type OutputSentinelOneAiSiem struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -325,7 +325,7 @@ func (o *OutputSentinelOneAiSiem) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputSentinelOneAiSiem) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputSentinelOneAiSiem) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -353,7 +353,7 @@ func (o *OutputSentinelOneAiSiem) GetAuthType() *AuthenticationMethodOptionsAuth
 	return o.AuthType
 }
 
-func (o *OutputSentinelOneAiSiem) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputSentinelOneAiSiem) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}

@@ -47,15 +47,15 @@ type InputCriblmetricsInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// A prefix that is applied to the metrics provided by Cribl Stream
 	Prefix *string `json:"prefix,omitzero"`
 	// Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
 	FullFidelity *bool `json:"fullFidelity,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []Metadata `json:"metadata,omitzero"`
-	Description *string    `json:"description,omitzero"`
+	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
+	Description *string                       `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -129,7 +129,7 @@ func (i *InputCriblmetricsInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputCriblmetricsInput) GetConnections() []Connection {
+func (i *InputCriblmetricsInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -157,7 +157,7 @@ func (i *InputCriblmetricsInput) GetFullFidelity() *bool {
 	return i.FullFidelity
 }
 
-func (i *InputCriblmetricsInput) GetMetadata() []Metadata {
+func (i *InputCriblmetricsInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

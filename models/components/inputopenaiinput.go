@@ -109,10 +109,10 @@ type InputOpenaiContentConfig struct {
 	StateMergeExpression *string                 `json:"stateMergeExpression,omitzero"`
 	ManageState          *InputOpenaiManageState `json:"manageState,omitzero"`
 	// Query-string parameters to send with this endpoint
-	RequestParams          []ItemsTypeContentConfigItemsRequestParams `json:"requestParams"`
-	PaginationType         InputOpenaiPaginationType                  `json:"paginationType"`
-	PaginationAttribute    []string                                   `json:"paginationAttribute,omitzero"`
-	PaginationLastPageExpr *string                                    `json:"paginationLastPageExpr,omitzero"`
+	RequestParams          []RequestParamConfInputOpenai `json:"requestParams"`
+	PaginationType         InputOpenaiPaginationType     `json:"paginationType"`
+	PaginationAttribute    []string                      `json:"paginationAttribute,omitzero"`
+	PaginationLastPageExpr *string                       `json:"paginationLastPageExpr,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Set to 0 only when unlimited pagination is required.
 	MaxPages *float64 `json:"maxPages,omitzero"`
 	// Used only for RFC 5988 link-header pagination
@@ -130,7 +130,7 @@ type InputOpenaiContentConfig struct {
 	// Collector runtime log level.
 	LogLevel *InputOpenaiLogLevel `json:"logLevel,omitzero"`
 	// Fields automatically added to events from this Content Type
-	EndpointMetadata []Metadata `json:"endpointMetadata,omitzero"`
+	EndpointMetadata []MetadataConfInputCollection `json:"endpointMetadata,omitzero"`
 }
 
 func (i InputOpenaiContentConfig) MarshalJSON() ([]byte, error) {
@@ -179,9 +179,9 @@ func (i *InputOpenaiContentConfig) GetManageState() *InputOpenaiManageState {
 	return i.ManageState
 }
 
-func (i *InputOpenaiContentConfig) GetRequestParams() []ItemsTypeContentConfigItemsRequestParams {
+func (i *InputOpenaiContentConfig) GetRequestParams() []RequestParamConfInputOpenai {
 	if i == nil {
-		return []ItemsTypeContentConfigItemsRequestParams{}
+		return []RequestParamConfInputOpenai{}
 	}
 	return i.RequestParams
 }
@@ -263,7 +263,7 @@ func (i *InputOpenaiContentConfig) GetLogLevel() *InputOpenaiLogLevel {
 	return i.LogLevel
 }
 
-func (i *InputOpenaiContentConfig) GetEndpointMetadata() []Metadata {
+func (i *InputOpenaiContentConfig) GetEndpointMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -286,8 +286,8 @@ type InputOpenaiInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Optional `OpenAI-Organization` request header value, typically `org-xxxxxxxxxxxxxxxxxxxxxxxx`
 	OpenaiOrganization *string `json:"openaiOrganization,omitzero"`
 	// Optional `OpenAI-Project` request header value, typically `proj_xxxxxxxxxxxxxxxxxxxxxxxx`
@@ -307,9 +307,9 @@ type InputOpenaiInput struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []Metadata      `json:"metadata,omitzero"`
-	RetryRules  *RetryRulesType `json:"retryRules,omitzero"`
-	Description *string         `json:"description,omitzero"`
+	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
+	RetryRules  *RetryRulesType               `json:"retryRules,omitzero"`
+	Description *string                       `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -387,7 +387,7 @@ func (i *InputOpenaiInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputOpenaiInput) GetConnections() []Connection {
+func (i *InputOpenaiInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -471,7 +471,7 @@ func (i *InputOpenaiInput) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOpenaiInput) GetMetadata() []Metadata {
+func (i *InputOpenaiInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

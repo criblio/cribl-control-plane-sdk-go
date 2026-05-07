@@ -183,6 +183,12 @@ functionResponse := components.CreateFunctionResponseLocalSearchRulesetRunner(co
 functionResponse := components.CreateFunctionResponseLocalSearchSchemaMapper(components.FunctionLocalSearchSchemaMapper{/* values here */})
 ```
 
+### FunctionLocalSearchTimeRangeNormalizer
+
+```go
+functionResponse := components.CreateFunctionResponseLocalSearchTimeRangeNormalizer(components.FunctionLocalSearchTimeRangeNormalizer{/* values here */})
+```
+
 ### FunctionLocalSearchTransformer
 
 ```go
@@ -477,6 +483,8 @@ switch functionResponse.Type {
 		// functionResponse.FunctionLocalSearchRulesetRunner is populated
 	case components.FunctionResponseTypeLocalSearchSchemaMapper:
 		// functionResponse.FunctionLocalSearchSchemaMapper is populated
+	case components.FunctionResponseTypeLocalSearchTimeRangeNormalizer:
+		// functionResponse.FunctionLocalSearchTimeRangeNormalizer is populated
 	case components.FunctionResponseTypeLocalSearchTransformer:
 		// functionResponse.FunctionLocalSearchTransformer is populated
 	case components.FunctionResponseTypeLookup:

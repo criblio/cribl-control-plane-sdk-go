@@ -189,8 +189,8 @@ type OutputGoogleChronicle struct {
 	APIVersion           *OutputGoogleChronicleAPIVersion           `json:"apiVersion,omitzero"`
 	AuthenticationMethod *OutputGoogleChronicleAuthenticationMethod `json:"authenticationMethod,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool                             `json:"responseHonorRetryAfterHeader,omitzero"`
 	LogFormatType                 OutputGoogleChronicleSendEventsAs `json:"logFormatType"`
@@ -213,7 +213,7 @@ type OutputGoogleChronicle struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
@@ -236,7 +236,7 @@ type OutputGoogleChronicle struct {
 	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
 	Namespace *string `json:"namespace,omitzero"`
 	// Custom labels to be added to every batch
-	CustomLabels []ItemsTypeKeyValueMetadata `json:"customLabels,omitzero"`
+	CustomLabels []KeyValueMetadataConfOutputFilesystem `json:"customLabels,omitzero"`
 	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
 	UdmType *OutputGoogleChronicleUDMType `json:"udmType,omitzero"`
 	// Organization's API key in Google SecOps
@@ -351,7 +351,7 @@ func (o *OutputGoogleChronicle) GetAuthenticationMethod() *OutputGoogleChronicle
 	return o.AuthenticationMethod
 }
 
-func (o *OutputGoogleChronicle) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputGoogleChronicle) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}
@@ -435,7 +435,7 @@ func (o *OutputGoogleChronicle) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputGoogleChronicle) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputGoogleChronicle) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -519,7 +519,7 @@ func (o *OutputGoogleChronicle) GetNamespace() *string {
 	return o.Namespace
 }
 
-func (o *OutputGoogleChronicle) GetCustomLabels() []ItemsTypeKeyValueMetadata {
+func (o *OutputGoogleChronicle) GetCustomLabels() []KeyValueMetadataConfOutputFilesystem {
 	if o == nil {
 		return nil
 	}

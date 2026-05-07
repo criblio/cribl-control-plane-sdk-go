@@ -122,7 +122,7 @@ type OutputDynatraceOtlp struct {
 	// If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitzero"`
 	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
-	Metadata []ItemsTypeKeyValueMetadata `json:"metadata,omitzero"`
+	Metadata []KeyValueMetadataConfOutputFilesystem `json:"metadata,omitzero"`
 	// Batch event data upon dynamic metadata (whether presented or not)
 	DynamicHeadersEnabled *bool `json:"dynamicHeadersEnabled,omitzero"`
 	// When presented, this field which contains metadata, will be injected into the Destination metadata and used to batch events.
@@ -158,12 +158,12 @@ type OutputDynatraceOtlp struct {
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -306,7 +306,7 @@ func (o *OutputDynatraceOtlp) GetHTTPLogsEndpointOverride() *string {
 	return o.HTTPLogsEndpointOverride
 }
 
-func (o *OutputDynatraceOtlp) GetMetadata() []ItemsTypeKeyValueMetadata {
+func (o *OutputDynatraceOtlp) GetMetadata() []KeyValueMetadataConfOutputFilesystem {
 	if o == nil {
 		return nil
 	}
@@ -432,7 +432,7 @@ func (o *OutputDynatraceOtlp) GetUseRoundRobinDNS() *bool {
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputDynatraceOtlp) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputDynatraceOtlp) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -446,7 +446,7 @@ func (o *OutputDynatraceOtlp) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputDynatraceOtlp) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputDynatraceOtlp) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}

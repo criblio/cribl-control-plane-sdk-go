@@ -186,8 +186,8 @@ type InputEdgePrometheusInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitzero"`
 	// Enable to use each metric name as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
@@ -200,7 +200,7 @@ type InputEdgePrometheusInput struct {
 	Timeout     *float64          `json:"timeout,omitzero"`
 	Persistence *DiskSpoolingType `json:"persistence,omitzero"`
 	// Fields to add to events from this input
-	Metadata []Metadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
 	AuthType    *InputEdgePrometheusAuthenticationMethod `json:"authType,omitzero"`
 	Description *string                                  `json:"description,omitzero"`
@@ -223,8 +223,8 @@ type InputEdgePrometheusInput struct {
 	// Use public IP address for discovered targets. Disable to use the private IP address.
 	UsePublicIP *bool `json:"usePublicIp,omitzero"`
 	// Filter to apply when searching for EC2 instances
-	SearchFilter []ItemsTypeSearchFilter `json:"searchFilter,omitzero"`
-	AwsSecretKey *string                 `json:"awsSecretKey,omitzero"`
+	SearchFilter []SearchFilterConfInputPrometheus `json:"searchFilter,omitzero"`
+	AwsSecretKey *string                           `json:"awsSecretKey,omitzero"`
 	// Region where the EC2 is located
 	Region *string `json:"region,omitzero"`
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
@@ -349,7 +349,7 @@ func (i *InputEdgePrometheusInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputEdgePrometheusInput) GetConnections() []Connection {
+func (i *InputEdgePrometheusInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -405,7 +405,7 @@ func (i *InputEdgePrometheusInput) GetPersistence() *DiskSpoolingType {
 	return i.Persistence
 }
 
-func (i *InputEdgePrometheusInput) GetMetadata() []Metadata {
+func (i *InputEdgePrometheusInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -496,7 +496,7 @@ func (i *InputEdgePrometheusInput) GetUsePublicIP() *bool {
 	return i.UsePublicIP
 }
 
-func (i *InputEdgePrometheusInput) GetSearchFilter() []ItemsTypeSearchFilter {
+func (i *InputEdgePrometheusInput) GetSearchFilter() []SearchFilterConfInputPrometheus {
 	if i == nil {
 		return nil
 	}

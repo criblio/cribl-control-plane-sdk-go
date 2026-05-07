@@ -1867,12 +1867,12 @@ func main() {
             ContentConfig: []operations.CreateInputSystemByPackContentConfigInput{
                 operations.CreateInputSystemByPackContentConfigInput{
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
-                    RequestParams: []components.ItemsTypeContentConfigItemsRequestParams{
-                        components.ItemsTypeContentConfigItemsRequestParams{
+                    RequestParams: []components.RequestParamConfInputOpenai{
+                        components.RequestParamConfInputOpenai{
                             Name: "effective_at[gt]",
                             Value: "`${Math.round(Date.now()/1000 - 3600)}`",
                         },
-                        components.ItemsTypeContentConfigItemsRequestParams{
+                        components.RequestParamConfInputOpenai{
                             Name: "limit",
                             Value: "100",
                         },
@@ -4848,12 +4848,12 @@ func main() {
             ContentConfig: []components.InputOpenaiContentConfig{
                 components.InputOpenaiContentConfig{
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
-                    RequestParams: []components.ItemsTypeContentConfigItemsRequestParams{
-                        components.ItemsTypeContentConfigItemsRequestParams{
+                    RequestParams: []components.RequestParamConfInputOpenai{
+                        components.RequestParamConfInputOpenai{
                             Name: "effective_at[gt]",
                             Value: "`${Math.round(Date.now()/1000 - 3600)}`",
                         },
-                        components.ItemsTypeContentConfigItemsRequestParams{
+                        components.RequestParamConfInputOpenai{
                             Name: "limit",
                             Value: "100",
                         },

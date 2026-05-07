@@ -79,8 +79,8 @@ type InputDatadogAgentInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -111,9 +111,9 @@ type InputDatadogAgentInput struct {
 	// Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
 	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []Metadata                  `json:"metadata,omitzero"`
-	ProxyMode   *InputDatadogAgentProxyMode `json:"proxyMode,omitzero"`
-	Description *string                     `json:"description,omitzero"`
+	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
+	ProxyMode   *InputDatadogAgentProxyMode   `json:"proxyMode,omitzero"`
+	Description *string                       `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -191,7 +191,7 @@ func (i *InputDatadogAgentInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputDatadogAgentInput) GetConnections() []Connection {
+func (i *InputDatadogAgentInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -310,7 +310,7 @@ func (i *InputDatadogAgentInput) GetExtractMetrics() *bool {
 	return i.ExtractMetrics
 }
 
-func (i *InputDatadogAgentInput) GetMetadata() []Metadata {
+func (i *InputDatadogAgentInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

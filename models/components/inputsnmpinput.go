@@ -148,8 +148,8 @@ type InputSnmpInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
 	Host string `json:"host"`
 	// UDP port to receive SNMP traps on. Defaults to 162.
@@ -161,7 +161,7 @@ type InputSnmpInput struct {
 	// Regex matching IP addresses that are allowed to send data
 	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata []Metadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// If enabled, parses varbinds as an array of objects that include OID, value, and type
@@ -246,7 +246,7 @@ func (i *InputSnmpInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSnmpInput) GetConnections() []Connection {
+func (i *InputSnmpInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -295,7 +295,7 @@ func (i *InputSnmpInput) GetIPWhitelistRegex() *string {
 	return i.IPWhitelistRegex
 }
 
-func (i *InputSnmpInput) GetMetadata() []Metadata {
+func (i *InputSnmpInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

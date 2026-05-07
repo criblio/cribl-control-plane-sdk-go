@@ -133,7 +133,7 @@ type CreateOutputOutputMinio struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []components.KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -550,7 +550,7 @@ func (c *CreateOutputOutputMinio) GetShouldLogInvalidRows() *bool {
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputOutputMinio) GetKeyValueMetadata() []components.ItemsTypeKeyValueMetadata {
+func (c *CreateOutputOutputMinio) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
@@ -1327,7 +1327,7 @@ type CreateOutputOutputInfluxdb struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -1335,8 +1335,8 @@ type CreateOutputOutputInfluxdb struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -1532,7 +1532,7 @@ func (c *CreateOutputOutputInfluxdb) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputInfluxdb) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputOutputInfluxdb) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -1560,7 +1560,7 @@ func (c *CreateOutputOutputInfluxdb) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputInfluxdb) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputOutputInfluxdb) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -1856,7 +1856,7 @@ type CreateOutputOutputNewrelicEvents struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -1864,8 +1864,8 @@ type CreateOutputOutputNewrelicEvents struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -2040,7 +2040,7 @@ func (c *CreateOutputOutputNewrelicEvents) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputNewrelicEvents) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputOutputNewrelicEvents) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -2068,7 +2068,7 @@ func (c *CreateOutputOutputNewrelicEvents) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputNewrelicEvents) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputOutputNewrelicEvents) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -2393,7 +2393,7 @@ type CreateOutputOutputNewrelic struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -2401,8 +2401,8 @@ type CreateOutputOutputNewrelic struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -2584,7 +2584,7 @@ func (c *CreateOutputOutputNewrelic) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputNewrelic) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputOutputNewrelic) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -2612,7 +2612,7 @@ func (c *CreateOutputOutputNewrelic) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputNewrelic) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputOutputNewrelic) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -2878,21 +2878,21 @@ type CreateOutputOutputElasticCloud struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Extra parameters to use in HTTP requests
-	ExtraParams []components.ItemsTypeSaslSaslExtensions         `json:"extraParams,omitzero"`
+	ExtraParams []components.SaslExtensionConfInputKafka         `json:"extraParams,omitzero"`
 	Auth        *components.AuthTypeTemplatemanualAPIKeyAuthType `json:"auth,omitzero"`
 	// Optional Elastic Cloud Destination pipeline
 	ElasticPipeline *string `json:"elasticPipeline,omitzero"`
 	// Include the `document_id` field when sending events to an Elastic TSDS (time series data stream)
 	IncludeDocID *bool `json:"includeDocId,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -3051,7 +3051,7 @@ func (c *CreateOutputOutputElasticCloud) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputElasticCloud) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputOutputElasticCloud) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -3072,7 +3072,7 @@ func (c *CreateOutputOutputElasticCloud) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputElasticCloud) GetExtraParams() []components.ItemsTypeSaslSaslExtensions {
+func (c *CreateOutputOutputElasticCloud) GetExtraParams() []components.SaslExtensionConfInputKafka {
 	if c == nil {
 		return nil
 	}
@@ -3100,7 +3100,7 @@ func (c *CreateOutputOutputElasticCloud) GetIncludeDocID() *bool {
 	return c.IncludeDocID
 }
 
-func (c *CreateOutputOutputElasticCloud) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputOutputElasticCloud) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -3426,17 +3426,17 @@ type CreateOutputOutputElastic struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool                                            `json:"responseHonorRetryAfterHeader,omitzero"`
-	ExtraParams                   []components.ItemsTypeSaslSaslExtensions         `json:"extraParams,omitzero"`
+	ExtraParams                   []components.SaslExtensionConfInputKafka         `json:"extraParams,omitzero"`
 	Auth                          *components.AuthTypeTemplatemanualAPIKeyAuthType `json:"auth,omitzero"`
 	// Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
 	ElasticVersion *CreateOutputElasticVersion `json:"elasticVersion,omitzero"`
@@ -3624,7 +3624,7 @@ func (c *CreateOutputOutputElastic) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputElastic) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputOutputElastic) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -3645,7 +3645,7 @@ func (c *CreateOutputOutputElastic) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputElastic) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputOutputElastic) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -3666,7 +3666,7 @@ func (c *CreateOutputOutputElastic) GetResponseHonorRetryAfterHeader() *bool {
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputElastic) GetExtraParams() []components.ItemsTypeSaslSaslExtensions {
+func (c *CreateOutputOutputElastic) GetExtraParams() []components.SaslExtensionConfInputKafka {
 	if c == nil {
 		return nil
 	}
@@ -6354,11 +6354,11 @@ type CreateOutputOutputGoogleCloudLogging struct {
 	// Format to use when sending payload. Defaults to Text.
 	PayloadFormat *CreateOutputPayloadFormat `json:"payloadFormat,omitzero"`
 	// Labels to apply to the log entry
-	LogLabels []components.ItemsTypeLogLabels `json:"logLabels,omitzero"`
+	LogLabels []components.LogLabelConfOutputGoogleCloudLogging `json:"logLabels,omitzero"`
 	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
 	ResourceTypeExpression *string `json:"resourceTypeExpression,omitzero"`
 	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
-	ResourceTypeLabels []components.ItemsTypeLogLabels `json:"resourceTypeLabels,omitzero"`
+	ResourceTypeLabels []components.LogLabelConfOutputGoogleCloudLogging `json:"resourceTypeLabels,omitzero"`
 	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
 	SeverityExpression *string `json:"severityExpression,omitzero"`
 	// JavaScript expression to compute the value of the insert ID field.
@@ -6580,7 +6580,7 @@ func (c *CreateOutputOutputGoogleCloudLogging) GetPayloadFormat() *CreateOutputP
 	return c.PayloadFormat
 }
 
-func (c *CreateOutputOutputGoogleCloudLogging) GetLogLabels() []components.ItemsTypeLogLabels {
+func (c *CreateOutputOutputGoogleCloudLogging) GetLogLabels() []components.LogLabelConfOutputGoogleCloudLogging {
 	if c == nil {
 		return nil
 	}
@@ -6594,7 +6594,7 @@ func (c *CreateOutputOutputGoogleCloudLogging) GetResourceTypeExpression() *stri
 	return c.ResourceTypeExpression
 }
 
-func (c *CreateOutputOutputGoogleCloudLogging) GetResourceTypeLabels() []components.ItemsTypeLogLabels {
+func (c *CreateOutputOutputGoogleCloudLogging) GetResourceTypeLabels() []components.LogLabelConfOutputGoogleCloudLogging {
 	if c == nil {
 		return nil
 	}
@@ -7227,7 +7227,7 @@ type CreateOutputOutputGoogleCloudStorage struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []components.KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -7608,7 +7608,7 @@ func (c *CreateOutputOutputGoogleCloudStorage) GetShouldLogInvalidRows() *bool {
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputOutputGoogleCloudStorage) GetKeyValueMetadata() []components.ItemsTypeKeyValueMetadata {
+func (c *CreateOutputOutputGoogleCloudStorage) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
@@ -7978,8 +7978,8 @@ type CreateOutputOutputGoogleChronicle struct {
 	APIVersion           *CreateOutputAPIVersion                          `json:"apiVersion,omitzero"`
 	AuthenticationMethod *CreateOutputAuthenticationMethodGoogleChronicle `json:"authenticationMethod,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool                    `json:"responseHonorRetryAfterHeader,omitzero"`
 	LogFormatType                 CreateOutputSendEventsAs `json:"logFormatType"`
@@ -8002,7 +8002,7 @@ type CreateOutputOutputGoogleChronicle struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
@@ -8025,7 +8025,7 @@ type CreateOutputOutputGoogleChronicle struct {
 	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
 	Namespace *string `json:"namespace,omitzero"`
 	// Custom labels to be added to every batch
-	CustomLabels []components.ItemsTypeKeyValueMetadata `json:"customLabels,omitzero"`
+	CustomLabels []components.KeyValueMetadataConfOutputFilesystem `json:"customLabels,omitzero"`
 	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
 	UdmType *CreateOutputUDMType `json:"udmType,omitzero"`
 	// Organization's API key in Google SecOps
@@ -8140,7 +8140,7 @@ func (c *CreateOutputOutputGoogleChronicle) GetAuthenticationMethod() *CreateOut
 	return c.AuthenticationMethod
 }
 
-func (c *CreateOutputOutputGoogleChronicle) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputOutputGoogleChronicle) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -8224,7 +8224,7 @@ func (c *CreateOutputOutputGoogleChronicle) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputGoogleChronicle) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputOutputGoogleChronicle) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -8308,7 +8308,7 @@ func (c *CreateOutputOutputGoogleChronicle) GetNamespace() *string {
 	return c.Namespace
 }
 
-func (c *CreateOutputOutputGoogleChronicle) GetCustomLabels() []components.ItemsTypeKeyValueMetadata {
+func (c *CreateOutputOutputGoogleChronicle) GetCustomLabels() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
@@ -8969,7 +8969,7 @@ type CreateOutputOutputHoneycomb struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -8977,8 +8977,8 @@ type CreateOutputOutputHoneycomb struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -9130,7 +9130,7 @@ func (c *CreateOutputOutputHoneycomb) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputHoneycomb) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputOutputHoneycomb) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -9158,7 +9158,7 @@ func (c *CreateOutputOutputHoneycomb) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputHoneycomb) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputOutputHoneycomb) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -9923,7 +9923,7 @@ type CreateOutputOutputAzureLogs struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -9933,8 +9933,8 @@ type CreateOutputOutputAzureLogs struct {
 	// The DNS name of the Log API endpoint that sends log data to a Log Analytics workspace in Azure Monitor. Defaults to .ods.opinsights.azure.com. @{product} will add a prefix and suffix to construct a URI in this format: <https://<Workspace_ID><your_DNS_name>/api/logs?api-version=<API version>.
 	APIURL *string `json:"apiUrl,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -10099,7 +10099,7 @@ func (c *CreateOutputOutputAzureLogs) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputAzureLogs) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputOutputAzureLogs) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -10134,7 +10134,7 @@ func (c *CreateOutputOutputAzureLogs) GetAPIURL() *string {
 	return c.APIURL
 }
 
-func (c *CreateOutputOutputAzureLogs) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputOutputAzureLogs) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -10645,7 +10645,7 @@ type CreateOutputOutputAzureDataExplorer struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []components.KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -10711,8 +10711,8 @@ type CreateOutputOutputAzureDataExplorer struct {
 	// Optionally, enter additional configuration properties to send to the ingestion service
 	AdditionalProperties []CreateOutputAdditionalProperty `json:"additionalProperties,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Maximum number of ongoing requests before blocking
@@ -11009,7 +11009,7 @@ func (c *CreateOutputOutputAzureDataExplorer) GetShouldLogInvalidRows() *bool {
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputOutputAzureDataExplorer) GetKeyValueMetadata() []components.ItemsTypeKeyValueMetadata {
+func (c *CreateOutputOutputAzureDataExplorer) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
@@ -11247,7 +11247,7 @@ func (c *CreateOutputOutputAzureDataExplorer) GetAdditionalProperties() []Create
 	return c.AdditionalProperties
 }
 
-func (c *CreateOutputOutputAzureDataExplorer) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputOutputAzureDataExplorer) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -11644,7 +11644,7 @@ type CreateOutputOutputAzureBlob struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []components.KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -12006,7 +12006,7 @@ func (c *CreateOutputOutputAzureBlob) GetShouldLogInvalidRows() *bool {
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputOutputAzureBlob) GetKeyValueMetadata() []components.ItemsTypeKeyValueMetadata {
+func (c *CreateOutputOutputAzureBlob) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
@@ -12363,7 +12363,7 @@ type CreateOutputOutputS3 struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []components.KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -12823,7 +12823,7 @@ func (c *CreateOutputOutputS3) GetShouldLogInvalidRows() *bool {
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputOutputS3) GetKeyValueMetadata() []components.ItemsTypeKeyValueMetadata {
+func (c *CreateOutputOutputS3) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
@@ -13115,7 +13115,7 @@ type CreateOutputOutputFilesystem struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []components.KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -13411,7 +13411,7 @@ func (c *CreateOutputOutputFilesystem) GetShouldLogInvalidRows() *bool {
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputOutputFilesystem) GetKeyValueMetadata() []components.ItemsTypeKeyValueMetadata {
+func (c *CreateOutputOutputFilesystem) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
@@ -13593,7 +13593,7 @@ type CreateOutputOutputSignalfx struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -13601,8 +13601,8 @@ type CreateOutputOutputSignalfx struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -13759,7 +13759,7 @@ func (c *CreateOutputOutputSignalfx) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputSignalfx) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputOutputSignalfx) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -13787,7 +13787,7 @@ func (c *CreateOutputOutputSignalfx) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputSignalfx) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputOutputSignalfx) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -14011,7 +14011,7 @@ type CreateOutputOutputWavefront struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -14019,8 +14019,8 @@ type CreateOutputOutputWavefront struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -14177,7 +14177,7 @@ func (c *CreateOutputOutputWavefront) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputWavefront) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputOutputWavefront) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -14205,7 +14205,7 @@ func (c *CreateOutputOutputWavefront) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputWavefront) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputOutputWavefront) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -14437,7 +14437,7 @@ type CreateOutputOutputTcpjson struct {
 	// Exclude all IPs of the current host from the list of any resolved hostnames
 	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
 	// Set of hosts to load-balance data to
-	Hosts []components.ItemsTypeHosts `json:"hosts,omitzero"`
+	Hosts []components.HostConfOutputSyslog `json:"hosts,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -14639,7 +14639,7 @@ func (c *CreateOutputOutputTcpjson) GetExcludeSelf() *bool {
 	return c.ExcludeSelf
 }
 
-func (c *CreateOutputOutputTcpjson) GetHosts() []components.ItemsTypeHosts {
+func (c *CreateOutputOutputTcpjson) GetHosts() []components.HostConfOutputSyslog {
 	if c == nil {
 		return nil
 	}
@@ -14864,7 +14864,7 @@ type CreateOutputOutputWizHec struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
@@ -14872,8 +14872,8 @@ type CreateOutputOutputWizHec struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -15050,7 +15050,7 @@ func (c *CreateOutputOutputWizHec) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputWizHec) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputOutputWizHec) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -15078,7 +15078,7 @@ func (c *CreateOutputOutputWizHec) GetAuthType() *components.AuthenticationMetho
 	return c.AuthType
 }
 
-func (c *CreateOutputOutputWizHec) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputOutputWizHec) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -15395,7 +15395,7 @@ type CreateOutputOutputSplunkHec struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
@@ -15405,8 +15405,8 @@ type CreateOutputOutputSplunkHec struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -15590,7 +15590,7 @@ func (c *CreateOutputOutputSplunkHec) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputSplunkHec) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputOutputSplunkHec) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -15625,7 +15625,7 @@ func (c *CreateOutputOutputSplunkHec) GetAuthType() *components.AuthenticationMe
 	return c.AuthType
 }
 
-func (c *CreateOutputOutputSplunkHec) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputOutputSplunkHec) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -16046,7 +16046,7 @@ type CreateOutputOutputSplunkLb struct {
 	// Exclude all IPs of the current host from the list of any resolved hostnames
 	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
 	// Set of Splunk indexers to load-balance data to.
-	Hosts []components.ItemsTypeHosts `json:"hosts"`
+	Hosts []components.HostConfOutputSyslog `json:"hosts"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -16286,9 +16286,9 @@ func (c *CreateOutputOutputSplunkLb) GetExcludeSelf() *bool {
 	return c.ExcludeSelf
 }
 
-func (c *CreateOutputOutputSplunkLb) GetHosts() []components.ItemsTypeHosts {
+func (c *CreateOutputOutputSplunkLb) GetHosts() []components.HostConfOutputSyslog {
 	if c == nil {
-		return []components.ItemsTypeHosts{}
+		return []components.HostConfOutputSyslog{}
 	}
 	return c.Hosts
 }
@@ -17114,7 +17114,7 @@ type CreateOutputOutputSyslog struct {
 	// Exclude all IPs of the current host from the list of any resolved hostnames
 	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
 	// Set of hosts to load-balance data to
-	Hosts []components.ItemsTypeHosts `json:"hosts,omitzero"`
+	Hosts []components.HostConfOutputSyslog `json:"hosts,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -17318,7 +17318,7 @@ func (c *CreateOutputOutputSyslog) GetExcludeSelf() *bool {
 	return c.ExcludeSelf
 }
 
-func (c *CreateOutputOutputSyslog) GetHosts() []components.ItemsTypeHosts {
+func (c *CreateOutputOutputSyslog) GetHosts() []components.HostConfOutputSyslog {
 	if c == nil {
 		return nil
 	}
@@ -17744,7 +17744,7 @@ type CreateOutputOutputSentinel struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -17752,8 +17752,8 @@ type CreateOutputOutputSentinel struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -17953,7 +17953,7 @@ func (c *CreateOutputOutputSentinel) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputSentinel) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputOutputSentinel) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -17981,7 +17981,7 @@ func (c *CreateOutputOutputSentinel) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputSentinel) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputOutputSentinel) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -18498,7 +18498,7 @@ type CreateOutputOutputWebhookWebhook2 struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -18506,8 +18506,8 @@ type CreateOutputOutputWebhookWebhook2 struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -18580,9 +18580,9 @@ type CreateOutputOutputWebhookWebhook2 struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
+	OauthParams []components.OauthParamConfInputServicenowTable `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
+	OauthHeaders []components.OauthHeaderConfInputServicenowTable `json:"oauthHeaders,omitzero"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL *string `json:"url,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
@@ -18729,7 +18729,7 @@ func (c *CreateOutputOutputWebhookWebhook2) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputWebhookWebhook2) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputOutputWebhookWebhook2) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -18757,7 +18757,7 @@ func (c *CreateOutputOutputWebhookWebhook2) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputWebhookWebhook2) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputOutputWebhookWebhook2) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -19037,14 +19037,14 @@ func (c *CreateOutputOutputWebhookWebhook2) GetTokenTimeoutSecs() *float64 {
 	return c.TokenTimeoutSecs
 }
 
-func (c *CreateOutputOutputWebhookWebhook2) GetOauthParams() []components.ItemsTypeOauthParams {
+func (c *CreateOutputOutputWebhookWebhook2) GetOauthParams() []components.OauthParamConfInputServicenowTable {
 	if c == nil {
 		return nil
 	}
 	return c.OauthParams
 }
 
-func (c *CreateOutputOutputWebhookWebhook2) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
+func (c *CreateOutputOutputWebhookWebhook2) GetOauthHeaders() []components.OauthHeaderConfInputServicenowTable {
 	if c == nil {
 		return nil
 	}
@@ -19312,7 +19312,7 @@ type CreateOutputOutputWebhookWebhook1 struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -19320,8 +19320,8 @@ type CreateOutputOutputWebhookWebhook1 struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -19394,9 +19394,9 @@ type CreateOutputOutputWebhookWebhook1 struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
+	OauthParams []components.OauthParamConfInputServicenowTable `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
+	OauthHeaders []components.OauthHeaderConfInputServicenowTable `json:"oauthHeaders,omitzero"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL string `json:"url"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
@@ -19543,7 +19543,7 @@ func (c *CreateOutputOutputWebhookWebhook1) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputWebhookWebhook1) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputOutputWebhookWebhook1) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -19571,7 +19571,7 @@ func (c *CreateOutputOutputWebhookWebhook1) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputWebhookWebhook1) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputOutputWebhookWebhook1) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -19851,14 +19851,14 @@ func (c *CreateOutputOutputWebhookWebhook1) GetTokenTimeoutSecs() *float64 {
 	return c.TokenTimeoutSecs
 }
 
-func (c *CreateOutputOutputWebhookWebhook1) GetOauthParams() []components.ItemsTypeOauthParams {
+func (c *CreateOutputOutputWebhookWebhook1) GetOauthParams() []components.OauthParamConfInputServicenowTable {
 	if c == nil {
 		return nil
 	}
 	return c.OauthParams
 }
 
-func (c *CreateOutputOutputWebhookWebhook1) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
+func (c *CreateOutputOutputWebhookWebhook1) GetOauthHeaders() []components.OauthHeaderConfInputServicenowTable {
 	if c == nil {
 		return nil
 	}

@@ -47,8 +47,8 @@ type InputTcpjsonInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -67,7 +67,7 @@ type InputTcpjsonInput struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []Metadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
@@ -154,7 +154,7 @@ func (i *InputTcpjsonInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputTcpjsonInput) GetConnections() []Connection {
+func (i *InputTcpjsonInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -231,7 +231,7 @@ func (i *InputTcpjsonInput) GetEnableProxyHeader() *bool {
 	return i.EnableProxyHeader
 }
 
-func (i *InputTcpjsonInput) GetMetadata() []Metadata {
+func (i *InputTcpjsonInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}

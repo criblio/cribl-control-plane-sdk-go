@@ -43,7 +43,7 @@ type InputZscalerHecAuthToken struct {
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata []Metadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 }
 
 func (i InputZscalerHecAuthToken) MarshalJSON() ([]byte, error) {
@@ -99,7 +99,7 @@ func (i *InputZscalerHecAuthToken) GetAllowedIndexesAtToken() []string {
 	return i.AllowedIndexesAtToken
 }
 
-func (i *InputZscalerHecAuthToken) GetMetadata() []Metadata {
+func (i *InputZscalerHecAuthToken) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -122,8 +122,8 @@ type InputZscalerHecInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []Connection `json:"connections,omitzero"`
-	Pq          *PqType      `json:"pq,omitzero"`
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -154,7 +154,7 @@ type InputZscalerHecInput struct {
 	// Absolute path on which to listen for the Zscaler HTTP Event Collector API requests. This input supports the /event endpoint.
 	HecAPI string `json:"hecAPI"`
 	// Fields to add to every event. May be overridden by fields added at the token or request level.
-	Metadata []Metadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
 	// Whether to enable Zscaler HEC acknowledgements
@@ -245,7 +245,7 @@ func (i *InputZscalerHecInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputZscalerHecInput) GetConnections() []Connection {
+func (i *InputZscalerHecInput) GetConnections() []ConnectionConfInputCollection {
 	if i == nil {
 		return nil
 	}
@@ -364,7 +364,7 @@ func (i *InputZscalerHecInput) GetHecAPI() string {
 	return i.HecAPI
 }
 
-func (i *InputZscalerHecInput) GetMetadata() []Metadata {
+func (i *InputZscalerHecInput) GetMetadata() []MetadataConfInputCollection {
 	if i == nil {
 		return nil
 	}
