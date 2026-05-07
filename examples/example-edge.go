@@ -51,11 +51,11 @@ const (
 	AWS_REGION      = "us-east-2"            // Replace with your S3 bucket region
 )
 
-// routeConfsToInput converts RouteConf (API response) to RouteConfInput (API request).
-func routeConfsToInput(routes []components.RouteConf) []components.RouteConfInput {
-	result := make([]components.RouteConfInput, len(routes))
+// routeConfsToInput converts RouteConf (API response) to ItemsTypeRoutesInputRoutes (API request).
+func routeConfsToInput(routes []components.RouteConf) []components.ItemsTypeRoutesInputRoutes {
+	result := make([]components.ItemsTypeRoutesInputRoutes, len(routes))
 	for i, r := range routes {
-		result[i] = components.RouteConfInput{
+		result[i] = components.ItemsTypeRoutesInputRoutes{
 			Clones:                 r.Clones,
 			Context:                r.Context,
 			Description:            r.Description,
@@ -200,8 +200,8 @@ func main() {
 		// Get the first Routes configuration
 		existingRoutes := routesListResponse.CountedRoutes.Items[0]
 
-		// Create new Route (Routes.Update expects RoutesInput with RouteConfInput)
-		newRoute := components.RouteConfInput{
+		// Create new Route (Routes.Update expects RoutesInput with ItemsTypeRoutesInputRoutes)
+		newRoute := components.ItemsTypeRoutesInputRoutes{
 			Final:                  criblcontrolplanesdkgo.Bool(false),
 			ID:                     criblcontrolplanesdkgo.String("my-route"),
 			Name:                   "my-route",
@@ -212,8 +212,8 @@ func main() {
 			Description:            criblcontrolplanesdkgo.String("This is my new Route"),
 		}
 
-		// Add new Route to existing Routes (convert RouteConf to RouteConfInput)
-		updatedRoutesInput := append([]components.RouteConfInput{newRoute}, routeConfsToInput(existingRoutes.Routes)...)
+		// Add new Route to existing Routes (convert RouteConf to ItemsTypeRoutesInputRoutes)
+		updatedRoutesInput := append([]components.ItemsTypeRoutesInputRoutes{newRoute}, routeConfsToInput(existingRoutes.Routes)...)
 
 		// Update Routes configuration
 		if existingRoutes.ID != "" {
