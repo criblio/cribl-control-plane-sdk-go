@@ -102,8 +102,8 @@ type InputMicrosoftGraphInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Microsoft Graph API endpoint URL. (ex. https://graph.microsoft.com/v1.0/admin/exchange/tracing/messageTraces)
 	URL string `json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
@@ -131,7 +131,7 @@ type InputMicrosoftGraphInput struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Reschedule tasks that failed with non-fatal errors
 	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
 	// Maximum number of times a task can be rescheduled
@@ -236,7 +236,7 @@ func (i *InputMicrosoftGraphInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputMicrosoftGraphInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputMicrosoftGraphInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -341,7 +341,7 @@ func (i *InputMicrosoftGraphInput) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputMicrosoftGraphInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputMicrosoftGraphInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

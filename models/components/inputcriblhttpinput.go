@@ -47,14 +47,14 @@ type InputCriblHTTPInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
-	AuthTokens []ItemsTypeAuthTokens      `json:"authTokens,omitzero"`
+	AuthTokens []AuthToken                `json:"authTokens,omitzero"`
 	TLS        *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
@@ -79,8 +79,8 @@ type InputCriblHTTPInput struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -158,7 +158,7 @@ func (i *InputCriblHTTPInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputCriblHTTPInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputCriblHTTPInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -186,7 +186,7 @@ func (i *InputCriblHTTPInput) GetPort() float64 {
 	return i.Port
 }
 
-func (i *InputCriblHTTPInput) GetAuthTokens() []ItemsTypeAuthTokens {
+func (i *InputCriblHTTPInput) GetAuthTokens() []AuthToken {
 	if i == nil {
 		return nil
 	}
@@ -277,7 +277,7 @@ func (i *InputCriblHTTPInput) GetIPDenylistRegex() *string {
 	return i.IPDenylistRegex
 }
 
-func (i *InputCriblHTTPInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputCriblHTTPInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

@@ -165,8 +165,8 @@ type InputSplunkSearchInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
 	SearchHead string `json:"searchHead"`
 	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
@@ -206,8 +206,8 @@ type InputSplunkSearchInput struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata   []ItemsTypeMetadata `json:"metadata,omitzero"`
-	RetryRules *RetryRulesType     `json:"retryRules,omitzero"`
+	Metadata   []Metadata      `json:"metadata,omitzero"`
+	RetryRules *RetryRulesType `json:"retryRules,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -308,7 +308,7 @@ func (i *InputSplunkSearchInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputSplunkSearchInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputSplunkSearchInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -455,7 +455,7 @@ func (i *InputSplunkSearchInput) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputSplunkSearchInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputSplunkSearchInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

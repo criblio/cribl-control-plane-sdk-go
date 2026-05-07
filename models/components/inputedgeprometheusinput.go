@@ -45,6 +45,8 @@ const (
 	InputEdgePrometheusDiscoveryTypeK8sNode InputEdgePrometheusDiscoveryType = "k8s-node"
 	// InputEdgePrometheusDiscoveryTypeK8sPods Kubernetes Pods
 	InputEdgePrometheusDiscoveryTypeK8sPods InputEdgePrometheusDiscoveryType = "k8s-pods"
+	// InputEdgePrometheusDiscoveryTypeK8sServiceMonitor Kubernetes Service Monitor (v4.18+)
+	InputEdgePrometheusDiscoveryTypeK8sServiceMonitor InputEdgePrometheusDiscoveryType = "k8s-service-monitor"
 )
 
 func (e InputEdgePrometheusDiscoveryType) ToPointer() *InputEdgePrometheusDiscoveryType {
@@ -55,7 +57,7 @@ func (e InputEdgePrometheusDiscoveryType) ToPointer() *InputEdgePrometheusDiscov
 func (e *InputEdgePrometheusDiscoveryType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "static", "dns", "ec2", "k8s-node", "k8s-pods":
+		case "static", "dns", "ec2", "k8s-node", "k8s-pods", "k8s-service-monitor":
 			return true
 		}
 	}
@@ -184,10 +186,12 @@ type InputEdgePrometheusInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitzero"`
+	// Enable to use each metric name as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
+	FieldPerMetric *bool `json:"fieldPerMetric,omitzero"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
 	DiscoveryType InputEdgePrometheusDiscoveryType `json:"discoveryType"`
 	// How often in seconds to scrape targets for metrics.
@@ -196,7 +200,7 @@ type InputEdgePrometheusInput struct {
 	Timeout     *float64          `json:"timeout,omitzero"`
 	Persistence *DiskSpoolingType `json:"persistence,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
 	AuthType    *InputEdgePrometheusAuthenticationMethod `json:"authType,omitzero"`
 	Description *string                                  `json:"description,omitzero"`
@@ -237,6 +241,8 @@ type InputEdgePrometheusInput struct {
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// Namespace to search for ServiceMonitor resources. Leave empty to search in all namespaces. Note: Kubernetes Service Monitor discovery requires Cribl Edge version 4.18 or greater. Nodes running an older version with this option configured will report an error due to configuration schema validation failure.
+	ServiceMonitorNamespace *string `json:"serviceMonitorNamespace,omitzero"`
 	// Protocol to use when collecting metrics
 	ScrapeProtocolExpr *string `json:"scrapeProtocolExpr,omitzero"`
 	// The port number in the metrics URL for discovered targets.
@@ -343,7 +349,7 @@ func (i *InputEdgePrometheusInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputEdgePrometheusInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputEdgePrometheusInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -362,6 +368,13 @@ func (i *InputEdgePrometheusInput) GetDimensionList() []string {
 		return nil
 	}
 	return i.DimensionList
+}
+
+func (i *InputEdgePrometheusInput) GetFieldPerMetric() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FieldPerMetric
 }
 
 func (i *InputEdgePrometheusInput) GetDiscoveryType() InputEdgePrometheusDiscoveryType {
@@ -392,7 +405,7 @@ func (i *InputEdgePrometheusInput) GetPersistence() *DiskSpoolingType {
 	return i.Persistence
 }
 
-func (i *InputEdgePrometheusInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputEdgePrometheusInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -551,6 +564,13 @@ func (i *InputEdgePrometheusInput) GetDurationSeconds() *float64 {
 		return nil
 	}
 	return i.DurationSeconds
+}
+
+func (i *InputEdgePrometheusInput) GetServiceMonitorNamespace() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ServiceMonitorNamespace
 }
 
 func (i *InputEdgePrometheusInput) GetScrapeProtocolExpr() *string {

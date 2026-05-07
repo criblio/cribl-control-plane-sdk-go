@@ -47,15 +47,15 @@ type InputModelDrivenTelemetryInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64                    `json:"port"`
 	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
@@ -138,7 +138,7 @@ func (i *InputModelDrivenTelemetryInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputModelDrivenTelemetryInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputModelDrivenTelemetryInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -173,7 +173,7 @@ func (i *InputModelDrivenTelemetryInput) GetTLS() *TLSSettingsServerSideType {
 	return i.TLS
 }
 
-func (i *InputModelDrivenTelemetryInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputModelDrivenTelemetryInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

@@ -85,9 +85,9 @@ type InputOpenaiComplianceLogsInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
-	APIKey      *string                        `json:"apiKey,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
+	APIKey      *string      `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
 	TextSecret   string                               `json:"textSecret"`
 	AccountType  InputOpenaiComplianceLogsAccountType `json:"accountType"`
@@ -115,7 +115,7 @@ type InputOpenaiComplianceLogsInput struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -212,7 +212,7 @@ func (i *InputOpenaiComplianceLogsInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputOpenaiComplianceLogsInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputOpenaiComplianceLogsInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -331,7 +331,7 @@ func (i *InputOpenaiComplianceLogsInput) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputOpenaiComplianceLogsInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputOpenaiComplianceLogsInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

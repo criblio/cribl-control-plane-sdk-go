@@ -72,8 +72,8 @@ type InputFileInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Choose how to discover files to monitor
 	Mode *InputFileMode `json:"mode,omitzero"`
 	// Time, in seconds, between scanning for files
@@ -97,7 +97,7 @@ type InputFileInput struct {
 	// Length of file header bytes to use in hash for unique file identification
 	HashLen *float64 `json:"hashLen,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -189,7 +189,7 @@ func (i *InputFileInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputFileInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputFileInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -280,7 +280,7 @@ func (i *InputFileInput) GetHashLen() *float64 {
 	return i.HashLen
 }
 
-func (i *InputFileInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputFileInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

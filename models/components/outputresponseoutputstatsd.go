@@ -13877,7 +13877,7 @@ type OutputResponseOutputCriblSearchEngine struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl Search Source in Cribl.Cloud.
-	AuthTokens []ItemsTypeAuthTokensTokenSecret `json:"authTokens,omitzero"`
+	AuthTokens []AuthToken `json:"authTokens,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
@@ -14108,7 +14108,7 @@ func (o *OutputResponseOutputCriblSearchEngine) GetResponseHonorRetryAfterHeader
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputResponseOutputCriblSearchEngine) GetAuthTokens() []ItemsTypeAuthTokensTokenSecret {
+func (o *OutputResponseOutputCriblSearchEngine) GetAuthTokens() []AuthToken {
 	if o == nil {
 		return nil
 	}
@@ -14383,7 +14383,7 @@ type OutputResponseOutputCriblHTTP struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
-	AuthTokens []ItemsTypeAuthTokensTokenSecret `json:"authTokens,omitzero"`
+	AuthTokens []AuthToken `json:"authTokens,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	Description    *string                      `json:"description,omitzero"`
@@ -14614,7 +14614,7 @@ func (o *OutputResponseOutputCriblHTTP) GetResponseHonorRetryAfterHeader() *bool
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputResponseOutputCriblHTTP) GetAuthTokens() []ItemsTypeAuthTokensTokenSecret {
+func (o *OutputResponseOutputCriblHTTP) GetAuthTokens() []AuthToken {
 	if o == nil {
 		return nil
 	}
@@ -14868,7 +14868,7 @@ type OutputResponseOutputCriblTCP struct {
 	// The number of minutes before the internally generated authentication token expires, valid values between 1 and 60
 	TokenTTLMinutes *float64 `json:"tokenTTLMinutes,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
-	AuthTokens []ItemsTypeAuthTokens `json:"authTokens,omitzero"`
+	AuthTokens []AuthToken `json:"authTokens,omitzero"`
 	// Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
 	ExcludeFields []string `json:"excludeFields,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -15034,7 +15034,7 @@ func (o *OutputResponseOutputCriblTCP) GetTokenTTLMinutes() *float64 {
 	return o.TokenTTLMinutes
 }
 
-func (o *OutputResponseOutputCriblTCP) GetAuthTokens() []ItemsTypeAuthTokens {
+func (o *OutputResponseOutputCriblTCP) GetAuthTokens() []AuthToken {
 	if o == nil {
 		return nil
 	}

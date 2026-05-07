@@ -207,12 +207,12 @@ type InputResponseInputSystemState struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
 	Interval *float64 `json:"interval,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata      `json:"metadata,omitzero"`
+	Metadata    []Metadata               `json:"metadata,omitzero"`
 	Collectors  *InputResponseCollectors `json:"collectors,omitzero"`
 	Persistence *PersistenceSystemState  `json:"persistence,omitzero"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
@@ -304,7 +304,7 @@ func (i *InputResponseInputSystemState) GetCriblSourceProvenance() *InputCollect
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputSystemState) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputSystemState) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -325,7 +325,7 @@ func (i *InputResponseInputSystemState) GetInterval() *float64 {
 	return i.Interval
 }
 
-func (i *InputResponseInputSystemState) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputSystemState) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -1111,8 +1111,8 @@ type InputResponseInputSystemMetrics struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
 	Interval  *float64                `json:"interval,omitzero"`
 	Host      *HostSystemMetrics      `json:"host,omitzero"`
@@ -1120,7 +1120,7 @@ type InputResponseInputSystemMetrics struct {
 	Container *InputResponseContainer `json:"container,omitzero"`
 	Gpu       *GpuType                `json:"gpu,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata       `json:"metadata,omitzero"`
+	Metadata    []Metadata                `json:"metadata,omitzero"`
 	Persistence *PersistenceSystemMetrics `json:"persistence,omitzero"`
 	Description *string                   `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -1207,7 +1207,7 @@ func (i *InputResponseInputSystemMetrics) GetCriblSourceProvenance() *InputColle
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputSystemMetrics) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputSystemMetrics) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -1256,7 +1256,7 @@ func (i *InputResponseInputSystemMetrics) GetGpu() *GpuType {
 	return i.Gpu
 }
 
-func (i *InputResponseInputSystemMetrics) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputSystemMetrics) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -1346,8 +1346,8 @@ type InputResponseInputTcpjson struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -1366,7 +1366,7 @@ type InputResponseInputTcpjson struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
@@ -1464,7 +1464,7 @@ func (i *InputResponseInputTcpjson) GetCriblSourceProvenance() *InputCollectionO
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputTcpjson) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputTcpjson) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -1541,7 +1541,7 @@ func (i *InputResponseInputTcpjson) GetEnableProxyHeader() *bool {
 	return i.EnableProxyHeader
 }
 
-func (i *InputResponseInputTcpjson) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputTcpjson) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -1720,7 +1720,7 @@ type InputResponseAuthTokensExt struct {
 	Token       string  `json:"token"`
 	Description *string `json:"description,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata              []ItemsTypeMetadata                 `json:"metadata,omitzero"`
+	Metadata              []Metadata                          `json:"metadata,omitzero"`
 	SplunkHecMetadata     *InputResponseSplunkHecMetadata     `json:"splunkHecMetadata,omitzero"`
 	ElasticsearchMetadata *InputResponseElasticsearchMetadata `json:"elasticsearchMetadata,omitzero"`
 }
@@ -1750,7 +1750,7 @@ func (i *InputResponseAuthTokensExt) GetDescription() *string {
 	return i.Description
 }
 
-func (i *InputResponseAuthTokensExt) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseAuthTokensExt) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -1789,8 +1789,8 @@ type InputResponseInputCriblLakeHTTP struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -1828,7 +1828,7 @@ type InputResponseInputCriblLakeHTTP struct {
 	SplunkHecAPI  *string `json:"splunkHecAPI,omitzero"`
 	SplunkHecAcks *bool   `json:"splunkHecAcks,omitzero"`
 	// Fields to add to events from this input
-	Metadata      []ItemsTypeMetadata          `json:"metadata,omitzero"`
+	Metadata      []Metadata                   `json:"metadata,omitzero"`
 	AuthTokensExt []InputResponseAuthTokensExt `json:"authTokensExt,omitzero"`
 	Description   *string                      `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -1927,7 +1927,7 @@ func (i *InputResponseInputCriblLakeHTTP) GetCriblSourceProvenance() *InputColle
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputCriblLakeHTTP) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputCriblLakeHTTP) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -2074,7 +2074,7 @@ func (i *InputResponseInputCriblLakeHTTP) GetSplunkHecAcks() *bool {
 	return i.SplunkHecAcks
 }
 
-func (i *InputResponseInputCriblLakeHTTP) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputCriblLakeHTTP) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -2206,14 +2206,14 @@ type InputResponseInputCriblHTTP struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
-	AuthTokens []ItemsTypeAuthTokens      `json:"authTokens,omitzero"`
+	AuthTokens []AuthToken                `json:"authTokens,omitzero"`
 	TLS        *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
@@ -2238,8 +2238,8 @@ type InputResponseInputCriblHTTP struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -2328,7 +2328,7 @@ func (i *InputResponseInputCriblHTTP) GetCriblSourceProvenance() *InputCollectio
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputCriblHTTP) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputCriblHTTP) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -2356,7 +2356,7 @@ func (i *InputResponseInputCriblHTTP) GetPort() float64 {
 	return i.Port
 }
 
-func (i *InputResponseInputCriblHTTP) GetAuthTokens() []ItemsTypeAuthTokens {
+func (i *InputResponseInputCriblHTTP) GetAuthTokens() []AuthToken {
 	if i == nil {
 		return nil
 	}
@@ -2447,7 +2447,7 @@ func (i *InputResponseInputCriblHTTP) GetIPDenylistRegex() *string {
 	return i.IPDenylistRegex
 }
 
-func (i *InputResponseInputCriblHTTP) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputCriblHTTP) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -2544,8 +2544,8 @@ type InputResponseInputCriblTCP struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -2562,12 +2562,12 @@ type InputResponseInputCriblTCP struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
-	AuthTokens  []ItemsTypeAuthTokens `json:"authTokens,omitzero"`
-	Description *string               `json:"description,omitzero"`
+	AuthTokens  []AuthToken `json:"authTokens,omitzero"`
+	Description *string     `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -2656,7 +2656,7 @@ func (i *InputResponseInputCriblTCP) GetCriblSourceProvenance() *InputCollection
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputCriblTCP) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputCriblTCP) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -2726,7 +2726,7 @@ func (i *InputResponseInputCriblTCP) GetEnableProxyHeader() *bool {
 	return i.EnableProxyHeader
 }
 
-func (i *InputResponseInputCriblTCP) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputCriblTCP) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -2740,7 +2740,7 @@ func (i *InputResponseInputCriblTCP) GetEnableLoadBalancing() *bool {
 	return i.EnableLoadBalancing
 }
 
-func (i *InputResponseInputCriblTCP) GetAuthTokens() []ItemsTypeAuthTokens {
+func (i *InputResponseInputCriblTCP) GetAuthTokens() []AuthToken {
 	if i == nil {
 		return nil
 	}
@@ -2837,12 +2837,12 @@ type InputResponseInputCribl struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
-	Filter      *string                        `json:"filter,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
+	Filter      *string      `json:"filter,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -2927,7 +2927,7 @@ func (i *InputResponseInputCribl) GetCriblSourceProvenance() *InputCollectionOri
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputCribl) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputCribl) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -2948,7 +2948,7 @@ func (i *InputResponseInputCribl) GetFilter() *string {
 	return i.Filter
 }
 
-func (i *InputResponseInputCribl) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputCribl) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -3031,8 +3031,8 @@ type InputResponseInputGooglePubsub struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
 	TopicName string `json:"topicName"`
 	// ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
@@ -3058,8 +3058,8 @@ type InputResponseInputGooglePubsub struct {
 	// Pull request timeout, in milliseconds
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
 	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
 	OrderedDelivery *bool `json:"orderedDelivery,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -3152,7 +3152,7 @@ func (i *InputResponseInputGooglePubsub) GetCriblSourceProvenance() *InputCollec
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputGooglePubsub) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputGooglePubsub) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -3250,7 +3250,7 @@ func (i *InputResponseInputGooglePubsub) GetRequestTimeout() *float64 {
 	return i.RequestTimeout
 }
 
-func (i *InputResponseInputGooglePubsub) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputGooglePubsub) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -3361,8 +3361,8 @@ type InputResponseInputFirehose struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -3393,8 +3393,8 @@ type InputResponseInputFirehose struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -3485,7 +3485,7 @@ func (i *InputResponseInputFirehose) GetCriblSourceProvenance() *InputCollection
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputFirehose) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputFirehose) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -3604,7 +3604,7 @@ func (i *InputResponseInputFirehose) GetIPDenylistRegex() *string {
 	return i.IPDenylistRegex
 }
 
-func (i *InputResponseInputFirehose) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputFirehose) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -3731,8 +3731,8 @@ type InputResponseInputExec struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Command to execute; supports Bourne shell (or CMD on Windows) syntax
 	Command string `json:"command"`
 	// Optional script content to pipe into the command's stdin. The stdin stream is closed after the script is written.
@@ -3746,8 +3746,8 @@ type InputResponseInputExec struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
 	// Interval between command executions in seconds.
 	Interval *float64 `json:"interval,omitzero"`
 	// Cron schedule to execute the command on.
@@ -3836,7 +3836,7 @@ func (i *InputResponseInputExec) GetCriblSourceProvenance() *InputCollectionOrig
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputExec) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputExec) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -3892,7 +3892,7 @@ func (i *InputResponseInputExec) GetStaleChannelFlushMs() *float64 {
 	return i.StaleChannelFlushMs
 }
 
-func (i *InputResponseInputExec) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputExec) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -4360,8 +4360,8 @@ type InputResponseInputEventhubAmqp struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// The name of the Event Hub to consume from
 	EventHubName *string `json:"eventHubName,omitzero"`
 	// The consumer group this instance belongs to. Default is '$Default'.
@@ -4391,8 +4391,8 @@ type InputResponseInputEventhubAmqp struct {
 	// Maximum time to wait for a connection to complete
 	ConnectionTimeoutInMs *int64 `json:"connectionTimeoutInMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -4477,7 +4477,7 @@ func (i *InputResponseInputEventhubAmqp) GetCriblSourceProvenance() *InputCollec
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputEventhubAmqp) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputEventhubAmqp) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -4596,7 +4596,7 @@ func (i *InputResponseInputEventhubAmqp) GetConnectionTimeoutInMs() *int64 {
 	return i.ConnectionTimeoutInMs
 }
 
-func (i *InputResponseInputEventhubAmqp) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputEventhubAmqp) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -4679,8 +4679,8 @@ type InputResponseInputEventhub struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
 	Brokers []string `json:"brokers"`
 	// The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
@@ -4734,8 +4734,8 @@ type InputResponseInputEventhub struct {
 	// Minimize duplicate events by starting only one consumer for each topic partition
 	MinimizeDuplicates *bool `json:"minimizeDuplicates,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -4826,7 +4826,7 @@ func (i *InputResponseInputEventhub) GetCriblSourceProvenance() *InputCollection
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputEventhub) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputEventhub) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -5001,7 +5001,7 @@ func (i *InputResponseInputEventhub) GetMinimizeDuplicates() *bool {
 	return i.MinimizeDuplicates
 }
 
-func (i *InputResponseInputEventhub) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputEventhub) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -5160,8 +5160,8 @@ type InputResponseInputMicrosoftGraph struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Microsoft Graph API endpoint URL. (ex. https://graph.microsoft.com/v1.0/admin/exchange/tracing/messageTraces)
 	URL string `json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
@@ -5189,7 +5189,7 @@ type InputResponseInputMicrosoftGraph struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Reschedule tasks that failed with non-fatal errors
 	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
 	// Maximum number of times a task can be rescheduled
@@ -5305,7 +5305,7 @@ func (i *InputResponseInputMicrosoftGraph) GetCriblSourceProvenance() *InputColl
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputMicrosoftGraph) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputMicrosoftGraph) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -5410,7 +5410,7 @@ func (i *InputResponseInputMicrosoftGraph) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputResponseInputMicrosoftGraph) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputMicrosoftGraph) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -5631,8 +5631,8 @@ type InputResponseInputOffice365MsgTrace struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// URL to use when retrieving report data.
 	URL string `json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
@@ -5658,7 +5658,7 @@ type InputResponseInputOffice365MsgTrace struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Reschedule tasks that failed with non-fatal errors
 	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
 	// Maximum number of times a task can be rescheduled
@@ -5780,7 +5780,7 @@ func (i *InputResponseInputOffice365MsgTrace) GetCriblSourceProvenance() *InputC
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputOffice365MsgTrace) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputOffice365MsgTrace) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -5878,7 +5878,7 @@ func (i *InputResponseInputOffice365MsgTrace) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputResponseInputOffice365MsgTrace) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputOffice365MsgTrace) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -6157,8 +6157,8 @@ type InputResponseInputOffice365Service struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
 	PlanType *SubscriptionPlanOptions `json:"planType,omitzero"`
 	// Microsoft 365 Azure Tenant ID
@@ -6178,7 +6178,7 @@ type InputResponseInputOffice365Service struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Enable Microsoft 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []ContentConfigOffice365Service  `json:"contentConfig,omitzero"`
 	RetryRules    *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
@@ -6281,7 +6281,7 @@ func (i *InputResponseInputOffice365Service) GetCriblSourceProvenance() *InputCo
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputOffice365Service) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputOffice365Service) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -6358,7 +6358,7 @@ func (i *InputResponseInputOffice365Service) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputResponseInputOffice365Service) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputOffice365Service) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -6567,8 +6567,8 @@ type InputResponseInputOffice365Mgmt struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
 	PlanType SubscriptionPlanOptions `json:"planType"`
 	// Microsoft 365 Azure Tenant ID
@@ -6588,7 +6588,7 @@ type InputResponseInputOffice365Mgmt struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
 	PublisherIdentifier *string `json:"publisherIdentifier,omitzero"`
 	// Enable Microsoft 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
@@ -6697,7 +6697,7 @@ func (i *InputResponseInputOffice365Mgmt) GetCriblSourceProvenance() *InputColle
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputOffice365Mgmt) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputOffice365Mgmt) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -6774,7 +6774,7 @@ func (i *InputResponseInputOffice365Mgmt) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputResponseInputOffice365Mgmt) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputOffice365Mgmt) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -6940,6 +6940,8 @@ const (
 	DiscoveryTypeEdgePrometheusK8sNode DiscoveryTypeEdgePrometheus = "k8s-node"
 	// DiscoveryTypeEdgePrometheusK8sPods Kubernetes Pods
 	DiscoveryTypeEdgePrometheusK8sPods DiscoveryTypeEdgePrometheus = "k8s-pods"
+	// DiscoveryTypeEdgePrometheusK8sServiceMonitor Kubernetes Service Monitor (v4.18+)
+	DiscoveryTypeEdgePrometheusK8sServiceMonitor DiscoveryTypeEdgePrometheus = "k8s-service-monitor"
 )
 
 func (e DiscoveryTypeEdgePrometheus) ToPointer() *DiscoveryTypeEdgePrometheus {
@@ -6950,7 +6952,7 @@ func (e DiscoveryTypeEdgePrometheus) ToPointer() *DiscoveryTypeEdgePrometheus {
 func (e *DiscoveryTypeEdgePrometheus) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "static", "dns", "ec2", "k8s-node", "k8s-pods":
+		case "static", "dns", "ec2", "k8s-node", "k8s-pods", "k8s-service-monitor":
 			return true
 		}
 	}
@@ -7081,10 +7083,12 @@ type InputResponseInputEdgePrometheus struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitzero"`
+	// Enable to use each metric name as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
+	FieldPerMetric *bool `json:"fieldPerMetric,omitzero"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
 	DiscoveryType DiscoveryTypeEdgePrometheus `json:"discoveryType"`
 	// How often in seconds to scrape targets for metrics.
@@ -7093,7 +7097,7 @@ type InputResponseInputEdgePrometheus struct {
 	Timeout     *float64          `json:"timeout,omitzero"`
 	Persistence *DiskSpoolingType `json:"persistence,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
 	AuthType    *AuthenticationMethodEdgePrometheus `json:"authType,omitzero"`
 	Description *string                             `json:"description,omitzero"`
@@ -7134,6 +7138,8 @@ type InputResponseInputEdgePrometheus struct {
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// Namespace to search for ServiceMonitor resources. Leave empty to search in all namespaces. Note: Kubernetes Service Monitor discovery requires Cribl Edge version 4.18 or greater. Nodes running an older version with this option configured will report an error due to configuration schema validation failure.
+	ServiceMonitorNamespace *string `json:"serviceMonitorNamespace,omitzero"`
 	// Protocol to use when collecting metrics
 	ScrapeProtocolExpr *string `json:"scrapeProtocolExpr,omitzero"`
 	// The port number in the metrics URL for discovered targets.
@@ -7251,7 +7257,7 @@ func (i *InputResponseInputEdgePrometheus) GetCriblSourceProvenance() *InputColl
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputEdgePrometheus) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputEdgePrometheus) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -7270,6 +7276,13 @@ func (i *InputResponseInputEdgePrometheus) GetDimensionList() []string {
 		return nil
 	}
 	return i.DimensionList
+}
+
+func (i *InputResponseInputEdgePrometheus) GetFieldPerMetric() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FieldPerMetric
 }
 
 func (i *InputResponseInputEdgePrometheus) GetDiscoveryType() DiscoveryTypeEdgePrometheus {
@@ -7300,7 +7313,7 @@ func (i *InputResponseInputEdgePrometheus) GetPersistence() *DiskSpoolingType {
 	return i.Persistence
 }
 
-func (i *InputResponseInputEdgePrometheus) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputEdgePrometheus) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -7459,6 +7472,13 @@ func (i *InputResponseInputEdgePrometheus) GetDurationSeconds() *float64 {
 		return nil
 	}
 	return i.DurationSeconds
+}
+
+func (i *InputResponseInputEdgePrometheus) GetServiceMonitorNamespace() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ServiceMonitorNamespace
 }
 
 func (i *InputResponseInputEdgePrometheus) GetScrapeProtocolExpr() *string {
@@ -7685,10 +7705,12 @@ type InputResponseInputPrometheus struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitzero"`
+	// When enabled, each metric name is used as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
+	FieldPerMetric *bool `json:"fieldPerMetric,omitzero"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
 	DiscoveryType *DiscoveryTypePrometheus `json:"discoveryType,omitzero"`
 	// How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
@@ -7710,7 +7732,7 @@ type InputResponseInputPrometheus struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
 	AuthType    *AuthenticationMethodOptionsSasl `json:"authType,omitzero"`
 	Description *string                          `json:"description,omitzero"`
@@ -7866,7 +7888,7 @@ func (i *InputResponseInputPrometheus) GetCriblSourceProvenance() *InputCollecti
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputPrometheus) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputPrometheus) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -7885,6 +7907,13 @@ func (i *InputResponseInputPrometheus) GetDimensionList() []string {
 		return nil
 	}
 	return i.DimensionList
+}
+
+func (i *InputResponseInputPrometheus) GetFieldPerMetric() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.FieldPerMetric
 }
 
 func (i *InputResponseInputPrometheus) GetDiscoveryType() *DiscoveryTypePrometheus {
@@ -7957,7 +7986,7 @@ func (i *InputResponseInputPrometheus) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputResponseInputPrometheus) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputPrometheus) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -8292,8 +8321,8 @@ type InputResponseInputPrometheusRw struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -8326,10 +8355,10 @@ type InputResponseInputPrometheusRw struct {
 	// Remote Write authentication type
 	AuthType *AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
-	Username    *string             `json:"username,omitzero"`
-	Password    *string             `json:"password,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
+	Username    *string    `json:"username,omitzero"`
+	Password    *string    `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -8428,7 +8457,7 @@ func (i *InputResponseInputPrometheusRw) GetCriblSourceProvenance() *InputCollec
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputPrometheusRw) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputPrometheusRw) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -8554,7 +8583,7 @@ func (i *InputResponseInputPrometheusRw) GetAuthType() *AuthenticationTypeOption
 	return i.AuthType
 }
 
-func (i *InputResponseInputPrometheusRw) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputPrometheusRw) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -8700,8 +8729,8 @@ type InputResponseInputLoki struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -8734,10 +8763,10 @@ type InputResponseInputLoki struct {
 	// Loki logs authentication type
 	AuthType *AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
-	Username    *string             `json:"username,omitzero"`
-	Password    *string             `json:"password,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
+	Username    *string    `json:"username,omitzero"`
+	Password    *string    `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -8834,7 +8863,7 @@ func (i *InputResponseInputLoki) GetCriblSourceProvenance() *InputCollectionOrig
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputLoki) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputLoki) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -8960,7 +8989,7 @@ func (i *InputResponseInputLoki) GetAuthType() *AuthenticationTypeOptionsLokiAut
 	return i.AuthType
 }
 
-func (i *InputResponseInputLoki) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputLoki) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -9237,8 +9266,8 @@ type InputResponseInputGrafanaGrafana2 struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -9273,8 +9302,8 @@ type InputResponseInputGrafanaGrafana2 struct {
 	PrometheusAuth *InputResponsePrometheusAuth2 `json:"prometheusAuth,omitzero"`
 	LokiAuth       *InputResponseLokiAuth2       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -9367,7 +9396,7 @@ func (i *InputResponseInputGrafanaGrafana2) GetCriblSourceProvenance() *InputCol
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputGrafanaGrafana2) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputGrafanaGrafana2) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -9507,7 +9536,7 @@ func (i *InputResponseInputGrafanaGrafana2) GetLokiAuth() *InputResponseLokiAuth
 	return i.LokiAuth
 }
 
-func (i *InputResponseInputGrafanaGrafana2) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputGrafanaGrafana2) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -9759,8 +9788,8 @@ type InputResponseInputGrafanaGrafana1 struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -9795,8 +9824,8 @@ type InputResponseInputGrafanaGrafana1 struct {
 	PrometheusAuth *InputResponsePrometheusAuth1 `json:"prometheusAuth,omitzero"`
 	LokiAuth       *InputResponseLokiAuth1       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -9889,7 +9918,7 @@ func (i *InputResponseInputGrafanaGrafana1) GetCriblSourceProvenance() *InputCol
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputGrafanaGrafana1) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputGrafanaGrafana1) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -10029,7 +10058,7 @@ func (i *InputResponseInputGrafanaGrafana1) GetLokiAuth() *InputResponseLokiAuth
 	return i.LokiAuth
 }
 
-func (i *InputResponseInputGrafanaGrafana1) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputGrafanaGrafana1) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -10232,8 +10261,8 @@ type InputResponseInputConfluentCloud struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
 	Brokers []string                                 `json:"brokers"`
 	TLS     *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
@@ -10287,8 +10316,8 @@ type InputResponseInputConfluentCloud struct {
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -10379,7 +10408,7 @@ func (i *InputResponseInputConfluentCloud) GetCriblSourceProvenance() *InputColl
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputConfluentCloud) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputConfluentCloud) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -10554,7 +10583,7 @@ func (i *InputResponseInputConfluentCloud) GetMaxSocketErrors() *float64 {
 	return i.MaxSocketErrors
 }
 
-func (i *InputResponseInputConfluentCloud) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputConfluentCloud) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -10839,8 +10868,8 @@ type InputResponseInputElastic struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -10876,11 +10905,11 @@ type InputResponseInputElastic struct {
 	// Headers to add to all events
 	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	ProxyMode   *ProxyModeElastic   `json:"proxyMode,omitzero"`
-	Description *string             `json:"description,omitzero"`
-	Username    *string             `json:"username,omitzero"`
-	Password    *string             `json:"password,omitzero"`
+	Metadata    []Metadata        `json:"metadata,omitzero"`
+	ProxyMode   *ProxyModeElastic `json:"proxyMode,omitzero"`
+	Description *string           `json:"description,omitzero"`
+	Username    *string           `json:"username,omitzero"`
+	Password    *string           `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Bearer tokens to include in the authorization header
@@ -10979,7 +11008,7 @@ func (i *InputResponseInputElastic) GetCriblSourceProvenance() *InputCollectionO
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputElastic) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputElastic) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -11119,7 +11148,7 @@ func (i *InputResponseInputElastic) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHe
 	return i.ExtraHTTPHeaders
 }
 
-func (i *InputResponseInputElastic) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputElastic) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -11272,8 +11301,8 @@ type InputResponseInputAzureBlob struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -11289,7 +11318,7 @@ type InputResponseInputAzureBlob struct {
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
 	SkipOnError *bool `json:"skipOnError,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -11413,7 +11442,7 @@ func (i *InputResponseInputAzureBlob) GetCriblSourceProvenance() *InputCollectio
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputAzureBlob) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputAzureBlob) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -11476,7 +11505,7 @@ func (i *InputResponseInputAzureBlob) GetSkipOnError() *bool {
 	return i.SkipOnError
 }
 
-func (i *InputResponseInputAzureBlob) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputAzureBlob) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -11694,7 +11723,7 @@ type AuthTokenSplunkHec struct {
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 }
 
 func (a AuthTokenSplunkHec) MarshalJSON() ([]byte, error) {
@@ -11750,7 +11779,7 @@ func (a *AuthTokenSplunkHec) GetAllowedIndexesAtToken() []string {
 	return a.AllowedIndexesAtToken
 }
 
-func (a *AuthTokenSplunkHec) GetMetadata() []ItemsTypeMetadata {
+func (a *AuthTokenSplunkHec) GetMetadata() []Metadata {
 	if a == nil {
 		return nil
 	}
@@ -11775,8 +11804,8 @@ type InputResponseInputSplunkHec struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -11807,7 +11836,7 @@ type InputResponseInputSplunkHec struct {
 	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
 	SplunkHecAPI string `json:"splunkHecAPI"`
 	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
 	// Enable Splunk HEC acknowledgements
@@ -11919,7 +11948,7 @@ func (i *InputResponseInputSplunkHec) GetCriblSourceProvenance() *InputCollectio
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputSplunkHec) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputSplunkHec) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -12038,7 +12067,7 @@ func (i *InputResponseInputSplunkHec) GetSplunkHecAPI() string {
 	return i.SplunkHecAPI
 }
 
-func (i *InputResponseInputSplunkHec) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputSplunkHec) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -12330,8 +12359,8 @@ type InputResponseInputSplunkSearch struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
 	SearchHead string `json:"searchHead"`
 	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
@@ -12371,8 +12400,8 @@ type InputResponseInputSplunkSearch struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata   []ItemsTypeMetadata `json:"metadata,omitzero"`
-	RetryRules *RetryRulesType     `json:"retryRules,omitzero"`
+	Metadata   []Metadata      `json:"metadata,omitzero"`
+	RetryRules *RetryRulesType `json:"retryRules,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -12484,7 +12513,7 @@ func (i *InputResponseInputSplunkSearch) GetCriblSourceProvenance() *InputCollec
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputSplunkSearch) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputSplunkSearch) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -12631,7 +12660,7 @@ func (i *InputResponseInputSplunkSearch) GetIgnoreGroupJobsLimit() *bool {
 	return i.IgnoreGroupJobsLimit
 }
 
-func (i *InputResponseInputSplunkSearch) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputSplunkSearch) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -12902,8 +12931,8 @@ type InputResponseInputSplunk struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -12922,7 +12951,7 @@ type InputResponseInputSplunk struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -13032,7 +13061,7 @@ func (i *InputResponseInputSplunk) GetCriblSourceProvenance() *InputCollectionOr
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputSplunk) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputSplunk) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -13109,7 +13138,7 @@ func (i *InputResponseInputSplunk) GetEnableProxyHeader() *bool {
 	return i.EnableProxyHeader
 }
 
-func (i *InputResponseInputSplunk) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputSplunk) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -13276,8 +13305,8 @@ type InputResponseInputHTTP struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -13315,7 +13344,7 @@ type InputResponseInputHTTP struct {
 	SplunkHecAPI  *string `json:"splunkHecAPI,omitzero"`
 	SplunkHecAcks *bool   `json:"splunkHecAcks,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokensExt []ItemsTypeAuthTokensExt `json:"authTokensExt,omitzero"`
 	Description   *string                  `json:"description,omitzero"`
@@ -13415,7 +13444,7 @@ func (i *InputResponseInputHTTP) GetCriblSourceProvenance() *InputCollectionOrig
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputHTTP) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputHTTP) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -13562,7 +13591,7 @@ func (i *InputResponseInputHTTP) GetSplunkHecAcks() *bool {
 	return i.SplunkHecAcks
 }
 
-func (i *InputResponseInputHTTP) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputHTTP) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -13694,8 +13723,8 @@ type InputResponseInputMsk struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
 	Brokers []string `json:"brokers"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
@@ -13719,7 +13748,7 @@ type InputResponseInputMsk struct {
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
 	HeartbeatInterval *float64 `json:"heartbeatInterval,omitzero"`
 	// Fields to add to events from this input
-	Metadata            []ItemsTypeMetadata                    `json:"metadata,omitzero"`
+	Metadata            []Metadata                             `json:"metadata,omitzero"`
 	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
@@ -13873,7 +13902,7 @@ func (i *InputResponseInputMsk) GetCriblSourceProvenance() *InputCollectionOrigi
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputMsk) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputMsk) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -13936,7 +13965,7 @@ func (i *InputResponseInputMsk) GetHeartbeatInterval() *float64 {
 	return i.HeartbeatInterval
 }
 
-func (i *InputResponseInputMsk) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputMsk) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -14271,8 +14300,8 @@ type InputResponseInputKafka struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
 	Brokers []string `json:"brokers"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
@@ -14326,8 +14355,8 @@ type InputResponseInputKafka struct {
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -14418,7 +14447,7 @@ func (i *InputResponseInputKafka) GetCriblSourceProvenance() *InputCollectionOri
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputKafka) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputKafka) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -14593,7 +14622,7 @@ func (i *InputResponseInputKafka) GetMaxSocketErrors() *float64 {
 	return i.MaxSocketErrors
 }
 
-func (i *InputResponseInputKafka) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputKafka) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -14697,8 +14726,8 @@ type InputResponseInputCollection struct {
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -14707,7 +14736,7 @@ type InputResponseInputCollection struct {
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
 	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// Destination to send results to
 	Output *string `json:"output,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -14794,7 +14823,7 @@ func (i *InputResponseInputCollection) GetCriblSourceProvenance() *InputCollecti
 	return i.CriblSourceProvenance
 }
 
-func (i *InputResponseInputCollection) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputResponseInputCollection) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -14836,7 +14865,7 @@ func (i *InputResponseInputCollection) GetThrottleRatePerSec() *string {
 	return i.ThrottleRatePerSec
 }
 
-func (i *InputResponseInputCollection) GetMetadata() []ItemsTypeMetadata {
+func (i *InputResponseInputCollection) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

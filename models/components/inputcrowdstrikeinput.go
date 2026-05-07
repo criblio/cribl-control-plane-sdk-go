@@ -47,8 +47,8 @@ type InputCrowdstrikeInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -96,8 +96,8 @@ type InputCrowdstrikeInput struct {
 	EnableSQSAssumeRole *bool           `json:"enableSQSAssumeRole,omitzero"`
 	Preprocess          *PreprocessType `json:"preprocess,omitzero"`
 	// Fields to add to events from this input
-	Metadata      []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Checkpointing *CheckpointingType  `json:"checkpointing,omitzero"`
+	Metadata      []Metadata         `json:"metadata,omitzero"`
+	Checkpointing *CheckpointingType `json:"checkpointing,omitzero"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `json:"pollTimeout,omitzero"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
@@ -200,7 +200,7 @@ func (i *InputCrowdstrikeInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputCrowdstrikeInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputCrowdstrikeInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -382,7 +382,7 @@ func (i *InputCrowdstrikeInput) GetPreprocess() *PreprocessType {
 	return i.Preprocess
 }
 
-func (i *InputCrowdstrikeInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputCrowdstrikeInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

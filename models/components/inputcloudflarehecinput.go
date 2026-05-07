@@ -63,7 +63,7 @@ type InputCloudflareHecAuthToken struct {
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 }
 
 func (i InputCloudflareHecAuthToken) MarshalJSON() ([]byte, error) {
@@ -112,7 +112,7 @@ func (i *InputCloudflareHecAuthToken) GetAllowedIndexesAtToken() []string {
 	return i.AllowedIndexesAtToken
 }
 
-func (i *InputCloudflareHecAuthToken) GetMetadata() []ItemsTypeMetadata {
+func (i *InputCloudflareHecAuthToken) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -246,8 +246,8 @@ type InputCloudflareHecInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -278,7 +278,7 @@ type InputCloudflareHecInput struct {
 	// Absolute path on which to listen for the Cloudflare HTTP Event Collector API requests. This input supports the /event endpoint.
 	HecAPI string `json:"hecAPI"`
 	// Fields to add to every event. May be overridden by fields added at the token or request level.
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []Metadata `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
@@ -377,7 +377,7 @@ func (i *InputCloudflareHecInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputCloudflareHecInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputCloudflareHecInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -496,7 +496,7 @@ func (i *InputCloudflareHecInput) GetHecAPI() string {
 	return i.HecAPI
 }
 
-func (i *InputCloudflareHecInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputCloudflareHecInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

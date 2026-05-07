@@ -1,4 +1,4 @@
-# ItemsTypeConnectionsOptional
+# Connection
 
 
 ## Fields

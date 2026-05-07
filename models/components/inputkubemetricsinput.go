@@ -114,14 +114,14 @@ type InputKubeMetricsInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive metrics collections. Default is 15 secs.
 	Interval *float64 `json:"interval,omitzero"`
 	// Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
 	Rules []ItemsTypeRules `json:"rules,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata          `json:"metadata,omitzero"`
+	Metadata    []Metadata                   `json:"metadata,omitzero"`
 	Persistence *InputKubeMetricsPersistence `json:"persistence,omitzero"`
 	Description *string                      `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -197,7 +197,7 @@ func (i *InputKubeMetricsInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputKubeMetricsInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputKubeMetricsInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -225,7 +225,7 @@ func (i *InputKubeMetricsInput) GetRules() []ItemsTypeRules {
 	return i.Rules
 }
 
-func (i *InputKubeMetricsInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputKubeMetricsInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

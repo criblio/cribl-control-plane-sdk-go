@@ -284,8 +284,8 @@ type InputWefSubscription struct {
 	Locale        *string                   `json:"locale,omitzero"`
 	QuerySelector *InputWefQueryBuilderMode `json:"querySelector,omitzero"`
 	// Fields to add to events ingested under this subscription
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Queries  []InputWefQuery     `json:"queries,omitzero"`
+	Metadata []Metadata      `json:"metadata,omitzero"`
+	Queries  []InputWefQuery `json:"queries,omitzero"`
 	// The XPath query to use for selecting events
 	XMLQuery *string `json:"xmlQuery,omitzero"`
 }
@@ -378,7 +378,7 @@ func (i *InputWefSubscription) GetQuerySelector() *InputWefQueryBuilderMode {
 	return i.QuerySelector
 }
 
-func (i *InputWefSubscription) GetMetadata() []ItemsTypeMetadata {
+func (i *InputWefSubscription) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}
@@ -415,8 +415,8 @@ type InputWefInput struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *PqType                        `json:"pq,omitzero"`
+	Connections []Connection `json:"connections,omitzero"`
+	Pq          *PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -453,8 +453,8 @@ type InputWefInput struct {
 	// Subscriptions to events on forwarding endpoints
 	Subscriptions []InputWefSubscription `json:"subscriptions"`
 	// Fields to add to events from this input
-	Metadata    []ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string             `json:"description,omitzero"`
+	Metadata    []Metadata `json:"metadata,omitzero"`
+	Description *string    `json:"description,omitzero"`
 	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
 	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -538,7 +538,7 @@ func (i *InputWefInput) GetStreamtags() []string {
 	return i.Streamtags
 }
 
-func (i *InputWefInput) GetConnections() []ItemsTypeConnectionsOptional {
+func (i *InputWefInput) GetConnections() []Connection {
 	if i == nil {
 		return nil
 	}
@@ -678,7 +678,7 @@ func (i *InputWefInput) GetSubscriptions() []InputWefSubscription {
 	return i.Subscriptions
 }
 
-func (i *InputWefInput) GetMetadata() []ItemsTypeMetadata {
+func (i *InputWefInput) GetMetadata() []Metadata {
 	if i == nil {
 		return nil
 	}

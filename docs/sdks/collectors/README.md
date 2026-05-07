@@ -524,8 +524,8 @@ func main() {
                     },
                 },
                 ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("0"),
-                Metadata: []components.ItemsTypeMetadata{
-                    components.ItemsTypeMetadata{
+                Metadata: []components.Metadata{
+                    components.Metadata{
                         Name: "<value>",
                         Value: "<value>",
                     },
@@ -1161,8 +1161,8 @@ func main() {
                     },
                 },
                 ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("0"),
-                Metadata: []components.ItemsTypeMetadata{
-                    components.ItemsTypeMetadata{
+                Metadata: []components.Metadata{
+                    components.Metadata{
                         Name: "<value>",
                         Value: "<value>",
                     },
@@ -1526,8 +1526,8 @@ func main() {
                     },
                 },
                 ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("0"),
-                Metadata: []components.ItemsTypeMetadata{
-                    components.ItemsTypeMetadata{
+                Metadata: []components.Metadata{
+                    components.Metadata{
                         Name: "<value>",
                         Value: "<value>",
                     },

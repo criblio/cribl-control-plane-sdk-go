@@ -206,12 +206,12 @@ type CreateInputSystemByPackInputSystemState struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
 	Interval *float64 `json:"interval,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata                 `json:"metadata,omitzero"`
+	Metadata    []components.Metadata                          `json:"metadata,omitzero"`
 	Collectors  *CreateInputSystemByPackCollectors             `json:"collectors,omitzero"`
 	Persistence *CreateInputSystemByPackPersistenceSystemState `json:"persistence,omitzero"`
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
@@ -292,7 +292,7 @@ func (c *CreateInputSystemByPackInputSystemState) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputSystemState) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputSystemState) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -313,7 +313,7 @@ func (c *CreateInputSystemByPackInputSystemState) GetInterval() *float64 {
 	return c.Interval
 }
 
-func (c *CreateInputSystemByPackInputSystemState) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputSystemState) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -1083,8 +1083,8 @@ type CreateInputSystemByPackInputSystemMetrics struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive metric collections. Default is 10 seconds.
 	Interval  *float64                                  `json:"interval,omitzero"`
 	Host      *CreateInputSystemByPackHostSystemMetrics `json:"host,omitzero"`
@@ -1092,7 +1092,7 @@ type CreateInputSystemByPackInputSystemMetrics struct {
 	Container *CreateInputSystemByPackContainer         `json:"container,omitzero"`
 	Gpu       *components.GpuType                       `json:"gpu,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata                   `json:"metadata,omitzero"`
+	Metadata    []components.Metadata                            `json:"metadata,omitzero"`
 	Persistence *CreateInputSystemByPackPersistenceSystemMetrics `json:"persistence,omitzero"`
 	Description *string                                          `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -1168,7 +1168,7 @@ func (c *CreateInputSystemByPackInputSystemMetrics) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputSystemMetrics) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputSystemMetrics) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -1217,7 +1217,7 @@ func (c *CreateInputSystemByPackInputSystemMetrics) GetGpu() *components.GpuType
 	return c.Gpu
 }
 
-func (c *CreateInputSystemByPackInputSystemMetrics) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputSystemMetrics) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -1291,8 +1291,8 @@ type CreateInputSystemByPackInputTcpjson struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -1311,7 +1311,7 @@ type CreateInputSystemByPackInputTcpjson struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
@@ -1398,7 +1398,7 @@ func (c *CreateInputSystemByPackInputTcpjson) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputTcpjson) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputTcpjson) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -1475,7 +1475,7 @@ func (c *CreateInputSystemByPackInputTcpjson) GetEnableProxyHeader() *bool {
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputSystemByPackInputTcpjson) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputTcpjson) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -1640,7 +1640,7 @@ type CreateInputSystemByPackAuthTokensExt struct {
 	Token       string  `json:"token"`
 	Description *string `json:"description,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata              []components.ItemsTypeMetadata                `json:"metadata,omitzero"`
+	Metadata              []components.Metadata                         `json:"metadata,omitzero"`
 	SplunkHecMetadata     *CreateInputSystemByPackSplunkHecMetadata     `json:"splunkHecMetadata,omitzero"`
 	ElasticsearchMetadata *CreateInputSystemByPackElasticsearchMetadata `json:"elasticsearchMetadata,omitzero"`
 }
@@ -1670,7 +1670,7 @@ func (c *CreateInputSystemByPackAuthTokensExt) GetDescription() *string {
 	return c.Description
 }
 
-func (c *CreateInputSystemByPackAuthTokensExt) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackAuthTokensExt) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -1707,8 +1707,8 @@ type CreateInputSystemByPackInputCriblLakeHTTP struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -1746,7 +1746,7 @@ type CreateInputSystemByPackInputCriblLakeHTTP struct {
 	SplunkHecAPI  *string `json:"splunkHecAPI,omitzero"`
 	SplunkHecAcks *bool   `json:"splunkHecAcks,omitzero"`
 	// Fields to add to events from this input
-	Metadata      []components.ItemsTypeMetadata         `json:"metadata,omitzero"`
+	Metadata      []components.Metadata                  `json:"metadata,omitzero"`
 	AuthTokensExt []CreateInputSystemByPackAuthTokensExt `json:"authTokensExt,omitzero"`
 	Description   *string                                `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -1834,7 +1834,7 @@ func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -1981,7 +1981,7 @@ func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetSplunkHecAcks() *bool {
 	return c.SplunkHecAcks
 }
 
-func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -2097,14 +2097,14 @@ type CreateInputSystemByPackInputCriblHTTP struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
-	AuthTokens []components.ItemsTypeAuthTokens      `json:"authTokens,omitzero"`
+	AuthTokens []components.AuthToken                `json:"authTokens,omitzero"`
 	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
@@ -2129,8 +2129,8 @@ type CreateInputSystemByPackInputCriblHTTP struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -2208,7 +2208,7 @@ func (c *CreateInputSystemByPackInputCriblHTTP) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputCriblHTTP) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputCriblHTTP) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -2236,7 +2236,7 @@ func (c *CreateInputSystemByPackInputCriblHTTP) GetPort() float64 {
 	return c.Port
 }
 
-func (c *CreateInputSystemByPackInputCriblHTTP) GetAuthTokens() []components.ItemsTypeAuthTokens {
+func (c *CreateInputSystemByPackInputCriblHTTP) GetAuthTokens() []components.AuthToken {
 	if c == nil {
 		return nil
 	}
@@ -2327,7 +2327,7 @@ func (c *CreateInputSystemByPackInputCriblHTTP) GetIPDenylistRegex() *string {
 	return c.IPDenylistRegex
 }
 
-func (c *CreateInputSystemByPackInputCriblHTTP) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputCriblHTTP) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -2408,8 +2408,8 @@ type CreateInputSystemByPackInputCriblTCP struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -2426,12 +2426,12 @@ type CreateInputSystemByPackInputCriblTCP struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
-	AuthTokens  []components.ItemsTypeAuthTokens `json:"authTokens,omitzero"`
-	Description *string                          `json:"description,omitzero"`
+	AuthTokens  []components.AuthToken `json:"authTokens,omitzero"`
+	Description *string                `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -2509,7 +2509,7 @@ func (c *CreateInputSystemByPackInputCriblTCP) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputCriblTCP) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputCriblTCP) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -2579,7 +2579,7 @@ func (c *CreateInputSystemByPackInputCriblTCP) GetEnableProxyHeader() *bool {
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputSystemByPackInputCriblTCP) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputCriblTCP) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -2593,7 +2593,7 @@ func (c *CreateInputSystemByPackInputCriblTCP) GetEnableLoadBalancing() *bool {
 	return c.EnableLoadBalancing
 }
 
-func (c *CreateInputSystemByPackInputCriblTCP) GetAuthTokens() []components.ItemsTypeAuthTokens {
+func (c *CreateInputSystemByPackInputCriblTCP) GetAuthTokens() []components.AuthToken {
 	if c == nil {
 		return nil
 	}
@@ -2674,12 +2674,12 @@ type CreateInputSystemByPackInputCribl struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
-	Filter      *string                                   `json:"filter,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
+	Filter      *string                 `json:"filter,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -2753,7 +2753,7 @@ func (c *CreateInputSystemByPackInputCribl) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputCribl) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputCribl) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -2774,7 +2774,7 @@ func (c *CreateInputSystemByPackInputCribl) GetFilter() *string {
 	return c.Filter
 }
 
-func (c *CreateInputSystemByPackInputCribl) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputCribl) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -2841,8 +2841,8 @@ type CreateInputSystemByPackInputGooglePubsub struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// ID of the topic to receive events from. When Monitor subscription is enabled, any value may be entered.
 	TopicName string `json:"topicName"`
 	// ID of the subscription to use when receiving events. When Monitor subscription is enabled, the fully qualified subscription name must be entered. Example: projects/myProject/subscriptions/mySubscription
@@ -2868,8 +2868,8 @@ type CreateInputSystemByPackInputGooglePubsub struct {
 	// Pull request timeout, in milliseconds
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
 	OrderedDelivery *bool `json:"orderedDelivery,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2951,7 +2951,7 @@ func (c *CreateInputSystemByPackInputGooglePubsub) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputGooglePubsub) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputGooglePubsub) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -3049,7 +3049,7 @@ func (c *CreateInputSystemByPackInputGooglePubsub) GetRequestTimeout() *float64 
 	return c.RequestTimeout
 }
 
-func (c *CreateInputSystemByPackInputGooglePubsub) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputGooglePubsub) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -3144,8 +3144,8 @@ type CreateInputSystemByPackInputFirehose struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -3176,8 +3176,8 @@ type CreateInputSystemByPackInputFirehose struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -3257,7 +3257,7 @@ func (c *CreateInputSystemByPackInputFirehose) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputFirehose) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputFirehose) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -3376,7 +3376,7 @@ func (c *CreateInputSystemByPackInputFirehose) GetIPDenylistRegex() *string {
 	return c.IPDenylistRegex
 }
 
-func (c *CreateInputSystemByPackInputFirehose) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputFirehose) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -3487,8 +3487,8 @@ type CreateInputSystemByPackInputExec struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Command to execute; supports Bourne shell (or CMD on Windows) syntax
 	Command string `json:"command"`
 	// Optional script content to pipe into the command's stdin. The stdin stream is closed after the script is written.
@@ -3502,8 +3502,8 @@ type CreateInputSystemByPackInputExec struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Interval between command executions in seconds.
 	Interval *float64 `json:"interval,omitzero"`
 	// Cron schedule to execute the command on.
@@ -3581,7 +3581,7 @@ func (c *CreateInputSystemByPackInputExec) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputExec) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputExec) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -3637,7 +3637,7 @@ func (c *CreateInputSystemByPackInputExec) GetStaleChannelFlushMs() *float64 {
 	return c.StaleChannelFlushMs
 }
 
-func (c *CreateInputSystemByPackInputExec) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputExec) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -4089,8 +4089,8 @@ type CreateInputSystemByPackInputEventhubAmqp struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// The name of the Event Hub to consume from
 	EventHubName *string `json:"eventHubName,omitzero"`
 	// The consumer group this instance belongs to. Default is '$Default'.
@@ -4120,8 +4120,8 @@ type CreateInputSystemByPackInputEventhubAmqp struct {
 	// Maximum time to wait for a connection to complete
 	ConnectionTimeoutInMs *int64 `json:"connectionTimeoutInMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -4195,7 +4195,7 @@ func (c *CreateInputSystemByPackInputEventhubAmqp) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputEventhubAmqp) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -4314,7 +4314,7 @@ func (c *CreateInputSystemByPackInputEventhubAmqp) GetConnectionTimeoutInMs() *i
 	return c.ConnectionTimeoutInMs
 }
 
-func (c *CreateInputSystemByPackInputEventhubAmqp) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -4381,8 +4381,8 @@ type CreateInputSystemByPackInputEventhub struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
 	Brokers []string `json:"brokers"`
 	// The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
@@ -4436,8 +4436,8 @@ type CreateInputSystemByPackInputEventhub struct {
 	// Minimize duplicate events by starting only one consumer for each topic partition
 	MinimizeDuplicates *bool `json:"minimizeDuplicates,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -4517,7 +4517,7 @@ func (c *CreateInputSystemByPackInputEventhub) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputEventhub) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputEventhub) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -4692,7 +4692,7 @@ func (c *CreateInputSystemByPackInputEventhub) GetMinimizeDuplicates() *bool {
 	return c.MinimizeDuplicates
 }
 
-func (c *CreateInputSystemByPackInputEventhub) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputEventhub) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -4835,8 +4835,8 @@ type CreateInputSystemByPackInputMicrosoftGraph struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Microsoft Graph API endpoint URL. (ex. https://graph.microsoft.com/v1.0/admin/exchange/tracing/messageTraces)
 	URL string `json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
@@ -4864,7 +4864,7 @@ type CreateInputSystemByPackInputMicrosoftGraph struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Reschedule tasks that failed with non-fatal errors
 	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
 	// Maximum number of times a task can be rescheduled
@@ -4969,7 +4969,7 @@ func (c *CreateInputSystemByPackInputMicrosoftGraph) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputMicrosoftGraph) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -5074,7 +5074,7 @@ func (c *CreateInputSystemByPackInputMicrosoftGraph) GetIgnoreGroupJobsLimit() *
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputSystemByPackInputMicrosoftGraph) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputMicrosoftGraph) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -5279,8 +5279,8 @@ type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// URL to use when retrieving report data.
 	URL string `json:"url"`
 	// How often (in minutes) to run the report. Must divide evenly into 60 minutes to create a predictable schedule, or Save will fail.
@@ -5306,7 +5306,7 @@ type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Reschedule tasks that failed with non-fatal errors
 	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
 	// Maximum number of times a task can be rescheduled
@@ -5417,7 +5417,7 @@ func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetStreamtags() []string
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -5515,7 +5515,7 @@ func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetIgnoreGroupJobsLimit(
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputOffice365MsgTrace) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -5778,8 +5778,8 @@ type CreateInputSystemByPackInputOffice365Service struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
 	PlanType *components.SubscriptionPlanOptions `json:"planType,omitzero"`
 	// Microsoft 365 Azure Tenant ID
@@ -5799,7 +5799,7 @@ type CreateInputSystemByPackInputOffice365Service struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Enable Microsoft 365 Service Communication API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered for current and historical status must be evenly divisible by 60 to give a predictable schedule.
 	ContentConfig []CreateInputSystemByPackContentConfigOffice365Service `json:"contentConfig,omitzero"`
 	RetryRules    *components.RetryRulesTypeCodesEnableHeader            `json:"retryRules,omitzero"`
@@ -5891,7 +5891,7 @@ func (c *CreateInputSystemByPackInputOffice365Service) GetStreamtags() []string 
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputOffice365Service) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputOffice365Service) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -5968,7 +5968,7 @@ func (c *CreateInputSystemByPackInputOffice365Service) GetIgnoreGroupJobsLimit()
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputSystemByPackInputOffice365Service) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputOffice365Service) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -6161,8 +6161,8 @@ type CreateInputSystemByPackInputOffice365Mgmt struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Microsoft 365 subscription plan for your organization, typically Microsoft 365 Enterprise
 	PlanType components.SubscriptionPlanOptions `json:"planType"`
 	// Microsoft 365 Azure Tenant ID
@@ -6182,7 +6182,7 @@ type CreateInputSystemByPackInputOffice365Mgmt struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Optional Publisher Identifier to use in API requests, defaults to tenant id if not defined. For more information see [here](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference#start-a-subscription)
 	PublisherIdentifier *string `json:"publisherIdentifier,omitzero"`
 	// Enable Microsoft 365 Management Activity API content types and polling intervals. Polling intervals are used to set up search date range and cron schedule, e.g.: */${interval} * * * *. Because of this, intervals entered must be evenly divisible by 60 to give a predictable schedule.
@@ -6280,7 +6280,7 @@ func (c *CreateInputSystemByPackInputOffice365Mgmt) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputOffice365Mgmt) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputOffice365Mgmt) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -6357,7 +6357,7 @@ func (c *CreateInputSystemByPackInputOffice365Mgmt) GetIgnoreGroupJobsLimit() *b
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputSystemByPackInputOffice365Mgmt) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputOffice365Mgmt) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -6509,6 +6509,8 @@ const (
 	CreateInputSystemByPackDiscoveryTypeEdgePrometheusK8sNode CreateInputSystemByPackDiscoveryTypeEdgePrometheus = "k8s-node"
 	// CreateInputSystemByPackDiscoveryTypeEdgePrometheusK8sPods Kubernetes Pods
 	CreateInputSystemByPackDiscoveryTypeEdgePrometheusK8sPods CreateInputSystemByPackDiscoveryTypeEdgePrometheus = "k8s-pods"
+	// CreateInputSystemByPackDiscoveryTypeEdgePrometheusK8sServiceMonitor Kubernetes Service Monitor (v4.18+)
+	CreateInputSystemByPackDiscoveryTypeEdgePrometheusK8sServiceMonitor CreateInputSystemByPackDiscoveryTypeEdgePrometheus = "k8s-service-monitor"
 )
 
 func (e CreateInputSystemByPackDiscoveryTypeEdgePrometheus) ToPointer() *CreateInputSystemByPackDiscoveryTypeEdgePrometheus {
@@ -6519,7 +6521,7 @@ func (e CreateInputSystemByPackDiscoveryTypeEdgePrometheus) ToPointer() *CreateI
 func (e *CreateInputSystemByPackDiscoveryTypeEdgePrometheus) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "static", "dns", "ec2", "k8s-node", "k8s-pods":
+		case "static", "dns", "ec2", "k8s-node", "k8s-pods", "k8s-service-monitor":
 			return true
 		}
 	}
@@ -6648,10 +6650,12 @@ type CreateInputSystemByPackInputEdgePrometheus struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitzero"`
+	// Enable to use each metric name as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
+	FieldPerMetric *bool `json:"fieldPerMetric,omitzero"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
 	DiscoveryType CreateInputSystemByPackDiscoveryTypeEdgePrometheus `json:"discoveryType"`
 	// How often in seconds to scrape targets for metrics.
@@ -6660,7 +6664,7 @@ type CreateInputSystemByPackInputEdgePrometheus struct {
 	Timeout     *float64                     `json:"timeout,omitzero"`
 	Persistence *components.DiskSpoolingType `json:"persistence,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
 	AuthType    *CreateInputSystemByPackAuthenticationMethodEdgePrometheus `json:"authType,omitzero"`
 	Description *string                                                    `json:"description,omitzero"`
@@ -6701,6 +6705,8 @@ type CreateInputSystemByPackInputEdgePrometheus struct {
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// Namespace to search for ServiceMonitor resources. Leave empty to search in all namespaces. Note: Kubernetes Service Monitor discovery requires Cribl Edge version 4.18 or greater. Nodes running an older version with this option configured will report an error due to configuration schema validation failure.
+	ServiceMonitorNamespace *string `json:"serviceMonitorNamespace,omitzero"`
 	// Protocol to use when collecting metrics
 	ScrapeProtocolExpr *string `json:"scrapeProtocolExpr,omitzero"`
 	// The port number in the metrics URL for discovered targets.
@@ -6807,7 +6813,7 @@ func (c *CreateInputSystemByPackInputEdgePrometheus) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputEdgePrometheus) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputEdgePrometheus) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -6826,6 +6832,13 @@ func (c *CreateInputSystemByPackInputEdgePrometheus) GetDimensionList() []string
 		return nil
 	}
 	return c.DimensionList
+}
+
+func (c *CreateInputSystemByPackInputEdgePrometheus) GetFieldPerMetric() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.FieldPerMetric
 }
 
 func (c *CreateInputSystemByPackInputEdgePrometheus) GetDiscoveryType() CreateInputSystemByPackDiscoveryTypeEdgePrometheus {
@@ -6856,7 +6869,7 @@ func (c *CreateInputSystemByPackInputEdgePrometheus) GetPersistence() *component
 	return c.Persistence
 }
 
-func (c *CreateInputSystemByPackInputEdgePrometheus) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputEdgePrometheus) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -7015,6 +7028,13 @@ func (c *CreateInputSystemByPackInputEdgePrometheus) GetDurationSeconds() *float
 		return nil
 	}
 	return c.DurationSeconds
+}
+
+func (c *CreateInputSystemByPackInputEdgePrometheus) GetServiceMonitorNamespace() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ServiceMonitorNamespace
 }
 
 func (c *CreateInputSystemByPackInputEdgePrometheus) GetScrapeProtocolExpr() *string {
@@ -7225,10 +7245,12 @@ type CreateInputSystemByPackInputPrometheus struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitzero"`
+	// When enabled, each metric name is used as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
+	FieldPerMetric *bool `json:"fieldPerMetric,omitzero"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
 	DiscoveryType *CreateInputSystemByPackDiscoveryTypePrometheus `json:"discoveryType,omitzero"`
 	// How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
@@ -7250,7 +7272,7 @@ type CreateInputSystemByPackInputPrometheus struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
 	AuthType    *components.AuthenticationMethodOptionsSasl `json:"authType,omitzero"`
 	Description *string                                     `json:"description,omitzero"`
@@ -7395,7 +7417,7 @@ func (c *CreateInputSystemByPackInputPrometheus) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputPrometheus) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputPrometheus) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -7414,6 +7436,13 @@ func (c *CreateInputSystemByPackInputPrometheus) GetDimensionList() []string {
 		return nil
 	}
 	return c.DimensionList
+}
+
+func (c *CreateInputSystemByPackInputPrometheus) GetFieldPerMetric() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.FieldPerMetric
 }
 
 func (c *CreateInputSystemByPackInputPrometheus) GetDiscoveryType() *CreateInputSystemByPackDiscoveryTypePrometheus {
@@ -7486,7 +7515,7 @@ func (c *CreateInputSystemByPackInputPrometheus) GetIgnoreGroupJobsLimit() *bool
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputSystemByPackInputPrometheus) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputPrometheus) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -7805,8 +7834,8 @@ type CreateInputSystemByPackInputPrometheusRw struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -7839,10 +7868,10 @@ type CreateInputSystemByPackInputPrometheusRw struct {
 	// Remote Write authentication type
 	AuthType *components.AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
-	Username    *string                        `json:"username,omitzero"`
-	Password    *string                        `json:"password,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
+	Username    *string               `json:"username,omitzero"`
+	Password    *string               `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -7930,7 +7959,7 @@ func (c *CreateInputSystemByPackInputPrometheusRw) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputPrometheusRw) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputPrometheusRw) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -8056,7 +8085,7 @@ func (c *CreateInputSystemByPackInputPrometheusRw) GetAuthType() *components.Aut
 	return c.AuthType
 }
 
-func (c *CreateInputSystemByPackInputPrometheusRw) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputPrometheusRw) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -8186,8 +8215,8 @@ type CreateInputSystemByPackInputLoki struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -8220,10 +8249,10 @@ type CreateInputSystemByPackInputLoki struct {
 	// Loki logs authentication type
 	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
-	Username    *string                        `json:"username,omitzero"`
-	Password    *string                        `json:"password,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
+	Username    *string               `json:"username,omitzero"`
+	Password    *string               `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -8309,7 +8338,7 @@ func (c *CreateInputSystemByPackInputLoki) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputLoki) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputLoki) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -8435,7 +8464,7 @@ func (c *CreateInputSystemByPackInputLoki) GetAuthType() *components.Authenticat
 	return c.AuthType
 }
 
-func (c *CreateInputSystemByPackInputLoki) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputLoki) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -8696,8 +8725,8 @@ type CreateInputSystemByPackInputGrafanaGrafana2 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -8732,8 +8761,8 @@ type CreateInputSystemByPackInputGrafanaGrafana2 struct {
 	PrometheusAuth *CreateInputSystemByPackPrometheusAuth2 `json:"prometheusAuth,omitzero"`
 	LokiAuth       *CreateInputSystemByPackLokiAuth2       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -8815,7 +8844,7 @@ func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -8955,7 +8984,7 @@ func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetLokiAuth() *CreateInput
 	return c.LokiAuth
 }
 
-func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -9191,8 +9220,8 @@ type CreateInputSystemByPackInputGrafanaGrafana1 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -9227,8 +9256,8 @@ type CreateInputSystemByPackInputGrafanaGrafana1 struct {
 	PrometheusAuth *CreateInputSystemByPackPrometheusAuth1 `json:"prometheusAuth,omitzero"`
 	LokiAuth       *CreateInputSystemByPackLokiAuth1       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -9310,7 +9339,7 @@ func (c *CreateInputSystemByPackInputGrafanaGrafana1) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputGrafanaGrafana1) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputGrafanaGrafana1) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -9450,7 +9479,7 @@ func (c *CreateInputSystemByPackInputGrafanaGrafana1) GetLokiAuth() *CreateInput
 	return c.LokiAuth
 }
 
-func (c *CreateInputSystemByPackInputGrafanaGrafana1) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputGrafanaGrafana1) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -9637,8 +9666,8 @@ type CreateInputSystemByPackInputConfluentCloud struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
 	Brokers []string                                            `json:"brokers"`
 	TLS     *components.TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
@@ -9692,8 +9721,8 @@ type CreateInputSystemByPackInputConfluentCloud struct {
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -9773,7 +9802,7 @@ func (c *CreateInputSystemByPackInputConfluentCloud) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputConfluentCloud) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputConfluentCloud) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -9948,7 +9977,7 @@ func (c *CreateInputSystemByPackInputConfluentCloud) GetMaxSocketErrors() *float
 	return c.MaxSocketErrors
 }
 
-func (c *CreateInputSystemByPackInputConfluentCloud) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputConfluentCloud) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -10217,8 +10246,8 @@ type CreateInputSystemByPackInputElastic struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -10254,7 +10283,7 @@ type CreateInputSystemByPackInputElastic struct {
 	// Headers to add to all events
 	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata           `json:"metadata,omitzero"`
+	Metadata    []components.Metadata                    `json:"metadata,omitzero"`
 	ProxyMode   *CreateInputSystemByPackProxyModeElastic `json:"proxyMode,omitzero"`
 	Description *string                                  `json:"description,omitzero"`
 	Username    *string                                  `json:"username,omitzero"`
@@ -10346,7 +10375,7 @@ func (c *CreateInputSystemByPackInputElastic) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputElastic) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputElastic) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -10486,7 +10515,7 @@ func (c *CreateInputSystemByPackInputElastic) GetExtraHTTPHeaders() []components
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateInputSystemByPackInputElastic) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputElastic) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -10623,8 +10652,8 @@ type CreateInputSystemByPackInputAzureBlob struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// The storage account queue name blob notifications will be read from. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myQueue-${C.vars.myVar}`
 	QueueName string `json:"queueName"`
 	// Regex matching file names to download and process. Defaults to: .*
@@ -10640,7 +10669,7 @@ type CreateInputSystemByPackInputAzureBlob struct {
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
 	SkipOnError *bool `json:"skipOnError,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -10753,7 +10782,7 @@ func (c *CreateInputSystemByPackInputAzureBlob) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputAzureBlob) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputAzureBlob) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -10816,7 +10845,7 @@ func (c *CreateInputSystemByPackInputAzureBlob) GetSkipOnError() *bool {
 	return c.SkipOnError
 }
 
-func (c *CreateInputSystemByPackInputAzureBlob) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputAzureBlob) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -11020,7 +11049,7 @@ type CreateInputSystemByPackAuthTokenSplunkHec struct {
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
 	// Fields to add to events referencing this token
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 }
 
 func (c CreateInputSystemByPackAuthTokenSplunkHec) MarshalJSON() ([]byte, error) {
@@ -11076,7 +11105,7 @@ func (c *CreateInputSystemByPackAuthTokenSplunkHec) GetAllowedIndexesAtToken() [
 	return c.AllowedIndexesAtToken
 }
 
-func (c *CreateInputSystemByPackAuthTokenSplunkHec) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackAuthTokenSplunkHec) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -11099,8 +11128,8 @@ type CreateInputSystemByPackInputSplunkHec struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -11131,7 +11160,7 @@ type CreateInputSystemByPackInputSplunkHec struct {
 	// Absolute path on which to listen for the Splunk HTTP Event Collector API requests. This input supports the /event, /raw and /s2s endpoints.
 	SplunkHecAPI string `json:"splunkHecAPI"`
 	// Fields to add to every event. Overrides fields added at the token or request level. See [the Source documentation](https://docs.cribl.io/stream/sources-splunk-hec/#fields) for more info.
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
 	// Enable Splunk HEC acknowledgements
@@ -11232,7 +11261,7 @@ func (c *CreateInputSystemByPackInputSplunkHec) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputSplunkHec) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputSplunkHec) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -11351,7 +11380,7 @@ func (c *CreateInputSystemByPackInputSplunkHec) GetSplunkHecAPI() string {
 	return c.SplunkHecAPI
 }
 
-func (c *CreateInputSystemByPackInputSplunkHec) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputSplunkHec) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -11627,8 +11656,8 @@ type CreateInputSystemByPackInputSplunkSearch struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
 	SearchHead string `json:"searchHead"`
 	// Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
@@ -11668,8 +11697,8 @@ type CreateInputSystemByPackInputSplunkSearch struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata   []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	RetryRules *components.RetryRulesType     `json:"retryRules,omitzero"`
+	Metadata   []components.Metadata      `json:"metadata,omitzero"`
+	RetryRules *components.RetryRulesType `json:"retryRules,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -11770,7 +11799,7 @@ func (c *CreateInputSystemByPackInputSplunkSearch) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputSplunkSearch) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputSplunkSearch) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -11917,7 +11946,7 @@ func (c *CreateInputSystemByPackInputSplunkSearch) GetIgnoreGroupJobsLimit() *bo
 	return c.IgnoreGroupJobsLimit
 }
 
-func (c *CreateInputSystemByPackInputSplunkSearch) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputSplunkSearch) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -12172,8 +12201,8 @@ type CreateInputSystemByPackInputSplunk struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -12192,7 +12221,7 @@ type CreateInputSystemByPackInputSplunk struct {
 	// Enable if the connection is proxied by a device that supports proxy protocol v1 or v2
 	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -12291,7 +12320,7 @@ func (c *CreateInputSystemByPackInputSplunk) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputSplunk) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputSplunk) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -12368,7 +12397,7 @@ func (c *CreateInputSystemByPackInputSplunk) GetEnableProxyHeader() *bool {
 	return c.EnableProxyHeader
 }
 
-func (c *CreateInputSystemByPackInputSplunk) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputSplunk) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -12519,8 +12548,8 @@ type CreateInputSystemByPackInputHTTP struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
@@ -12558,7 +12587,7 @@ type CreateInputSystemByPackInputHTTP struct {
 	SplunkHecAPI  *string `json:"splunkHecAPI,omitzero"`
 	SplunkHecAcks *bool   `json:"splunkHecAcks,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokensExt []components.ItemsTypeAuthTokensExt `json:"authTokensExt,omitzero"`
 	Description   *string                             `json:"description,omitzero"`
@@ -12647,7 +12676,7 @@ func (c *CreateInputSystemByPackInputHTTP) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputHTTP) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputHTTP) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -12794,7 +12823,7 @@ func (c *CreateInputSystemByPackInputHTTP) GetSplunkHecAcks() *bool {
 	return c.SplunkHecAcks
 }
 
-func (c *CreateInputSystemByPackInputHTTP) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputHTTP) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -12910,8 +12939,8 @@ type CreateInputSystemByPackInputMsk struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
 	Brokers []string `json:"brokers"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
@@ -12935,7 +12964,7 @@ type CreateInputSystemByPackInputMsk struct {
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
 	HeartbeatInterval *float64 `json:"heartbeatInterval,omitzero"`
 	// Fields to add to events from this input
-	Metadata            []components.ItemsTypeMetadata                    `json:"metadata,omitzero"`
+	Metadata            []components.Metadata                             `json:"metadata,omitzero"`
 	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
@@ -13078,7 +13107,7 @@ func (c *CreateInputSystemByPackInputMsk) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputMsk) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputMsk) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -13141,7 +13170,7 @@ func (c *CreateInputSystemByPackInputMsk) GetHeartbeatInterval() *float64 {
 	return c.HeartbeatInterval
 }
 
-func (c *CreateInputSystemByPackInputMsk) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputMsk) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -13460,8 +13489,8 @@ type CreateInputSystemByPackInputKafka struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// Enter each Kafka bootstrap server you want to use. Specify the hostname and port (such as mykafkabroker:9092) or just the hostname (in which case @{product} will assign port 9092).
 	Brokers []string `json:"brokers"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
@@ -13515,8 +13544,8 @@ type CreateInputSystemByPackInputKafka struct {
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.ItemsTypeMetadata `json:"metadata,omitzero"`
-	Description *string                        `json:"description,omitzero"`
+	Metadata    []components.Metadata `json:"metadata,omitzero"`
+	Description *string               `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -13596,7 +13625,7 @@ func (c *CreateInputSystemByPackInputKafka) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputKafka) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputKafka) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -13771,7 +13800,7 @@ func (c *CreateInputSystemByPackInputKafka) GetMaxSocketErrors() *float64 {
 	return c.MaxSocketErrors
 }
 
-func (c *CreateInputSystemByPackInputKafka) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputKafka) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
@@ -13859,8 +13888,8 @@ type CreateInputSystemByPackInputCollection struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
-	Connections []components.ItemsTypeConnectionsOptional `json:"connections,omitzero"`
-	Pq          *components.PqType                        `json:"pq,omitzero"`
+	Connections []components.Connection `json:"connections,omitzero"`
+	Pq          *components.PqType      `json:"pq,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
@@ -13869,7 +13898,7 @@ type CreateInputSystemByPackInputCollection struct {
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
 	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
 	// Fields to add to events from this input
-	Metadata []components.ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []components.Metadata `json:"metadata,omitzero"`
 	// Destination to send results to
 	Output *string `json:"output,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -13945,7 +13974,7 @@ func (c *CreateInputSystemByPackInputCollection) GetStreamtags() []string {
 	return c.Streamtags
 }
 
-func (c *CreateInputSystemByPackInputCollection) GetConnections() []components.ItemsTypeConnectionsOptional {
+func (c *CreateInputSystemByPackInputCollection) GetConnections() []components.Connection {
 	if c == nil {
 		return nil
 	}
@@ -13987,7 +14016,7 @@ func (c *CreateInputSystemByPackInputCollection) GetThrottleRatePerSec() *string
 	return c.ThrottleRatePerSec
 }
 
-func (c *CreateInputSystemByPackInputCollection) GetMetadata() []components.ItemsTypeMetadata {
+func (c *CreateInputSystemByPackInputCollection) GetMetadata() []components.Metadata {
 	if c == nil {
 		return nil
 	}
