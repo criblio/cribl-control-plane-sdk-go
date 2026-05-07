@@ -53,12 +53,12 @@ func main() {
 		return
 	}
 
-	if response.AuthToken == nil || response.AuthToken.TokenSecret == "" {
+	if response.AuthToken == nil || response.AuthToken.Token == "" {
 		fmt.Println("❌ No token received from authentication response")
 		return
 	}
 
-	token := response.AuthToken.TokenSecret
+	token := response.AuthToken.Token
 	fmt.Printf("✅ Authenticated with on-prem server, Token: %s\n", token)
 
 	// Create authenticated SDK client

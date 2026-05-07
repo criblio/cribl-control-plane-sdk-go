@@ -44,10 +44,10 @@ const (
 )
 
 // routeConfsToInput converts RouteConf list for RoutesInput requests.
-func routeConfsToInput(routes []components.RouteConf) []components.RouteConf {
-	result := make([]components.RouteConf, len(routes))
+func routeConfsToInput(routes []components.RouteConf) []components.RouteConfInput {
+	result := make([]components.RouteConfInput, len(routes))
 	for i, r := range routes {
-		result[i] = components.RouteConf{
+		result[i] = components.RouteConfInput{
 			Clones:                 r.Clones,
 			Context:                r.Context,
 			Description:            r.Description,
@@ -60,8 +60,8 @@ func routeConfsToInput(routes []components.RouteConf) []components.RouteConf {
 			OutputExpression:       r.OutputExpression,
 			Pipeline:               r.Pipeline,
 			TargetContext:          r.TargetContext,
-			Final:                  r.Final,
-			ID:                     r.ID,
+			Final:                  criblcontrolplanesdkgo.Bool(r.Final),
+			ID:                     criblcontrolplanesdkgo.String(r.ID),
 		}
 	}
 	return result
@@ -182,7 +182,7 @@ func main() {
 		existingRoutes := routesListResponse.CountedRoutes.Items[0]
 
 		// Create new Route.
-		newRoute := components.RouteConf{
+		newRoute := components.RouteConfInput{
 			Final:                  criblcontrolplanesdkgo.Bool(false),
 			ID:                     criblcontrolplanesdkgo.String("my-route"),
 			Name:                   "my-route",
@@ -194,7 +194,7 @@ func main() {
 		}
 
 		// Add new route to existing Routes.
-		updatedRoutesInput := append([]components.RouteConf{newRoute}, routeConfsToInput(existingRoutes.Routes)...)
+		updatedRoutesInput := append([]components.RouteConfInput{newRoute}, routeConfsToInput(existingRoutes.Routes)...)
 
 		// Update Routes configuration
 		if existingRoutes.ID != "" {
