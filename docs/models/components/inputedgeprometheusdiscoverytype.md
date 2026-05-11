@@ -18,10 +18,11 @@ custom := components.InputEdgePrometheusDiscoveryType("custom_value")
 
 ## Values
 
-| Name                                      | Value                                     |
-| ----------------------------------------- | ----------------------------------------- |
-| `InputEdgePrometheusDiscoveryTypeStatic`  | static                                    |
-| `InputEdgePrometheusDiscoveryTypeDNS`     | dns                                       |
-| `InputEdgePrometheusDiscoveryTypeEc2`     | ec2                                       |
-| `InputEdgePrometheusDiscoveryTypeK8sNode` | k8s-node                                  |
-| `InputEdgePrometheusDiscoveryTypeK8sPods` | k8s-pods                                  |
+| Name                                                | Value                                               |
+| --------------------------------------------------- | --------------------------------------------------- |
+| `InputEdgePrometheusDiscoveryTypeStatic`            | static                                              |
+| `InputEdgePrometheusDiscoveryTypeDNS`               | dns                                                 |
+| `InputEdgePrometheusDiscoveryTypeEc2`               | ec2                                                 |
+| `InputEdgePrometheusDiscoveryTypeK8sNode`           | k8s-node                                            |
+| `InputEdgePrometheusDiscoveryTypeK8sPods`           | k8s-pods                                            |
+| `InputEdgePrometheusDiscoveryTypeK8sServiceMonitor` | k8s-service-monitor                                 |

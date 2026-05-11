@@ -1,0 +1,12 @@
+# CustomWindowsMetrics
+
+
+## Fields
+
+| Field                                                                                 | Type                                                                                  | Required                                                                              | Description                                                                           |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `System`                                                                              | [*components.SystemWindowsMetrics](../../models/components/systemwindowsmetrics.md)   | :heavy_minus_sign:                                                                    | N/A                                                                                   |
+| `CPU`                                                                                 | [*components.CPUWindowsMetrics](../../models/components/cpuwindowsmetrics.md)         | :heavy_minus_sign:                                                                    | N/A                                                                                   |
+| `Memory`                                                                              | [*components.MemoryWindowsMetrics](../../models/components/memorywindowsmetrics.md)   | :heavy_minus_sign:                                                                    | N/A                                                                                   |
+| `Network`                                                                             | [*components.NetworkWindowsMetrics](../../models/components/networkwindowsmetrics.md) | :heavy_minus_sign:                                                                    | N/A                                                                                   |
+| `Disk`                                                                                | [*components.DiskWindowsMetrics](../../models/components/diskwindowsmetrics.md)       | :heavy_minus_sign:                                                                    | N/A                                                                                   |

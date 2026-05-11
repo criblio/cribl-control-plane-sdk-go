@@ -149,9 +149,9 @@ type OutputClickHouse struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// URL of the ClickHouse instance. Example: http://localhost:8123/
-	URL      string                      `json:"url"`
-	AuthType *AuthenticationTypeOptions1 `json:"authType,omitzero"`
-	Database string                      `json:"database"`
+	URL      string                     `json:"url"`
+	AuthType *AuthenticationTypeOptions `json:"authType,omitzero"`
+	Database string                     `json:"database"`
 	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
 	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
@@ -159,8 +159,8 @@ type OutputClickHouse struct {
 	// How event fields are mapped to ClickHouse columns.
 	MappingType *OutputClickHouseMappingType `json:"mappingType,omitzero"`
 	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
-	AsyncInserts *bool                       `json:"asyncInserts,omitzero"`
-	TLS          *TLSSettingsClientSideType1 `json:"tls,omitzero"`
+	AsyncInserts *bool                                            `json:"asyncInserts,omitzero"`
+	TLS          *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -178,7 +178,7 @@ type OutputClickHouse struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -186,8 +186,8 @@ type OutputClickHouse struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Log the most recent event that fails to match the table schema
@@ -214,7 +214,7 @@ type OutputClickHouse struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -227,14 +227,22 @@ type OutputClickHouse struct {
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions   `json:"pqOnBackpressure,omitzero"`
-	PqControls       *OutputClickHousePqControls `json:"pqControls,omitzero"`
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                     `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *OutputClickHousePqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
 	TemplateDatabase *string `json:"__template_database,omitzero"`
 	// Binds 'tableName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableName' at runtime.
 	TemplateTableName *string `json:"__template_tableName,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (o OutputClickHouse) MarshalJSON() ([]byte, error) {
@@ -297,7 +305,7 @@ func (o *OutputClickHouse) GetURL() string {
 	return o.URL
 }
 
-func (o *OutputClickHouse) GetAuthType() *AuthenticationTypeOptions1 {
+func (o *OutputClickHouse) GetAuthType() *AuthenticationTypeOptions {
 	if o == nil {
 		return nil
 	}
@@ -339,7 +347,7 @@ func (o *OutputClickHouse) GetAsyncInserts() *bool {
 	return o.AsyncInserts
 }
 
-func (o *OutputClickHouse) GetTLS() *TLSSettingsClientSideType1 {
+func (o *OutputClickHouse) GetTLS() *TLSSettingsClientSideTypeCaPathCertPathExtended {
 	if o == nil {
 		return nil
 	}
@@ -395,7 +403,7 @@ func (o *OutputClickHouse) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputClickHouse) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputClickHouse) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -423,7 +431,7 @@ func (o *OutputClickHouse) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputClickHouse) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputClickHouse) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}
@@ -591,11 +599,25 @@ func (o *OutputClickHouse) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	return o.PqOnBackpressure
 }
 
+func (o *OutputClickHouse) GetPqMaxBufferSizeBytes() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSizeBytes
+}
+
 func (o *OutputClickHouse) GetPqControls() *OutputClickHousePqControls {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputClickHouse) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputClickHouse) GetTemplateURL() *string {
@@ -617,4 +639,18 @@ func (o *OutputClickHouse) GetTemplateTableName() *string {
 		return nil
 	}
 	return o.TemplateTableName
+}
+
+func (o *OutputClickHouse) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputClickHouse) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }

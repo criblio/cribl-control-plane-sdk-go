@@ -22,7 +22,7 @@ func (d *DeleteOutputByIDRequest) GetID() string {
 type DeleteOutputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the deleted Destination object
-	CountedOutput *components.CountedOutput
+	CountedOutputResponse *components.CountedOutputResponse
 }
 
 func (d DeleteOutputByIDResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +43,9 @@ func (d *DeleteOutputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return d.HTTPMeta
 }
 
-func (d *DeleteOutputByIDResponse) GetCountedOutput() *components.CountedOutput {
+func (d *DeleteOutputByIDResponse) GetCountedOutputResponse() *components.CountedOutputResponse {
 	if d == nil {
 		return nil
 	}
-	return d.CountedOutput
+	return d.CountedOutputResponse
 }

@@ -9,7 +9,7 @@ import (
 
 type GetVersionBranchResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of BranchInfo objects
+	// List of BranchInfo objects.
 	CountedBranchInfo *components.CountedBranchInfo
 }
 

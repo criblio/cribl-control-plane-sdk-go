@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### TLSSettings1
+### TLSSettings
 
 ```go
-tlsSettingsUnion := components.CreateTLSSettingsUnionTLSSettings1(components.TLSSettings1{/* values here */})
+tlsSettingsUnion := components.CreateTLSSettingsUnionTLSSettings(components.TLSSettings{/* values here */})
 ```
 
-### TLSSettings2
+### EmptyObject
 
 ```go
-tlsSettingsUnion := components.CreateTLSSettingsUnionTLSSettings2(components.TLSSettings2{/* values here */})
+tlsSettingsUnion := components.CreateTLSSettingsUnionEmptyObject(components.EmptyObject{/* values here */})
 ```
 
 ## Union Discrimination
@@ -21,9 +21,9 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch tlsSettingsUnion.Type {
-	case components.TLSSettingsUnionTypeTLSSettings1:
-		// tlsSettingsUnion.TLSSettings1 is populated
-	case components.TLSSettingsUnionTypeTLSSettings2:
-		// tlsSettingsUnion.TLSSettings2 is populated
+	case components.TLSSettingsUnionTypeTLSSettings:
+		// tlsSettingsUnion.TLSSettings is populated
+	case components.TLSSettingsUnionTypeEmptyObject:
+		// tlsSettingsUnion.EmptyObject is populated
 }
 ```

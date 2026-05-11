@@ -314,7 +314,7 @@ func main() {
 
 ## Upload
 
-Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs source</code>, which you must call separately.
+Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs</code>, which you must call separately.
 
 ### Example Usage
 
@@ -535,7 +535,7 @@ func main() {
 | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
 | `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |
 | `id`                                                                           | `string`                                                                       | :heavy_check_mark:                                                             | The <code>id</code> of the Pack to upgrade.                                    |
-| `packUpgradeRequest`                                                           | [components.PackUpgradeRequest](../../models/components/packupgraderequest.md) | :heavy_check_mark:                                                             | PackUpgradeRequest object                                                      |
+| `packUpgradeRequest`                                                           | [components.PackUpgradeRequest](../../models/components/packupgraderequest.md) | :heavy_check_mark:                                                             | PackUpgradeRequest object.                                                     |
 | `opts`                                                                         | [][operations.Option](../../models/operations/option.md)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |
 
 ### Response

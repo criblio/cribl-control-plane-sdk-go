@@ -9,7 +9,7 @@ import (
 
 type GetVersionCurrentBranchResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// CurrentBranchResult object
+	// The requested CurrentBranchResult object.
 	CurrentBranchResult *components.CurrentBranchResult
 }
 

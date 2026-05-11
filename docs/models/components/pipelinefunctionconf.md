@@ -183,6 +183,12 @@ pipelineFunctionConf := components.CreatePipelineFunctionConfLocalSearchRulesetR
 pipelineFunctionConf := components.CreatePipelineFunctionConfLocalSearchSchemaMapper(components.PipelineFunctionLocalSearchSchemaMapper{/* values here */})
 ```
 
+### PipelineFunctionLocalSearchTimeRangeNormalizer
+
+```go
+pipelineFunctionConf := components.CreatePipelineFunctionConfLocalSearchTimeRangeNormalizer(components.PipelineFunctionLocalSearchTimeRangeNormalizer{/* values here */})
+```
+
 ### PipelineFunctionLocalSearchTransformer
 
 ```go
@@ -307,6 +313,12 @@ pipelineFunctionConf := components.CreatePipelineFunctionConfRollupMetrics(compo
 
 ```go
 pipelineFunctionConf := components.CreatePipelineFunctionConfSampling(components.PipelineFunctionSampling{/* values here */})
+```
+
+### PipelineFunctionSearchEngineExport
+
+```go
+pipelineFunctionConf := components.CreatePipelineFunctionConfSearchEngineExport(components.PipelineFunctionSearchEngineExport{/* values here */})
 ```
 
 ### PipelineFunctionSend
@@ -471,6 +483,8 @@ switch pipelineFunctionConf.Type {
 		// pipelineFunctionConf.PipelineFunctionLocalSearchRulesetRunner is populated
 	case components.PipelineFunctionConfTypeLocalSearchSchemaMapper:
 		// pipelineFunctionConf.PipelineFunctionLocalSearchSchemaMapper is populated
+	case components.PipelineFunctionConfTypeLocalSearchTimeRangeNormalizer:
+		// pipelineFunctionConf.PipelineFunctionLocalSearchTimeRangeNormalizer is populated
 	case components.PipelineFunctionConfTypeLocalSearchTransformer:
 		// pipelineFunctionConf.PipelineFunctionLocalSearchTransformer is populated
 	case components.PipelineFunctionConfTypeLookup:
@@ -513,6 +527,8 @@ switch pipelineFunctionConf.Type {
 		// pipelineFunctionConf.PipelineFunctionRollupMetrics is populated
 	case components.PipelineFunctionConfTypeSampling:
 		// pipelineFunctionConf.PipelineFunctionSampling is populated
+	case components.PipelineFunctionConfTypeSearchEngineExport:
+		// pipelineFunctionConf.PipelineFunctionSearchEngineExport is populated
 	case components.PipelineFunctionConfTypeSend:
 		// pipelineFunctionConf.PipelineFunctionSend is populated
 	case components.PipelineFunctionConfTypeSensitiveDataScanner:

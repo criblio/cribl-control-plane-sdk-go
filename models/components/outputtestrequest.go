@@ -2,6 +2,7 @@
 
 package components
 
+// OutputTestRequest - Request body for testing a Destination by sending sample events.
 type OutputTestRequest struct {
 	// Array of event objects to send to the Destination for testing.
 	Events []map[string]any `json:"events"`

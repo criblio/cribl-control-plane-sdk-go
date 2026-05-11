@@ -62,8 +62,8 @@ type SerdeTypeGrok struct {
 	// Parser or formatter type to use
 	Type TypeOptions `json:"type"`
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     string                              `json:"pattern"`
-	PatternList []ItemsTypeSerdeTypeGrokPatternList `json:"patternList,omitzero"`
+	Pattern     string                         `json:"pattern"`
+	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 	Mode SerdeTypeGrokOperationMode `json:"mode"`
 	// Field containing text to be parsed
@@ -75,8 +75,8 @@ type SerdeTypeGrok struct {
 	// A list of characters that may be present in a value, even though they are normally separator or control characters
 	AllowedValueChars []string `json:"allowedValueChars,omitzero"`
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     *string                            `json:"regex,omitzero"`
-	RegexList []ItemsTypeSerdeTypeRegexRegexList `json:"regexList,omitzero"`
+	Regex     *string                       `json:"regex,omitzero"`
+	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
 	Iterations *float64 `json:"iterations,omitzero"`
 	// JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
@@ -110,7 +110,7 @@ func (s *SerdeTypeGrok) GetPattern() string {
 	return s.Pattern
 }
 
-func (s *SerdeTypeGrok) GetPatternList() []ItemsTypeSerdeTypeGrokPatternList {
+func (s *SerdeTypeGrok) GetPatternList() []PatternListConfSerdeTypeGrok {
 	if s == nil {
 		return nil
 	}
@@ -159,7 +159,7 @@ func (s *SerdeTypeGrok) GetRegex() *string {
 	return s.Regex
 }
 
-func (s *SerdeTypeGrok) GetRegexList() []ItemsTypeSerdeTypeRegexRegexList {
+func (s *SerdeTypeGrok) GetRegexList() []RegexListConfSerdeTypeRegex {
 	if s == nil {
 		return nil
 	}
@@ -216,8 +216,8 @@ type SerdeTypeRegex struct {
 	// Parser or formatter type to use
 	Type TypeOptions `json:"type"`
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     string                             `json:"regex"`
-	RegexList []ItemsTypeSerdeTypeRegexRegexList `json:"regexList,omitzero"`
+	Regex     string                        `json:"regex"`
+	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
 	Iterations *float64 `json:"iterations,omitzero"`
 	// JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
@@ -235,8 +235,8 @@ type SerdeTypeRegex struct {
 	// A list of characters that may be present in a value, even though they are normally separator or control characters
 	AllowedValueChars []string `json:"allowedValueChars,omitzero"`
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     *string                             `json:"pattern,omitzero"`
-	PatternList []ItemsTypeSerdeTypeGrokPatternList `json:"patternList,omitzero"`
+	Pattern     *string                        `json:"pattern,omitzero"`
+	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
 }
 
 func (s SerdeTypeRegex) MarshalJSON() ([]byte, error) {
@@ -264,7 +264,7 @@ func (s *SerdeTypeRegex) GetRegex() string {
 	return s.Regex
 }
 
-func (s *SerdeTypeRegex) GetRegexList() []ItemsTypeSerdeTypeRegexRegexList {
+func (s *SerdeTypeRegex) GetRegexList() []RegexListConfSerdeTypeRegex {
 	if s == nil {
 		return nil
 	}
@@ -334,7 +334,7 @@ func (s *SerdeTypeRegex) GetPattern() *string {
 	return s.Pattern
 }
 
-func (s *SerdeTypeRegex) GetPatternList() []ItemsTypeSerdeTypeGrokPatternList {
+func (s *SerdeTypeRegex) GetPatternList() []PatternListConfSerdeTypeGrok {
 	if s == nil {
 		return nil
 	}
@@ -386,8 +386,8 @@ type SerdeTypeJSON struct {
 	// A list of characters that may be present in a value, even though they are normally separator or control characters
 	AllowedValueChars []string `json:"allowedValueChars,omitzero"`
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     *string                            `json:"regex,omitzero"`
-	RegexList []ItemsTypeSerdeTypeRegexRegexList `json:"regexList,omitzero"`
+	Regex     *string                       `json:"regex,omitzero"`
+	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
 	Iterations *float64 `json:"iterations,omitzero"`
 	// JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
@@ -395,8 +395,8 @@ type SerdeTypeJSON struct {
 	// Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
 	Overwrite *bool `json:"overwrite,omitzero"`
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     *string                             `json:"pattern,omitzero"`
-	PatternList []ItemsTypeSerdeTypeGrokPatternList `json:"patternList,omitzero"`
+	Pattern     *string                        `json:"pattern,omitzero"`
+	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
 }
 
 func (s SerdeTypeJSON) MarshalJSON() ([]byte, error) {
@@ -480,7 +480,7 @@ func (s *SerdeTypeJSON) GetRegex() *string {
 	return s.Regex
 }
 
-func (s *SerdeTypeJSON) GetRegexList() []ItemsTypeSerdeTypeRegexRegexList {
+func (s *SerdeTypeJSON) GetRegexList() []RegexListConfSerdeTypeRegex {
 	if s == nil {
 		return nil
 	}
@@ -515,7 +515,7 @@ func (s *SerdeTypeJSON) GetPattern() *string {
 	return s.Pattern
 }
 
-func (s *SerdeTypeJSON) GetPatternList() []ItemsTypeSerdeTypeGrokPatternList {
+func (s *SerdeTypeJSON) GetPatternList() []PatternListConfSerdeTypeGrok {
 	if s == nil {
 		return nil
 	}
@@ -569,8 +569,8 @@ type SerdeTypeCsv struct {
 	// A list of characters that may be present in a value, even though they are normally separator or control characters
 	AllowedValueChars []string `json:"allowedValueChars,omitzero"`
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     *string                            `json:"regex,omitzero"`
-	RegexList []ItemsTypeSerdeTypeRegexRegexList `json:"regexList,omitzero"`
+	Regex     *string                       `json:"regex,omitzero"`
+	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
 	Iterations *float64 `json:"iterations,omitzero"`
 	// JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
@@ -578,8 +578,8 @@ type SerdeTypeCsv struct {
 	// Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
 	Overwrite *bool `json:"overwrite,omitzero"`
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     *string                             `json:"pattern,omitzero"`
-	PatternList []ItemsTypeSerdeTypeGrokPatternList `json:"patternList,omitzero"`
+	Pattern     *string                        `json:"pattern,omitzero"`
+	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
 }
 
 func (s SerdeTypeCsv) MarshalJSON() ([]byte, error) {
@@ -670,7 +670,7 @@ func (s *SerdeTypeCsv) GetRegex() *string {
 	return s.Regex
 }
 
-func (s *SerdeTypeCsv) GetRegexList() []ItemsTypeSerdeTypeRegexRegexList {
+func (s *SerdeTypeCsv) GetRegexList() []RegexListConfSerdeTypeRegex {
 	if s == nil {
 		return nil
 	}
@@ -705,7 +705,7 @@ func (s *SerdeTypeCsv) GetPattern() *string {
 	return s.Pattern
 }
 
-func (s *SerdeTypeCsv) GetPatternList() []ItemsTypeSerdeTypeGrokPatternList {
+func (s *SerdeTypeCsv) GetPatternList() []PatternListConfSerdeTypeGrok {
 	if s == nil {
 		return nil
 	}
@@ -767,8 +767,8 @@ type SerdeTypeDelim struct {
 	// A list of characters that may be present in a value, even though they are normally separator or control characters
 	AllowedValueChars []string `json:"allowedValueChars,omitzero"`
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     *string                            `json:"regex,omitzero"`
-	RegexList []ItemsTypeSerdeTypeRegexRegexList `json:"regexList,omitzero"`
+	Regex     *string                       `json:"regex,omitzero"`
+	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
 	Iterations *float64 `json:"iterations,omitzero"`
 	// JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
@@ -776,8 +776,8 @@ type SerdeTypeDelim struct {
 	// Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
 	Overwrite *bool `json:"overwrite,omitzero"`
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     *string                             `json:"pattern,omitzero"`
-	PatternList []ItemsTypeSerdeTypeGrokPatternList `json:"patternList,omitzero"`
+	Pattern     *string                        `json:"pattern,omitzero"`
+	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
 }
 
 func (s SerdeTypeDelim) MarshalJSON() ([]byte, error) {
@@ -896,7 +896,7 @@ func (s *SerdeTypeDelim) GetRegex() *string {
 	return s.Regex
 }
 
-func (s *SerdeTypeDelim) GetRegexList() []ItemsTypeSerdeTypeRegexRegexList {
+func (s *SerdeTypeDelim) GetRegexList() []RegexListConfSerdeTypeRegex {
 	if s == nil {
 		return nil
 	}
@@ -931,7 +931,7 @@ func (s *SerdeTypeDelim) GetPattern() *string {
 	return s.Pattern
 }
 
-func (s *SerdeTypeDelim) GetPatternList() []ItemsTypeSerdeTypeGrokPatternList {
+func (s *SerdeTypeDelim) GetPatternList() []PatternListConfSerdeTypeGrok {
 	if s == nil {
 		return nil
 	}
@@ -985,8 +985,8 @@ type SerdeTypeKvp struct {
 	// Name of the field to add fields to. Extract mode only.
 	DstField *string `json:"dstField,omitzero"`
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     *string                            `json:"regex,omitzero"`
-	RegexList []ItemsTypeSerdeTypeRegexRegexList `json:"regexList,omitzero"`
+	Regex     *string                       `json:"regex,omitzero"`
+	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
 	Iterations *float64 `json:"iterations,omitzero"`
 	// JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
@@ -994,8 +994,8 @@ type SerdeTypeKvp struct {
 	// Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
 	Overwrite *bool `json:"overwrite,omitzero"`
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     *string                             `json:"pattern,omitzero"`
-	PatternList []ItemsTypeSerdeTypeGrokPatternList `json:"patternList,omitzero"`
+	Pattern     *string                        `json:"pattern,omitzero"`
+	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
 }
 
 func (s SerdeTypeKvp) MarshalJSON() ([]byte, error) {
@@ -1086,7 +1086,7 @@ func (s *SerdeTypeKvp) GetRegex() *string {
 	return s.Regex
 }
 
-func (s *SerdeTypeKvp) GetRegexList() []ItemsTypeSerdeTypeRegexRegexList {
+func (s *SerdeTypeKvp) GetRegexList() []RegexListConfSerdeTypeRegex {
 	if s == nil {
 		return nil
 	}
@@ -1121,7 +1121,7 @@ func (s *SerdeTypeKvp) GetPattern() *string {
 	return s.Pattern
 }
 
-func (s *SerdeTypeKvp) GetPatternList() []ItemsTypeSerdeTypeGrokPatternList {
+func (s *SerdeTypeKvp) GetPatternList() []PatternListConfSerdeTypeGrok {
 	if s == nil {
 		return nil
 	}

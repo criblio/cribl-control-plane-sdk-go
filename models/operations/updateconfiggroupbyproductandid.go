@@ -12,7 +12,7 @@ type UpdateConfigGroupByProductAndIDRequest struct {
 	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 	// The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// ConfigGroup object
+	// ConfigGroup object.
 	ConfigGroup components.ConfigGroup `request:"mediaType=application/json"`
 }
 
@@ -39,7 +39,7 @@ func (u *UpdateConfigGroupByProductAndIDRequest) GetConfigGroup() components.Con
 
 type UpdateConfigGroupByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of ConfigGroup objects
+	// The updated ConfigGroup object in a single-item list.
 	CountedConfigGroup *components.CountedConfigGroup
 }
 

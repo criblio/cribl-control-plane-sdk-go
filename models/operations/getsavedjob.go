@@ -21,7 +21,7 @@ func (g *GetSavedJobRequest) GetCollectorType() *string {
 
 type GetSavedJobResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of SavedJobResponse objects
+	// List of SavedJobResponse objects.
 	CountedSavedJobResponse *components.CountedSavedJobResponse
 }
 

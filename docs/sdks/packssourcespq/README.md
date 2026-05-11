@@ -51,7 +51,7 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Source to clear the PQ for.   |
-| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack to clear.                |
+| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack.                         |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
@@ -97,7 +97,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedObject != nil {
+    if res.CountedJobInfo != nil {
         // handle response
     }
 }
@@ -109,7 +109,7 @@ func main() {
 | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
 | `ctx`                                                            | [context.Context](https://pkg.go.dev/context#Context)            | :heavy_check_mark:                                               | The context to use for the request.                              |
 | `id`                                                             | `string`                                                         | :heavy_check_mark:                                               | The <code>id</code> of the Source to get PQ job information for. |
-| `pack`                                                           | `string`                                                         | :heavy_check_mark:                                               | The <code>id</code> of the Pack to get.                          |
+| `pack`                                                           | `string`                                                         | :heavy_check_mark:                                               | The <code>id</code> of the Pack.                                 |
 | `opts`                                                           | [][operations.Option](../../models/operations/option.md)         | :heavy_minus_sign:                                               | The options for this request.                                    |
 
 ### Response

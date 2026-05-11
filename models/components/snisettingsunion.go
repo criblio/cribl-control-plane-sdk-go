@@ -8,77 +8,57 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type SniSettings2 struct {
-}
-
-func (s SniSettings2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
-}
-
-func (s *SniSettings2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-// #region class-body-snisettings2
-// #endregion class-body-snisettings2
-
-type SniSettings1 struct {
+type SniSettings struct {
 	DisableSNIRouting bool `json:"disableSNIRouting"`
 }
 
-func (s SniSettings1) MarshalJSON() ([]byte, error) {
+func (s SniSettings) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(s, "", false)
 }
 
-func (s *SniSettings1) UnmarshalJSON(data []byte) error {
+func (s *SniSettings) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *SniSettings1) GetDisableSNIRouting() bool {
+func (s *SniSettings) GetDisableSNIRouting() bool {
 	if s == nil {
 		return false
 	}
 	return s.DisableSNIRouting
 }
 
-// #region class-body-snisettings1
-// #endregion class-body-snisettings1
-
 type SniSettingsUnionType string
 
 const (
-	SniSettingsUnionTypeSniSettings1 SniSettingsUnionType = "SniSettings_1"
-	SniSettingsUnionTypeSniSettings2 SniSettingsUnionType = "SniSettings_2"
+	SniSettingsUnionTypeSniSettings SniSettingsUnionType = "SniSettings"
+	SniSettingsUnionTypeEmptyObject SniSettingsUnionType = "EmptyObject"
 )
 
 type SniSettingsUnion struct {
-	SniSettings1 *SniSettings1 `queryParam:"inline" union:"member"`
-	SniSettings2 *SniSettings2 `queryParam:"inline" union:"member"`
+	SniSettings *SniSettings `queryParam:"inline" union:"member"`
+	EmptyObject *EmptyObject `queryParam:"inline" union:"member"`
 
 	Type SniSettingsUnionType
 }
 
-func CreateSniSettingsUnionSniSettings1(sniSettings1 SniSettings1) SniSettingsUnion {
-	typ := SniSettingsUnionTypeSniSettings1
+func CreateSniSettingsUnionSniSettings(sniSettings SniSettings) SniSettingsUnion {
+	typ := SniSettingsUnionTypeSniSettings
 
 	return SniSettingsUnion{
-		SniSettings1: &sniSettings1,
-		Type:         typ,
+		SniSettings: &sniSettings,
+		Type:        typ,
 	}
 }
 
-func CreateSniSettingsUnionSniSettings2(sniSettings2 SniSettings2) SniSettingsUnion {
-	typ := SniSettingsUnionTypeSniSettings2
+func CreateSniSettingsUnionEmptyObject(emptyObject EmptyObject) SniSettingsUnion {
+	typ := SniSettingsUnionTypeEmptyObject
 
 	return SniSettingsUnion{
-		SniSettings2: &sniSettings2,
-		Type:         typ,
+		EmptyObject: &emptyObject,
+		Type:        typ,
 	}
 }
 
@@ -87,19 +67,19 @@ func (u *SniSettingsUnion) UnmarshalJSON(data []byte) error {
 	var candidates []utils.UnionCandidate
 
 	// Collect all valid candidates
-	var sniSettings1 SniSettings1 = SniSettings1{}
-	if err := utils.UnmarshalJSON(data, &sniSettings1, "", true, nil); err == nil {
+	var sniSettings SniSettings = SniSettings{}
+	if err := utils.UnmarshalJSON(data, &sniSettings, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  SniSettingsUnionTypeSniSettings1,
-			Value: &sniSettings1,
+			Type:  SniSettingsUnionTypeSniSettings,
+			Value: &sniSettings,
 		})
 	}
 
-	var sniSettings2 SniSettings2 = SniSettings2{}
-	if err := utils.UnmarshalJSON(data, &sniSettings2, "", true, nil); err == nil {
+	var emptyObject EmptyObject = EmptyObject{}
+	if err := utils.UnmarshalJSON(data, &emptyObject, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  SniSettingsUnionTypeSniSettings2,
-			Value: &sniSettings2,
+			Type:  SniSettingsUnionTypeEmptyObject,
+			Value: &emptyObject,
 		})
 	}
 
@@ -116,11 +96,11 @@ func (u *SniSettingsUnion) UnmarshalJSON(data []byte) error {
 	// Set the union type and value based on the best candidate
 	u.Type = best.Type.(SniSettingsUnionType)
 	switch best.Type {
-	case SniSettingsUnionTypeSniSettings1:
-		u.SniSettings1 = best.Value.(*SniSettings1)
+	case SniSettingsUnionTypeSniSettings:
+		u.SniSettings = best.Value.(*SniSettings)
 		return nil
-	case SniSettingsUnionTypeSniSettings2:
-		u.SniSettings2 = best.Value.(*SniSettings2)
+	case SniSettingsUnionTypeEmptyObject:
+		u.EmptyObject = best.Value.(*EmptyObject)
 		return nil
 	}
 
@@ -128,12 +108,12 @@ func (u *SniSettingsUnion) UnmarshalJSON(data []byte) error {
 }
 
 func (u SniSettingsUnion) MarshalJSON() ([]byte, error) {
-	if u.SniSettings1 != nil {
-		return utils.MarshalJSON(u.SniSettings1, "", true)
+	if u.SniSettings != nil {
+		return utils.MarshalJSON(u.SniSettings, "", true)
 	}
 
-	if u.SniSettings2 != nil {
-		return utils.MarshalJSON(u.SniSettings2, "", true)
+	if u.EmptyObject != nil {
+		return utils.MarshalJSON(u.EmptyObject, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type SniSettingsUnion: all fields are null")

@@ -316,14 +316,14 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Nodes](docs/sdks/nodes/README.md)
 
-* [Count](docs/sdks/nodes/README.md#count) - Get a count of Worker or Edge Nodes
-* [Get](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker or Edge Node
-* [List](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker or Edge Nodes
-* [Restart](docs/sdks/nodes/README.md#restart) - Restart Worker or Edge Nodes
+* [Count](docs/sdks/nodes/README.md#count) - Get a count of Worker, Edge, or Outpost Nodes
+* [Get](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker, Edge, or Outpost Node
+* [List](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker, Edge, or Outpost Nodes
+* [Restart](docs/sdks/nodes/README.md#restart) - Restart Worker, Edge, or Outpost Nodes
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 
-* [Get](docs/sdks/summaries/README.md#get) - Get a summary of the Distributed deployment for a specific product
+* [Get](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a specific product.
 
 ### [Packs](docs/sdks/packs/README.md)
 
@@ -444,7 +444,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 #### [System.Settings.Cribl](docs/sdks/cribl/README.md)
 
 * [List](docs/sdks/cribl/README.md#list) - Get Cribl system settings
-* [Update](docs/sdks/cribl/README.md#update) - Update Cribl system settings
+* [Update](docs/sdks/cribl/README.md#update) - Update system settings
 
 ### [Versions.Branches](docs/sdks/branches/README.md)
 
@@ -708,11 +708,11 @@ func main() {
 		}),
 	)
 
-	res, err := s.System.Captures.Create(ctx, components.CaptureParams{
-		Duration:  5.0,
-		Filter:    "sourcetype===\"pan:traffic\"",
-		Level:     components.CaptureLevelBeforePreProcessingPipeline,
-		MaxEvents: 100,
+	res, err := s.System.Captures.Create(ctx, components.CaptureParamsReq{
+		Duration:  criblcontrolplanesdkgo.Pointer[int64](5),
+		Filter:    criblcontrolplanesdkgo.Pointer("sourcetype===\"pan:traffic\""),
+		Level:     components.CaptureLevelBeforePreProcessingPipeline.ToPointer(),
+		MaxEvents: criblcontrolplanesdkgo.Pointer[int64](100),
 	})
 	if err != nil {
 		log.Fatal(err)
@@ -747,7 +747,6 @@ import (
 	"context"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 	"os"
 )
@@ -762,13 +761,11 @@ func main() {
 		}),
 	)
 
-	res, err := s.Nodes.List(ctx, operations.GetProductsWorkersByProductRequest{
-		Product: components.ProductsBaseStream,
-	})
+	res, err := s.Sources.Statuses.List(ctx, nil, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.CountedMasterWorkerEntry != nil {
+	if res.CountedInputStatus != nil {
 		for {
 			// handle items
 

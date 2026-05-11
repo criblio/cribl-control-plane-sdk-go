@@ -56,6 +56,38 @@ func (e *OutputOpenTelemetryOTLPVersion) IsExact() bool {
 	return false
 }
 
+type OutputOpenTelemetryAuthenticationType string
+
+const (
+	// OutputOpenTelemetryAuthenticationTypeNone None
+	OutputOpenTelemetryAuthenticationTypeNone OutputOpenTelemetryAuthenticationType = "none"
+	// OutputOpenTelemetryAuthenticationTypeBasic Basic
+	OutputOpenTelemetryAuthenticationTypeBasic OutputOpenTelemetryAuthenticationType = "basic"
+	// OutputOpenTelemetryAuthenticationTypeCredentialsSecret Basic (credentials secret)
+	OutputOpenTelemetryAuthenticationTypeCredentialsSecret OutputOpenTelemetryAuthenticationType = "credentialsSecret"
+	// OutputOpenTelemetryAuthenticationTypeToken Token
+	OutputOpenTelemetryAuthenticationTypeToken OutputOpenTelemetryAuthenticationType = "token"
+	// OutputOpenTelemetryAuthenticationTypeTextSecret Token (text secret)
+	OutputOpenTelemetryAuthenticationTypeTextSecret OutputOpenTelemetryAuthenticationType = "textSecret"
+	// OutputOpenTelemetryAuthenticationTypeOauthSecret OAuth (text secret)
+	OutputOpenTelemetryAuthenticationTypeOauthSecret OutputOpenTelemetryAuthenticationType = "oauthSecret"
+)
+
+func (e OutputOpenTelemetryAuthenticationType) ToPointer() *OutputOpenTelemetryAuthenticationType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputOpenTelemetryAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauthSecret":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputOpenTelemetryPqControls struct {
 }
 
@@ -89,11 +121,10 @@ type OutputOpenTelemetry struct {
 	// The version of OTLP Protobuf definitions to use when structuring data to send
 	OtlpVersion *OutputOpenTelemetryOTLPVersion `json:"otlpVersion,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	Compress *CompressionOptions4 `json:"compress,omitzero"`
+	Compress *CompressionOptionsDeflateGzip `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	HTTPCompress *CompressionOptions5 `json:"httpCompress,omitzero"`
-	// OpenTelemetry authentication type
-	AuthType *AuthenticationTypeOptions `json:"authType,omitzero"`
+	HTTPCompress *CompressionOptionsMessages            `json:"httpCompress,omitzero"`
+	AuthType     *OutputOpenTelemetryAuthenticationType `json:"authType,omitzero"`
 	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitzero"`
 	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -101,7 +132,11 @@ type OutputOpenTelemetry struct {
 	// If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitzero"`
 	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
-	Metadata []ItemsTypeKeyValueMetadata `json:"metadata,omitzero"`
+	Metadata []KeyValueMetadataConfOutputFilesystem `json:"metadata,omitzero"`
+	// Batch event data upon dynamic metadata (whether presented or not)
+	DynamicHeadersEnabled *bool `json:"dynamicHeadersEnabled,omitzero"`
+	// When presented, this field which contains metadata, will be injected into the Destination metadata and used to batch events.
+	DynamicHeadersField *string `json:"dynamicHeadersField,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -129,6 +164,22 @@ type OutputOpenTelemetry struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// URL for OAuth
+	LoginURL *string `json:"loginUrl,omitzero"`
+	// Secret parameter name to pass in request body
+	SecretParamName *string `json:"secretParamName,omitzero"`
+	// Select or create a stored text secret for the OAuth secret parameter value to pass in request body
+	OauthTextSecret *string `json:"oauthTextSecret,omitzero"`
+	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
+	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
+	// How often the OAuth token should be refreshed.
+	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
+	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthParams []OauthParamConfInputServicenowTable `json:"oauthParams,omitzero"`
+	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+	OauthHeaders []OauthHeaderConfInputServicenowTable `json:"oauthHeaders,omitzero"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
 	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
 	//         that value will take precedence.
@@ -136,22 +187,22 @@ type OutputOpenTelemetry struct {
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                       `json:"responseHonorRetryAfterHeader,omitzero"`
-	TLS                           *TLSSettingsClientSideType2 `json:"tls,omitzero"`
+	ResponseHonorRetryAfterHeader *bool                              `json:"responseHonorRetryAfterHeader,omitzero"`
+	TLS                           *TLSSettingsClientSideTypeExtended `json:"tls,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -164,8 +215,18 @@ type OutputOpenTelemetry struct {
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitzero"`
-	PqControls       *OutputOpenTelemetryPqControls `json:"pqControls,omitzero"`
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                        `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *OutputOpenTelemetryPqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 }
 
 func (o OutputOpenTelemetry) MarshalJSON() ([]byte, error) {
@@ -242,21 +303,21 @@ func (o *OutputOpenTelemetry) GetOtlpVersion() *OutputOpenTelemetryOTLPVersion {
 	return o.OtlpVersion
 }
 
-func (o *OutputOpenTelemetry) GetCompress() *CompressionOptions4 {
+func (o *OutputOpenTelemetry) GetCompress() *CompressionOptionsDeflateGzip {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputOpenTelemetry) GetHTTPCompress() *CompressionOptions5 {
+func (o *OutputOpenTelemetry) GetHTTPCompress() *CompressionOptionsMessages {
 	if o == nil {
 		return nil
 	}
 	return o.HTTPCompress
 }
 
-func (o *OutputOpenTelemetry) GetAuthType() *AuthenticationTypeOptions {
+func (o *OutputOpenTelemetry) GetAuthType() *OutputOpenTelemetryAuthenticationType {
 	if o == nil {
 		return nil
 	}
@@ -284,11 +345,25 @@ func (o *OutputOpenTelemetry) GetHTTPLogsEndpointOverride() *string {
 	return o.HTTPLogsEndpointOverride
 }
 
-func (o *OutputOpenTelemetry) GetMetadata() []ItemsTypeKeyValueMetadata {
+func (o *OutputOpenTelemetry) GetMetadata() []KeyValueMetadataConfOutputFilesystem {
 	if o == nil {
 		return nil
 	}
 	return o.Metadata
+}
+
+func (o *OutputOpenTelemetry) GetDynamicHeadersEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicHeadersEnabled
+}
+
+func (o *OutputOpenTelemetry) GetDynamicHeadersField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicHeadersField
 }
 
 func (o *OutputOpenTelemetry) GetConcurrency() *float64 {
@@ -396,6 +471,62 @@ func (o *OutputOpenTelemetry) GetTextSecret() *string {
 	return o.TextSecret
 }
 
+func (o *OutputOpenTelemetry) GetLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.LoginURL
+}
+
+func (o *OutputOpenTelemetry) GetSecretParamName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SecretParamName
+}
+
+func (o *OutputOpenTelemetry) GetOauthTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.OauthTextSecret
+}
+
+func (o *OutputOpenTelemetry) GetTokenAttributeName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TokenAttributeName
+}
+
+func (o *OutputOpenTelemetry) GetAuthHeaderExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AuthHeaderExpr
+}
+
+func (o *OutputOpenTelemetry) GetTokenTimeoutSecs() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TokenTimeoutSecs
+}
+
+func (o *OutputOpenTelemetry) GetOauthParams() []OauthParamConfInputServicenowTable {
+	if o == nil {
+		return nil
+	}
+	return o.OauthParams
+}
+
+func (o *OutputOpenTelemetry) GetOauthHeaders() []OauthHeaderConfInputServicenowTable {
+	if o == nil {
+		return nil
+	}
+	return o.OauthHeaders
+}
+
 func (o *OutputOpenTelemetry) GetRejectUnauthorized() *bool {
 	if o == nil {
 		return nil
@@ -410,7 +541,7 @@ func (o *OutputOpenTelemetry) GetUseRoundRobinDNS() *bool {
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputOpenTelemetry) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputOpenTelemetry) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -424,7 +555,7 @@ func (o *OutputOpenTelemetry) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputOpenTelemetry) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputOpenTelemetry) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}
@@ -445,7 +576,7 @@ func (o *OutputOpenTelemetry) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputOpenTelemetry) GetTLS() *TLSSettingsClientSideType2 {
+func (o *OutputOpenTelemetry) GetTLS() *TLSSettingsClientSideTypeExtended {
 	if o == nil {
 		return nil
 	}
@@ -522,9 +653,44 @@ func (o *OutputOpenTelemetry) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	return o.PqOnBackpressure
 }
 
+func (o *OutputOpenTelemetry) GetPqMaxBufferSizeBytes() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSizeBytes
+}
+
 func (o *OutputOpenTelemetry) GetPqControls() *OutputOpenTelemetryPqControls {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputOpenTelemetry) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
+}
+
+func (o *OutputOpenTelemetry) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputOpenTelemetry) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
+}
+
+func (o *OutputOpenTelemetry) GetTemplateLoginURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLoginURL
 }

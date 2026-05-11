@@ -30,7 +30,7 @@ func (l *ListConfigGroupByProductRequest) GetFields() *string {
 
 type ListConfigGroupByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of ConfigGroup objects
+	// List of ConfigGroup objects.
 	CountedConfigGroup *components.CountedConfigGroup
 }
 

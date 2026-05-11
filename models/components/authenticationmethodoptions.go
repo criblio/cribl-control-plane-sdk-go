@@ -6,7 +6,7 @@ type AuthenticationMethodOptions string
 
 const (
 	AuthenticationMethodOptionsManual             AuthenticationMethodOptions = "manual"
-	AuthenticationMethodOptionsSecret             AuthenticationMethodOptions = "secret"
+	AuthenticationMethodOptionsSecretValue        AuthenticationMethodOptions = "secret"
 	AuthenticationMethodOptionsClientSecret       AuthenticationMethodOptions = "clientSecret"
 	AuthenticationMethodOptionsClientCert         AuthenticationMethodOptions = "clientCert"
 	AuthenticationMethodOptionsClientAssertion    AuthenticationMethodOptions = "clientAssertion"
