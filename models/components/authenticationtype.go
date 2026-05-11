@@ -32,9 +32,21 @@ type AuthenticationType struct {
 	// Select or create a stored text secret
 	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
 	// Additional fields to send to the token endpoint, such as scope or audience
-	OauthParams []ItemsTypeSaslOauthParams `json:"oauthParams,omitzero"`
+	OauthParams []OauthParamConfInputKafka `json:"oauthParams,omitzero"`
 	// Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
-	SaslExtensions []ItemsTypeSaslSaslExtensions `json:"saslExtensions,omitzero"`
+	SaslExtensions []SaslExtensionConfInputKafka `json:"saslExtensions,omitzero"`
+	// Binds 'mechanism' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mechanism' at runtime.
+	TemplateMechanism *string `json:"__template_mechanism,omitzero"`
+	// Binds 'keytabLocation' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'keytabLocation' at runtime.
+	TemplateKeytabLocation *string `json:"__template_keytabLocation,omitzero"`
+	// Binds 'principal' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'principal' at runtime.
+	TemplatePrincipal *string `json:"__template_principal,omitzero"`
+	// Binds 'brokerServiceClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokerServiceClass' at runtime.
+	TemplateBrokerServiceClass *string `json:"__template_brokerServiceClass,omitzero"`
+	// Binds 'tokenUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenUrl' at runtime.
+	TemplateTokenURL *string `json:"__template_tokenUrl,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
 }
 
 func (a AuthenticationType) MarshalJSON() ([]byte, error) {
@@ -146,16 +158,58 @@ func (a *AuthenticationType) GetClientTextSecret() *string {
 	return a.ClientTextSecret
 }
 
-func (a *AuthenticationType) GetOauthParams() []ItemsTypeSaslOauthParams {
+func (a *AuthenticationType) GetOauthParams() []OauthParamConfInputKafka {
 	if a == nil {
 		return nil
 	}
 	return a.OauthParams
 }
 
-func (a *AuthenticationType) GetSaslExtensions() []ItemsTypeSaslSaslExtensions {
+func (a *AuthenticationType) GetSaslExtensions() []SaslExtensionConfInputKafka {
 	if a == nil {
 		return nil
 	}
 	return a.SaslExtensions
+}
+
+func (a *AuthenticationType) GetTemplateMechanism() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateMechanism
+}
+
+func (a *AuthenticationType) GetTemplateKeytabLocation() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateKeytabLocation
+}
+
+func (a *AuthenticationType) GetTemplatePrincipal() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplatePrincipal
+}
+
+func (a *AuthenticationType) GetTemplateBrokerServiceClass() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateBrokerServiceClass
+}
+
+func (a *AuthenticationType) GetTemplateTokenURL() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateTokenURL
+}
+
+func (a *AuthenticationType) GetTemplateClientID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateClientID
 }

@@ -31,25 +31,25 @@ func (e *OutputGoogleCloudLoggingType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type LogLocationType string
+type OutputGoogleCloudLoggingLogLocationType string
 
 const (
-	// LogLocationTypeProject Project
-	LogLocationTypeProject LogLocationType = "project"
-	// LogLocationTypeOrganization Organization
-	LogLocationTypeOrganization LogLocationType = "organization"
-	// LogLocationTypeBillingAccount Billing Account
-	LogLocationTypeBillingAccount LogLocationType = "billingAccount"
-	// LogLocationTypeFolder Folder
-	LogLocationTypeFolder LogLocationType = "folder"
+	// OutputGoogleCloudLoggingLogLocationTypeProject Project
+	OutputGoogleCloudLoggingLogLocationTypeProject OutputGoogleCloudLoggingLogLocationType = "project"
+	// OutputGoogleCloudLoggingLogLocationTypeOrganization Organization
+	OutputGoogleCloudLoggingLogLocationTypeOrganization OutputGoogleCloudLoggingLogLocationType = "organization"
+	// OutputGoogleCloudLoggingLogLocationTypeBillingAccount Billing Account
+	OutputGoogleCloudLoggingLogLocationTypeBillingAccount OutputGoogleCloudLoggingLogLocationType = "billingAccount"
+	// OutputGoogleCloudLoggingLogLocationTypeFolder Folder
+	OutputGoogleCloudLoggingLogLocationTypeFolder OutputGoogleCloudLoggingLogLocationType = "folder"
 )
 
-func (e LogLocationType) ToPointer() *LogLocationType {
+func (e OutputGoogleCloudLoggingLogLocationType) ToPointer() *OutputGoogleCloudLoggingLogLocationType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *LogLocationType) IsExact() bool {
+func (e *OutputGoogleCloudLoggingLogLocationType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "project", "organization", "billingAccount", "folder":
@@ -59,22 +59,22 @@ func (e *LogLocationType) IsExact() bool {
 	return false
 }
 
-// PayloadFormat - Format to use when sending payload. Defaults to Text.
-type PayloadFormat string
+// OutputGoogleCloudLoggingPayloadFormat - Format to use when sending payload. Defaults to Text.
+type OutputGoogleCloudLoggingPayloadFormat string
 
 const (
-	// PayloadFormatText Text
-	PayloadFormatText PayloadFormat = "text"
-	// PayloadFormatJSON JSON
-	PayloadFormatJSON PayloadFormat = "json"
+	// OutputGoogleCloudLoggingPayloadFormatText Text
+	OutputGoogleCloudLoggingPayloadFormatText OutputGoogleCloudLoggingPayloadFormat = "text"
+	// OutputGoogleCloudLoggingPayloadFormatJSON JSON
+	OutputGoogleCloudLoggingPayloadFormatJSON OutputGoogleCloudLoggingPayloadFormat = "json"
 )
 
-func (e PayloadFormat) ToPointer() *PayloadFormat {
+func (e OutputGoogleCloudLoggingPayloadFormat) ToPointer() *OutputGoogleCloudLoggingPayloadFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PayloadFormat) IsExact() bool {
+func (e *OutputGoogleCloudLoggingPayloadFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "text", "json":
@@ -109,19 +109,19 @@ type OutputGoogleCloudLogging struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags      []string        `json:"streamtags,omitzero"`
-	LogLocationType LogLocationType `json:"logLocationType"`
+	Streamtags      []string                                `json:"streamtags,omitzero"`
+	LogLocationType OutputGoogleCloudLoggingLogLocationType `json:"logLocationType"`
 	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
 	LogNameExpression string `json:"logNameExpression"`
 	SanitizeLogNames  *bool  `json:"sanitizeLogNames,omitzero"`
 	// Format to use when sending payload. Defaults to Text.
-	PayloadFormat *PayloadFormat `json:"payloadFormat,omitzero"`
+	PayloadFormat *OutputGoogleCloudLoggingPayloadFormat `json:"payloadFormat,omitzero"`
 	// Labels to apply to the log entry
-	LogLabels []ItemsTypeLogLabels `json:"logLabels,omitzero"`
+	LogLabels []LogLabelConfOutputGoogleCloudLogging `json:"logLabels,omitzero"`
 	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
 	ResourceTypeExpression *string `json:"resourceTypeExpression,omitzero"`
 	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
-	ResourceTypeLabels []ItemsTypeLogLabels `json:"resourceTypeLabels,omitzero"`
+	ResourceTypeLabels []LogLabelConfOutputGoogleCloudLogging `json:"resourceTypeLabels,omitzero"`
 	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
 	SeverityExpression *string `json:"severityExpression,omitzero"`
 	// JavaScript expression to compute the value of the insert ID field.
@@ -217,7 +217,7 @@ type OutputGoogleCloudLogging struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -230,8 +230,36 @@ type OutputGoogleCloudLogging struct {
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions           `json:"pqOnBackpressure,omitzero"`
-	PqControls       *OutputGoogleCloudLoggingPqControls `json:"pqControls,omitzero"`
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                             `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *OutputGoogleCloudLoggingPqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'logLocationType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationType' at runtime.
+	TemplateLogLocationType *string `json:"__template_logLocationType,omitzero"`
+	// Binds 'logNameExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logNameExpression' at runtime.
+	TemplateLogNameExpression *string `json:"__template_logNameExpression,omitzero"`
+	// Binds 'payloadFormat' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadFormat' at runtime.
+	TemplatePayloadFormat *string `json:"__template_payloadFormat,omitzero"`
+	// Binds 'resourceTypeExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'resourceTypeExpression' at runtime.
+	TemplateResourceTypeExpression *string `json:"__template_resourceTypeExpression,omitzero"`
+	// Binds 'severityExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'severityExpression' at runtime.
+	TemplateSeverityExpression *string `json:"__template_severityExpression,omitzero"`
+	// Binds 'insertIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'insertIdExpression' at runtime.
+	TemplateInsertIDExpression *string `json:"__template_insertIdExpression,omitzero"`
+	// Binds 'traceExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceExpression' at runtime.
+	TemplateTraceExpression *string `json:"__template_traceExpression,omitzero"`
+	// Binds 'spanIdExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'spanIdExpression' at runtime.
+	TemplateSpanIDExpression *string `json:"__template_spanIdExpression,omitzero"`
+	// Binds 'traceSampledExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'traceSampledExpression' at runtime.
+	TemplateTraceSampledExpression *string `json:"__template_traceSampledExpression,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'logLocationExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationExpression' at runtime.
+	TemplateLogLocationExpression *string `json:"__template_logLocationExpression,omitzero"`
+	// Binds 'payloadExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'payloadExpression' at runtime.
+	TemplatePayloadExpression *string `json:"__template_payloadExpression,omitzero"`
 }
 
 func (o OutputGoogleCloudLogging) MarshalJSON() ([]byte, error) {
@@ -287,9 +315,9 @@ func (o *OutputGoogleCloudLogging) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputGoogleCloudLogging) GetLogLocationType() LogLocationType {
+func (o *OutputGoogleCloudLogging) GetLogLocationType() OutputGoogleCloudLoggingLogLocationType {
 	if o == nil {
-		return LogLocationType("")
+		return OutputGoogleCloudLoggingLogLocationType("")
 	}
 	return o.LogLocationType
 }
@@ -308,14 +336,14 @@ func (o *OutputGoogleCloudLogging) GetSanitizeLogNames() *bool {
 	return o.SanitizeLogNames
 }
 
-func (o *OutputGoogleCloudLogging) GetPayloadFormat() *PayloadFormat {
+func (o *OutputGoogleCloudLogging) GetPayloadFormat() *OutputGoogleCloudLoggingPayloadFormat {
 	if o == nil {
 		return nil
 	}
 	return o.PayloadFormat
 }
 
-func (o *OutputGoogleCloudLogging) GetLogLabels() []ItemsTypeLogLabels {
+func (o *OutputGoogleCloudLogging) GetLogLabels() []LogLabelConfOutputGoogleCloudLogging {
 	if o == nil {
 		return nil
 	}
@@ -329,7 +357,7 @@ func (o *OutputGoogleCloudLogging) GetResourceTypeExpression() *string {
 	return o.ResourceTypeExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetResourceTypeLabels() []ItemsTypeLogLabels {
+func (o *OutputGoogleCloudLogging) GetResourceTypeLabels() []LogLabelConfOutputGoogleCloudLogging {
 	if o == nil {
 		return nil
 	}
@@ -721,9 +749,107 @@ func (o *OutputGoogleCloudLogging) GetPqOnBackpressure() *QueueFullBehaviorOptio
 	return o.PqOnBackpressure
 }
 
+func (o *OutputGoogleCloudLogging) GetPqMaxBufferSizeBytes() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSizeBytes
+}
+
 func (o *OutputGoogleCloudLogging) GetPqControls() *OutputGoogleCloudLoggingPqControls {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateLogLocationType() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLogLocationType
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateLogNameExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLogNameExpression
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplatePayloadFormat() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePayloadFormat
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateResourceTypeExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateResourceTypeExpression
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateSeverityExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateSeverityExpression
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateInsertIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateInsertIDExpression
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateTraceExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateTraceExpression
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateSpanIDExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateSpanIDExpression
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateTraceSampledExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateTraceSampledExpression
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateLogLocationExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateLogLocationExpression
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplatePayloadExpression() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePayloadExpression
 }

@@ -69,6 +69,29 @@ func (s *S3AwsAuthenticationMethodSecretExtractor) GetExpression() string {
 // #region class-body-s3awsauthenticationmethodsecretextractor
 // #endregion class-body-s3awsauthenticationmethodsecretextractor
 
+// S3AwsAuthenticationMethodSecretSignatureVersion - Signature version to use for signing S3 requests
+type S3AwsAuthenticationMethodSecretSignatureVersion string
+
+const (
+	S3AwsAuthenticationMethodSecretSignatureVersionV2 S3AwsAuthenticationMethodSecretSignatureVersion = "v2"
+	S3AwsAuthenticationMethodSecretSignatureVersionV4 S3AwsAuthenticationMethodSecretSignatureVersion = "v4"
+)
+
+func (e S3AwsAuthenticationMethodSecretSignatureVersion) ToPointer() *S3AwsAuthenticationMethodSecretSignatureVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *S3AwsAuthenticationMethodSecretSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
 type S3AwsAuthenticationMethodSecret struct {
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
@@ -93,7 +116,7 @@ type S3AwsAuthenticationMethodSecret struct {
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
+	SignatureVersion *S3AwsAuthenticationMethodSecretSignatureVersion `json:"signatureVersion,omitzero"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -116,6 +139,16 @@ type S3AwsAuthenticationMethodSecret struct {
 	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 }
 
 func (s S3AwsAuthenticationMethodSecret) MarshalJSON() ([]byte, error) {
@@ -206,7 +239,7 @@ func (s *S3AwsAuthenticationMethodSecret) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *S3AwsAuthenticationMethodSecret) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (s *S3AwsAuthenticationMethodSecret) GetSignatureVersion() *S3AwsAuthenticationMethodSecretSignatureVersion {
 	if s == nil {
 		return nil
 	}
@@ -290,6 +323,41 @@ func (s *S3AwsAuthenticationMethodSecret) GetAwsSecretKey() *string {
 	return s.AwsSecretKey
 }
 
+func (s *S3AwsAuthenticationMethodSecret) GetTemplateBucket() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateBucket
+}
+
+func (s *S3AwsAuthenticationMethodSecret) GetTemplateRegion() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateRegion
+}
+
+func (s *S3AwsAuthenticationMethodSecret) GetTemplateEndpoint() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEndpoint
+}
+
+func (s *S3AwsAuthenticationMethodSecret) GetTemplateAssumeRoleArn() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleArn
+}
+
+func (s *S3AwsAuthenticationMethodSecret) GetTemplateAssumeRoleExternalID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleExternalID
+}
+
 // #region class-body-s3awsauthenticationmethodsecret
 // #endregion class-body-s3awsauthenticationmethodsecret
 
@@ -353,6 +421,29 @@ func (s *S3AwsAuthenticationMethodManualExtractor) GetExpression() string {
 // #region class-body-s3awsauthenticationmethodmanualextractor
 // #endregion class-body-s3awsauthenticationmethodmanualextractor
 
+// S3AwsAuthenticationMethodManualSignatureVersion - Signature version to use for signing S3 requests
+type S3AwsAuthenticationMethodManualSignatureVersion string
+
+const (
+	S3AwsAuthenticationMethodManualSignatureVersionV2 S3AwsAuthenticationMethodManualSignatureVersion = "v2"
+	S3AwsAuthenticationMethodManualSignatureVersionV4 S3AwsAuthenticationMethodManualSignatureVersion = "v4"
+)
+
+func (e S3AwsAuthenticationMethodManualSignatureVersion) ToPointer() *S3AwsAuthenticationMethodManualSignatureVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *S3AwsAuthenticationMethodManualSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
 type S3AwsAuthenticationMethodManual struct {
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
@@ -379,7 +470,7 @@ type S3AwsAuthenticationMethodManual struct {
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
+	SignatureVersion *S3AwsAuthenticationMethodManualSignatureVersion `json:"signatureVersion,omitzero"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -400,6 +491,16 @@ type S3AwsAuthenticationMethodManual struct {
 	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Select or create a stored secret that references AWS access key and secret key.
 	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 }
 
 func (s S3AwsAuthenticationMethodManual) MarshalJSON() ([]byte, error) {
@@ -497,7 +598,7 @@ func (s *S3AwsAuthenticationMethodManual) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *S3AwsAuthenticationMethodManual) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (s *S3AwsAuthenticationMethodManual) GetSignatureVersion() *S3AwsAuthenticationMethodManualSignatureVersion {
 	if s == nil {
 		return nil
 	}
@@ -574,6 +675,41 @@ func (s *S3AwsAuthenticationMethodManual) GetAwsSecret() *string {
 	return s.AwsSecret
 }
 
+func (s *S3AwsAuthenticationMethodManual) GetTemplateBucket() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateBucket
+}
+
+func (s *S3AwsAuthenticationMethodManual) GetTemplateRegion() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateRegion
+}
+
+func (s *S3AwsAuthenticationMethodManual) GetTemplateEndpoint() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEndpoint
+}
+
+func (s *S3AwsAuthenticationMethodManual) GetTemplateAssumeRoleArn() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleArn
+}
+
+func (s *S3AwsAuthenticationMethodManual) GetTemplateAssumeRoleExternalID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleExternalID
+}
+
 // #region class-body-s3awsauthenticationmethodmanual
 // #endregion class-body-s3awsauthenticationmethodmanual
 
@@ -637,6 +773,29 @@ func (s *S3AwsAuthenticationMethodAutoExtractor) GetExpression() string {
 // #region class-body-s3awsauthenticationmethodautoextractor
 // #endregion class-body-s3awsauthenticationmethodautoextractor
 
+// S3AwsAuthenticationMethodAutoSignatureVersion - Signature version to use for signing S3 requests
+type S3AwsAuthenticationMethodAutoSignatureVersion string
+
+const (
+	S3AwsAuthenticationMethodAutoSignatureVersionV2 S3AwsAuthenticationMethodAutoSignatureVersion = "v2"
+	S3AwsAuthenticationMethodAutoSignatureVersionV4 S3AwsAuthenticationMethodAutoSignatureVersion = "v4"
+)
+
+func (e S3AwsAuthenticationMethodAutoSignatureVersion) ToPointer() *S3AwsAuthenticationMethodAutoSignatureVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *S3AwsAuthenticationMethodAutoSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
 type S3AwsAuthenticationMethodAuto struct {
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
@@ -659,7 +818,7 @@ type S3AwsAuthenticationMethodAuto struct {
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
+	SignatureVersion *S3AwsAuthenticationMethodAutoSignatureVersion `json:"signatureVersion,omitzero"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -684,6 +843,16 @@ type S3AwsAuthenticationMethodAuto struct {
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Select or create a stored secret that references AWS access key and secret key.
 	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 }
 
 func (s S3AwsAuthenticationMethodAuto) MarshalJSON() ([]byte, error) {
@@ -767,7 +936,7 @@ func (s *S3AwsAuthenticationMethodAuto) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *S3AwsAuthenticationMethodAuto) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (s *S3AwsAuthenticationMethodAuto) GetSignatureVersion() *S3AwsAuthenticationMethodAutoSignatureVersion {
 	if s == nil {
 		return nil
 	}
@@ -858,6 +1027,41 @@ func (s *S3AwsAuthenticationMethodAuto) GetAwsSecret() *string {
 	return s.AwsSecret
 }
 
+func (s *S3AwsAuthenticationMethodAuto) GetTemplateBucket() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateBucket
+}
+
+func (s *S3AwsAuthenticationMethodAuto) GetTemplateRegion() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateRegion
+}
+
+func (s *S3AwsAuthenticationMethodAuto) GetTemplateEndpoint() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEndpoint
+}
+
+func (s *S3AwsAuthenticationMethodAuto) GetTemplateAssumeRoleArn() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleArn
+}
+
+func (s *S3AwsAuthenticationMethodAuto) GetTemplateAssumeRoleExternalID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleExternalID
+}
+
 // #region class-body-s3awsauthenticationmethodauto
 // #endregion class-body-s3awsauthenticationmethodauto
 
@@ -921,6 +1125,29 @@ func (s *S3PartitioningSchemeNoneExtractor) GetExpression() string {
 // #region class-body-s3partitioningschemenoneextractor
 // #endregion class-body-s3partitioningschemenoneextractor
 
+// S3PartitioningSchemeNoneSignatureVersion - Signature version to use for signing S3 requests
+type S3PartitioningSchemeNoneSignatureVersion string
+
+const (
+	S3PartitioningSchemeNoneSignatureVersionV2 S3PartitioningSchemeNoneSignatureVersion = "v2"
+	S3PartitioningSchemeNoneSignatureVersionV4 S3PartitioningSchemeNoneSignatureVersion = "v4"
+)
+
+func (e S3PartitioningSchemeNoneSignatureVersion) ToPointer() *S3PartitioningSchemeNoneSignatureVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *S3PartitioningSchemeNoneSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
 type S3PartitioningSchemeNone struct {
 	// Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 	PartitioningScheme *S3PartitioningSchemeNonePartitioningScheme `json:"partitioningScheme,omitzero"`
@@ -945,7 +1172,7 @@ type S3PartitioningSchemeNone struct {
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
+	SignatureVersion *S3PartitioningSchemeNoneSignatureVersion `json:"signatureVersion,omitzero"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -970,6 +1197,16 @@ type S3PartitioningSchemeNone struct {
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Select or create a stored secret that references AWS access key and secret key.
 	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 }
 
 func (s S3PartitioningSchemeNone) MarshalJSON() ([]byte, error) {
@@ -1060,7 +1297,7 @@ func (s *S3PartitioningSchemeNone) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *S3PartitioningSchemeNone) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (s *S3PartitioningSchemeNone) GetSignatureVersion() *S3PartitioningSchemeNoneSignatureVersion {
 	if s == nil {
 		return nil
 	}
@@ -1151,6 +1388,41 @@ func (s *S3PartitioningSchemeNone) GetAwsSecret() *string {
 	return s.AwsSecret
 }
 
+func (s *S3PartitioningSchemeNone) GetTemplateBucket() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateBucket
+}
+
+func (s *S3PartitioningSchemeNone) GetTemplateRegion() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateRegion
+}
+
+func (s *S3PartitioningSchemeNone) GetTemplateEndpoint() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEndpoint
+}
+
+func (s *S3PartitioningSchemeNone) GetTemplateAssumeRoleArn() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleArn
+}
+
+func (s *S3PartitioningSchemeNone) GetTemplateAssumeRoleExternalID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleExternalID
+}
+
 // #region class-body-s3partitioningschemenone
 // #endregion class-body-s3partitioningschemenone
 
@@ -1214,6 +1486,29 @@ func (s *S3PartitioningSchemeDdssExtractor) GetExpression() string {
 // #region class-body-s3partitioningschemeddssextractor
 // #endregion class-body-s3partitioningschemeddssextractor
 
+// S3PartitioningSchemeDdssSignatureVersion - Signature version to use for signing S3 requests
+type S3PartitioningSchemeDdssSignatureVersion string
+
+const (
+	S3PartitioningSchemeDdssSignatureVersionV2 S3PartitioningSchemeDdssSignatureVersion = "v2"
+	S3PartitioningSchemeDdssSignatureVersionV4 S3PartitioningSchemeDdssSignatureVersion = "v4"
+)
+
+func (e S3PartitioningSchemeDdssSignatureVersion) ToPointer() *S3PartitioningSchemeDdssSignatureVersion {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *S3PartitioningSchemeDdssSignatureVersion) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "v2", "v4":
+			return true
+		}
+	}
+	return false
+}
+
 type S3PartitioningSchemeDdss struct {
 	// Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
 	PartitioningScheme *S3PartitioningSchemeDdssPartitioningScheme `json:"partitioningScheme,omitzero"`
@@ -1236,7 +1531,7 @@ type S3PartitioningSchemeDdss struct {
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
 	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
+	SignatureVersion *S3PartitioningSchemeDdssSignatureVersion `json:"signatureVersion,omitzero"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -1261,6 +1556,16 @@ type S3PartitioningSchemeDdss struct {
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Select or create a stored secret that references AWS access key and secret key.
 	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 }
 
 func (s S3PartitioningSchemeDdss) MarshalJSON() ([]byte, error) {
@@ -1344,7 +1649,7 @@ func (s *S3PartitioningSchemeDdss) GetEndpoint() *string {
 	return s.Endpoint
 }
 
-func (s *S3PartitioningSchemeDdss) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
+func (s *S3PartitioningSchemeDdss) GetSignatureVersion() *S3PartitioningSchemeDdssSignatureVersion {
 	if s == nil {
 		return nil
 	}
@@ -1433,6 +1738,41 @@ func (s *S3PartitioningSchemeDdss) GetAwsSecret() *string {
 		return nil
 	}
 	return s.AwsSecret
+}
+
+func (s *S3PartitioningSchemeDdss) GetTemplateBucket() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateBucket
+}
+
+func (s *S3PartitioningSchemeDdss) GetTemplateRegion() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateRegion
+}
+
+func (s *S3PartitioningSchemeDdss) GetTemplateEndpoint() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateEndpoint
+}
+
+func (s *S3PartitioningSchemeDdss) GetTemplateAssumeRoleArn() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleArn
+}
+
+func (s *S3PartitioningSchemeDdss) GetTemplateAssumeRoleExternalID() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateAssumeRoleExternalID
 }
 
 // #region class-body-s3partitioningschemeddss

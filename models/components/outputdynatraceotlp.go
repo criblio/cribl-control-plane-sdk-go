@@ -54,22 +54,22 @@ func (e *OutputDynatraceOtlpProtocol) IsExact() bool {
 	return false
 }
 
-// EndpointType - Select the type of Dynatrace endpoint configured
-type EndpointType string
+// OutputDynatraceOtlpEndpointType - Select the type of Dynatrace endpoint configured
+type OutputDynatraceOtlpEndpointType string
 
 const (
-	// EndpointTypeSaas SaaS
-	EndpointTypeSaas EndpointType = "saas"
-	// EndpointTypeAg ActiveGate
-	EndpointTypeAg EndpointType = "ag"
+	// OutputDynatraceOtlpEndpointTypeSaas SaaS
+	OutputDynatraceOtlpEndpointTypeSaas OutputDynatraceOtlpEndpointType = "saas"
+	// OutputDynatraceOtlpEndpointTypeAg ActiveGate
+	OutputDynatraceOtlpEndpointTypeAg OutputDynatraceOtlpEndpointType = "ag"
 )
 
-func (e EndpointType) ToPointer() *EndpointType {
+func (e OutputDynatraceOtlpEndpointType) ToPointer() *OutputDynatraceOtlpEndpointType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *EndpointType) IsExact() bool {
+func (e *OutputDynatraceOtlpEndpointType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "saas", "ag":
@@ -110,11 +110,11 @@ type OutputDynatraceOtlp struct {
 	// The endpoint where Dynatrace events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
 	Endpoint string `json:"endpoint"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
-	OtlpVersion OtlpVersionOptions1 `json:"otlpVersion"`
+	OtlpVersion OtlpVersionOptions131 `json:"otlpVersion"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	Compress *CompressionOptions4 `json:"compress,omitzero"`
+	Compress *CompressionOptionsDeflateGzip `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	HTTPCompress *CompressionOptions5 `json:"httpCompress,omitzero"`
+	HTTPCompress *CompressionOptionsMessages `json:"httpCompress,omitzero"`
 	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitzero"`
 	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -122,7 +122,11 @@ type OutputDynatraceOtlp struct {
 	// If you want to send logs to the default `{endpoint}/v1/logs` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPLogsEndpointOverride *string `json:"httpLogsEndpointOverride,omitzero"`
 	// List of key-value pairs to send with each gRPC request. Value supports JavaScript expressions that are evaluated just once, when the destination gets started. To pass credentials as metadata, use 'C.Secret'.
-	Metadata []ItemsTypeKeyValueMetadata `json:"metadata,omitzero"`
+	Metadata []KeyValueMetadataConfOutputFilesystem `json:"metadata,omitzero"`
+	// Batch event data upon dynamic metadata (whether presented or not)
+	DynamicHeadersEnabled *bool `json:"dynamicHeadersEnabled,omitzero"`
+	// When presented, this field which contains metadata, will be injected into the Destination metadata and used to batch events.
+	DynamicHeadersField *string `json:"dynamicHeadersField,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size (in KB) of the request body. The maximum payload size is 4 MB. If this limit is exceeded, the entire OTLP message is dropped
@@ -140,7 +144,7 @@ type OutputDynatraceOtlp struct {
 	// Disable to close the connection immediately after sending the outgoing request
 	KeepAlive *bool `json:"keepAlive,omitzero"`
 	// Select the type of Dynatrace endpoint configured
-	EndpointType EndpointType `json:"endpointType"`
+	EndpointType OutputDynatraceOtlpEndpointType `json:"endpointType"`
 	// Select or create a stored text secret
 	TokenSecret   string  `json:"tokenSecret"`
 	AuthTokenName *string `json:"authTokenName,omitzero"`
@@ -154,12 +158,12 @@ type OutputDynatraceOtlp struct {
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -168,7 +172,7 @@ type OutputDynatraceOtlp struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -181,8 +185,16 @@ type OutputDynatraceOtlp struct {
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions      `json:"pqOnBackpressure,omitzero"`
-	PqControls       *OutputDynatraceOtlpPqControls `json:"pqControls,omitzero"`
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                        `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *OutputDynatraceOtlpPqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (o OutputDynatraceOtlp) MarshalJSON() ([]byte, error) {
@@ -252,21 +264,21 @@ func (o *OutputDynatraceOtlp) GetEndpoint() string {
 	return o.Endpoint
 }
 
-func (o *OutputDynatraceOtlp) GetOtlpVersion() OtlpVersionOptions1 {
+func (o *OutputDynatraceOtlp) GetOtlpVersion() OtlpVersionOptions131 {
 	if o == nil {
-		return OtlpVersionOptions1("")
+		return OtlpVersionOptions131("")
 	}
 	return o.OtlpVersion
 }
 
-func (o *OutputDynatraceOtlp) GetCompress() *CompressionOptions4 {
+func (o *OutputDynatraceOtlp) GetCompress() *CompressionOptionsDeflateGzip {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputDynatraceOtlp) GetHTTPCompress() *CompressionOptions5 {
+func (o *OutputDynatraceOtlp) GetHTTPCompress() *CompressionOptionsMessages {
 	if o == nil {
 		return nil
 	}
@@ -294,11 +306,25 @@ func (o *OutputDynatraceOtlp) GetHTTPLogsEndpointOverride() *string {
 	return o.HTTPLogsEndpointOverride
 }
 
-func (o *OutputDynatraceOtlp) GetMetadata() []ItemsTypeKeyValueMetadata {
+func (o *OutputDynatraceOtlp) GetMetadata() []KeyValueMetadataConfOutputFilesystem {
 	if o == nil {
 		return nil
 	}
 	return o.Metadata
+}
+
+func (o *OutputDynatraceOtlp) GetDynamicHeadersEnabled() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicHeadersEnabled
+}
+
+func (o *OutputDynatraceOtlp) GetDynamicHeadersField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicHeadersField
 }
 
 func (o *OutputDynatraceOtlp) GetConcurrency() *float64 {
@@ -357,9 +383,9 @@ func (o *OutputDynatraceOtlp) GetKeepAlive() *bool {
 	return o.KeepAlive
 }
 
-func (o *OutputDynatraceOtlp) GetEndpointType() EndpointType {
+func (o *OutputDynatraceOtlp) GetEndpointType() OutputDynatraceOtlpEndpointType {
 	if o == nil {
-		return EndpointType("")
+		return OutputDynatraceOtlpEndpointType("")
 	}
 	return o.EndpointType
 }
@@ -406,7 +432,7 @@ func (o *OutputDynatraceOtlp) GetUseRoundRobinDNS() *bool {
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputDynatraceOtlp) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputDynatraceOtlp) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -420,7 +446,7 @@ func (o *OutputDynatraceOtlp) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputDynatraceOtlp) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputDynatraceOtlp) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}
@@ -511,9 +537,37 @@ func (o *OutputDynatraceOtlp) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	return o.PqOnBackpressure
 }
 
+func (o *OutputDynatraceOtlp) GetPqMaxBufferSizeBytes() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSizeBytes
+}
+
 func (o *OutputDynatraceOtlp) GetPqControls() *OutputDynatraceOtlpPqControls {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputDynatraceOtlp) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
+}
+
+func (o *OutputDynatraceOtlp) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputDynatraceOtlp) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }

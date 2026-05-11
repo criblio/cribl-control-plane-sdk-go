@@ -34,8 +34,8 @@ func (e *PipelineFunctionRegexExtractID) UnmarshalJSON(data []byte) error {
 
 type PipelineFunctionRegexExtractConf struct {
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     string                             `json:"regex"`
-	RegexList []ItemsTypeSerdeTypeRegexRegexList `json:"regexList,omitzero"`
+	Regex     string                        `json:"regex"`
+	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
 	// Field on which to perform regex field extraction
 	Source *string `json:"source,omitzero"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
@@ -64,7 +64,7 @@ func (p *PipelineFunctionRegexExtractConf) GetRegex() string {
 	return p.Regex
 }
 
-func (p *PipelineFunctionRegexExtractConf) GetRegexList() []ItemsTypeSerdeTypeRegexRegexList {
+func (p *PipelineFunctionRegexExtractConf) GetRegexList() []RegexListConfSerdeTypeRegex {
 	if p == nil {
 		return nil
 	}

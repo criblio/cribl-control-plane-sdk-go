@@ -21,8 +21,8 @@ func (d *DeleteInputByIDRequest) GetID() string {
 
 type DeleteInputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source objects
-	CountedInput *components.CountedInput
+	// the deleted Source object
+	CountedInputResponse *components.CountedInputResponse
 }
 
 func (d DeleteInputByIDResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +43,9 @@ func (d *DeleteInputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return d.HTTPMeta
 }
 
-func (d *DeleteInputByIDResponse) GetCountedInput() *components.CountedInput {
+func (d *DeleteInputByIDResponse) GetCountedInputResponse() *components.CountedInputResponse {
 	if d == nil {
 		return nil
 	}
-	return d.CountedInput
+	return d.CountedInputResponse
 }

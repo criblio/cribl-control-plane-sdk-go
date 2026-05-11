@@ -3,8 +3,10 @@
 package components
 
 type LakeDatasetMetrics struct {
+	// Total current logical size of the Dataset, in bytes.
 	CurrentSizeBytes float64 `json:"currentSizeBytes"`
-	MetricsDate      string  `json:"metricsDate"`
+	// Timestamp (ISO 8601) when the metrics snapshot was generated.
+	MetricsDate string `json:"metricsDate"`
 }
 
 func (l *LakeDatasetMetrics) GetCurrentSizeBytes() float64 {

@@ -10,7 +10,7 @@ import (
 type UpdatePacksByIDRequest struct {
 	// The <code>id</code> of the Pack to upgrade.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// PackUpgradeRequest object
+	// PackUpgradeRequest object.
 	PackUpgradeRequest components.PackUpgradeRequest `request:"mediaType=application/json"`
 }
 
@@ -30,7 +30,7 @@ func (u *UpdatePacksByIDRequest) GetPackUpgradeRequest() components.PackUpgradeR
 
 type UpdatePacksByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of PackInfo objects
+	// The updated PackInfo object in a single-item list.
 	CountedPackInfo *components.CountedPackInfo
 }
 

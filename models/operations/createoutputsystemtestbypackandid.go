@@ -10,9 +10,9 @@ import (
 type CreateOutputSystemTestByPackAndIDRequest struct {
 	// The <code>id</code> of the Destination to send sample event data to.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// The <code>id</code> of the Pack to create.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
-	// OutputTestRequest object
+	// OutputTestRequest object.
 	OutputTestRequest components.OutputTestRequest `request:"mediaType=application/json"`
 }
 

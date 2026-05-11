@@ -1139,7 +1139,7 @@ func main() {
                         ID: components.PipelineFunctionGrokIDGrok,
                         Conf: components.PipelineFunctionGrokConf{
                             Pattern: "%{TIMESTAMP_ISO8601:event_time} %{LOGLEVEL:log_level} %{GREEDYDATA:log_message}",
-                            PatternList: []components.ItemsTypeSerdeTypeGrokPatternList{},
+                            PatternList: []components.PatternListConfSerdeTypeGrok{},
                             Source: criblcontrolplanesdkgo.Pointer("_raw"),
                         },
                     },
@@ -3851,7 +3851,7 @@ func main() {
                         ID: components.PipelineFunctionGrokIDGrok,
                         Conf: components.PipelineFunctionGrokConf{
                             Pattern: "%{TIMESTAMP_ISO8601:event_time} %{LOGLEVEL:log_level} %{GREEDYDATA:log_message}",
-                            PatternList: []components.ItemsTypeSerdeTypeGrokPatternList{},
+                            PatternList: []components.PatternListConfSerdeTypeGrok{},
                             Source: criblcontrolplanesdkgo.Pointer("_raw"),
                         },
                     },
@@ -5253,7 +5253,7 @@ func main() {
 | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | `ctx`                                                                | [context.Context](https://pkg.go.dev/context#Context)                | :heavy_check_mark:                                                   | The context to use for the request.                                  |
 | `id`                                                                 | `string`                                                             | :heavy_check_mark:                                                   | The <code>id</code> of the Pipeline to update.                       |
-| `pipeline`                                                           | [components.PipelineInput](../../models/components/pipelineinput.md) | :heavy_check_mark:                                                   | Pipeline object                                                      |
+| `pipeline`                                                           | [components.PipelineInput](../../models/components/pipelineinput.md) | :heavy_check_mark:                                                   | Pipeline object.                                                     |
 | `opts`                                                               | [][operations.Option](../../models/operations/option.md)             | :heavy_minus_sign:                                                   | The options for this request.                                        |
 
 ### Response

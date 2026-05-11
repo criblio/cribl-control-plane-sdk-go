@@ -31,37 +31,15 @@ func (e *OutputMicrosoftFabricType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type OutputMicrosoftFabricAuthenticationMethod string
-
-const (
-	OutputMicrosoftFabricAuthenticationMethodSecret      OutputMicrosoftFabricAuthenticationMethod = "secret"
-	OutputMicrosoftFabricAuthenticationMethodCertificate OutputMicrosoftFabricAuthenticationMethod = "certificate"
-)
-
-func (e OutputMicrosoftFabricAuthenticationMethod) ToPointer() *OutputMicrosoftFabricAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputMicrosoftFabricAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "secret", "certificate":
-			return true
-		}
-	}
-	return false
-}
-
 // OutputMicrosoftFabricAuthentication - Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
 type OutputMicrosoftFabricAuthentication struct {
-	Disabled  bool                       `json:"disabled"`
-	Mechanism *SaslMechanismOptionsSasl1 `json:"mechanism,omitzero"`
+	Disabled  bool                                      `json:"disabled"`
+	Mechanism *SaslMechanismOptionsSaslOauthbearerPlain `json:"mechanism,omitzero"`
 	// The username for authentication. This should always be $ConnectionString.
 	Username *string `json:"username,omitzero"`
 	// Select or create a stored text secret corresponding to the SASL JASS Password Primary or Password Secondary
-	TextSecret           *string                                    `json:"textSecret,omitzero"`
-	ClientSecretAuthType *OutputMicrosoftFabricAuthenticationMethod `json:"clientSecretAuthType,omitzero"`
+	TextSecret           *string                          `json:"textSecret,omitzero"`
+	ClientSecretAuthType *AuthenticationMethodOptionsAuth `json:"clientSecretAuthType,omitzero"`
 	// Select or create a stored text secret
 	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
 	// Select or create a stored certificate
@@ -77,6 +55,16 @@ type OutputMicrosoftFabricAuthentication struct {
 	TenantID *string `json:"tenantId,omitzero"`
 	// Scope to pass in the OAuth request parameter
 	Scope *string `json:"scope,omitzero"`
+	// Binds 'mechanism' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'mechanism' at runtime.
+	TemplateMechanism *string `json:"__template_mechanism,omitzero"`
+	// Binds 'oauthEndpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'oauthEndpoint' at runtime.
+	TemplateOauthEndpoint *string `json:"__template_oauthEndpoint,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
+	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
+	// Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
+	TemplateScope *string `json:"__template_scope,omitzero"`
 }
 
 func (o OutputMicrosoftFabricAuthentication) MarshalJSON() ([]byte, error) {
@@ -97,7 +85,7 @@ func (o *OutputMicrosoftFabricAuthentication) GetDisabled() bool {
 	return o.Disabled
 }
 
-func (o *OutputMicrosoftFabricAuthentication) GetMechanism() *SaslMechanismOptionsSasl1 {
+func (o *OutputMicrosoftFabricAuthentication) GetMechanism() *SaslMechanismOptionsSaslOauthbearerPlain {
 	if o == nil {
 		return nil
 	}
@@ -118,7 +106,7 @@ func (o *OutputMicrosoftFabricAuthentication) GetTextSecret() *string {
 	return o.TextSecret
 }
 
-func (o *OutputMicrosoftFabricAuthentication) GetClientSecretAuthType() *OutputMicrosoftFabricAuthenticationMethod {
+func (o *OutputMicrosoftFabricAuthentication) GetClientSecretAuthType() *AuthenticationMethodOptionsAuth {
 	if o == nil {
 		return nil
 	}
@@ -186,6 +174,41 @@ func (o *OutputMicrosoftFabricAuthentication) GetScope() *string {
 		return nil
 	}
 	return o.Scope
+}
+
+func (o *OutputMicrosoftFabricAuthentication) GetTemplateMechanism() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateMechanism
+}
+
+func (o *OutputMicrosoftFabricAuthentication) GetTemplateOauthEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOauthEndpoint
+}
+
+func (o *OutputMicrosoftFabricAuthentication) GetTemplateClientID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateClientID
+}
+
+func (o *OutputMicrosoftFabricAuthentication) GetTemplateTenantID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateTenantID
+}
+
+func (o *OutputMicrosoftFabricAuthentication) GetTemplateScope() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateScope
 }
 
 type OutputMicrosoftFabricPqControls struct {
@@ -256,7 +279,7 @@ type OutputMicrosoftFabric struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -269,10 +292,18 @@ type OutputMicrosoftFabric struct {
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions        `json:"pqOnBackpressure,omitzero"`
-	PqControls       *OutputMicrosoftFabricPqControls `json:"pqControls,omitzero"`
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                          `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *OutputMicrosoftFabricPqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
+	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'bootstrap_server' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bootstrap_server' at runtime.
 	TemplateBootstrapServer *string `json:"__template_bootstrap_server,omitzero"`
 }
@@ -533,6 +564,13 @@ func (o *OutputMicrosoftFabric) GetPqOnBackpressure() *QueueFullBehaviorOptions 
 	return o.PqOnBackpressure
 }
 
+func (o *OutputMicrosoftFabric) GetPqMaxBufferSizeBytes() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSizeBytes
+}
+
 func (o *OutputMicrosoftFabric) GetPqControls() *OutputMicrosoftFabricPqControls {
 	if o == nil {
 		return nil
@@ -540,11 +578,32 @@ func (o *OutputMicrosoftFabric) GetPqControls() *OutputMicrosoftFabricPqControls
 	return o.PqControls
 }
 
+func (o *OutputMicrosoftFabric) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
+}
+
 func (o *OutputMicrosoftFabric) GetTemplateTopic() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateTopic
+}
+
+func (o *OutputMicrosoftFabric) GetTemplateFormat() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFormat
+}
+
+func (o *OutputMicrosoftFabric) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }
 
 func (o *OutputMicrosoftFabric) GetTemplateBootstrapServer() *string {

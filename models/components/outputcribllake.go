@@ -31,23 +31,46 @@ func (e *OutputCriblLakeType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type AwsAuthenticationMethod string
+type OutputCriblLakeAwsAuthenticationMethod string
 
 const (
-	AwsAuthenticationMethodAuto    AwsAuthenticationMethod = "auto"
-	AwsAuthenticationMethodAutoRPC AwsAuthenticationMethod = "auto_rpc"
-	AwsAuthenticationMethodManual  AwsAuthenticationMethod = "manual"
+	OutputCriblLakeAwsAuthenticationMethodAuto    OutputCriblLakeAwsAuthenticationMethod = "auto"
+	OutputCriblLakeAwsAuthenticationMethodAutoRPC OutputCriblLakeAwsAuthenticationMethod = "auto_rpc"
+	OutputCriblLakeAwsAuthenticationMethodManual  OutputCriblLakeAwsAuthenticationMethod = "manual"
 )
 
-func (e AwsAuthenticationMethod) ToPointer() *AwsAuthenticationMethod {
+func (e OutputCriblLakeAwsAuthenticationMethod) ToPointer() *OutputCriblLakeAwsAuthenticationMethod {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AwsAuthenticationMethod) IsExact() bool {
+func (e *OutputCriblLakeAwsAuthenticationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "auto", "auto_rpc", "manual":
+			return true
+		}
+	}
+	return false
+}
+
+type OutputCriblLakeFormat string
+
+const (
+	OutputCriblLakeFormatJSON    OutputCriblLakeFormat = "json"
+	OutputCriblLakeFormatParquet OutputCriblLakeFormat = "parquet"
+	OutputCriblLakeFormatDdss    OutputCriblLakeFormat = "ddss"
+)
+
+func (e OutputCriblLakeFormat) ToPointer() *OutputCriblLakeFormat {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputCriblLakeFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "json", "parquet", "ddss":
 			return true
 		}
 	}
@@ -66,20 +89,8 @@ type OutputCriblLake struct {
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
-	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	Bucket *string `json:"bucket,omitzero"`
-	// Region where the S3 bucket is located
-	Region *string `json:"region,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitzero"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 	// Use Assume Role credentials to access S3
 	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -88,19 +99,24 @@ type OutputCriblLake struct {
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket *string `json:"bucket,omitzero"`
+	// Region where the S3 bucket is located
+	Region *string `json:"region,omitzero"`
+	// Lake dataset to send the data to.
+	DestPath *string `json:"destPath,omitzero"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath *string `json:"stagePath,omitzero"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
-	// Lake dataset to send the data to.
-	DestPath *string `json:"destPath,omitzero"`
-	// Object ACL to assign to uploaded objects
-	ObjectACL *ObjectACLOptions `json:"objectACL,omitzero"`
-	// Storage class to select for uploaded objects
-	StorageClass         *StorageClassOptions                           `json:"storageClass,omitzero"`
-	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
-	// ID or ARN of the KMS customer-managed key to use for encryption
-	KmsKeyID *string `json:"kmsKeyId,omitzero"`
 	// Remove empty staging directories after moving files
 	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// JavaScript expression to define the output filename prefix (can be constant)
@@ -109,6 +125,10 @@ type OutputCriblLake struct {
 	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
 	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// If set, this line will be written to the beginning of each output file
@@ -116,7 +136,7 @@ type OutputCriblLake struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
+	OnBackpressure *BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
@@ -125,16 +145,18 @@ type OutputCriblLake struct {
 	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
 	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
-	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
-	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
-	// Disable if you can access files within the bucket but not the bucket itself
-	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
-	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64                 `json:"maxClosingFilesToBackpressure,omitzero"`
-	AwsAuthenticationMethod       *AwsAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
-	Format                        *FormatOptions           `json:"format,omitzero"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `json:"objectACL,omitzero"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClassOptions `json:"storageClass,omitzero"`
+	// Server-side encryption to use for uploaded objects
+	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
+	// ID or ARN of the KMS customer-managed key to use for encryption
+	KmsKeyID                *string                                 `json:"kmsKeyId,omitzero"`
+	AwsAuthenticationMethod *OutputCriblLakeAwsAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
+	Format                  *OutputCriblLakeFormat                  `json:"format,omitzero"`
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
 	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
 	Description            *string  `json:"description,omitzero"`
@@ -146,18 +168,36 @@ type OutputCriblLake struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
-	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-	TemplateBucket *string `json:"__template_bucket,omitzero"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
 	TemplateDestPath *string `json:"__template_destPath,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
+	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+	TemplateStorageClass *string `json:"__template_storageClass,omitzero"`
+	// Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
+	// Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
+	TemplateKmsKeyID *string `json:"__template_kmsKeyId,omitzero"`
 }
 
 func (o OutputCriblLake) MarshalJSON() ([]byte, error) {
@@ -213,53 +253,11 @@ func (o *OutputCriblLake) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputCriblLake) GetBucket() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Bucket
-}
-
-func (o *OutputCriblLake) GetRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Region
-}
-
-func (o *OutputCriblLake) GetAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsSecretKey
-}
-
 func (o *OutputCriblLake) GetEndpoint() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Endpoint
-}
-
-func (o *OutputCriblLake) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
-}
-
-func (o *OutputCriblLake) GetReuseConnections() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ReuseConnections
-}
-
-func (o *OutputCriblLake) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
 }
 
 func (o *OutputCriblLake) GetEnableAssumeRole() *bool {
@@ -290,6 +288,55 @@ func (o *OutputCriblLake) GetDurationSeconds() *float64 {
 	return o.DurationSeconds
 }
 
+func (o *OutputCriblLake) GetReuseConnections() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ReuseConnections
+}
+
+func (o *OutputCriblLake) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputCriblLake) GetBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Bucket
+}
+
+func (o *OutputCriblLake) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputCriblLake) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputCriblLake) GetVerifyPermissions() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.VerifyPermissions
+}
+
+func (o *OutputCriblLake) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
 func (o *OutputCriblLake) GetStagePath() *string {
 	if o == nil {
 		return nil
@@ -302,41 +349,6 @@ func (o *OutputCriblLake) GetAddIDToStagePath() *bool {
 		return nil
 	}
 	return o.AddIDToStagePath
-}
-
-func (o *OutputCriblLake) GetDestPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.DestPath
-}
-
-func (o *OutputCriblLake) GetObjectACL() *ObjectACLOptions {
-	if o == nil {
-		return nil
-	}
-	return o.ObjectACL
-}
-
-func (o *OutputCriblLake) GetStorageClass() *StorageClassOptions {
-	if o == nil {
-		return nil
-	}
-	return o.StorageClass
-}
-
-func (o *OutputCriblLake) GetServerSideEncryption() *ServerSideEncryptionForUploadedObjectsOptions {
-	if o == nil {
-		return nil
-	}
-	return o.ServerSideEncryption
-}
-
-func (o *OutputCriblLake) GetKmsKeyID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.KmsKeyID
 }
 
 func (o *OutputCriblLake) GetRemoveEmptyDirs() *bool {
@@ -367,6 +379,20 @@ func (o *OutputCriblLake) GetMaxFileSizeMB() *float64 {
 	return o.MaxFileSizeMB
 }
 
+func (o *OutputCriblLake) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputCriblLake) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
 func (o *OutputCriblLake) GetMaxOpenFiles() *float64 {
 	if o == nil {
 		return nil
@@ -388,7 +414,7 @@ func (o *OutputCriblLake) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputCriblLake) GetOnBackpressure() *BackpressureBehaviorOptions1 {
+func (o *OutputCriblLake) GetOnBackpressure() *BackpressureBehaviorOptionsBlockDrop {
 	if o == nil {
 		return nil
 	}
@@ -430,42 +456,49 @@ func (o *OutputCriblLake) GetOrphans() *OrphanFileRecoveryType {
 	return o.Orphans
 }
 
-func (o *OutputCriblLake) GetMaxFileOpenTimeSec() *float64 {
+func (o *OutputCriblLake) GetAwsSecretKey() *string {
 	if o == nil {
 		return nil
 	}
-	return o.MaxFileOpenTimeSec
+	return o.AwsSecretKey
 }
 
-func (o *OutputCriblLake) GetMaxFileIdleTimeSec() *float64 {
+func (o *OutputCriblLake) GetObjectACL() *ObjectACLOptions {
 	if o == nil {
 		return nil
 	}
-	return o.MaxFileIdleTimeSec
+	return o.ObjectACL
 }
 
-func (o *OutputCriblLake) GetVerifyPermissions() *bool {
+func (o *OutputCriblLake) GetStorageClass() *StorageClassOptions {
 	if o == nil {
 		return nil
 	}
-	return o.VerifyPermissions
+	return o.StorageClass
 }
 
-func (o *OutputCriblLake) GetMaxClosingFilesToBackpressure() *float64 {
+func (o *OutputCriblLake) GetServerSideEncryption() *ServerSideEncryptionForUploadedObjectsOptions {
 	if o == nil {
 		return nil
 	}
-	return o.MaxClosingFilesToBackpressure
+	return o.ServerSideEncryption
 }
 
-func (o *OutputCriblLake) GetAwsAuthenticationMethod() *AwsAuthenticationMethod {
+func (o *OutputCriblLake) GetKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.KmsKeyID
+}
+
+func (o *OutputCriblLake) GetAwsAuthenticationMethod() *OutputCriblLakeAwsAuthenticationMethod {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
 }
 
-func (o *OutputCriblLake) GetFormat() *FormatOptions {
+func (o *OutputCriblLake) GetFormat() *OutputCriblLakeFormat {
 	if o == nil {
 		return nil
 	}
@@ -514,25 +547,18 @@ func (o *OutputCriblLake) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
-func (o *OutputCriblLake) GetTemplateBucket() *string {
+func (o *OutputCriblLake) GetTemplateStreamtags() *string {
 	if o == nil {
 		return nil
 	}
-	return o.TemplateBucket
+	return o.TemplateStreamtags
 }
 
-func (o *OutputCriblLake) GetTemplateRegion() *string {
+func (o *OutputCriblLake) GetTemplateEndpoint() *string {
 	if o == nil {
 		return nil
 	}
-	return o.TemplateRegion
-}
-
-func (o *OutputCriblLake) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
+	return o.TemplateEndpoint
 }
 
 func (o *OutputCriblLake) GetTemplateAssumeRoleArn() *string {
@@ -549,9 +575,79 @@ func (o *OutputCriblLake) GetTemplateAssumeRoleExternalID() *string {
 	return o.TemplateAssumeRoleExternalID
 }
 
+func (o *OutputCriblLake) GetTemplateBucket() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateBucket
+}
+
+func (o *OutputCriblLake) GetTemplateRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateRegion
+}
+
 func (o *OutputCriblLake) GetTemplateDestPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateDestPath
+}
+
+func (o *OutputCriblLake) GetTemplateBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateBaseFileName
+}
+
+func (o *OutputCriblLake) GetTemplateFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFileNameSuffix
+}
+
+func (o *OutputCriblLake) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
+}
+
+func (o *OutputCriblLake) GetTemplateAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAwsSecretKey
+}
+
+func (o *OutputCriblLake) GetTemplateObjectACL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateObjectACL
+}
+
+func (o *OutputCriblLake) GetTemplateStorageClass() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStorageClass
+}
+
+func (o *OutputCriblLake) GetTemplateServerSideEncryption() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateServerSideEncryption
+}
+
+func (o *OutputCriblLake) GetTemplateKmsKeyID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateKmsKeyID
 }

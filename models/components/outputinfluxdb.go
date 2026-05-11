@@ -31,30 +31,30 @@ func (e *OutputInfluxdbType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// TimestampPrecision - Sets the precision for the supplied Unix time values. Defaults to milliseconds.
-type TimestampPrecision string
+// OutputInfluxdbTimestampPrecision - Sets the precision for the supplied Unix time values. Defaults to milliseconds.
+type OutputInfluxdbTimestampPrecision string
 
 const (
-	// TimestampPrecisionNs Nanoseconds
-	TimestampPrecisionNs TimestampPrecision = "ns"
-	// TimestampPrecisionU Microseconds
-	TimestampPrecisionU TimestampPrecision = "u"
-	// TimestampPrecisionMs Milliseconds
-	TimestampPrecisionMs TimestampPrecision = "ms"
-	// TimestampPrecisionS Seconds
-	TimestampPrecisionS TimestampPrecision = "s"
-	// TimestampPrecisionM Minutes
-	TimestampPrecisionM TimestampPrecision = "m"
-	// TimestampPrecisionH Hours
-	TimestampPrecisionH TimestampPrecision = "h"
+	// OutputInfluxdbTimestampPrecisionNs Nanoseconds
+	OutputInfluxdbTimestampPrecisionNs OutputInfluxdbTimestampPrecision = "ns"
+	// OutputInfluxdbTimestampPrecisionU Microseconds
+	OutputInfluxdbTimestampPrecisionU OutputInfluxdbTimestampPrecision = "u"
+	// OutputInfluxdbTimestampPrecisionMs Milliseconds
+	OutputInfluxdbTimestampPrecisionMs OutputInfluxdbTimestampPrecision = "ms"
+	// OutputInfluxdbTimestampPrecisionS Seconds
+	OutputInfluxdbTimestampPrecisionS OutputInfluxdbTimestampPrecision = "s"
+	// OutputInfluxdbTimestampPrecisionM Minutes
+	OutputInfluxdbTimestampPrecisionM OutputInfluxdbTimestampPrecision = "m"
+	// OutputInfluxdbTimestampPrecisionH Hours
+	OutputInfluxdbTimestampPrecisionH OutputInfluxdbTimestampPrecision = "h"
 )
 
-func (e TimestampPrecision) ToPointer() *TimestampPrecision {
+func (e OutputInfluxdbTimestampPrecision) ToPointer() *OutputInfluxdbTimestampPrecision {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *TimestampPrecision) IsExact() bool {
+func (e *OutputInfluxdbTimestampPrecision) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "ns", "u", "ms", "s", "m", "h":
@@ -126,7 +126,7 @@ type OutputInfluxdb struct {
 	// The v2 API can be enabled with InfluxDB versions 1.8 and later.
 	UseV2API *bool `json:"useV2API,omitzero"`
 	// Sets the precision for the supplied Unix time values. Defaults to milliseconds.
-	TimestampPrecision *TimestampPrecision `json:"timestampPrecision,omitzero"`
+	TimestampPrecision *OutputInfluxdbTimestampPrecision `json:"timestampPrecision,omitzero"`
 	// Enabling this will pull the value field from the metric name. E,g, 'db.query.user' will use 'db.query' as the measurement and 'user' as the value field.
 	DynamicValueFieldName *bool `json:"dynamicValueFieldName,omitzero"`
 	// Name of the field in which to store the metric when sending to InfluxDB. If dynamic generation is enabled and fails, this will be used as a fallback.
@@ -148,7 +148,7 @@ type OutputInfluxdb struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -156,8 +156,8 @@ type OutputInfluxdb struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -177,7 +177,7 @@ type OutputInfluxdb struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -191,17 +191,25 @@ type OutputInfluxdb struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	PqControls       *OutputInfluxdbPqControls `json:"pqControls,omitzero"`
-	Username         *string                   `json:"username,omitzero"`
-	Password         *string                   `json:"password,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                   `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *OutputInfluxdbPqControls `json:"pqControls,omitzero"`
+	Username             *string                   `json:"username,omitzero"`
+	Password             *string                   `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
 	TemplateDatabase *string `json:"__template_database,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
@@ -275,7 +283,7 @@ func (o *OutputInfluxdb) GetUseV2API() *bool {
 	return o.UseV2API
 }
 
-func (o *OutputInfluxdb) GetTimestampPrecision() *TimestampPrecision {
+func (o *OutputInfluxdb) GetTimestampPrecision() *OutputInfluxdbTimestampPrecision {
 	if o == nil {
 		return nil
 	}
@@ -345,7 +353,7 @@ func (o *OutputInfluxdb) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputInfluxdb) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputInfluxdb) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -373,7 +381,7 @@ func (o *OutputInfluxdb) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputInfluxdb) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputInfluxdb) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}
@@ -506,6 +514,13 @@ func (o *OutputInfluxdb) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	return o.PqOnBackpressure
 }
 
+func (o *OutputInfluxdb) GetPqMaxBufferSizeBytes() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSizeBytes
+}
+
 func (o *OutputInfluxdb) GetPqControls() *OutputInfluxdbPqControls {
 	if o == nil {
 		return nil
@@ -548,11 +563,32 @@ func (o *OutputInfluxdb) GetTextSecret() *string {
 	return o.TextSecret
 }
 
+func (o *OutputInfluxdb) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
+}
+
 func (o *OutputInfluxdb) GetTemplateURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateURL
+}
+
+func (o *OutputInfluxdb) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputInfluxdb) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }
 
 func (o *OutputInfluxdb) GetTemplateDatabase() *string {

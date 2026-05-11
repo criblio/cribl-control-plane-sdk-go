@@ -10,7 +10,7 @@ import (
 type UpdateDatabaseConnectionConfigByIDRequest struct {
 	// The <code>id</code> of the Database Connection to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// DatabaseConnectionConfig object
+	// DatabaseConnectionConfig object.
 	DatabaseConnectionConfig components.DatabaseConnectionConfig `request:"mediaType=application/json"`
 }
 
@@ -30,7 +30,7 @@ func (u *UpdateDatabaseConnectionConfigByIDRequest) GetDatabaseConnectionConfig(
 
 type UpdateDatabaseConnectionConfigByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of DatabaseConnectionConfig objects
+	// The updated DatabaseConnectionConfig object in a single-item list.
 	CountedDatabaseConnectionConfig *components.CountedDatabaseConnectionConfig
 }
 

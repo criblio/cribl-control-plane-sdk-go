@@ -10,7 +10,7 @@ import (
 type GetInputSystemByPackAndIDRequest struct {
 	// The <code>id</code> of the Source to get.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// The <code>id</code> of the Pack to get.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
 
@@ -30,8 +30,8 @@ func (g *GetInputSystemByPackAndIDRequest) GetPack() string {
 
 type GetInputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source objects
-	CountedInput *components.CountedInput
+	// a Source object
+	CountedInputResponse *components.CountedInputResponse
 }
 
 func (g GetInputSystemByPackAndIDResponse) MarshalJSON() ([]byte, error) {
@@ -52,9 +52,9 @@ func (g *GetInputSystemByPackAndIDResponse) GetHTTPMeta() components.HTTPMetadat
 	return g.HTTPMeta
 }
 
-func (g *GetInputSystemByPackAndIDResponse) GetCountedInput() *components.CountedInput {
+func (g *GetInputSystemByPackAndIDResponse) GetCountedInputResponse() *components.CountedInputResponse {
 	if g == nil {
 		return nil
 	}
-	return g.CountedInput
+	return g.CountedInputResponse
 }

@@ -80,7 +80,7 @@ type PipelineFunctionMaskConf struct {
 	// Depth to which the Mask Function will search for fields to mask
 	Depth *int64 `json:"depth,omitzero"`
 	// Fields to evaluate if one or more masking rules are matched
-	Flags []ItemsTypeAdd `json:"flags,omitzero"`
+	Flags []AddConfFunctionConfSchemaAggregation `json:"flags,omitzero"`
 }
 
 func (p PipelineFunctionMaskConf) MarshalJSON() ([]byte, error) {
@@ -115,7 +115,7 @@ func (p *PipelineFunctionMaskConf) GetDepth() *int64 {
 	return p.Depth
 }
 
-func (p *PipelineFunctionMaskConf) GetFlags() []ItemsTypeAdd {
+func (p *PipelineFunctionMaskConf) GetFlags() []AddConfFunctionConfSchemaAggregation {
 	if p == nil {
 		return nil
 	}

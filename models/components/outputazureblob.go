@@ -31,27 +31,27 @@ func (e *OutputAzureBlobType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type BlobAccessTier string
+type OutputAzureBlobBlobAccessTier string
 
 const (
-	// BlobAccessTierInferred Default account access tier
-	BlobAccessTierInferred BlobAccessTier = "Inferred"
-	// BlobAccessTierHot Hot tier
-	BlobAccessTierHot BlobAccessTier = "Hot"
-	// BlobAccessTierCool Cool tier
-	BlobAccessTierCool BlobAccessTier = "Cool"
-	// BlobAccessTierCold Cold tier
-	BlobAccessTierCold BlobAccessTier = "Cold"
-	// BlobAccessTierArchive Archive tier
-	BlobAccessTierArchive BlobAccessTier = "Archive"
+	// OutputAzureBlobBlobAccessTierInferred Default account access tier
+	OutputAzureBlobBlobAccessTierInferred OutputAzureBlobBlobAccessTier = "Inferred"
+	// OutputAzureBlobBlobAccessTierHot Hot tier
+	OutputAzureBlobBlobAccessTierHot OutputAzureBlobBlobAccessTier = "Hot"
+	// OutputAzureBlobBlobAccessTierCool Cool tier
+	OutputAzureBlobBlobAccessTierCool OutputAzureBlobBlobAccessTier = "Cool"
+	// OutputAzureBlobBlobAccessTierCold Cold tier
+	OutputAzureBlobBlobAccessTierCold OutputAzureBlobBlobAccessTier = "Cold"
+	// OutputAzureBlobBlobAccessTierArchive Archive tier
+	OutputAzureBlobBlobAccessTierArchive OutputAzureBlobBlobAccessTier = "Archive"
 )
 
-func (e BlobAccessTier) ToPointer() *BlobAccessTier {
+func (e OutputAzureBlobBlobAccessTier) ToPointer() *OutputAzureBlobBlobAccessTier {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *BlobAccessTier) IsExact() bool {
+func (e *OutputAzureBlobBlobAccessTier) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "Inferred", "Hot", "Cool", "Cold", "Archive":
@@ -108,20 +108,20 @@ type OutputAzureBlob struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
+	OnBackpressure *BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                        `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType           `json:"retrySettings,omitzero"`
-	Orphans              *OrphanFileRecoveryType      `json:"orphans,omitzero"`
-	AuthType             *AuthenticationMethodOptions `json:"authType,omitzero"`
-	StorageClass         *BlobAccessTier              `json:"storageClass,omitzero"`
-	Description          *string                      `json:"description,omitzero"`
+	ForceCloseOnShutdown *bool                          `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType             `json:"retrySettings,omitzero"`
+	Orphans              *OrphanFileRecoveryType        `json:"orphans,omitzero"`
+	AuthType             *AuthenticationMethodOptions   `json:"authType,omitzero"`
+	StorageClass         *OutputAzureBlobBlobAccessTier `json:"storageClass,omitzero"`
+	Description          *string                        `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *CompressionOptions2 `json:"compress,omitzero"`
+	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
@@ -139,7 +139,7 @@ type OutputAzureBlob struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -171,16 +171,36 @@ type OutputAzureBlob struct {
 	// Select or create a stored text secret
 	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
 	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
 	TemplateContainerName *string `json:"__template_containerName,omitzero"`
+	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+	TemplateDestPath *string `json:"__template_destPath,omitzero"`
+	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
 	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 	// Binds 'connectionString' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'connectionString' at runtime.
 	TemplateConnectionString *string `json:"__template_connectionString,omitzero"`
+	// Binds 'storageAccountName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageAccountName' at runtime.
+	TemplateStorageAccountName *string `json:"__template_storageAccountName,omitzero"`
 	// Binds 'tenantId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tenantId' at runtime.
 	TemplateTenantID *string `json:"__template_tenantId,omitzero"`
 	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
 	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'azureCloud' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'azureCloud' at runtime.
+	TemplateAzureCloud *string `json:"__template_azureCloud,omitzero"`
 }
 
 func (o OutputAzureBlob) MarshalJSON() ([]byte, error) {
@@ -355,7 +375,7 @@ func (o *OutputAzureBlob) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputAzureBlob) GetOnBackpressure() *BackpressureBehaviorOptions1 {
+func (o *OutputAzureBlob) GetOnBackpressure() *BackpressureBehaviorOptionsBlockDrop {
 	if o == nil {
 		return nil
 	}
@@ -404,7 +424,7 @@ func (o *OutputAzureBlob) GetAuthType() *AuthenticationMethodOptions {
 	return o.AuthType
 }
 
-func (o *OutputAzureBlob) GetStorageClass() *BlobAccessTier {
+func (o *OutputAzureBlob) GetStorageClass() *OutputAzureBlobBlobAccessTier {
 	if o == nil {
 		return nil
 	}
@@ -418,7 +438,7 @@ func (o *OutputAzureBlob) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputAzureBlob) GetCompress() *CompressionOptions2 {
+func (o *OutputAzureBlob) GetCompress() *CompressionOptionsHTTP {
 	if o == nil {
 		return nil
 	}
@@ -481,7 +501,7 @@ func (o *OutputAzureBlob) GetShouldLogInvalidRows() *bool {
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputAzureBlob) GetKeyValueMetadata() []ItemsTypeKeyValueMetadata {
+func (o *OutputAzureBlob) GetKeyValueMetadata() []KeyValueMetadataConfOutputFilesystem {
 	if o == nil {
 		return nil
 	}
@@ -600,11 +620,32 @@ func (o *OutputAzureBlob) GetCertificate() *CertificateTypeAzureBlobAuthTypeClie
 	return o.Certificate
 }
 
+func (o *OutputAzureBlob) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
+}
+
 func (o *OutputAzureBlob) GetTemplateContainerName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateContainerName
+}
+
+func (o *OutputAzureBlob) GetTemplateDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateDestPath
+}
+
+func (o *OutputAzureBlob) GetTemplatePartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePartitionExpr
 }
 
 func (o *OutputAzureBlob) GetTemplateFormat() *string {
@@ -614,11 +655,53 @@ func (o *OutputAzureBlob) GetTemplateFormat() *string {
 	return o.TemplateFormat
 }
 
+func (o *OutputAzureBlob) GetTemplateBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateBaseFileName
+}
+
+func (o *OutputAzureBlob) GetTemplateFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFileNameSuffix
+}
+
+func (o *OutputAzureBlob) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
+}
+
+func (o *OutputAzureBlob) GetTemplateCompress() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateCompress
+}
+
+func (o *OutputAzureBlob) GetTemplateParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateParquetSchema
+}
+
 func (o *OutputAzureBlob) GetTemplateConnectionString() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateConnectionString
+}
+
+func (o *OutputAzureBlob) GetTemplateStorageAccountName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStorageAccountName
 }
 
 func (o *OutputAzureBlob) GetTemplateTenantID() *string {
@@ -633,4 +716,11 @@ func (o *OutputAzureBlob) GetTemplateClientID() *string {
 		return nil
 	}
 	return o.TemplateClientID
+}
+
+func (o *OutputAzureBlob) GetTemplateAzureCloud() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAzureCloud
 }

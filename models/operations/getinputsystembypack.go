@@ -8,8 +8,28 @@ import (
 )
 
 type GetInputSystemByPackRequest struct {
-	// The <code>id</code> of the Pack to list.
+	// Type of Source to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
+	Type []string `queryParam:"style=form,explode=true,name=type"`
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
+}
+
+func (g GetInputSystemByPackRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GetInputSystemByPackRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (g *GetInputSystemByPackRequest) GetType() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Type
 }
 
 func (g *GetInputSystemByPackRequest) GetPack() string {
@@ -22,7 +42,7 @@ func (g *GetInputSystemByPackRequest) GetPack() string {
 type GetInputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Source objects
-	CountedInput *components.CountedInput
+	CountedInputResponse *components.CountedInputResponse
 }
 
 func (g GetInputSystemByPackResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +63,9 @@ func (g *GetInputSystemByPackResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetInputSystemByPackResponse) GetCountedInput() *components.CountedInput {
+func (g *GetInputSystemByPackResponse) GetCountedInputResponse() *components.CountedInputResponse {
 	if g == nil {
 		return nil
 	}
-	return g.CountedInput
+	return g.CountedInputResponse
 }

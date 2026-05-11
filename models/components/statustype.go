@@ -6,18 +6,17 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// StatusType - Status information for the Source or Destination, aggregated across all Worker Processes.
+// StatusType - Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
 type StatusType struct {
-	// Error information, if applicable.
-	Error        *ErrorTypeStatus `json:"error,omitzero"`
-	Health       HealthStringType `json:"health"`
-	HealthCounts HealthCountType  `json:"healthCounts"`
-	// Metrics data for the Source or Destination, including base metrics, aggregated across all Worker Processes. For load-balanced Destinations, includes item-level metrics.
-	Metrics map[string]any `json:"metrics,omitzero"`
-	// Persistent queue status information (if persistent queue is enabled).
-	Pq *PqTypeStatus `json:"pq,omitzero"`
+	Error  *StatusError      `json:"error,omitzero"`
+	Health *HealthStringType `json:"health,omitzero"`
+	// Metrics data for the Source or Destination.
+	Metrics map[string]any  `json:"metrics,omitzero"`
+	Pq      *WorkerPQStatus `json:"pq,omitzero"`
 	// Timestamp (in Unix time) when the status was last updated.
-	Timestamp float64 `json:"timestamp"`
+	Timestamp *float64 `json:"timestamp,omitzero"`
+	// Set to prefer status from the LB process, not from the worker process.
+	UseStatusFromLB *bool `json:"useStatusFromLB,omitzero"`
 }
 
 func (s StatusType) MarshalJSON() ([]byte, error) {
@@ -31,25 +30,18 @@ func (s *StatusType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *StatusType) GetError() *ErrorTypeStatus {
+func (s *StatusType) GetError() *StatusError {
 	if s == nil {
 		return nil
 	}
 	return s.Error
 }
 
-func (s *StatusType) GetHealth() HealthStringType {
+func (s *StatusType) GetHealth() *HealthStringType {
 	if s == nil {
-		return HealthStringType("")
+		return nil
 	}
 	return s.Health
-}
-
-func (s *StatusType) GetHealthCounts() HealthCountType {
-	if s == nil {
-		return HealthCountType{}
-	}
-	return s.HealthCounts
 }
 
 func (s *StatusType) GetMetrics() map[string]any {
@@ -59,16 +51,23 @@ func (s *StatusType) GetMetrics() map[string]any {
 	return s.Metrics
 }
 
-func (s *StatusType) GetPq() *PqTypeStatus {
+func (s *StatusType) GetPq() *WorkerPQStatus {
 	if s == nil {
 		return nil
 	}
 	return s.Pq
 }
 
-func (s *StatusType) GetTimestamp() float64 {
+func (s *StatusType) GetTimestamp() *float64 {
 	if s == nil {
-		return 0.0
+		return nil
 	}
 	return s.Timestamp
+}
+
+func (s *StatusType) GetUseStatusFromLB() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.UseStatusFromLB
 }

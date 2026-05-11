@@ -9,7 +9,7 @@ import (
 
 type CreateDatabaseConnectionConfigResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of DatabaseConnectionConfig objects
+	// The created DatabaseConnectionConfig object in a single-item list.
 	CountedDatabaseConnectionConfig *components.CountedDatabaseConnectionConfig
 }
 

@@ -429,6 +429,48 @@ output := components.CreateOutputMicrosoftFabric(components.OutputMicrosoftFabri
 output := components.CreateOutputCloudflareR2(components.OutputCloudflareR2{/* values here */})
 ```
 
+### OutputNutanixObjects
+
+```go
+output := components.CreateOutputNutanixObjects(components.OutputNutanixObjects{/* values here */})
+```
+
+### OutputStorjS3
+
+```go
+output := components.CreateOutputStorjS3(components.OutputStorjS3{/* values here */})
+```
+
+### OutputAlphasocS3
+
+```go
+output := components.CreateOutputAlphasocS3(components.OutputAlphasocS3{/* values here */})
+```
+
+### OutputDellS3
+
+```go
+output := components.CreateOutputDellS3(components.OutputDellS3{/* values here */})
+```
+
+### OutputCloudianS3
+
+```go
+output := components.CreateOutputCloudianS3(components.OutputCloudianS3{/* values here */})
+```
+
+### OutputScalityS3
+
+```go
+output := components.CreateOutputScalityS3(components.OutputScalityS3{/* values here */})
+```
+
+### OutputAlibabaCloudS3
+
+```go
+output := components.CreateOutputAlibabaCloudS3(components.OutputAlibabaCloudS3{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -577,7 +619,19 @@ switch output.Type {
 		// output.OutputMicrosoftFabric is populated
 	case components.OutputTypeCloudflareR2:
 		// output.OutputCloudflareR2 is populated
-	default:
-		// Unknown type - use output.GetUnknownRaw() for raw JSON
+	case components.OutputTypeNutanixObjects:
+		// output.OutputNutanixObjects is populated
+	case components.OutputTypeStorjS3:
+		// output.OutputStorjS3 is populated
+	case components.OutputTypeAlphasocS3:
+		// output.OutputAlphasocS3 is populated
+	case components.OutputTypeDellS3:
+		// output.OutputDellS3 is populated
+	case components.OutputTypeCloudianS3:
+		// output.OutputCloudianS3 is populated
+	case components.OutputTypeScalityS3:
+		// output.OutputScalityS3 is populated
+	case components.OutputTypeAlibabaCloudS3:
+		// output.OutputAlibabaCloudS3 is populated
 }
 ```

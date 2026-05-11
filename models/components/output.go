@@ -83,7 +83,13 @@ const (
 	OutputTypeDatabricks             OutputType = "databricks"
 	OutputTypeMicrosoftFabric        OutputType = "microsoft_fabric"
 	OutputTypeCloudflareR2           OutputType = "cloudflare_r2"
-	OutputTypeUnknown                OutputType = "UNKNOWN"
+	OutputTypeNutanixObjects         OutputType = "nutanix_objects"
+	OutputTypeStorjS3                OutputType = "storj_s3"
+	OutputTypeAlphasocS3             OutputType = "alphasoc_s3"
+	OutputTypeDellS3                 OutputType = "dell_s3"
+	OutputTypeCloudianS3             OutputType = "cloudian_s3"
+	OutputTypeScalityS3              OutputType = "scality_s3"
+	OutputTypeAlibabaCloudS3         OutputType = "alibaba_cloud_s3"
 )
 
 type Output struct {
@@ -158,7 +164,13 @@ type Output struct {
 	OutputDatabricks             *OutputDatabricks             `queryParam:"inline" union:"member"`
 	OutputMicrosoftFabric        *OutputMicrosoftFabric        `queryParam:"inline" union:"member"`
 	OutputCloudflareR2           *OutputCloudflareR2           `queryParam:"inline" union:"member"`
-	UnknownRaw                   json.RawMessage               `json:"-" union:"unknown"`
+	OutputNutanixObjects         *OutputNutanixObjects         `queryParam:"inline" union:"member"`
+	OutputStorjS3                *OutputStorjS3                `queryParam:"inline" union:"member"`
+	OutputAlphasocS3             *OutputAlphasocS3             `queryParam:"inline" union:"member"`
+	OutputDellS3                 *OutputDellS3                 `queryParam:"inline" union:"member"`
+	OutputCloudianS3             *OutputCloudianS3             `queryParam:"inline" union:"member"`
+	OutputScalityS3              *OutputScalityS3              `queryParam:"inline" union:"member"`
+	OutputAlibabaCloudS3         *OutputAlibabaCloudS3         `queryParam:"inline" union:"member"`
 
 	Type OutputType
 }
@@ -177,9 +189,6 @@ func CreateOutputDefault(defaultT OutputDefault) Output {
 
 func CreateOutputWebhook(webhook OutputWebhook) Output {
 	typ := OutputTypeWebhook
-
-	typStr := OutputWebhookType(typ)
-	webhook.Type = typStr
 
 	return Output{
 		OutputWebhook: &webhook,
@@ -1012,19 +1021,88 @@ func CreateOutputCloudflareR2(cloudflareR2 OutputCloudflareR2) Output {
 	}
 }
 
-func CreateOutputUnknown(raw json.RawMessage) Output {
+func CreateOutputNutanixObjects(nutanixObjects OutputNutanixObjects) Output {
+	typ := OutputTypeNutanixObjects
+
+	typStr := OutputNutanixObjectsType(typ)
+	nutanixObjects.Type = typStr
+
 	return Output{
-		UnknownRaw: raw,
-		Type:       OutputTypeUnknown,
+		OutputNutanixObjects: &nutanixObjects,
+		Type:                 typ,
 	}
 }
 
-func (u Output) GetUnknownRaw() json.RawMessage {
-	return u.UnknownRaw
+func CreateOutputStorjS3(storjS3 OutputStorjS3) Output {
+	typ := OutputTypeStorjS3
+
+	typStr := OutputStorjS3Type(typ)
+	storjS3.Type = typStr
+
+	return Output{
+		OutputStorjS3: &storjS3,
+		Type:          typ,
+	}
 }
 
-func (u Output) IsUnknown() bool {
-	return u.Type == OutputTypeUnknown
+func CreateOutputAlphasocS3(alphasocS3 OutputAlphasocS3) Output {
+	typ := OutputTypeAlphasocS3
+
+	typStr := OutputAlphasocS3Type(typ)
+	alphasocS3.Type = typStr
+
+	return Output{
+		OutputAlphasocS3: &alphasocS3,
+		Type:             typ,
+	}
+}
+
+func CreateOutputDellS3(dellS3 OutputDellS3) Output {
+	typ := OutputTypeDellS3
+
+	typStr := OutputDellS3Type(typ)
+	dellS3.Type = typStr
+
+	return Output{
+		OutputDellS3: &dellS3,
+		Type:         typ,
+	}
+}
+
+func CreateOutputCloudianS3(cloudianS3 OutputCloudianS3) Output {
+	typ := OutputTypeCloudianS3
+
+	typStr := OutputCloudianS3Type(typ)
+	cloudianS3.Type = typStr
+
+	return Output{
+		OutputCloudianS3: &cloudianS3,
+		Type:             typ,
+	}
+}
+
+func CreateOutputScalityS3(scalityS3 OutputScalityS3) Output {
+	typ := OutputTypeScalityS3
+
+	typStr := OutputScalityS3Type(typ)
+	scalityS3.Type = typStr
+
+	return Output{
+		OutputScalityS3: &scalityS3,
+		Type:            typ,
+	}
+}
+
+func CreateOutputAlibabaCloudS3(alibabaCloudS3 OutputAlibabaCloudS3) Output {
+	typ := OutputTypeAlibabaCloudS3
+
+	typStr := OutputAlibabaCloudS3Type(typ)
+	alibabaCloudS3.Type = typStr
+
+	return Output{
+		OutputAlibabaCloudS3: &alibabaCloudS3,
+		Type:                 typ,
+	}
 }
 
 func (u *Output) UnmarshalJSON(data []byte) error {
@@ -1035,14 +1113,7 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = OutputTypeUnknown
-		return nil
-	}
-	if dis == nil {
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = OutputTypeUnknown
-		return nil
+		return fmt.Errorf("could not unmarshal discriminator: %w", err)
 	}
 
 	switch dis.Type {
@@ -1685,12 +1756,72 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputCloudflareR2 = outputCloudflareR2
 		u.Type = OutputTypeCloudflareR2
 		return nil
-	default:
-		u.UnknownRaw = json.RawMessage(data)
-		u.Type = OutputTypeUnknown
+	case "nutanix_objects":
+		outputNutanixObjects := new(OutputNutanixObjects)
+		if err := utils.UnmarshalJSON(data, &outputNutanixObjects, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == nutanix_objects) type OutputNutanixObjects within Output: %w", string(data), err)
+		}
+
+		u.OutputNutanixObjects = outputNutanixObjects
+		u.Type = OutputTypeNutanixObjects
+		return nil
+	case "storj_s3":
+		outputStorjS3 := new(OutputStorjS3)
+		if err := utils.UnmarshalJSON(data, &outputStorjS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == storj_s3) type OutputStorjS3 within Output: %w", string(data), err)
+		}
+
+		u.OutputStorjS3 = outputStorjS3
+		u.Type = OutputTypeStorjS3
+		return nil
+	case "alphasoc_s3":
+		outputAlphasocS3 := new(OutputAlphasocS3)
+		if err := utils.UnmarshalJSON(data, &outputAlphasocS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == alphasoc_s3) type OutputAlphasocS3 within Output: %w", string(data), err)
+		}
+
+		u.OutputAlphasocS3 = outputAlphasocS3
+		u.Type = OutputTypeAlphasocS3
+		return nil
+	case "dell_s3":
+		outputDellS3 := new(OutputDellS3)
+		if err := utils.UnmarshalJSON(data, &outputDellS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == dell_s3) type OutputDellS3 within Output: %w", string(data), err)
+		}
+
+		u.OutputDellS3 = outputDellS3
+		u.Type = OutputTypeDellS3
+		return nil
+	case "cloudian_s3":
+		outputCloudianS3 := new(OutputCloudianS3)
+		if err := utils.UnmarshalJSON(data, &outputCloudianS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cloudian_s3) type OutputCloudianS3 within Output: %w", string(data), err)
+		}
+
+		u.OutputCloudianS3 = outputCloudianS3
+		u.Type = OutputTypeCloudianS3
+		return nil
+	case "scality_s3":
+		outputScalityS3 := new(OutputScalityS3)
+		if err := utils.UnmarshalJSON(data, &outputScalityS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == scality_s3) type OutputScalityS3 within Output: %w", string(data), err)
+		}
+
+		u.OutputScalityS3 = outputScalityS3
+		u.Type = OutputTypeScalityS3
+		return nil
+	case "alibaba_cloud_s3":
+		outputAlibabaCloudS3 := new(OutputAlibabaCloudS3)
+		if err := utils.UnmarshalJSON(data, &outputAlibabaCloudS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == alibaba_cloud_s3) type OutputAlibabaCloudS3 within Output: %w", string(data), err)
+		}
+
+		u.OutputAlibabaCloudS3 = outputAlibabaCloudS3
+		u.Type = OutputTypeAlibabaCloudS3
 		return nil
 	}
 
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Output", string(data))
 }
 
 func (u Output) MarshalJSON() ([]byte, error) {
@@ -1978,8 +2109,33 @@ func (u Output) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.OutputCloudflareR2, "", true)
 	}
 
-	if u.UnknownRaw != nil {
-		return json.RawMessage(u.UnknownRaw), nil
+	if u.OutputNutanixObjects != nil {
+		return utils.MarshalJSON(u.OutputNutanixObjects, "", true)
 	}
+
+	if u.OutputStorjS3 != nil {
+		return utils.MarshalJSON(u.OutputStorjS3, "", true)
+	}
+
+	if u.OutputAlphasocS3 != nil {
+		return utils.MarshalJSON(u.OutputAlphasocS3, "", true)
+	}
+
+	if u.OutputDellS3 != nil {
+		return utils.MarshalJSON(u.OutputDellS3, "", true)
+	}
+
+	if u.OutputCloudianS3 != nil {
+		return utils.MarshalJSON(u.OutputCloudianS3, "", true)
+	}
+
+	if u.OutputScalityS3 != nil {
+		return utils.MarshalJSON(u.OutputScalityS3, "", true)
+	}
+
+	if u.OutputAlibabaCloudS3 != nil {
+		return utils.MarshalJSON(u.OutputAlibabaCloudS3, "", true)
+	}
+
 	return nil, errors.New("could not marshal union type Output: all fields are null")
 }

@@ -41,21 +41,22 @@ func (m *MasterWorkerEntryWorkers) GetCount() float64 {
 }
 
 type MasterWorkerEntry struct {
-	ConnectionProtocol *ConnectionProtocol       `json:"connectionProtocol,omitzero"`
-	Deployable         *bool                     `json:"deployable,omitzero"`
-	Disconnected       *bool                     `json:"disconnected,omitzero"`
-	FirstMsgTime       float64                   `json:"firstMsgTime"`
-	Group              string                    `json:"group"`
-	ID                 string                    `json:"id"`
-	Info               NodeProvidedInfo          `json:"info"`
-	LastMetrics        map[string]any            `json:"lastMetrics,omitzero"`
-	LastMsgTime        float64                   `json:"lastMsgTime"`
-	Metadata           *HeartbeatMetadata        `json:"metadata,omitzero"`
-	NodeUpgradeStatus  *NodeUpgradeStatus        `json:"nodeUpgradeStatus,omitzero"`
-	Status             *string                   `json:"status,omitzero"`
-	Type               *MasterWorkerEntryType    `json:"type,omitzero"`
-	WorkerProcesses    float64                   `json:"workerProcesses"`
-	Workers            *MasterWorkerEntryWorkers `json:"workers,omitzero"`
+	ConnectionProtocol  *ConnectionProtocol       `json:"connectionProtocol,omitzero"`
+	Deployable          *bool                     `json:"deployable,omitzero"`
+	Disconnected        *bool                     `json:"disconnected,omitzero"`
+	FirstMsgTime        float64                   `json:"firstMsgTime"`
+	Group               string                    `json:"group"`
+	ID                  string                    `json:"id"`
+	Info                NodeProvidedInfo          `json:"info"`
+	LastMetrics         map[string]any            `json:"lastMetrics,omitzero"`
+	LastMsgTime         float64                   `json:"lastMsgTime"`
+	Metadata            *HeartbeatMetadata        `json:"metadata,omitzero"`
+	NodeUpgradeStatus   *NodeUpgradeStatus        `json:"nodeUpgradeStatus,omitzero"`
+	ProvisioningTokenID *string                   `json:"provisioningTokenId,omitzero"`
+	Status              *string                   `json:"status,omitzero"`
+	Type                *MasterWorkerEntryType    `json:"type,omitzero"`
+	WorkerProcesses     float64                   `json:"workerProcesses"`
+	Workers             *MasterWorkerEntryWorkers `json:"workers,omitzero"`
 }
 
 func (m MasterWorkerEntry) MarshalJSON() ([]byte, error) {
@@ -144,6 +145,13 @@ func (m *MasterWorkerEntry) GetNodeUpgradeStatus() *NodeUpgradeStatus {
 		return nil
 	}
 	return m.NodeUpgradeStatus
+}
+
+func (m *MasterWorkerEntry) GetProvisioningTokenID() *string {
+	if m == nil {
+		return nil
+	}
+	return m.ProvisioningTokenID
 }
 
 func (m *MasterWorkerEntry) GetStatus() *string {
