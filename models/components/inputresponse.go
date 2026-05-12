@@ -4123,31 +4123,6 @@ func (i *InputResponseAuth) GetTemplateFullyQualifiedNamespace() *string {
 	return i.TemplateFullyQualifiedNamespace
 }
 
-// InputResponseCheckpointStore - The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
-type InputResponseCheckpointStore string
-
-const (
-	// InputResponseCheckpointStoreNone None
-	InputResponseCheckpointStoreNone InputResponseCheckpointStore = "none"
-	// InputResponseCheckpointStoreAzureBlob Azure Blob Storage
-	InputResponseCheckpointStoreAzureBlob InputResponseCheckpointStore = "azureBlob"
-)
-
-func (e InputResponseCheckpointStore) ToPointer() *InputResponseCheckpointStore {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputResponseCheckpointStore) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "azureBlob":
-			return true
-		}
-	}
-	return false
-}
-
 type AuthenticationMethodEventhubAmqp string
 
 const (
@@ -4312,9 +4287,7 @@ func (i *InputResponseAzureBlobStorage) GetTemplateAzureCloud() *string {
 }
 
 type InputResponseCheckpointing struct {
-	// The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
-	CheckpointStoreType *InputResponseCheckpointStore  `json:"checkpointStoreType,omitzero"`
-	BlobStore           *InputResponseAzureBlobStorage `json:"blobStore,omitzero"`
+	BlobStore InputResponseAzureBlobStorage `json:"blobStore"`
 }
 
 func (i InputResponseCheckpointing) MarshalJSON() ([]byte, error) {
@@ -4328,16 +4301,9 @@ func (i *InputResponseCheckpointing) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (i *InputResponseCheckpointing) GetCheckpointStoreType() *InputResponseCheckpointStore {
+func (i *InputResponseCheckpointing) GetBlobStore() InputResponseAzureBlobStorage {
 	if i == nil {
-		return nil
-	}
-	return i.CheckpointStoreType
-}
-
-func (i *InputResponseCheckpointing) GetBlobStore() *InputResponseAzureBlobStorage {
-	if i == nil {
-		return nil
+		return InputResponseAzureBlobStorage{}
 	}
 	return i.BlobStore
 }
@@ -4365,9 +4331,9 @@ type InputResponseInputEventhubAmqp struct {
 	// The name of the Event Hub to consume from
 	EventHubName *string `json:"eventHubName,omitzero"`
 	// The consumer group this instance belongs to. Default is '$Default'.
-	ConsumerGroup string                      `json:"consumerGroup"`
-	Auth          *InputResponseAuth          `json:"auth,omitzero"`
-	Checkpointing *InputResponseCheckpointing `json:"checkpointing,omitzero"`
+	ConsumerGroup string                     `json:"consumerGroup"`
+	Auth          *InputResponseAuth         `json:"auth,omitzero"`
+	Checkpointing InputResponseCheckpointing `json:"checkpointing"`
 	// Start reading from earliest available data; relevant only during initial subscription
 	FromBeginning *bool `json:"fromBeginning,omitzero"`
 	// Maximum number of events in each batch delivered to the consumer
@@ -4512,9 +4478,9 @@ func (i *InputResponseInputEventhubAmqp) GetAuth() *InputResponseAuth {
 	return i.Auth
 }
 
-func (i *InputResponseInputEventhubAmqp) GetCheckpointing() *InputResponseCheckpointing {
+func (i *InputResponseInputEventhubAmqp) GetCheckpointing() InputResponseCheckpointing {
 	if i == nil {
-		return nil
+		return InputResponseCheckpointing{}
 	}
 	return i.Checkpointing
 }

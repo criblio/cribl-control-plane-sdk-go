@@ -2967,8 +2967,6 @@ type InputResponseInputSecurityLake struct {
 	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
 	NumReceivers *float64 `json:"numReceivers,omitzero"`
-	// The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-	FileConcurrency *int64 `json:"fileConcurrency,omitzero"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
 	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
@@ -3216,13 +3214,6 @@ func (i *InputResponseInputSecurityLake) GetNumReceivers() *float64 {
 		return nil
 	}
 	return i.NumReceivers
-}
-
-func (i *InputResponseInputSecurityLake) GetFileConcurrency() *int64 {
-	if i == nil {
-		return nil
-	}
-	return i.FileConcurrency
 }
 
 func (i *InputResponseInputSecurityLake) GetSocketTimeout() *float64 {
@@ -11161,8 +11152,6 @@ type InputResponseInputS3Inventory struct {
 	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
 	NumReceivers *float64 `json:"numReceivers,omitzero"`
-	// The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-	FileConcurrency *int64 `json:"fileConcurrency,omitzero"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
 	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
@@ -11414,13 +11403,6 @@ func (i *InputResponseInputS3Inventory) GetNumReceivers() *float64 {
 		return nil
 	}
 	return i.NumReceivers
-}
-
-func (i *InputResponseInputS3Inventory) GetFileConcurrency() *int64 {
-	if i == nil {
-		return nil
-	}
-	return i.FileConcurrency
 }
 
 func (i *InputResponseInputS3Inventory) GetSocketTimeout() *float64 {
@@ -11741,8 +11723,6 @@ type InputResponseInputS3 struct {
 	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
 	NumReceivers *float64 `json:"numReceivers,omitzero"`
-	// The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-	FileConcurrency *int64 `json:"fileConcurrency,omitzero"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
 	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
@@ -11991,13 +11971,6 @@ func (i *InputResponseInputS3) GetNumReceivers() *float64 {
 		return nil
 	}
 	return i.NumReceivers
-}
-
-func (i *InputResponseInputS3) GetFileConcurrency() *int64 {
-	if i == nil {
-		return nil
-	}
-	return i.FileConcurrency
 }
 
 func (i *InputResponseInputS3) GetSocketTimeout() *float64 {
@@ -14338,8 +14311,6 @@ type InputResponseInputCrowdstrike struct {
 	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
 	NumReceivers *float64 `json:"numReceivers,omitzero"`
-	// The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-	FileConcurrency *int64 `json:"fileConcurrency,omitzero"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
 	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
@@ -14583,13 +14554,6 @@ func (i *InputResponseInputCrowdstrike) GetNumReceivers() *float64 {
 		return nil
 	}
 	return i.NumReceivers
-}
-
-func (i *InputResponseInputCrowdstrike) GetFileConcurrency() *int64 {
-	if i == nil {
-		return nil
-	}
-	return i.FileConcurrency
 }
 
 func (i *InputResponseInputCrowdstrike) GetSocketTimeout() *float64 {

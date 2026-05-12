@@ -15,7 +15,7 @@ info:
     - Host (Worker or Edge Node) context: /api/v1/w/{nodeId}
 
     - Search context: /api/v1/m/default_search
-  version: 4.18.0-alpha.1778454218348-bffd4d11
+  version: 4.18.0-alpha.1778593897422-b0f720b7
   contact:
     name: Support
     url: https://portal.support.cribl.io
@@ -11614,14 +11614,6 @@ components:
           type: string
           title: Endpoint
           description: "Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint. "
-        signatureVersion:
-          type: string
-          title: Signature version
-          description: Signature version to use for signing S3 requests
-          enum:
-            - v2
-            - v4
-          x-speakeasy-unknown-values: allow
         enableAssumeRole:
           type: boolean
           title: Enable Assume Role
@@ -16294,6 +16286,7 @@ components:
       required:
         - type
         - consumerGroup
+        - checkpointing
       properties:
         id:
           type: string
@@ -16402,18 +16395,9 @@ components:
               description: Binds 'fullyQualifiedNamespace' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fullyQualifiedNamespace' at runtime.
         checkpointing:
           type: object
+          required:
+            - blobStore
           properties:
-            checkpointStoreType:
-              type: string
-              title: Checkpoint store
-              description: The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
-              enum:
-                - none
-                - azureBlob
-              x-speakeasy-enum-descriptions:
-                - None
-                - Azure Blob Storage
-              x-speakeasy-unknown-values: allow
             blobStore:
               type: object
               title: Azure Blob Storage
@@ -18716,12 +18700,6 @@ components:
           description: How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
           minimum: 1
           maximum: 100
-        fileConcurrency:
-          type: integer
-          title: File concurrency
-          description: The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-          minimum: 1
-          maximum: 50
         socketTimeout:
           type: number
           title: Socket timeout
@@ -19736,12 +19714,6 @@ components:
           description: How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
           minimum: 1
           maximum: 100
-        fileConcurrency:
-          type: integer
-          title: File concurrency
-          description: The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-          minimum: 1
-          maximum: 50
         socketTimeout:
           type: number
           title: Socket timeout
@@ -19976,12 +19948,6 @@ components:
           description: How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
           minimum: 1
           maximum: 100
-        fileConcurrency:
-          type: integer
-          title: File concurrency
-          description: The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-          minimum: 1
-          maximum: 50
         socketTimeout:
           type: number
           title: Socket timeout
@@ -23037,12 +23003,6 @@ components:
           description: How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
           minimum: 1
           maximum: 100
-        fileConcurrency:
-          type: integer
-          title: File concurrency
-          description: The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-          minimum: 1
-          maximum: 50
         socketTimeout:
           type: number
           title: Socket timeout
@@ -38082,7 +38042,7 @@ components:
         mappingType:
           type: string
           title: Mapping type
-          description: How event fields are mapped to ClickHouse columns.
+          description: How event fields are mapped to ClickHouse columns
           enum:
             - automatic
             - custom
@@ -38093,7 +38053,7 @@ components:
         asyncInserts:
           type: boolean
           title: Async inserts
-          description: Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+          description: Collect data into batches for later processing on the ClickHouse server. Disable to write to a ClickHouse table immediately. Cribl sends the configured value with every insert (<code>async_insert=1</code> or <code>async_insert=0</code>) so behavior is consistent across ClickHouse versions, including 26.3 LTS and later, where async inserts are enabled by default on the server.
         tls:
           $ref: "#/components/schemas/TlsSettingsClientSideTypeCaPathCertPathExtended"
         concurrency:
@@ -38188,7 +38148,7 @@ components:
         waitForAsyncInserts:
           type: boolean
           title: Wait for async inserts
-          description: Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+          description: Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won't be able to verify data has been completely inserted.
         excludeMappingFields:
           type: array
           title: Exclude fields
@@ -48954,6 +48914,9 @@ components:
         type: eventhub_amqp
         eventHubName: my-event-hub
         consumerGroup: $Default
+        checkpointing:
+          blobStore:
+            containerName: my-container
         sendToRoutes: true
         pqEnabled: false
     InputCreateExamplesExec:
