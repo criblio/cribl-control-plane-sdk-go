@@ -76,8 +76,6 @@ type InputS3InventoryInput struct {
 	VisibilityTimeout *float64 `json:"visibilityTimeout,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
 	NumReceivers *float64 `json:"numReceivers,omitzero"`
-	// The maximum number of files to process concurrently per receiver. Applicable only when processing multi-file messages.
-	FileConcurrency *int64 `json:"fileConcurrency,omitzero"`
 	// Socket inactivity timeout (in seconds). Increase this value if timeouts occur due to backpressure.
 	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
 	// Skip files that trigger a processing error. Disabled by default, which allows retries after processing errors.
@@ -318,13 +316,6 @@ func (i *InputS3InventoryInput) GetNumReceivers() *float64 {
 		return nil
 	}
 	return i.NumReceivers
-}
-
-func (i *InputS3InventoryInput) GetFileConcurrency() *int64 {
-	if i == nil {
-		return nil
-	}
-	return i.FileConcurrency
 }
 
 func (i *InputS3InventoryInput) GetSocketTimeout() *float64 {
