@@ -467,6 +467,12 @@ outputResponse := components.CreateOutputResponseCloudianS3(components.OutputRes
 outputResponse := components.CreateOutputResponseScalityS3(components.OutputResponseOutputScalityS3{/* values here */})
 ```
 
+### OutputResponseOutputAlibabaCloudS3
+
+```go
+outputResponse := components.CreateOutputResponseAlibabaCloudS3(components.OutputResponseOutputAlibabaCloudS3{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -627,6 +633,8 @@ switch outputResponse.Type {
 		// outputResponse.OutputResponseOutputCloudianS3 is populated
 	case components.OutputResponseTypeScalityS3Value:
 		// outputResponse.OutputResponseOutputScalityS3 is populated
+	case components.OutputResponseTypeAlibabaCloudS3Value:
+		// outputResponse.OutputResponseOutputAlibabaCloudS3 is populated
 	default:
 		// Unknown type - use outputResponse.GetUnknownRaw() for raw JSON
 }

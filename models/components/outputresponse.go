@@ -9,6 +9,328 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+type PqControlsStatsd struct {
+}
+
+func (p PqControlsStatsd) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PqControlsStatsd) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type OutputResponseOutputStatsd struct {
+	// Unique ID for this output
+	ID   *string                  `json:"id,omitzero"`
+	Type OutputResponseTypeStatsd `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Protocol to use when communicating with the destination.
+	Protocol DestinationProtocolOptions `json:"protocol"`
+	// The hostname of the destination.
+	Host string `json:"host"`
+	// Destination port.
+	Port float64 `json:"port"`
+	// When protocol is UDP, specifies the maximum size of packets sent to the destination. Also known as the MTU for the network path to the destination system.
+	Mtu *float64 `json:"mtu,omitzero"`
+	// When protocol is TCP, specifies how often buffers should be flushed, resulting in records sent to the destination.
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
+	// How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every batch sent will incur a DNS lookup.
+	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
+	Description         *string  `json:"description,omitzero"`
+	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
+	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+	WriteTimeout *float64 `json:"writeTimeout,omitzero"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *ModeOptions `json:"pqMode,omitzero"`
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `json:"pqPath,omitzero"`
+	// Codec to use to compress the persisted data
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string           `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *PqControlsStatsd `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Notifications attached to the Destination.
+	Notifications []NotificationUnion `json:"notifications,omitzero"`
+	// Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+	Status *StatusType `json:"status,omitzero"`
+}
+
+func (o OutputResponseOutputStatsd) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputResponseOutputStatsd) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputResponseOutputStatsd) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputResponseOutputStatsd) GetType() OutputResponseTypeStatsd {
+	if o == nil {
+		return OutputResponseTypeStatsd("")
+	}
+	return o.Type
+}
+
+func (o *OutputResponseOutputStatsd) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputResponseOutputStatsd) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputResponseOutputStatsd) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputResponseOutputStatsd) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputResponseOutputStatsd) GetProtocol() DestinationProtocolOptions {
+	if o == nil {
+		return DestinationProtocolOptions("")
+	}
+	return o.Protocol
+}
+
+func (o *OutputResponseOutputStatsd) GetHost() string {
+	if o == nil {
+		return ""
+	}
+	return o.Host
+}
+
+func (o *OutputResponseOutputStatsd) GetPort() float64 {
+	if o == nil {
+		return 0.0
+	}
+	return o.Port
+}
+
+func (o *OutputResponseOutputStatsd) GetMtu() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Mtu
+}
+
+func (o *OutputResponseOutputStatsd) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputResponseOutputStatsd) GetDNSResolvePeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DNSResolvePeriodSec
+}
+
+func (o *OutputResponseOutputStatsd) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputResponseOutputStatsd) GetThrottleRatePerSec() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ThrottleRatePerSec
+}
+
+func (o *OutputResponseOutputStatsd) GetConnectionTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ConnectionTimeout
+}
+
+func (o *OutputResponseOutputStatsd) GetWriteTimeout() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.WriteTimeout
+}
+
+func (o *OutputResponseOutputStatsd) GetOnBackpressure() *BackpressureBehaviorOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputResponseOutputStatsd) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputResponseOutputStatsd) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputResponseOutputStatsd) GetPqMode() *ModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputResponseOutputStatsd) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputResponseOutputStatsd) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputResponseOutputStatsd) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputResponseOutputStatsd) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputResponseOutputStatsd) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputResponseOutputStatsd) GetPqCompress() *CompressionOptionsPq {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputResponseOutputStatsd) GetPqOnBackpressure() *QueueFullBehaviorOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputResponseOutputStatsd) GetPqMaxBufferSizeBytes() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSizeBytes
+}
+
+func (o *OutputResponseOutputStatsd) GetPqControls() *PqControlsStatsd {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputResponseOutputStatsd) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
+}
+
+func (o *OutputResponseOutputStatsd) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
+}
+
+func (o *OutputResponseOutputStatsd) GetNotifications() []NotificationUnion {
+	if o == nil {
+		return nil
+	}
+	return o.Notifications
+}
+
+func (o *OutputResponseOutputStatsd) GetStatus() *StatusType {
+	if o == nil {
+		return nil
+	}
+	return o.Status
+}
+
 type OutputResponseTypeMinio string
 
 const (
@@ -20869,6 +21191,7 @@ const (
 	OutputResponseTypeDellS3Value                 OutputResponseType = "dell_s3"
 	OutputResponseTypeCloudianS3Value             OutputResponseType = "cloudian_s3"
 	OutputResponseTypeScalityS3Value              OutputResponseType = "scality_s3"
+	OutputResponseTypeAlibabaCloudS3Value         OutputResponseType = "alibaba_cloud_s3"
 	OutputResponseTypeUnknown                     OutputResponseType = "UNKNOWN"
 )
 
@@ -20951,6 +21274,7 @@ type OutputResponse struct {
 	OutputResponseOutputDellS3                 *OutputResponseOutputDellS3                 `queryParam:"inline" union:"member"`
 	OutputResponseOutputCloudianS3             *OutputResponseOutputCloudianS3             `queryParam:"inline" union:"member"`
 	OutputResponseOutputScalityS3              *OutputResponseOutputScalityS3              `queryParam:"inline" union:"member"`
+	OutputResponseOutputAlibabaCloudS3         *OutputResponseOutputAlibabaCloudS3         `queryParam:"inline" union:"member"`
 	UnknownRaw                                 json.RawMessage                             `json:"-" union:"unknown"`
 
 	Type OutputResponseType
@@ -21874,6 +22198,18 @@ func CreateOutputResponseScalityS3(scalityS3 OutputResponseOutputScalityS3) Outp
 	}
 }
 
+func CreateOutputResponseAlibabaCloudS3(alibabaCloudS3 OutputResponseOutputAlibabaCloudS3) OutputResponse {
+	typ := OutputResponseTypeAlibabaCloudS3Value
+
+	typStr := OutputResponseTypeAlibabaCloudS3(typ)
+	alibabaCloudS3.Type = typStr
+
+	return OutputResponse{
+		OutputResponseOutputAlibabaCloudS3: &alibabaCloudS3,
+		Type:                               typ,
+	}
+}
+
 func CreateOutputResponseUnknown(raw json.RawMessage) OutputResponse {
 	return OutputResponse{
 		UnknownRaw: raw,
@@ -22601,6 +22937,15 @@ func (u *OutputResponse) UnmarshalJSON(data []byte) error {
 		u.OutputResponseOutputScalityS3 = outputResponseOutputScalityS3
 		u.Type = OutputResponseTypeScalityS3Value
 		return nil
+	case "alibaba_cloud_s3":
+		outputResponseOutputAlibabaCloudS3 := new(OutputResponseOutputAlibabaCloudS3)
+		if err := utils.UnmarshalJSON(data, &outputResponseOutputAlibabaCloudS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == alibaba_cloud_s3) type OutputResponseOutputAlibabaCloudS3 within OutputResponse: %w", string(data), err)
+		}
+
+		u.OutputResponseOutputAlibabaCloudS3 = outputResponseOutputAlibabaCloudS3
+		u.Type = OutputResponseTypeAlibabaCloudS3Value
+		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
 		u.Type = OutputResponseTypeUnknown
@@ -22916,6 +23261,10 @@ func (u OutputResponse) MarshalJSON() ([]byte, error) {
 
 	if u.OutputResponseOutputScalityS3 != nil {
 		return utils.MarshalJSON(u.OutputResponseOutputScalityS3, "", true)
+	}
+
+	if u.OutputResponseOutputAlibabaCloudS3 != nil {
+		return utils.MarshalJSON(u.OutputResponseOutputAlibabaCloudS3, "", true)
 	}
 
 	if u.UnknownRaw != nil {

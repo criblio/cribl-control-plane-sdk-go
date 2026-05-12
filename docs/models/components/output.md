@@ -465,6 +465,12 @@ output := components.CreateOutputCloudianS3(components.OutputCloudianS3{/* value
 output := components.CreateOutputScalityS3(components.OutputScalityS3{/* values here */})
 ```
 
+### OutputAlibabaCloudS3
+
+```go
+output := components.CreateOutputAlibabaCloudS3(components.OutputAlibabaCloudS3{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -625,5 +631,7 @@ switch output.Type {
 		// output.OutputCloudianS3 is populated
 	case components.OutputTypeScalityS3:
 		// output.OutputScalityS3 is populated
+	case components.OutputTypeAlibabaCloudS3:
+		// output.OutputAlibabaCloudS3 is populated
 }
 ```

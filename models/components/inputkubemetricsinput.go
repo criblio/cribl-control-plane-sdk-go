@@ -118,6 +118,10 @@ type InputKubeMetricsInput struct {
 	Pq          *PqType                         `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive metrics collections. Default is 15 secs.
 	Interval *float64 `json:"interval,omitzero"`
+	// Enable to scrape kubelet metrics from https://<nodeIP>:10250/metrics. Requires Edge to run as a DaemonSet with direct network access to the node.
+	ScrapeKubelet *bool `json:"scrapeKubelet,omitzero"`
+	// Scrape cAdvisor container metrics from https://<nodeIP>:10250/metrics/cadvisor. Requires Edge to run as a DaemonSet with direct network access to the Node.
+	ScrapeCadvisor *bool `json:"scrapeCadvisor,omitzero"`
 	// Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
 	Rules []RuleConfInputKubeMetrics `json:"rules,omitzero"`
 	// Fields to add to events from this input
@@ -216,6 +220,20 @@ func (i *InputKubeMetricsInput) GetInterval() *float64 {
 		return nil
 	}
 	return i.Interval
+}
+
+func (i *InputKubeMetricsInput) GetScrapeKubelet() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ScrapeKubelet
+}
+
+func (i *InputKubeMetricsInput) GetScrapeCadvisor() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ScrapeCadvisor
 }
 
 func (i *InputKubeMetricsInput) GetRules() []RuleConfInputKubeMetrics {

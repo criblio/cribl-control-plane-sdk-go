@@ -10,33 +10,663 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
-type CreateOutputTypeScalityS3 string
+type CreateOutputSystemByPackTypeAlibabaCloudS3 string
 
 const (
-	CreateOutputTypeScalityS3ScalityS3 CreateOutputTypeScalityS3 = "scality_s3"
+	CreateOutputSystemByPackTypeAlibabaCloudS3AlibabaCloudS3 CreateOutputSystemByPackTypeAlibabaCloudS3 = "alibaba_cloud_s3"
 )
 
-func (e CreateOutputTypeScalityS3) ToPointer() *CreateOutputTypeScalityS3 {
+func (e CreateOutputSystemByPackTypeAlibabaCloudS3) ToPointer() *CreateOutputSystemByPackTypeAlibabaCloudS3 {
 	return &e
 }
-func (e *CreateOutputTypeScalityS3) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeAlibabaCloudS3) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "alibaba_cloud_s3":
+		*e = CreateOutputSystemByPackTypeAlibabaCloudS3(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeAlibabaCloudS3: %v", v)
+	}
+}
+
+type CreateOutputSystemByPackOutputAlibabaCloudS3 struct {
+	// Unique ID for this output
+	ID   string                                     `json:"id"`
+	Type CreateOutputSystemByPackTypeAlibabaCloudS3 `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Authentication method.
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsSecret `json:"awsAuthenticationMethod,omitzero"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Name of the destination Alibaba OSS bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `json:"destPath,omitzero"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath string `json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `json:"partitionExpr,omitzero"`
+	// Format of the output data
+	Format *components.DataFormatOptions `json:"format,omitzero"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `json:"baseFileName,omitzero"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `json:"headerLine,omitzero"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *components.BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
+	// How to handle events when disk space is below the global 'Min free disk space' limit
+	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
+	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
+	// Alibaba OSS S3-compatible endpoint URL. Examples: public `https://s3.oss-{region}.aliyuncs.com`, internal `https://s3.oss-{region}-internal.aliyuncs.com`
+	Endpoint    string  `json:"endpoint"`
+	Description *string `json:"description,omitzero"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Data compression format to apply to HTTP content before it is delivered
+	Compress *components.CompressionOptionsHTTP `json:"compress,omitzero"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitzero"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `json:"automaticSchema,omitzero"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitzero"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *components.ParquetVersionOptions `json:"parquetVersion,omitzero"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *components.DataPageVersionOptions `json:"parquetDataPageVersion,omitzero"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitzero"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `json:"parquetPageSize,omitzero"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []components.KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `json:"enableStatistics,omitzero"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitzero"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `json:"enablePageChecksum,omitzero"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitzero"`
+	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitzero"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `json:"deadletterPath,omitzero"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+	TemplateDestPath *string `json:"__template_destPath,omitzero"`
+	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
+	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
+}
+
+func (c CreateOutputSystemByPackOutputAlibabaCloudS3) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetType() CreateOutputSystemByPackTypeAlibabaCloudS3 {
+	if c == nil {
+		return CreateOutputSystemByPackTypeAlibabaCloudS3("")
+	}
+	return c.Type
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetSystemFields() []string {
+	if c == nil {
+		return nil
+	}
+	return c.SystemFields
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsSecret {
+	if c == nil {
+		return nil
+	}
+	return c.AwsAuthenticationMethod
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetReuseConnections() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ReuseConnections
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetBucket() string {
+	if c == nil {
+		return ""
+	}
+	return c.Bucket
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DestPath
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetMaxConcurrentFileParts() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxConcurrentFileParts
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetVerifyPermissions() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.VerifyPermissions
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetMaxClosingFilesToBackpressure() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxClosingFilesToBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetStagePath() string {
+	if c == nil {
+		return ""
+	}
+	return c.StagePath
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetAddIDToStagePath() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AddIDToStagePath
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetRemoveEmptyDirs() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RemoveEmptyDirs
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetPartitionExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PartitionExpr
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetFormat() *components.DataFormatOptions {
+	if c == nil {
+		return nil
+	}
+	return c.Format
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetBaseFileName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.BaseFileName
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetFileNameSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.FileNameSuffix
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetMaxFileSizeMB() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileSizeMB
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetMaxFileOpenTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileOpenTimeSec
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetMaxFileIdleTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileIdleTimeSec
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetMaxOpenFiles() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxOpenFiles
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetHeaderLine() *string {
+	if c == nil {
+		return nil
+	}
+	return c.HeaderLine
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetWriteHighWaterMark() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.WriteHighWaterMark
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
+	if c == nil {
+		return nil
+	}
+	return c.OnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetDeadletterEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DeadletterEnabled
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
+	if c == nil {
+		return nil
+	}
+	return c.OnDiskFullBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetForceCloseOnShutdown() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ForceCloseOnShutdown
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetRetrySettings() *components.RetrySettingsType {
+	if c == nil {
+		return nil
+	}
+	return c.RetrySettings
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetObjectACL() *components.ObjectACLOptions {
+	if c == nil {
+		return nil
+	}
+	return c.ObjectACL
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetEndpoint() string {
+	if c == nil {
+		return ""
+	}
+	return c.Endpoint
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetAwsSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsSecret
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetCompress() *components.CompressionOptionsHTTP {
+	if c == nil {
+		return nil
+	}
+	return c.Compress
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetCompressionLevel() *components.CompressionLevelOptions {
+	if c == nil {
+		return nil
+	}
+	return c.CompressionLevel
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetAutomaticSchema() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AutomaticSchema
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetSchema
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetParquetVersion() *components.ParquetVersionOptions {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetVersion
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetParquetDataPageVersion() *components.DataPageVersionOptions {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetDataPageVersion
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetParquetRowGroupLength() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetRowGroupLength
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetParquetPageSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetPageSize
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetShouldLogInvalidRows() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ShouldLogInvalidRows
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
+	if c == nil {
+		return nil
+	}
+	return c.KeyValueMetadata
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetEnableStatistics() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableStatistics
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetEnableWritePageIndex() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableWritePageIndex
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetEnablePageChecksum() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnablePageChecksum
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetEmptyDirCleanupSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.EmptyDirCleanupSec
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetDirectoryBatchSize() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.DirectoryBatchSize
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetDeadletterPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DeadletterPath
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetMaxRetryNum() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxRetryNum
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetTemplateBucket() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBucket
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetTemplateDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateDestPath
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetTemplatePartitionExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePartitionExpr
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetTemplateFormat() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFormat
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetTemplateBaseFileName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBaseFileName
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetTemplateFileNameSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFileNameSuffix
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetTemplateObjectACL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateObjectACL
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetTemplateEndpoint() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEndpoint
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetTemplateCompress() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCompress
+}
+
+func (c *CreateOutputSystemByPackOutputAlibabaCloudS3) GetTemplateParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateParquetSchema
+}
+
+// #region class-body-createoutputsystembypackoutputalibabaclouds3
+// #endregion class-body-createoutputsystembypackoutputalibabaclouds3
+
+type CreateOutputSystemByPackTypeScalityS3 string
+
+const (
+	CreateOutputSystemByPackTypeScalityS3ScalityS3 CreateOutputSystemByPackTypeScalityS3 = "scality_s3"
+)
+
+func (e CreateOutputSystemByPackTypeScalityS3) ToPointer() *CreateOutputSystemByPackTypeScalityS3 {
+	return &e
+}
+func (e *CreateOutputSystemByPackTypeScalityS3) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "scality_s3":
-		*e = CreateOutputTypeScalityS3(v)
+		*e = CreateOutputSystemByPackTypeScalityS3(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeScalityS3: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeScalityS3: %v", v)
 	}
 }
 
-type CreateOutputOutputScalityS3 struct {
+type CreateOutputSystemByPackOutputScalityS3 struct {
 	// Unique ID for this output
-	ID   string                    `json:"id"`
-	Type CreateOutputTypeScalityS3 `json:"type"`
+	ID   string                                `json:"id"`
+	Type CreateOutputSystemByPackTypeScalityS3 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -164,509 +794,509 @@ type CreateOutputOutputScalityS3 struct {
 	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
-func (c CreateOutputOutputScalityS3) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputScalityS3) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputScalityS3) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputScalityS3) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputScalityS3) GetID() string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputScalityS3) GetType() CreateOutputTypeScalityS3 {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetType() CreateOutputSystemByPackTypeScalityS3 {
 	if c == nil {
-		return CreateOutputTypeScalityS3("")
+		return CreateOutputSystemByPackTypeScalityS3("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputScalityS3) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputScalityS3) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputScalityS3) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputScalityS3) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputScalityS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsSecret {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsSecret {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateOutputOutputScalityS3) GetReuseConnections() *bool {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateOutputOutputScalityS3) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputScalityS3) GetBucket() string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetBucket() string {
 	if c == nil {
 		return ""
 	}
 	return c.Bucket
 }
 
-func (c *CreateOutputOutputScalityS3) GetRegion() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Region
 }
 
-func (c *CreateOutputOutputScalityS3) GetDestPath() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DestPath
 }
 
-func (c *CreateOutputOutputScalityS3) GetMaxConcurrentFileParts() *float64 {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetMaxConcurrentFileParts() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxConcurrentFileParts
 }
 
-func (c *CreateOutputOutputScalityS3) GetVerifyPermissions() *bool {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetVerifyPermissions() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.VerifyPermissions
 }
 
-func (c *CreateOutputOutputScalityS3) GetMaxClosingFilesToBackpressure() *float64 {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetMaxClosingFilesToBackpressure() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxClosingFilesToBackpressure
 }
 
-func (c *CreateOutputOutputScalityS3) GetStagePath() string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetStagePath() string {
 	if c == nil {
 		return ""
 	}
 	return c.StagePath
 }
 
-func (c *CreateOutputOutputScalityS3) GetAddIDToStagePath() *bool {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetAddIDToStagePath() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AddIDToStagePath
 }
 
-func (c *CreateOutputOutputScalityS3) GetRemoveEmptyDirs() *bool {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetRemoveEmptyDirs() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RemoveEmptyDirs
 }
 
-func (c *CreateOutputOutputScalityS3) GetPartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetPartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PartitionExpr
 }
 
-func (c *CreateOutputOutputScalityS3) GetFormat() *components.DataFormatOptions {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetFormat() *components.DataFormatOptions {
 	if c == nil {
 		return nil
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputScalityS3) GetBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.BaseFileName
 }
 
-func (c *CreateOutputOutputScalityS3) GetFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.FileNameSuffix
 }
 
-func (c *CreateOutputOutputScalityS3) GetMaxFileSizeMB() *float64 {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetMaxFileSizeMB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileSizeMB
 }
 
-func (c *CreateOutputOutputScalityS3) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetMaxFileOpenTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileOpenTimeSec
 }
 
-func (c *CreateOutputOutputScalityS3) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetMaxFileIdleTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileIdleTimeSec
 }
 
-func (c *CreateOutputOutputScalityS3) GetMaxOpenFiles() *float64 {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetMaxOpenFiles() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxOpenFiles
 }
 
-func (c *CreateOutputOutputScalityS3) GetHeaderLine() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetHeaderLine() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HeaderLine
 }
 
-func (c *CreateOutputOutputScalityS3) GetWriteHighWaterMark() *float64 {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetWriteHighWaterMark() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputOutputScalityS3) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputScalityS3) GetDeadletterEnabled() *bool {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetDeadletterEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterEnabled
 }
 
-func (c *CreateOutputOutputScalityS3) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnDiskFullBackpressure
 }
 
-func (c *CreateOutputOutputScalityS3) GetForceCloseOnShutdown() *bool {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetForceCloseOnShutdown() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ForceCloseOnShutdown
 }
 
-func (c *CreateOutputOutputScalityS3) GetRetrySettings() *components.RetrySettingsType {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetRetrySettings() *components.RetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.RetrySettings
 }
 
-func (c *CreateOutputOutputScalityS3) GetOrphans() *components.OrphanFileRecoveryType {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetOrphans() *components.OrphanFileRecoveryType {
 	if c == nil {
 		return nil
 	}
 	return c.Orphans
 }
 
-func (c *CreateOutputOutputScalityS3) GetEndpoint() string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetEndpoint() string {
 	if c == nil {
 		return ""
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputScalityS3) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputScalityS3) GetAwsSecret() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateOutputOutputScalityS3) GetCompress() *components.CompressionOptionsHTTP {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetCompress() *components.CompressionOptionsHTTP {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputScalityS3) GetCompressionLevel() *components.CompressionLevelOptions {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetCompressionLevel() *components.CompressionLevelOptions {
 	if c == nil {
 		return nil
 	}
 	return c.CompressionLevel
 }
 
-func (c *CreateOutputOutputScalityS3) GetAutomaticSchema() *bool {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetAutomaticSchema() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AutomaticSchema
 }
 
-func (c *CreateOutputOutputScalityS3) GetParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetSchema
 }
 
-func (c *CreateOutputOutputScalityS3) GetParquetVersion() *components.ParquetVersionOptions {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetParquetVersion() *components.ParquetVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetVersion
 }
 
-func (c *CreateOutputOutputScalityS3) GetParquetDataPageVersion() *components.DataPageVersionOptions {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetParquetDataPageVersion() *components.DataPageVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetDataPageVersion
 }
 
-func (c *CreateOutputOutputScalityS3) GetParquetRowGroupLength() *float64 {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetParquetRowGroupLength() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetRowGroupLength
 }
 
-func (c *CreateOutputOutputScalityS3) GetParquetPageSize() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetParquetPageSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetPageSize
 }
 
-func (c *CreateOutputOutputScalityS3) GetShouldLogInvalidRows() *bool {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetShouldLogInvalidRows() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputOutputScalityS3) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
 	return c.KeyValueMetadata
 }
 
-func (c *CreateOutputOutputScalityS3) GetEnableStatistics() *bool {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetEnableStatistics() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableStatistics
 }
 
-func (c *CreateOutputOutputScalityS3) GetEnableWritePageIndex() *bool {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetEnableWritePageIndex() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableWritePageIndex
 }
 
-func (c *CreateOutputOutputScalityS3) GetEnablePageChecksum() *bool {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetEnablePageChecksum() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnablePageChecksum
 }
 
-func (c *CreateOutputOutputScalityS3) GetEmptyDirCleanupSec() *float64 {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetEmptyDirCleanupSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.EmptyDirCleanupSec
 }
 
-func (c *CreateOutputOutputScalityS3) GetDirectoryBatchSize() *float64 {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetDirectoryBatchSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DirectoryBatchSize
 }
 
-func (c *CreateOutputOutputScalityS3) GetDeadletterPath() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetDeadletterPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterPath
 }
 
-func (c *CreateOutputOutputScalityS3) GetMaxRetryNum() *float64 {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetMaxRetryNum() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRetryNum
 }
 
-func (c *CreateOutputOutputScalityS3) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputScalityS3) GetTemplateBucket() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetTemplateBucket() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBucket
 }
 
-func (c *CreateOutputOutputScalityS3) GetTemplateRegion() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateRegion
 }
 
-func (c *CreateOutputOutputScalityS3) GetTemplateDestPath() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetTemplateDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateDestPath
 }
 
-func (c *CreateOutputOutputScalityS3) GetTemplatePartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetTemplatePartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePartitionExpr
 }
 
-func (c *CreateOutputOutputScalityS3) GetTemplateFormat() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetTemplateFormat() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFormat
 }
 
-func (c *CreateOutputOutputScalityS3) GetTemplateBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetTemplateBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBaseFileName
 }
 
-func (c *CreateOutputOutputScalityS3) GetTemplateFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetTemplateFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFileNameSuffix
 }
 
-func (c *CreateOutputOutputScalityS3) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputScalityS3) GetTemplateEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateOutputOutputScalityS3) GetTemplateCompress() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetTemplateCompress() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateCompress
 }
 
-func (c *CreateOutputOutputScalityS3) GetTemplateParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputScalityS3) GetTemplateParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateParquetSchema
 }
 
-// #region class-body-createoutputoutputscalitys3
-// #endregion class-body-createoutputoutputscalitys3
+// #region class-body-createoutputsystembypackoutputscalitys3
+// #endregion class-body-createoutputsystembypackoutputscalitys3
 
-type CreateOutputTypeCloudianS3 string
+type CreateOutputSystemByPackTypeCloudianS3 string
 
 const (
-	CreateOutputTypeCloudianS3CloudianS3 CreateOutputTypeCloudianS3 = "cloudian_s3"
+	CreateOutputSystemByPackTypeCloudianS3CloudianS3 CreateOutputSystemByPackTypeCloudianS3 = "cloudian_s3"
 )
 
-func (e CreateOutputTypeCloudianS3) ToPointer() *CreateOutputTypeCloudianS3 {
+func (e CreateOutputSystemByPackTypeCloudianS3) ToPointer() *CreateOutputSystemByPackTypeCloudianS3 {
 	return &e
 }
-func (e *CreateOutputTypeCloudianS3) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeCloudianS3) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "cloudian_s3":
-		*e = CreateOutputTypeCloudianS3(v)
+		*e = CreateOutputSystemByPackTypeCloudianS3(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeCloudianS3: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeCloudianS3: %v", v)
 	}
 }
 
-type CreateOutputOutputCloudianS3 struct {
+type CreateOutputSystemByPackOutputCloudianS3 struct {
 	// Unique ID for this output
-	ID   string                     `json:"id"`
-	Type CreateOutputTypeCloudianS3 `json:"type"`
+	ID   string                                 `json:"id"`
+	Type CreateOutputSystemByPackTypeCloudianS3 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -810,565 +1440,565 @@ type CreateOutputOutputCloudianS3 struct {
 	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
-func (c CreateOutputOutputCloudianS3) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputCloudianS3) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputCloudianS3) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputCloudianS3) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputCloudianS3) GetID() string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputCloudianS3) GetType() CreateOutputTypeCloudianS3 {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetType() CreateOutputSystemByPackTypeCloudianS3 {
 	if c == nil {
-		return CreateOutputTypeCloudianS3("")
+		return CreateOutputSystemByPackTypeCloudianS3("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputCloudianS3) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputCloudianS3) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputCloudianS3) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputCloudianS3) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputCloudianS3) GetEndpoint() string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetEndpoint() string {
 	if c == nil {
 		return ""
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputCloudianS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsSecret {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsSecret {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateOutputOutputCloudianS3) GetReuseConnections() *bool {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateOutputOutputCloudianS3) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputCloudianS3) GetBucket() string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetBucket() string {
 	if c == nil {
 		return ""
 	}
 	return c.Bucket
 }
 
-func (c *CreateOutputOutputCloudianS3) GetRegion() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Region
 }
 
-func (c *CreateOutputOutputCloudianS3) GetDestPath() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DestPath
 }
 
-func (c *CreateOutputOutputCloudianS3) GetMaxConcurrentFileParts() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetMaxConcurrentFileParts() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxConcurrentFileParts
 }
 
-func (c *CreateOutputOutputCloudianS3) GetVerifyPermissions() *bool {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetVerifyPermissions() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.VerifyPermissions
 }
 
-func (c *CreateOutputOutputCloudianS3) GetMaxClosingFilesToBackpressure() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetMaxClosingFilesToBackpressure() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxClosingFilesToBackpressure
 }
 
-func (c *CreateOutputOutputCloudianS3) GetStagePath() string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetStagePath() string {
 	if c == nil {
 		return ""
 	}
 	return c.StagePath
 }
 
-func (c *CreateOutputOutputCloudianS3) GetAddIDToStagePath() *bool {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetAddIDToStagePath() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AddIDToStagePath
 }
 
-func (c *CreateOutputOutputCloudianS3) GetRemoveEmptyDirs() *bool {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetRemoveEmptyDirs() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RemoveEmptyDirs
 }
 
-func (c *CreateOutputOutputCloudianS3) GetPartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetPartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PartitionExpr
 }
 
-func (c *CreateOutputOutputCloudianS3) GetFormat() *components.DataFormatOptions {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetFormat() *components.DataFormatOptions {
 	if c == nil {
 		return nil
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputCloudianS3) GetBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.BaseFileName
 }
 
-func (c *CreateOutputOutputCloudianS3) GetFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.FileNameSuffix
 }
 
-func (c *CreateOutputOutputCloudianS3) GetMaxFileSizeMB() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetMaxFileSizeMB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileSizeMB
 }
 
-func (c *CreateOutputOutputCloudianS3) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetMaxFileOpenTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileOpenTimeSec
 }
 
-func (c *CreateOutputOutputCloudianS3) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetMaxFileIdleTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileIdleTimeSec
 }
 
-func (c *CreateOutputOutputCloudianS3) GetMaxOpenFiles() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetMaxOpenFiles() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxOpenFiles
 }
 
-func (c *CreateOutputOutputCloudianS3) GetHeaderLine() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetHeaderLine() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HeaderLine
 }
 
-func (c *CreateOutputOutputCloudianS3) GetWriteHighWaterMark() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetWriteHighWaterMark() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputOutputCloudianS3) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputCloudianS3) GetDeadletterEnabled() *bool {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetDeadletterEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterEnabled
 }
 
-func (c *CreateOutputOutputCloudianS3) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnDiskFullBackpressure
 }
 
-func (c *CreateOutputOutputCloudianS3) GetForceCloseOnShutdown() *bool {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetForceCloseOnShutdown() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ForceCloseOnShutdown
 }
 
-func (c *CreateOutputOutputCloudianS3) GetRetrySettings() *components.RetrySettingsType {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetRetrySettings() *components.RetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.RetrySettings
 }
 
-func (c *CreateOutputOutputCloudianS3) GetOrphans() *components.OrphanFileRecoveryType {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetOrphans() *components.OrphanFileRecoveryType {
 	if c == nil {
 		return nil
 	}
 	return c.Orphans
 }
 
-func (c *CreateOutputOutputCloudianS3) GetObjectACL() *components.ObjectACLOptions {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetObjectACL() *components.ObjectACLOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ObjectACL
 }
 
-func (c *CreateOutputOutputCloudianS3) GetStorageClass() *components.StorageClassOptions {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetStorageClass() *components.StorageClassOptions {
 	if c == nil {
 		return nil
 	}
 	return c.StorageClass
 }
 
-func (c *CreateOutputOutputCloudianS3) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ServerSideEncryption
 }
 
-func (c *CreateOutputOutputCloudianS3) GetKmsKeyID() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetKmsKeyID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.KmsKeyID
 }
 
-func (c *CreateOutputOutputCloudianS3) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputCloudianS3) GetAwsSecret() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateOutputOutputCloudianS3) GetCompress() *components.CompressionOptionsHTTP {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetCompress() *components.CompressionOptionsHTTP {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputCloudianS3) GetCompressionLevel() *components.CompressionLevelOptions {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetCompressionLevel() *components.CompressionLevelOptions {
 	if c == nil {
 		return nil
 	}
 	return c.CompressionLevel
 }
 
-func (c *CreateOutputOutputCloudianS3) GetAutomaticSchema() *bool {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetAutomaticSchema() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AutomaticSchema
 }
 
-func (c *CreateOutputOutputCloudianS3) GetParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetSchema
 }
 
-func (c *CreateOutputOutputCloudianS3) GetParquetVersion() *components.ParquetVersionOptions {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetParquetVersion() *components.ParquetVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetVersion
 }
 
-func (c *CreateOutputOutputCloudianS3) GetParquetDataPageVersion() *components.DataPageVersionOptions {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetParquetDataPageVersion() *components.DataPageVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetDataPageVersion
 }
 
-func (c *CreateOutputOutputCloudianS3) GetParquetRowGroupLength() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetParquetRowGroupLength() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetRowGroupLength
 }
 
-func (c *CreateOutputOutputCloudianS3) GetParquetPageSize() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetParquetPageSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetPageSize
 }
 
-func (c *CreateOutputOutputCloudianS3) GetShouldLogInvalidRows() *bool {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetShouldLogInvalidRows() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputOutputCloudianS3) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
 	return c.KeyValueMetadata
 }
 
-func (c *CreateOutputOutputCloudianS3) GetEnableStatistics() *bool {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetEnableStatistics() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableStatistics
 }
 
-func (c *CreateOutputOutputCloudianS3) GetEnableWritePageIndex() *bool {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetEnableWritePageIndex() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableWritePageIndex
 }
 
-func (c *CreateOutputOutputCloudianS3) GetEnablePageChecksum() *bool {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetEnablePageChecksum() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnablePageChecksum
 }
 
-func (c *CreateOutputOutputCloudianS3) GetEmptyDirCleanupSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetEmptyDirCleanupSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.EmptyDirCleanupSec
 }
 
-func (c *CreateOutputOutputCloudianS3) GetDirectoryBatchSize() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetDirectoryBatchSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DirectoryBatchSize
 }
 
-func (c *CreateOutputOutputCloudianS3) GetDeadletterPath() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetDeadletterPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterPath
 }
 
-func (c *CreateOutputOutputCloudianS3) GetMaxRetryNum() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetMaxRetryNum() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRetryNum
 }
 
-func (c *CreateOutputOutputCloudianS3) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputCloudianS3) GetTemplateEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateOutputOutputCloudianS3) GetTemplateBucket() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetTemplateBucket() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBucket
 }
 
-func (c *CreateOutputOutputCloudianS3) GetTemplateRegion() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateRegion
 }
 
-func (c *CreateOutputOutputCloudianS3) GetTemplateDestPath() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetTemplateDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateDestPath
 }
 
-func (c *CreateOutputOutputCloudianS3) GetTemplatePartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetTemplatePartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePartitionExpr
 }
 
-func (c *CreateOutputOutputCloudianS3) GetTemplateFormat() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetTemplateFormat() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFormat
 }
 
-func (c *CreateOutputOutputCloudianS3) GetTemplateBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetTemplateBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBaseFileName
 }
 
-func (c *CreateOutputOutputCloudianS3) GetTemplateFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetTemplateFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFileNameSuffix
 }
 
-func (c *CreateOutputOutputCloudianS3) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputCloudianS3) GetTemplateObjectACL() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetTemplateObjectACL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateObjectACL
 }
 
-func (c *CreateOutputOutputCloudianS3) GetTemplateStorageClass() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetTemplateStorageClass() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStorageClass
 }
 
-func (c *CreateOutputOutputCloudianS3) GetTemplateServerSideEncryption() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetTemplateServerSideEncryption() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateServerSideEncryption
 }
 
-func (c *CreateOutputOutputCloudianS3) GetTemplateKmsKeyID() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetTemplateKmsKeyID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateKmsKeyID
 }
 
-func (c *CreateOutputOutputCloudianS3) GetTemplateCompress() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetTemplateCompress() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateCompress
 }
 
-func (c *CreateOutputOutputCloudianS3) GetTemplateParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputCloudianS3) GetTemplateParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateParquetSchema
 }
 
-// #region class-body-createoutputoutputcloudians3
-// #endregion class-body-createoutputoutputcloudians3
+// #region class-body-createoutputsystembypackoutputcloudians3
+// #endregion class-body-createoutputsystembypackoutputcloudians3
 
-type CreateOutputTypeDellS3 string
+type CreateOutputSystemByPackTypeDellS3 string
 
 const (
-	CreateOutputTypeDellS3DellS3 CreateOutputTypeDellS3 = "dell_s3"
+	CreateOutputSystemByPackTypeDellS3DellS3 CreateOutputSystemByPackTypeDellS3 = "dell_s3"
 )
 
-func (e CreateOutputTypeDellS3) ToPointer() *CreateOutputTypeDellS3 {
+func (e CreateOutputSystemByPackTypeDellS3) ToPointer() *CreateOutputSystemByPackTypeDellS3 {
 	return &e
 }
-func (e *CreateOutputTypeDellS3) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeDellS3) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "dell_s3":
-		*e = CreateOutputTypeDellS3(v)
+		*e = CreateOutputSystemByPackTypeDellS3(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeDellS3: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeDellS3: %v", v)
 	}
 }
 
-type CreateOutputOutputDellS3 struct {
+type CreateOutputSystemByPackOutputDellS3 struct {
 	// Unique ID for this output
-	ID   string                 `json:"id"`
-	Type CreateOutputTypeDellS3 `json:"type"`
+	ID   string                             `json:"id"`
+	Type CreateOutputSystemByPackTypeDellS3 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -1500,523 +2130,523 @@ type CreateOutputOutputDellS3 struct {
 	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
-func (c CreateOutputOutputDellS3) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputDellS3) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputDellS3) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputDellS3) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputDellS3) GetID() string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputDellS3) GetType() CreateOutputTypeDellS3 {
+func (c *CreateOutputSystemByPackOutputDellS3) GetType() CreateOutputSystemByPackTypeDellS3 {
 	if c == nil {
-		return CreateOutputTypeDellS3("")
+		return CreateOutputSystemByPackTypeDellS3("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputDellS3) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputDellS3) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputDellS3) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputDellS3) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputDellS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsSecret {
+func (c *CreateOutputSystemByPackOutputDellS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsSecret {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateOutputOutputDellS3) GetReuseConnections() *bool {
+func (c *CreateOutputSystemByPackOutputDellS3) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateOutputOutputDellS3) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputDellS3) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputDellS3) GetBucket() string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetBucket() string {
 	if c == nil {
 		return ""
 	}
 	return c.Bucket
 }
 
-func (c *CreateOutputOutputDellS3) GetRegion() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Region
 }
 
-func (c *CreateOutputOutputDellS3) GetDestPath() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DestPath
 }
 
-func (c *CreateOutputOutputDellS3) GetMaxConcurrentFileParts() *float64 {
+func (c *CreateOutputSystemByPackOutputDellS3) GetMaxConcurrentFileParts() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxConcurrentFileParts
 }
 
-func (c *CreateOutputOutputDellS3) GetVerifyPermissions() *bool {
+func (c *CreateOutputSystemByPackOutputDellS3) GetVerifyPermissions() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.VerifyPermissions
 }
 
-func (c *CreateOutputOutputDellS3) GetMaxClosingFilesToBackpressure() *float64 {
+func (c *CreateOutputSystemByPackOutputDellS3) GetMaxClosingFilesToBackpressure() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxClosingFilesToBackpressure
 }
 
-func (c *CreateOutputOutputDellS3) GetStagePath() string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetStagePath() string {
 	if c == nil {
 		return ""
 	}
 	return c.StagePath
 }
 
-func (c *CreateOutputOutputDellS3) GetAddIDToStagePath() *bool {
+func (c *CreateOutputSystemByPackOutputDellS3) GetAddIDToStagePath() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AddIDToStagePath
 }
 
-func (c *CreateOutputOutputDellS3) GetRemoveEmptyDirs() *bool {
+func (c *CreateOutputSystemByPackOutputDellS3) GetRemoveEmptyDirs() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RemoveEmptyDirs
 }
 
-func (c *CreateOutputOutputDellS3) GetPartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetPartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PartitionExpr
 }
 
-func (c *CreateOutputOutputDellS3) GetFormat() *components.DataFormatOptions {
+func (c *CreateOutputSystemByPackOutputDellS3) GetFormat() *components.DataFormatOptions {
 	if c == nil {
 		return nil
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputDellS3) GetBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.BaseFileName
 }
 
-func (c *CreateOutputOutputDellS3) GetFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.FileNameSuffix
 }
 
-func (c *CreateOutputOutputDellS3) GetMaxFileSizeMB() *float64 {
+func (c *CreateOutputSystemByPackOutputDellS3) GetMaxFileSizeMB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileSizeMB
 }
 
-func (c *CreateOutputOutputDellS3) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDellS3) GetMaxFileOpenTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileOpenTimeSec
 }
 
-func (c *CreateOutputOutputDellS3) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDellS3) GetMaxFileIdleTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileIdleTimeSec
 }
 
-func (c *CreateOutputOutputDellS3) GetMaxOpenFiles() *float64 {
+func (c *CreateOutputSystemByPackOutputDellS3) GetMaxOpenFiles() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxOpenFiles
 }
 
-func (c *CreateOutputOutputDellS3) GetHeaderLine() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetHeaderLine() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HeaderLine
 }
 
-func (c *CreateOutputOutputDellS3) GetWriteHighWaterMark() *float64 {
+func (c *CreateOutputSystemByPackOutputDellS3) GetWriteHighWaterMark() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputOutputDellS3) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
+func (c *CreateOutputSystemByPackOutputDellS3) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputDellS3) GetDeadletterEnabled() *bool {
+func (c *CreateOutputSystemByPackOutputDellS3) GetDeadletterEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterEnabled
 }
 
-func (c *CreateOutputOutputDellS3) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
+func (c *CreateOutputSystemByPackOutputDellS3) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnDiskFullBackpressure
 }
 
-func (c *CreateOutputOutputDellS3) GetForceCloseOnShutdown() *bool {
+func (c *CreateOutputSystemByPackOutputDellS3) GetForceCloseOnShutdown() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ForceCloseOnShutdown
 }
 
-func (c *CreateOutputOutputDellS3) GetRetrySettings() *components.RetrySettingsType {
+func (c *CreateOutputSystemByPackOutputDellS3) GetRetrySettings() *components.RetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.RetrySettings
 }
 
-func (c *CreateOutputOutputDellS3) GetOrphans() *components.OrphanFileRecoveryType {
+func (c *CreateOutputSystemByPackOutputDellS3) GetOrphans() *components.OrphanFileRecoveryType {
 	if c == nil {
 		return nil
 	}
 	return c.Orphans
 }
 
-func (c *CreateOutputOutputDellS3) GetObjectACL() *components.ObjectACLOptions {
+func (c *CreateOutputSystemByPackOutputDellS3) GetObjectACL() *components.ObjectACLOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ObjectACL
 }
 
-func (c *CreateOutputOutputDellS3) GetEndpoint() string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetEndpoint() string {
 	if c == nil {
 		return ""
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputDellS3) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputDellS3) GetAwsSecret() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateOutputOutputDellS3) GetCompress() *components.CompressionOptionsHTTP {
+func (c *CreateOutputSystemByPackOutputDellS3) GetCompress() *components.CompressionOptionsHTTP {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputDellS3) GetCompressionLevel() *components.CompressionLevelOptions {
+func (c *CreateOutputSystemByPackOutputDellS3) GetCompressionLevel() *components.CompressionLevelOptions {
 	if c == nil {
 		return nil
 	}
 	return c.CompressionLevel
 }
 
-func (c *CreateOutputOutputDellS3) GetAutomaticSchema() *bool {
+func (c *CreateOutputSystemByPackOutputDellS3) GetAutomaticSchema() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AutomaticSchema
 }
 
-func (c *CreateOutputOutputDellS3) GetParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetSchema
 }
 
-func (c *CreateOutputOutputDellS3) GetParquetVersion() *components.ParquetVersionOptions {
+func (c *CreateOutputSystemByPackOutputDellS3) GetParquetVersion() *components.ParquetVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetVersion
 }
 
-func (c *CreateOutputOutputDellS3) GetParquetDataPageVersion() *components.DataPageVersionOptions {
+func (c *CreateOutputSystemByPackOutputDellS3) GetParquetDataPageVersion() *components.DataPageVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetDataPageVersion
 }
 
-func (c *CreateOutputOutputDellS3) GetParquetRowGroupLength() *float64 {
+func (c *CreateOutputSystemByPackOutputDellS3) GetParquetRowGroupLength() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetRowGroupLength
 }
 
-func (c *CreateOutputOutputDellS3) GetParquetPageSize() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetParquetPageSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetPageSize
 }
 
-func (c *CreateOutputOutputDellS3) GetShouldLogInvalidRows() *bool {
+func (c *CreateOutputSystemByPackOutputDellS3) GetShouldLogInvalidRows() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputOutputDellS3) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
+func (c *CreateOutputSystemByPackOutputDellS3) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
 	return c.KeyValueMetadata
 }
 
-func (c *CreateOutputOutputDellS3) GetEnableStatistics() *bool {
+func (c *CreateOutputSystemByPackOutputDellS3) GetEnableStatistics() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableStatistics
 }
 
-func (c *CreateOutputOutputDellS3) GetEnableWritePageIndex() *bool {
+func (c *CreateOutputSystemByPackOutputDellS3) GetEnableWritePageIndex() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableWritePageIndex
 }
 
-func (c *CreateOutputOutputDellS3) GetEnablePageChecksum() *bool {
+func (c *CreateOutputSystemByPackOutputDellS3) GetEnablePageChecksum() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnablePageChecksum
 }
 
-func (c *CreateOutputOutputDellS3) GetEmptyDirCleanupSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDellS3) GetEmptyDirCleanupSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.EmptyDirCleanupSec
 }
 
-func (c *CreateOutputOutputDellS3) GetDirectoryBatchSize() *float64 {
+func (c *CreateOutputSystemByPackOutputDellS3) GetDirectoryBatchSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DirectoryBatchSize
 }
 
-func (c *CreateOutputOutputDellS3) GetDeadletterPath() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetDeadletterPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterPath
 }
 
-func (c *CreateOutputOutputDellS3) GetMaxRetryNum() *float64 {
+func (c *CreateOutputSystemByPackOutputDellS3) GetMaxRetryNum() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRetryNum
 }
 
-func (c *CreateOutputOutputDellS3) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputDellS3) GetTemplateBucket() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetTemplateBucket() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBucket
 }
 
-func (c *CreateOutputOutputDellS3) GetTemplateRegion() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateRegion
 }
 
-func (c *CreateOutputOutputDellS3) GetTemplateDestPath() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetTemplateDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateDestPath
 }
 
-func (c *CreateOutputOutputDellS3) GetTemplatePartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetTemplatePartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePartitionExpr
 }
 
-func (c *CreateOutputOutputDellS3) GetTemplateFormat() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetTemplateFormat() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFormat
 }
 
-func (c *CreateOutputOutputDellS3) GetTemplateBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetTemplateBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBaseFileName
 }
 
-func (c *CreateOutputOutputDellS3) GetTemplateFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetTemplateFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFileNameSuffix
 }
 
-func (c *CreateOutputOutputDellS3) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputDellS3) GetTemplateObjectACL() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetTemplateObjectACL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateObjectACL
 }
 
-func (c *CreateOutputOutputDellS3) GetTemplateEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateOutputOutputDellS3) GetTemplateCompress() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetTemplateCompress() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateCompress
 }
 
-func (c *CreateOutputOutputDellS3) GetTemplateParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputDellS3) GetTemplateParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateParquetSchema
 }
 
-// #region class-body-createoutputoutputdells3
-// #endregion class-body-createoutputoutputdells3
+// #region class-body-createoutputsystembypackoutputdells3
+// #endregion class-body-createoutputsystembypackoutputdells3
 
-type CreateOutputTypeAlphasocS3 string
+type CreateOutputSystemByPackTypeAlphasocS3 string
 
 const (
-	CreateOutputTypeAlphasocS3AlphasocS3 CreateOutputTypeAlphasocS3 = "alphasoc_s3"
+	CreateOutputSystemByPackTypeAlphasocS3AlphasocS3 CreateOutputSystemByPackTypeAlphasocS3 = "alphasoc_s3"
 )
 
-func (e CreateOutputTypeAlphasocS3) ToPointer() *CreateOutputTypeAlphasocS3 {
+func (e CreateOutputSystemByPackTypeAlphasocS3) ToPointer() *CreateOutputSystemByPackTypeAlphasocS3 {
 	return &e
 }
-func (e *CreateOutputTypeAlphasocS3) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeAlphasocS3) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "alphasoc_s3":
-		*e = CreateOutputTypeAlphasocS3(v)
+		*e = CreateOutputSystemByPackTypeAlphasocS3(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeAlphasocS3: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeAlphasocS3: %v", v)
 	}
 }
 
-type CreateOutputOutputAlphasocS3 struct {
+type CreateOutputSystemByPackOutputAlphasocS3 struct {
 	// Unique ID for this output
-	ID   string                     `json:"id"`
-	Type CreateOutputTypeAlphasocS3 `json:"type"`
+	ID   string                                 `json:"id"`
+	Type CreateOutputSystemByPackTypeAlphasocS3 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -2138,488 +2768,488 @@ type CreateOutputOutputAlphasocS3 struct {
 	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
-func (c CreateOutputOutputAlphasocS3) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputAlphasocS3) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputAlphasocS3) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetID() string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetType() CreateOutputTypeAlphasocS3 {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetType() CreateOutputSystemByPackTypeAlphasocS3 {
 	if c == nil {
-		return CreateOutputTypeAlphasocS3("")
+		return CreateOutputSystemByPackTypeAlphasocS3("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsSecret {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsSecret {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetReuseConnections() *bool {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetBucket() string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetBucket() string {
 	if c == nil {
 		return ""
 	}
 	return c.Bucket
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetDestPath() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DestPath
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetMaxConcurrentFileParts() *float64 {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetMaxConcurrentFileParts() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxConcurrentFileParts
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetVerifyPermissions() *bool {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetVerifyPermissions() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.VerifyPermissions
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetMaxClosingFilesToBackpressure() *float64 {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetMaxClosingFilesToBackpressure() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxClosingFilesToBackpressure
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetStagePath() string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetStagePath() string {
 	if c == nil {
 		return ""
 	}
 	return c.StagePath
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetAddIDToStagePath() *bool {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetAddIDToStagePath() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AddIDToStagePath
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetRemoveEmptyDirs() *bool {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetRemoveEmptyDirs() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RemoveEmptyDirs
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetPartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetPartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PartitionExpr
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetFormat() *components.DataFormatOptions {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetFormat() *components.DataFormatOptions {
 	if c == nil {
 		return nil
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.BaseFileName
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.FileNameSuffix
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetMaxFileSizeMB() *float64 {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetMaxFileSizeMB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileSizeMB
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetMaxFileOpenTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileOpenTimeSec
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetMaxFileIdleTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileIdleTimeSec
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetMaxOpenFiles() *float64 {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetMaxOpenFiles() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxOpenFiles
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetHeaderLine() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetHeaderLine() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HeaderLine
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetWriteHighWaterMark() *float64 {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetWriteHighWaterMark() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetDeadletterEnabled() *bool {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetDeadletterEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterEnabled
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnDiskFullBackpressure
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetForceCloseOnShutdown() *bool {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetForceCloseOnShutdown() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ForceCloseOnShutdown
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetRetrySettings() *components.RetrySettingsType {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetRetrySettings() *components.RetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.RetrySettings
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetOrphans() *components.OrphanFileRecoveryType {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetOrphans() *components.OrphanFileRecoveryType {
 	if c == nil {
 		return nil
 	}
 	return c.Orphans
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetAwsSecret() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetCompress() *components.CompressionOptionsHTTP {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetCompress() *components.CompressionOptionsHTTP {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetCompressionLevel() *components.CompressionLevelOptions {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetCompressionLevel() *components.CompressionLevelOptions {
 	if c == nil {
 		return nil
 	}
 	return c.CompressionLevel
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetAutomaticSchema() *bool {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetAutomaticSchema() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AutomaticSchema
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetSchema
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetParquetVersion() *components.ParquetVersionOptions {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetParquetVersion() *components.ParquetVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetVersion
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetParquetDataPageVersion() *components.DataPageVersionOptions {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetParquetDataPageVersion() *components.DataPageVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetDataPageVersion
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetParquetRowGroupLength() *float64 {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetParquetRowGroupLength() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetRowGroupLength
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetParquetPageSize() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetParquetPageSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetPageSize
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetShouldLogInvalidRows() *bool {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetShouldLogInvalidRows() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
 	return c.KeyValueMetadata
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetEnableStatistics() *bool {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetEnableStatistics() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableStatistics
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetEnableWritePageIndex() *bool {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetEnableWritePageIndex() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableWritePageIndex
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetEnablePageChecksum() *bool {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetEnablePageChecksum() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnablePageChecksum
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetEmptyDirCleanupSec() *float64 {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetEmptyDirCleanupSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.EmptyDirCleanupSec
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetDirectoryBatchSize() *float64 {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetDirectoryBatchSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DirectoryBatchSize
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetDeadletterPath() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetDeadletterPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterPath
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetMaxRetryNum() *float64 {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetMaxRetryNum() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRetryNum
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetTemplateBucket() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetTemplateBucket() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBucket
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetTemplateDestPath() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetTemplateDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateDestPath
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetTemplateFormat() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetTemplateFormat() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFormat
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetTemplateBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetTemplateBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBaseFileName
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetTemplateFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetTemplateFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFileNameSuffix
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetTemplateEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetTemplateCompress() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetTemplateCompress() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateCompress
 }
 
-func (c *CreateOutputOutputAlphasocS3) GetTemplateParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputAlphasocS3) GetTemplateParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateParquetSchema
 }
 
-// #region class-body-createoutputoutputalphasocs3
-// #endregion class-body-createoutputoutputalphasocs3
+// #region class-body-createoutputsystembypackoutputalphasocs3
+// #endregion class-body-createoutputsystembypackoutputalphasocs3
 
-type CreateOutputTypeStorjS3 string
+type CreateOutputSystemByPackTypeStorjS3 string
 
 const (
-	CreateOutputTypeStorjS3StorjS3 CreateOutputTypeStorjS3 = "storj_s3"
+	CreateOutputSystemByPackTypeStorjS3StorjS3 CreateOutputSystemByPackTypeStorjS3 = "storj_s3"
 )
 
-func (e CreateOutputTypeStorjS3) ToPointer() *CreateOutputTypeStorjS3 {
+func (e CreateOutputSystemByPackTypeStorjS3) ToPointer() *CreateOutputSystemByPackTypeStorjS3 {
 	return &e
 }
-func (e *CreateOutputTypeStorjS3) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeStorjS3) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "storj_s3":
-		*e = CreateOutputTypeStorjS3(v)
+		*e = CreateOutputSystemByPackTypeStorjS3(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeStorjS3: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeStorjS3: %v", v)
 	}
 }
 
-type CreateOutputOutputStorjS3 struct {
+type CreateOutputSystemByPackOutputStorjS3 struct {
 	// Unique ID for this output
-	ID   string                  `json:"id"`
-	Type CreateOutputTypeStorjS3 `json:"type"`
+	ID   string                              `json:"id"`
+	Type CreateOutputSystemByPackTypeStorjS3 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -2743,495 +3373,495 @@ type CreateOutputOutputStorjS3 struct {
 	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
-func (c CreateOutputOutputStorjS3) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputStorjS3) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputStorjS3) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputStorjS3) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputStorjS3) GetID() string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputStorjS3) GetType() CreateOutputTypeStorjS3 {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetType() CreateOutputSystemByPackTypeStorjS3 {
 	if c == nil {
-		return CreateOutputTypeStorjS3("")
+		return CreateOutputSystemByPackTypeStorjS3("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputStorjS3) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputStorjS3) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputStorjS3) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputStorjS3) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputStorjS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsSecret {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsSecret {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateOutputOutputStorjS3) GetReuseConnections() *bool {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateOutputOutputStorjS3) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputStorjS3) GetBucket() string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetBucket() string {
 	if c == nil {
 		return ""
 	}
 	return c.Bucket
 }
 
-func (c *CreateOutputOutputStorjS3) GetDestPath() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DestPath
 }
 
-func (c *CreateOutputOutputStorjS3) GetMaxConcurrentFileParts() *float64 {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetMaxConcurrentFileParts() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxConcurrentFileParts
 }
 
-func (c *CreateOutputOutputStorjS3) GetVerifyPermissions() *bool {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetVerifyPermissions() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.VerifyPermissions
 }
 
-func (c *CreateOutputOutputStorjS3) GetMaxClosingFilesToBackpressure() *float64 {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetMaxClosingFilesToBackpressure() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxClosingFilesToBackpressure
 }
 
-func (c *CreateOutputOutputStorjS3) GetStagePath() string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetStagePath() string {
 	if c == nil {
 		return ""
 	}
 	return c.StagePath
 }
 
-func (c *CreateOutputOutputStorjS3) GetAddIDToStagePath() *bool {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetAddIDToStagePath() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AddIDToStagePath
 }
 
-func (c *CreateOutputOutputStorjS3) GetRemoveEmptyDirs() *bool {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetRemoveEmptyDirs() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RemoveEmptyDirs
 }
 
-func (c *CreateOutputOutputStorjS3) GetPartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetPartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PartitionExpr
 }
 
-func (c *CreateOutputOutputStorjS3) GetFormat() *components.DataFormatOptions {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetFormat() *components.DataFormatOptions {
 	if c == nil {
 		return nil
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputStorjS3) GetBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.BaseFileName
 }
 
-func (c *CreateOutputOutputStorjS3) GetFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.FileNameSuffix
 }
 
-func (c *CreateOutputOutputStorjS3) GetMaxFileSizeMB() *float64 {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetMaxFileSizeMB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileSizeMB
 }
 
-func (c *CreateOutputOutputStorjS3) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetMaxFileOpenTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileOpenTimeSec
 }
 
-func (c *CreateOutputOutputStorjS3) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetMaxFileIdleTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileIdleTimeSec
 }
 
-func (c *CreateOutputOutputStorjS3) GetMaxOpenFiles() *float64 {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetMaxOpenFiles() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxOpenFiles
 }
 
-func (c *CreateOutputOutputStorjS3) GetHeaderLine() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetHeaderLine() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HeaderLine
 }
 
-func (c *CreateOutputOutputStorjS3) GetWriteHighWaterMark() *float64 {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetWriteHighWaterMark() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputOutputStorjS3) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputStorjS3) GetDeadletterEnabled() *bool {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetDeadletterEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterEnabled
 }
 
-func (c *CreateOutputOutputStorjS3) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnDiskFullBackpressure
 }
 
-func (c *CreateOutputOutputStorjS3) GetForceCloseOnShutdown() *bool {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetForceCloseOnShutdown() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ForceCloseOnShutdown
 }
 
-func (c *CreateOutputOutputStorjS3) GetRetrySettings() *components.RetrySettingsType {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetRetrySettings() *components.RetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.RetrySettings
 }
 
-func (c *CreateOutputOutputStorjS3) GetOrphans() *components.OrphanFileRecoveryType {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetOrphans() *components.OrphanFileRecoveryType {
 	if c == nil {
 		return nil
 	}
 	return c.Orphans
 }
 
-func (c *CreateOutputOutputStorjS3) GetEndpoint() string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetEndpoint() string {
 	if c == nil {
 		return ""
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputStorjS3) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputStorjS3) GetAwsSecret() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateOutputOutputStorjS3) GetCompress() *components.CompressionOptionsHTTP {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetCompress() *components.CompressionOptionsHTTP {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputStorjS3) GetCompressionLevel() *components.CompressionLevelOptions {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetCompressionLevel() *components.CompressionLevelOptions {
 	if c == nil {
 		return nil
 	}
 	return c.CompressionLevel
 }
 
-func (c *CreateOutputOutputStorjS3) GetAutomaticSchema() *bool {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetAutomaticSchema() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AutomaticSchema
 }
 
-func (c *CreateOutputOutputStorjS3) GetParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetSchema
 }
 
-func (c *CreateOutputOutputStorjS3) GetParquetVersion() *components.ParquetVersionOptions {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetParquetVersion() *components.ParquetVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetVersion
 }
 
-func (c *CreateOutputOutputStorjS3) GetParquetDataPageVersion() *components.DataPageVersionOptions {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetParquetDataPageVersion() *components.DataPageVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetDataPageVersion
 }
 
-func (c *CreateOutputOutputStorjS3) GetParquetRowGroupLength() *float64 {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetParquetRowGroupLength() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetRowGroupLength
 }
 
-func (c *CreateOutputOutputStorjS3) GetParquetPageSize() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetParquetPageSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetPageSize
 }
 
-func (c *CreateOutputOutputStorjS3) GetShouldLogInvalidRows() *bool {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetShouldLogInvalidRows() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputOutputStorjS3) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
 	return c.KeyValueMetadata
 }
 
-func (c *CreateOutputOutputStorjS3) GetEnableStatistics() *bool {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetEnableStatistics() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableStatistics
 }
 
-func (c *CreateOutputOutputStorjS3) GetEnableWritePageIndex() *bool {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetEnableWritePageIndex() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableWritePageIndex
 }
 
-func (c *CreateOutputOutputStorjS3) GetEnablePageChecksum() *bool {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetEnablePageChecksum() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnablePageChecksum
 }
 
-func (c *CreateOutputOutputStorjS3) GetEmptyDirCleanupSec() *float64 {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetEmptyDirCleanupSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.EmptyDirCleanupSec
 }
 
-func (c *CreateOutputOutputStorjS3) GetDirectoryBatchSize() *float64 {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetDirectoryBatchSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DirectoryBatchSize
 }
 
-func (c *CreateOutputOutputStorjS3) GetDeadletterPath() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetDeadletterPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterPath
 }
 
-func (c *CreateOutputOutputStorjS3) GetMaxRetryNum() *float64 {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetMaxRetryNum() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRetryNum
 }
 
-func (c *CreateOutputOutputStorjS3) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputStorjS3) GetTemplateBucket() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetTemplateBucket() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBucket
 }
 
-func (c *CreateOutputOutputStorjS3) GetTemplateDestPath() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetTemplateDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateDestPath
 }
 
-func (c *CreateOutputOutputStorjS3) GetTemplatePartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetTemplatePartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePartitionExpr
 }
 
-func (c *CreateOutputOutputStorjS3) GetTemplateFormat() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetTemplateFormat() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFormat
 }
 
-func (c *CreateOutputOutputStorjS3) GetTemplateBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetTemplateBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBaseFileName
 }
 
-func (c *CreateOutputOutputStorjS3) GetTemplateFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetTemplateFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFileNameSuffix
 }
 
-func (c *CreateOutputOutputStorjS3) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputStorjS3) GetTemplateEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateOutputOutputStorjS3) GetTemplateCompress() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetTemplateCompress() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateCompress
 }
 
-func (c *CreateOutputOutputStorjS3) GetTemplateParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputStorjS3) GetTemplateParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateParquetSchema
 }
 
-// #region class-body-createoutputoutputstorjs3
-// #endregion class-body-createoutputoutputstorjs3
+// #region class-body-createoutputsystembypackoutputstorjs3
+// #endregion class-body-createoutputsystembypackoutputstorjs3
 
-type CreateOutputTypeNutanixObjects string
+type CreateOutputSystemByPackTypeNutanixObjects string
 
 const (
-	CreateOutputTypeNutanixObjectsNutanixObjects CreateOutputTypeNutanixObjects = "nutanix_objects"
+	CreateOutputSystemByPackTypeNutanixObjectsNutanixObjects CreateOutputSystemByPackTypeNutanixObjects = "nutanix_objects"
 )
 
-func (e CreateOutputTypeNutanixObjects) ToPointer() *CreateOutputTypeNutanixObjects {
+func (e CreateOutputSystemByPackTypeNutanixObjects) ToPointer() *CreateOutputSystemByPackTypeNutanixObjects {
 	return &e
 }
-func (e *CreateOutputTypeNutanixObjects) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeNutanixObjects) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "nutanix_objects":
-		*e = CreateOutputTypeNutanixObjects(v)
+		*e = CreateOutputSystemByPackTypeNutanixObjects(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeNutanixObjects: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeNutanixObjects: %v", v)
 	}
 }
 
-type CreateOutputOutputNutanixObjects struct {
+type CreateOutputSystemByPackOutputNutanixObjects struct {
 	// Unique ID for this output
-	ID   string                         `json:"id"`
-	Type CreateOutputTypeNutanixObjects `json:"type"`
+	ID   string                                     `json:"id"`
+	Type CreateOutputSystemByPackTypeNutanixObjects `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -3359,518 +3989,518 @@ type CreateOutputOutputNutanixObjects struct {
 	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
-func (c CreateOutputOutputNutanixObjects) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputNutanixObjects) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputNutanixObjects) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetID() string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetType() CreateOutputTypeNutanixObjects {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetType() CreateOutputSystemByPackTypeNutanixObjects {
 	if c == nil {
-		return CreateOutputTypeNutanixObjects("")
+		return CreateOutputSystemByPackTypeNutanixObjects("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsSecret {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsSecret {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetReuseConnections() *bool {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetBucket() string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetBucket() string {
 	if c == nil {
 		return ""
 	}
 	return c.Bucket
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetRegion() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Region
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetDestPath() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DestPath
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetMaxConcurrentFileParts() *float64 {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetMaxConcurrentFileParts() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxConcurrentFileParts
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetVerifyPermissions() *bool {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetVerifyPermissions() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.VerifyPermissions
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetMaxClosingFilesToBackpressure() *float64 {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetMaxClosingFilesToBackpressure() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxClosingFilesToBackpressure
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetStagePath() string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetStagePath() string {
 	if c == nil {
 		return ""
 	}
 	return c.StagePath
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetAddIDToStagePath() *bool {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetAddIDToStagePath() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AddIDToStagePath
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetRemoveEmptyDirs() *bool {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetRemoveEmptyDirs() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RemoveEmptyDirs
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetPartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetPartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PartitionExpr
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetFormat() *components.DataFormatOptions {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetFormat() *components.DataFormatOptions {
 	if c == nil {
 		return nil
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.BaseFileName
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.FileNameSuffix
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetMaxFileSizeMB() *float64 {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetMaxFileSizeMB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileSizeMB
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetMaxFileOpenTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileOpenTimeSec
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetMaxFileIdleTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileIdleTimeSec
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetMaxOpenFiles() *float64 {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetMaxOpenFiles() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxOpenFiles
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetHeaderLine() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetHeaderLine() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HeaderLine
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetWriteHighWaterMark() *float64 {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetWriteHighWaterMark() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetDeadletterEnabled() *bool {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetDeadletterEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterEnabled
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnDiskFullBackpressure
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetForceCloseOnShutdown() *bool {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetForceCloseOnShutdown() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ForceCloseOnShutdown
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetRetrySettings() *components.RetrySettingsType {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetRetrySettings() *components.RetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.RetrySettings
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetOrphans() *components.OrphanFileRecoveryType {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetOrphans() *components.OrphanFileRecoveryType {
 	if c == nil {
 		return nil
 	}
 	return c.Orphans
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetEndpoint() string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetEndpoint() string {
 	if c == nil {
 		return ""
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetAwsSecret() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetCompress() *components.CompressionOptionsHTTP {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetCompress() *components.CompressionOptionsHTTP {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetCompressionLevel() *components.CompressionLevelOptions {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetCompressionLevel() *components.CompressionLevelOptions {
 	if c == nil {
 		return nil
 	}
 	return c.CompressionLevel
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetAutomaticSchema() *bool {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetAutomaticSchema() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AutomaticSchema
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetSchema
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetParquetVersion() *components.ParquetVersionOptions {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetParquetVersion() *components.ParquetVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetVersion
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetParquetDataPageVersion() *components.DataPageVersionOptions {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetParquetDataPageVersion() *components.DataPageVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetDataPageVersion
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetParquetRowGroupLength() *float64 {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetParquetRowGroupLength() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetRowGroupLength
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetParquetPageSize() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetParquetPageSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetPageSize
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetShouldLogInvalidRows() *bool {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetShouldLogInvalidRows() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
 	return c.KeyValueMetadata
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetEnableStatistics() *bool {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetEnableStatistics() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableStatistics
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetEnableWritePageIndex() *bool {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetEnableWritePageIndex() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableWritePageIndex
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetEnablePageChecksum() *bool {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetEnablePageChecksum() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnablePageChecksum
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetEmptyDirCleanupSec() *float64 {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetEmptyDirCleanupSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.EmptyDirCleanupSec
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetDirectoryBatchSize() *float64 {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetDirectoryBatchSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DirectoryBatchSize
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetDeadletterPath() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetDeadletterPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterPath
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetMaxRetryNum() *float64 {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetMaxRetryNum() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRetryNum
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetTemplateBucket() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetTemplateBucket() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBucket
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetTemplateRegion() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateRegion
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetTemplateDestPath() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetTemplateDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateDestPath
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetTemplatePartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetTemplatePartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePartitionExpr
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetTemplateFormat() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetTemplateFormat() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFormat
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetTemplateBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetTemplateBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBaseFileName
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetTemplateFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetTemplateFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFileNameSuffix
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetTemplateEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetTemplateCompress() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetTemplateCompress() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateCompress
 }
 
-func (c *CreateOutputOutputNutanixObjects) GetTemplateParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputNutanixObjects) GetTemplateParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateParquetSchema
 }
 
-type CreateOutputTypeCloudflareR2 string
+type CreateOutputSystemByPackTypeCloudflareR2 string
 
 const (
-	CreateOutputTypeCloudflareR2CloudflareR2 CreateOutputTypeCloudflareR2 = "cloudflare_r2"
+	CreateOutputSystemByPackTypeCloudflareR2CloudflareR2 CreateOutputSystemByPackTypeCloudflareR2 = "cloudflare_r2"
 )
 
-func (e CreateOutputTypeCloudflareR2) ToPointer() *CreateOutputTypeCloudflareR2 {
+func (e CreateOutputSystemByPackTypeCloudflareR2) ToPointer() *CreateOutputSystemByPackTypeCloudflareR2 {
 	return &e
 }
-func (e *CreateOutputTypeCloudflareR2) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeCloudflareR2) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "cloudflare_r2":
-		*e = CreateOutputTypeCloudflareR2(v)
+		*e = CreateOutputSystemByPackTypeCloudflareR2(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeCloudflareR2: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeCloudflareR2: %v", v)
 	}
 }
 
-// CreateOutputAuthenticationMethodCloudflareR2 - AWS authentication method. Choose Auto to use IAM roles.
-type CreateOutputAuthenticationMethodCloudflareR2 string
+// CreateOutputSystemByPackAuthenticationMethodCloudflareR2 - AWS authentication method. Choose Auto to use IAM roles.
+type CreateOutputSystemByPackAuthenticationMethodCloudflareR2 string
 
 const (
-	// CreateOutputAuthenticationMethodCloudflareR2Auto Auto
-	CreateOutputAuthenticationMethodCloudflareR2Auto CreateOutputAuthenticationMethodCloudflareR2 = "auto"
-	// CreateOutputAuthenticationMethodCloudflareR2Secret Secret Key pair
-	CreateOutputAuthenticationMethodCloudflareR2Secret CreateOutputAuthenticationMethodCloudflareR2 = "secret"
+	// CreateOutputSystemByPackAuthenticationMethodCloudflareR2Auto Auto
+	CreateOutputSystemByPackAuthenticationMethodCloudflareR2Auto CreateOutputSystemByPackAuthenticationMethodCloudflareR2 = "auto"
+	// CreateOutputSystemByPackAuthenticationMethodCloudflareR2Secret Secret Key pair
+	CreateOutputSystemByPackAuthenticationMethodCloudflareR2Secret CreateOutputSystemByPackAuthenticationMethodCloudflareR2 = "secret"
 )
 
-func (e CreateOutputAuthenticationMethodCloudflareR2) ToPointer() *CreateOutputAuthenticationMethodCloudflareR2 {
+func (e CreateOutputSystemByPackAuthenticationMethodCloudflareR2) ToPointer() *CreateOutputSystemByPackAuthenticationMethodCloudflareR2 {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputAuthenticationMethodCloudflareR2) IsExact() bool {
+func (e *CreateOutputSystemByPackAuthenticationMethodCloudflareR2) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "auto", "secret":
@@ -3880,10 +4510,10 @@ func (e *CreateOutputAuthenticationMethodCloudflareR2) IsExact() bool {
 	return false
 }
 
-type CreateOutputOutputCloudflareR2 struct {
+type CreateOutputSystemByPackOutputCloudflareR2 struct {
 	// Unique ID for this output
-	ID   string                       `json:"id"`
-	Type CreateOutputTypeCloudflareR2 `json:"type"`
+	ID   string                                   `json:"id"`
+	Type CreateOutputSystemByPackTypeCloudflareR2 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -3893,7 +4523,7 @@ type CreateOutputOutputCloudflareR2 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *CreateOutputAuthenticationMethodCloudflareR2 `json:"awsAuthenticationMethod,omitzero"`
+	AwsAuthenticationMethod *CreateOutputSystemByPackAuthenticationMethodCloudflareR2 `json:"awsAuthenticationMethod,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -4017,528 +4647,528 @@ type CreateOutputOutputCloudflareR2 struct {
 	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
-func (c CreateOutputOutputCloudflareR2) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputCloudflareR2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputCloudflareR2) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetID() string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetType() CreateOutputTypeCloudflareR2 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetType() CreateOutputSystemByPackTypeCloudflareR2 {
 	if c == nil {
-		return CreateOutputTypeCloudflareR2("")
+		return CreateOutputSystemByPackTypeCloudflareR2("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetAwsAuthenticationMethod() *CreateOutputAuthenticationMethodCloudflareR2 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetAwsAuthenticationMethod() *CreateOutputSystemByPackAuthenticationMethodCloudflareR2 {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetReuseConnections() *bool {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetBucket() string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetBucket() string {
 	if c == nil {
 		return ""
 	}
 	return c.Bucket
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetDestPath() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DestPath
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetMaxConcurrentFileParts() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetMaxConcurrentFileParts() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxConcurrentFileParts
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetVerifyPermissions() *bool {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetVerifyPermissions() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.VerifyPermissions
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetMaxClosingFilesToBackpressure() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetMaxClosingFilesToBackpressure() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxClosingFilesToBackpressure
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetStagePath() string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetStagePath() string {
 	if c == nil {
 		return ""
 	}
 	return c.StagePath
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetAddIDToStagePath() *bool {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetAddIDToStagePath() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AddIDToStagePath
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetRemoveEmptyDirs() *bool {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetRemoveEmptyDirs() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RemoveEmptyDirs
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetPartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetPartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PartitionExpr
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetFormat() *components.DataFormatOptions {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetFormat() *components.DataFormatOptions {
 	if c == nil {
 		return nil
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.BaseFileName
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.FileNameSuffix
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetMaxFileSizeMB() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetMaxFileSizeMB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileSizeMB
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetMaxFileOpenTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileOpenTimeSec
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetMaxFileIdleTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileIdleTimeSec
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetMaxOpenFiles() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetMaxOpenFiles() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxOpenFiles
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetHeaderLine() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetHeaderLine() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HeaderLine
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetWriteHighWaterMark() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetWriteHighWaterMark() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetDeadletterEnabled() *bool {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetDeadletterEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterEnabled
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnDiskFullBackpressure
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetForceCloseOnShutdown() *bool {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetForceCloseOnShutdown() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ForceCloseOnShutdown
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetRetrySettings() *components.RetrySettingsType {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetRetrySettings() *components.RetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.RetrySettings
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetOrphans() *components.OrphanFileRecoveryType {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetOrphans() *components.OrphanFileRecoveryType {
 	if c == nil {
 		return nil
 	}
 	return c.Orphans
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetAwsSecretKey() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecretKey
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetEndpoint() string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetEndpoint() string {
 	if c == nil {
 		return ""
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetStorageClass() *components.StorageClassOptionsReducedredundancyStandard {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetStorageClass() *components.StorageClassOptionsReducedredundancyStandard {
 	if c == nil {
 		return nil
 	}
 	return c.StorageClass
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptionsAes256 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptionsAes256 {
 	if c == nil {
 		return nil
 	}
 	return c.ServerSideEncryption
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetAwsSecret() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetCompress() *components.CompressionOptionsHTTP {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetCompress() *components.CompressionOptionsHTTP {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetCompressionLevel() *components.CompressionLevelOptions {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetCompressionLevel() *components.CompressionLevelOptions {
 	if c == nil {
 		return nil
 	}
 	return c.CompressionLevel
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetAutomaticSchema() *bool {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetAutomaticSchema() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AutomaticSchema
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetSchema
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetParquetVersion() *components.ParquetVersionOptions {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetParquetVersion() *components.ParquetVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetVersion
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetParquetDataPageVersion() *components.DataPageVersionOptions {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetParquetDataPageVersion() *components.DataPageVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetDataPageVersion
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetParquetRowGroupLength() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetParquetRowGroupLength() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetRowGroupLength
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetParquetPageSize() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetParquetPageSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetPageSize
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetShouldLogInvalidRows() *bool {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetShouldLogInvalidRows() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
 	return c.KeyValueMetadata
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetEnableStatistics() *bool {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetEnableStatistics() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableStatistics
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetEnableWritePageIndex() *bool {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetEnableWritePageIndex() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableWritePageIndex
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetEnablePageChecksum() *bool {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetEnablePageChecksum() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnablePageChecksum
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetEmptyDirCleanupSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetEmptyDirCleanupSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.EmptyDirCleanupSec
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetDirectoryBatchSize() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetDirectoryBatchSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DirectoryBatchSize
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetDeadletterPath() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetDeadletterPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterPath
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetMaxRetryNum() *float64 {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetMaxRetryNum() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRetryNum
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetTemplateBucket() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetTemplateBucket() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBucket
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetTemplateDestPath() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetTemplateDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateDestPath
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetTemplatePartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetTemplatePartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePartitionExpr
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetTemplateFormat() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetTemplateFormat() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFormat
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetTemplateBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetTemplateBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBaseFileName
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetTemplateFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetTemplateFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFileNameSuffix
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetTemplateAwsSecretKey() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetTemplateAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsSecretKey
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetTemplateStorageClass() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetTemplateStorageClass() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStorageClass
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetTemplateServerSideEncryption() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetTemplateServerSideEncryption() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateServerSideEncryption
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetTemplateCompress() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetTemplateCompress() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateCompress
 }
 
-func (c *CreateOutputOutputCloudflareR2) GetTemplateParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputCloudflareR2) GetTemplateParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateParquetSchema
 }
 
-// #region class-body-createoutputoutputcloudflarer2
-// #endregion class-body-createoutputoutputcloudflarer2
+// #region class-body-createoutputsystembypackoutputcloudflarer2
+// #endregion class-body-createoutputsystembypackoutputcloudflarer2
 
-type CreateOutputTypeMicrosoftFabric string
+type CreateOutputSystemByPackTypeMicrosoftFabric string
 
 const (
-	CreateOutputTypeMicrosoftFabricMicrosoftFabric CreateOutputTypeMicrosoftFabric = "microsoft_fabric"
+	CreateOutputSystemByPackTypeMicrosoftFabricMicrosoftFabric CreateOutputSystemByPackTypeMicrosoftFabric = "microsoft_fabric"
 )
 
-func (e CreateOutputTypeMicrosoftFabric) ToPointer() *CreateOutputTypeMicrosoftFabric {
+func (e CreateOutputSystemByPackTypeMicrosoftFabric) ToPointer() *CreateOutputSystemByPackTypeMicrosoftFabric {
 	return &e
 }
-func (e *CreateOutputTypeMicrosoftFabric) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeMicrosoftFabric) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "microsoft_fabric":
-		*e = CreateOutputTypeMicrosoftFabric(v)
+		*e = CreateOutputSystemByPackTypeMicrosoftFabric(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeMicrosoftFabric: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeMicrosoftFabric: %v", v)
 	}
 }
 
-// CreateOutputAuthentication - Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
-type CreateOutputAuthentication struct {
+// CreateOutputSystemByPackAuthentication - Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
+type CreateOutputSystemByPackAuthentication struct {
 	Disabled  bool                                                 `json:"disabled"`
 	Mechanism *components.SaslMechanismOptionsSaslOauthbearerPlain `json:"mechanism,omitzero"`
 	// The username for authentication. This should always be $ConnectionString.
@@ -4573,168 +5203,168 @@ type CreateOutputAuthentication struct {
 	TemplateScope *string `json:"__template_scope,omitzero"`
 }
 
-func (c CreateOutputAuthentication) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackAuthentication) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputAuthentication) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackAuthentication) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputAuthentication) GetDisabled() bool {
+func (c *CreateOutputSystemByPackAuthentication) GetDisabled() bool {
 	if c == nil {
 		return false
 	}
 	return c.Disabled
 }
 
-func (c *CreateOutputAuthentication) GetMechanism() *components.SaslMechanismOptionsSaslOauthbearerPlain {
+func (c *CreateOutputSystemByPackAuthentication) GetMechanism() *components.SaslMechanismOptionsSaslOauthbearerPlain {
 	if c == nil {
 		return nil
 	}
 	return c.Mechanism
 }
 
-func (c *CreateOutputAuthentication) GetUsername() *string {
+func (c *CreateOutputSystemByPackAuthentication) GetUsername() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Username
 }
 
-func (c *CreateOutputAuthentication) GetTextSecret() *string {
+func (c *CreateOutputSystemByPackAuthentication) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateOutputAuthentication) GetClientSecretAuthType() *components.AuthenticationMethodOptionsAuth {
+func (c *CreateOutputSystemByPackAuthentication) GetClientSecretAuthType() *components.AuthenticationMethodOptionsAuth {
 	if c == nil {
 		return nil
 	}
 	return c.ClientSecretAuthType
 }
 
-func (c *CreateOutputAuthentication) GetClientTextSecret() *string {
+func (c *CreateOutputSystemByPackAuthentication) GetClientTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ClientTextSecret
 }
 
-func (c *CreateOutputAuthentication) GetCertificateName() *string {
+func (c *CreateOutputSystemByPackAuthentication) GetCertificateName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CertificateName
 }
 
-func (c *CreateOutputAuthentication) GetCertPath() *string {
+func (c *CreateOutputSystemByPackAuthentication) GetCertPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CertPath
 }
 
-func (c *CreateOutputAuthentication) GetPrivKeyPath() *string {
+func (c *CreateOutputSystemByPackAuthentication) GetPrivKeyPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PrivKeyPath
 }
 
-func (c *CreateOutputAuthentication) GetPassphrase() *string {
+func (c *CreateOutputSystemByPackAuthentication) GetPassphrase() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Passphrase
 }
 
-func (c *CreateOutputAuthentication) GetOauthEndpoint() *components.MicrosoftEntraIDAuthenticationEndpointOptionsSasl {
+func (c *CreateOutputSystemByPackAuthentication) GetOauthEndpoint() *components.MicrosoftEntraIDAuthenticationEndpointOptionsSasl {
 	if c == nil {
 		return nil
 	}
 	return c.OauthEndpoint
 }
 
-func (c *CreateOutputAuthentication) GetClientID() *string {
+func (c *CreateOutputSystemByPackAuthentication) GetClientID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ClientID
 }
 
-func (c *CreateOutputAuthentication) GetTenantID() *string {
+func (c *CreateOutputSystemByPackAuthentication) GetTenantID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TenantID
 }
 
-func (c *CreateOutputAuthentication) GetScope() *string {
+func (c *CreateOutputSystemByPackAuthentication) GetScope() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Scope
 }
 
-func (c *CreateOutputAuthentication) GetTemplateMechanism() *string {
+func (c *CreateOutputSystemByPackAuthentication) GetTemplateMechanism() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateMechanism
 }
 
-func (c *CreateOutputAuthentication) GetTemplateOauthEndpoint() *string {
+func (c *CreateOutputSystemByPackAuthentication) GetTemplateOauthEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOauthEndpoint
 }
 
-func (c *CreateOutputAuthentication) GetTemplateClientID() *string {
+func (c *CreateOutputSystemByPackAuthentication) GetTemplateClientID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateClientID
 }
 
-func (c *CreateOutputAuthentication) GetTemplateTenantID() *string {
+func (c *CreateOutputSystemByPackAuthentication) GetTemplateTenantID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateTenantID
 }
 
-func (c *CreateOutputAuthentication) GetTemplateScope() *string {
+func (c *CreateOutputSystemByPackAuthentication) GetTemplateScope() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateScope
 }
 
-type CreateOutputPqControlsMicrosoftFabric struct {
+type CreateOutputSystemByPackPqControlsMicrosoftFabric struct {
 }
 
-func (c CreateOutputPqControlsMicrosoftFabric) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsMicrosoftFabric) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsMicrosoftFabric) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsMicrosoftFabric) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputMicrosoftFabric struct {
+type CreateOutputSystemByPackOutputMicrosoftFabric struct {
 	// Unique ID for this output
-	ID   string                          `json:"id"`
-	Type CreateOutputTypeMicrosoftFabric `json:"type"`
+	ID   string                                      `json:"id"`
+	Type CreateOutputSystemByPackTypeMicrosoftFabric `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -4772,8 +5402,8 @@ type CreateOutputOutputMicrosoftFabric struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
-	Sasl *CreateOutputAuthentication           `json:"sasl,omitzero"`
-	TLS  *components.TLSSettingsClientSideType `json:"tls,omitzero"`
+	Sasl *CreateOutputSystemByPackAuthentication `json:"sasl,omitzero"`
+	TLS  *components.TLSSettingsClientSideType   `json:"tls,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Bootstrap server from Fabric Eventstream's endpoint
@@ -4800,8 +5430,8 @@ type CreateOutputOutputMicrosoftFabric struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                                `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsMicrosoftFabric `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                            `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsMicrosoftFabric `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
@@ -4814,338 +5444,338 @@ type CreateOutputOutputMicrosoftFabric struct {
 	TemplateBootstrapServer *string `json:"__template_bootstrap_server,omitzero"`
 }
 
-func (c CreateOutputOutputMicrosoftFabric) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputMicrosoftFabric) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetID() string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetType() CreateOutputTypeMicrosoftFabric {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetType() CreateOutputSystemByPackTypeMicrosoftFabric {
 	if c == nil {
-		return CreateOutputTypeMicrosoftFabric("")
+		return CreateOutputSystemByPackTypeMicrosoftFabric("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetTopic() string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetTopic() string {
 	if c == nil {
 		return ""
 	}
 	return c.Topic
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetAck() *components.AcknowledgmentsOptions {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetAck() *components.AcknowledgmentsOptions {
 	if c == nil {
 		return nil
 	}
 	return c.Ack
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetFormat() *components.RecordDataFormatOptions {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetFormat() *components.RecordDataFormatOptions {
 	if c == nil {
 		return nil
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetMaxRecordSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetMaxRecordSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRecordSizeKB
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetFlushEventCount() *float64 {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetFlushEventCount() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushEventCount
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetConnectionTimeout() *float64 {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetConnectionTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ConnectionTimeout
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetRequestTimeout() *float64 {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetRequestTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.RequestTimeout
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetMaxRetries() *float64 {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetMaxRetries() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRetries
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetMaxBackOff() *float64 {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetMaxBackOff() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxBackOff
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetInitialBackoff() *float64 {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetInitialBackoff() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.InitialBackoff
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetBackoffRate() *float64 {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetBackoffRate() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.BackoffRate
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetAuthenticationTimeout() *float64 {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetAuthenticationTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.AuthenticationTimeout
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetReauthenticationThreshold() *float64 {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetReauthenticationThreshold() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ReauthenticationThreshold
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetSasl() *CreateOutputAuthentication {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetSasl() *CreateOutputSystemByPackAuthentication {
 	if c == nil {
 		return nil
 	}
 	return c.Sasl
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetTLS() *components.TLSSettingsClientSideType {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetTLS() *components.TLSSettingsClientSideType {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetBootstrapServer() string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetBootstrapServer() string {
 	if c == nil {
 		return ""
 	}
 	return c.BootstrapServer
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetPqControls() *CreateOutputPqControlsMicrosoftFabric {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetPqControls() *CreateOutputSystemByPackPqControlsMicrosoftFabric {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetTemplateTopic() *string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetTemplateTopic() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateTopic
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetTemplateFormat() *string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetTemplateFormat() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFormat
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputMicrosoftFabric) GetTemplateBootstrapServer() *string {
+func (c *CreateOutputSystemByPackOutputMicrosoftFabric) GetTemplateBootstrapServer() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBootstrapServer
 }
 
-type CreateOutputTypeDatabricks string
+type CreateOutputSystemByPackTypeDatabricks string
 
 const (
-	CreateOutputTypeDatabricksDatabricks CreateOutputTypeDatabricks = "databricks"
+	CreateOutputSystemByPackTypeDatabricksDatabricks CreateOutputSystemByPackTypeDatabricks = "databricks"
 )
 
-func (e CreateOutputTypeDatabricks) ToPointer() *CreateOutputTypeDatabricks {
+func (e CreateOutputSystemByPackTypeDatabricks) ToPointer() *CreateOutputSystemByPackTypeDatabricks {
 	return &e
 }
-func (e *CreateOutputTypeDatabricks) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeDatabricks) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "databricks":
-		*e = CreateOutputTypeDatabricks(v)
+		*e = CreateOutputSystemByPackTypeDatabricks(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeDatabricks: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeDatabricks: %v", v)
 	}
 }
 
-type CreateOutputOutputDatabricks struct {
+type CreateOutputSystemByPackOutputDatabricks struct {
 	// Unique ID for this output
-	ID   string                     `json:"id"`
-	Type CreateOutputTypeDatabricks `json:"type"`
+	ID   string                                 `json:"id"`
+	Type CreateOutputSystemByPackTypeDatabricks `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -5263,480 +5893,480 @@ type CreateOutputOutputDatabricks struct {
 	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
-func (c CreateOutputOutputDatabricks) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputDatabricks) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputDatabricks) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputDatabricks) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputDatabricks) GetID() string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputDatabricks) GetType() CreateOutputTypeDatabricks {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetType() CreateOutputSystemByPackTypeDatabricks {
 	if c == nil {
-		return CreateOutputTypeDatabricks("")
+		return CreateOutputSystemByPackTypeDatabricks("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputDatabricks) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputDatabricks) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputDatabricks) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputDatabricks) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputDatabricks) GetDestPath() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DestPath
 }
 
-func (c *CreateOutputOutputDatabricks) GetStagePath() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetStagePath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.StagePath
 }
 
-func (c *CreateOutputOutputDatabricks) GetAddIDToStagePath() *bool {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetAddIDToStagePath() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AddIDToStagePath
 }
 
-func (c *CreateOutputOutputDatabricks) GetRemoveEmptyDirs() *bool {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetRemoveEmptyDirs() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RemoveEmptyDirs
 }
 
-func (c *CreateOutputOutputDatabricks) GetPartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetPartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PartitionExpr
 }
 
-func (c *CreateOutputOutputDatabricks) GetFormat() *components.DataFormatOptions {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetFormat() *components.DataFormatOptions {
 	if c == nil {
 		return nil
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputDatabricks) GetBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.BaseFileName
 }
 
-func (c *CreateOutputOutputDatabricks) GetFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.FileNameSuffix
 }
 
-func (c *CreateOutputOutputDatabricks) GetMaxFileSizeMB() *float64 {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetMaxFileSizeMB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileSizeMB
 }
 
-func (c *CreateOutputOutputDatabricks) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetMaxFileOpenTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileOpenTimeSec
 }
 
-func (c *CreateOutputOutputDatabricks) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetMaxFileIdleTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileIdleTimeSec
 }
 
-func (c *CreateOutputOutputDatabricks) GetMaxOpenFiles() *float64 {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetMaxOpenFiles() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxOpenFiles
 }
 
-func (c *CreateOutputOutputDatabricks) GetHeaderLine() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetHeaderLine() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HeaderLine
 }
 
-func (c *CreateOutputOutputDatabricks) GetWriteHighWaterMark() *float64 {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetWriteHighWaterMark() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputOutputDatabricks) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputDatabricks) GetDeadletterEnabled() *bool {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetDeadletterEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterEnabled
 }
 
-func (c *CreateOutputOutputDatabricks) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnDiskFullBackpressure
 }
 
-func (c *CreateOutputOutputDatabricks) GetForceCloseOnShutdown() *bool {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetForceCloseOnShutdown() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ForceCloseOnShutdown
 }
 
-func (c *CreateOutputOutputDatabricks) GetRetrySettings() *components.RetrySettingsType {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetRetrySettings() *components.RetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.RetrySettings
 }
 
-func (c *CreateOutputOutputDatabricks) GetOrphans() *components.OrphanFileRecoveryType {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetOrphans() *components.OrphanFileRecoveryType {
 	if c == nil {
 		return nil
 	}
 	return c.Orphans
 }
 
-func (c *CreateOutputOutputDatabricks) GetWorkspaceID() string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetWorkspaceID() string {
 	if c == nil {
 		return ""
 	}
 	return c.WorkspaceID
 }
 
-func (c *CreateOutputOutputDatabricks) GetWorkspaceHost() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetWorkspaceHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.WorkspaceHost
 }
 
-func (c *CreateOutputOutputDatabricks) GetScope() string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetScope() string {
 	if c == nil {
 		return ""
 	}
 	return c.Scope
 }
 
-func (c *CreateOutputOutputDatabricks) GetClientID() string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetClientID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ClientID
 }
 
-func (c *CreateOutputOutputDatabricks) GetCatalog() string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetCatalog() string {
 	if c == nil {
 		return ""
 	}
 	return c.Catalog
 }
 
-func (c *CreateOutputOutputDatabricks) GetSchema() string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetSchema() string {
 	if c == nil {
 		return ""
 	}
 	return c.Schema
 }
 
-func (c *CreateOutputOutputDatabricks) GetEventsVolumeName() string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetEventsVolumeName() string {
 	if c == nil {
 		return ""
 	}
 	return c.EventsVolumeName
 }
 
-func (c *CreateOutputOutputDatabricks) GetClientTextSecret() string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetClientTextSecret() string {
 	if c == nil {
 		return ""
 	}
 	return c.ClientTextSecret
 }
 
-func (c *CreateOutputOutputDatabricks) GetTimeoutSec() *int64 {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetTimeoutSec() *int64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputDatabricks) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputDatabricks) GetCompress() *components.CompressionOptionsHTTP {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetCompress() *components.CompressionOptionsHTTP {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputDatabricks) GetCompressionLevel() *components.CompressionLevelOptions {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetCompressionLevel() *components.CompressionLevelOptions {
 	if c == nil {
 		return nil
 	}
 	return c.CompressionLevel
 }
 
-func (c *CreateOutputOutputDatabricks) GetAutomaticSchema() *bool {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetAutomaticSchema() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AutomaticSchema
 }
 
-func (c *CreateOutputOutputDatabricks) GetParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetSchema
 }
 
-func (c *CreateOutputOutputDatabricks) GetParquetVersion() *components.ParquetVersionOptions {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetParquetVersion() *components.ParquetVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetVersion
 }
 
-func (c *CreateOutputOutputDatabricks) GetParquetDataPageVersion() *components.DataPageVersionOptions {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetParquetDataPageVersion() *components.DataPageVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetDataPageVersion
 }
 
-func (c *CreateOutputOutputDatabricks) GetParquetRowGroupLength() *float64 {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetParquetRowGroupLength() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetRowGroupLength
 }
 
-func (c *CreateOutputOutputDatabricks) GetParquetPageSize() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetParquetPageSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetPageSize
 }
 
-func (c *CreateOutputOutputDatabricks) GetShouldLogInvalidRows() *bool {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetShouldLogInvalidRows() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputOutputDatabricks) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
 	return c.KeyValueMetadata
 }
 
-func (c *CreateOutputOutputDatabricks) GetEnableStatistics() *bool {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetEnableStatistics() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableStatistics
 }
 
-func (c *CreateOutputOutputDatabricks) GetEnableWritePageIndex() *bool {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetEnableWritePageIndex() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableWritePageIndex
 }
 
-func (c *CreateOutputOutputDatabricks) GetEnablePageChecksum() *bool {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetEnablePageChecksum() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnablePageChecksum
 }
 
-func (c *CreateOutputOutputDatabricks) GetEmptyDirCleanupSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetEmptyDirCleanupSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.EmptyDirCleanupSec
 }
 
-func (c *CreateOutputOutputDatabricks) GetDirectoryBatchSize() *float64 {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetDirectoryBatchSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DirectoryBatchSize
 }
 
-func (c *CreateOutputOutputDatabricks) GetDeadletterPath() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetDeadletterPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterPath
 }
 
-func (c *CreateOutputOutputDatabricks) GetMaxRetryNum() *float64 {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetMaxRetryNum() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRetryNum
 }
 
-func (c *CreateOutputOutputDatabricks) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputDatabricks) GetTemplatePartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetTemplatePartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePartitionExpr
 }
 
-func (c *CreateOutputOutputDatabricks) GetTemplateFormat() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetTemplateFormat() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFormat
 }
 
-func (c *CreateOutputOutputDatabricks) GetTemplateBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetTemplateBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBaseFileName
 }
 
-func (c *CreateOutputOutputDatabricks) GetTemplateFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetTemplateFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFileNameSuffix
 }
 
-func (c *CreateOutputOutputDatabricks) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputDatabricks) GetTemplateCompress() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetTemplateCompress() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateCompress
 }
 
-func (c *CreateOutputOutputDatabricks) GetTemplateParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputDatabricks) GetTemplateParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateParquetSchema
 }
 
-type CreateOutputTypeChronicle string
+type CreateOutputSystemByPackTypeChronicle string
 
 const (
-	CreateOutputTypeChronicleChronicle CreateOutputTypeChronicle = "chronicle"
+	CreateOutputSystemByPackTypeChronicleChronicle CreateOutputSystemByPackTypeChronicle = "chronicle"
 )
 
-func (e CreateOutputTypeChronicle) ToPointer() *CreateOutputTypeChronicle {
+func (e CreateOutputSystemByPackTypeChronicle) ToPointer() *CreateOutputSystemByPackTypeChronicle {
 	return &e
 }
-func (e *CreateOutputTypeChronicle) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeChronicle) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "chronicle":
-		*e = CreateOutputTypeChronicle(v)
+		*e = CreateOutputSystemByPackTypeChronicle(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeChronicle: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeChronicle: %v", v)
 	}
 }
 
-type CreateOutputAuthenticationMethodChronicle string
+type CreateOutputSystemByPackAuthenticationMethodChronicle string
 
 const (
-	CreateOutputAuthenticationMethodChronicleServiceAccount       CreateOutputAuthenticationMethodChronicle = "serviceAccount"
-	CreateOutputAuthenticationMethodChronicleServiceAccountSecret CreateOutputAuthenticationMethodChronicle = "serviceAccountSecret"
+	CreateOutputSystemByPackAuthenticationMethodChronicleServiceAccount       CreateOutputSystemByPackAuthenticationMethodChronicle = "serviceAccount"
+	CreateOutputSystemByPackAuthenticationMethodChronicleServiceAccountSecret CreateOutputSystemByPackAuthenticationMethodChronicle = "serviceAccountSecret"
 )
 
-func (e CreateOutputAuthenticationMethodChronicle) ToPointer() *CreateOutputAuthenticationMethodChronicle {
+func (e CreateOutputSystemByPackAuthenticationMethodChronicle) ToPointer() *CreateOutputSystemByPackAuthenticationMethodChronicle {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputAuthenticationMethodChronicle) IsExact() bool {
+func (e *CreateOutputSystemByPackAuthenticationMethodChronicle) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "serviceAccount", "serviceAccountSecret":
@@ -5746,63 +6376,63 @@ func (e *CreateOutputAuthenticationMethodChronicle) IsExact() bool {
 	return false
 }
 
-type CreateOutputCustomLabel struct {
+type CreateOutputSystemByPackCustomLabel struct {
 	Key   string `json:"key"`
 	Value string `json:"value"`
 	// Designate this label for role-based access control and filtering
 	RbacEnabled *bool `json:"rbacEnabled,omitzero"`
 }
 
-func (c CreateOutputCustomLabel) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackCustomLabel) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputCustomLabel) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackCustomLabel) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputCustomLabel) GetKey() string {
+func (c *CreateOutputSystemByPackCustomLabel) GetKey() string {
 	if c == nil {
 		return ""
 	}
 	return c.Key
 }
 
-func (c *CreateOutputCustomLabel) GetValue() string {
+func (c *CreateOutputSystemByPackCustomLabel) GetValue() string {
 	if c == nil {
 		return ""
 	}
 	return c.Value
 }
 
-func (c *CreateOutputCustomLabel) GetRbacEnabled() *bool {
+func (c *CreateOutputSystemByPackCustomLabel) GetRbacEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RbacEnabled
 }
 
-type CreateOutputPqControlsChronicle struct {
+type CreateOutputSystemByPackPqControlsChronicle struct {
 }
 
-func (c CreateOutputPqControlsChronicle) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsChronicle) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsChronicle) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsChronicle) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputChronicle struct {
+type CreateOutputSystemByPackOutputChronicle struct {
 	// Unique ID for this output
-	ID   string                    `json:"id"`
-	Type CreateOutputTypeChronicle `json:"type"`
+	ID   string                                `json:"id"`
+	Type CreateOutputSystemByPackTypeChronicle `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -5810,9 +6440,9 @@ type CreateOutputOutputChronicle struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags           []string                                   `json:"streamtags,omitzero"`
-	APIVersion           *string                                    `json:"apiVersion,omitzero"`
-	AuthenticationMethod *CreateOutputAuthenticationMethodChronicle `json:"authenticationMethod,omitzero"`
+	Streamtags           []string                                               `json:"streamtags,omitzero"`
+	APIVersion           *string                                                `json:"apiVersion,omitzero"`
+	AuthenticationMethod *CreateOutputSystemByPackAuthenticationMethodChronicle `json:"authenticationMethod,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
 	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
 	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
@@ -5860,7 +6490,7 @@ type CreateOutputOutputChronicle struct {
 	// The Google Cloud Platform (GCP) instance to send events to. This is the Chronicle customer uuid.
 	GcpInstance string `json:"gcpInstance"`
 	// Custom labels to be added to every event
-	CustomLabels []CreateOutputCustomLabel `json:"customLabels,omitzero"`
+	CustomLabels []CreateOutputSystemByPackCustomLabel `json:"customLabels,omitzero"`
 	// Chronicle API service endpoint. If empty, defaults to the Region-specific endpoint. Otherwise, it must point to a Chronicle API-compatible endpoint. (Example: https://custom-endpoint.googleapis.com)
 	Endpoint    *string `json:"endpoint,omitzero"`
 	Description *string `json:"description,omitzero"`
@@ -5889,8 +6519,8 @@ type CreateOutputOutputChronicle struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                          `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsChronicle `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                      `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsChronicle `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -5913,465 +6543,465 @@ type CreateOutputOutputChronicle struct {
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 }
 
-func (c CreateOutputOutputChronicle) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputChronicle) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputChronicle) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputChronicle) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputChronicle) GetID() string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputChronicle) GetType() CreateOutputTypeChronicle {
+func (c *CreateOutputSystemByPackOutputChronicle) GetType() CreateOutputSystemByPackTypeChronicle {
 	if c == nil {
-		return CreateOutputTypeChronicle("")
+		return CreateOutputSystemByPackTypeChronicle("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputChronicle) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputChronicle) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputChronicle) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputChronicle) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputChronicle) GetAPIVersion() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetAPIVersion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.APIVersion
 }
 
-func (c *CreateOutputOutputChronicle) GetAuthenticationMethod() *CreateOutputAuthenticationMethodChronicle {
+func (c *CreateOutputSystemByPackOutputChronicle) GetAuthenticationMethod() *CreateOutputSystemByPackAuthenticationMethodChronicle {
 	if c == nil {
 		return nil
 	}
 	return c.AuthenticationMethod
 }
 
-func (c *CreateOutputOutputChronicle) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputChronicle) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputChronicle) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputChronicle) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputChronicle) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputChronicle) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputChronicle) GetRegion() string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetRegion() string {
 	if c == nil {
 		return ""
 	}
 	return c.Region
 }
 
-func (c *CreateOutputOutputChronicle) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputChronicle) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputChronicle) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputChronicle) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputChronicle) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputChronicle) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputChronicle) GetCompress() *bool {
+func (c *CreateOutputSystemByPackOutputChronicle) GetCompress() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputChronicle) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputChronicle) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputChronicle) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputChronicle) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputChronicle) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputChronicle) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputChronicle) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputChronicle) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputChronicle) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputChronicle) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputChronicle) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputChronicle) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputChronicle) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputChronicle) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputChronicle) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputChronicle) GetTotalMemoryLimitKB() *float64 {
+func (c *CreateOutputSystemByPackOutputChronicle) GetTotalMemoryLimitKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TotalMemoryLimitKB
 }
 
-func (c *CreateOutputOutputChronicle) GetIngestionMethod() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetIngestionMethod() *string {
 	if c == nil {
 		return nil
 	}
 	return c.IngestionMethod
 }
 
-func (c *CreateOutputOutputChronicle) GetNamespace() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetNamespace() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Namespace
 }
 
-func (c *CreateOutputOutputChronicle) GetLogType() string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetLogType() string {
 	if c == nil {
 		return ""
 	}
 	return c.LogType
 }
 
-func (c *CreateOutputOutputChronicle) GetLogTextField() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetLogTextField() *string {
 	if c == nil {
 		return nil
 	}
 	return c.LogTextField
 }
 
-func (c *CreateOutputOutputChronicle) GetGcpProjectID() string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetGcpProjectID() string {
 	if c == nil {
 		return ""
 	}
 	return c.GcpProjectID
 }
 
-func (c *CreateOutputOutputChronicle) GetGcpInstance() string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetGcpInstance() string {
 	if c == nil {
 		return ""
 	}
 	return c.GcpInstance
 }
 
-func (c *CreateOutputOutputChronicle) GetCustomLabels() []CreateOutputCustomLabel {
+func (c *CreateOutputSystemByPackOutputChronicle) GetCustomLabels() []CreateOutputSystemByPackCustomLabel {
 	if c == nil {
 		return nil
 	}
 	return c.CustomLabels
 }
 
-func (c *CreateOutputOutputChronicle) GetEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputChronicle) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputChronicle) GetServiceAccountCredentials() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetServiceAccountCredentials() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ServiceAccountCredentials
 }
 
-func (c *CreateOutputOutputChronicle) GetServiceAccountCredentialsSecret() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetServiceAccountCredentialsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ServiceAccountCredentialsSecret
 }
 
-func (c *CreateOutputOutputChronicle) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputChronicle) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputChronicle) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputChronicle) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputChronicle) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputChronicle) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputChronicle) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputChronicle) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputChronicle) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputChronicle) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputChronicle) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputChronicle) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputChronicle) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputChronicle) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputChronicle) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputChronicle) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputChronicle) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputChronicle) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputChronicle) GetPqControls() *CreateOutputPqControlsChronicle {
+func (c *CreateOutputSystemByPackOutputChronicle) GetPqControls() *CreateOutputSystemByPackPqControlsChronicle {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputChronicle) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputChronicle) GetTemplateRegion() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateRegion
 }
 
-func (c *CreateOutputOutputChronicle) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputChronicle) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputChronicle) GetTemplateNamespace() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetTemplateNamespace() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateNamespace
 }
 
-func (c *CreateOutputOutputChronicle) GetTemplateLogType() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetTemplateLogType() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateLogType
 }
 
-func (c *CreateOutputOutputChronicle) GetTemplateLogTextField() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetTemplateLogTextField() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateLogTextField
 }
 
-func (c *CreateOutputOutputChronicle) GetTemplateGcpProjectID() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetTemplateGcpProjectID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateGcpProjectID
 }
 
-func (c *CreateOutputOutputChronicle) GetTemplateGcpInstance() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetTemplateGcpInstance() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateGcpInstance
 }
 
-func (c *CreateOutputOutputChronicle) GetTemplateEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputChronicle) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-type CreateOutputTypeSentinelOneAiSiem string
+type CreateOutputSystemByPackTypeSentinelOneAiSiem string
 
 const (
-	CreateOutputTypeSentinelOneAiSiemSentinelOneAiSiem CreateOutputTypeSentinelOneAiSiem = "sentinel_one_ai_siem"
+	CreateOutputSystemByPackTypeSentinelOneAiSiemSentinelOneAiSiem CreateOutputSystemByPackTypeSentinelOneAiSiem = "sentinel_one_ai_siem"
 )
 
-func (e CreateOutputTypeSentinelOneAiSiem) ToPointer() *CreateOutputTypeSentinelOneAiSiem {
+func (e CreateOutputSystemByPackTypeSentinelOneAiSiem) ToPointer() *CreateOutputSystemByPackTypeSentinelOneAiSiem {
 	return &e
 }
-func (e *CreateOutputTypeSentinelOneAiSiem) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeSentinelOneAiSiem) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "sentinel_one_ai_siem":
-		*e = CreateOutputTypeSentinelOneAiSiem(v)
+		*e = CreateOutputSystemByPackTypeSentinelOneAiSiem(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeSentinelOneAiSiem: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeSentinelOneAiSiem: %v", v)
 	}
 }
 
-// CreateOutputRegion - The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
-type CreateOutputRegion string
+// CreateOutputSystemByPackRegion - The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+type CreateOutputSystemByPackRegion string
 
 const (
-	CreateOutputRegionUs     CreateOutputRegion = "US"
-	CreateOutputRegionCa     CreateOutputRegion = "CA"
-	CreateOutputRegionEmea   CreateOutputRegion = "EMEA"
-	CreateOutputRegionAp     CreateOutputRegion = "AP"
-	CreateOutputRegionAps    CreateOutputRegion = "APS"
-	CreateOutputRegionAu     CreateOutputRegion = "AU"
-	CreateOutputRegionCustom CreateOutputRegion = "Custom"
+	CreateOutputSystemByPackRegionUs     CreateOutputSystemByPackRegion = "US"
+	CreateOutputSystemByPackRegionCa     CreateOutputSystemByPackRegion = "CA"
+	CreateOutputSystemByPackRegionEmea   CreateOutputSystemByPackRegion = "EMEA"
+	CreateOutputSystemByPackRegionAp     CreateOutputSystemByPackRegion = "AP"
+	CreateOutputSystemByPackRegionAps    CreateOutputSystemByPackRegion = "APS"
+	CreateOutputSystemByPackRegionAu     CreateOutputSystemByPackRegion = "AU"
+	CreateOutputSystemByPackRegionCustom CreateOutputSystemByPackRegion = "Custom"
 )
 
-func (e CreateOutputRegion) ToPointer() *CreateOutputRegion {
+func (e CreateOutputSystemByPackRegion) ToPointer() *CreateOutputSystemByPackRegion {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputRegion) IsExact() bool {
+func (e *CreateOutputSystemByPackRegion) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "US", "CA", "EMEA", "AP", "APS", "AU", "Custom":
@@ -6381,20 +7011,20 @@ func (e *CreateOutputRegion) IsExact() bool {
 	return false
 }
 
-// CreateOutputAISIEMEndpointPath - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
-type CreateOutputAISIEMEndpointPath string
+// CreateOutputSystemByPackAISIEMEndpointPath - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+type CreateOutputSystemByPackAISIEMEndpointPath string
 
 const (
-	CreateOutputAISIEMEndpointPathRootServicesCollectorEvent CreateOutputAISIEMEndpointPath = "/services/collector/event"
-	CreateOutputAISIEMEndpointPathRootServicesCollectorRaw   CreateOutputAISIEMEndpointPath = "/services/collector/raw"
+	CreateOutputSystemByPackAISIEMEndpointPathRootServicesCollectorEvent CreateOutputSystemByPackAISIEMEndpointPath = "/services/collector/event"
+	CreateOutputSystemByPackAISIEMEndpointPathRootServicesCollectorRaw   CreateOutputSystemByPackAISIEMEndpointPath = "/services/collector/raw"
 )
 
-func (e CreateOutputAISIEMEndpointPath) ToPointer() *CreateOutputAISIEMEndpointPath {
+func (e CreateOutputSystemByPackAISIEMEndpointPath) ToPointer() *CreateOutputSystemByPackAISIEMEndpointPath {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputAISIEMEndpointPath) IsExact() bool {
+func (e *CreateOutputSystemByPackAISIEMEndpointPath) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "/services/collector/event", "/services/collector/raw":
@@ -6404,24 +7034,24 @@ func (e *CreateOutputAISIEMEndpointPath) IsExact() bool {
 	return false
 }
 
-type CreateOutputPqControlsSentinelOneAiSiem struct {
+type CreateOutputSystemByPackPqControlsSentinelOneAiSiem struct {
 }
 
-func (c CreateOutputPqControlsSentinelOneAiSiem) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsSentinelOneAiSiem) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsSentinelOneAiSiem) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsSentinelOneAiSiem) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputSentinelOneAiSiem struct {
+type CreateOutputSystemByPackOutputSentinelOneAiSiem struct {
 	// Unique ID for this output
-	ID   string                            `json:"id"`
-	Type CreateOutputTypeSentinelOneAiSiem `json:"type"`
+	ID   string                                        `json:"id"`
+	Type CreateOutputSystemByPackTypeSentinelOneAiSiem `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -6431,9 +7061,9 @@ type CreateOutputOutputSentinelOneAiSiem struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
-	Region CreateOutputRegion `json:"region"`
+	Region CreateOutputSystemByPackRegion `json:"region"`
 	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
-	Endpoint CreateOutputAISIEMEndpointPath `json:"endpoint"`
+	Endpoint CreateOutputSystemByPackAISIEMEndpointPath `json:"endpoint"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -6521,8 +7151,8 @@ type CreateOutputOutputSentinelOneAiSiem struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                                  `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsSentinelOneAiSiem `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                              `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsSentinelOneAiSiem `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
@@ -6531,446 +7161,446 @@ type CreateOutputOutputSentinelOneAiSiem struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (c CreateOutputOutputSentinelOneAiSiem) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputSentinelOneAiSiem) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetID() string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetType() CreateOutputTypeSentinelOneAiSiem {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetType() CreateOutputSystemByPackTypeSentinelOneAiSiem {
 	if c == nil {
-		return CreateOutputTypeSentinelOneAiSiem("")
+		return CreateOutputSystemByPackTypeSentinelOneAiSiem("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetRegion() CreateOutputRegion {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetRegion() CreateOutputSystemByPackRegion {
 	if c == nil {
-		return CreateOutputRegion("")
+		return CreateOutputSystemByPackRegion("")
 	}
 	return c.Region
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetEndpoint() CreateOutputAISIEMEndpointPath {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetEndpoint() CreateOutputSystemByPackAISIEMEndpointPath {
 	if c == nil {
-		return CreateOutputAISIEMEndpointPath("")
+		return CreateOutputSystemByPackAISIEMEndpointPath("")
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetCompress() *bool {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetCompress() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetToken() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetToken() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Token
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetTextSecret() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetBaseURL() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetBaseURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.BaseURL
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetHostExpression() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetHostExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HostExpression
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetSourceExpression() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetSourceExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.SourceExpression
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetSourceTypeExpression() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetSourceTypeExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.SourceTypeExpression
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetDataSourceCategoryExpression() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetDataSourceCategoryExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DataSourceCategoryExpression
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetDataSourceNameExpression() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetDataSourceNameExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DataSourceNameExpression
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetDataSourceVendorExpression() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetDataSourceVendorExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DataSourceVendorExpression
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetEventTypeExpression() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetEventTypeExpression() *string {
 	if c == nil {
 		return nil
 	}
 	return c.EventTypeExpression
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetHost() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Host
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetSource() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetSource() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Source
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetSourceType() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetSourceType() *string {
 	if c == nil {
 		return nil
 	}
 	return c.SourceType
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetDataSourceCategory() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetDataSourceCategory() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DataSourceCategory
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetDataSourceName() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetDataSourceName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DataSourceName
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetDataSourceVendor() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetDataSourceVendor() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DataSourceVendor
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetEventType() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetEventType() *string {
 	if c == nil {
 		return nil
 	}
 	return c.EventType
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetPqControls() *CreateOutputPqControlsSentinelOneAiSiem {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetPqControls() *CreateOutputSystemByPackPqControlsSentinelOneAiSiem {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputSentinelOneAiSiem) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputSentinelOneAiSiem) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-type CreateOutputTypeDynatraceOtlp string
+type CreateOutputSystemByPackTypeDynatraceOtlp string
 
 const (
-	CreateOutputTypeDynatraceOtlpDynatraceOtlp CreateOutputTypeDynatraceOtlp = "dynatrace_otlp"
+	CreateOutputSystemByPackTypeDynatraceOtlpDynatraceOtlp CreateOutputSystemByPackTypeDynatraceOtlp = "dynatrace_otlp"
 )
 
-func (e CreateOutputTypeDynatraceOtlp) ToPointer() *CreateOutputTypeDynatraceOtlp {
+func (e CreateOutputSystemByPackTypeDynatraceOtlp) ToPointer() *CreateOutputSystemByPackTypeDynatraceOtlp {
 	return &e
 }
-func (e *CreateOutputTypeDynatraceOtlp) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeDynatraceOtlp) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "dynatrace_otlp":
-		*e = CreateOutputTypeDynatraceOtlp(v)
+		*e = CreateOutputSystemByPackTypeDynatraceOtlp(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeDynatraceOtlp: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeDynatraceOtlp: %v", v)
 	}
 }
 
-// CreateOutputProtocolDynatraceOtlp - Select a transport option for Dynatrace
-type CreateOutputProtocolDynatraceOtlp string
+// CreateOutputSystemByPackProtocolDynatraceOtlp - Select a transport option for Dynatrace
+type CreateOutputSystemByPackProtocolDynatraceOtlp string
 
 const (
-	// CreateOutputProtocolDynatraceOtlpHTTP HTTP
-	CreateOutputProtocolDynatraceOtlpHTTP CreateOutputProtocolDynatraceOtlp = "http"
+	// CreateOutputSystemByPackProtocolDynatraceOtlpHTTP HTTP
+	CreateOutputSystemByPackProtocolDynatraceOtlpHTTP CreateOutputSystemByPackProtocolDynatraceOtlp = "http"
 )
 
-func (e CreateOutputProtocolDynatraceOtlp) ToPointer() *CreateOutputProtocolDynatraceOtlp {
+func (e CreateOutputSystemByPackProtocolDynatraceOtlp) ToPointer() *CreateOutputSystemByPackProtocolDynatraceOtlp {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputProtocolDynatraceOtlp) IsExact() bool {
+func (e *CreateOutputSystemByPackProtocolDynatraceOtlp) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "http":
@@ -6980,22 +7610,22 @@ func (e *CreateOutputProtocolDynatraceOtlp) IsExact() bool {
 	return false
 }
 
-// CreateOutputEndpointType - Select the type of Dynatrace endpoint configured
-type CreateOutputEndpointType string
+// CreateOutputSystemByPackEndpointType - Select the type of Dynatrace endpoint configured
+type CreateOutputSystemByPackEndpointType string
 
 const (
-	// CreateOutputEndpointTypeSaas SaaS
-	CreateOutputEndpointTypeSaas CreateOutputEndpointType = "saas"
-	// CreateOutputEndpointTypeAg ActiveGate
-	CreateOutputEndpointTypeAg CreateOutputEndpointType = "ag"
+	// CreateOutputSystemByPackEndpointTypeSaas SaaS
+	CreateOutputSystemByPackEndpointTypeSaas CreateOutputSystemByPackEndpointType = "saas"
+	// CreateOutputSystemByPackEndpointTypeAg ActiveGate
+	CreateOutputSystemByPackEndpointTypeAg CreateOutputSystemByPackEndpointType = "ag"
 )
 
-func (e CreateOutputEndpointType) ToPointer() *CreateOutputEndpointType {
+func (e CreateOutputSystemByPackEndpointType) ToPointer() *CreateOutputSystemByPackEndpointType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputEndpointType) IsExact() bool {
+func (e *CreateOutputSystemByPackEndpointType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "saas", "ag":
@@ -7005,24 +7635,24 @@ func (e *CreateOutputEndpointType) IsExact() bool {
 	return false
 }
 
-type CreateOutputPqControlsDynatraceOtlp struct {
+type CreateOutputSystemByPackPqControlsDynatraceOtlp struct {
 }
 
-func (c CreateOutputPqControlsDynatraceOtlp) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsDynatraceOtlp) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsDynatraceOtlp) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsDynatraceOtlp) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputDynatraceOtlp struct {
+type CreateOutputSystemByPackOutputDynatraceOtlp struct {
 	// Unique ID for this output
-	ID   string                        `json:"id"`
-	Type CreateOutputTypeDynatraceOtlp `json:"type"`
+	ID   string                                    `json:"id"`
+	Type CreateOutputSystemByPackTypeDynatraceOtlp `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -7032,7 +7662,7 @@ type CreateOutputOutputDynatraceOtlp struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Select a transport option for Dynatrace
-	Protocol CreateOutputProtocolDynatraceOtlp `json:"protocol"`
+	Protocol CreateOutputSystemByPackProtocolDynatraceOtlp `json:"protocol"`
 	// The endpoint where Dynatrace events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
 	Endpoint string `json:"endpoint"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
@@ -7070,7 +7700,7 @@ type CreateOutputOutputDynatraceOtlp struct {
 	// Disable to close the connection immediately after sending the outgoing request
 	KeepAlive *bool `json:"keepAlive,omitzero"`
 	// Select the type of Dynatrace endpoint configured
-	EndpointType CreateOutputEndpointType `json:"endpointType"`
+	EndpointType CreateOutputSystemByPackEndpointType `json:"endpointType"`
 	// Select or create a stored text secret
 	TokenSecret   string  `json:"tokenSecret"`
 	AuthTokenName *string `json:"authTokenName,omitzero"`
@@ -7113,8 +7743,8 @@ type CreateOutputOutputDynatraceOtlp struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                              `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsDynatraceOtlp `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                          `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsDynatraceOtlp `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
@@ -7123,419 +7753,419 @@ type CreateOutputOutputDynatraceOtlp struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (c CreateOutputOutputDynatraceOtlp) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputDynatraceOtlp) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetID() string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetType() CreateOutputTypeDynatraceOtlp {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetType() CreateOutputSystemByPackTypeDynatraceOtlp {
 	if c == nil {
-		return CreateOutputTypeDynatraceOtlp("")
+		return CreateOutputSystemByPackTypeDynatraceOtlp("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetProtocol() CreateOutputProtocolDynatraceOtlp {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetProtocol() CreateOutputSystemByPackProtocolDynatraceOtlp {
 	if c == nil {
-		return CreateOutputProtocolDynatraceOtlp("")
+		return CreateOutputSystemByPackProtocolDynatraceOtlp("")
 	}
 	return c.Protocol
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetEndpoint() string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetEndpoint() string {
 	if c == nil {
 		return ""
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetOtlpVersion() components.OtlpVersionOptions131 {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetOtlpVersion() components.OtlpVersionOptions131 {
 	if c == nil {
 		return components.OtlpVersionOptions131("")
 	}
 	return c.OtlpVersion
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetCompress() *components.CompressionOptionsDeflateGzip {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetCompress() *components.CompressionOptionsDeflateGzip {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetHTTPCompress() *components.CompressionOptionsMessages {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetHTTPCompress() *components.CompressionOptionsMessages {
 	if c == nil {
 		return nil
 	}
 	return c.HTTPCompress
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetHTTPTracesEndpointOverride() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetHTTPTracesEndpointOverride() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HTTPTracesEndpointOverride
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetHTTPMetricsEndpointOverride() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetHTTPMetricsEndpointOverride() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HTTPMetricsEndpointOverride
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetHTTPLogsEndpointOverride() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetHTTPLogsEndpointOverride() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HTTPLogsEndpointOverride
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetMetadata() []components.KeyValueMetadataConfOutputFilesystem {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetDynamicHeadersEnabled() *bool {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetDynamicHeadersEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DynamicHeadersEnabled
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetDynamicHeadersField() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetDynamicHeadersField() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DynamicHeadersField
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetConnectionTimeout() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetConnectionTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ConnectionTimeout
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetKeepAliveTime() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetKeepAliveTime() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAliveTime
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetKeepAlive() *bool {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetKeepAlive() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAlive
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetEndpointType() CreateOutputEndpointType {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetEndpointType() CreateOutputSystemByPackEndpointType {
 	if c == nil {
-		return CreateOutputEndpointType("")
+		return CreateOutputSystemByPackEndpointType("")
 	}
 	return c.EndpointType
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetTokenSecret() string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetTokenSecret() string {
 	if c == nil {
 		return ""
 	}
 	return c.TokenSecret
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetAuthTokenName() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetAuthTokenName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AuthTokenName
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetPqControls() *CreateOutputPqControlsDynatraceOtlp {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetPqControls() *CreateOutputSystemByPackPqControlsDynatraceOtlp {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputDynatraceOtlp) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceOtlp) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-type CreateOutputTypeDynatraceHTTP string
+type CreateOutputSystemByPackTypeDynatraceHTTP string
 
 const (
-	CreateOutputTypeDynatraceHTTPDynatraceHTTP CreateOutputTypeDynatraceHTTP = "dynatrace_http"
+	CreateOutputSystemByPackTypeDynatraceHTTPDynatraceHTTP CreateOutputSystemByPackTypeDynatraceHTTP = "dynatrace_http"
 )
 
-func (e CreateOutputTypeDynatraceHTTP) ToPointer() *CreateOutputTypeDynatraceHTTP {
+func (e CreateOutputSystemByPackTypeDynatraceHTTP) ToPointer() *CreateOutputSystemByPackTypeDynatraceHTTP {
 	return &e
 }
-func (e *CreateOutputTypeDynatraceHTTP) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeDynatraceHTTP) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "dynatrace_http":
-		*e = CreateOutputTypeDynatraceHTTP(v)
+		*e = CreateOutputSystemByPackTypeDynatraceHTTP(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeDynatraceHTTP: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeDynatraceHTTP: %v", v)
 	}
 }
 
-type CreateOutputAuthenticationTypeDynatraceHTTP string
+type CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP string
 
 const (
-	// CreateOutputAuthenticationTypeDynatraceHTTPToken Auth token
-	CreateOutputAuthenticationTypeDynatraceHTTPToken CreateOutputAuthenticationTypeDynatraceHTTP = "token"
-	// CreateOutputAuthenticationTypeDynatraceHTTPTextSecret Token (text secret)
-	CreateOutputAuthenticationTypeDynatraceHTTPTextSecret CreateOutputAuthenticationTypeDynatraceHTTP = "textSecret"
+	// CreateOutputSystemByPackAuthenticationTypeDynatraceHTTPToken Auth token
+	CreateOutputSystemByPackAuthenticationTypeDynatraceHTTPToken CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP = "token"
+	// CreateOutputSystemByPackAuthenticationTypeDynatraceHTTPTextSecret Token (text secret)
+	CreateOutputSystemByPackAuthenticationTypeDynatraceHTTPTextSecret CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP = "textSecret"
 )
 
-func (e CreateOutputAuthenticationTypeDynatraceHTTP) ToPointer() *CreateOutputAuthenticationTypeDynatraceHTTP {
+func (e CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP) ToPointer() *CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputAuthenticationTypeDynatraceHTTP) IsExact() bool {
+func (e *CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "token", "textSecret":
@@ -7545,22 +8175,22 @@ func (e *CreateOutputAuthenticationTypeDynatraceHTTP) IsExact() bool {
 	return false
 }
 
-// CreateOutputFormatDynatraceHTTP - How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
-type CreateOutputFormatDynatraceHTTP string
+// CreateOutputSystemByPackFormatDynatraceHTTP - How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
+type CreateOutputSystemByPackFormatDynatraceHTTP string
 
 const (
-	// CreateOutputFormatDynatraceHTTPJSONArray JSON
-	CreateOutputFormatDynatraceHTTPJSONArray CreateOutputFormatDynatraceHTTP = "json_array"
-	// CreateOutputFormatDynatraceHTTPPlaintext Plaintext
-	CreateOutputFormatDynatraceHTTPPlaintext CreateOutputFormatDynatraceHTTP = "plaintext"
+	// CreateOutputSystemByPackFormatDynatraceHTTPJSONArray JSON
+	CreateOutputSystemByPackFormatDynatraceHTTPJSONArray CreateOutputSystemByPackFormatDynatraceHTTP = "json_array"
+	// CreateOutputSystemByPackFormatDynatraceHTTPPlaintext Plaintext
+	CreateOutputSystemByPackFormatDynatraceHTTPPlaintext CreateOutputSystemByPackFormatDynatraceHTTP = "plaintext"
 )
 
-func (e CreateOutputFormatDynatraceHTTP) ToPointer() *CreateOutputFormatDynatraceHTTP {
+func (e CreateOutputSystemByPackFormatDynatraceHTTP) ToPointer() *CreateOutputSystemByPackFormatDynatraceHTTP {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputFormatDynatraceHTTP) IsExact() bool {
+func (e *CreateOutputSystemByPackFormatDynatraceHTTP) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "json_array", "plaintext":
@@ -7570,23 +8200,23 @@ func (e *CreateOutputFormatDynatraceHTTP) IsExact() bool {
 	return false
 }
 
-type CreateOutputEndpoint string
+type CreateOutputSystemByPackEndpoint string
 
 const (
-	// CreateOutputEndpointCloud Cloud
-	CreateOutputEndpointCloud CreateOutputEndpoint = "cloud"
-	// CreateOutputEndpointActiveGate ActiveGate
-	CreateOutputEndpointActiveGate CreateOutputEndpoint = "activeGate"
-	// CreateOutputEndpointManual Manual
-	CreateOutputEndpointManual CreateOutputEndpoint = "manual"
+	// CreateOutputSystemByPackEndpointCloud Cloud
+	CreateOutputSystemByPackEndpointCloud CreateOutputSystemByPackEndpoint = "cloud"
+	// CreateOutputSystemByPackEndpointActiveGate ActiveGate
+	CreateOutputSystemByPackEndpointActiveGate CreateOutputSystemByPackEndpoint = "activeGate"
+	// CreateOutputSystemByPackEndpointManual Manual
+	CreateOutputSystemByPackEndpointManual CreateOutputSystemByPackEndpoint = "manual"
 )
 
-func (e CreateOutputEndpoint) ToPointer() *CreateOutputEndpoint {
+func (e CreateOutputSystemByPackEndpoint) ToPointer() *CreateOutputSystemByPackEndpoint {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputEndpoint) IsExact() bool {
+func (e *CreateOutputSystemByPackEndpoint) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "cloud", "activeGate", "manual":
@@ -7596,21 +8226,21 @@ func (e *CreateOutputEndpoint) IsExact() bool {
 	return false
 }
 
-type CreateOutputTelemetryType string
+type CreateOutputSystemByPackTelemetryType string
 
 const (
-	// CreateOutputTelemetryTypeLogs Logs
-	CreateOutputTelemetryTypeLogs CreateOutputTelemetryType = "logs"
-	// CreateOutputTelemetryTypeMetrics Metrics
-	CreateOutputTelemetryTypeMetrics CreateOutputTelemetryType = "metrics"
+	// CreateOutputSystemByPackTelemetryTypeLogs Logs
+	CreateOutputSystemByPackTelemetryTypeLogs CreateOutputSystemByPackTelemetryType = "logs"
+	// CreateOutputSystemByPackTelemetryTypeMetrics Metrics
+	CreateOutputSystemByPackTelemetryTypeMetrics CreateOutputSystemByPackTelemetryType = "metrics"
 )
 
-func (e CreateOutputTelemetryType) ToPointer() *CreateOutputTelemetryType {
+func (e CreateOutputSystemByPackTelemetryType) ToPointer() *CreateOutputSystemByPackTelemetryType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputTelemetryType) IsExact() bool {
+func (e *CreateOutputSystemByPackTelemetryType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "logs", "metrics":
@@ -7620,24 +8250,24 @@ func (e *CreateOutputTelemetryType) IsExact() bool {
 	return false
 }
 
-type CreateOutputPqControlsDynatraceHTTP struct {
+type CreateOutputSystemByPackPqControlsDynatraceHTTP struct {
 }
 
-func (c CreateOutputPqControlsDynatraceHTTP) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsDynatraceHTTP) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsDynatraceHTTP) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsDynatraceHTTP) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputDynatraceHTTP struct {
+type CreateOutputSystemByPackOutputDynatraceHTTP struct {
 	// Unique ID for this output
-	ID   string                        `json:"id"`
-	Type CreateOutputTypeDynatraceHTTP `json:"type"`
+	ID   string                                    `json:"id"`
+	Type CreateOutputSystemByPackTypeDynatraceHTTP `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -7680,12 +8310,12 @@ type CreateOutputOutputDynatraceHTTP struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions      `json:"onBackpressure,omitzero"`
-	AuthType       *CreateOutputAuthenticationTypeDynatraceHTTP `json:"authType,omitzero"`
+	OnBackpressure *components.BackpressureBehaviorOptions                  `json:"onBackpressure,omitzero"`
+	AuthType       *CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP `json:"authType,omitzero"`
 	// How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
-	Format        CreateOutputFormatDynatraceHTTP `json:"format"`
-	Endpoint      CreateOutputEndpoint            `json:"endpoint"`
-	TelemetryType CreateOutputTelemetryType       `json:"telemetryType"`
+	Format        CreateOutputSystemByPackFormatDynatraceHTTP `json:"format"`
+	Endpoint      CreateOutputSystemByPackEndpoint            `json:"endpoint"`
+	TelemetryType CreateOutputSystemByPackTelemetryType       `json:"telemetryType"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	Description        *string  `json:"description,omitzero"`
@@ -7710,8 +8340,8 @@ type CreateOutputOutputDynatraceHTTP struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                              `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsDynatraceHTTP `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                          `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsDynatraceHTTP `json:"pqControls,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a stored text secret
@@ -7732,391 +8362,391 @@ type CreateOutputOutputDynatraceHTTP struct {
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
 
-func (c CreateOutputOutputDynatraceHTTP) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputDynatraceHTTP) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetID() string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetType() CreateOutputTypeDynatraceHTTP {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetType() CreateOutputSystemByPackTypeDynatraceHTTP {
 	if c == nil {
-		return CreateOutputTypeDynatraceHTTP("")
+		return CreateOutputSystemByPackTypeDynatraceHTTP("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetMethod() *components.MethodOptions {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetMethod() *components.MethodOptions {
 	if c == nil {
 		return nil
 	}
 	return c.Method
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetKeepAlive() *bool {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetKeepAlive() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAlive
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetCompress() *bool {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetCompress() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetAuthType() *CreateOutputAuthenticationTypeDynatraceHTTP {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetAuthType() *CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetFormat() CreateOutputFormatDynatraceHTTP {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetFormat() CreateOutputSystemByPackFormatDynatraceHTTP {
 	if c == nil {
-		return CreateOutputFormatDynatraceHTTP("")
+		return CreateOutputSystemByPackFormatDynatraceHTTP("")
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetEndpoint() CreateOutputEndpoint {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetEndpoint() CreateOutputSystemByPackEndpoint {
 	if c == nil {
-		return CreateOutputEndpoint("")
+		return CreateOutputSystemByPackEndpoint("")
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetTelemetryType() CreateOutputTelemetryType {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetTelemetryType() CreateOutputSystemByPackTelemetryType {
 	if c == nil {
-		return CreateOutputTelemetryType("")
+		return CreateOutputSystemByPackTelemetryType("")
 	}
 	return c.TelemetryType
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetTotalMemoryLimitKB() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetTotalMemoryLimitKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TotalMemoryLimitKB
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetPqControls() *CreateOutputPqControlsDynatraceHTTP {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetPqControls() *CreateOutputSystemByPackPqControlsDynatraceHTTP {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetToken() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetToken() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Token
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetTextSecret() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetEnvironmentID() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetEnvironmentID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.EnvironmentID
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetActiveGateDomain() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetActiveGateDomain() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ActiveGateDomain
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetURL() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.URL
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetTemplateURL() *string {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetTemplateURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateURL
 }
 
-type CreateOutputTypeNetflow string
+type CreateOutputSystemByPackTypeNetflow string
 
 const (
-	CreateOutputTypeNetflowNetflow CreateOutputTypeNetflow = "netflow"
+	CreateOutputSystemByPackTypeNetflowNetflow CreateOutputSystemByPackTypeNetflow = "netflow"
 )
 
-func (e CreateOutputTypeNetflow) ToPointer() *CreateOutputTypeNetflow {
+func (e CreateOutputSystemByPackTypeNetflow) ToPointer() *CreateOutputSystemByPackTypeNetflow {
 	return &e
 }
-func (e *CreateOutputTypeNetflow) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeNetflow) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "netflow":
-		*e = CreateOutputTypeNetflow(v)
+		*e = CreateOutputSystemByPackTypeNetflow(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeNetflow: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeNetflow: %v", v)
 	}
 }
 
-type CreateOutputHostNetflow struct {
+type CreateOutputSystemByPackHostNetflow struct {
 	// Destination host
 	Host string `json:"host"`
 	// Destination port, default is 2055
@@ -8127,49 +8757,49 @@ type CreateOutputHostNetflow struct {
 	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (c CreateOutputHostNetflow) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackHostNetflow) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputHostNetflow) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackHostNetflow) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputHostNetflow) GetHost() string {
+func (c *CreateOutputSystemByPackHostNetflow) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateOutputHostNetflow) GetPort() float64 {
+func (c *CreateOutputSystemByPackHostNetflow) GetPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.Port
 }
 
-func (c *CreateOutputHostNetflow) GetTemplateHost() *string {
+func (c *CreateOutputSystemByPackHostNetflow) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateOutputHostNetflow) GetTemplatePort() *string {
+func (c *CreateOutputSystemByPackHostNetflow) GetTemplatePort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePort
 }
 
-type CreateOutputOutputNetflow struct {
+type CreateOutputSystemByPackOutputNetflow struct {
 	// Unique ID for this output
-	ID   string                  `json:"id"`
-	Type CreateOutputTypeNetflow `json:"type"`
+	ID   string                              `json:"id"`
+	Type CreateOutputSystemByPackTypeNetflow `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -8179,7 +8809,7 @@ type CreateOutputOutputNetflow struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// One or more NetFlow Destinations to forward events to
-	Hosts []CreateOutputHostNetflow `json:"hosts"`
+	Hosts []CreateOutputSystemByPackHostNetflow `json:"hosts"`
 	// How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every datagram sent will incur a DNS lookup.
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// Send NetFlow traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
@@ -8191,138 +8821,138 @@ type CreateOutputOutputNetflow struct {
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
-func (c CreateOutputOutputNetflow) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputNetflow) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputNetflow) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputNetflow) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputNetflow) GetID() string {
+func (c *CreateOutputSystemByPackOutputNetflow) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputNetflow) GetType() CreateOutputTypeNetflow {
+func (c *CreateOutputSystemByPackOutputNetflow) GetType() CreateOutputSystemByPackTypeNetflow {
 	if c == nil {
-		return CreateOutputTypeNetflow("")
+		return CreateOutputSystemByPackTypeNetflow("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputNetflow) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputNetflow) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputNetflow) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputNetflow) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputNetflow) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputNetflow) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputNetflow) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputNetflow) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputNetflow) GetHosts() []CreateOutputHostNetflow {
+func (c *CreateOutputSystemByPackOutputNetflow) GetHosts() []CreateOutputSystemByPackHostNetflow {
 	if c == nil {
-		return []CreateOutputHostNetflow{}
+		return []CreateOutputSystemByPackHostNetflow{}
 	}
 	return c.Hosts
 }
 
-func (c *CreateOutputOutputNetflow) GetDNSResolvePeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputNetflow) GetDNSResolvePeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DNSResolvePeriodSec
 }
 
-func (c *CreateOutputOutputNetflow) GetEnableIPSpoofing() *bool {
+func (c *CreateOutputSystemByPackOutputNetflow) GetEnableIPSpoofing() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableIPSpoofing
 }
 
-func (c *CreateOutputOutputNetflow) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputNetflow) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputNetflow) GetMaxRecordSize() *float64 {
+func (c *CreateOutputSystemByPackOutputNetflow) GetMaxRecordSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRecordSize
 }
 
-func (c *CreateOutputOutputNetflow) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputNetflow) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-type CreateOutputTypeXsiam string
+type CreateOutputSystemByPackTypeXsiam string
 
 const (
-	CreateOutputTypeXsiamXsiam CreateOutputTypeXsiam = "xsiam"
+	CreateOutputSystemByPackTypeXsiamXsiam CreateOutputSystemByPackTypeXsiam = "xsiam"
 )
 
-func (e CreateOutputTypeXsiam) ToPointer() *CreateOutputTypeXsiam {
+func (e CreateOutputSystemByPackTypeXsiam) ToPointer() *CreateOutputSystemByPackTypeXsiam {
 	return &e
 }
-func (e *CreateOutputTypeXsiam) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeXsiam) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "xsiam":
-		*e = CreateOutputTypeXsiam(v)
+		*e = CreateOutputSystemByPackTypeXsiam(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeXsiam: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeXsiam: %v", v)
 	}
 }
 
-// CreateOutputAuthenticationMethodXsiam - Enter a token directly, or provide a secret referencing a token
-type CreateOutputAuthenticationMethodXsiam string
+// CreateOutputSystemByPackAuthenticationMethodXsiam - Enter a token directly, or provide a secret referencing a token
+type CreateOutputSystemByPackAuthenticationMethodXsiam string
 
 const (
-	CreateOutputAuthenticationMethodXsiamToken  CreateOutputAuthenticationMethodXsiam = "token"
-	CreateOutputAuthenticationMethodXsiamSecret CreateOutputAuthenticationMethodXsiam = "secret"
+	CreateOutputSystemByPackAuthenticationMethodXsiamToken  CreateOutputSystemByPackAuthenticationMethodXsiam = "token"
+	CreateOutputSystemByPackAuthenticationMethodXsiamSecret CreateOutputSystemByPackAuthenticationMethodXsiam = "secret"
 )
 
-func (e CreateOutputAuthenticationMethodXsiam) ToPointer() *CreateOutputAuthenticationMethodXsiam {
+func (e CreateOutputSystemByPackAuthenticationMethodXsiam) ToPointer() *CreateOutputSystemByPackAuthenticationMethodXsiam {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputAuthenticationMethodXsiam) IsExact() bool {
+func (e *CreateOutputSystemByPackAuthenticationMethodXsiam) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "token", "secret":
@@ -8332,47 +8962,47 @@ func (e *CreateOutputAuthenticationMethodXsiam) IsExact() bool {
 	return false
 }
 
-type CreateOutputURLXsiam struct {
+type CreateOutputSystemByPackURLXsiam struct {
 	// Assign a weight (>0) to each endpoint to indicate its traffic-handling capability
 	Weight *float64 `json:"weight,omitzero"`
 }
 
-func (c CreateOutputURLXsiam) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackURLXsiam) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputURLXsiam) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackURLXsiam) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputURLXsiam) GetWeight() *float64 {
+func (c *CreateOutputSystemByPackURLXsiam) GetWeight() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Weight
 }
 
-type CreateOutputPqControlsXsiam struct {
+type CreateOutputSystemByPackPqControlsXsiam struct {
 }
 
-func (c CreateOutputPqControlsXsiam) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsXsiam) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsXsiam) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsXsiam) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputXsiam struct {
+type CreateOutputSystemByPackOutputXsiam struct {
 	// Unique ID for this output
-	ID   string                `json:"id"`
-	Type CreateOutputTypeXsiam `json:"type"`
+	ID   string                            `json:"id"`
+	Type CreateOutputSystemByPackTypeXsiam `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -8406,7 +9036,7 @@ type CreateOutputOutputXsiam struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Enter a token directly, or provide a secret referencing a token
-	AuthType *CreateOutputAuthenticationMethodXsiam `json:"authType,omitzero"`
+	AuthType *CreateOutputSystemByPackAuthenticationMethodXsiam `json:"authType,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
 	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
 	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
@@ -8424,8 +9054,8 @@ type CreateOutputOutputXsiam struct {
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool                  `json:"excludeSelf,omitzero"`
-	Urls        []CreateOutputURLXsiam `json:"urls,omitzero"`
+	ExcludeSelf *bool                              `json:"excludeSelf,omitzero"`
+	Urls        []CreateOutputSystemByPackURLXsiam `json:"urls,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -8455,8 +9085,8 @@ type CreateOutputOutputXsiam struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                      `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsXsiam `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                  `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsXsiam `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
@@ -8467,399 +9097,399 @@ type CreateOutputOutputXsiam struct {
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
 
-func (c CreateOutputOutputXsiam) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputXsiam) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputXsiam) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputXsiam) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputXsiam) GetID() string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputXsiam) GetType() CreateOutputTypeXsiam {
+func (c *CreateOutputSystemByPackOutputXsiam) GetType() CreateOutputSystemByPackTypeXsiam {
 	if c == nil {
-		return CreateOutputTypeXsiam("")
+		return CreateOutputSystemByPackTypeXsiam("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputXsiam) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputXsiam) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputXsiam) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputXsiam) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputXsiam) GetLoadBalanced() *bool {
+func (c *CreateOutputSystemByPackOutputXsiam) GetLoadBalanced() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.LoadBalanced
 }
 
-func (c *CreateOutputOutputXsiam) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputXsiam) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputXsiam) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputXsiam) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputXsiam) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputXsiam) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputXsiam) GetCompress() *bool {
+func (c *CreateOutputSystemByPackOutputXsiam) GetCompress() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputXsiam) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputXsiam) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputXsiam) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputXsiam) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputXsiam) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputXsiam) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputXsiam) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputXsiam) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputXsiam) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputXsiam) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputXsiam) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputXsiam) GetAuthType() *CreateOutputAuthenticationMethodXsiam {
+func (c *CreateOutputSystemByPackOutputXsiam) GetAuthType() *CreateOutputSystemByPackAuthenticationMethodXsiam {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateOutputOutputXsiam) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputXsiam) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputXsiam) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputXsiam) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputXsiam) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputXsiam) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputXsiam) GetThrottleRateReqPerSec() *int64 {
+func (c *CreateOutputSystemByPackOutputXsiam) GetThrottleRateReqPerSec() *int64 {
 	if c == nil {
 		return nil
 	}
 	return c.ThrottleRateReqPerSec
 }
 
-func (c *CreateOutputOutputXsiam) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputXsiam) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputXsiam) GetTotalMemoryLimitKB() *float64 {
+func (c *CreateOutputSystemByPackOutputXsiam) GetTotalMemoryLimitKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TotalMemoryLimitKB
 }
 
-func (c *CreateOutputOutputXsiam) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputXsiam) GetURL() *string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.URL
 }
 
-func (c *CreateOutputOutputXsiam) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputXsiam) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputXsiam) GetExcludeSelf() *bool {
+func (c *CreateOutputSystemByPackOutputXsiam) GetExcludeSelf() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ExcludeSelf
 }
 
-func (c *CreateOutputOutputXsiam) GetUrls() []CreateOutputURLXsiam {
+func (c *CreateOutputSystemByPackOutputXsiam) GetUrls() []CreateOutputSystemByPackURLXsiam {
 	if c == nil {
 		return nil
 	}
 	return c.Urls
 }
 
-func (c *CreateOutputOutputXsiam) GetDNSResolvePeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputXsiam) GetDNSResolvePeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DNSResolvePeriodSec
 }
 
-func (c *CreateOutputOutputXsiam) GetLoadBalanceStatsPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputXsiam) GetLoadBalanceStatsPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.LoadBalanceStatsPeriodSec
 }
 
-func (c *CreateOutputOutputXsiam) GetToken() *string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetToken() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Token
 }
 
-func (c *CreateOutputOutputXsiam) GetTextSecret() *string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateOutputOutputXsiam) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputXsiam) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputXsiam) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputXsiam) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputXsiam) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputXsiam) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputXsiam) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputXsiam) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputXsiam) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputXsiam) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputXsiam) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputXsiam) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputXsiam) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputXsiam) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputXsiam) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputXsiam) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputXsiam) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputXsiam) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputXsiam) GetPqControls() *CreateOutputPqControlsXsiam {
+func (c *CreateOutputSystemByPackOutputXsiam) GetPqControls() *CreateOutputSystemByPackPqControlsXsiam {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputXsiam) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputXsiam) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputXsiam) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputXsiam) GetTemplateURL() *string {
+func (c *CreateOutputSystemByPackOutputXsiam) GetTemplateURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateURL
 }
 
-type CreateOutputTypeLocalSearchStorage string
+type CreateOutputSystemByPackTypeLocalSearchStorage string
 
 const (
-	CreateOutputTypeLocalSearchStorageLocalSearchStorage CreateOutputTypeLocalSearchStorage = "local_search_storage"
+	CreateOutputSystemByPackTypeLocalSearchStorageLocalSearchStorage CreateOutputSystemByPackTypeLocalSearchStorage = "local_search_storage"
 )
 
-func (e CreateOutputTypeLocalSearchStorage) ToPointer() *CreateOutputTypeLocalSearchStorage {
+func (e CreateOutputSystemByPackTypeLocalSearchStorage) ToPointer() *CreateOutputSystemByPackTypeLocalSearchStorage {
 	return &e
 }
-func (e *CreateOutputTypeLocalSearchStorage) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeLocalSearchStorage) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "local_search_storage":
-		*e = CreateOutputTypeLocalSearchStorage(v)
+		*e = CreateOutputSystemByPackTypeLocalSearchStorage(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeLocalSearchStorage: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeLocalSearchStorage: %v", v)
 	}
 }
 
-// CreateOutputFormatLocalSearchStorage - Data format to use when sending data. Defaults to JSON Compact.
-type CreateOutputFormatLocalSearchStorage string
+// CreateOutputSystemByPackFormatLocalSearchStorage - Data format to use when sending data. Defaults to JSON Compact.
+type CreateOutputSystemByPackFormatLocalSearchStorage string
 
 const (
-	// CreateOutputFormatLocalSearchStorageJSONCompactEachRowWithNames JSONCompactEachRowWithNames
-	CreateOutputFormatLocalSearchStorageJSONCompactEachRowWithNames CreateOutputFormatLocalSearchStorage = "json-compact-each-row-with-names"
-	// CreateOutputFormatLocalSearchStorageJSONEachRow JSONEachRow
-	CreateOutputFormatLocalSearchStorageJSONEachRow CreateOutputFormatLocalSearchStorage = "json-each-row"
+	// CreateOutputSystemByPackFormatLocalSearchStorageJSONCompactEachRowWithNames JSONCompactEachRowWithNames
+	CreateOutputSystemByPackFormatLocalSearchStorageJSONCompactEachRowWithNames CreateOutputSystemByPackFormatLocalSearchStorage = "json-compact-each-row-with-names"
+	// CreateOutputSystemByPackFormatLocalSearchStorageJSONEachRow JSONEachRow
+	CreateOutputSystemByPackFormatLocalSearchStorageJSONEachRow CreateOutputSystemByPackFormatLocalSearchStorage = "json-each-row"
 )
 
-func (e CreateOutputFormatLocalSearchStorage) ToPointer() *CreateOutputFormatLocalSearchStorage {
+func (e CreateOutputSystemByPackFormatLocalSearchStorage) ToPointer() *CreateOutputSystemByPackFormatLocalSearchStorage {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputFormatLocalSearchStorage) IsExact() bool {
+func (e *CreateOutputSystemByPackFormatLocalSearchStorage) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "json-compact-each-row-with-names", "json-each-row":
@@ -8869,22 +9499,22 @@ func (e *CreateOutputFormatLocalSearchStorage) IsExact() bool {
 	return false
 }
 
-// CreateOutputMappingTypeLocalSearchStorage - How event fields are mapped to columns.
-type CreateOutputMappingTypeLocalSearchStorage string
+// CreateOutputSystemByPackMappingTypeLocalSearchStorage - How event fields are mapped to columns.
+type CreateOutputSystemByPackMappingTypeLocalSearchStorage string
 
 const (
-	// CreateOutputMappingTypeLocalSearchStorageAutomatic Automatic
-	CreateOutputMappingTypeLocalSearchStorageAutomatic CreateOutputMappingTypeLocalSearchStorage = "automatic"
-	// CreateOutputMappingTypeLocalSearchStorageCustom Custom
-	CreateOutputMappingTypeLocalSearchStorageCustom CreateOutputMappingTypeLocalSearchStorage = "custom"
+	// CreateOutputSystemByPackMappingTypeLocalSearchStorageAutomatic Automatic
+	CreateOutputSystemByPackMappingTypeLocalSearchStorageAutomatic CreateOutputSystemByPackMappingTypeLocalSearchStorage = "automatic"
+	// CreateOutputSystemByPackMappingTypeLocalSearchStorageCustom Custom
+	CreateOutputSystemByPackMappingTypeLocalSearchStorageCustom CreateOutputSystemByPackMappingTypeLocalSearchStorage = "custom"
 )
 
-func (e CreateOutputMappingTypeLocalSearchStorage) ToPointer() *CreateOutputMappingTypeLocalSearchStorage {
+func (e CreateOutputSystemByPackMappingTypeLocalSearchStorage) ToPointer() *CreateOutputSystemByPackMappingTypeLocalSearchStorage {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputMappingTypeLocalSearchStorage) IsExact() bool {
+func (e *CreateOutputSystemByPackMappingTypeLocalSearchStorage) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "automatic", "custom":
@@ -8894,7 +9524,7 @@ func (e *CreateOutputMappingTypeLocalSearchStorage) IsExact() bool {
 	return false
 }
 
-type CreateOutputStatsDestination struct {
+type CreateOutputSystemByPackStatsDestination struct {
 	URL         *string `json:"url,omitzero"`
 	Database    *string `json:"database,omitzero"`
 	TableName   *string `json:"tableName,omitzero"`
@@ -8904,67 +9534,67 @@ type CreateOutputStatsDestination struct {
 	Password    *string `json:"password,omitzero"`
 }
 
-func (c CreateOutputStatsDestination) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackStatsDestination) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputStatsDestination) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackStatsDestination) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputStatsDestination) GetURL() *string {
+func (c *CreateOutputSystemByPackStatsDestination) GetURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.URL
 }
 
-func (c *CreateOutputStatsDestination) GetDatabase() *string {
+func (c *CreateOutputSystemByPackStatsDestination) GetDatabase() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Database
 }
 
-func (c *CreateOutputStatsDestination) GetTableName() *string {
+func (c *CreateOutputSystemByPackStatsDestination) GetTableName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TableName
 }
 
-func (c *CreateOutputStatsDestination) GetAuthType() *string {
+func (c *CreateOutputSystemByPackStatsDestination) GetAuthType() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateOutputStatsDestination) GetUsername() *string {
+func (c *CreateOutputSystemByPackStatsDestination) GetUsername() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Username
 }
 
-func (c *CreateOutputStatsDestination) GetSQLUsername() *string {
+func (c *CreateOutputSystemByPackStatsDestination) GetSQLUsername() *string {
 	if c == nil {
 		return nil
 	}
 	return c.SQLUsername
 }
 
-func (c *CreateOutputStatsDestination) GetPassword() *string {
+func (c *CreateOutputSystemByPackStatsDestination) GetPassword() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Password
 }
 
-type CreateOutputColumnMappingLocalSearchStorage struct {
+type CreateOutputSystemByPackColumnMappingLocalSearchStorage struct {
 	// Name of the column that will store field value
 	ColumnName string `json:"columnName"`
 	// Type of the column in the database
@@ -8973,56 +9603,56 @@ type CreateOutputColumnMappingLocalSearchStorage struct {
 	ColumnValueExpression string `json:"columnValueExpression"`
 }
 
-func (c CreateOutputColumnMappingLocalSearchStorage) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackColumnMappingLocalSearchStorage) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputColumnMappingLocalSearchStorage) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackColumnMappingLocalSearchStorage) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputColumnMappingLocalSearchStorage) GetColumnName() string {
+func (c *CreateOutputSystemByPackColumnMappingLocalSearchStorage) GetColumnName() string {
 	if c == nil {
 		return ""
 	}
 	return c.ColumnName
 }
 
-func (c *CreateOutputColumnMappingLocalSearchStorage) GetColumnType() *string {
+func (c *CreateOutputSystemByPackColumnMappingLocalSearchStorage) GetColumnType() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ColumnType
 }
 
-func (c *CreateOutputColumnMappingLocalSearchStorage) GetColumnValueExpression() string {
+func (c *CreateOutputSystemByPackColumnMappingLocalSearchStorage) GetColumnValueExpression() string {
 	if c == nil {
 		return ""
 	}
 	return c.ColumnValueExpression
 }
 
-type CreateOutputPqControlsLocalSearchStorage struct {
+type CreateOutputSystemByPackPqControlsLocalSearchStorage struct {
 }
 
-func (c CreateOutputPqControlsLocalSearchStorage) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsLocalSearchStorage) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsLocalSearchStorage) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsLocalSearchStorage) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputLocalSearchStorage struct {
+type CreateOutputSystemByPackOutputLocalSearchStorage struct {
 	// Unique ID for this output
-	ID   string                             `json:"id"`
-	Type CreateOutputTypeLocalSearchStorage `json:"type"`
+	ID   string                                         `json:"id"`
+	Type CreateOutputSystemByPackTypeLocalSearchStorage `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -9038,9 +9668,9 @@ type CreateOutputOutputLocalSearchStorage struct {
 	// Name of the table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
 	// Data format to use when sending data. Defaults to JSON Compact.
-	Format *CreateOutputFormatLocalSearchStorage `json:"format,omitzero"`
+	Format *CreateOutputSystemByPackFormatLocalSearchStorage `json:"format,omitzero"`
 	// How event fields are mapped to columns.
-	MappingType *CreateOutputMappingTypeLocalSearchStorage `json:"mappingType,omitzero"`
+	MappingType *CreateOutputSystemByPackMappingTypeLocalSearchStorage `json:"mappingType,omitzero"`
 	// Collect data into batches for later processing. Disable to write to a table immediately.
 	AsyncInserts *bool                                                       `json:"asyncInserts,omitzero"`
 	TLS          *components.TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
@@ -9076,11 +9706,11 @@ type CreateOutputOutputLocalSearchStorage struct {
 	// Log the most recent event that fails to match the table schema
 	DumpFormatErrorsToDisk *bool `json:"dumpFormatErrorsToDisk,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure   *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	StatsDestination *CreateOutputStatsDestination           `json:"statsDestination,omitzero"`
-	Description      *string                                 `json:"description,omitzero"`
-	Username         *string                                 `json:"username,omitzero"`
-	Password         *string                                 `json:"password,omitzero"`
+	OnBackpressure   *components.BackpressureBehaviorOptions   `json:"onBackpressure,omitzero"`
+	StatsDestination *CreateOutputSystemByPackStatsDestination `json:"statsDestination,omitzero"`
+	Description      *string                                   `json:"description,omitzero"`
+	Username         *string                                   `json:"username,omitzero"`
+	Password         *string                                   `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Username for certificate authentication
@@ -9090,8 +9720,8 @@ type CreateOutputOutputLocalSearchStorage struct {
 	// Fields to exclude from sending
 	ExcludeMappingFields []string `json:"excludeMappingFields,omitzero"`
 	// Retrieves the table schema and populates the Column Mapping table
-	DescribeTable  *string                                       `json:"describeTable,omitzero"`
-	ColumnMappings []CreateOutputColumnMappingLocalSearchStorage `json:"columnMappings,omitzero"`
+	DescribeTable  *string                                                   `json:"describeTable,omitzero"`
+	ColumnMappings []CreateOutputSystemByPackColumnMappingLocalSearchStorage `json:"columnMappings,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -9113,8 +9743,8 @@ type CreateOutputOutputLocalSearchStorage struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                                   `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsLocalSearchStorage `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                               `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsLocalSearchStorage `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
@@ -9129,462 +9759,462 @@ type CreateOutputOutputLocalSearchStorage struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (c CreateOutputOutputLocalSearchStorage) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputLocalSearchStorage) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetID() string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetType() CreateOutputTypeLocalSearchStorage {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetType() CreateOutputSystemByPackTypeLocalSearchStorage {
 	if c == nil {
-		return CreateOutputTypeLocalSearchStorage("")
+		return CreateOutputSystemByPackTypeLocalSearchStorage("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetURL() string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetURL() string {
 	if c == nil {
 		return ""
 	}
 	return c.URL
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetAuthType() *components.AuthenticationTypeOptions {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetAuthType() *components.AuthenticationTypeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetDatabase() string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetDatabase() string {
 	if c == nil {
 		return ""
 	}
 	return c.Database
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetTableName() string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetTableName() string {
 	if c == nil {
 		return ""
 	}
 	return c.TableName
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetFormat() *CreateOutputFormatLocalSearchStorage {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetFormat() *CreateOutputSystemByPackFormatLocalSearchStorage {
 	if c == nil {
 		return nil
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetMappingType() *CreateOutputMappingTypeLocalSearchStorage {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetMappingType() *CreateOutputSystemByPackMappingTypeLocalSearchStorage {
 	if c == nil {
 		return nil
 	}
 	return c.MappingType
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetAsyncInserts() *bool {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetAsyncInserts() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AsyncInserts
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPathExtended {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPathExtended {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetCompress() *bool {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetCompress() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetDumpFormatErrorsToDisk() *bool {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetDumpFormatErrorsToDisk() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DumpFormatErrorsToDisk
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetStatsDestination() *CreateOutputStatsDestination {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetStatsDestination() *CreateOutputSystemByPackStatsDestination {
 	if c == nil {
 		return nil
 	}
 	return c.StatsDestination
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetUsername() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetUsername() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Username
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetPassword() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetPassword() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Password
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetCredentialsSecret() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CredentialsSecret
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetSQLUsername() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetSQLUsername() *string {
 	if c == nil {
 		return nil
 	}
 	return c.SQLUsername
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetWaitForAsyncInserts() *bool {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetWaitForAsyncInserts() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.WaitForAsyncInserts
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetExcludeMappingFields() []string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetExcludeMappingFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.ExcludeMappingFields
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetDescribeTable() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetDescribeTable() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DescribeTable
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetColumnMappings() []CreateOutputColumnMappingLocalSearchStorage {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetColumnMappings() []CreateOutputSystemByPackColumnMappingLocalSearchStorage {
 	if c == nil {
 		return nil
 	}
 	return c.ColumnMappings
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetPqControls() *CreateOutputPqControlsLocalSearchStorage {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetPqControls() *CreateOutputSystemByPackPqControlsLocalSearchStorage {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetTemplateURL() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetTemplateURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateURL
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetTemplateDatabase() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetTemplateDatabase() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateDatabase
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetTemplateTableName() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetTemplateTableName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateTableName
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputLocalSearchStorage) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-type CreateOutputTypeClickHouse string
+type CreateOutputSystemByPackTypeClickHouse string
 
 const (
-	CreateOutputTypeClickHouseClickHouse CreateOutputTypeClickHouse = "click_house"
+	CreateOutputSystemByPackTypeClickHouseClickHouse CreateOutputSystemByPackTypeClickHouse = "click_house"
 )
 
-func (e CreateOutputTypeClickHouse) ToPointer() *CreateOutputTypeClickHouse {
+func (e CreateOutputSystemByPackTypeClickHouse) ToPointer() *CreateOutputSystemByPackTypeClickHouse {
 	return &e
 }
-func (e *CreateOutputTypeClickHouse) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeClickHouse) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "click_house":
-		*e = CreateOutputTypeClickHouse(v)
+		*e = CreateOutputSystemByPackTypeClickHouse(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeClickHouse: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeClickHouse: %v", v)
 	}
 }
 
-// CreateOutputFormatClickHouse - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
-type CreateOutputFormatClickHouse string
+// CreateOutputSystemByPackFormatClickHouse - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+type CreateOutputSystemByPackFormatClickHouse string
 
 const (
-	// CreateOutputFormatClickHouseJSONCompactEachRowWithNames JSONCompactEachRowWithNames
-	CreateOutputFormatClickHouseJSONCompactEachRowWithNames CreateOutputFormatClickHouse = "json-compact-each-row-with-names"
-	// CreateOutputFormatClickHouseJSONEachRow JSONEachRow
-	CreateOutputFormatClickHouseJSONEachRow CreateOutputFormatClickHouse = "json-each-row"
+	// CreateOutputSystemByPackFormatClickHouseJSONCompactEachRowWithNames JSONCompactEachRowWithNames
+	CreateOutputSystemByPackFormatClickHouseJSONCompactEachRowWithNames CreateOutputSystemByPackFormatClickHouse = "json-compact-each-row-with-names"
+	// CreateOutputSystemByPackFormatClickHouseJSONEachRow JSONEachRow
+	CreateOutputSystemByPackFormatClickHouseJSONEachRow CreateOutputSystemByPackFormatClickHouse = "json-each-row"
 )
 
-func (e CreateOutputFormatClickHouse) ToPointer() *CreateOutputFormatClickHouse {
+func (e CreateOutputSystemByPackFormatClickHouse) ToPointer() *CreateOutputSystemByPackFormatClickHouse {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputFormatClickHouse) IsExact() bool {
+func (e *CreateOutputSystemByPackFormatClickHouse) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "json-compact-each-row-with-names", "json-each-row":
@@ -9594,22 +10224,22 @@ func (e *CreateOutputFormatClickHouse) IsExact() bool {
 	return false
 }
 
-// CreateOutputMappingTypeClickHouse - How event fields are mapped to ClickHouse columns.
-type CreateOutputMappingTypeClickHouse string
+// CreateOutputSystemByPackMappingTypeClickHouse - How event fields are mapped to ClickHouse columns.
+type CreateOutputSystemByPackMappingTypeClickHouse string
 
 const (
-	// CreateOutputMappingTypeClickHouseAutomatic Automatic
-	CreateOutputMappingTypeClickHouseAutomatic CreateOutputMappingTypeClickHouse = "automatic"
-	// CreateOutputMappingTypeClickHouseCustom Custom
-	CreateOutputMappingTypeClickHouseCustom CreateOutputMappingTypeClickHouse = "custom"
+	// CreateOutputSystemByPackMappingTypeClickHouseAutomatic Automatic
+	CreateOutputSystemByPackMappingTypeClickHouseAutomatic CreateOutputSystemByPackMappingTypeClickHouse = "automatic"
+	// CreateOutputSystemByPackMappingTypeClickHouseCustom Custom
+	CreateOutputSystemByPackMappingTypeClickHouseCustom CreateOutputSystemByPackMappingTypeClickHouse = "custom"
 )
 
-func (e CreateOutputMappingTypeClickHouse) ToPointer() *CreateOutputMappingTypeClickHouse {
+func (e CreateOutputSystemByPackMappingTypeClickHouse) ToPointer() *CreateOutputSystemByPackMappingTypeClickHouse {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputMappingTypeClickHouse) IsExact() bool {
+func (e *CreateOutputSystemByPackMappingTypeClickHouse) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "automatic", "custom":
@@ -9619,7 +10249,7 @@ func (e *CreateOutputMappingTypeClickHouse) IsExact() bool {
 	return false
 }
 
-type CreateOutputColumnMappingClickHouse struct {
+type CreateOutputSystemByPackColumnMappingClickHouse struct {
 	// Name of the column in ClickHouse that will store field value
 	ColumnName string `json:"columnName"`
 	// Type of the column in the ClickHouse database
@@ -9628,56 +10258,56 @@ type CreateOutputColumnMappingClickHouse struct {
 	ColumnValueExpression string `json:"columnValueExpression"`
 }
 
-func (c CreateOutputColumnMappingClickHouse) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackColumnMappingClickHouse) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputColumnMappingClickHouse) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackColumnMappingClickHouse) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputColumnMappingClickHouse) GetColumnName() string {
+func (c *CreateOutputSystemByPackColumnMappingClickHouse) GetColumnName() string {
 	if c == nil {
 		return ""
 	}
 	return c.ColumnName
 }
 
-func (c *CreateOutputColumnMappingClickHouse) GetColumnType() *string {
+func (c *CreateOutputSystemByPackColumnMappingClickHouse) GetColumnType() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ColumnType
 }
 
-func (c *CreateOutputColumnMappingClickHouse) GetColumnValueExpression() string {
+func (c *CreateOutputSystemByPackColumnMappingClickHouse) GetColumnValueExpression() string {
 	if c == nil {
 		return ""
 	}
 	return c.ColumnValueExpression
 }
 
-type CreateOutputPqControlsClickHouse struct {
+type CreateOutputSystemByPackPqControlsClickHouse struct {
 }
 
-func (c CreateOutputPqControlsClickHouse) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsClickHouse) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsClickHouse) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsClickHouse) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputClickHouse struct {
+type CreateOutputSystemByPackOutputClickHouse struct {
 	// Unique ID for this output
-	ID   string                     `json:"id"`
-	Type CreateOutputTypeClickHouse `json:"type"`
+	ID   string                                 `json:"id"`
+	Type CreateOutputSystemByPackTypeClickHouse `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -9693,9 +10323,9 @@ type CreateOutputOutputClickHouse struct {
 	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
 	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
-	Format *CreateOutputFormatClickHouse `json:"format,omitzero"`
+	Format *CreateOutputSystemByPackFormatClickHouse `json:"format,omitzero"`
 	// How event fields are mapped to ClickHouse columns.
-	MappingType *CreateOutputMappingTypeClickHouse `json:"mappingType,omitzero"`
+	MappingType *CreateOutputSystemByPackMappingTypeClickHouse `json:"mappingType,omitzero"`
 	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
 	AsyncInserts *bool                                                       `json:"asyncInserts,omitzero"`
 	TLS          *components.TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
@@ -9744,8 +10374,8 @@ type CreateOutputOutputClickHouse struct {
 	// Fields to exclude from sending to ClickHouse
 	ExcludeMappingFields []string `json:"excludeMappingFields,omitzero"`
 	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
-	DescribeTable  *string                               `json:"describeTable,omitzero"`
-	ColumnMappings []CreateOutputColumnMappingClickHouse `json:"columnMappings,omitzero"`
+	DescribeTable  *string                                           `json:"describeTable,omitzero"`
+	ColumnMappings []CreateOutputSystemByPackColumnMappingClickHouse `json:"columnMappings,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -9767,8 +10397,8 @@ type CreateOutputOutputClickHouse struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                           `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsClickHouse `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                       `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsClickHouse `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
@@ -9783,443 +10413,443 @@ type CreateOutputOutputClickHouse struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (c CreateOutputOutputClickHouse) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputClickHouse) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputClickHouse) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputClickHouse) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputClickHouse) GetID() string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputClickHouse) GetType() CreateOutputTypeClickHouse {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetType() CreateOutputSystemByPackTypeClickHouse {
 	if c == nil {
-		return CreateOutputTypeClickHouse("")
+		return CreateOutputSystemByPackTypeClickHouse("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputClickHouse) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputClickHouse) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputClickHouse) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputClickHouse) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputClickHouse) GetURL() string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetURL() string {
 	if c == nil {
 		return ""
 	}
 	return c.URL
 }
 
-func (c *CreateOutputOutputClickHouse) GetAuthType() *components.AuthenticationTypeOptions {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetAuthType() *components.AuthenticationTypeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateOutputOutputClickHouse) GetDatabase() string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetDatabase() string {
 	if c == nil {
 		return ""
 	}
 	return c.Database
 }
 
-func (c *CreateOutputOutputClickHouse) GetTableName() string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetTableName() string {
 	if c == nil {
 		return ""
 	}
 	return c.TableName
 }
 
-func (c *CreateOutputOutputClickHouse) GetFormat() *CreateOutputFormatClickHouse {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetFormat() *CreateOutputSystemByPackFormatClickHouse {
 	if c == nil {
 		return nil
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputClickHouse) GetMappingType() *CreateOutputMappingTypeClickHouse {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetMappingType() *CreateOutputSystemByPackMappingTypeClickHouse {
 	if c == nil {
 		return nil
 	}
 	return c.MappingType
 }
 
-func (c *CreateOutputOutputClickHouse) GetAsyncInserts() *bool {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetAsyncInserts() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AsyncInserts
 }
 
-func (c *CreateOutputOutputClickHouse) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPathExtended {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPathExtended {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateOutputOutputClickHouse) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputClickHouse) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputClickHouse) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputClickHouse) GetCompress() *bool {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetCompress() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputClickHouse) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputClickHouse) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputClickHouse) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputClickHouse) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputClickHouse) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputClickHouse) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputClickHouse) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputClickHouse) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputClickHouse) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputClickHouse) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputClickHouse) GetDumpFormatErrorsToDisk() *bool {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetDumpFormatErrorsToDisk() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DumpFormatErrorsToDisk
 }
 
-func (c *CreateOutputOutputClickHouse) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputClickHouse) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputClickHouse) GetUsername() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetUsername() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Username
 }
 
-func (c *CreateOutputOutputClickHouse) GetPassword() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetPassword() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Password
 }
 
-func (c *CreateOutputOutputClickHouse) GetCredentialsSecret() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CredentialsSecret
 }
 
-func (c *CreateOutputOutputClickHouse) GetSQLUsername() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetSQLUsername() *string {
 	if c == nil {
 		return nil
 	}
 	return c.SQLUsername
 }
 
-func (c *CreateOutputOutputClickHouse) GetWaitForAsyncInserts() *bool {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetWaitForAsyncInserts() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.WaitForAsyncInserts
 }
 
-func (c *CreateOutputOutputClickHouse) GetExcludeMappingFields() []string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetExcludeMappingFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.ExcludeMappingFields
 }
 
-func (c *CreateOutputOutputClickHouse) GetDescribeTable() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetDescribeTable() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DescribeTable
 }
 
-func (c *CreateOutputOutputClickHouse) GetColumnMappings() []CreateOutputColumnMappingClickHouse {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetColumnMappings() []CreateOutputSystemByPackColumnMappingClickHouse {
 	if c == nil {
 		return nil
 	}
 	return c.ColumnMappings
 }
 
-func (c *CreateOutputOutputClickHouse) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputClickHouse) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputClickHouse) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputClickHouse) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputClickHouse) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputClickHouse) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputClickHouse) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputClickHouse) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputClickHouse) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputClickHouse) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputClickHouse) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputClickHouse) GetPqControls() *CreateOutputPqControlsClickHouse {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetPqControls() *CreateOutputSystemByPackPqControlsClickHouse {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputClickHouse) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputClickHouse) GetTemplateURL() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetTemplateURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateURL
 }
 
-func (c *CreateOutputOutputClickHouse) GetTemplateDatabase() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetTemplateDatabase() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateDatabase
 }
 
-func (c *CreateOutputOutputClickHouse) GetTemplateTableName() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetTemplateTableName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateTableName
 }
 
-func (c *CreateOutputOutputClickHouse) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputClickHouse) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputClickHouse) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-type CreateOutputTypeDiskSpool string
+type CreateOutputSystemByPackTypeDiskSpool string
 
 const (
-	CreateOutputTypeDiskSpoolDiskSpool CreateOutputTypeDiskSpool = "disk_spool"
+	CreateOutputSystemByPackTypeDiskSpoolDiskSpool CreateOutputSystemByPackTypeDiskSpool = "disk_spool"
 )
 
-func (e CreateOutputTypeDiskSpool) ToPointer() *CreateOutputTypeDiskSpool {
+func (e CreateOutputSystemByPackTypeDiskSpool) ToPointer() *CreateOutputSystemByPackTypeDiskSpool {
 	return &e
 }
-func (e *CreateOutputTypeDiskSpool) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeDiskSpool) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "disk_spool":
-		*e = CreateOutputTypeDiskSpool(v)
+		*e = CreateOutputSystemByPackTypeDiskSpool(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeDiskSpool: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeDiskSpool: %v", v)
 	}
 }
 
-type CreateOutputOutputDiskSpool struct {
+type CreateOutputSystemByPackOutputDiskSpool struct {
 	// Unique ID for this output
-	ID   string                    `json:"id"`
-	Type CreateOutputTypeDiskSpool `json:"type"`
+	ID   string                                `json:"id"`
+	Type CreateOutputSystemByPackTypeDiskSpool `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -10243,145 +10873,145 @@ type CreateOutputOutputDiskSpool struct {
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
-func (c CreateOutputOutputDiskSpool) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputDiskSpool) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputDiskSpool) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputDiskSpool) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputDiskSpool) GetID() string {
+func (c *CreateOutputSystemByPackOutputDiskSpool) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputDiskSpool) GetType() CreateOutputTypeDiskSpool {
+func (c *CreateOutputSystemByPackOutputDiskSpool) GetType() CreateOutputSystemByPackTypeDiskSpool {
 	if c == nil {
-		return CreateOutputTypeDiskSpool("")
+		return CreateOutputSystemByPackTypeDiskSpool("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputDiskSpool) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputDiskSpool) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputDiskSpool) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputDiskSpool) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputDiskSpool) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputDiskSpool) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputDiskSpool) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputDiskSpool) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputDiskSpool) GetTimeWindow() *string {
+func (c *CreateOutputSystemByPackOutputDiskSpool) GetTimeWindow() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TimeWindow
 }
 
-func (c *CreateOutputOutputDiskSpool) GetMaxDataSize() *string {
+func (c *CreateOutputSystemByPackOutputDiskSpool) GetMaxDataSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MaxDataSize
 }
 
-func (c *CreateOutputOutputDiskSpool) GetMaxDataTime() *string {
+func (c *CreateOutputSystemByPackOutputDiskSpool) GetMaxDataTime() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MaxDataTime
 }
 
-func (c *CreateOutputOutputDiskSpool) GetCompress() *components.CompressionOptionsPersistence {
+func (c *CreateOutputSystemByPackOutputDiskSpool) GetCompress() *components.CompressionOptionsPersistence {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputDiskSpool) GetPartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputDiskSpool) GetPartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PartitionExpr
 }
 
-func (c *CreateOutputOutputDiskSpool) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputDiskSpool) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputDiskSpool) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputDiskSpool) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-type CreateOutputTypeCriblLake string
+type CreateOutputSystemByPackTypeCriblLake string
 
 const (
-	CreateOutputTypeCriblLakeCriblLake CreateOutputTypeCriblLake = "cribl_lake"
+	CreateOutputSystemByPackTypeCriblLakeCriblLake CreateOutputSystemByPackTypeCriblLake = "cribl_lake"
 )
 
-func (e CreateOutputTypeCriblLake) ToPointer() *CreateOutputTypeCriblLake {
+func (e CreateOutputSystemByPackTypeCriblLake) ToPointer() *CreateOutputSystemByPackTypeCriblLake {
 	return &e
 }
-func (e *CreateOutputTypeCriblLake) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeCriblLake) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "cribl_lake":
-		*e = CreateOutputTypeCriblLake(v)
+		*e = CreateOutputSystemByPackTypeCriblLake(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeCriblLake: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeCriblLake: %v", v)
 	}
 }
 
-type CreateOutputAwsAuthenticationMethod string
+type CreateOutputSystemByPackAwsAuthenticationMethod string
 
 const (
-	CreateOutputAwsAuthenticationMethodAuto    CreateOutputAwsAuthenticationMethod = "auto"
-	CreateOutputAwsAuthenticationMethodAutoRPC CreateOutputAwsAuthenticationMethod = "auto_rpc"
-	CreateOutputAwsAuthenticationMethodManual  CreateOutputAwsAuthenticationMethod = "manual"
+	CreateOutputSystemByPackAwsAuthenticationMethodAuto    CreateOutputSystemByPackAwsAuthenticationMethod = "auto"
+	CreateOutputSystemByPackAwsAuthenticationMethodAutoRPC CreateOutputSystemByPackAwsAuthenticationMethod = "auto_rpc"
+	CreateOutputSystemByPackAwsAuthenticationMethodManual  CreateOutputSystemByPackAwsAuthenticationMethod = "manual"
 )
 
-func (e CreateOutputAwsAuthenticationMethod) ToPointer() *CreateOutputAwsAuthenticationMethod {
+func (e CreateOutputSystemByPackAwsAuthenticationMethod) ToPointer() *CreateOutputSystemByPackAwsAuthenticationMethod {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputAwsAuthenticationMethod) IsExact() bool {
+func (e *CreateOutputSystemByPackAwsAuthenticationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "auto", "auto_rpc", "manual":
@@ -10391,20 +11021,20 @@ func (e *CreateOutputAwsAuthenticationMethod) IsExact() bool {
 	return false
 }
 
-type CreateOutputFormatCriblLake string
+type CreateOutputSystemByPackFormatCriblLake string
 
 const (
-	CreateOutputFormatCriblLakeJSON    CreateOutputFormatCriblLake = "json"
-	CreateOutputFormatCriblLakeParquet CreateOutputFormatCriblLake = "parquet"
-	CreateOutputFormatCriblLakeDdss    CreateOutputFormatCriblLake = "ddss"
+	CreateOutputSystemByPackFormatCriblLakeJSON    CreateOutputSystemByPackFormatCriblLake = "json"
+	CreateOutputSystemByPackFormatCriblLakeParquet CreateOutputSystemByPackFormatCriblLake = "parquet"
+	CreateOutputSystemByPackFormatCriblLakeDdss    CreateOutputSystemByPackFormatCriblLake = "ddss"
 )
 
-func (e CreateOutputFormatCriblLake) ToPointer() *CreateOutputFormatCriblLake {
+func (e CreateOutputSystemByPackFormatCriblLake) ToPointer() *CreateOutputSystemByPackFormatCriblLake {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputFormatCriblLake) IsExact() bool {
+func (e *CreateOutputSystemByPackFormatCriblLake) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "json", "parquet", "ddss":
@@ -10414,10 +11044,10 @@ func (e *CreateOutputFormatCriblLake) IsExact() bool {
 	return false
 }
 
-type CreateOutputOutputCriblLake struct {
+type CreateOutputSystemByPackOutputCriblLake struct {
 	// Unique ID for this output
-	ID   string                    `json:"id"`
-	Type CreateOutputTypeCriblLake `json:"type"`
+	ID   string                                `json:"id"`
+	Type CreateOutputSystemByPackTypeCriblLake `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -10491,9 +11121,9 @@ type CreateOutputOutputCriblLake struct {
 	// Server-side encryption to use for uploaded objects
 	ServerSideEncryption *components.ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
 	// ID or ARN of the KMS customer-managed key to use for encryption
-	KmsKeyID                *string                              `json:"kmsKeyId,omitzero"`
-	AwsAuthenticationMethod *CreateOutputAwsAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
-	Format                  *CreateOutputFormatCriblLake         `json:"format,omitzero"`
+	KmsKeyID                *string                                          `json:"kmsKeyId,omitzero"`
+	AwsAuthenticationMethod *CreateOutputSystemByPackAwsAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
+	Format                  *CreateOutputSystemByPackFormatCriblLake         `json:"format,omitzero"`
 	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
 	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
 	Description            *string  `json:"description,omitzero"`
@@ -10537,485 +11167,485 @@ type CreateOutputOutputCriblLake struct {
 	TemplateKmsKeyID *string `json:"__template_kmsKeyId,omitzero"`
 }
 
-func (c CreateOutputOutputCriblLake) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputCriblLake) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputCriblLake) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputCriblLake) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputCriblLake) GetID() string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputCriblLake) GetType() CreateOutputTypeCriblLake {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetType() CreateOutputSystemByPackTypeCriblLake {
 	if c == nil {
-		return CreateOutputTypeCriblLake("")
+		return CreateOutputSystemByPackTypeCriblLake("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputCriblLake) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputCriblLake) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputCriblLake) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputCriblLake) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputCriblLake) GetEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputCriblLake) GetEnableAssumeRole() *bool {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetEnableAssumeRole() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableAssumeRole
 }
 
-func (c *CreateOutputOutputCriblLake) GetAssumeRoleArn() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleArn
 }
 
-func (c *CreateOutputOutputCriblLake) GetAssumeRoleExternalID() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleExternalID
 }
 
-func (c *CreateOutputOutputCriblLake) GetDurationSeconds() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetDurationSeconds() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DurationSeconds
 }
 
-func (c *CreateOutputOutputCriblLake) GetReuseConnections() *bool {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateOutputOutputCriblLake) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputCriblLake) GetBucket() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetBucket() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Bucket
 }
 
-func (c *CreateOutputOutputCriblLake) GetRegion() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Region
 }
 
-func (c *CreateOutputOutputCriblLake) GetDestPath() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DestPath
 }
 
-func (c *CreateOutputOutputCriblLake) GetVerifyPermissions() *bool {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetVerifyPermissions() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.VerifyPermissions
 }
 
-func (c *CreateOutputOutputCriblLake) GetMaxClosingFilesToBackpressure() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetMaxClosingFilesToBackpressure() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxClosingFilesToBackpressure
 }
 
-func (c *CreateOutputOutputCriblLake) GetStagePath() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetStagePath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.StagePath
 }
 
-func (c *CreateOutputOutputCriblLake) GetAddIDToStagePath() *bool {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetAddIDToStagePath() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AddIDToStagePath
 }
 
-func (c *CreateOutputOutputCriblLake) GetRemoveEmptyDirs() *bool {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetRemoveEmptyDirs() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RemoveEmptyDirs
 }
 
-func (c *CreateOutputOutputCriblLake) GetBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.BaseFileName
 }
 
-func (c *CreateOutputOutputCriblLake) GetFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.FileNameSuffix
 }
 
-func (c *CreateOutputOutputCriblLake) GetMaxFileSizeMB() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetMaxFileSizeMB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileSizeMB
 }
 
-func (c *CreateOutputOutputCriblLake) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetMaxFileOpenTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileOpenTimeSec
 }
 
-func (c *CreateOutputOutputCriblLake) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetMaxFileIdleTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileIdleTimeSec
 }
 
-func (c *CreateOutputOutputCriblLake) GetMaxOpenFiles() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetMaxOpenFiles() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxOpenFiles
 }
 
-func (c *CreateOutputOutputCriblLake) GetHeaderLine() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetHeaderLine() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HeaderLine
 }
 
-func (c *CreateOutputOutputCriblLake) GetWriteHighWaterMark() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetWriteHighWaterMark() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputOutputCriblLake) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputCriblLake) GetDeadletterEnabled() *bool {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetDeadletterEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterEnabled
 }
 
-func (c *CreateOutputOutputCriblLake) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnDiskFullBackpressure
 }
 
-func (c *CreateOutputOutputCriblLake) GetForceCloseOnShutdown() *bool {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetForceCloseOnShutdown() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ForceCloseOnShutdown
 }
 
-func (c *CreateOutputOutputCriblLake) GetRetrySettings() *components.RetrySettingsType {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetRetrySettings() *components.RetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.RetrySettings
 }
 
-func (c *CreateOutputOutputCriblLake) GetOrphans() *components.OrphanFileRecoveryType {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetOrphans() *components.OrphanFileRecoveryType {
 	if c == nil {
 		return nil
 	}
 	return c.Orphans
 }
 
-func (c *CreateOutputOutputCriblLake) GetAwsSecretKey() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecretKey
 }
 
-func (c *CreateOutputOutputCriblLake) GetObjectACL() *components.ObjectACLOptions {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetObjectACL() *components.ObjectACLOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ObjectACL
 }
 
-func (c *CreateOutputOutputCriblLake) GetStorageClass() *components.StorageClassOptions {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetStorageClass() *components.StorageClassOptions {
 	if c == nil {
 		return nil
 	}
 	return c.StorageClass
 }
 
-func (c *CreateOutputOutputCriblLake) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ServerSideEncryption
 }
 
-func (c *CreateOutputOutputCriblLake) GetKmsKeyID() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetKmsKeyID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.KmsKeyID
 }
 
-func (c *CreateOutputOutputCriblLake) GetAwsAuthenticationMethod() *CreateOutputAwsAuthenticationMethod {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetAwsAuthenticationMethod() *CreateOutputSystemByPackAwsAuthenticationMethod {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateOutputOutputCriblLake) GetFormat() *CreateOutputFormatCriblLake {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetFormat() *CreateOutputSystemByPackFormatCriblLake {
 	if c == nil {
 		return nil
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputCriblLake) GetMaxConcurrentFileParts() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetMaxConcurrentFileParts() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxConcurrentFileParts
 }
 
-func (c *CreateOutputOutputCriblLake) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputCriblLake) GetEmptyDirCleanupSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetEmptyDirCleanupSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.EmptyDirCleanupSec
 }
 
-func (c *CreateOutputOutputCriblLake) GetDirectoryBatchSize() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetDirectoryBatchSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DirectoryBatchSize
 }
 
-func (c *CreateOutputOutputCriblLake) GetDeadletterPath() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetDeadletterPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterPath
 }
 
-func (c *CreateOutputOutputCriblLake) GetMaxRetryNum() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetMaxRetryNum() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRetryNum
 }
 
-func (c *CreateOutputOutputCriblLake) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputCriblLake) GetTemplateEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateOutputOutputCriblLake) GetTemplateAssumeRoleArn() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleArn
 }
 
-func (c *CreateOutputOutputCriblLake) GetTemplateAssumeRoleExternalID() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
 }
 
-func (c *CreateOutputOutputCriblLake) GetTemplateBucket() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateBucket() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBucket
 }
 
-func (c *CreateOutputOutputCriblLake) GetTemplateRegion() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateRegion
 }
 
-func (c *CreateOutputOutputCriblLake) GetTemplateDestPath() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateDestPath
 }
 
-func (c *CreateOutputOutputCriblLake) GetTemplateBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBaseFileName
 }
 
-func (c *CreateOutputOutputCriblLake) GetTemplateFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFileNameSuffix
 }
 
-func (c *CreateOutputOutputCriblLake) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputCriblLake) GetTemplateAwsSecretKey() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsSecretKey
 }
 
-func (c *CreateOutputOutputCriblLake) GetTemplateObjectACL() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateObjectACL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateObjectACL
 }
 
-func (c *CreateOutputOutputCriblLake) GetTemplateStorageClass() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateStorageClass() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStorageClass
 }
 
-func (c *CreateOutputOutputCriblLake) GetTemplateServerSideEncryption() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateServerSideEncryption() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateServerSideEncryption
 }
 
-func (c *CreateOutputOutputCriblLake) GetTemplateKmsKeyID() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateKmsKeyID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateKmsKeyID
 }
 
-type CreateOutputTypeSecurityLake string
+type CreateOutputSystemByPackTypeSecurityLake string
 
 const (
-	CreateOutputTypeSecurityLakeSecurityLake CreateOutputTypeSecurityLake = "security_lake"
+	CreateOutputSystemByPackTypeSecurityLakeSecurityLake CreateOutputSystemByPackTypeSecurityLake = "security_lake"
 )
 
-func (e CreateOutputTypeSecurityLake) ToPointer() *CreateOutputTypeSecurityLake {
+func (e CreateOutputSystemByPackTypeSecurityLake) ToPointer() *CreateOutputSystemByPackTypeSecurityLake {
 	return &e
 }
-func (e *CreateOutputTypeSecurityLake) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeSecurityLake) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "security_lake":
-		*e = CreateOutputTypeSecurityLake(v)
+		*e = CreateOutputSystemByPackTypeSecurityLake(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeSecurityLake: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeSecurityLake: %v", v)
 	}
 }
 
-type CreateOutputOutputSecurityLake struct {
+type CreateOutputSystemByPackOutputSecurityLake struct {
 	// Unique ID for this output
-	ID   string                       `json:"id"`
-	Type CreateOutputTypeSecurityLake `json:"type"`
+	ID   string                                   `json:"id"`
+	Type CreateOutputSystemByPackTypeSecurityLake `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
@@ -11164,583 +11794,583 @@ type CreateOutputOutputSecurityLake struct {
 	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
-func (c CreateOutputOutputSecurityLake) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputSecurityLake) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputSecurityLake) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputSecurityLake) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputSecurityLake) GetID() string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputSecurityLake) GetType() CreateOutputTypeSecurityLake {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetType() CreateOutputSystemByPackTypeSecurityLake {
 	if c == nil {
-		return CreateOutputTypeSecurityLake("")
+		return CreateOutputSystemByPackTypeSecurityLake("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputSecurityLake) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputSecurityLake) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputSecurityLake) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputSecurityLake) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputSecurityLake) GetEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputSecurityLake) GetEnableAssumeRole() *bool {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetEnableAssumeRole() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableAssumeRole
 }
 
-func (c *CreateOutputOutputSecurityLake) GetAssumeRoleArn() string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetAssumeRoleArn() string {
 	if c == nil {
 		return ""
 	}
 	return c.AssumeRoleArn
 }
 
-func (c *CreateOutputOutputSecurityLake) GetAssumeRoleExternalID() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleExternalID
 }
 
-func (c *CreateOutputOutputSecurityLake) GetDurationSeconds() *float64 {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetDurationSeconds() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DurationSeconds
 }
 
-func (c *CreateOutputOutputSecurityLake) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateOutputOutputSecurityLake) GetReuseConnections() *bool {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateOutputOutputSecurityLake) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputSecurityLake) GetBucket() string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetBucket() string {
 	if c == nil {
 		return ""
 	}
 	return c.Bucket
 }
 
-func (c *CreateOutputOutputSecurityLake) GetRegion() string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetRegion() string {
 	if c == nil {
 		return ""
 	}
 	return c.Region
 }
 
-func (c *CreateOutputOutputSecurityLake) GetMaxConcurrentFileParts() *float64 {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetMaxConcurrentFileParts() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxConcurrentFileParts
 }
 
-func (c *CreateOutputOutputSecurityLake) GetVerifyPermissions() *bool {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetVerifyPermissions() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.VerifyPermissions
 }
 
-func (c *CreateOutputOutputSecurityLake) GetMaxClosingFilesToBackpressure() *float64 {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetMaxClosingFilesToBackpressure() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxClosingFilesToBackpressure
 }
 
-func (c *CreateOutputOutputSecurityLake) GetStagePath() string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetStagePath() string {
 	if c == nil {
 		return ""
 	}
 	return c.StagePath
 }
 
-func (c *CreateOutputOutputSecurityLake) GetAddIDToStagePath() *bool {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetAddIDToStagePath() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AddIDToStagePath
 }
 
-func (c *CreateOutputOutputSecurityLake) GetRemoveEmptyDirs() *bool {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetRemoveEmptyDirs() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RemoveEmptyDirs
 }
 
-func (c *CreateOutputOutputSecurityLake) GetBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.BaseFileName
 }
 
-func (c *CreateOutputOutputSecurityLake) GetMaxFileSizeMB() *float64 {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetMaxFileSizeMB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileSizeMB
 }
 
-func (c *CreateOutputOutputSecurityLake) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetMaxFileOpenTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileOpenTimeSec
 }
 
-func (c *CreateOutputOutputSecurityLake) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetMaxFileIdleTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileIdleTimeSec
 }
 
-func (c *CreateOutputOutputSecurityLake) GetMaxOpenFiles() *float64 {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetMaxOpenFiles() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxOpenFiles
 }
 
-func (c *CreateOutputOutputSecurityLake) GetHeaderLine() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetHeaderLine() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HeaderLine
 }
 
-func (c *CreateOutputOutputSecurityLake) GetWriteHighWaterMark() *float64 {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetWriteHighWaterMark() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputOutputSecurityLake) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputSecurityLake) GetDeadletterEnabled() *bool {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetDeadletterEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterEnabled
 }
 
-func (c *CreateOutputOutputSecurityLake) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnDiskFullBackpressure
 }
 
-func (c *CreateOutputOutputSecurityLake) GetForceCloseOnShutdown() *bool {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetForceCloseOnShutdown() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ForceCloseOnShutdown
 }
 
-func (c *CreateOutputOutputSecurityLake) GetRetrySettings() *components.RetrySettingsType {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetRetrySettings() *components.RetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.RetrySettings
 }
 
-func (c *CreateOutputOutputSecurityLake) GetOrphans() *components.OrphanFileRecoveryType {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetOrphans() *components.OrphanFileRecoveryType {
 	if c == nil {
 		return nil
 	}
 	return c.Orphans
 }
 
-func (c *CreateOutputOutputSecurityLake) GetAwsSecretKey() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecretKey
 }
 
-func (c *CreateOutputOutputSecurityLake) GetObjectACL() *components.ObjectACLOptions {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetObjectACL() *components.ObjectACLOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ObjectACL
 }
 
-func (c *CreateOutputOutputSecurityLake) GetStorageClass() *components.StorageClassOptions {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetStorageClass() *components.StorageClassOptions {
 	if c == nil {
 		return nil
 	}
 	return c.StorageClass
 }
 
-func (c *CreateOutputOutputSecurityLake) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ServerSideEncryption
 }
 
-func (c *CreateOutputOutputSecurityLake) GetKmsKeyID() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetKmsKeyID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.KmsKeyID
 }
 
-func (c *CreateOutputOutputSecurityLake) GetAccountID() string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetAccountID() string {
 	if c == nil {
 		return ""
 	}
 	return c.AccountID
 }
 
-func (c *CreateOutputOutputSecurityLake) GetCustomSource() string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetCustomSource() string {
 	if c == nil {
 		return ""
 	}
 	return c.CustomSource
 }
 
-func (c *CreateOutputOutputSecurityLake) GetAutomaticSchema() *bool {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetAutomaticSchema() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AutomaticSchema
 }
 
-func (c *CreateOutputOutputSecurityLake) GetParquetVersion() *components.ParquetVersionOptions {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetParquetVersion() *components.ParquetVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetVersion
 }
 
-func (c *CreateOutputOutputSecurityLake) GetParquetDataPageVersion() *components.DataPageVersionOptions {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetParquetDataPageVersion() *components.DataPageVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetDataPageVersion
 }
 
-func (c *CreateOutputOutputSecurityLake) GetParquetRowGroupLength() *float64 {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetParquetRowGroupLength() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetRowGroupLength
 }
 
-func (c *CreateOutputOutputSecurityLake) GetParquetPageSize() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetParquetPageSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetPageSize
 }
 
-func (c *CreateOutputOutputSecurityLake) GetShouldLogInvalidRows() *bool {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetShouldLogInvalidRows() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputOutputSecurityLake) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
 	return c.KeyValueMetadata
 }
 
-func (c *CreateOutputOutputSecurityLake) GetEnableStatistics() *bool {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetEnableStatistics() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableStatistics
 }
 
-func (c *CreateOutputOutputSecurityLake) GetEnableWritePageIndex() *bool {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetEnableWritePageIndex() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableWritePageIndex
 }
 
-func (c *CreateOutputOutputSecurityLake) GetEnablePageChecksum() *bool {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetEnablePageChecksum() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnablePageChecksum
 }
 
-func (c *CreateOutputOutputSecurityLake) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputSecurityLake) GetAwsAPIKey() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAPIKey
 }
 
-func (c *CreateOutputOutputSecurityLake) GetAwsSecret() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateOutputOutputSecurityLake) GetEmptyDirCleanupSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetEmptyDirCleanupSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.EmptyDirCleanupSec
 }
 
-func (c *CreateOutputOutputSecurityLake) GetDirectoryBatchSize() *float64 {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetDirectoryBatchSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DirectoryBatchSize
 }
 
-func (c *CreateOutputOutputSecurityLake) GetParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetSchema
 }
 
-func (c *CreateOutputOutputSecurityLake) GetDeadletterPath() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetDeadletterPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterPath
 }
 
-func (c *CreateOutputOutputSecurityLake) GetMaxRetryNum() *float64 {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetMaxRetryNum() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRetryNum
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateAssumeRoleArn() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleArn
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateAssumeRoleExternalID() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateBucket() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateBucket() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBucket
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateRegion() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateRegion
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBaseFileName
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateAwsSecretKey() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsSecretKey
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateObjectACL() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateObjectACL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateObjectACL
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateStorageClass() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateStorageClass() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStorageClass
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateServerSideEncryption() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateServerSideEncryption() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateServerSideEncryption
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateKmsKeyID() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateKmsKeyID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateKmsKeyID
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateAccountID() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateAccountID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAccountID
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateCustomSource() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateCustomSource() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateCustomSource
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateAwsAPIKey() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAPIKey
 }
 
-func (c *CreateOutputOutputSecurityLake) GetTemplateParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputSecurityLake) GetTemplateParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateParquetSchema
 }
 
-type CreateOutputTypeDlS3 string
+type CreateOutputSystemByPackTypeDlS3 string
 
 const (
-	CreateOutputTypeDlS3DlS3 CreateOutputTypeDlS3 = "dl_s3"
+	CreateOutputSystemByPackTypeDlS3DlS3 CreateOutputSystemByPackTypeDlS3 = "dl_s3"
 )
 
-func (e CreateOutputTypeDlS3) ToPointer() *CreateOutputTypeDlS3 {
+func (e CreateOutputSystemByPackTypeDlS3) ToPointer() *CreateOutputSystemByPackTypeDlS3 {
 	return &e
 }
-func (e *CreateOutputTypeDlS3) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeDlS3) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "dl_s3":
-		*e = CreateOutputTypeDlS3(v)
+		*e = CreateOutputSystemByPackTypeDlS3(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeDlS3: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeDlS3: %v", v)
 	}
 }
 
-type CreateOutputOutputDlS3 struct {
+type CreateOutputSystemByPackOutputDlS3 struct {
 	// Unique ID for this output
-	ID   string               `json:"id"`
-	Type CreateOutputTypeDlS3 `json:"type"`
+	ID   string                           `json:"id"`
+	Type CreateOutputSystemByPackTypeDlS3 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -11904,649 +12534,649 @@ type CreateOutputOutputDlS3 struct {
 	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
-func (c CreateOutputOutputDlS3) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputDlS3) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputDlS3) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputDlS3) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputDlS3) GetID() string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputDlS3) GetType() CreateOutputTypeDlS3 {
+func (c *CreateOutputSystemByPackOutputDlS3) GetType() CreateOutputSystemByPackTypeDlS3 {
 	if c == nil {
-		return CreateOutputTypeDlS3("")
+		return CreateOutputSystemByPackTypeDlS3("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputDlS3) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputDlS3) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputDlS3) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputDlS3) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputDlS3) GetEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputDlS3) GetEnableAssumeRole() *bool {
+func (c *CreateOutputSystemByPackOutputDlS3) GetEnableAssumeRole() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableAssumeRole
 }
 
-func (c *CreateOutputOutputDlS3) GetAssumeRoleArn() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleArn
 }
 
-func (c *CreateOutputOutputDlS3) GetAssumeRoleExternalID() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleExternalID
 }
 
-func (c *CreateOutputOutputDlS3) GetDurationSeconds() *float64 {
+func (c *CreateOutputSystemByPackOutputDlS3) GetDurationSeconds() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DurationSeconds
 }
 
-func (c *CreateOutputOutputDlS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (c *CreateOutputSystemByPackOutputDlS3) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateOutputOutputDlS3) GetReuseConnections() *bool {
+func (c *CreateOutputSystemByPackOutputDlS3) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateOutputOutputDlS3) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputDlS3) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputDlS3) GetBucket() string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetBucket() string {
 	if c == nil {
 		return ""
 	}
 	return c.Bucket
 }
 
-func (c *CreateOutputOutputDlS3) GetRegion() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Region
 }
 
-func (c *CreateOutputOutputDlS3) GetDestPath() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DestPath
 }
 
-func (c *CreateOutputOutputDlS3) GetMaxConcurrentFileParts() *float64 {
+func (c *CreateOutputSystemByPackOutputDlS3) GetMaxConcurrentFileParts() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxConcurrentFileParts
 }
 
-func (c *CreateOutputOutputDlS3) GetVerifyPermissions() *bool {
+func (c *CreateOutputSystemByPackOutputDlS3) GetVerifyPermissions() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.VerifyPermissions
 }
 
-func (c *CreateOutputOutputDlS3) GetMaxClosingFilesToBackpressure() *float64 {
+func (c *CreateOutputSystemByPackOutputDlS3) GetMaxClosingFilesToBackpressure() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxClosingFilesToBackpressure
 }
 
-func (c *CreateOutputOutputDlS3) GetStagePath() string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetStagePath() string {
 	if c == nil {
 		return ""
 	}
 	return c.StagePath
 }
 
-func (c *CreateOutputOutputDlS3) GetAddIDToStagePath() *bool {
+func (c *CreateOutputSystemByPackOutputDlS3) GetAddIDToStagePath() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AddIDToStagePath
 }
 
-func (c *CreateOutputOutputDlS3) GetRemoveEmptyDirs() *bool {
+func (c *CreateOutputSystemByPackOutputDlS3) GetRemoveEmptyDirs() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RemoveEmptyDirs
 }
 
-func (c *CreateOutputOutputDlS3) GetFormat() *components.DataFormatOptions {
+func (c *CreateOutputSystemByPackOutputDlS3) GetFormat() *components.DataFormatOptions {
 	if c == nil {
 		return nil
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputDlS3) GetBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.BaseFileName
 }
 
-func (c *CreateOutputOutputDlS3) GetFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.FileNameSuffix
 }
 
-func (c *CreateOutputOutputDlS3) GetMaxFileSizeMB() *float64 {
+func (c *CreateOutputSystemByPackOutputDlS3) GetMaxFileSizeMB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileSizeMB
 }
 
-func (c *CreateOutputOutputDlS3) GetMaxFileOpenTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDlS3) GetMaxFileOpenTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileOpenTimeSec
 }
 
-func (c *CreateOutputOutputDlS3) GetMaxFileIdleTimeSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDlS3) GetMaxFileIdleTimeSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxFileIdleTimeSec
 }
 
-func (c *CreateOutputOutputDlS3) GetMaxOpenFiles() *float64 {
+func (c *CreateOutputSystemByPackOutputDlS3) GetMaxOpenFiles() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxOpenFiles
 }
 
-func (c *CreateOutputOutputDlS3) GetHeaderLine() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetHeaderLine() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HeaderLine
 }
 
-func (c *CreateOutputOutputDlS3) GetWriteHighWaterMark() *float64 {
+func (c *CreateOutputSystemByPackOutputDlS3) GetWriteHighWaterMark() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.WriteHighWaterMark
 }
 
-func (c *CreateOutputOutputDlS3) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
+func (c *CreateOutputSystemByPackOutputDlS3) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputDlS3) GetDeadletterEnabled() *bool {
+func (c *CreateOutputSystemByPackOutputDlS3) GetDeadletterEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterEnabled
 }
 
-func (c *CreateOutputOutputDlS3) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
+func (c *CreateOutputSystemByPackOutputDlS3) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnDiskFullBackpressure
 }
 
-func (c *CreateOutputOutputDlS3) GetForceCloseOnShutdown() *bool {
+func (c *CreateOutputSystemByPackOutputDlS3) GetForceCloseOnShutdown() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ForceCloseOnShutdown
 }
 
-func (c *CreateOutputOutputDlS3) GetRetrySettings() *components.RetrySettingsType {
+func (c *CreateOutputSystemByPackOutputDlS3) GetRetrySettings() *components.RetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.RetrySettings
 }
 
-func (c *CreateOutputOutputDlS3) GetOrphans() *components.OrphanFileRecoveryType {
+func (c *CreateOutputSystemByPackOutputDlS3) GetOrphans() *components.OrphanFileRecoveryType {
 	if c == nil {
 		return nil
 	}
 	return c.Orphans
 }
 
-func (c *CreateOutputOutputDlS3) GetAwsSecretKey() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecretKey
 }
 
-func (c *CreateOutputOutputDlS3) GetObjectACL() *components.ObjectACLOptions {
+func (c *CreateOutputSystemByPackOutputDlS3) GetObjectACL() *components.ObjectACLOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ObjectACL
 }
 
-func (c *CreateOutputOutputDlS3) GetStorageClass() *components.StorageClassOptions {
+func (c *CreateOutputSystemByPackOutputDlS3) GetStorageClass() *components.StorageClassOptions {
 	if c == nil {
 		return nil
 	}
 	return c.StorageClass
 }
 
-func (c *CreateOutputOutputDlS3) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
+func (c *CreateOutputSystemByPackOutputDlS3) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ServerSideEncryption
 }
 
-func (c *CreateOutputOutputDlS3) GetKmsKeyID() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetKmsKeyID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.KmsKeyID
 }
 
-func (c *CreateOutputOutputDlS3) GetPartitioningFields() []string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetPartitioningFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.PartitioningFields
 }
 
-func (c *CreateOutputOutputDlS3) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputDlS3) GetAwsAPIKey() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAPIKey
 }
 
-func (c *CreateOutputOutputDlS3) GetAwsSecret() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateOutputOutputDlS3) GetCompress() *components.CompressionOptionsHTTP {
+func (c *CreateOutputSystemByPackOutputDlS3) GetCompress() *components.CompressionOptionsHTTP {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputDlS3) GetCompressionLevel() *components.CompressionLevelOptions {
+func (c *CreateOutputSystemByPackOutputDlS3) GetCompressionLevel() *components.CompressionLevelOptions {
 	if c == nil {
 		return nil
 	}
 	return c.CompressionLevel
 }
 
-func (c *CreateOutputOutputDlS3) GetAutomaticSchema() *bool {
+func (c *CreateOutputSystemByPackOutputDlS3) GetAutomaticSchema() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AutomaticSchema
 }
 
-func (c *CreateOutputOutputDlS3) GetParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetSchema
 }
 
-func (c *CreateOutputOutputDlS3) GetParquetVersion() *components.ParquetVersionOptions {
+func (c *CreateOutputSystemByPackOutputDlS3) GetParquetVersion() *components.ParquetVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetVersion
 }
 
-func (c *CreateOutputOutputDlS3) GetParquetDataPageVersion() *components.DataPageVersionOptions {
+func (c *CreateOutputSystemByPackOutputDlS3) GetParquetDataPageVersion() *components.DataPageVersionOptions {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetDataPageVersion
 }
 
-func (c *CreateOutputOutputDlS3) GetParquetRowGroupLength() *float64 {
+func (c *CreateOutputSystemByPackOutputDlS3) GetParquetRowGroupLength() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetRowGroupLength
 }
 
-func (c *CreateOutputOutputDlS3) GetParquetPageSize() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetParquetPageSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ParquetPageSize
 }
 
-func (c *CreateOutputOutputDlS3) GetShouldLogInvalidRows() *bool {
+func (c *CreateOutputSystemByPackOutputDlS3) GetShouldLogInvalidRows() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputOutputDlS3) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
+func (c *CreateOutputSystemByPackOutputDlS3) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
 	return c.KeyValueMetadata
 }
 
-func (c *CreateOutputOutputDlS3) GetEnableStatistics() *bool {
+func (c *CreateOutputSystemByPackOutputDlS3) GetEnableStatistics() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableStatistics
 }
 
-func (c *CreateOutputOutputDlS3) GetEnableWritePageIndex() *bool {
+func (c *CreateOutputSystemByPackOutputDlS3) GetEnableWritePageIndex() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableWritePageIndex
 }
 
-func (c *CreateOutputOutputDlS3) GetEnablePageChecksum() *bool {
+func (c *CreateOutputSystemByPackOutputDlS3) GetEnablePageChecksum() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnablePageChecksum
 }
 
-func (c *CreateOutputOutputDlS3) GetEmptyDirCleanupSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDlS3) GetEmptyDirCleanupSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.EmptyDirCleanupSec
 }
 
-func (c *CreateOutputOutputDlS3) GetDirectoryBatchSize() *float64 {
+func (c *CreateOutputSystemByPackOutputDlS3) GetDirectoryBatchSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DirectoryBatchSize
 }
 
-func (c *CreateOutputOutputDlS3) GetDeadletterPath() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetDeadletterPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DeadletterPath
 }
 
-func (c *CreateOutputOutputDlS3) GetMaxRetryNum() *float64 {
+func (c *CreateOutputSystemByPackOutputDlS3) GetMaxRetryNum() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRetryNum
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateAssumeRoleArn() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleArn
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateAssumeRoleExternalID() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateBucket() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateBucket() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBucket
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateRegion() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateRegion
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateDestPath() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateDestPath
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateFormat() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateFormat() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFormat
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateBaseFileName() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateBaseFileName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateBaseFileName
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateFileNameSuffix() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateFileNameSuffix() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFileNameSuffix
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateAwsSecretKey() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsSecretKey
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateObjectACL() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateObjectACL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateObjectACL
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateStorageClass() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateStorageClass() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStorageClass
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateServerSideEncryption() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateServerSideEncryption() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateServerSideEncryption
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateKmsKeyID() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateKmsKeyID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateKmsKeyID
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplatePartitioningFields() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplatePartitioningFields() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePartitioningFields
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateAwsAPIKey() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAPIKey
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateCompress() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateCompress() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateCompress
 }
 
-func (c *CreateOutputOutputDlS3) GetTemplateParquetSchema() *string {
+func (c *CreateOutputSystemByPackOutputDlS3) GetTemplateParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateParquetSchema
 }
 
-// #region class-body-createoutputoutputdls3
-// #endregion class-body-createoutputoutputdls3
+// #region class-body-createoutputsystembypackoutputdls3
+// #endregion class-body-createoutputsystembypackoutputdls3
 
-type CreateOutputTypeCrowdstrikeNextGenSiem string
+type CreateOutputSystemByPackTypeCrowdstrikeNextGenSiem string
 
 const (
-	CreateOutputTypeCrowdstrikeNextGenSiemCrowdstrikeNextGenSiem CreateOutputTypeCrowdstrikeNextGenSiem = "crowdstrike_next_gen_siem"
+	CreateOutputSystemByPackTypeCrowdstrikeNextGenSiemCrowdstrikeNextGenSiem CreateOutputSystemByPackTypeCrowdstrikeNextGenSiem = "crowdstrike_next_gen_siem"
 )
 
-func (e CreateOutputTypeCrowdstrikeNextGenSiem) ToPointer() *CreateOutputTypeCrowdstrikeNextGenSiem {
+func (e CreateOutputSystemByPackTypeCrowdstrikeNextGenSiem) ToPointer() *CreateOutputSystemByPackTypeCrowdstrikeNextGenSiem {
 	return &e
 }
-func (e *CreateOutputTypeCrowdstrikeNextGenSiem) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeCrowdstrikeNextGenSiem) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "crowdstrike_next_gen_siem":
-		*e = CreateOutputTypeCrowdstrikeNextGenSiem(v)
+		*e = CreateOutputSystemByPackTypeCrowdstrikeNextGenSiem(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeCrowdstrikeNextGenSiem: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeCrowdstrikeNextGenSiem: %v", v)
 	}
 }
 
-type CreateOutputPqControlsCrowdstrikeNextGenSiem struct {
+type CreateOutputSystemByPackPqControlsCrowdstrikeNextGenSiem struct {
 }
 
-func (c CreateOutputPqControlsCrowdstrikeNextGenSiem) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsCrowdstrikeNextGenSiem) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsCrowdstrikeNextGenSiem) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsCrowdstrikeNextGenSiem) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputCrowdstrikeNextGenSiem struct {
+type CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem struct {
 	// Unique ID for this output
-	ID   string                                 `json:"id"`
-	Type CreateOutputTypeCrowdstrikeNextGenSiem `json:"type"`
+	ID   string                                             `json:"id"`
+	Type CreateOutputSystemByPackTypeCrowdstrikeNextGenSiem `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -12618,8 +13248,8 @@ type CreateOutputOutputCrowdstrikeNextGenSiem struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                                       `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsCrowdstrikeNextGenSiem `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                                   `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsCrowdstrikeNextGenSiem `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
@@ -12630,359 +13260,359 @@ type CreateOutputOutputCrowdstrikeNextGenSiem struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (c CreateOutputOutputCrowdstrikeNextGenSiem) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetID() string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetType() CreateOutputTypeCrowdstrikeNextGenSiem {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetType() CreateOutputSystemByPackTypeCrowdstrikeNextGenSiem {
 	if c == nil {
-		return CreateOutputTypeCrowdstrikeNextGenSiem("")
+		return CreateOutputSystemByPackTypeCrowdstrikeNextGenSiem("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetURL() string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetURL() string {
 	if c == nil {
 		return ""
 	}
 	return c.URL
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetCompress() *bool {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetCompress() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetFormat() components.RequestFormatOptions {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetFormat() components.RequestFormatOptions {
 	if c == nil {
 		return components.RequestFormatOptions("")
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetToken() *string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetToken() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Token
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetTextSecret() *string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetPqControls() *CreateOutputPqControlsCrowdstrikeNextGenSiem {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetPqControls() *CreateOutputSystemByPackPqControlsCrowdstrikeNextGenSiem {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetTemplateURL() *string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetTemplateURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateURL
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputCrowdstrikeNextGenSiem) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputCrowdstrikeNextGenSiem) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-type CreateOutputTypeHumioHec string
+type CreateOutputSystemByPackTypeHumioHec string
 
 const (
-	CreateOutputTypeHumioHecHumioHec CreateOutputTypeHumioHec = "humio_hec"
+	CreateOutputSystemByPackTypeHumioHecHumioHec CreateOutputSystemByPackTypeHumioHec = "humio_hec"
 )
 
-func (e CreateOutputTypeHumioHec) ToPointer() *CreateOutputTypeHumioHec {
+func (e CreateOutputSystemByPackTypeHumioHec) ToPointer() *CreateOutputSystemByPackTypeHumioHec {
 	return &e
 }
-func (e *CreateOutputTypeHumioHec) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeHumioHec) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "humio_hec":
-		*e = CreateOutputTypeHumioHec(v)
+		*e = CreateOutputSystemByPackTypeHumioHec(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeHumioHec: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeHumioHec: %v", v)
 	}
 }
 
-type CreateOutputPqControlsHumioHec struct {
+type CreateOutputSystemByPackPqControlsHumioHec struct {
 }
 
-func (c CreateOutputPqControlsHumioHec) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsHumioHec) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsHumioHec) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsHumioHec) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputHumioHec struct {
+type CreateOutputSystemByPackOutputHumioHec struct {
 	// Unique ID for this output
-	ID   string                   `json:"id"`
-	Type CreateOutputTypeHumioHec `json:"type"`
+	ID   string                               `json:"id"`
+	Type CreateOutputSystemByPackTypeHumioHec `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -13054,8 +13684,8 @@ type CreateOutputOutputHumioHec struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                         `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsHumioHec `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                     `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsHumioHec `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
@@ -13066,359 +13696,359 @@ type CreateOutputOutputHumioHec struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (c CreateOutputOutputHumioHec) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputHumioHec) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputHumioHec) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputHumioHec) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputHumioHec) GetID() string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputHumioHec) GetType() CreateOutputTypeHumioHec {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetType() CreateOutputSystemByPackTypeHumioHec {
 	if c == nil {
-		return CreateOutputTypeHumioHec("")
+		return CreateOutputSystemByPackTypeHumioHec("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputHumioHec) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputHumioHec) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputHumioHec) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputHumioHec) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputHumioHec) GetURL() string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetURL() string {
 	if c == nil {
 		return ""
 	}
 	return c.URL
 }
 
-func (c *CreateOutputOutputHumioHec) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputHumioHec) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputHumioHec) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputHumioHec) GetCompress() *bool {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetCompress() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputHumioHec) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputHumioHec) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputHumioHec) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputHumioHec) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputHumioHec) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputHumioHec) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputHumioHec) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputHumioHec) GetFormat() components.RequestFormatOptions {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetFormat() components.RequestFormatOptions {
 	if c == nil {
 		return components.RequestFormatOptions("")
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputHumioHec) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetAuthType() *components.AuthenticationMethodOptionsAuthTokensItems {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateOutputOutputHumioHec) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputHumioHec) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputHumioHec) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputHumioHec) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputHumioHec) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputHumioHec) GetToken() *string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetToken() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Token
 }
 
-func (c *CreateOutputOutputHumioHec) GetTextSecret() *string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateOutputOutputHumioHec) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputHumioHec) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputHumioHec) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputHumioHec) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputHumioHec) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputHumioHec) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputHumioHec) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputHumioHec) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputHumioHec) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputHumioHec) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputHumioHec) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputHumioHec) GetPqControls() *CreateOutputPqControlsHumioHec {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetPqControls() *CreateOutputSystemByPackPqControlsHumioHec {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputHumioHec) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputHumioHec) GetTemplateURL() *string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetTemplateURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateURL
 }
 
-func (c *CreateOutputOutputHumioHec) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputHumioHec) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputHumioHec) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-type CreateOutputTypeCriblSearchEngine string
+type CreateOutputSystemByPackTypeCriblSearchEngine string
 
 const (
-	CreateOutputTypeCriblSearchEngineCriblSearchEngine CreateOutputTypeCriblSearchEngine = "cribl_search_engine"
+	CreateOutputSystemByPackTypeCriblSearchEngineCriblSearchEngine CreateOutputSystemByPackTypeCriblSearchEngine = "cribl_search_engine"
 )
 
-func (e CreateOutputTypeCriblSearchEngine) ToPointer() *CreateOutputTypeCriblSearchEngine {
+func (e CreateOutputSystemByPackTypeCriblSearchEngine) ToPointer() *CreateOutputSystemByPackTypeCriblSearchEngine {
 	return &e
 }
-func (e *CreateOutputTypeCriblSearchEngine) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeCriblSearchEngine) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "cribl_search_engine":
-		*e = CreateOutputTypeCriblSearchEngine(v)
+		*e = CreateOutputSystemByPackTypeCriblSearchEngine(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeCriblSearchEngine: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeCriblSearchEngine: %v", v)
 	}
 }
 
-type CreateOutputPqControlsCriblSearchEngine struct {
+type CreateOutputSystemByPackPqControlsCriblSearchEngine struct {
 }
 
-func (c CreateOutputPqControlsCriblSearchEngine) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsCriblSearchEngine) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsCriblSearchEngine) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsCriblSearchEngine) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputCriblSearchEngine struct {
+type CreateOutputSystemByPackOutputCriblSearchEngine struct {
 	// Unique ID for this output
-	ID   string                            `json:"id"`
-	Type CreateOutputTypeCriblSearchEngine `json:"type"`
+	ID   string                                        `json:"id"`
+	Type CreateOutputSystemByPackTypeCriblSearchEngine `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -13500,8 +14130,8 @@ type CreateOutputOutputCriblSearchEngine struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                                  `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsCriblSearchEngine `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                              `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsCriblSearchEngine `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
@@ -13512,401 +14142,401 @@ type CreateOutputOutputCriblSearchEngine struct {
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
 
-func (c CreateOutputOutputCriblSearchEngine) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputCriblSearchEngine) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetID() string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetType() CreateOutputTypeCriblSearchEngine {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetType() CreateOutputSystemByPackTypeCriblSearchEngine {
 	if c == nil {
-		return CreateOutputTypeCriblSearchEngine("")
+		return CreateOutputSystemByPackTypeCriblSearchEngine("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetLoadBalanced() *bool {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetLoadBalanced() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.LoadBalanced
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPath {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPath {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetTokenTTLMinutes() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetTokenTTLMinutes() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TokenTTLMinutes
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetExcludeFields() []string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetExcludeFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.ExcludeFields
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetCompression() *components.CompressionOptionsGzipNone {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetCompression() *components.CompressionOptionsGzipNone {
 	if c == nil {
 		return nil
 	}
 	return c.Compression
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetThrottleRatePerSec() *string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetThrottleRatePerSec() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ThrottleRatePerSec
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetAuthTokens() []components.AuthTokenConfOutputCriblHTTP {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetAuthTokens() []components.AuthTokenConfOutputCriblHTTP {
 	if c == nil {
 		return nil
 	}
 	return c.AuthTokens
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetURL() *string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.URL
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetExcludeSelf() *bool {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetExcludeSelf() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ExcludeSelf
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetUrls() []components.URLConfOutputCriblHTTP {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetUrls() []components.URLConfOutputCriblHTTP {
 	if c == nil {
 		return nil
 	}
 	return c.Urls
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetDNSResolvePeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetDNSResolvePeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DNSResolvePeriodSec
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetLoadBalanceStatsPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetLoadBalanceStatsPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.LoadBalanceStatsPeriodSec
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetPqControls() *CreateOutputPqControlsCriblSearchEngine {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetPqControls() *CreateOutputSystemByPackPqControlsCriblSearchEngine {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputCriblSearchEngine) GetTemplateURL() *string {
+func (c *CreateOutputSystemByPackOutputCriblSearchEngine) GetTemplateURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateURL
 }
 
-type CreateOutputTypeCriblHTTP string
+type CreateOutputSystemByPackTypeCriblHTTP string
 
 const (
-	CreateOutputTypeCriblHTTPCriblHTTP CreateOutputTypeCriblHTTP = "cribl_http"
+	CreateOutputSystemByPackTypeCriblHTTPCriblHTTP CreateOutputSystemByPackTypeCriblHTTP = "cribl_http"
 )
 
-func (e CreateOutputTypeCriblHTTP) ToPointer() *CreateOutputTypeCriblHTTP {
+func (e CreateOutputSystemByPackTypeCriblHTTP) ToPointer() *CreateOutputSystemByPackTypeCriblHTTP {
 	return &e
 }
-func (e *CreateOutputTypeCriblHTTP) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeCriblHTTP) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "cribl_http":
-		*e = CreateOutputTypeCriblHTTP(v)
+		*e = CreateOutputSystemByPackTypeCriblHTTP(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeCriblHTTP: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeCriblHTTP: %v", v)
 	}
 }
 
-type CreateOutputPqControlsCriblHTTP struct {
+type CreateOutputSystemByPackPqControlsCriblHTTP struct {
 }
 
-func (c CreateOutputPqControlsCriblHTTP) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsCriblHTTP) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsCriblHTTP) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsCriblHTTP) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputCriblHTTP struct {
+type CreateOutputSystemByPackOutputCriblHTTP struct {
 	// Unique ID for this output
-	ID   string                    `json:"id"`
-	Type CreateOutputTypeCriblHTTP `json:"type"`
+	ID   string                                `json:"id"`
+	Type CreateOutputSystemByPackTypeCriblHTTP `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -13988,8 +14618,8 @@ type CreateOutputOutputCriblHTTP struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                          `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsCriblHTTP `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                      `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsCriblHTTP `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
@@ -14000,401 +14630,401 @@ type CreateOutputOutputCriblHTTP struct {
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
 
-func (c CreateOutputOutputCriblHTTP) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputCriblHTTP) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputCriblHTTP) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetID() string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetType() CreateOutputTypeCriblHTTP {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetType() CreateOutputSystemByPackTypeCriblHTTP {
 	if c == nil {
-		return CreateOutputTypeCriblHTTP("")
+		return CreateOutputSystemByPackTypeCriblHTTP("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetLoadBalanced() *bool {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetLoadBalanced() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.LoadBalanced
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPath {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPath {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetTokenTTLMinutes() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetTokenTTLMinutes() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TokenTTLMinutes
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetExcludeFields() []string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetExcludeFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.ExcludeFields
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetCompression() *components.CompressionOptionsGzipNone {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetCompression() *components.CompressionOptionsGzipNone {
 	if c == nil {
 		return nil
 	}
 	return c.Compression
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetThrottleRatePerSec() *string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetThrottleRatePerSec() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ThrottleRatePerSec
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetAuthTokens() []components.AuthTokenConfOutputCriblHTTP {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetAuthTokens() []components.AuthTokenConfOutputCriblHTTP {
 	if c == nil {
 		return nil
 	}
 	return c.AuthTokens
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetURL() *string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.URL
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetExcludeSelf() *bool {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetExcludeSelf() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ExcludeSelf
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetUrls() []components.URLConfOutputCriblHTTP {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetUrls() []components.URLConfOutputCriblHTTP {
 	if c == nil {
 		return nil
 	}
 	return c.Urls
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetDNSResolvePeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetDNSResolvePeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DNSResolvePeriodSec
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetLoadBalanceStatsPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetLoadBalanceStatsPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.LoadBalanceStatsPeriodSec
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetPqControls() *CreateOutputPqControlsCriblHTTP {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetPqControls() *CreateOutputSystemByPackPqControlsCriblHTTP {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputCriblHTTP) GetTemplateURL() *string {
+func (c *CreateOutputSystemByPackOutputCriblHTTP) GetTemplateURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateURL
 }
 
-type CreateOutputTypeCriblTCP string
+type CreateOutputSystemByPackTypeCriblTCP string
 
 const (
-	CreateOutputTypeCriblTCPCriblTCP CreateOutputTypeCriblTCP = "cribl_tcp"
+	CreateOutputSystemByPackTypeCriblTCPCriblTCP CreateOutputSystemByPackTypeCriblTCP = "cribl_tcp"
 )
 
-func (e CreateOutputTypeCriblTCP) ToPointer() *CreateOutputTypeCriblTCP {
+func (e CreateOutputSystemByPackTypeCriblTCP) ToPointer() *CreateOutputSystemByPackTypeCriblTCP {
 	return &e
 }
-func (e *CreateOutputTypeCriblTCP) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeCriblTCP) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "cribl_tcp":
-		*e = CreateOutputTypeCriblTCP(v)
+		*e = CreateOutputSystemByPackTypeCriblTCP(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeCriblTCP: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeCriblTCP: %v", v)
 	}
 }
 
-type CreateOutputPqControlsCriblTCP struct {
+type CreateOutputSystemByPackPqControlsCriblTCP struct {
 }
 
-func (c CreateOutputPqControlsCriblTCP) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsCriblTCP) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsCriblTCP) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsCriblTCP) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputCriblTCP struct {
+type CreateOutputSystemByPackOutputCriblTCP struct {
 	// Unique ID for this output
-	ID   string                   `json:"id"`
-	Type CreateOutputTypeCriblTCP `json:"type"`
+	ID   string                               `json:"id"`
+	Type CreateOutputSystemByPackTypeCriblTCP `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -14460,8 +15090,8 @@ type CreateOutputOutputCriblTCP struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                         `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsCriblTCP `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                     `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsCriblTCP `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -14472,353 +15102,353 @@ type CreateOutputOutputCriblTCP struct {
 	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (c CreateOutputOutputCriblTCP) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputCriblTCP) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputCriblTCP) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputCriblTCP) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputCriblTCP) GetID() string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputCriblTCP) GetType() CreateOutputTypeCriblTCP {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetType() CreateOutputSystemByPackTypeCriblTCP {
 	if c == nil {
-		return CreateOutputTypeCriblTCP("")
+		return CreateOutputSystemByPackTypeCriblTCP("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputCriblTCP) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputCriblTCP) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputCriblTCP) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputCriblTCP) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputCriblTCP) GetLoadBalanced() *bool {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetLoadBalanced() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.LoadBalanced
 }
 
-func (c *CreateOutputOutputCriblTCP) GetCompression() *components.CompressionOptionsGzipNone {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetCompression() *components.CompressionOptionsGzipNone {
 	if c == nil {
 		return nil
 	}
 	return c.Compression
 }
 
-func (c *CreateOutputOutputCriblTCP) GetLogFailedRequests() *bool {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetLogFailedRequests() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.LogFailedRequests
 }
 
-func (c *CreateOutputOutputCriblTCP) GetThrottleRatePerSec() *string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetThrottleRatePerSec() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ThrottleRatePerSec
 }
 
-func (c *CreateOutputOutputCriblTCP) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPath {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPath {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateOutputOutputCriblTCP) GetConnectionTimeout() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetConnectionTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ConnectionTimeout
 }
 
-func (c *CreateOutputOutputCriblTCP) GetWriteTimeout() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetWriteTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.WriteTimeout
 }
 
-func (c *CreateOutputOutputCriblTCP) GetTokenTTLMinutes() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetTokenTTLMinutes() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TokenTTLMinutes
 }
 
-func (c *CreateOutputOutputCriblTCP) GetAuthTokens() []components.AuthTokenConfInputCriblTCP {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetAuthTokens() []components.AuthTokenConfInputCriblTCP {
 	if c == nil {
 		return nil
 	}
 	return c.AuthTokens
 }
 
-func (c *CreateOutputOutputCriblTCP) GetExcludeFields() []string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetExcludeFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.ExcludeFields
 }
 
-func (c *CreateOutputOutputCriblTCP) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputCriblTCP) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputCriblTCP) GetHost() *string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Host
 }
 
-func (c *CreateOutputOutputCriblTCP) GetPort() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetPort() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Port
 }
 
-func (c *CreateOutputOutputCriblTCP) GetExcludeSelf() *bool {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetExcludeSelf() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ExcludeSelf
 }
 
-func (c *CreateOutputOutputCriblTCP) GetHosts() []components.HostConfOutputSyslog {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetHosts() []components.HostConfOutputSyslog {
 	if c == nil {
 		return nil
 	}
 	return c.Hosts
 }
 
-func (c *CreateOutputOutputCriblTCP) GetDNSResolvePeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetDNSResolvePeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DNSResolvePeriodSec
 }
 
-func (c *CreateOutputOutputCriblTCP) GetLoadBalanceStatsPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetLoadBalanceStatsPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.LoadBalanceStatsPeriodSec
 }
 
-func (c *CreateOutputOutputCriblTCP) GetMaxConcurrentSenders() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetMaxConcurrentSenders() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxConcurrentSenders
 }
 
-func (c *CreateOutputOutputCriblTCP) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputCriblTCP) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputCriblTCP) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputCriblTCP) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputCriblTCP) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputCriblTCP) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputCriblTCP) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputCriblTCP) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputCriblTCP) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputCriblTCP) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputCriblTCP) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputCriblTCP) GetPqControls() *CreateOutputPqControlsCriblTCP {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetPqControls() *CreateOutputSystemByPackPqControlsCriblTCP {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputCriblTCP) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputCriblTCP) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputCriblTCP) GetTemplateHost() *string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateOutputOutputCriblTCP) GetTemplatePort() *string {
+func (c *CreateOutputSystemByPackOutputCriblTCP) GetTemplatePort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePort
 }
 
-type CreateOutputTypeDataset string
+type CreateOutputSystemByPackTypeDataset string
 
 const (
-	CreateOutputTypeDatasetDataset CreateOutputTypeDataset = "dataset"
+	CreateOutputSystemByPackTypeDatasetDataset CreateOutputSystemByPackTypeDataset = "dataset"
 )
 
-func (e CreateOutputTypeDataset) ToPointer() *CreateOutputTypeDataset {
+func (e CreateOutputSystemByPackTypeDataset) ToPointer() *CreateOutputSystemByPackTypeDataset {
 	return &e
 }
-func (e *CreateOutputTypeDataset) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeDataset) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "dataset":
-		*e = CreateOutputTypeDataset(v)
+		*e = CreateOutputSystemByPackTypeDataset(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeDataset: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeDataset: %v", v)
 	}
 }
 
-// CreateOutputDefaultSeveritySeverity - Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
-type CreateOutputDefaultSeveritySeverity string
+// CreateOutputSystemByPackDefaultSeveritySeverity - Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
+type CreateOutputSystemByPackDefaultSeveritySeverity string
 
 const (
-	// CreateOutputDefaultSeveritySeverityFinest 0 - finest
-	CreateOutputDefaultSeveritySeverityFinest CreateOutputDefaultSeveritySeverity = "finest"
-	// CreateOutputDefaultSeveritySeverityFiner 1 - finer
-	CreateOutputDefaultSeveritySeverityFiner CreateOutputDefaultSeveritySeverity = "finer"
-	// CreateOutputDefaultSeveritySeverityFine 2 - fine
-	CreateOutputDefaultSeveritySeverityFine CreateOutputDefaultSeveritySeverity = "fine"
-	// CreateOutputDefaultSeveritySeverityInfo 3 - info
-	CreateOutputDefaultSeveritySeverityInfo CreateOutputDefaultSeveritySeverity = "info"
-	// CreateOutputDefaultSeveritySeverityWarning 4 - warning
-	CreateOutputDefaultSeveritySeverityWarning CreateOutputDefaultSeveritySeverity = "warning"
-	// CreateOutputDefaultSeveritySeverityError 5 - error
-	CreateOutputDefaultSeveritySeverityError CreateOutputDefaultSeveritySeverity = "error"
-	// CreateOutputDefaultSeveritySeverityFatal 6 - fatal
-	CreateOutputDefaultSeveritySeverityFatal CreateOutputDefaultSeveritySeverity = "fatal"
+	// CreateOutputSystemByPackDefaultSeveritySeverityFinest 0 - finest
+	CreateOutputSystemByPackDefaultSeveritySeverityFinest CreateOutputSystemByPackDefaultSeveritySeverity = "finest"
+	// CreateOutputSystemByPackDefaultSeveritySeverityFiner 1 - finer
+	CreateOutputSystemByPackDefaultSeveritySeverityFiner CreateOutputSystemByPackDefaultSeveritySeverity = "finer"
+	// CreateOutputSystemByPackDefaultSeveritySeverityFine 2 - fine
+	CreateOutputSystemByPackDefaultSeveritySeverityFine CreateOutputSystemByPackDefaultSeveritySeverity = "fine"
+	// CreateOutputSystemByPackDefaultSeveritySeverityInfo 3 - info
+	CreateOutputSystemByPackDefaultSeveritySeverityInfo CreateOutputSystemByPackDefaultSeveritySeverity = "info"
+	// CreateOutputSystemByPackDefaultSeveritySeverityWarning 4 - warning
+	CreateOutputSystemByPackDefaultSeveritySeverityWarning CreateOutputSystemByPackDefaultSeveritySeverity = "warning"
+	// CreateOutputSystemByPackDefaultSeveritySeverityError 5 - error
+	CreateOutputSystemByPackDefaultSeveritySeverityError CreateOutputSystemByPackDefaultSeveritySeverity = "error"
+	// CreateOutputSystemByPackDefaultSeveritySeverityFatal 6 - fatal
+	CreateOutputSystemByPackDefaultSeveritySeverityFatal CreateOutputSystemByPackDefaultSeveritySeverity = "fatal"
 )
 
-func (e CreateOutputDefaultSeveritySeverity) ToPointer() *CreateOutputDefaultSeveritySeverity {
+func (e CreateOutputSystemByPackDefaultSeveritySeverity) ToPointer() *CreateOutputSystemByPackDefaultSeveritySeverity {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputDefaultSeveritySeverity) IsExact() bool {
+func (e *CreateOutputSystemByPackDefaultSeveritySeverity) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "finest", "finer", "fine", "info", "warning", "error", "fatal":
@@ -14828,24 +15458,24 @@ func (e *CreateOutputDefaultSeveritySeverity) IsExact() bool {
 	return false
 }
 
-// CreateOutputDataSetSite - DataSet site to which events should be sent
-type CreateOutputDataSetSite string
+// CreateOutputSystemByPackDataSetSite - DataSet site to which events should be sent
+type CreateOutputSystemByPackDataSetSite string
 
 const (
-	// CreateOutputDataSetSiteUs US
-	CreateOutputDataSetSiteUs CreateOutputDataSetSite = "us"
-	// CreateOutputDataSetSiteEu Europe
-	CreateOutputDataSetSiteEu CreateOutputDataSetSite = "eu"
-	// CreateOutputDataSetSiteCustom Custom
-	CreateOutputDataSetSiteCustom CreateOutputDataSetSite = "custom"
+	// CreateOutputSystemByPackDataSetSiteUs US
+	CreateOutputSystemByPackDataSetSiteUs CreateOutputSystemByPackDataSetSite = "us"
+	// CreateOutputSystemByPackDataSetSiteEu Europe
+	CreateOutputSystemByPackDataSetSiteEu CreateOutputSystemByPackDataSetSite = "eu"
+	// CreateOutputSystemByPackDataSetSiteCustom Custom
+	CreateOutputSystemByPackDataSetSiteCustom CreateOutputSystemByPackDataSetSite = "custom"
 )
 
-func (e CreateOutputDataSetSite) ToPointer() *CreateOutputDataSetSite {
+func (e CreateOutputSystemByPackDataSetSite) ToPointer() *CreateOutputSystemByPackDataSetSite {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputDataSetSite) IsExact() bool {
+func (e *CreateOutputSystemByPackDataSetSite) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "us", "eu", "custom":
@@ -14855,24 +15485,24 @@ func (e *CreateOutputDataSetSite) IsExact() bool {
 	return false
 }
 
-type CreateOutputPqControlsDataset struct {
+type CreateOutputSystemByPackPqControlsDataset struct {
 }
 
-func (c CreateOutputPqControlsDataset) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsDataset) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsDataset) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsDataset) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputDataset struct {
+type CreateOutputSystemByPackOutputDataset struct {
 	// Unique ID for this output
-	ID   string                  `json:"id"`
-	Type CreateOutputTypeDataset `json:"type"`
+	ID   string                              `json:"id"`
+	Type CreateOutputSystemByPackTypeDataset `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -14890,14 +15520,14 @@ type CreateOutputOutputDataset struct {
 	// Name of the event field that contains the timestamp. If not specified, defaults to `ts`, `_time`, or `Date.now()`, in that order.
 	TimestampField *string `json:"timestampField,omitzero"`
 	// Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
-	DefaultSeverity *CreateOutputDefaultSeveritySeverity `json:"defaultSeverity,omitzero"`
+	DefaultSeverity *CreateOutputSystemByPackDefaultSeveritySeverity `json:"defaultSeverity,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
 	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
 	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// DataSet site to which events should be sent
-	Site *CreateOutputDataSetSite `json:"site,omitzero"`
+	Site *CreateOutputSystemByPackDataSetSite `json:"site,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -14951,8 +15581,8 @@ type CreateOutputOutputDataset struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                        `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsDataset `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                    `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsDataset `json:"pqControls,omitzero"`
 	// A 'Log Write Access' API key for the DataSet account
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
@@ -14967,401 +15597,401 @@ type CreateOutputOutputDataset struct {
 	TemplateCustomURL *string `json:"__template_customUrl,omitzero"`
 }
 
-func (c CreateOutputOutputDataset) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputDataset) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputDataset) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputDataset) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputDataset) GetID() string {
+func (c *CreateOutputSystemByPackOutputDataset) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputDataset) GetType() CreateOutputTypeDataset {
+func (c *CreateOutputSystemByPackOutputDataset) GetType() CreateOutputSystemByPackTypeDataset {
 	if c == nil {
-		return CreateOutputTypeDataset("")
+		return CreateOutputSystemByPackTypeDataset("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputDataset) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputDataset) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputDataset) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputDataset) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputDataset) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputDataset) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputDataset) GetMessageField() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetMessageField() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MessageField
 }
 
-func (c *CreateOutputOutputDataset) GetExcludeFields() []string {
+func (c *CreateOutputSystemByPackOutputDataset) GetExcludeFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.ExcludeFields
 }
 
-func (c *CreateOutputOutputDataset) GetServerHostField() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetServerHostField() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ServerHostField
 }
 
-func (c *CreateOutputOutputDataset) GetTimestampField() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetTimestampField() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TimestampField
 }
 
-func (c *CreateOutputOutputDataset) GetDefaultSeverity() *CreateOutputDefaultSeveritySeverity {
+func (c *CreateOutputSystemByPackOutputDataset) GetDefaultSeverity() *CreateOutputSystemByPackDefaultSeveritySeverity {
 	if c == nil {
 		return nil
 	}
 	return c.DefaultSeverity
 }
 
-func (c *CreateOutputOutputDataset) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputDataset) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputDataset) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputDataset) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputDataset) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputDataset) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputDataset) GetSite() *CreateOutputDataSetSite {
+func (c *CreateOutputSystemByPackOutputDataset) GetSite() *CreateOutputSystemByPackDataSetSite {
 	if c == nil {
 		return nil
 	}
 	return c.Site
 }
 
-func (c *CreateOutputOutputDataset) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputDataset) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputDataset) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputDataset) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputDataset) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputDataset) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputDataset) GetCompress() *bool {
+func (c *CreateOutputSystemByPackOutputDataset) GetCompress() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputDataset) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputDataset) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputDataset) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDataset) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputDataset) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDataset) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputDataset) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputDataset) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputDataset) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputDataset) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputDataset) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputDataset) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputDataset) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputDataset) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputDataset) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputDataset) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputDataset) GetAuthType() *components.AuthenticationMethodOptionsAPI {
+func (c *CreateOutputSystemByPackOutputDataset) GetAuthType() *components.AuthenticationMethodOptionsAPI {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateOutputOutputDataset) GetTotalMemoryLimitKB() *float64 {
+func (c *CreateOutputSystemByPackOutputDataset) GetTotalMemoryLimitKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TotalMemoryLimitKB
 }
 
-func (c *CreateOutputOutputDataset) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputDataset) GetCustomURL() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetCustomURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CustomURL
 }
 
-func (c *CreateOutputOutputDataset) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputDataset) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputDataset) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDataset) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputDataset) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputDataset) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputDataset) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputDataset) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputDataset) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDataset) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputDataset) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputDataset) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputDataset) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputDataset) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputDataset) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputDataset) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputDataset) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputDataset) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputDataset) GetPqControls() *CreateOutputPqControlsDataset {
+func (c *CreateOutputSystemByPackOutputDataset) GetPqControls() *CreateOutputSystemByPackPqControlsDataset {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputDataset) GetAPIKey() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.APIKey
 }
 
-func (c *CreateOutputOutputDataset) GetTextSecret() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateOutputOutputDataset) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputDataset) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputDataset) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputDataset) GetTemplateCustomURL() *string {
+func (c *CreateOutputSystemByPackOutputDataset) GetTemplateCustomURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateCustomURL
 }
 
-type CreateOutputTypeServiceNow string
+type CreateOutputSystemByPackTypeServiceNow string
 
 const (
-	CreateOutputTypeServiceNowServiceNow CreateOutputTypeServiceNow = "service_now"
+	CreateOutputSystemByPackTypeServiceNowServiceNow CreateOutputSystemByPackTypeServiceNow = "service_now"
 )
 
-func (e CreateOutputTypeServiceNow) ToPointer() *CreateOutputTypeServiceNow {
+func (e CreateOutputSystemByPackTypeServiceNow) ToPointer() *CreateOutputSystemByPackTypeServiceNow {
 	return &e
 }
-func (e *CreateOutputTypeServiceNow) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeServiceNow) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "service_now":
-		*e = CreateOutputTypeServiceNow(v)
+		*e = CreateOutputSystemByPackTypeServiceNow(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeServiceNow: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeServiceNow: %v", v)
 	}
 }
 
-type CreateOutputPqControlsServiceNow struct {
+type CreateOutputSystemByPackPqControlsServiceNow struct {
 }
 
-func (c CreateOutputPqControlsServiceNow) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsServiceNow) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsServiceNow) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsServiceNow) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputServiceNow struct {
+type CreateOutputSystemByPackOutputServiceNow struct {
 	// Unique ID for this output
-	ID   string                     `json:"id"`
-	Type CreateOutputTypeServiceNow `json:"type"`
+	ID   string                                 `json:"id"`
+	Type CreateOutputSystemByPackTypeServiceNow `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -15451,8 +16081,8 @@ type CreateOutputOutputServiceNow struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                           `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsServiceNow `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                       `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsServiceNow `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
@@ -15461,420 +16091,420 @@ type CreateOutputOutputServiceNow struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (c CreateOutputOutputServiceNow) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputServiceNow) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputServiceNow) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputServiceNow) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputServiceNow) GetID() string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputServiceNow) GetType() CreateOutputTypeServiceNow {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetType() CreateOutputSystemByPackTypeServiceNow {
 	if c == nil {
-		return CreateOutputTypeServiceNow("")
+		return CreateOutputSystemByPackTypeServiceNow("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputServiceNow) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputServiceNow) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputServiceNow) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputServiceNow) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputServiceNow) GetEndpoint() string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetEndpoint() string {
 	if c == nil {
 		return ""
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputServiceNow) GetTokenSecret() string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetTokenSecret() string {
 	if c == nil {
 		return ""
 	}
 	return c.TokenSecret
 }
 
-func (c *CreateOutputOutputServiceNow) GetAuthTokenName() *string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetAuthTokenName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AuthTokenName
 }
 
-func (c *CreateOutputOutputServiceNow) GetOtlpVersion() components.OtlpVersionOptions131 {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetOtlpVersion() components.OtlpVersionOptions131 {
 	if c == nil {
 		return components.OtlpVersionOptions131("")
 	}
 	return c.OtlpVersion
 }
 
-func (c *CreateOutputOutputServiceNow) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputServiceNow) GetProtocol() components.ProtocolOptions {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetProtocol() components.ProtocolOptions {
 	if c == nil {
 		return components.ProtocolOptions("")
 	}
 	return c.Protocol
 }
 
-func (c *CreateOutputOutputServiceNow) GetCompress() *components.CompressionOptionsDeflateGzip {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetCompress() *components.CompressionOptionsDeflateGzip {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputServiceNow) GetHTTPCompress() *components.CompressionOptionsMessages {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetHTTPCompress() *components.CompressionOptionsMessages {
 	if c == nil {
 		return nil
 	}
 	return c.HTTPCompress
 }
 
-func (c *CreateOutputOutputServiceNow) GetHTTPTracesEndpointOverride() *string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetHTTPTracesEndpointOverride() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HTTPTracesEndpointOverride
 }
 
-func (c *CreateOutputOutputServiceNow) GetHTTPMetricsEndpointOverride() *string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetHTTPMetricsEndpointOverride() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HTTPMetricsEndpointOverride
 }
 
-func (c *CreateOutputOutputServiceNow) GetHTTPLogsEndpointOverride() *string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetHTTPLogsEndpointOverride() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HTTPLogsEndpointOverride
 }
 
-func (c *CreateOutputOutputServiceNow) GetMetadata() []components.KeyValueMetadataConfOutputFilesystem {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateOutputOutputServiceNow) GetDynamicHeadersEnabled() *bool {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetDynamicHeadersEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DynamicHeadersEnabled
 }
 
-func (c *CreateOutputOutputServiceNow) GetDynamicHeadersField() *string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetDynamicHeadersField() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DynamicHeadersField
 }
 
-func (c *CreateOutputOutputServiceNow) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputServiceNow) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputServiceNow) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputServiceNow) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputServiceNow) GetConnectionTimeout() *float64 {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetConnectionTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ConnectionTimeout
 }
 
-func (c *CreateOutputOutputServiceNow) GetKeepAliveTime() *float64 {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetKeepAliveTime() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAliveTime
 }
 
-func (c *CreateOutputOutputServiceNow) GetKeepAlive() *bool {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetKeepAlive() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAlive
 }
 
-func (c *CreateOutputOutputServiceNow) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputServiceNow) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputServiceNow) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputServiceNow) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputServiceNow) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputServiceNow) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputServiceNow) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputServiceNow) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputServiceNow) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputServiceNow) GetTLS() *components.TLSSettingsClientSideTypeExtended {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetTLS() *components.TLSSettingsClientSideTypeExtended {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateOutputOutputServiceNow) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputServiceNow) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputServiceNow) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputServiceNow) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputServiceNow) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputServiceNow) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputServiceNow) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputServiceNow) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputServiceNow) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputServiceNow) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputServiceNow) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputServiceNow) GetPqControls() *CreateOutputPqControlsServiceNow {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetPqControls() *CreateOutputSystemByPackPqControlsServiceNow {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputServiceNow) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputServiceNow) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputServiceNow) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputServiceNow) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-type CreateOutputTypeOpenTelemetry string
+type CreateOutputSystemByPackTypeOpenTelemetry string
 
 const (
-	CreateOutputTypeOpenTelemetryOpenTelemetry CreateOutputTypeOpenTelemetry = "open_telemetry"
+	CreateOutputSystemByPackTypeOpenTelemetryOpenTelemetry CreateOutputSystemByPackTypeOpenTelemetry = "open_telemetry"
 )
 
-func (e CreateOutputTypeOpenTelemetry) ToPointer() *CreateOutputTypeOpenTelemetry {
+func (e CreateOutputSystemByPackTypeOpenTelemetry) ToPointer() *CreateOutputSystemByPackTypeOpenTelemetry {
 	return &e
 }
-func (e *CreateOutputTypeOpenTelemetry) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeOpenTelemetry) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "open_telemetry":
-		*e = CreateOutputTypeOpenTelemetry(v)
+		*e = CreateOutputSystemByPackTypeOpenTelemetry(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeOpenTelemetry: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeOpenTelemetry: %v", v)
 	}
 }
 
-// CreateOutputOTLPVersion - The version of OTLP Protobuf definitions to use when structuring data to send
-type CreateOutputOTLPVersion string
+// CreateOutputSystemByPackOTLPVersion - The version of OTLP Protobuf definitions to use when structuring data to send
+type CreateOutputSystemByPackOTLPVersion string
 
 const (
-	// CreateOutputOTLPVersionZeroDot10Dot0 0.10.0
-	CreateOutputOTLPVersionZeroDot10Dot0 CreateOutputOTLPVersion = "0.10.0"
-	// CreateOutputOTLPVersionOneDot3Dot1 1.3.1
-	CreateOutputOTLPVersionOneDot3Dot1 CreateOutputOTLPVersion = "1.3.1"
+	// CreateOutputSystemByPackOTLPVersionZeroDot10Dot0 0.10.0
+	CreateOutputSystemByPackOTLPVersionZeroDot10Dot0 CreateOutputSystemByPackOTLPVersion = "0.10.0"
+	// CreateOutputSystemByPackOTLPVersionOneDot3Dot1 1.3.1
+	CreateOutputSystemByPackOTLPVersionOneDot3Dot1 CreateOutputSystemByPackOTLPVersion = "1.3.1"
 )
 
-func (e CreateOutputOTLPVersion) ToPointer() *CreateOutputOTLPVersion {
+func (e CreateOutputSystemByPackOTLPVersion) ToPointer() *CreateOutputSystemByPackOTLPVersion {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputOTLPVersion) IsExact() bool {
+func (e *CreateOutputSystemByPackOTLPVersion) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "0.10.0", "1.3.1":
@@ -15884,29 +16514,29 @@ func (e *CreateOutputOTLPVersion) IsExact() bool {
 	return false
 }
 
-type CreateOutputAuthenticationTypeOpenTelemetry string
+type CreateOutputSystemByPackAuthenticationTypeOpenTelemetry string
 
 const (
-	// CreateOutputAuthenticationTypeOpenTelemetryNone None
-	CreateOutputAuthenticationTypeOpenTelemetryNone CreateOutputAuthenticationTypeOpenTelemetry = "none"
-	// CreateOutputAuthenticationTypeOpenTelemetryBasic Basic
-	CreateOutputAuthenticationTypeOpenTelemetryBasic CreateOutputAuthenticationTypeOpenTelemetry = "basic"
-	// CreateOutputAuthenticationTypeOpenTelemetryCredentialsSecret Basic (credentials secret)
-	CreateOutputAuthenticationTypeOpenTelemetryCredentialsSecret CreateOutputAuthenticationTypeOpenTelemetry = "credentialsSecret"
-	// CreateOutputAuthenticationTypeOpenTelemetryToken Token
-	CreateOutputAuthenticationTypeOpenTelemetryToken CreateOutputAuthenticationTypeOpenTelemetry = "token"
-	// CreateOutputAuthenticationTypeOpenTelemetryTextSecret Token (text secret)
-	CreateOutputAuthenticationTypeOpenTelemetryTextSecret CreateOutputAuthenticationTypeOpenTelemetry = "textSecret"
-	// CreateOutputAuthenticationTypeOpenTelemetryOauthSecret OAuth (text secret)
-	CreateOutputAuthenticationTypeOpenTelemetryOauthSecret CreateOutputAuthenticationTypeOpenTelemetry = "oauthSecret"
+	// CreateOutputSystemByPackAuthenticationTypeOpenTelemetryNone None
+	CreateOutputSystemByPackAuthenticationTypeOpenTelemetryNone CreateOutputSystemByPackAuthenticationTypeOpenTelemetry = "none"
+	// CreateOutputSystemByPackAuthenticationTypeOpenTelemetryBasic Basic
+	CreateOutputSystemByPackAuthenticationTypeOpenTelemetryBasic CreateOutputSystemByPackAuthenticationTypeOpenTelemetry = "basic"
+	// CreateOutputSystemByPackAuthenticationTypeOpenTelemetryCredentialsSecret Basic (credentials secret)
+	CreateOutputSystemByPackAuthenticationTypeOpenTelemetryCredentialsSecret CreateOutputSystemByPackAuthenticationTypeOpenTelemetry = "credentialsSecret"
+	// CreateOutputSystemByPackAuthenticationTypeOpenTelemetryToken Token
+	CreateOutputSystemByPackAuthenticationTypeOpenTelemetryToken CreateOutputSystemByPackAuthenticationTypeOpenTelemetry = "token"
+	// CreateOutputSystemByPackAuthenticationTypeOpenTelemetryTextSecret Token (text secret)
+	CreateOutputSystemByPackAuthenticationTypeOpenTelemetryTextSecret CreateOutputSystemByPackAuthenticationTypeOpenTelemetry = "textSecret"
+	// CreateOutputSystemByPackAuthenticationTypeOpenTelemetryOauthSecret OAuth (text secret)
+	CreateOutputSystemByPackAuthenticationTypeOpenTelemetryOauthSecret CreateOutputSystemByPackAuthenticationTypeOpenTelemetry = "oauthSecret"
 )
 
-func (e CreateOutputAuthenticationTypeOpenTelemetry) ToPointer() *CreateOutputAuthenticationTypeOpenTelemetry {
+func (e CreateOutputSystemByPackAuthenticationTypeOpenTelemetry) ToPointer() *CreateOutputSystemByPackAuthenticationTypeOpenTelemetry {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputAuthenticationTypeOpenTelemetry) IsExact() bool {
+func (e *CreateOutputSystemByPackAuthenticationTypeOpenTelemetry) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "none", "basic", "credentialsSecret", "token", "textSecret", "oauthSecret":
@@ -15916,24 +16546,24 @@ func (e *CreateOutputAuthenticationTypeOpenTelemetry) IsExact() bool {
 	return false
 }
 
-type CreateOutputPqControlsOpenTelemetry struct {
+type CreateOutputSystemByPackPqControlsOpenTelemetry struct {
 }
 
-func (c CreateOutputPqControlsOpenTelemetry) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsOpenTelemetry) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsOpenTelemetry) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsOpenTelemetry) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputOpenTelemetry struct {
+type CreateOutputSystemByPackOutputOpenTelemetry struct {
 	// Unique ID for this output
-	ID   string                        `json:"id"`
-	Type CreateOutputTypeOpenTelemetry `json:"type"`
+	ID   string                                    `json:"id"`
+	Type CreateOutputSystemByPackTypeOpenTelemetry `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -15947,12 +16577,12 @@ type CreateOutputOutputOpenTelemetry struct {
 	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
 	Endpoint string `json:"endpoint"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
-	OtlpVersion *CreateOutputOTLPVersion `json:"otlpVersion,omitzero"`
+	OtlpVersion *CreateOutputSystemByPackOTLPVersion `json:"otlpVersion,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
 	Compress *components.CompressionOptionsDeflateGzip `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	HTTPCompress *components.CompressionOptionsMessages       `json:"httpCompress,omitzero"`
-	AuthType     *CreateOutputAuthenticationTypeOpenTelemetry `json:"authType,omitzero"`
+	HTTPCompress *components.CompressionOptionsMessages                   `json:"httpCompress,omitzero"`
+	AuthType     *CreateOutputSystemByPackAuthenticationTypeOpenTelemetry `json:"authType,omitzero"`
 	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitzero"`
 	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -16045,8 +16675,8 @@ type CreateOutputOutputOpenTelemetry struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                              `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsOpenTelemetry `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                          `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsOpenTelemetry `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
@@ -16057,509 +16687,509 @@ type CreateOutputOutputOpenTelemetry struct {
 	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 }
 
-func (c CreateOutputOutputOpenTelemetry) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputOpenTelemetry) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputOpenTelemetry) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetID() string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetType() CreateOutputTypeOpenTelemetry {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetType() CreateOutputSystemByPackTypeOpenTelemetry {
 	if c == nil {
-		return CreateOutputTypeOpenTelemetry("")
+		return CreateOutputSystemByPackTypeOpenTelemetry("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetProtocol() *components.ProtocolOptions {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetProtocol() *components.ProtocolOptions {
 	if c == nil {
 		return nil
 	}
 	return c.Protocol
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetEndpoint() string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetEndpoint() string {
 	if c == nil {
 		return ""
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetOtlpVersion() *CreateOutputOTLPVersion {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetOtlpVersion() *CreateOutputSystemByPackOTLPVersion {
 	if c == nil {
 		return nil
 	}
 	return c.OtlpVersion
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetCompress() *components.CompressionOptionsDeflateGzip {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetCompress() *components.CompressionOptionsDeflateGzip {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetHTTPCompress() *components.CompressionOptionsMessages {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetHTTPCompress() *components.CompressionOptionsMessages {
 	if c == nil {
 		return nil
 	}
 	return c.HTTPCompress
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetAuthType() *CreateOutputAuthenticationTypeOpenTelemetry {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetAuthType() *CreateOutputSystemByPackAuthenticationTypeOpenTelemetry {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetHTTPTracesEndpointOverride() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetHTTPTracesEndpointOverride() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HTTPTracesEndpointOverride
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetHTTPMetricsEndpointOverride() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetHTTPMetricsEndpointOverride() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HTTPMetricsEndpointOverride
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetHTTPLogsEndpointOverride() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetHTTPLogsEndpointOverride() *string {
 	if c == nil {
 		return nil
 	}
 	return c.HTTPLogsEndpointOverride
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetMetadata() []components.KeyValueMetadataConfOutputFilesystem {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
 	return c.Metadata
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetDynamicHeadersEnabled() *bool {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetDynamicHeadersEnabled() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.DynamicHeadersEnabled
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetDynamicHeadersField() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetDynamicHeadersField() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DynamicHeadersField
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetConnectionTimeout() *float64 {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetConnectionTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ConnectionTimeout
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetKeepAliveTime() *float64 {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetKeepAliveTime() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAliveTime
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetKeepAlive() *bool {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetKeepAlive() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.KeepAlive
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetUsername() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetUsername() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Username
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetPassword() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetPassword() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Password
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetToken() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetToken() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Token
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetCredentialsSecret() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CredentialsSecret
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetTextSecret() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetLoginURL() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetLoginURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.LoginURL
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetSecretParamName() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetSecretParamName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.SecretParamName
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetOauthTextSecret() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetOauthTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.OauthTextSecret
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetTokenAttributeName() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetTokenAttributeName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TokenAttributeName
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetAuthHeaderExpr() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetAuthHeaderExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AuthHeaderExpr
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetTokenTimeoutSecs() *float64 {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetTokenTimeoutSecs() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TokenTimeoutSecs
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetOauthParams() []components.OauthParamConfInputServicenowTable {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetOauthParams() []components.OauthParamConfInputServicenowTable {
 	if c == nil {
 		return nil
 	}
 	return c.OauthParams
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetOauthHeaders() []components.OauthHeaderConfInputServicenowTable {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetOauthHeaders() []components.OauthHeaderConfInputServicenowTable {
 	if c == nil {
 		return nil
 	}
 	return c.OauthHeaders
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetTLS() *components.TLSSettingsClientSideTypeExtended {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetTLS() *components.TLSSettingsClientSideTypeExtended {
 	if c == nil {
 		return nil
 	}
 	return c.TLS
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetPqControls() *CreateOutputPqControlsOpenTelemetry {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetPqControls() *CreateOutputSystemByPackPqControlsOpenTelemetry {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetTemplateLoginURL() *string {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetTemplateLoginURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateLoginURL
 }
 
-type CreateOutputTypeRing string
+type CreateOutputSystemByPackTypeRing string
 
 const (
-	CreateOutputTypeRingRing CreateOutputTypeRing = "ring"
+	CreateOutputSystemByPackTypeRingRing CreateOutputSystemByPackTypeRing = "ring"
 )
 
-func (e CreateOutputTypeRing) ToPointer() *CreateOutputTypeRing {
+func (e CreateOutputSystemByPackTypeRing) ToPointer() *CreateOutputSystemByPackTypeRing {
 	return &e
 }
-func (e *CreateOutputTypeRing) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeRing) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "ring":
-		*e = CreateOutputTypeRing(v)
+		*e = CreateOutputSystemByPackTypeRing(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeRing: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeRing: %v", v)
 	}
 }
 
-// CreateOutputDataFormatRing - Format of the output data.
-type CreateOutputDataFormatRing string
+// CreateOutputSystemByPackDataFormatRing - Format of the output data.
+type CreateOutputSystemByPackDataFormatRing string
 
 const (
-	CreateOutputDataFormatRingJSON CreateOutputDataFormatRing = "json"
-	CreateOutputDataFormatRingRaw  CreateOutputDataFormatRing = "raw"
+	CreateOutputSystemByPackDataFormatRingJSON CreateOutputSystemByPackDataFormatRing = "json"
+	CreateOutputSystemByPackDataFormatRingRaw  CreateOutputSystemByPackDataFormatRing = "raw"
 )
 
-func (e CreateOutputDataFormatRing) ToPointer() *CreateOutputDataFormatRing {
+func (e CreateOutputSystemByPackDataFormatRing) ToPointer() *CreateOutputSystemByPackDataFormatRing {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputDataFormatRing) IsExact() bool {
+func (e *CreateOutputSystemByPackDataFormatRing) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "json", "raw":
@@ -16569,10 +17199,10 @@ func (e *CreateOutputDataFormatRing) IsExact() bool {
 	return false
 }
 
-type CreateOutputOutputRing struct {
+type CreateOutputSystemByPackOutputRing struct {
 	// Unique ID for this output
-	ID   string               `json:"id"`
-	Type CreateOutputTypeRing `json:"type"`
+	ID   string                           `json:"id"`
+	Type CreateOutputSystemByPackTypeRing `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -16582,7 +17212,7 @@ type CreateOutputOutputRing struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Format of the output data.
-	Format *CreateOutputDataFormatRing `json:"format,omitzero"`
+	Format *CreateOutputSystemByPackDataFormatRing `json:"format,omitzero"`
 	// JS expression to define how files are partitioned and organized. If left blank, Cribl Stream will fallback on event.__partition.
 	PartitionExpr *string `json:"partitionExpr,omitzero"`
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
@@ -16601,170 +17231,170 @@ type CreateOutputOutputRing struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (c CreateOutputOutputRing) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputRing) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputRing) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputRing) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputRing) GetID() string {
+func (c *CreateOutputSystemByPackOutputRing) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputRing) GetType() CreateOutputTypeRing {
+func (c *CreateOutputSystemByPackOutputRing) GetType() CreateOutputSystemByPackTypeRing {
 	if c == nil {
-		return CreateOutputTypeRing("")
+		return CreateOutputSystemByPackTypeRing("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputRing) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputRing) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputRing) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputRing) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputRing) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputRing) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputRing) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputRing) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputRing) GetFormat() *CreateOutputDataFormatRing {
+func (c *CreateOutputSystemByPackOutputRing) GetFormat() *CreateOutputSystemByPackDataFormatRing {
 	if c == nil {
 		return nil
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputRing) GetPartitionExpr() *string {
+func (c *CreateOutputSystemByPackOutputRing) GetPartitionExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PartitionExpr
 }
 
-func (c *CreateOutputOutputRing) GetMaxDataSize() *string {
+func (c *CreateOutputSystemByPackOutputRing) GetMaxDataSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MaxDataSize
 }
 
-func (c *CreateOutputOutputRing) GetMaxDataTime() *string {
+func (c *CreateOutputSystemByPackOutputRing) GetMaxDataTime() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MaxDataTime
 }
 
-func (c *CreateOutputOutputRing) GetCompress() *components.DataCompressionFormatOptionsPersistence {
+func (c *CreateOutputSystemByPackOutputRing) GetCompress() *components.DataCompressionFormatOptionsPersistence {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputRing) GetDestPath() *string {
+func (c *CreateOutputSystemByPackOutputRing) GetDestPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.DestPath
 }
 
-func (c *CreateOutputOutputRing) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
+func (c *CreateOutputSystemByPackOutputRing) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputRing) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputRing) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputRing) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputRing) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputRing) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputRing) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-type CreateOutputTypePrometheus string
+type CreateOutputSystemByPackTypePrometheus string
 
 const (
-	CreateOutputTypePrometheusPrometheus CreateOutputTypePrometheus = "prometheus"
+	CreateOutputSystemByPackTypePrometheusPrometheus CreateOutputSystemByPackTypePrometheus = "prometheus"
 )
 
-func (e CreateOutputTypePrometheus) ToPointer() *CreateOutputTypePrometheus {
+func (e CreateOutputSystemByPackTypePrometheus) ToPointer() *CreateOutputSystemByPackTypePrometheus {
 	return &e
 }
-func (e *CreateOutputTypePrometheus) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypePrometheus) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "prometheus":
-		*e = CreateOutputTypePrometheus(v)
+		*e = CreateOutputSystemByPackTypePrometheus(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypePrometheus: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypePrometheus: %v", v)
 	}
 }
 
-type CreateOutputPqControlsPrometheus struct {
+type CreateOutputSystemByPackPqControlsPrometheus struct {
 }
 
-func (c CreateOutputPqControlsPrometheus) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsPrometheus) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsPrometheus) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsPrometheus) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputPrometheus struct {
+type CreateOutputSystemByPackOutputPrometheus struct {
 	// Unique ID for this output
-	ID   string                     `json:"id"`
-	Type CreateOutputTypePrometheus `json:"type"`
+	ID   string                                 `json:"id"`
+	Type CreateOutputSystemByPackTypePrometheus `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions to generated metrics.
@@ -16836,10 +17466,10 @@ type CreateOutputOutputPrometheus struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                           `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsPrometheus `json:"pqControls,omitzero"`
-	Username             *string                           `json:"username,omitzero"`
-	Password             *string                           `json:"password,omitzero"`
+	PqMaxBufferSizeBytes *string                                       `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsPrometheus `json:"pqControls,omitzero"`
+	Username             *string                                       `json:"username,omitzero"`
+	Password             *string                                       `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -16856,394 +17486,394 @@ type CreateOutputOutputPrometheus struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (c CreateOutputOutputPrometheus) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputPrometheus) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputPrometheus) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputPrometheus) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputPrometheus) GetID() string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputPrometheus) GetType() CreateOutputTypePrometheus {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetType() CreateOutputSystemByPackTypePrometheus {
 	if c == nil {
-		return CreateOutputTypePrometheus("")
+		return CreateOutputSystemByPackTypePrometheus("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputPrometheus) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputPrometheus) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputPrometheus) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputPrometheus) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputPrometheus) GetURL() string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetURL() string {
 	if c == nil {
 		return ""
 	}
 	return c.URL
 }
 
-func (c *CreateOutputOutputPrometheus) GetMetricRenameExpr() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetMetricRenameExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MetricRenameExpr
 }
 
-func (c *CreateOutputOutputPrometheus) GetSendMetadata() *bool {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetSendMetadata() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendMetadata
 }
 
-func (c *CreateOutputOutputPrometheus) GetUsePrometheusHistogramBucketSuffix() *bool {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetUsePrometheusHistogramBucketSuffix() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UsePrometheusHistogramBucketSuffix
 }
 
-func (c *CreateOutputOutputPrometheus) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputPrometheus) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputPrometheus) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputPrometheus) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputPrometheus) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputPrometheus) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputPrometheus) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputPrometheus) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputPrometheus) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputPrometheus) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputPrometheus) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputPrometheus) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputPrometheus) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputPrometheus) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputPrometheus) GetAuthType() *components.AuthenticationTypeOptionsPrometheusAuth {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetAuthType() *components.AuthenticationTypeOptionsPrometheusAuth {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateOutputOutputPrometheus) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputPrometheus) GetMetricsFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetMetricsFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MetricsFlushPeriodSec
 }
 
-func (c *CreateOutputOutputPrometheus) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputPrometheus) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputPrometheus) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputPrometheus) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputPrometheus) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputPrometheus) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputPrometheus) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputPrometheus) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputPrometheus) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputPrometheus) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputPrometheus) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputPrometheus) GetPqControls() *CreateOutputPqControlsPrometheus {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetPqControls() *CreateOutputSystemByPackPqControlsPrometheus {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputPrometheus) GetUsername() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetUsername() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Username
 }
 
-func (c *CreateOutputOutputPrometheus) GetPassword() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetPassword() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Password
 }
 
-func (c *CreateOutputOutputPrometheus) GetToken() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetToken() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Token
 }
 
-func (c *CreateOutputOutputPrometheus) GetCredentialsSecret() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CredentialsSecret
 }
 
-func (c *CreateOutputOutputPrometheus) GetTextSecret() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateOutputOutputPrometheus) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputPrometheus) GetTemplateURL() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetTemplateURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateURL
 }
 
-func (c *CreateOutputOutputPrometheus) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputPrometheus) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputPrometheus) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-type CreateOutputTypeLoki string
+type CreateOutputSystemByPackTypeLoki string
 
 const (
-	CreateOutputTypeLokiLoki CreateOutputTypeLoki = "loki"
+	CreateOutputSystemByPackTypeLokiLoki CreateOutputSystemByPackTypeLoki = "loki"
 )
 
-func (e CreateOutputTypeLoki) ToPointer() *CreateOutputTypeLoki {
+func (e CreateOutputSystemByPackTypeLoki) ToPointer() *CreateOutputSystemByPackTypeLoki {
 	return &e
 }
-func (e *CreateOutputTypeLoki) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeLoki) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "loki":
-		*e = CreateOutputTypeLoki(v)
+		*e = CreateOutputSystemByPackTypeLoki(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeLoki: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeLoki: %v", v)
 	}
 }
 
-type CreateOutputPqControlsLoki struct {
+type CreateOutputSystemByPackPqControlsLoki struct {
 }
 
-func (c CreateOutputPqControlsLoki) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsLoki) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsLoki) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsLoki) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputLoki struct {
+type CreateOutputSystemByPackOutputLoki struct {
 	// Unique ID for this output
-	ID   string               `json:"id"`
-	Type CreateOutputTypeLoki `json:"type"`
+	ID   string                           `json:"id"`
+	Type CreateOutputSystemByPackTypeLoki `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as labels to generated logs.
@@ -17328,8 +17958,8 @@ type CreateOutputOutputLoki struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                     `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsLoki `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                 `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsLoki `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
@@ -17338,404 +17968,404 @@ type CreateOutputOutputLoki struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (c CreateOutputOutputLoki) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputLoki) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputLoki) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputLoki) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputLoki) GetID() string {
+func (c *CreateOutputSystemByPackOutputLoki) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputLoki) GetType() CreateOutputTypeLoki {
+func (c *CreateOutputSystemByPackOutputLoki) GetType() CreateOutputSystemByPackTypeLoki {
 	if c == nil {
-		return CreateOutputTypeLoki("")
+		return CreateOutputSystemByPackTypeLoki("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputLoki) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputLoki) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputLoki) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputLoki) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputLoki) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputLoki) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputLoki) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputLoki) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputLoki) GetURL() string {
+func (c *CreateOutputSystemByPackOutputLoki) GetURL() string {
 	if c == nil {
 		return ""
 	}
 	return c.URL
 }
 
-func (c *CreateOutputOutputLoki) GetMessage() *string {
+func (c *CreateOutputSystemByPackOutputLoki) GetMessage() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Message
 }
 
-func (c *CreateOutputOutputLoki) GetMessageFormat() *components.MessageFormatOptions {
+func (c *CreateOutputSystemByPackOutputLoki) GetMessageFormat() *components.MessageFormatOptions {
 	if c == nil {
 		return nil
 	}
 	return c.MessageFormat
 }
 
-func (c *CreateOutputOutputLoki) GetLabels() []components.RequestParamConfInputOpenai {
+func (c *CreateOutputSystemByPackOutputLoki) GetLabels() []components.RequestParamConfInputOpenai {
 	if c == nil {
 		return nil
 	}
 	return c.Labels
 }
 
-func (c *CreateOutputOutputLoki) GetAuthType() *components.AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret {
+func (c *CreateOutputSystemByPackOutputLoki) GetAuthType() *components.AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateOutputOutputLoki) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputLoki) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputLoki) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputLoki) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputLoki) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputLoki) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputLoki) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputLoki) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputLoki) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputLoki) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputLoki) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputLoki) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputLoki) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputLoki) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputLoki) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputLoki) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputLoki) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputLoki) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputLoki) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputLoki) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputLoki) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputLoki) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputLoki) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputLoki) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputLoki) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputLoki) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputLoki) GetEnableDynamicHeaders() *bool {
+func (c *CreateOutputSystemByPackOutputLoki) GetEnableDynamicHeaders() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableDynamicHeaders
 }
 
-func (c *CreateOutputOutputLoki) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputLoki) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputLoki) GetTotalMemoryLimitKB() *float64 {
+func (c *CreateOutputSystemByPackOutputLoki) GetTotalMemoryLimitKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TotalMemoryLimitKB
 }
 
-func (c *CreateOutputOutputLoki) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputLoki) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputLoki) GetCompress() *bool {
+func (c *CreateOutputSystemByPackOutputLoki) GetCompress() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputLoki) GetToken() *string {
+func (c *CreateOutputSystemByPackOutputLoki) GetToken() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Token
 }
 
-func (c *CreateOutputOutputLoki) GetTextSecret() *string {
+func (c *CreateOutputSystemByPackOutputLoki) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateOutputOutputLoki) GetUsername() *string {
+func (c *CreateOutputSystemByPackOutputLoki) GetUsername() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Username
 }
 
-func (c *CreateOutputOutputLoki) GetPassword() *string {
+func (c *CreateOutputSystemByPackOutputLoki) GetPassword() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Password
 }
 
-func (c *CreateOutputOutputLoki) GetCredentialsSecret() *string {
+func (c *CreateOutputSystemByPackOutputLoki) GetCredentialsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CredentialsSecret
 }
 
-func (c *CreateOutputOutputLoki) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputLoki) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputLoki) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputLoki) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputLoki) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputLoki) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputLoki) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputLoki) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputLoki) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputLoki) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputLoki) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputLoki) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputLoki) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputLoki) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputLoki) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputLoki) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputLoki) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputLoki) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputLoki) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputLoki) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputLoki) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputLoki) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputLoki) GetPqControls() *CreateOutputPqControlsLoki {
+func (c *CreateOutputSystemByPackOutputLoki) GetPqControls() *CreateOutputSystemByPackPqControlsLoki {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputLoki) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputLoki) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputLoki) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputLoki) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputLoki) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputLoki) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-type CreateOutputOutputGrafanaCloudType2 string
+type CreateOutputSystemByPackOutputGrafanaCloudType2 string
 
 const (
-	CreateOutputOutputGrafanaCloudType2GrafanaCloud CreateOutputOutputGrafanaCloudType2 = "grafana_cloud"
+	CreateOutputSystemByPackOutputGrafanaCloudType2GrafanaCloud CreateOutputSystemByPackOutputGrafanaCloudType2 = "grafana_cloud"
 )
 
-func (e CreateOutputOutputGrafanaCloudType2) ToPointer() *CreateOutputOutputGrafanaCloudType2 {
+func (e CreateOutputSystemByPackOutputGrafanaCloudType2) ToPointer() *CreateOutputSystemByPackOutputGrafanaCloudType2 {
 	return &e
 }
-func (e *CreateOutputOutputGrafanaCloudType2) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackOutputGrafanaCloudType2) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "grafana_cloud":
-		*e = CreateOutputOutputGrafanaCloudType2(v)
+		*e = CreateOutputSystemByPackOutputGrafanaCloudType2(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputOutputGrafanaCloudType2: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackOutputGrafanaCloudType2: %v", v)
 	}
 }
 
-type CreateOutputOutputGrafanaCloudPqControls2 struct {
+type CreateOutputSystemByPackOutputGrafanaCloudPqControls2 struct {
 }
 
-func (c CreateOutputOutputGrafanaCloudPqControls2) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputGrafanaCloudPqControls2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputGrafanaCloudPqControls2) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudPqControls2) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-// #region class-body-createoutputoutputgrafanacloudpqcontrols2
-// #endregion class-body-createoutputoutputgrafanacloudpqcontrols2
+// #region class-body-createoutputsystembypackoutputgrafanacloudpqcontrols2
+// #endregion class-body-createoutputsystembypackoutputgrafanacloudpqcontrols2
 
-type CreateOutputOutputGrafanaCloudGrafanaCloud2 struct {
+type CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2 struct {
 	// Unique ID for this output
-	ID   string                              `json:"id"`
-	Type CreateOutputOutputGrafanaCloudType2 `json:"type"`
+	ID   string                                          `json:"id"`
+	Type CreateOutputSystemByPackOutputGrafanaCloudType2 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
@@ -17811,8 +18441,8 @@ type CreateOutputOutputGrafanaCloudGrafanaCloud2 struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                                    `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputOutputGrafanaCloudPqControls2 `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                                `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackOutputGrafanaCloudPqControls2 `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
@@ -17825,393 +18455,393 @@ type CreateOutputOutputGrafanaCloudGrafanaCloud2 struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (c CreateOutputOutputGrafanaCloudGrafanaCloud2) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetID() string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetType() CreateOutputOutputGrafanaCloudType2 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetType() CreateOutputSystemByPackOutputGrafanaCloudType2 {
 	if c == nil {
-		return CreateOutputOutputGrafanaCloudType2("")
+		return CreateOutputSystemByPackOutputGrafanaCloudType2("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetLokiURL() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetLokiURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.LokiURL
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetPrometheusURL() string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetPrometheusURL() string {
 	if c == nil {
 		return ""
 	}
 	return c.PrometheusURL
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetMessage() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetMessage() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Message
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetMessageFormat() *components.MessageFormatOptions {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetMessageFormat() *components.MessageFormatOptions {
 	if c == nil {
 		return nil
 	}
 	return c.MessageFormat
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetLabels() []components.RequestParamConfInputOpenai {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetLabels() []components.RequestParamConfInputOpenai {
 	if c == nil {
 		return nil
 	}
 	return c.Labels
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetMetricRenameExpr() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetMetricRenameExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MetricRenameExpr
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetPrometheusAuth() *components.PrometheusAuthType {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetPrometheusAuth() *components.PrometheusAuthType {
 	if c == nil {
 		return nil
 	}
 	return c.PrometheusAuth
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetLokiAuth() *components.PrometheusAuthType {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetLokiAuth() *components.PrometheusAuthType {
 	if c == nil {
 		return nil
 	}
 	return c.LokiAuth
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetCompress() *bool {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetCompress() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetPqControls() *CreateOutputOutputGrafanaCloudPqControls2 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetPqControls() *CreateOutputSystemByPackOutputGrafanaCloudPqControls2 {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetTemplateLokiURL() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetTemplateLokiURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateLokiURL
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetTemplatePrometheusURL() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetTemplatePrometheusURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePrometheusURL
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud2) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-// #region class-body-createoutputoutputgrafanacloudgrafanacloud2
-// #endregion class-body-createoutputoutputgrafanacloudgrafanacloud2
+// #region class-body-createoutputsystembypackoutputgrafanacloudgrafanacloud2
+// #endregion class-body-createoutputsystembypackoutputgrafanacloudgrafanacloud2
 
-type CreateOutputOutputGrafanaCloudType1 string
+type CreateOutputSystemByPackOutputGrafanaCloudType1 string
 
 const (
-	CreateOutputOutputGrafanaCloudType1GrafanaCloud CreateOutputOutputGrafanaCloudType1 = "grafana_cloud"
+	CreateOutputSystemByPackOutputGrafanaCloudType1GrafanaCloud CreateOutputSystemByPackOutputGrafanaCloudType1 = "grafana_cloud"
 )
 
-func (e CreateOutputOutputGrafanaCloudType1) ToPointer() *CreateOutputOutputGrafanaCloudType1 {
+func (e CreateOutputSystemByPackOutputGrafanaCloudType1) ToPointer() *CreateOutputSystemByPackOutputGrafanaCloudType1 {
 	return &e
 }
-func (e *CreateOutputOutputGrafanaCloudType1) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackOutputGrafanaCloudType1) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "grafana_cloud":
-		*e = CreateOutputOutputGrafanaCloudType1(v)
+		*e = CreateOutputSystemByPackOutputGrafanaCloudType1(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputOutputGrafanaCloudType1: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackOutputGrafanaCloudType1: %v", v)
 	}
 }
 
-type CreateOutputOutputGrafanaCloudPqControls1 struct {
+type CreateOutputSystemByPackOutputGrafanaCloudPqControls1 struct {
 }
 
-func (c CreateOutputOutputGrafanaCloudPqControls1) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputGrafanaCloudPqControls1) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputGrafanaCloudPqControls1) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudPqControls1) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-// #region class-body-createoutputoutputgrafanacloudpqcontrols1
-// #endregion class-body-createoutputoutputgrafanacloudpqcontrols1
+// #region class-body-createoutputsystembypackoutputgrafanacloudpqcontrols1
+// #endregion class-body-createoutputsystembypackoutputgrafanacloudpqcontrols1
 
-type CreateOutputOutputGrafanaCloudGrafanaCloud1 struct {
+type CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1 struct {
 	// Unique ID for this output
-	ID   string                              `json:"id"`
-	Type CreateOutputOutputGrafanaCloudType1 `json:"type"`
+	ID   string                                          `json:"id"`
+	Type CreateOutputSystemByPackOutputGrafanaCloudType1 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
@@ -18287,8 +18917,8 @@ type CreateOutputOutputGrafanaCloudGrafanaCloud1 struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                                    `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputOutputGrafanaCloudPqControls1 `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                                `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackOutputGrafanaCloudPqControls1 `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
@@ -18301,477 +18931,477 @@ type CreateOutputOutputGrafanaCloudGrafanaCloud1 struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (c CreateOutputOutputGrafanaCloudGrafanaCloud1) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetID() string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetType() CreateOutputOutputGrafanaCloudType1 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetType() CreateOutputSystemByPackOutputGrafanaCloudType1 {
 	if c == nil {
-		return CreateOutputOutputGrafanaCloudType1("")
+		return CreateOutputSystemByPackOutputGrafanaCloudType1("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetLokiURL() string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetLokiURL() string {
 	if c == nil {
 		return ""
 	}
 	return c.LokiURL
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetPrometheusURL() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetPrometheusURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PrometheusURL
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetMessage() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetMessage() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Message
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetMessageFormat() *components.MessageFormatOptions {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetMessageFormat() *components.MessageFormatOptions {
 	if c == nil {
 		return nil
 	}
 	return c.MessageFormat
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetLabels() []components.RequestParamConfInputOpenai {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetLabels() []components.RequestParamConfInputOpenai {
 	if c == nil {
 		return nil
 	}
 	return c.Labels
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetMetricRenameExpr() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetMetricRenameExpr() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MetricRenameExpr
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetPrometheusAuth() *components.PrometheusAuthType {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetPrometheusAuth() *components.PrometheusAuthType {
 	if c == nil {
 		return nil
 	}
 	return c.PrometheusAuth
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetLokiAuth() *components.PrometheusAuthType {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetLokiAuth() *components.PrometheusAuthType {
 	if c == nil {
 		return nil
 	}
 	return c.LokiAuth
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetCompress() *bool {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetCompress() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetPqControls() *CreateOutputOutputGrafanaCloudPqControls1 {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetPqControls() *CreateOutputSystemByPackOutputGrafanaCloudPqControls1 {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetTemplateLokiURL() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetTemplateLokiURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateLokiURL
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetTemplatePrometheusURL() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetTemplatePrometheusURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePrometheusURL
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputGrafanaCloudGrafanaCloud1) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-// #region class-body-createoutputoutputgrafanacloudgrafanacloud1
-// #endregion class-body-createoutputoutputgrafanacloudgrafanacloud1
+// #region class-body-createoutputsystembypackoutputgrafanacloudgrafanacloud1
+// #endregion class-body-createoutputsystembypackoutputgrafanacloudgrafanacloud1
 
-type CreateOutputOutputGrafanaCloudUnionType string
+type CreateOutputSystemByPackOutputGrafanaCloudUnionType string
 
 const (
-	CreateOutputOutputGrafanaCloudUnionTypeCreateOutputOutputGrafanaCloudGrafanaCloud1 CreateOutputOutputGrafanaCloudUnionType = "createOutput_OutputGrafanaCloud_GrafanaCloud_1"
-	CreateOutputOutputGrafanaCloudUnionTypeCreateOutputOutputGrafanaCloudGrafanaCloud2 CreateOutputOutputGrafanaCloudUnionType = "createOutput_OutputGrafanaCloud_GrafanaCloud_2"
+	CreateOutputSystemByPackOutputGrafanaCloudUnionTypeCreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1 CreateOutputSystemByPackOutputGrafanaCloudUnionType = "createOutputSystemByPack_OutputGrafanaCloud_GrafanaCloud_1"
+	CreateOutputSystemByPackOutputGrafanaCloudUnionTypeCreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2 CreateOutputSystemByPackOutputGrafanaCloudUnionType = "createOutputSystemByPack_OutputGrafanaCloud_GrafanaCloud_2"
 )
 
-type CreateOutputOutputGrafanaCloudUnion struct {
-	CreateOutputOutputGrafanaCloudGrafanaCloud1 *CreateOutputOutputGrafanaCloudGrafanaCloud1 `queryParam:"inline" union:"member"`
-	CreateOutputOutputGrafanaCloudGrafanaCloud2 *CreateOutputOutputGrafanaCloudGrafanaCloud2 `queryParam:"inline" union:"member"`
+type CreateOutputSystemByPackOutputGrafanaCloudUnion struct {
+	CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1 *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1 `queryParam:"inline" union:"member"`
+	CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2 *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2 `queryParam:"inline" union:"member"`
 
-	Type CreateOutputOutputGrafanaCloudUnionType
+	Type CreateOutputSystemByPackOutputGrafanaCloudUnionType
 }
 
-func CreateCreateOutputOutputGrafanaCloudUnionCreateOutputOutputGrafanaCloudGrafanaCloud1(createOutputOutputGrafanaCloudGrafanaCloud1 CreateOutputOutputGrafanaCloudGrafanaCloud1) CreateOutputOutputGrafanaCloudUnion {
-	typ := CreateOutputOutputGrafanaCloudUnionTypeCreateOutputOutputGrafanaCloudGrafanaCloud1
+func CreateCreateOutputSystemByPackOutputGrafanaCloudUnionCreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1(createOutputSystemByPackOutputGrafanaCloudGrafanaCloud1 CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) CreateOutputSystemByPackOutputGrafanaCloudUnion {
+	typ := CreateOutputSystemByPackOutputGrafanaCloudUnionTypeCreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1
 
-	return CreateOutputOutputGrafanaCloudUnion{
-		CreateOutputOutputGrafanaCloudGrafanaCloud1: &createOutputOutputGrafanaCloudGrafanaCloud1,
+	return CreateOutputSystemByPackOutputGrafanaCloudUnion{
+		CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1: &createOutputSystemByPackOutputGrafanaCloudGrafanaCloud1,
 		Type: typ,
 	}
 }
 
-func CreateCreateOutputOutputGrafanaCloudUnionCreateOutputOutputGrafanaCloudGrafanaCloud2(createOutputOutputGrafanaCloudGrafanaCloud2 CreateOutputOutputGrafanaCloudGrafanaCloud2) CreateOutputOutputGrafanaCloudUnion {
-	typ := CreateOutputOutputGrafanaCloudUnionTypeCreateOutputOutputGrafanaCloudGrafanaCloud2
+func CreateCreateOutputSystemByPackOutputGrafanaCloudUnionCreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2(createOutputSystemByPackOutputGrafanaCloudGrafanaCloud2 CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) CreateOutputSystemByPackOutputGrafanaCloudUnion {
+	typ := CreateOutputSystemByPackOutputGrafanaCloudUnionTypeCreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2
 
-	return CreateOutputOutputGrafanaCloudUnion{
-		CreateOutputOutputGrafanaCloudGrafanaCloud2: &createOutputOutputGrafanaCloudGrafanaCloud2,
+	return CreateOutputSystemByPackOutputGrafanaCloudUnion{
+		CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2: &createOutputSystemByPackOutputGrafanaCloudGrafanaCloud2,
 		Type: typ,
 	}
 }
 
-func (u *CreateOutputOutputGrafanaCloudUnion) UnmarshalJSON(data []byte) error {
+func (u *CreateOutputSystemByPackOutputGrafanaCloudUnion) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
 	// Collect all valid candidates
-	var createOutputOutputGrafanaCloudGrafanaCloud1 CreateOutputOutputGrafanaCloudGrafanaCloud1 = CreateOutputOutputGrafanaCloudGrafanaCloud1{}
-	if err := utils.UnmarshalJSON(data, &createOutputOutputGrafanaCloudGrafanaCloud1, "", true, nil); err == nil {
+	var createOutputSystemByPackOutputGrafanaCloudGrafanaCloud1 CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1 = CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1{}
+	if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputGrafanaCloudGrafanaCloud1, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  CreateOutputOutputGrafanaCloudUnionTypeCreateOutputOutputGrafanaCloudGrafanaCloud1,
-			Value: &createOutputOutputGrafanaCloudGrafanaCloud1,
+			Type:  CreateOutputSystemByPackOutputGrafanaCloudUnionTypeCreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1,
+			Value: &createOutputSystemByPackOutputGrafanaCloudGrafanaCloud1,
 		})
 	}
 
-	var createOutputOutputGrafanaCloudGrafanaCloud2 CreateOutputOutputGrafanaCloudGrafanaCloud2 = CreateOutputOutputGrafanaCloudGrafanaCloud2{}
-	if err := utils.UnmarshalJSON(data, &createOutputOutputGrafanaCloudGrafanaCloud2, "", true, nil); err == nil {
+	var createOutputSystemByPackOutputGrafanaCloudGrafanaCloud2 CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2 = CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2{}
+	if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputGrafanaCloudGrafanaCloud2, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  CreateOutputOutputGrafanaCloudUnionTypeCreateOutputOutputGrafanaCloudGrafanaCloud2,
-			Value: &createOutputOutputGrafanaCloudGrafanaCloud2,
+			Type:  CreateOutputSystemByPackOutputGrafanaCloudUnionTypeCreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2,
+			Value: &createOutputSystemByPackOutputGrafanaCloudGrafanaCloud2,
 		})
 	}
 
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputOutputGrafanaCloudUnion", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputSystemByPackOutputGrafanaCloudUnion", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputOutputGrafanaCloudUnion", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputSystemByPackOutputGrafanaCloudUnion", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(CreateOutputOutputGrafanaCloudUnionType)
+	u.Type = best.Type.(CreateOutputSystemByPackOutputGrafanaCloudUnionType)
 	switch best.Type {
-	case CreateOutputOutputGrafanaCloudUnionTypeCreateOutputOutputGrafanaCloudGrafanaCloud1:
-		u.CreateOutputOutputGrafanaCloudGrafanaCloud1 = best.Value.(*CreateOutputOutputGrafanaCloudGrafanaCloud1)
+	case CreateOutputSystemByPackOutputGrafanaCloudUnionTypeCreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1:
+		u.CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1 = best.Value.(*CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1)
 		return nil
-	case CreateOutputOutputGrafanaCloudUnionTypeCreateOutputOutputGrafanaCloudGrafanaCloud2:
-		u.CreateOutputOutputGrafanaCloudGrafanaCloud2 = best.Value.(*CreateOutputOutputGrafanaCloudGrafanaCloud2)
+	case CreateOutputSystemByPackOutputGrafanaCloudUnionTypeCreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2:
+		u.CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2 = best.Value.(*CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2)
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputOutputGrafanaCloudUnion", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputSystemByPackOutputGrafanaCloudUnion", string(data))
 }
 
-func (u CreateOutputOutputGrafanaCloudUnion) MarshalJSON() ([]byte, error) {
-	if u.CreateOutputOutputGrafanaCloudGrafanaCloud1 != nil {
-		return utils.MarshalJSON(u.CreateOutputOutputGrafanaCloudGrafanaCloud1, "", true)
+func (u CreateOutputSystemByPackOutputGrafanaCloudUnion) MarshalJSON() ([]byte, error) {
+	if u.CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1 != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1, "", true)
 	}
 
-	if u.CreateOutputOutputGrafanaCloudGrafanaCloud2 != nil {
-		return utils.MarshalJSON(u.CreateOutputOutputGrafanaCloudGrafanaCloud2, "", true)
+	if u.CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2 != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type CreateOutputOutputGrafanaCloudUnion: all fields are null")
+	return nil, errors.New("could not marshal union type CreateOutputSystemByPackOutputGrafanaCloudUnion: all fields are null")
 }
 
-type CreateOutputTypeDatadog string
+type CreateOutputSystemByPackTypeDatadog string
 
 const (
-	CreateOutputTypeDatadogDatadog CreateOutputTypeDatadog = "datadog"
+	CreateOutputSystemByPackTypeDatadogDatadog CreateOutputSystemByPackTypeDatadog = "datadog"
 )
 
-func (e CreateOutputTypeDatadog) ToPointer() *CreateOutputTypeDatadog {
+func (e CreateOutputSystemByPackTypeDatadog) ToPointer() *CreateOutputSystemByPackTypeDatadog {
 	return &e
 }
-func (e *CreateOutputTypeDatadog) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeDatadog) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "datadog":
-		*e = CreateOutputTypeDatadog(v)
+		*e = CreateOutputSystemByPackTypeDatadog(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeDatadog: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeDatadog: %v", v)
 	}
 }
 
-// CreateOutputSendLogsAs - The content type to use when sending logs
-type CreateOutputSendLogsAs string
+// CreateOutputSystemByPackSendLogsAs - The content type to use when sending logs
+type CreateOutputSystemByPackSendLogsAs string
 
 const (
-	// CreateOutputSendLogsAsText text/plain
-	CreateOutputSendLogsAsText CreateOutputSendLogsAs = "text"
-	// CreateOutputSendLogsAsJSON application/json
-	CreateOutputSendLogsAsJSON CreateOutputSendLogsAs = "json"
+	// CreateOutputSystemByPackSendLogsAsText text/plain
+	CreateOutputSystemByPackSendLogsAsText CreateOutputSystemByPackSendLogsAs = "text"
+	// CreateOutputSystemByPackSendLogsAsJSON application/json
+	CreateOutputSystemByPackSendLogsAsJSON CreateOutputSystemByPackSendLogsAs = "json"
 )
 
-func (e CreateOutputSendLogsAs) ToPointer() *CreateOutputSendLogsAs {
+func (e CreateOutputSystemByPackSendLogsAs) ToPointer() *CreateOutputSystemByPackSendLogsAs {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputSendLogsAs) IsExact() bool {
+func (e *CreateOutputSystemByPackSendLogsAs) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "text", "json":
@@ -18781,34 +19411,34 @@ func (e *CreateOutputSendLogsAs) IsExact() bool {
 	return false
 }
 
-// CreateOutputSeverityDatadog - Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
-type CreateOutputSeverityDatadog string
+// CreateOutputSystemByPackSeverityDatadog - Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+type CreateOutputSystemByPackSeverityDatadog string
 
 const (
-	// CreateOutputSeverityDatadogEmergency emergency
-	CreateOutputSeverityDatadogEmergency CreateOutputSeverityDatadog = "emergency"
-	// CreateOutputSeverityDatadogAlert alert
-	CreateOutputSeverityDatadogAlert CreateOutputSeverityDatadog = "alert"
-	// CreateOutputSeverityDatadogCritical critical
-	CreateOutputSeverityDatadogCritical CreateOutputSeverityDatadog = "critical"
-	// CreateOutputSeverityDatadogError error
-	CreateOutputSeverityDatadogError CreateOutputSeverityDatadog = "error"
-	// CreateOutputSeverityDatadogWarning warning
-	CreateOutputSeverityDatadogWarning CreateOutputSeverityDatadog = "warning"
-	// CreateOutputSeverityDatadogNotice notice
-	CreateOutputSeverityDatadogNotice CreateOutputSeverityDatadog = "notice"
-	// CreateOutputSeverityDatadogInfo info
-	CreateOutputSeverityDatadogInfo CreateOutputSeverityDatadog = "info"
-	// CreateOutputSeverityDatadogDebug debug
-	CreateOutputSeverityDatadogDebug CreateOutputSeverityDatadog = "debug"
+	// CreateOutputSystemByPackSeverityDatadogEmergency emergency
+	CreateOutputSystemByPackSeverityDatadogEmergency CreateOutputSystemByPackSeverityDatadog = "emergency"
+	// CreateOutputSystemByPackSeverityDatadogAlert alert
+	CreateOutputSystemByPackSeverityDatadogAlert CreateOutputSystemByPackSeverityDatadog = "alert"
+	// CreateOutputSystemByPackSeverityDatadogCritical critical
+	CreateOutputSystemByPackSeverityDatadogCritical CreateOutputSystemByPackSeverityDatadog = "critical"
+	// CreateOutputSystemByPackSeverityDatadogError error
+	CreateOutputSystemByPackSeverityDatadogError CreateOutputSystemByPackSeverityDatadog = "error"
+	// CreateOutputSystemByPackSeverityDatadogWarning warning
+	CreateOutputSystemByPackSeverityDatadogWarning CreateOutputSystemByPackSeverityDatadog = "warning"
+	// CreateOutputSystemByPackSeverityDatadogNotice notice
+	CreateOutputSystemByPackSeverityDatadogNotice CreateOutputSystemByPackSeverityDatadog = "notice"
+	// CreateOutputSystemByPackSeverityDatadogInfo info
+	CreateOutputSystemByPackSeverityDatadogInfo CreateOutputSystemByPackSeverityDatadog = "info"
+	// CreateOutputSystemByPackSeverityDatadogDebug debug
+	CreateOutputSystemByPackSeverityDatadogDebug CreateOutputSystemByPackSeverityDatadog = "debug"
 )
 
-func (e CreateOutputSeverityDatadog) ToPointer() *CreateOutputSeverityDatadog {
+func (e CreateOutputSystemByPackSeverityDatadog) ToPointer() *CreateOutputSystemByPackSeverityDatadog {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputSeverityDatadog) IsExact() bool {
+func (e *CreateOutputSystemByPackSeverityDatadog) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "emergency", "alert", "critical", "error", "warning", "notice", "info", "debug":
@@ -18818,32 +19448,32 @@ func (e *CreateOutputSeverityDatadog) IsExact() bool {
 	return false
 }
 
-// CreateOutputDatadogSite - Datadog site to which events should be sent
-type CreateOutputDatadogSite string
+// CreateOutputSystemByPackDatadogSite - Datadog site to which events should be sent
+type CreateOutputSystemByPackDatadogSite string
 
 const (
-	// CreateOutputDatadogSiteUs US
-	CreateOutputDatadogSiteUs CreateOutputDatadogSite = "us"
-	// CreateOutputDatadogSiteUs3 US3
-	CreateOutputDatadogSiteUs3 CreateOutputDatadogSite = "us3"
-	// CreateOutputDatadogSiteUs5 US5
-	CreateOutputDatadogSiteUs5 CreateOutputDatadogSite = "us5"
-	// CreateOutputDatadogSiteEu Europe
-	CreateOutputDatadogSiteEu CreateOutputDatadogSite = "eu"
-	// CreateOutputDatadogSiteFed1 US1-FED
-	CreateOutputDatadogSiteFed1 CreateOutputDatadogSite = "fed1"
-	// CreateOutputDatadogSiteAp1 AP1
-	CreateOutputDatadogSiteAp1 CreateOutputDatadogSite = "ap1"
-	// CreateOutputDatadogSiteCustom Custom
-	CreateOutputDatadogSiteCustom CreateOutputDatadogSite = "custom"
+	// CreateOutputSystemByPackDatadogSiteUs US
+	CreateOutputSystemByPackDatadogSiteUs CreateOutputSystemByPackDatadogSite = "us"
+	// CreateOutputSystemByPackDatadogSiteUs3 US3
+	CreateOutputSystemByPackDatadogSiteUs3 CreateOutputSystemByPackDatadogSite = "us3"
+	// CreateOutputSystemByPackDatadogSiteUs5 US5
+	CreateOutputSystemByPackDatadogSiteUs5 CreateOutputSystemByPackDatadogSite = "us5"
+	// CreateOutputSystemByPackDatadogSiteEu Europe
+	CreateOutputSystemByPackDatadogSiteEu CreateOutputSystemByPackDatadogSite = "eu"
+	// CreateOutputSystemByPackDatadogSiteFed1 US1-FED
+	CreateOutputSystemByPackDatadogSiteFed1 CreateOutputSystemByPackDatadogSite = "fed1"
+	// CreateOutputSystemByPackDatadogSiteAp1 AP1
+	CreateOutputSystemByPackDatadogSiteAp1 CreateOutputSystemByPackDatadogSite = "ap1"
+	// CreateOutputSystemByPackDatadogSiteCustom Custom
+	CreateOutputSystemByPackDatadogSiteCustom CreateOutputSystemByPackDatadogSite = "custom"
 )
 
-func (e CreateOutputDatadogSite) ToPointer() *CreateOutputDatadogSite {
+func (e CreateOutputSystemByPackDatadogSite) ToPointer() *CreateOutputSystemByPackDatadogSite {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputDatadogSite) IsExact() bool {
+func (e *CreateOutputSystemByPackDatadogSite) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "us", "us3", "us5", "eu", "fed1", "ap1", "custom":
@@ -18853,24 +19483,24 @@ func (e *CreateOutputDatadogSite) IsExact() bool {
 	return false
 }
 
-type CreateOutputPqControlsDatadog struct {
+type CreateOutputSystemByPackPqControlsDatadog struct {
 }
 
-func (c CreateOutputPqControlsDatadog) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsDatadog) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsDatadog) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsDatadog) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputDatadog struct {
+type CreateOutputSystemByPackOutputDatadog struct {
 	// Unique ID for this output
-	ID   string                  `json:"id"`
-	Type CreateOutputTypeDatadog `json:"type"`
+	ID   string                              `json:"id"`
+	Type CreateOutputSystemByPackTypeDatadog `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -18880,7 +19510,7 @@ type CreateOutputOutputDatadog struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The content type to use when sending logs
-	ContentType *CreateOutputSendLogsAs `json:"contentType,omitzero"`
+	ContentType *CreateOutputSystemByPackSendLogsAs `json:"contentType,omitzero"`
 	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
 	Message *string `json:"message,omitzero"`
 	// Name of the source to send with logs. When you send logs as JSON objects, the event's 'source' field (if set) will override this value.
@@ -18896,9 +19526,9 @@ type CreateOutputOutputDatadog struct {
 	// Allow API key to be set from the event's '__agent_api_key' field
 	AllowAPIKeyFromEvents *bool `json:"allowApiKeyFromEvents,omitzero"`
 	// Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
-	Severity *CreateOutputSeverityDatadog `json:"severity,omitzero"`
+	Severity *CreateOutputSystemByPackSeverityDatadog `json:"severity,omitzero"`
 	// Datadog site to which events should be sent
-	Site *CreateOutputDatadogSite `json:"site,omitzero"`
+	Site *CreateOutputSystemByPackDatadogSite `json:"site,omitzero"`
 	// If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
 	SendCountersAsCount *bool `json:"sendCountersAsCount,omitzero"`
 	// Maximum number of ongoing requests before blocking
@@ -18959,8 +19589,8 @@ type CreateOutputOutputDatadog struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                        `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsDatadog `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                    `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsDatadog `json:"pqControls,omitzero"`
 	// Organization's API key in Datadog
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
@@ -18975,434 +19605,434 @@ type CreateOutputOutputDatadog struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (c CreateOutputOutputDatadog) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputDatadog) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputDatadog) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputDatadog) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputDatadog) GetID() string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputDatadog) GetType() CreateOutputTypeDatadog {
+func (c *CreateOutputSystemByPackOutputDatadog) GetType() CreateOutputSystemByPackTypeDatadog {
 	if c == nil {
-		return CreateOutputTypeDatadog("")
+		return CreateOutputSystemByPackTypeDatadog("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputDatadog) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputDatadog) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputDatadog) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputDatadog) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputDatadog) GetContentType() *CreateOutputSendLogsAs {
+func (c *CreateOutputSystemByPackOutputDatadog) GetContentType() *CreateOutputSystemByPackSendLogsAs {
 	if c == nil {
 		return nil
 	}
 	return c.ContentType
 }
 
-func (c *CreateOutputOutputDatadog) GetMessage() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetMessage() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Message
 }
 
-func (c *CreateOutputOutputDatadog) GetSource() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetSource() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Source
 }
 
-func (c *CreateOutputOutputDatadog) GetHost() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Host
 }
 
-func (c *CreateOutputOutputDatadog) GetService() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetService() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Service
 }
 
-func (c *CreateOutputOutputDatadog) GetTags() []string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetTags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Tags
 }
 
-func (c *CreateOutputOutputDatadog) GetBatchByTags() *bool {
+func (c *CreateOutputSystemByPackOutputDatadog) GetBatchByTags() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.BatchByTags
 }
 
-func (c *CreateOutputOutputDatadog) GetAllowAPIKeyFromEvents() *bool {
+func (c *CreateOutputSystemByPackOutputDatadog) GetAllowAPIKeyFromEvents() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.AllowAPIKeyFromEvents
 }
 
-func (c *CreateOutputOutputDatadog) GetSeverity() *CreateOutputSeverityDatadog {
+func (c *CreateOutputSystemByPackOutputDatadog) GetSeverity() *CreateOutputSystemByPackSeverityDatadog {
 	if c == nil {
 		return nil
 	}
 	return c.Severity
 }
 
-func (c *CreateOutputOutputDatadog) GetSite() *CreateOutputDatadogSite {
+func (c *CreateOutputSystemByPackOutputDatadog) GetSite() *CreateOutputSystemByPackDatadogSite {
 	if c == nil {
 		return nil
 	}
 	return c.Site
 }
 
-func (c *CreateOutputOutputDatadog) GetSendCountersAsCount() *bool {
+func (c *CreateOutputSystemByPackOutputDatadog) GetSendCountersAsCount() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.SendCountersAsCount
 }
 
-func (c *CreateOutputOutputDatadog) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputDatadog) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputDatadog) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputDatadog) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputDatadog) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputDatadog) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputDatadog) GetCompress() *bool {
+func (c *CreateOutputSystemByPackOutputDatadog) GetCompress() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputDatadog) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputDatadog) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputDatadog) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDatadog) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputDatadog) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDatadog) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputDatadog) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputDatadog) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputDatadog) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputDatadog) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputDatadog) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputDatadog) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputDatadog) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputDatadog) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputDatadog) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputDatadog) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputDatadog) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputDatadog) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputDatadog) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputDatadog) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputDatadog) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputDatadog) GetAuthType() *components.AuthenticationMethodOptionsAPI {
+func (c *CreateOutputSystemByPackOutputDatadog) GetAuthType() *components.AuthenticationMethodOptionsAPI {
 	if c == nil {
 		return nil
 	}
 	return c.AuthType
 }
 
-func (c *CreateOutputOutputDatadog) GetTotalMemoryLimitKB() *float64 {
+func (c *CreateOutputSystemByPackOutputDatadog) GetTotalMemoryLimitKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TotalMemoryLimitKB
 }
 
-func (c *CreateOutputOutputDatadog) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputDatadog) GetCustomURL() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetCustomURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CustomURL
 }
 
-func (c *CreateOutputOutputDatadog) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputDatadog) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputDatadog) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDatadog) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputDatadog) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputDatadog) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputDatadog) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputDatadog) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputDatadog) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputDatadog) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputDatadog) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputDatadog) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputDatadog) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputDatadog) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputDatadog) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputDatadog) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputDatadog) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputDatadog) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputDatadog) GetPqControls() *CreateOutputPqControlsDatadog {
+func (c *CreateOutputSystemByPackOutputDatadog) GetPqControls() *CreateOutputSystemByPackPqControlsDatadog {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputDatadog) GetAPIKey() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.APIKey
 }
 
-func (c *CreateOutputOutputDatadog) GetTextSecret() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetTextSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TextSecret
 }
 
-func (c *CreateOutputOutputDatadog) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputDatadog) GetTemplateTags() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetTemplateTags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateTags
 }
 
-func (c *CreateOutputOutputDatadog) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputDatadog) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputDatadog) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-type CreateOutputTypeSumoLogic string
+type CreateOutputSystemByPackTypeSumoLogic string
 
 const (
-	CreateOutputTypeSumoLogicSumoLogic CreateOutputTypeSumoLogic = "sumo_logic"
+	CreateOutputSystemByPackTypeSumoLogicSumoLogic CreateOutputSystemByPackTypeSumoLogic = "sumo_logic"
 )
 
-func (e CreateOutputTypeSumoLogic) ToPointer() *CreateOutputTypeSumoLogic {
+func (e CreateOutputSystemByPackTypeSumoLogic) ToPointer() *CreateOutputSystemByPackTypeSumoLogic {
 	return &e
 }
-func (e *CreateOutputTypeSumoLogic) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeSumoLogic) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "sumo_logic":
-		*e = CreateOutputTypeSumoLogic(v)
+		*e = CreateOutputSystemByPackTypeSumoLogic(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeSumoLogic: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeSumoLogic: %v", v)
 	}
 }
 
-// CreateOutputDataFormatSumoLogic - Preserve the raw event format instead of JSONifying it
-type CreateOutputDataFormatSumoLogic string
+// CreateOutputSystemByPackDataFormatSumoLogic - Preserve the raw event format instead of JSONifying it
+type CreateOutputSystemByPackDataFormatSumoLogic string
 
 const (
-	// CreateOutputDataFormatSumoLogicJSON JSON
-	CreateOutputDataFormatSumoLogicJSON CreateOutputDataFormatSumoLogic = "json"
-	// CreateOutputDataFormatSumoLogicRaw Raw
-	CreateOutputDataFormatSumoLogicRaw CreateOutputDataFormatSumoLogic = "raw"
+	// CreateOutputSystemByPackDataFormatSumoLogicJSON JSON
+	CreateOutputSystemByPackDataFormatSumoLogicJSON CreateOutputSystemByPackDataFormatSumoLogic = "json"
+	// CreateOutputSystemByPackDataFormatSumoLogicRaw Raw
+	CreateOutputSystemByPackDataFormatSumoLogicRaw CreateOutputSystemByPackDataFormatSumoLogic = "raw"
 )
 
-func (e CreateOutputDataFormatSumoLogic) ToPointer() *CreateOutputDataFormatSumoLogic {
+func (e CreateOutputSystemByPackDataFormatSumoLogic) ToPointer() *CreateOutputSystemByPackDataFormatSumoLogic {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputDataFormatSumoLogic) IsExact() bool {
+func (e *CreateOutputSystemByPackDataFormatSumoLogic) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "json", "raw":
@@ -19412,24 +20042,24 @@ func (e *CreateOutputDataFormatSumoLogic) IsExact() bool {
 	return false
 }
 
-type CreateOutputPqControlsSumoLogic struct {
+type CreateOutputSystemByPackPqControlsSumoLogic struct {
 }
 
-func (c CreateOutputPqControlsSumoLogic) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsSumoLogic) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsSumoLogic) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsSumoLogic) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputSumoLogic struct {
+type CreateOutputSystemByPackOutputSumoLogic struct {
 	// Unique ID for this output
-	ID   string                    `json:"id"`
-	Type CreateOutputTypeSumoLogic `json:"type"`
+	ID   string                                `json:"id"`
+	Type CreateOutputSystemByPackTypeSumoLogic `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -19445,7 +20075,7 @@ type CreateOutputOutputSumoLogic struct {
 	// Override the source category configured on the Sumo Logic HTTP collector. This can also be overridden at the event level with the __sourceCategory field.
 	CustomCategory *string `json:"customCategory,omitzero"`
 	// Preserve the raw event format instead of JSONifying it
-	Format *CreateOutputDataFormatSumoLogic `json:"format,omitzero"`
+	Format *CreateOutputSystemByPackDataFormatSumoLogic `json:"format,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -19501,8 +20131,8 @@ type CreateOutputOutputSumoLogic struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                          `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsSumoLogic `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                      `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsSumoLogic `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
@@ -19513,342 +20143,342 @@ type CreateOutputOutputSumoLogic struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (c CreateOutputOutputSumoLogic) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputSumoLogic) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputSumoLogic) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputSumoLogic) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputSumoLogic) GetID() string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputSumoLogic) GetType() CreateOutputTypeSumoLogic {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetType() CreateOutputSystemByPackTypeSumoLogic {
 	if c == nil {
-		return CreateOutputTypeSumoLogic("")
+		return CreateOutputSystemByPackTypeSumoLogic("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputSumoLogic) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputSumoLogic) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputSumoLogic) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputSumoLogic) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputSumoLogic) GetURL() string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetURL() string {
 	if c == nil {
 		return ""
 	}
 	return c.URL
 }
 
-func (c *CreateOutputOutputSumoLogic) GetCustomSource() *string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetCustomSource() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CustomSource
 }
 
-func (c *CreateOutputOutputSumoLogic) GetCustomCategory() *string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetCustomCategory() *string {
 	if c == nil {
 		return nil
 	}
 	return c.CustomCategory
 }
 
-func (c *CreateOutputOutputSumoLogic) GetFormat() *CreateOutputDataFormatSumoLogic {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetFormat() *CreateOutputSystemByPackDataFormatSumoLogic {
 	if c == nil {
 		return nil
 	}
 	return c.Format
 }
 
-func (c *CreateOutputOutputSumoLogic) GetConcurrency() *float64 {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetConcurrency() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Concurrency
 }
 
-func (c *CreateOutputOutputSumoLogic) GetMaxPayloadSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetMaxPayloadSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadSizeKB
 }
 
-func (c *CreateOutputOutputSumoLogic) GetMaxPayloadEvents() *float64 {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetMaxPayloadEvents() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxPayloadEvents
 }
 
-func (c *CreateOutputOutputSumoLogic) GetCompress() *bool {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetCompress() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Compress
 }
 
-func (c *CreateOutputOutputSumoLogic) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputSumoLogic) GetTimeoutSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetTimeoutSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutSec
 }
 
-func (c *CreateOutputOutputSumoLogic) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputSumoLogic) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
 	return c.ExtraHTTPHeaders
 }
 
-func (c *CreateOutputOutputSumoLogic) GetUseRoundRobinDNS() *bool {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetUseRoundRobinDNS() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.UseRoundRobinDNS
 }
 
-func (c *CreateOutputOutputSumoLogic) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.FailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputSumoLogic) GetSafeHeaders() []string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetSafeHeaders() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputOutputSumoLogic) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseRetrySettings
 }
 
-func (c *CreateOutputOutputSumoLogic) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
 	if c == nil {
 		return nil
 	}
 	return c.TimeoutRetrySettings
 }
 
-func (c *CreateOutputOutputSumoLogic) GetResponseHonorRetryAfterHeader() *bool {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetResponseHonorRetryAfterHeader() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputOutputSumoLogic) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputSumoLogic) GetTotalMemoryLimitKB() *float64 {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetTotalMemoryLimitKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.TotalMemoryLimitKB
 }
 
-func (c *CreateOutputOutputSumoLogic) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputSumoLogic) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputSumoLogic) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputSumoLogic) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputSumoLogic) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputSumoLogic) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputSumoLogic) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputSumoLogic) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputSumoLogic) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputSumoLogic) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputSumoLogic) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputSumoLogic) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputSumoLogic) GetPqControls() *CreateOutputPqControlsSumoLogic {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetPqControls() *CreateOutputSystemByPackPqControlsSumoLogic {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputSumoLogic) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputSumoLogic) GetTemplateURL() *string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetTemplateURL() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateURL
 }
 
-func (c *CreateOutputOutputSumoLogic) GetTemplateFailedRequestLoggingMode() *string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateFailedRequestLoggingMode
 }
 
-func (c *CreateOutputOutputSumoLogic) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputSumoLogic) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-type CreateOutputTypeSnmp string
+type CreateOutputSystemByPackTypeSnmp string
 
 const (
-	CreateOutputTypeSnmpSnmp CreateOutputTypeSnmp = "snmp"
+	CreateOutputSystemByPackTypeSnmpSnmp CreateOutputSystemByPackTypeSnmp = "snmp"
 )
 
-func (e CreateOutputTypeSnmp) ToPointer() *CreateOutputTypeSnmp {
+func (e CreateOutputSystemByPackTypeSnmp) ToPointer() *CreateOutputSystemByPackTypeSnmp {
 	return &e
 }
-func (e *CreateOutputTypeSnmp) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeSnmp) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "snmp":
-		*e = CreateOutputTypeSnmp(v)
+		*e = CreateOutputSystemByPackTypeSnmp(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeSnmp: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeSnmp: %v", v)
 	}
 }
 
-type CreateOutputHostSnmp struct {
+type CreateOutputSystemByPackHostSnmp struct {
 	// Destination host
 	Host string `json:"host"`
 	// Destination port, default is 162
@@ -19859,49 +20489,49 @@ type CreateOutputHostSnmp struct {
 	TemplatePort *string `json:"__template_port,omitzero"`
 }
 
-func (c CreateOutputHostSnmp) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackHostSnmp) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputHostSnmp) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackHostSnmp) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputHostSnmp) GetHost() string {
+func (c *CreateOutputSystemByPackHostSnmp) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateOutputHostSnmp) GetPort() float64 {
+func (c *CreateOutputSystemByPackHostSnmp) GetPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.Port
 }
 
-func (c *CreateOutputHostSnmp) GetTemplateHost() *string {
+func (c *CreateOutputSystemByPackHostSnmp) GetTemplateHost() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateHost
 }
 
-func (c *CreateOutputHostSnmp) GetTemplatePort() *string {
+func (c *CreateOutputSystemByPackHostSnmp) GetTemplatePort() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplatePort
 }
 
-type CreateOutputOutputSnmp struct {
+type CreateOutputSystemByPackOutputSnmp struct {
 	// Unique ID for this output
-	ID   string               `json:"id"`
-	Type CreateOutputTypeSnmp `json:"type"`
+	ID   string                           `json:"id"`
+	Type CreateOutputSystemByPackTypeSnmp `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -19911,7 +20541,7 @@ type CreateOutputOutputSnmp struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// One or more SNMP destinations to forward traps to
-	Hosts []CreateOutputHostSnmp `json:"hosts"`
+	Hosts []CreateOutputSystemByPackHostSnmp `json:"hosts"`
 	// How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every trap sent will incur a DNS lookup.
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	Description         *string  `json:"description,omitzero"`
@@ -19919,126 +20549,126 @@ type CreateOutputOutputSnmp struct {
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
-func (c CreateOutputOutputSnmp) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputSnmp) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputSnmp) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputSnmp) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputSnmp) GetID() string {
+func (c *CreateOutputSystemByPackOutputSnmp) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputSnmp) GetType() CreateOutputTypeSnmp {
+func (c *CreateOutputSystemByPackOutputSnmp) GetType() CreateOutputSystemByPackTypeSnmp {
 	if c == nil {
-		return CreateOutputTypeSnmp("")
+		return CreateOutputSystemByPackTypeSnmp("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputSnmp) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputSnmp) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputSnmp) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputSnmp) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputSnmp) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputSnmp) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputSnmp) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputSnmp) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputSnmp) GetHosts() []CreateOutputHostSnmp {
+func (c *CreateOutputSystemByPackOutputSnmp) GetHosts() []CreateOutputSystemByPackHostSnmp {
 	if c == nil {
-		return []CreateOutputHostSnmp{}
+		return []CreateOutputSystemByPackHostSnmp{}
 	}
 	return c.Hosts
 }
 
-func (c *CreateOutputOutputSnmp) GetDNSResolvePeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSnmp) GetDNSResolvePeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DNSResolvePeriodSec
 }
 
-func (c *CreateOutputOutputSnmp) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputSnmp) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputSnmp) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputSnmp) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-type CreateOutputTypeSqs string
+type CreateOutputSystemByPackTypeSqs string
 
 const (
-	CreateOutputTypeSqsSqs CreateOutputTypeSqs = "sqs"
+	CreateOutputSystemByPackTypeSqsSqs CreateOutputSystemByPackTypeSqs = "sqs"
 )
 
-func (e CreateOutputTypeSqs) ToPointer() *CreateOutputTypeSqs {
+func (e CreateOutputSystemByPackTypeSqs) ToPointer() *CreateOutputSystemByPackTypeSqs {
 	return &e
 }
-func (e *CreateOutputTypeSqs) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeSqs) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "sqs":
-		*e = CreateOutputTypeSqs(v)
+		*e = CreateOutputSystemByPackTypeSqs(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeSqs: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeSqs: %v", v)
 	}
 }
 
-// CreateOutputQueueType - The queue type used (or created). Defaults to Standard.
-type CreateOutputQueueType string
+// CreateOutputSystemByPackQueueType - The queue type used (or created). Defaults to Standard.
+type CreateOutputSystemByPackQueueType string
 
 const (
-	// CreateOutputQueueTypeStandard Standard
-	CreateOutputQueueTypeStandard CreateOutputQueueType = "standard"
-	// CreateOutputQueueTypeFifo FIFO
-	CreateOutputQueueTypeFifo CreateOutputQueueType = "fifo"
+	// CreateOutputSystemByPackQueueTypeStandard Standard
+	CreateOutputSystemByPackQueueTypeStandard CreateOutputSystemByPackQueueType = "standard"
+	// CreateOutputSystemByPackQueueTypeFifo FIFO
+	CreateOutputSystemByPackQueueTypeFifo CreateOutputSystemByPackQueueType = "fifo"
 )
 
-func (e CreateOutputQueueType) ToPointer() *CreateOutputQueueType {
+func (e CreateOutputSystemByPackQueueType) ToPointer() *CreateOutputSystemByPackQueueType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputQueueType) IsExact() bool {
+func (e *CreateOutputSystemByPackQueueType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "standard", "fifo":
@@ -20048,24 +20678,24 @@ func (e *CreateOutputQueueType) IsExact() bool {
 	return false
 }
 
-type CreateOutputPqControlsSqs struct {
+type CreateOutputSystemByPackPqControlsSqs struct {
 }
 
-func (c CreateOutputPqControlsSqs) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsSqs) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsSqs) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsSqs) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputSqs struct {
+type CreateOutputSystemByPackOutputSqs struct {
 	// Unique ID for this output
-	ID   string              `json:"id"`
-	Type CreateOutputTypeSqs `json:"type"`
+	ID   string                          `json:"id"`
+	Type CreateOutputSystemByPackTypeSqs `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -20077,7 +20707,7 @@ type CreateOutputOutputSqs struct {
 	// The name, URL, or ARN of the SQS queue to send events to. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
 	QueueName string `json:"queueName"`
 	// The queue type used (or created). Defaults to Standard.
-	QueueType CreateOutputQueueType `json:"queueType"`
+	QueueType CreateOutputSystemByPackQueueType `json:"queueType"`
 	// SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
 	AwsAccountID *string `json:"awsAccountId,omitzero"`
 	// This parameter applies only to FIFO queues. The tag that specifies that a message belongs to a specific message group. Messages that belong to the same message group are processed in a FIFO manner. Use event field __messageGroupId to override this value.
@@ -20138,8 +20768,8 @@ type CreateOutputOutputSqs struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                    `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsSqs `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsSqs `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
@@ -20166,429 +20796,429 @@ type CreateOutputOutputSqs struct {
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
 
-func (c CreateOutputOutputSqs) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputSqs) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputSqs) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputSqs) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputSqs) GetID() string {
+func (c *CreateOutputSystemByPackOutputSqs) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputSqs) GetType() CreateOutputTypeSqs {
+func (c *CreateOutputSystemByPackOutputSqs) GetType() CreateOutputSystemByPackTypeSqs {
 	if c == nil {
-		return CreateOutputTypeSqs("")
+		return CreateOutputSystemByPackTypeSqs("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputSqs) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputSqs) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputSqs) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputSqs) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputSqs) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputSqs) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputSqs) GetQueueName() string {
+func (c *CreateOutputSystemByPackOutputSqs) GetQueueName() string {
 	if c == nil {
 		return ""
 	}
 	return c.QueueName
 }
 
-func (c *CreateOutputOutputSqs) GetQueueType() CreateOutputQueueType {
+func (c *CreateOutputSystemByPackOutputSqs) GetQueueType() CreateOutputSystemByPackQueueType {
 	if c == nil {
-		return CreateOutputQueueType("")
+		return CreateOutputSystemByPackQueueType("")
 	}
 	return c.QueueType
 }
 
-func (c *CreateOutputOutputSqs) GetAwsAccountID() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetAwsAccountID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAccountID
 }
 
-func (c *CreateOutputOutputSqs) GetMessageGroupID() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetMessageGroupID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.MessageGroupID
 }
 
-func (c *CreateOutputOutputSqs) GetCreateQueue() *bool {
+func (c *CreateOutputSystemByPackOutputSqs) GetCreateQueue() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.CreateQueue
 }
 
-func (c *CreateOutputOutputSqs) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (c *CreateOutputSystemByPackOutputSqs) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateOutputOutputSqs) GetAwsSecretKey() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecretKey
 }
 
-func (c *CreateOutputOutputSqs) GetRegion() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Region
 }
 
-func (c *CreateOutputOutputSqs) GetEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputSqs) GetReuseConnections() *bool {
+func (c *CreateOutputSystemByPackOutputSqs) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateOutputOutputSqs) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputSqs) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputSqs) GetEnableAssumeRole() *bool {
+func (c *CreateOutputSystemByPackOutputSqs) GetEnableAssumeRole() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableAssumeRole
 }
 
-func (c *CreateOutputOutputSqs) GetAssumeRoleArn() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleArn
 }
 
-func (c *CreateOutputOutputSqs) GetAssumeRoleExternalID() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleExternalID
 }
 
-func (c *CreateOutputOutputSqs) GetDurationSeconds() *float64 {
+func (c *CreateOutputSystemByPackOutputSqs) GetDurationSeconds() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DurationSeconds
 }
 
-func (c *CreateOutputOutputSqs) GetMaxQueueSize() *float64 {
+func (c *CreateOutputSystemByPackOutputSqs) GetMaxQueueSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxQueueSize
 }
 
-func (c *CreateOutputOutputSqs) GetMaxRecordSizeKB() *float64 {
+func (c *CreateOutputSystemByPackOutputSqs) GetMaxRecordSizeKB() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRecordSizeKB
 }
 
-func (c *CreateOutputOutputSqs) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSqs) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputSqs) GetMaxInProgress() *float64 {
+func (c *CreateOutputSystemByPackOutputSqs) GetMaxInProgress() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxInProgress
 }
 
-func (c *CreateOutputOutputSqs) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputSqs) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputSqs) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputSqs) GetAwsAPIKey() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAPIKey
 }
 
-func (c *CreateOutputOutputSqs) GetAwsSecret() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateOutputOutputSqs) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputSqs) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputSqs) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSqs) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputSqs) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputSqs) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputSqs) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputSqs) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputSqs) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSqs) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputSqs) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputSqs) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputSqs) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputSqs) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputSqs) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputSqs) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputSqs) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputSqs) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputSqs) GetPqControls() *CreateOutputPqControlsSqs {
+func (c *CreateOutputSystemByPackOutputSqs) GetPqControls() *CreateOutputSystemByPackPqControlsSqs {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputSqs) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputSqs) GetTemplateQueueName() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetTemplateQueueName() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateQueueName
 }
 
-func (c *CreateOutputOutputSqs) GetTemplateQueueType() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetTemplateQueueType() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateQueueType
 }
 
-func (c *CreateOutputOutputSqs) GetTemplateAwsAccountID() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetTemplateAwsAccountID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAccountID
 }
 
-func (c *CreateOutputOutputSqs) GetTemplateMessageGroupID() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetTemplateMessageGroupID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateMessageGroupID
 }
 
-func (c *CreateOutputOutputSqs) GetTemplateAwsSecretKey() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetTemplateAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsSecretKey
 }
 
-func (c *CreateOutputOutputSqs) GetTemplateRegion() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateRegion
 }
 
-func (c *CreateOutputOutputSqs) GetTemplateEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateOutputOutputSqs) GetTemplateAssumeRoleArn() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleArn
 }
 
-func (c *CreateOutputOutputSqs) GetTemplateAssumeRoleExternalID() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetTemplateAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
 }
 
-func (c *CreateOutputOutputSqs) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputSqs) GetTemplateAwsAPIKey() *string {
+func (c *CreateOutputSystemByPackOutputSqs) GetTemplateAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAPIKey
 }
 
-type CreateOutputTypeSns string
+type CreateOutputSystemByPackTypeSns string
 
 const (
-	CreateOutputTypeSnsSns CreateOutputTypeSns = "sns"
+	CreateOutputSystemByPackTypeSnsSns CreateOutputSystemByPackTypeSns = "sns"
 )
 
-func (e CreateOutputTypeSns) ToPointer() *CreateOutputTypeSns {
+func (e CreateOutputSystemByPackTypeSns) ToPointer() *CreateOutputSystemByPackTypeSns {
 	return &e
 }
-func (e *CreateOutputTypeSns) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeSns) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "sns":
-		*e = CreateOutputTypeSns(v)
+		*e = CreateOutputSystemByPackTypeSns(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeSns: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeSns: %v", v)
 	}
 }
 
-type CreateOutputPqControlsSns struct {
+type CreateOutputSystemByPackPqControlsSns struct {
 }
 
-func (c CreateOutputPqControlsSns) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsSns) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsSns) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsSns) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputSns struct {
+type CreateOutputSystemByPackOutputSns struct {
 	// Unique ID for this output
-	ID   string              `json:"id"`
-	Type CreateOutputTypeSns `json:"type"`
+	ID   string                          `json:"id"`
+	Type CreateOutputSystemByPackTypeSns `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -20649,8 +21279,8 @@ type CreateOutputOutputSns struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                    `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsSns `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsSns `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'topicArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicArn' at runtime.
@@ -20673,356 +21303,356 @@ type CreateOutputOutputSns struct {
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
 
-func (c CreateOutputOutputSns) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputSns) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputSns) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputSns) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputSns) GetID() string {
+func (c *CreateOutputSystemByPackOutputSns) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputSns) GetType() CreateOutputTypeSns {
+func (c *CreateOutputSystemByPackOutputSns) GetType() CreateOutputSystemByPackTypeSns {
 	if c == nil {
-		return CreateOutputTypeSns("")
+		return CreateOutputSystemByPackTypeSns("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputSns) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputSns) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputSns) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputSns) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputSns) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputSns) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputSns) GetTopicArn() string {
+func (c *CreateOutputSystemByPackOutputSns) GetTopicArn() string {
 	if c == nil {
 		return ""
 	}
 	return c.TopicArn
 }
 
-func (c *CreateOutputOutputSns) GetMessageGroupID() string {
+func (c *CreateOutputSystemByPackOutputSns) GetMessageGroupID() string {
 	if c == nil {
 		return ""
 	}
 	return c.MessageGroupID
 }
 
-func (c *CreateOutputOutputSns) GetMaxRetries() *float64 {
+func (c *CreateOutputSystemByPackOutputSns) GetMaxRetries() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.MaxRetries
 }
 
-func (c *CreateOutputOutputSns) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+func (c *CreateOutputSystemByPackOutputSns) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateOutputOutputSns) GetAwsSecretKey() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecretKey
 }
 
-func (c *CreateOutputOutputSns) GetRegion() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Region
 }
 
-func (c *CreateOutputOutputSns) GetEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputSns) GetReuseConnections() *bool {
+func (c *CreateOutputSystemByPackOutputSns) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.ReuseConnections
 }
 
-func (c *CreateOutputOutputSns) GetRejectUnauthorized() *bool {
+func (c *CreateOutputSystemByPackOutputSns) GetRejectUnauthorized() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.RejectUnauthorized
 }
 
-func (c *CreateOutputOutputSns) GetEnableAssumeRole() *bool {
+func (c *CreateOutputSystemByPackOutputSns) GetEnableAssumeRole() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.EnableAssumeRole
 }
 
-func (c *CreateOutputOutputSns) GetAssumeRoleArn() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleArn
 }
 
-func (c *CreateOutputOutputSns) GetAssumeRoleExternalID() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AssumeRoleExternalID
 }
 
-func (c *CreateOutputOutputSns) GetDurationSeconds() *float64 {
+func (c *CreateOutputSystemByPackOutputSns) GetDurationSeconds() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DurationSeconds
 }
 
-func (c *CreateOutputOutputSns) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputSns) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputSns) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputSns) GetAwsAPIKey() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsAPIKey
 }
 
-func (c *CreateOutputOutputSns) GetAwsSecret() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetAwsSecret() *string {
 	if c == nil {
 		return nil
 	}
 	return c.AwsSecret
 }
 
-func (c *CreateOutputOutputSns) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputSns) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputSns) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSns) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputSns) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputSns) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputSns) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputSns) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputSns) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputSns) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputSns) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputSns) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputSns) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputSns) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputSns) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputSns) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputSns) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputSns) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputSns) GetPqControls() *CreateOutputPqControlsSns {
+func (c *CreateOutputSystemByPackOutputSns) GetPqControls() *CreateOutputSystemByPackPqControlsSns {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputSns) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputSns) GetTemplateTopicArn() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetTemplateTopicArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateTopicArn
 }
 
-func (c *CreateOutputOutputSns) GetTemplateMessageGroupID() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetTemplateMessageGroupID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateMessageGroupID
 }
 
-func (c *CreateOutputOutputSns) GetTemplateAwsSecretKey() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetTemplateAwsSecretKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsSecretKey
 }
 
-func (c *CreateOutputOutputSns) GetTemplateRegion() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateRegion
 }
 
-func (c *CreateOutputOutputSns) GetTemplateEndpoint() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateEndpoint
 }
 
-func (c *CreateOutputOutputSns) GetTemplateAssumeRoleArn() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetTemplateAssumeRoleArn() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleArn
 }
 
-func (c *CreateOutputOutputSns) GetTemplateAssumeRoleExternalID() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetTemplateAssumeRoleExternalID() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
 }
 
-func (c *CreateOutputOutputSns) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputOutputSns) GetTemplateAwsAPIKey() *string {
+func (c *CreateOutputSystemByPackOutputSns) GetTemplateAwsAPIKey() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateAwsAPIKey
 }
 
-type CreateOutputTypeRouter string
+type CreateOutputSystemByPackTypeRouter string
 
 const (
-	CreateOutputTypeRouterRouter CreateOutputTypeRouter = "router"
+	CreateOutputSystemByPackTypeRouterRouter CreateOutputSystemByPackTypeRouter = "router"
 )
 
-func (e CreateOutputTypeRouter) ToPointer() *CreateOutputTypeRouter {
+func (e CreateOutputSystemByPackTypeRouter) ToPointer() *CreateOutputSystemByPackTypeRouter {
 	return &e
 }
-func (e *CreateOutputTypeRouter) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeRouter) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "router":
-		*e = CreateOutputTypeRouter(v)
+		*e = CreateOutputSystemByPackTypeRouter(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeRouter: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeRouter: %v", v)
 	}
 }
 
-type CreateOutputRule struct {
+type CreateOutputSystemByPackRule struct {
 	// JavaScript expression to select events to send to output
 	Filter string `json:"filter"`
 	// Output to send matching events to
@@ -21033,49 +21663,49 @@ type CreateOutputRule struct {
 	Final *bool `json:"final,omitzero"`
 }
 
-func (c CreateOutputRule) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackRule) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputRule) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackRule) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputRule) GetFilter() string {
+func (c *CreateOutputSystemByPackRule) GetFilter() string {
 	if c == nil {
 		return ""
 	}
 	return c.Filter
 }
 
-func (c *CreateOutputRule) GetOutput() string {
+func (c *CreateOutputSystemByPackRule) GetOutput() string {
 	if c == nil {
 		return ""
 	}
 	return c.Output
 }
 
-func (c *CreateOutputRule) GetDescription() *string {
+func (c *CreateOutputSystemByPackRule) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputRule) GetFinal() *bool {
+func (c *CreateOutputSystemByPackRule) GetFinal() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.Final
 }
 
-type CreateOutputOutputRouter struct {
+type CreateOutputSystemByPackOutputRouter struct {
 	// Unique ID for this output
-	ID   string                 `json:"id"`
-	Type CreateOutputTypeRouter `json:"type"`
+	ID   string                             `json:"id"`
+	Type CreateOutputSystemByPackTypeRouter `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -21085,127 +21715,127 @@ type CreateOutputOutputRouter struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Event routing rules
-	Rules       []CreateOutputRule `json:"rules"`
-	Description *string            `json:"description,omitzero"`
+	Rules       []CreateOutputSystemByPackRule `json:"rules"`
+	Description *string                        `json:"description,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
-func (c CreateOutputOutputRouter) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputRouter) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputRouter) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputRouter) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputRouter) GetID() string {
+func (c *CreateOutputSystemByPackOutputRouter) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputRouter) GetType() CreateOutputTypeRouter {
+func (c *CreateOutputSystemByPackOutputRouter) GetType() CreateOutputSystemByPackTypeRouter {
 	if c == nil {
-		return CreateOutputTypeRouter("")
+		return CreateOutputSystemByPackTypeRouter("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputRouter) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputRouter) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputRouter) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputRouter) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputRouter) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputRouter) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputRouter) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputRouter) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputRouter) GetRules() []CreateOutputRule {
+func (c *CreateOutputSystemByPackOutputRouter) GetRules() []CreateOutputSystemByPackRule {
 	if c == nil {
-		return []CreateOutputRule{}
+		return []CreateOutputSystemByPackRule{}
 	}
 	return c.Rules
 }
 
-func (c *CreateOutputOutputRouter) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputRouter) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputRouter) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputRouter) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-type CreateOutputTypeGraphite string
+type CreateOutputSystemByPackTypeGraphite string
 
 const (
-	CreateOutputTypeGraphiteGraphite CreateOutputTypeGraphite = "graphite"
+	CreateOutputSystemByPackTypeGraphiteGraphite CreateOutputSystemByPackTypeGraphite = "graphite"
 )
 
-func (e CreateOutputTypeGraphite) ToPointer() *CreateOutputTypeGraphite {
+func (e CreateOutputSystemByPackTypeGraphite) ToPointer() *CreateOutputSystemByPackTypeGraphite {
 	return &e
 }
-func (e *CreateOutputTypeGraphite) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeGraphite) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "graphite":
-		*e = CreateOutputTypeGraphite(v)
+		*e = CreateOutputSystemByPackTypeGraphite(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeGraphite: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeGraphite: %v", v)
 	}
 }
 
-type CreateOutputPqControlsGraphite struct {
+type CreateOutputSystemByPackPqControlsGraphite struct {
 }
 
-func (c CreateOutputPqControlsGraphite) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsGraphite) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsGraphite) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsGraphite) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputGraphite struct {
+type CreateOutputSystemByPackOutputGraphite struct {
 	// Unique ID for this output
-	ID   string                   `json:"id"`
-	Type CreateOutputTypeGraphite `json:"type"`
+	ID   string                               `json:"id"`
+	Type CreateOutputSystemByPackTypeGraphite `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -21256,283 +21886,283 @@ type CreateOutputOutputGraphite struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                         `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsGraphite `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                     `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsGraphite `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (c CreateOutputOutputGraphite) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputGraphite) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputGraphite) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputGraphite) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputGraphite) GetID() string {
+func (c *CreateOutputSystemByPackOutputGraphite) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputGraphite) GetType() CreateOutputTypeGraphite {
+func (c *CreateOutputSystemByPackOutputGraphite) GetType() CreateOutputSystemByPackTypeGraphite {
 	if c == nil {
-		return CreateOutputTypeGraphite("")
+		return CreateOutputSystemByPackTypeGraphite("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputGraphite) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputGraphite) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputGraphite) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputGraphite) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputGraphite) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputGraphite) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputGraphite) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputGraphite) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputGraphite) GetProtocol() components.DestinationProtocolOptions {
+func (c *CreateOutputSystemByPackOutputGraphite) GetProtocol() components.DestinationProtocolOptions {
 	if c == nil {
 		return components.DestinationProtocolOptions("")
 	}
 	return c.Protocol
 }
 
-func (c *CreateOutputOutputGraphite) GetHost() string {
+func (c *CreateOutputSystemByPackOutputGraphite) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateOutputOutputGraphite) GetPort() float64 {
+func (c *CreateOutputSystemByPackOutputGraphite) GetPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.Port
 }
 
-func (c *CreateOutputOutputGraphite) GetMtu() *float64 {
+func (c *CreateOutputSystemByPackOutputGraphite) GetMtu() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Mtu
 }
 
-func (c *CreateOutputOutputGraphite) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputGraphite) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputGraphite) GetDNSResolvePeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputGraphite) GetDNSResolvePeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DNSResolvePeriodSec
 }
 
-func (c *CreateOutputOutputGraphite) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputGraphite) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputGraphite) GetThrottleRatePerSec() *string {
+func (c *CreateOutputSystemByPackOutputGraphite) GetThrottleRatePerSec() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ThrottleRatePerSec
 }
 
-func (c *CreateOutputOutputGraphite) GetConnectionTimeout() *float64 {
+func (c *CreateOutputSystemByPackOutputGraphite) GetConnectionTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ConnectionTimeout
 }
 
-func (c *CreateOutputOutputGraphite) GetWriteTimeout() *float64 {
+func (c *CreateOutputSystemByPackOutputGraphite) GetWriteTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.WriteTimeout
 }
 
-func (c *CreateOutputOutputGraphite) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputGraphite) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputGraphite) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputGraphite) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputGraphite) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputGraphite) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputGraphite) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputGraphite) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputGraphite) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputGraphite) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputGraphite) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputGraphite) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputGraphite) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputGraphite) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputGraphite) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputGraphite) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputGraphite) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputGraphite) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputGraphite) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputGraphite) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputGraphite) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputGraphite) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputGraphite) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputGraphite) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputGraphite) GetPqControls() *CreateOutputPqControlsGraphite {
+func (c *CreateOutputSystemByPackOutputGraphite) GetPqControls() *CreateOutputSystemByPackPqControlsGraphite {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputGraphite) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputGraphite) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputGraphite) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputGraphite) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-type CreateOutputTypeStatsdExt string
+type CreateOutputSystemByPackTypeStatsdExt string
 
 const (
-	CreateOutputTypeStatsdExtStatsdExt CreateOutputTypeStatsdExt = "statsd_ext"
+	CreateOutputSystemByPackTypeStatsdExtStatsdExt CreateOutputSystemByPackTypeStatsdExt = "statsd_ext"
 )
 
-func (e CreateOutputTypeStatsdExt) ToPointer() *CreateOutputTypeStatsdExt {
+func (e CreateOutputSystemByPackTypeStatsdExt) ToPointer() *CreateOutputSystemByPackTypeStatsdExt {
 	return &e
 }
-func (e *CreateOutputTypeStatsdExt) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeStatsdExt) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "statsd_ext":
-		*e = CreateOutputTypeStatsdExt(v)
+		*e = CreateOutputSystemByPackTypeStatsdExt(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeStatsdExt: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeStatsdExt: %v", v)
 	}
 }
 
-type CreateOutputPqControlsStatsdExt struct {
+type CreateOutputSystemByPackPqControlsStatsdExt struct {
 }
 
-func (c CreateOutputPqControlsStatsdExt) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackPqControlsStatsdExt) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputPqControlsStatsdExt) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackPqControlsStatsdExt) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type CreateOutputOutputStatsdExt struct {
+type CreateOutputSystemByPackOutputStatsdExt struct {
 	// Unique ID for this output
-	ID   string                    `json:"id"`
-	Type CreateOutputTypeStatsdExt `json:"type"`
+	ID   string                                `json:"id"`
+	Type CreateOutputSystemByPackTypeStatsdExt `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -21583,565 +22213,261 @@ type CreateOutputOutputStatsdExt struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                          `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsStatsdExt `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                      `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsStatsdExt `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (c CreateOutputOutputStatsdExt) MarshalJSON() ([]byte, error) {
+func (c CreateOutputSystemByPackOutputStatsdExt) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(c, "", false)
 }
 
-func (c *CreateOutputOutputStatsdExt) UnmarshalJSON(data []byte) error {
+func (c *CreateOutputSystemByPackOutputStatsdExt) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CreateOutputOutputStatsdExt) GetID() string {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetID() string {
 	if c == nil {
 		return ""
 	}
 	return c.ID
 }
 
-func (c *CreateOutputOutputStatsdExt) GetType() CreateOutputTypeStatsdExt {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetType() CreateOutputSystemByPackTypeStatsdExt {
 	if c == nil {
-		return CreateOutputTypeStatsdExt("")
+		return CreateOutputSystemByPackTypeStatsdExt("")
 	}
 	return c.Type
 }
 
-func (c *CreateOutputOutputStatsdExt) GetPipeline() *string {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetPipeline() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Pipeline
 }
 
-func (c *CreateOutputOutputStatsdExt) GetSystemFields() []string {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetSystemFields() []string {
 	if c == nil {
 		return nil
 	}
 	return c.SystemFields
 }
 
-func (c *CreateOutputOutputStatsdExt) GetEnvironment() *string {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetEnvironment() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Environment
 }
 
-func (c *CreateOutputOutputStatsdExt) GetStreamtags() []string {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetStreamtags() []string {
 	if c == nil {
 		return nil
 	}
 	return c.Streamtags
 }
 
-func (c *CreateOutputOutputStatsdExt) GetProtocol() components.DestinationProtocolOptions {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetProtocol() components.DestinationProtocolOptions {
 	if c == nil {
 		return components.DestinationProtocolOptions("")
 	}
 	return c.Protocol
 }
 
-func (c *CreateOutputOutputStatsdExt) GetHost() string {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetHost() string {
 	if c == nil {
 		return ""
 	}
 	return c.Host
 }
 
-func (c *CreateOutputOutputStatsdExt) GetPort() float64 {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetPort() float64 {
 	if c == nil {
 		return 0.0
 	}
 	return c.Port
 }
 
-func (c *CreateOutputOutputStatsdExt) GetMtu() *float64 {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetMtu() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.Mtu
 }
 
-func (c *CreateOutputOutputStatsdExt) GetFlushPeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetFlushPeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputOutputStatsdExt) GetDNSResolvePeriodSec() *float64 {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetDNSResolvePeriodSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.DNSResolvePeriodSec
 }
 
-func (c *CreateOutputOutputStatsdExt) GetDescription() *string {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
 }
 
-func (c *CreateOutputOutputStatsdExt) GetThrottleRatePerSec() *string {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetThrottleRatePerSec() *string {
 	if c == nil {
 		return nil
 	}
 	return c.ThrottleRatePerSec
 }
 
-func (c *CreateOutputOutputStatsdExt) GetConnectionTimeout() *float64 {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetConnectionTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.ConnectionTimeout
 }
 
-func (c *CreateOutputOutputStatsdExt) GetWriteTimeout() *float64 {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetWriteTimeout() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.WriteTimeout
 }
 
-func (c *CreateOutputOutputStatsdExt) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetOnBackpressure() *components.BackpressureBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.OnBackpressure
 }
 
-func (c *CreateOutputOutputStatsdExt) GetPqStrictOrdering() *bool {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetPqStrictOrdering() *bool {
 	if c == nil {
 		return nil
 	}
 	return c.PqStrictOrdering
 }
 
-func (c *CreateOutputOutputStatsdExt) GetPqRatePerSec() *float64 {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetPqRatePerSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqRatePerSec
 }
 
-func (c *CreateOutputOutputStatsdExt) GetPqMode() *components.ModeOptions {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetPqMode() *components.ModeOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqMode
 }
 
-func (c *CreateOutputOutputStatsdExt) GetPqMaxBufferSize() *float64 {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetPqMaxBufferSize() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSize
 }
 
-func (c *CreateOutputOutputStatsdExt) GetPqMaxBackpressureSec() *float64 {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetPqMaxBackpressureSec() *float64 {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBackpressureSec
 }
 
-func (c *CreateOutputOutputStatsdExt) GetPqMaxFileSize() *string {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetPqMaxFileSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxFileSize
 }
 
-func (c *CreateOutputOutputStatsdExt) GetPqMaxSize() *string {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetPqMaxSize() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxSize
 }
 
-func (c *CreateOutputOutputStatsdExt) GetPqPath() *string {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetPqPath() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqPath
 }
 
-func (c *CreateOutputOutputStatsdExt) GetPqCompress() *components.CompressionOptionsPq {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetPqCompress() *components.CompressionOptionsPq {
 	if c == nil {
 		return nil
 	}
 	return c.PqCompress
 }
 
-func (c *CreateOutputOutputStatsdExt) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
 	if c == nil {
 		return nil
 	}
 	return c.PqOnBackpressure
 }
 
-func (c *CreateOutputOutputStatsdExt) GetPqMaxBufferSizeBytes() *string {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetPqMaxBufferSizeBytes() *string {
 	if c == nil {
 		return nil
 	}
 	return c.PqMaxBufferSizeBytes
 }
 
-func (c *CreateOutputOutputStatsdExt) GetPqControls() *CreateOutputPqControlsStatsdExt {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetPqControls() *CreateOutputSystemByPackPqControlsStatsdExt {
 	if c == nil {
 		return nil
 	}
 	return c.PqControls
 }
 
-func (c *CreateOutputOutputStatsdExt) GetTemplateStreamtags() *string {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetTemplateStreamtags() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputOutputStatsdExt) GetTemplateOnBackpressure() *string {
+func (c *CreateOutputSystemByPackOutputStatsdExt) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
 	}
 	return c.TemplateOnBackpressure
 }
 
-type CreateOutputTypeStatsd string
+type CreateOutputSystemByPackTypeStatsd string
 
 const (
-	CreateOutputTypeStatsdStatsd CreateOutputTypeStatsd = "statsd"
+	CreateOutputSystemByPackTypeStatsdStatsd CreateOutputSystemByPackTypeStatsd = "statsd"
 )
 
-func (e CreateOutputTypeStatsd) ToPointer() *CreateOutputTypeStatsd {
+func (e CreateOutputSystemByPackTypeStatsd) ToPointer() *CreateOutputSystemByPackTypeStatsd {
 	return &e
 }
-func (e *CreateOutputTypeStatsd) UnmarshalJSON(data []byte) error {
+func (e *CreateOutputSystemByPackTypeStatsd) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
 	case "statsd":
-		*e = CreateOutputTypeStatsd(v)
+		*e = CreateOutputSystemByPackTypeStatsd(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeStatsd: %v", v)
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeStatsd: %v", v)
 	}
-}
-
-type CreateOutputPqControlsStatsd struct {
-}
-
-func (c CreateOutputPqControlsStatsd) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateOutputPqControlsStatsd) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-type CreateOutputOutputStatsd struct {
-	// Unique ID for this output
-	ID   string                 `json:"id"`
-	Type CreateOutputTypeStatsd `json:"type"`
-	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitzero"`
-	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitzero"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitzero"`
-	// Protocol to use when communicating with the destination.
-	Protocol components.DestinationProtocolOptions `json:"protocol"`
-	// The hostname of the destination.
-	Host string `json:"host"`
-	// Destination port.
-	Port float64 `json:"port"`
-	// When protocol is UDP, specifies the maximum size of packets sent to the destination. Also known as the MTU for the network path to the destination system.
-	Mtu *float64 `json:"mtu,omitzero"`
-	// When protocol is TCP, specifies how often buffers should be flushed, resulting in records sent to the destination.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
-	// How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every batch sent will incur a DNS lookup.
-	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
-	Description         *string  `json:"description,omitzero"`
-	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
-	// Amount of time (milliseconds) to wait for the connection to establish before retrying
-	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
-	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64 `json:"writeTimeout,omitzero"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
-	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
-	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
-	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitzero"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitzero"`
-	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
-	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                       `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputPqControlsStatsd `json:"pqControls,omitzero"`
-	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
-	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
-	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
-}
-
-func (c CreateOutputOutputStatsd) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateOutputOutputStatsd) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CreateOutputOutputStatsd) GetID() string {
-	if c == nil {
-		return ""
-	}
-	return c.ID
-}
-
-func (c *CreateOutputOutputStatsd) GetType() CreateOutputTypeStatsd {
-	if c == nil {
-		return CreateOutputTypeStatsd("")
-	}
-	return c.Type
-}
-
-func (c *CreateOutputOutputStatsd) GetPipeline() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Pipeline
-}
-
-func (c *CreateOutputOutputStatsd) GetSystemFields() []string {
-	if c == nil {
-		return nil
-	}
-	return c.SystemFields
-}
-
-func (c *CreateOutputOutputStatsd) GetEnvironment() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Environment
-}
-
-func (c *CreateOutputOutputStatsd) GetStreamtags() []string {
-	if c == nil {
-		return nil
-	}
-	return c.Streamtags
-}
-
-func (c *CreateOutputOutputStatsd) GetProtocol() components.DestinationProtocolOptions {
-	if c == nil {
-		return components.DestinationProtocolOptions("")
-	}
-	return c.Protocol
-}
-
-func (c *CreateOutputOutputStatsd) GetHost() string {
-	if c == nil {
-		return ""
-	}
-	return c.Host
-}
-
-func (c *CreateOutputOutputStatsd) GetPort() float64 {
-	if c == nil {
-		return 0.0
-	}
-	return c.Port
-}
-
-func (c *CreateOutputOutputStatsd) GetMtu() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.Mtu
-}
-
-func (c *CreateOutputOutputStatsd) GetFlushPeriodSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.FlushPeriodSec
-}
-
-func (c *CreateOutputOutputStatsd) GetDNSResolvePeriodSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.DNSResolvePeriodSec
-}
-
-func (c *CreateOutputOutputStatsd) GetDescription() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Description
-}
-
-func (c *CreateOutputOutputStatsd) GetThrottleRatePerSec() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ThrottleRatePerSec
-}
-
-func (c *CreateOutputOutputStatsd) GetConnectionTimeout() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.ConnectionTimeout
-}
-
-func (c *CreateOutputOutputStatsd) GetWriteTimeout() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.WriteTimeout
-}
-
-func (c *CreateOutputOutputStatsd) GetOnBackpressure() *components.BackpressureBehaviorOptions {
-	if c == nil {
-		return nil
-	}
-	return c.OnBackpressure
-}
-
-func (c *CreateOutputOutputStatsd) GetPqStrictOrdering() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.PqStrictOrdering
-}
-
-func (c *CreateOutputOutputStatsd) GetPqRatePerSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.PqRatePerSec
-}
-
-func (c *CreateOutputOutputStatsd) GetPqMode() *components.ModeOptions {
-	if c == nil {
-		return nil
-	}
-	return c.PqMode
-}
-
-func (c *CreateOutputOutputStatsd) GetPqMaxBufferSize() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxBufferSize
-}
-
-func (c *CreateOutputOutputStatsd) GetPqMaxBackpressureSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxBackpressureSec
-}
-
-func (c *CreateOutputOutputStatsd) GetPqMaxFileSize() *string {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxFileSize
-}
-
-func (c *CreateOutputOutputStatsd) GetPqMaxSize() *string {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxSize
-}
-
-func (c *CreateOutputOutputStatsd) GetPqPath() *string {
-	if c == nil {
-		return nil
-	}
-	return c.PqPath
-}
-
-func (c *CreateOutputOutputStatsd) GetPqCompress() *components.CompressionOptionsPq {
-	if c == nil {
-		return nil
-	}
-	return c.PqCompress
-}
-
-func (c *CreateOutputOutputStatsd) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
-	if c == nil {
-		return nil
-	}
-	return c.PqOnBackpressure
-}
-
-func (c *CreateOutputOutputStatsd) GetPqMaxBufferSizeBytes() *string {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxBufferSizeBytes
-}
-
-func (c *CreateOutputOutputStatsd) GetPqControls() *CreateOutputPqControlsStatsd {
-	if c == nil {
-		return nil
-	}
-	return c.PqControls
-}
-
-func (c *CreateOutputOutputStatsd) GetTemplateStreamtags() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateStreamtags
-}
-
-func (c *CreateOutputOutputStatsd) GetTemplateOnBackpressure() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateOnBackpressure
 }

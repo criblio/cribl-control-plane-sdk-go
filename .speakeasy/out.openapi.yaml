@@ -15,7 +15,7 @@ info:
     - Host (Worker or Edge Node) context: /api/v1/w/{nodeId}
 
     - Search context: /api/v1/m/default_search
-  version: 4.18.0-alpha.1778192455172-fd4839d2
+  version: 4.19.0-alpha.1778540616303-2fff78f6
   contact:
     name: Support
     url: https://portal.support.cribl.io
@@ -11614,14 +11614,6 @@ components:
           type: string
           title: Endpoint
           description: "Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint. "
-        signatureVersion:
-          type: string
-          title: Signature version
-          description: Signature version to use for signing S3 requests
-          enum:
-            - v2
-            - v4
-          x-speakeasy-unknown-values: allow
         enableAssumeRole:
           type: boolean
           title: Enable Assume Role
@@ -14857,8 +14849,8 @@ components:
             title: dimension
         fieldPerMetric:
           type: boolean
-          title: Field per metric
-          description: "When enabled, each metric name is used as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format."
+          title: Use field per metric
+          description: "When enabled, each metric name is used as the event field key (example: go_threads: 9) instead of the default _metric/_value format."
         discoveryType:
           title: Discovery type
           type: string
@@ -15133,7 +15125,7 @@ components:
         fieldPerMetric:
           type: boolean
           title: Use field per metric
-          description: "Enable to use each metric name as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format."
+          description: "When enabled, each metric name is used as the event field key (example: go_threads: 9) instead of the default _metric/_value format."
         discoveryType:
           title: Discovery type
           type: string
@@ -16294,6 +16286,7 @@ components:
       required:
         - type
         - consumerGroup
+        - checkpointing
       properties:
         id:
           type: string
@@ -16402,18 +16395,9 @@ components:
               description: Binds 'fullyQualifiedNamespace' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fullyQualifiedNamespace' at runtime.
         checkpointing:
           type: object
+          required:
+            - blobStore
           properties:
-            checkpointStoreType:
-              type: string
-              title: Checkpoint store
-              description: The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
-              enum:
-                - none
-                - azureBlob
-              x-speakeasy-enum-descriptions:
-                - None
-                - Azure Blob Storage
-              x-speakeasy-unknown-values: allow
             blobStore:
               type: object
               title: Azure Blob Storage
@@ -18124,6 +18108,14 @@ components:
           minimum: 1
           title: Polling interval
           description: Time, in seconds, between consecutive metrics collections. Default is 15 secs.
+        scrapeKubelet:
+          type: boolean
+          title: Collect kubelet metrics
+          description: Enable to scrape kubelet metrics from https://<nodeIP>:10250/metrics. Requires Edge to run as a DaemonSet with direct network access to the node.
+        scrapeCadvisor:
+          type: boolean
+          title: Collect cAdvisor metrics
+          description: Scrape cAdvisor container metrics from https://<nodeIP>:10250/metrics/cadvisor. Requires Edge to run as a DaemonSet with direct network access to the Node.
         rules:
           type: array
           title: Filter Rules
@@ -21070,6 +21062,10 @@ components:
           description: A list of event-breaking rulesets that will be applied, in order, to the input data stream
           items:
             type: string
+        disableStaleChannelFlush:
+          type: boolean
+          title: Disable Event Breaker buffer timeout
+          description: When enabled, no Event Breaker channel flush timeout applies and the timeout below is ignored. Prefer this option when using header-based breakers for file types such as CSV or IIS.
         staleChannelFlushMs:
           type: number
           title: Event Breaker buffer timeout (ms)
@@ -42262,6 +42258,272 @@ components:
         __template_parquetSchema:
           type: string
           description: Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+    OutputAlibabaCloudS3:
+      type: object
+      required:
+        - type
+        - bucket
+        - stagePath
+        - endpoint
+      properties:
+        id:
+          type: string
+          title: Output ID
+          description: Unique ID for this output
+        type:
+          type: string
+          enum:
+            - alibaba_cloud_s3
+        pipeline:
+          type: string
+          title: Pipeline
+          description: Pipeline to process data before sending out to this output
+        systemFields:
+          type: array
+          title: System fields
+          description: Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+          items:
+            type: string
+        environment:
+          type: string
+          title: Environment
+          description: Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+        streamtags:
+          type: array
+          title: Tags
+          description: Tags for filtering and grouping in @{product}
+          items:
+            type: string
+        awsAuthenticationMethod:
+          $ref: "#/components/schemas/AuthenticationMethodOptionsSecret"
+        reuseConnections:
+          type: boolean
+          title: Reuse connections
+          description: Reuse connections between requests, which can improve performance
+        rejectUnauthorized:
+          type: boolean
+          title: Reject unauthorized certificates
+          description: Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+        bucket:
+          type: string
+          title: Alibaba OSS bucket name
+          description: "Name of the destination Alibaba OSS bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`"
+        destPath:
+          type: string
+          title: Key prefix
+          description: "Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`"
+        maxConcurrentFileParts:
+          type: number
+          title: Concurrent file parts upload limit
+          description: Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+          minimum: 1
+          maximum: 10
+        verifyPermissions:
+          type: boolean
+          title: Verify if bucket exists
+          description: Disable if you can access files within the bucket but not the bucket itself
+        maxClosingFilesToBackpressure:
+          type: number
+          title: Staging file limit
+          description: Maximum number of files that can be waiting for upload before backpressure is applied
+          minimum: 10
+          maximum: 4200
+        stagePath:
+          type: string
+          title: Staging location
+          description: Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+        addIdToStagePath:
+          type: boolean
+          title: Add output ID
+          description: Add the Output ID value to staging location
+        removeEmptyDirs:
+          type: boolean
+          title: Remove empty staging directories
+          description: Remove empty staging directories after moving files
+        partitionExpr:
+          type: string
+          title: Partitioning expression
+          description: JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+        format:
+          $ref: "#/components/schemas/DataFormatOptions"
+        baseFileName:
+          type: string
+          title: File name prefix expression
+          description: JavaScript expression to define the output filename prefix (can be constant)
+        fileNameSuffix:
+          type: string
+          title: File name suffix expression
+          description: JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+        maxFileSizeMB:
+          type: number
+          title: File size limit (MB)
+          description: Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+          maximum: 1024
+          minimum: 5
+        maxFileOpenTimeSec:
+          type: number
+          title: File open time limit (sec)
+          description: Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+          minimum: 10
+          maximum: 86400
+        maxFileIdleTimeSec:
+          type: number
+          title: Idle time limit (sec)
+          description: Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+          minimum: 5
+          maximum: 86400
+        maxOpenFiles:
+          type: number
+          title: Open file limit
+          description: Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+          minimum: 10
+          maximum: 2000
+        headerLine:
+          type: string
+          title: Header line
+          description: If set, this line will be written to the beginning of each output file
+        writeHighWaterMark:
+          type: number
+          title: Writing high watermark (KB)
+          description: Buffer size used to write to a file
+          maximum: 4096
+          minimum: 16
+        onBackpressure:
+          $ref: "#/components/schemas/BackpressureBehaviorOptionsBlockDrop"
+        deadletterEnabled:
+          type: boolean
+          title: Enable dead-lettering
+          description: If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+        onDiskFullBackpressure:
+          $ref: "#/components/schemas/DiskSpaceProtectionOptions"
+        forceCloseOnShutdown:
+          type: boolean
+          title: Force close on shutdown
+          description: Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+        retrySettings:
+          $ref: "#/components/schemas/RetrySettingsType"
+        orphans:
+          $ref: "#/components/schemas/OrphanFileRecoveryType"
+        objectACL:
+          $ref: "#/components/schemas/ObjectAclOptions"
+        endpoint:
+          type: string
+          title: OSS endpoint
+          description: "Alibaba OSS S3-compatible endpoint URL. Examples: public `https://s3.oss-{region}.aliyuncs.com`, internal `https://s3.oss-{region}-internal.aliyuncs.com`"
+          pattern: ^https?://.*
+        description:
+          type: string
+          title: Description
+        awsSecret:
+          type: string
+          title: Secret key pair
+          description: Select or create a stored secret that references your access key and secret key
+        compress:
+          $ref: "#/components/schemas/CompressionOptionsHttp"
+        compressionLevel:
+          $ref: "#/components/schemas/CompressionLevelOptions"
+        automaticSchema:
+          type: boolean
+          title: Automatic schema
+          description: Automatically calculate the schema based on the events of each Parquet file generated
+        parquetSchema:
+          type: string
+          title: Parquet schema
+          description: To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+          minLength: 1
+        parquetVersion:
+          $ref: "#/components/schemas/ParquetVersionOptions"
+        parquetDataPageVersion:
+          $ref: "#/components/schemas/DataPageVersionOptions"
+        parquetRowGroupLength:
+          type: number
+          title: Group row limit
+          description: The number of rows that every group will contain. The final group can contain a smaller number of rows.
+          minimum: 1
+          maximum: 6.7108864e+07
+        parquetPageSize:
+          type: string
+          title: Page size
+          description: Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+          pattern: ^\d+\s*(?:[kK][bB]|[mM][bB]|[gG][bB]|[tT][bB])?$
+        shouldLogInvalidRows:
+          type: boolean
+          title: Log invalid rows
+          description: Log up to 3 rows that @{product} skips due to data mismatch
+        keyValueMetadata:
+          type: array
+          title: Metadata (optional)
+          description: 'The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"'
+          minItems: 0
+          items:
+            $ref: "#/components/schemas/KeyValueMetadataConfOutputFilesystem"
+        enableStatistics:
+          type: boolean
+          title: Write statistics
+          description: Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+        enableWritePageIndex:
+          type: boolean
+          title: Write page indexes
+          description: One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+        enablePageChecksum:
+          type: boolean
+          title: Write page checksum
+          description: Parquet tools can use the checksum of a Parquet page to verify data integrity
+        emptyDirCleanupSec:
+          type: number
+          title: Staging cleanup period
+          description: How frequently, in seconds, to clean up empty directories
+          minimum: 10
+          maximum: 86400
+        directoryBatchSize:
+          type: number
+          title: Directory batch size
+          description: Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+        deadletterPath:
+          type: string
+          title: Dead-letter location
+          description: Storage location for files that fail to reach their final destination after maximum retries are exceeded
+        maxRetryNum:
+          type: number
+          title: Retry limit
+          description: The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+          minimum: 1
+        __template_streamtags:
+          type: string
+          description: Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+        __template_bucket:
+          type: string
+          description: Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+        __template_destPath:
+          type: string
+          description: Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+        __template_partitionExpr:
+          type: string
+          description: Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+        __template_format:
+          type: string
+          description: Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+        __template_baseFileName:
+          type: string
+          description: Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+        __template_fileNameSuffix:
+          type: string
+          description: Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+        __template_onBackpressure:
+          type: string
+          description: Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+        __template_objectACL:
+          type: string
+          description: Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+        __template_endpoint:
+          type: string
+          description: Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+        __template_compress:
+          type: string
+          description: Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+        __template_parquetSchema:
+          type: string
+          description: Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
     Output:
       oneOf:
         - $ref: "#/components/schemas/OutputDefault"
@@ -42341,6 +42603,7 @@ components:
         - $ref: "#/components/schemas/OutputDellS3"
         - $ref: "#/components/schemas/OutputCloudianS3"
         - $ref: "#/components/schemas/OutputScalityS3"
+        - $ref: "#/components/schemas/OutputAlibabaCloudS3"
       discriminator:
         propertyName: type
         mapping:
@@ -42421,6 +42684,7 @@ components:
           dell_s3: "#/components/schemas/OutputDellS3"
           cloudian_s3: "#/components/schemas/OutputCloudianS3"
           scality_s3: "#/components/schemas/OutputScalityS3"
+          alibaba_cloud_s3: "#/components/schemas/OutputAlibabaCloudS3"
     CountedOutputResponse:
       type: object
       properties:
@@ -42524,6 +42788,7 @@ components:
         - dell_s3
         - cloudian_s3
         - scality_s3
+        - alibaba_cloud_s3
       x-speakeasy-unknown-values: allow
     CountedOutputSamplesResponse:
       type: object
@@ -43659,31 +43924,41 @@ components:
       type: object
       properties:
         earliestScannedTime:
-          type: number
+          type: integer
+          description: Timestamp (in Unix time) for the earliest event that was observed during the scan (seconds).
         finishedAt:
-          type: number
+          type: integer
+          description: Timestamp (in Unix time) when the acceleration run finished (milliseconds).
         latestScannedTime:
-          type: number
+          type: integer
+          description: Timestamp (in Unix time) for the latest event that was observed during the scan (seconds).
         objectCount:
-          type: number
+          type: integer
+          description: Number of objects on the acceleration manifest after the scan completed.
     DatasetMetadata:
       type: object
       properties:
         earliest:
           type: string
+          description: Rolling time window that defines how far back acceleration scans.
+          example: -30d
         enableAcceleration:
           type: boolean
+          description: If <code>true</code>, the system automatically backfills and refreshes Dataset metadata.
         fieldList:
           type: array
           items:
             type: string
+          description: Fields for which acceleration gathers statistics. Required when scan mode is <code>detailed</code>.
         latestRunInfo:
           $ref: "#/components/schemas/DatasetMetadataRunInfo"
+          description: Details from the most recent acceleration scan.
         scanMode:
           type: string
           enum:
             - detailed
             - quick
+          description: Acceleration scan mode. <code>quick</code> collects object-level metadata; <code>detailed</code> also collects field-level statistics.
           x-speakeasy-unknown-values: allow
       required:
         - earliest
@@ -43701,10 +43976,13 @@ components:
       properties:
         dataPathFormat:
           $ref: "#/components/schemas/PathFilterDataFormat"
+          description: Row format for Search v2 Lake path filters.
         dataTypeId:
           type: string
+          description: Datatype identifier that maps filtered objects to a data type definition.
         filter:
           type: string
+          description: Glob pattern for selecting files within the storage path.
       required:
         - dataTypeId
         - filter
@@ -44992,6 +45270,8 @@ components:
       properties:
         api:
           $ref: "#/components/schemas/ApiTypeSystemSettingsConf"
+        apps:
+          $ref: "#/components/schemas/AppsTypeSystemSettingsConf"
         backups:
           $ref: "#/components/schemas/BackupsSettings"
         customLogo:
@@ -47178,6 +47458,13 @@ components:
         - disabled
         - passphrase
         - privKeyPath
+    AppsTypeSystemSettingsConf:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+      required:
+        - enabled
     CustomLogoTypeSystemSettingsConf:
       type: object
       properties:
@@ -48651,6 +48938,9 @@ components:
         type: eventhub_amqp
         eventHubName: my-event-hub
         consumerGroup: $Default
+        checkpointing:
+          blobStore:
+            containerName: my-container
         sendToRoutes: true
         pqEnabled: false
     InputCreateExamplesExec:
@@ -49260,6 +49550,14 @@ components:
         type: scality_s3
         bucket: my-bucket
         endpoint: https://s3.scality.example.com
+        stagePath: /tmp/staging
+    OutputCreateExamplesalibabaCloudS3:
+      summary: Alibaba OSS
+      value:
+        id: alibaba-oss-output
+        type: alibaba_cloud_s3
+        bucket: my-bucket
+        endpoint: https://s3.oss-cn-hangzhou.aliyuncs.com
         stagePath: /tmp/staging
     OutputCreateExamplesAzureBlob:
       summary: Azure Blob
@@ -52974,6 +53272,8 @@ paths:
                 $ref: "#/components/examples/OutputCreateExamplescloudianS3"
               OutputCreateExamplesscalityS3:
                 $ref: "#/components/examples/OutputCreateExamplesscalityS3"
+              OutputCreateExamplesalibabaCloudS3:
+                $ref: "#/components/examples/OutputCreateExamplesalibabaCloudS3"
               OutputCreateExamplesAzureBlob:
                 $ref: "#/components/examples/OutputCreateExamplesAzureBlob"
               OutputCreateExamplesAzureDataExplorer:
@@ -53199,6 +53499,8 @@ paths:
                 $ref: "#/components/examples/OutputCreateExamplescloudianS3"
               OutputCreateExamplesscalityS3:
                 $ref: "#/components/examples/OutputCreateExamplesscalityS3"
+              OutputCreateExamplesalibabaCloudS3:
+                $ref: "#/components/examples/OutputCreateExamplesalibabaCloudS3"
               OutputCreateExamplesAzureBlob:
                 $ref: "#/components/examples/OutputCreateExamplesAzureBlob"
               OutputCreateExamplesAzureDataExplorer:
@@ -53604,6 +53906,8 @@ paths:
                 $ref: "#/components/examples/OutputCreateExamplescloudianS3"
               OutputCreateExamplesscalityS3:
                 $ref: "#/components/examples/OutputCreateExamplesscalityS3"
+              OutputCreateExamplesalibabaCloudS3:
+                $ref: "#/components/examples/OutputCreateExamplesalibabaCloudS3"
               OutputCreateExamplesAzureBlob:
                 $ref: "#/components/examples/OutputCreateExamplesAzureBlob"
               OutputCreateExamplesAzureDataExplorer:
@@ -53848,6 +54152,8 @@ paths:
                 $ref: "#/components/examples/OutputCreateExamplescloudianS3"
               OutputCreateExamplesscalityS3:
                 $ref: "#/components/examples/OutputCreateExamplesscalityS3"
+              OutputCreateExamplesalibabaCloudS3:
+                $ref: "#/components/examples/OutputCreateExamplesalibabaCloudS3"
               OutputCreateExamplesAzureBlob:
                 $ref: "#/components/examples/OutputCreateExamplesAzureBlob"
               OutputCreateExamplesAzureDataExplorer:
@@ -56575,11 +56881,13 @@ paths:
       description: Initiate a live data capture from Cribl Workers.Returns a stream of captured events in NDJSON format that match the parameters specified in the request body.
       responses:
         "200":
-          description: The created CapturedEvent object.
+          description: Stream of captured events.
           content:
             application/x-ndjson:
               schema:
                 $ref: "#/components/schemas/CapturedEvent"
+        "400":
+          description: No worker nodes are connected to this worker group.
         "401":
           description: Authentication failed (missing or invalid credentials or Bearer token).
         "500":
@@ -56613,8 +56921,8 @@ paths:
       x-speakeasy-name-override: count
       x-cribl-internal: false
       x-cribl-availability: both
-      summary: Get a count of Worker or Edge Nodes
-      description: Get a count of all Worker or Edge Nodes for the specified Cribl product.
+      summary: Get a count of Worker, Edge, or Outpost Nodes
+      description: Get a count of all Worker, Edge, or Outpost Nodes for the specified Cribl product.
       responses:
         "200":
           description: List of number objects.
@@ -56623,7 +56931,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/CountedNumber"
         "400":
-          description: Bad Request if the product is not "stream" or "edge"
+          description: Bad Request if the product is not "stream", "edge", or "outpost"
         "401":
           description: Authentication failed (missing or invalid credentials or Bearer token).
         "403":
@@ -56639,8 +56947,8 @@ paths:
           in: path
           required: true
           schema:
-            $ref: "#/components/schemas/ProductsBase"
-          description: Name of the Cribl product to get the count of Worker or Edge Nodes for.
+            $ref: "#/components/schemas/ProductsCore"
+          description: Name of the Cribl product to get the count of Worker, Edge, or Outpost Nodes for.
         - name: filterExp
           in: query
           required: false
@@ -56656,8 +56964,8 @@ paths:
       x-speakeasy-name-override: get
       x-cribl-internal: false
       x-cribl-availability: both
-      summary: Get detailed metadata for a Worker or Edge Node
-      description: Get detailed metadata for the specified Worker or Edge Node for the specified Cribl product.
+      summary: Get detailed metadata for a Worker, Edge, or Outpost Node
+      description: Get detailed metadata for the specified Worker, Edge, or Outpost Node for the specified Cribl product.
       responses:
         "200":
           description: List of MasterWorkerEntry objects.
@@ -56680,7 +56988,7 @@ paths:
           in: path
           required: true
           schema:
-            $ref: "#/components/schemas/ProductsBase"
+            $ref: "#/components/schemas/ProductsCore"
           description: Name of the Cribl product that contains the Node.
         - name: id
           in: path
@@ -56697,8 +57005,8 @@ paths:
       x-speakeasy-name-override: list
       x-cribl-internal: false
       x-cribl-availability: both
-      summary: Get detailed metadata for Worker or Edge Nodes
-      description: Get detailed metadata for Worker or Edge Nodes for the specified Cribl product.
+      summary: Get detailed metadata for Worker, Edge, or Outpost Nodes
+      description: Get detailed metadata for Worker, Edge, or Outpost Nodes for the specified Cribl product.
       responses:
         "200":
           description: List of MasterWorkerEntry objects.
@@ -56707,7 +57015,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/CountedMasterWorkerEntry"
         "400":
-          description: Bad Request if the product is not "stream" or "edge"
+          description: Bad Request if the product is not "stream", "edge", or "outpost"
         "401":
           description: Authentication failed (missing or invalid credentials or Bearer token).
         "403":
@@ -56723,8 +57031,8 @@ paths:
           in: path
           required: true
           schema:
-            $ref: "#/components/schemas/ProductsBase"
-          description: Name of the Cribl product to get Worker or Edge Nodes for.
+            $ref: "#/components/schemas/ProductsCore"
+          description: Name of the Cribl product to get Worker, Edge, or Outpost Nodes for.
         - name: filterExp
           in: query
           required: false
@@ -56781,8 +57089,8 @@ paths:
       x-speakeasy-name-override: restart
       x-cribl-internal: false
       x-cribl-availability: both
-      summary: Restart Worker or Edge Nodes
-      description: Restart all Worker or Edge Nodes for the specified Cribl product.
+      summary: Restart Worker, Edge, or Outpost Nodes
+      description: Restart all Worker, Edge, or Outpost Nodes for the specified Cribl product.
       responses:
         "200":
           description: The updated RestartResponse object in a single-item list.
@@ -56791,7 +57099,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/CountedRestartResponse"
         "400":
-          description: Bad Request if the product is not "stream" or "edge"
+          description: Bad Request if the product is not "stream", "edge", or "outpost"
         "401":
           description: Authentication failed (missing or invalid credentials or Bearer token).
         "403":
@@ -56817,8 +57125,8 @@ paths:
           in: path
           required: true
           schema:
-            $ref: "#/components/schemas/ProductsBase"
-          description: Name of the Cribl product whose Worker or Edge Nodes you want to restart.
+            $ref: "#/components/schemas/ProductsCore"
+          description: Name of the Cribl product whose Worker, Edge, or Outpost Nodes you want to restart.
   /products/{product}/summary:
     get:
       operationId: getProductsSummaryByProduct

@@ -89,6 +89,7 @@ const (
 	OutputTypeDellS3                 OutputType = "dell_s3"
 	OutputTypeCloudianS3             OutputType = "cloudian_s3"
 	OutputTypeScalityS3              OutputType = "scality_s3"
+	OutputTypeAlibabaCloudS3         OutputType = "alibaba_cloud_s3"
 )
 
 type Output struct {
@@ -169,6 +170,7 @@ type Output struct {
 	OutputDellS3                 *OutputDellS3                 `queryParam:"inline" union:"member"`
 	OutputCloudianS3             *OutputCloudianS3             `queryParam:"inline" union:"member"`
 	OutputScalityS3              *OutputScalityS3              `queryParam:"inline" union:"member"`
+	OutputAlibabaCloudS3         *OutputAlibabaCloudS3         `queryParam:"inline" union:"member"`
 
 	Type OutputType
 }
@@ -1091,6 +1093,18 @@ func CreateOutputScalityS3(scalityS3 OutputScalityS3) Output {
 	}
 }
 
+func CreateOutputAlibabaCloudS3(alibabaCloudS3 OutputAlibabaCloudS3) Output {
+	typ := OutputTypeAlibabaCloudS3
+
+	typStr := OutputAlibabaCloudS3Type(typ)
+	alibabaCloudS3.Type = typStr
+
+	return Output{
+		OutputAlibabaCloudS3: &alibabaCloudS3,
+		Type:                 typ,
+	}
+}
+
 func (u *Output) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
@@ -1796,6 +1810,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputScalityS3 = outputScalityS3
 		u.Type = OutputTypeScalityS3
 		return nil
+	case "alibaba_cloud_s3":
+		outputAlibabaCloudS3 := new(OutputAlibabaCloudS3)
+		if err := utils.UnmarshalJSON(data, &outputAlibabaCloudS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == alibaba_cloud_s3) type OutputAlibabaCloudS3 within Output: %w", string(data), err)
+		}
+
+		u.OutputAlibabaCloudS3 = outputAlibabaCloudS3
+		u.Type = OutputTypeAlibabaCloudS3
+		return nil
 	}
 
 	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Output", string(data))
@@ -2108,6 +2131,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputScalityS3 != nil {
 		return utils.MarshalJSON(u.OutputScalityS3, "", true)
+	}
+
+	if u.OutputAlibabaCloudS3 != nil {
+		return utils.MarshalJSON(u.OutputAlibabaCloudS3, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type Output: all fields are null")

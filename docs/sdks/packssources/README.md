@@ -821,6 +821,11 @@ func main() {
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             EventHubName: criblcontrolplanesdkgo.Pointer("my-event-hub"),
             ConsumerGroup: "$Default",
+            Checkpointing: operations.CreateInputSystemByPackCheckpointing{
+                BlobStore: operations.CreateInputSystemByPackAzureBlobStorage{
+                    ContainerName: "my-container",
+                },
+            },
         },
     ))
     if err != nil {
@@ -3826,6 +3831,11 @@ func main() {
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             EventHubName: criblcontrolplanesdkgo.Pointer("my-event-hub"),
             ConsumerGroup: "$Default",
+            Checkpointing: components.InputEventhubAmqpCheckpointing{
+                BlobStore: components.InputEventhubAmqpAzureBlobStorage{
+                    ContainerName: "my-container",
+                },
+            },
         },
     ))
     if err != nil {
