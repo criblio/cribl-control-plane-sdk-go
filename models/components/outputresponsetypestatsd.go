@@ -10529,7 +10529,7 @@ func (e *FormatClickHouse) IsExact() bool {
 	return false
 }
 
-// MappingTypeClickHouse - How event fields are mapped to ClickHouse columns.
+// MappingTypeClickHouse - How event fields are mapped to ClickHouse columns
 type MappingTypeClickHouse string
 
 const (
@@ -10629,9 +10629,9 @@ type OutputResponseOutputClickHouse struct {
 	TableName string `json:"tableName"`
 	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
 	Format *FormatClickHouse `json:"format,omitzero"`
-	// How event fields are mapped to ClickHouse columns.
+	// How event fields are mapped to ClickHouse columns
 	MappingType *MappingTypeClickHouse `json:"mappingType,omitzero"`
-	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+	// Collect data into batches for later processing on the ClickHouse server. Disable to write to a ClickHouse table immediately. Cribl sends the configured value with every insert (<code>async_insert=1</code> or <code>async_insert=0</code>) so behavior is consistent across ClickHouse versions, including 26.3 LTS and later, where async inserts are enabled by default on the server.
 	AsyncInserts *bool                                            `json:"asyncInserts,omitzero"`
 	TLS          *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
@@ -10674,7 +10674,7 @@ type OutputResponseOutputClickHouse struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Username for certificate authentication
 	SQLUsername *string `json:"sqlUsername,omitzero"`
-	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won't be able to verify data has been completely inserted.
 	WaitForAsyncInserts *bool `json:"waitForAsyncInserts,omitzero"`
 	// Fields to exclude from sending to ClickHouse
 	ExcludeMappingFields []string `json:"excludeMappingFields,omitzero"`

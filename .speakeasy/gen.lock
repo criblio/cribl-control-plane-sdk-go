@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 1d430b43affe009f0c48798b244a3cd9
-  docVersion: 4.18.0-alpha.1778454218348-bffd4d11
+  docChecksum: 342a517ef2c8ad353c6ef54f314fd93a
+  docVersion: 4.18.0-alpha.1778593897422-b0f720b7
   speakeasyVersion: 1.762.0
   generationVersion: 2.882.0
-  releaseVersion: 0.8.0-alpha.3
-  configChecksum: 245953b5281d2267ed29374420d025ba
+  releaseVersion: 0.8.0-alpha.4
+  configChecksum: 132e8e9c5db17e18276d16f63495cd3e
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 3aaeece5-8ddf-4616-8bb1-6109cb5f9935
-  pristine_commit_hash: 062a92c3b260c515b08e6a52e51ce81c4c3eef97
-  pristine_tree_hash: ba4b07cedbb68c4b89e2a10e6efb6116ab9c6925
+  generation_id: 31ccf571-193f-43e4-8a22-437af8cd00d9
+  pristine_commit_hash: 44deb070edaa893ecad03d853ef82aa06fa1874b
+  pristine_tree_hash: 35ef7142c588b9e01acdf5ea7bbb114b106d0c09
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: ac562c044b0a53981079f8cd327cbde917d0eca8
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:9b52b6f48ad7c04e094a44d04d50af2eb00d3172
-    pristine_git_object: b3cefa046711369acbe478390e44c7c1c8695822
+    last_write_checksum: sha1:0ee2dde83f0ffae851c460322dfe938c8ce92445
+    pristine_git_object: 7c7a037a6c0d442cc7bd746024a1965797fc469a
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:427d5be4538b201a2f3c223f4d2f14a950d95a13
@@ -3225,8 +3225,8 @@ trackedFiles:
     pristine_git_object: 113077588ccc1118dd48b4f8e9e54e868abd8a14
   docs/models/components/inputcrowdstrikeinput.md:
     id: 78e38aacc347
-    last_write_checksum: sha1:9e5e2fa44ed601a521660a135523d4ae07147c26
-    pristine_git_object: 17f4fc873ccb63033382d103a028f821baec1d32
+    last_write_checksum: sha1:49b8b75dd8cf07051db37a45253c411b7443097d
+    pristine_git_object: 275696023980e59b497b4a0991d9414fce1b1fa4
   docs/models/components/inputcrowdstriketype.md:
     id: c4f47e293247
     last_write_checksum: sha1:1aafe38a5705c0e134131b2a43e31a9b9db10168
@@ -3321,16 +3321,12 @@ trackedFiles:
     pristine_git_object: 7349898a7f53bed0feec9c9bd037d7bc664c3702
   docs/models/components/inputeventhubamqpcheckpointing.md:
     id: 0b6017ea48f5
-    last_write_checksum: sha1:8c642402efe58c1b14bb9728ae07eee3f88b19cd
-    pristine_git_object: 062e1055aaa1372c927b75fb05277c6f0d3fb693
-  docs/models/components/inputeventhubamqpcheckpointstore.md:
-    id: 33bf993ef5f3
-    last_write_checksum: sha1:191f7a98a5795c4837c0d7cd1d634fdd2e76f8b2
-    pristine_git_object: 24bb906c551617d3b471a55c86046594ac1728f1
+    last_write_checksum: sha1:d2d650ac871aa1f202b6a9f2c0bd247400c7e52b
+    pristine_git_object: dcd0d835294006b38d026136730c004e6b5c67d2
   docs/models/components/inputeventhubamqpinput.md:
     id: fb43890ae87f
-    last_write_checksum: sha1:506c7a30dd62da60fbee20d2376a05b5f2a5555b
-    pristine_git_object: fca6d25fb06fa1a42b787227965528b6bf8a5777
+    last_write_checksum: sha1:dd683a34339c55828897ed90fe0faefacef2c0d4
+    pristine_git_object: d01b97abcf8cc627232ca03b52f77684229b1715
   docs/models/components/inputeventhubamqptype.md:
     id: db5d074208a6
     last_write_checksum: sha1:c02a6c5d65ae475f390f00eb70b0795349b9eb82
@@ -3729,12 +3725,8 @@ trackedFiles:
     pristine_git_object: 5a9fc874caa8f2cbc309e2643ff9585b0b3bf515
   docs/models/components/inputresponsecheckpointing.md:
     id: 708b150a63e3
-    last_write_checksum: sha1:1827cda9f84357b4b7c1847304c9802730e16ff2
-    pristine_git_object: 111d18c4b889c1b006848c30870731f876b235bc
-  docs/models/components/inputresponsecheckpointstore.md:
-    id: 8cc57dbaa28f
-    last_write_checksum: sha1:fe43e8c89da1297e860bd3e451ba925a0a29ca0e
-    pristine_git_object: 7af18f8e064d376904f2b3b793d2afa6d2f5096a
+    last_write_checksum: sha1:898955b04019ae55536cb7a0043ae4f1534c1d14
+    pristine_git_object: 0ec3da48f86da7f3bd32df02bcfc19f230a5117a
   docs/models/components/inputresponsecollectors.md:
     id: 998cb11f7082
     last_write_checksum: sha1:e55a623f86bee61745855ad8ff25e31bab7c5813
@@ -3841,8 +3833,8 @@ trackedFiles:
     pristine_git_object: 3986f909f04f827886d55db5934d6ff03fa9bde3
   docs/models/components/inputresponseinputcrowdstrike.md:
     id: a3c77a6f83bb
-    last_write_checksum: sha1:8e17e2d138c262fd41bce4ad15c03c8c4c1e582d
-    pristine_git_object: 8ca7e6aa843296a8e45e00aca680d1872c2cea4b
+    last_write_checksum: sha1:76eff2bbfe4f53fb79bf798909ab64ab4dfb9d64
+    pristine_git_object: 69482a0ec25803bb88b83cc6a44c31ef73a40980
   docs/models/components/inputresponseinputdatadogagent.md:
     id: 277a9883bdf9
     last_write_checksum: sha1:1e69ae7fb3080bdb2657a305252c9e9b864fea03
@@ -3865,8 +3857,8 @@ trackedFiles:
     pristine_git_object: 7d206d3492f7e9ec638c99858c71e2344084db2c
   docs/models/components/inputresponseinputeventhubamqp.md:
     id: 937f2a61c168
-    last_write_checksum: sha1:62cf12e2ef9d8d6e7140bd6544c4a79153680a97
-    pristine_git_object: 608fbc10ce85df7d512c5a9a094ae985d20c15a1
+    last_write_checksum: sha1:cd171f8f2e19b201d431cc5b397703b9cff57275
+    pristine_git_object: 333e7fdfc32e5f7a0e7d797065e5cc25328a0bb9
   docs/models/components/inputresponseinputexec.md:
     id: 1dadd7c1e1c1
     last_write_checksum: sha1:31c8b1cd087b3b4264ece08ff36bbe17667f26fa
@@ -4021,16 +4013,16 @@ trackedFiles:
     pristine_git_object: 229fa692a68cb71560ca8b2edbb6dd811fe2ebfa
   docs/models/components/inputresponseinputs3.md:
     id: e9ba6a62c0d5
-    last_write_checksum: sha1:e2eb77ee57692705c381d2bdb806fe5447f2dfe4
-    pristine_git_object: 7feced5100f63330149fb47900febe7503d3482f
+    last_write_checksum: sha1:734789ca6eb86c44674fe7af5bec4bcbc158f6fd
+    pristine_git_object: 2c2017606f9bb955b90030903cfa7dfce5327443
   docs/models/components/inputresponseinputs3inventory.md:
     id: 30cc8844c327
-    last_write_checksum: sha1:9c37592467fc9e1ad93fa4612e77c22e83371d6f
-    pristine_git_object: 95da54c6d10a5ac07dec8d2cea72448ea3da849b
+    last_write_checksum: sha1:c05156fe5116117ed01c7a688c950b2cc18cefa6
+    pristine_git_object: 874171a0f06a5f0a499945a0ee6a34344f457301
   docs/models/components/inputresponseinputsecuritylake.md:
     id: 44e4a5095335
-    last_write_checksum: sha1:2272a6f1b6b051768ab9ba98b065f252ab94b34e
-    pristine_git_object: af0367f72071d33fe94556b5df57564d07acb46b
+    last_write_checksum: sha1:732e99e64964730548f3edac6fb6eb7eccf9820e
+    pristine_git_object: e40625ccc626c5cd20f6607a7a4e4f89740667a2
   docs/models/components/inputresponseinputservicenowtable.md:
     id: 79a64675abde
     last_write_checksum: sha1:8f45201543f0a200112673d3844013c9d68aa70f
@@ -4505,12 +4497,12 @@ trackedFiles:
     pristine_git_object: 3ded5de238f35beba9804985802f83327e675bd7
   docs/models/components/inputs3input.md:
     id: 6569ece5c2ae
-    last_write_checksum: sha1:87b00f69c571da7e9e6e0c0994ef1ed2416846af
-    pristine_git_object: 94f304cff3c05046567725f92ff5986d60b0b727
+    last_write_checksum: sha1:82bb5cb3dd2bbaf95c8fa85250341e0df120879e
+    pristine_git_object: 283ff642284c11d1d9483bbe5efb6b2e4ca4c760
   docs/models/components/inputs3inventoryinput.md:
     id: 9b794534d0a5
-    last_write_checksum: sha1:a11e8d11fe3eef830655332f3d9de1943c3b9c2d
-    pristine_git_object: 58d19c55521cab37b171dc495736edc39350d6b3
+    last_write_checksum: sha1:1feca2cad84f21aab04367e1641dcd5f1940c4c6
+    pristine_git_object: 94eb180511c703bf13933491351d40737805e42f
   docs/models/components/inputs3inventorytype.md:
     id: ac3ba03db851
     last_write_checksum: sha1:fe7bfe365f1c56b5d398858e0176cf6c8765af58
@@ -4521,8 +4513,8 @@ trackedFiles:
     pristine_git_object: 6370362d4c8a6ebb47a8bc7008e7007f39595483
   docs/models/components/inputsecuritylakeinput.md:
     id: d2fd6e688e08
-    last_write_checksum: sha1:bc76cee391d14daa8538b73f14a58dde235c50a1
-    pristine_git_object: 700820f2c9769c2e12c0f3bef9d8df112f55c8b7
+    last_write_checksum: sha1:9f405322652d60b64016812f5d92f23103e507cc
+    pristine_git_object: b4f0df2f1f55335537f61a10fc961232d7695072
   docs/models/components/inputsecuritylaketype.md:
     id: 7d1cfa3b7003
     last_write_checksum: sha1:bac96bd6e2fc061a51af0b452b065740bcbfad32
@@ -5077,8 +5069,8 @@ trackedFiles:
     pristine_git_object: 1c0b665ed78f637c3c8bd68adc3053ea0ddee683
   docs/models/components/mappingtypeclickhouse.md:
     id: 2966bd069d43
-    last_write_checksum: sha1:a4ddfde4006c2895537765feb6111e0bf200ad7f
-    pristine_git_object: d5e3ee11f147e41b61fc143baf374e5b81f196ff
+    last_write_checksum: sha1:8dcbc74f158f94ffcb080bf2a70fc94f7322d54a
+    pristine_git_object: 9a5bd4a85702415d9b392ce952b429b83eab8e36
   docs/models/components/mappingtypelocalsearchstorage.md:
     id: ed6f1f16dbd9
     last_write_checksum: sha1:e720ed54ccc37a46e9d8a3d5451fd68bd4e48b71
@@ -5465,8 +5457,8 @@ trackedFiles:
     pristine_git_object: d2344d5336f52ecfa5eec84f418fcb06e4fa2f97
   docs/models/components/outputclickhouse.md:
     id: 0882dab0f3c7
-    last_write_checksum: sha1:eee3d98d8cea6bc8f3692f81816e74361cdce564
-    pristine_git_object: 1865023d8a52009c54749ebf71151b1c285d08f5
+    last_write_checksum: sha1:cc2ec6a690f4dfae7c1e9d22090cbbdd027cba96
+    pristine_git_object: f2af4f33ecd7641e7ae24066bd3dc90c9b766d0c
   docs/models/components/outputclickhousecolumnmapping.md:
     id: 9a7e7acd7bd9
     last_write_checksum: sha1:1f88f37084e8c03ec9cfff4fd7c13d1ace5af520
@@ -5477,8 +5469,8 @@ trackedFiles:
     pristine_git_object: 034fdb067d76a246f82130c3a25b3b3e8c805401
   docs/models/components/outputclickhousemappingtype.md:
     id: 6d5a0db079eb
-    last_write_checksum: sha1:9174eb83947f454c311b6767c8521f000e0b0d3e
-    pristine_git_object: 84a0bc24601ad7320c7fb380f501c8761f0ff31c
+    last_write_checksum: sha1:318453ad9336b0cc81468dfe9eeb0ef577118c26
+    pristine_git_object: 155cc2cb5adb01cfde0d5d888f8d32113f9c4895
   docs/models/components/outputclickhousepqcontrols.md:
     id: 608c7e3ef9c2
     last_write_checksum: sha1:85196f8e2507adee495220e90f47be237457aeb1
@@ -6293,8 +6285,8 @@ trackedFiles:
     pristine_git_object: 0d4c524b69672afd532468ebc64c98bb3d5133c4
   docs/models/components/outputresponseoutputclickhouse.md:
     id: 2ec17928392f
-    last_write_checksum: sha1:1a74e4657f8596d1110f24336f422b2cb8d8347c
-    pristine_git_object: 3ba4616fcf40200d386833c229786717266c4f99
+    last_write_checksum: sha1:dc478be7ac89002b67c0b2d26da7500ff08332a2
+    pristine_git_object: 5c2d665f403fa1ca3f423fae982251713c592096
   docs/models/components/outputresponseoutputcloudflarer2.md:
     id: 707710c73760
     last_write_checksum: sha1:e9cf8aa3df53072771619670419106608103a864
@@ -10825,8 +10817,8 @@ trackedFiles:
     pristine_git_object: eb2f0adbc4bef39ea7941e7d855e930adf98d867
   docs/models/components/s3awsauthenticationmethodauto.md:
     id: f58e4e916c3a
-    last_write_checksum: sha1:e9c79dc38e53a48d04e542ccf4e66022e270dbd0
-    pristine_git_object: fc4ea59607a3224e2c81220ed2337597104a2beb
+    last_write_checksum: sha1:c4689f4ac6d4d918da038281adb46a5b6dfb2f0a
+    pristine_git_object: e505c750633872c02f09c94d69ab892c3204d091
   docs/models/components/s3awsauthenticationmethodautoextractor.md:
     id: 03e4c3b30286
     last_write_checksum: sha1:017159350949269649d5635f9f3466f5a2636d2c
@@ -10835,14 +10827,10 @@ trackedFiles:
     id: 1377dae231de
     last_write_checksum: sha1:0248b31c81d7c920ec9b619e090d44a0150ea1f7
     pristine_git_object: 7e9f0ab3ab30f35003e5c9a07cca702f06d3b1f4
-  docs/models/components/s3awsauthenticationmethodautosignatureversion.md:
-    id: e8f138c203e4
-    last_write_checksum: sha1:92e0257d56515d3be3adc9e820a0ca960a8f7337
-    pristine_git_object: d5454c8f409ec0ea266f21f45f7d8427dbfda45a
   docs/models/components/s3awsauthenticationmethodmanual.md:
     id: bb4bc0c0c1f5
-    last_write_checksum: sha1:554a562f61f922f8eb350641b8b2347709c186e3
-    pristine_git_object: acf02c8b8bc32830201fd68676116fb119ee9127
+    last_write_checksum: sha1:1997060b18079b074e8287107c52f0620bf1ddbf
+    pristine_git_object: 36faa4902eb34e41f0f01c7138e8677580e273af
   docs/models/components/s3awsauthenticationmethodmanualextractor.md:
     id: ef8d89fb21e9
     last_write_checksum: sha1:74b4d5ce242a16de3842ea48462b4659e9e76f82
@@ -10851,14 +10839,10 @@ trackedFiles:
     id: cb1c5571f045
     last_write_checksum: sha1:c5215bf70ceff7cc61dbc73f6542ae180e226b5a
     pristine_git_object: e95d1302367da7acfa4e63db41b8a8a5a425a236
-  docs/models/components/s3awsauthenticationmethodmanualsignatureversion.md:
-    id: 0c612863e567
-    last_write_checksum: sha1:effb5eabb2d3ee730541272d3094943a16c6d385
-    pristine_git_object: caadaa8623a3001b9aa65a71632804a5c824cce0
   docs/models/components/s3awsauthenticationmethodsecret.md:
     id: a7547c01938a
-    last_write_checksum: sha1:d1b0f48a1b8912f4e11198c5df5bcbc772b17612
-    pristine_git_object: 7d300f545b930e565fba8b653390c1130928193d
+    last_write_checksum: sha1:02ce520102fb4b1d046159189bd43a8245e1bae4
+    pristine_git_object: 6d8363312b573343af4bdc68a2cbb38956a4c65d
   docs/models/components/s3awsauthenticationmethodsecretextractor.md:
     id: d5446d2dcfe4
     last_write_checksum: sha1:35345cbcfd76982a2404d5719f428480b7bc6d0c
@@ -10867,18 +10851,14 @@ trackedFiles:
     id: 71bf5c00a1ed
     last_write_checksum: sha1:828cb03bb849c8270f8546b512307834633659b5
     pristine_git_object: 90fbc3bf16558a93759429f4f97366a835157f8d
-  docs/models/components/s3awsauthenticationmethodsecretsignatureversion.md:
-    id: 7de911914a64
-    last_write_checksum: sha1:0a19790a105a2522bffe6d34d1e514c270549ad9
-    pristine_git_object: 669a92694951aad033721da923fbe0a49a06c437
   docs/models/components/s3collectorconf.md:
     id: 9d287d461b66
     last_write_checksum: sha1:17d4484ca6cc376d66b95b335e2c8bfce8a44dde
     pristine_git_object: f425d275b5ea2f2c6f98aa7febeade1e53bc529b
   docs/models/components/s3partitioningschemeddss.md:
     id: b4c092b69cba
-    last_write_checksum: sha1:80d0cee3c4d7a4bc8f3eecf4812856658b395e7c
-    pristine_git_object: 7e271fcfb888d4ebaba5d84582e5abe484ec9459
+    last_write_checksum: sha1:fddd12349828088bdf41a6611152687f6abe7d15
+    pristine_git_object: 7d6160954545b6f9eb2f09fffda6eb76c6707c43
   docs/models/components/s3partitioningschemeddssextractor.md:
     id: 5e4643bf85a3
     last_write_checksum: sha1:00a5bc8353c8013067d5b511abae01434e8673ba
@@ -10887,14 +10867,10 @@ trackedFiles:
     id: 2e9a23ef1fd1
     last_write_checksum: sha1:7bd63a18ea58b15b9e9cb947c5dcfa921854d570
     pristine_git_object: 1dd871d438b8fceee97a587a4187d5c6c0ee2b8f
-  docs/models/components/s3partitioningschemeddsssignatureversion.md:
-    id: ff04abf2bf97
-    last_write_checksum: sha1:42a5e42cae86249268ac74620dde53827127906f
-    pristine_git_object: e1e3336c156b525657930639a7361c983e393dc8
   docs/models/components/s3partitioningschemenone.md:
     id: 76954594f9f9
-    last_write_checksum: sha1:8d2cb141119d3fb1e21c42dd198c2b185a7285f5
-    pristine_git_object: a623ace2f142875959fda9bed1028e44f3789e53
+    last_write_checksum: sha1:da4b5d1cb28128bd5faccdd419fb3d8313726cda
+    pristine_git_object: 274a5917edec6264480fbc52d29ffc8010946c62
   docs/models/components/s3partitioningschemenoneextractor.md:
     id: 9ce64196ec5b
     last_write_checksum: sha1:9b6180bbcfaf8facf216668710df6d84a4444ded
@@ -10903,10 +10879,6 @@ trackedFiles:
     id: 2fbac3fb2640
     last_write_checksum: sha1:a2a16fa879ac2c54614fd032de5115a5c07c4de1
     pristine_git_object: 820a6f546ff717daf4ce5584bae4fe9b75f78b4d
-  docs/models/components/s3partitioningschemenonesignatureversion.md:
-    id: 30fbfe58f82c
-    last_write_checksum: sha1:9297f291a2c016318d7a0d8da9e52a58bc4c24d1
-    pristine_git_object: fac1b076e945e317d75f344559930e083d578b4a
   docs/models/components/samplemode.md:
     id: 4ee0cdae9600
     last_write_checksum: sha1:c37d42588cb20dba6176056500451ed259f971e0
@@ -11693,12 +11665,8 @@ trackedFiles:
     pristine_git_object: e18f929c58ad191f7b18c41f04aa29739c30c356
   docs/models/operations/createinputcheckpointing.md:
     id: 27b46324b9b3
-    last_write_checksum: sha1:ad7eae6cdf508c8f11113ad03db90aa0a406f2bc
-    pristine_git_object: 346926a0213d55c4448f5d2fe48025adf0027c2c
-  docs/models/operations/createinputcheckpointstore.md:
-    id: 18fafa97b9ad
-    last_write_checksum: sha1:9726bd35c9cefb33ec29da7b7e9317d5f2f9f5c6
-    pristine_git_object: 00011d47e0fb46f278e5d98410295a4a7ae0d05d
+    last_write_checksum: sha1:dd30e362dc0e45ed7ef507c152334069b17db411
+    pristine_git_object: 3d2bc799779579f9ff5867ab2e99729921f4afdb
   docs/models/operations/createinputcollectors.md:
     id: a9bceb87069f
     last_write_checksum: sha1:e60920fdf0bd72efe8d980ccb989e5ef0c9aca59
@@ -11905,8 +11873,8 @@ trackedFiles:
     pristine_git_object: c982c357f51034b276907fbf789edf2ed69f0690
   docs/models/operations/createinputinputcrowdstrike.md:
     id: cb67a9bed08c
-    last_write_checksum: sha1:2e2b8e6f4994e34a373a9842bba6083363bc8e51
-    pristine_git_object: 853655a6fb42627f43c7f9a6f78db6362c0b5942
+    last_write_checksum: sha1:ab8a9e7ca2142ebabfa8f9fddf04c928816273d4
+    pristine_git_object: c4a2c7cf0945c1235988e1ee9378ccf69a5cf430
   docs/models/operations/createinputinputdatadogagent.md:
     id: 6793c83dba92
     last_write_checksum: sha1:cab5bc9c29ff7c38f432e3b4002b524acda29488
@@ -11929,8 +11897,8 @@ trackedFiles:
     pristine_git_object: bc8b366af52fc1638ee1bc4c0710450869b3c2dc
   docs/models/operations/createinputinputeventhubamqp.md:
     id: 67ece68dbbb5
-    last_write_checksum: sha1:1c99778c0d17059fc5b29bd811f7872622ab43c0
-    pristine_git_object: 41d9a0312ffc8671e81a15f1064db93e3726fc7b
+    last_write_checksum: sha1:36a9901e0aa36a2f2dfd48da1e07da464f638f5b
+    pristine_git_object: 9ab282159cfdc0bb00b415ec1d0acdde2e11f560
   docs/models/operations/createinputinputexec.md:
     id: 472623cb2a42
     last_write_checksum: sha1:8c495b1cadf7ce47a6a5c0c9b2843fa7c1140769
@@ -12085,16 +12053,16 @@ trackedFiles:
     pristine_git_object: 29a76b85a3df3819d031ddeda85d4daa5c7fabb4
   docs/models/operations/createinputinputs3.md:
     id: f606cd61f5ca
-    last_write_checksum: sha1:afc1702fc312dccbc916229b0516d735d931177c
-    pristine_git_object: 51eb2c72a73acc6c8980d4d1feebf37c496fe11f
+    last_write_checksum: sha1:9b84d1dab61f44760d765f0edf267ae6fbe58c88
+    pristine_git_object: 52d79bd610c2597af940415e54b5db9306fc30ce
   docs/models/operations/createinputinputs3inventory.md:
     id: 5f8554369b42
-    last_write_checksum: sha1:8ac82882ac2c3776e1a53361d019ba994e231407
-    pristine_git_object: afa1574a48f7f4fc12da6f6b9bc0271b5bf945b6
+    last_write_checksum: sha1:3788122777f25b21c7e7aa7082d086d961ec5ad0
+    pristine_git_object: 18d17754136f61c981b40d8777c620fd13b8cafb
   docs/models/operations/createinputinputsecuritylake.md:
     id: 3dfe599617f4
-    last_write_checksum: sha1:a13af3c9cae5524e5266e173cb799ab850c30f59
-    pristine_git_object: 76abcf736e973a5f879e7af3be3fbdd0e22b920c
+    last_write_checksum: sha1:1fa02159230111501243255cfc017201e36c52b6
+    pristine_git_object: bbdf5106165187ff58c4eb2eeb0bb306fbe58db9
   docs/models/operations/createinputinputservicenowtable.md:
     id: 09fe2ff38b91
     last_write_checksum: sha1:b573faad5b96fbac00e857eb65e80bfadbce3b06
@@ -12497,12 +12465,8 @@ trackedFiles:
     pristine_git_object: 1b13c21dbd94f12bc5b323702bf3ef5c35ef837e
   docs/models/operations/createinputsystembypackcheckpointing.md:
     id: 401bb5fedc27
-    last_write_checksum: sha1:bbe7cad7a24519641829415d98be515d76640275
-    pristine_git_object: 20c7c30bd05a156a074d8cadb4c2b3cf1b45f782
-  docs/models/operations/createinputsystembypackcheckpointstore.md:
-    id: bbf160644e83
-    last_write_checksum: sha1:d3d4e5c055c2927cf00cb355a1a4b0fa3c76dc44
-    pristine_git_object: 3bc17143628eb6880f41fe32e01fbd768546b70a
+    last_write_checksum: sha1:765842092847edf1880ddb1d1e81ea7e9bb8b4fd
+    pristine_git_object: 85167c632f493ce187bb1e99c4efd5a296b9a661
   docs/models/operations/createinputsystembypackcollectors.md:
     id: 8f47a2727988
     last_write_checksum: sha1:ea593f041132fbdc8f43c41e7c0d5c7d33b0fad9
@@ -12701,8 +12665,8 @@ trackedFiles:
     pristine_git_object: 154f35a92962893823333471d29da5f0ac87dc56
   docs/models/operations/createinputsystembypackinputcrowdstrike.md:
     id: 8aec5b55e067
-    last_write_checksum: sha1:cf16de9bab644a7f24346956551ef890d8f8fd19
-    pristine_git_object: eef1af89e6ff4745d8df18834381662a65a4cd20
+    last_write_checksum: sha1:f5ac541705033e2044636853add5c96caa5dca8d
+    pristine_git_object: 0e36d0c13837cd2eafd3851debdf7171fd6f6a31
   docs/models/operations/createinputsystembypackinputdatadogagent.md:
     id: a2233686e92e
     last_write_checksum: sha1:faf2d20e87c900d2b64d01bab90ed3a19d913a9a
@@ -12725,8 +12689,8 @@ trackedFiles:
     pristine_git_object: 021a4868d7f2026b25007a0438b23363e789b9a3
   docs/models/operations/createinputsystembypackinputeventhubamqp.md:
     id: 87d2bb3d58ca
-    last_write_checksum: sha1:1f1ad9fc99412121cc77a2d8d643bfc2fafc747c
-    pristine_git_object: 405fe2957b6b7cf285a325a34d57a7b2b3f15012
+    last_write_checksum: sha1:a8c9971a65f950d1da92d7f70646e240ad6c6b4f
+    pristine_git_object: 3e5f6cc4ff3c0f42e2adb1f12b5df4fd33001663
   docs/models/operations/createinputsystembypackinputexec.md:
     id: 97cdb4107417
     last_write_checksum: sha1:c73fc9123951175c9d7098415699437a2be0d424
@@ -12881,16 +12845,16 @@ trackedFiles:
     pristine_git_object: c7402cd2336bec0003442e8046283512d2c3d6ec
   docs/models/operations/createinputsystembypackinputs3.md:
     id: 2d881386372c
-    last_write_checksum: sha1:271e01abc886900731991c60e09f8ad867459b0e
-    pristine_git_object: 95a663abdce146c448bdd72bc08ff8550e503780
+    last_write_checksum: sha1:27f349ea12a88700e523821cc8a38871f2d471b8
+    pristine_git_object: 77af3420985d6e7591dffaf73989b479e346aa62
   docs/models/operations/createinputsystembypackinputs3inventory.md:
     id: 372c826512e6
-    last_write_checksum: sha1:3b198b08f64792d101f73ce40702c12b36ac6ff0
-    pristine_git_object: c0d45215fb8217c9a3c5a2bb342ef82083db5034
+    last_write_checksum: sha1:575f68577ebd5a718a804854f941bd4df2256e9e
+    pristine_git_object: bb47fe3aeb98c6fcaf549253ce7abd002b7b0ec6
   docs/models/operations/createinputsystembypackinputsecuritylake.md:
     id: d17f18bc3cd4
-    last_write_checksum: sha1:45dfab802f6df64ef2c21619e212d104ad8a673e
-    pristine_git_object: f856a97fda8c43a2aa4c0e52665d969adde00574
+    last_write_checksum: sha1:026f9d2de3456eb27b33f997f388a3faff131226
+    pristine_git_object: 156548c2e0230b94d0b227650b2f9739d84b9ea7
   docs/models/operations/createinputsystembypackinputservicenowtable.md:
     id: d2312dd2364e
     last_write_checksum: sha1:78c91a885f80409f713b4450b0a23c3d5a83aab3
@@ -13973,8 +13937,8 @@ trackedFiles:
     pristine_git_object: f836857dfd002137bbef5357fb0084c52c309b0b
   docs/models/operations/createoutputmappingtypeclickhouse.md:
     id: 77cfc12f6b19
-    last_write_checksum: sha1:800c23fd06c60a7b653bf6ad952a965088e14844
-    pristine_git_object: 7a1f984fb9b748752c0f663b27ff58f0cf03ea72
+    last_write_checksum: sha1:4dc8117e69400ad90fa998927d3c43c8c940c521
+    pristine_git_object: 441823741b65b2843f3eb08fd0769839b92feb3b
   docs/models/operations/createoutputmappingtypelocalsearchstorage.md:
     id: 0020d01e2a54
     last_write_checksum: sha1:8fca1ceafb768e365d7916ffade848e814c672c0
@@ -14025,8 +13989,8 @@ trackedFiles:
     pristine_git_object: 151cc1e8b0ac4a19bf7241ee98909b77dbd23906
   docs/models/operations/createoutputoutputclickhouse.md:
     id: 09d7168663ed
-    last_write_checksum: sha1:8f9d0e7b84587df78420a3f00f88e1f6877a40bd
-    pristine_git_object: c5dc811442d53e1e8de02ba4d201a61d11b422c7
+    last_write_checksum: sha1:7ee51578ad0b67b4f99db99d9df32377ceb11d39
+    pristine_git_object: 0a4e9cab4f36bdcfb3887818d64fbb0081f48f15
   docs/models/operations/createoutputoutputcloudflarer2.md:
     id: 6e96f496ee2f
     last_write_checksum: sha1:1fb463082332bc8594d526b8af36393cb9484200
@@ -14833,8 +14797,8 @@ trackedFiles:
     pristine_git_object: 9dfdace41e54475d6c11525255d0b9323be2db81
   docs/models/operations/createoutputsystembypackmappingtypeclickhouse.md:
     id: d282c92eb710
-    last_write_checksum: sha1:908588ddd009d30807e8e32f309671186d78fbf3
-    pristine_git_object: 504aa518ca045d883f9a42ed1d44895f251f53c4
+    last_write_checksum: sha1:c2d7a5f5a35e828f9ca7dbb3ba4d11f8a8e0047c
+    pristine_git_object: 75494cf6f944624237d29585872f49f628d67ef1
   docs/models/operations/createoutputsystembypackmappingtypelocalsearchstorage.md:
     id: 78c4baf4269b
     last_write_checksum: sha1:51e266a07a625ad02231a5be16dbe068ef21c7d4
@@ -14885,8 +14849,8 @@ trackedFiles:
     pristine_git_object: 703c4e0b8a71f0eaa0462438392cdf8d7cf147ef
   docs/models/operations/createoutputsystembypackoutputclickhouse.md:
     id: 35e9e9298bb0
-    last_write_checksum: sha1:60d699507f10bdcf4033342f8f501b3a0b0dc731
-    pristine_git_object: 7e526245cda97b5f47046bb5616b61a77c1fa171
+    last_write_checksum: sha1:c71fa2db3008fd9a2baa3f917000fa8d9d743c9f
+    pristine_git_object: e6f7d48e8c9b944ce9fa4786b7fdf603f5d7a39b
   docs/models/operations/createoutputsystembypackoutputcloudflarer2.md:
     id: e31b54213f9d
     last_write_checksum: sha1:392d617c688bedabe659bf3b1b3acad45b3e3615
@@ -16981,8 +16945,8 @@ trackedFiles:
     pristine_git_object: ab82f2c45fcc57adca3d011559467a763a159c05
   docs/sdks/collectors/README.md:
     id: b8ecaf222c71
-    last_write_checksum: sha1:e3af68853749ca1a3ecda8935f18f3da5d02e12c
-    pristine_git_object: f806ef0fb4889ff5158c451a407d2b118ca9bfb1
+    last_write_checksum: sha1:4a44f4709769febfe66ea4da095773a3116d447c
+    pristine_git_object: 4a975da5652f0dcbeaf2f54159af201537c5db00
   docs/sdks/commits/README.md:
     id: ae81a8318c17
     last_write_checksum: sha1:63a3423f6ccde61479767960ea3e47db4b116514
@@ -17073,8 +17037,8 @@ trackedFiles:
     pristine_git_object: 61679a0f11085584ba68e11bdee9ea63351be077
   docs/sdks/packssources/README.md:
     id: 91cf5c639969
-    last_write_checksum: sha1:00314a4e7ddab1e8beced8da5dccb0cd56f36479
-    pristine_git_object: a60711b6e11969a7dd8e6d4d24e02a9bf4d809a4
+    last_write_checksum: sha1:2f0091c202a5507e536a57203877a94502772bdb
+    pristine_git_object: 0d799a1859df93f46b414c5d3f105d4ea5310a8b
   docs/sdks/packssourcespq/README.md:
     id: cbbc4cefed4b
     last_write_checksum: sha1:c963148770e1f678c36020c6f38c26c8f017c7b4
@@ -17101,8 +17065,8 @@ trackedFiles:
     pristine_git_object: deaabe1fb35614b11ed0f25009be730f1beb3de5
   docs/sdks/sources/README.md:
     id: c1396b2a57d9
-    last_write_checksum: sha1:7124ad56042a7835048f766022cfcbc20db408b9
-    pristine_git_object: 52cb1cead394fc6327b50bacba34f9ca00e8224d
+    last_write_checksum: sha1:ffc1bb0cf1991b6cfb4c421ceaf3154c5e84e445
+    pristine_git_object: 917149bf2b63366bec4a319f94ae818019889adb
   docs/sdks/sourcespq/README.md:
     id: 08e24f4817a2
     last_write_checksum: sha1:bb758555d3ed911059515c3cd1245040e150076b
@@ -18469,8 +18433,8 @@ trackedFiles:
     pristine_git_object: a50fabb1083d8a1255a2e6a15cced03fa67f29cc
   models/components/inputcrowdstrikeinput.go:
     id: fa90e142a71f
-    last_write_checksum: sha1:3dcb34892ca2c3af41286c46d6e44e9b12e7753b
-    pristine_git_object: 3c7736e4d6db6a40c52e77c54469fabf0e31f34e
+    last_write_checksum: sha1:70c55d57696b5ed0114010a753e8be40a8d7e04a
+    pristine_git_object: 73c2a609b1d9e52a1eac6d0162f6699fe83fc54d
   models/components/inputdatadogagentinput.go:
     id: f4f9d2262e26
     last_write_checksum: sha1:58e740fe05924743de92360a0287a26ebe48ef61
@@ -18489,8 +18453,8 @@ trackedFiles:
     pristine_git_object: cc9fba59aa7b915a8be7d4c528b3a45d01305f8c
   models/components/inputeventhubamqpinput.go:
     id: 1251601731ca
-    last_write_checksum: sha1:68d9769ead31c3f8d6845bdc308d131de8eeb2c1
-    pristine_git_object: 6213d690a37913bce1a85a0c2bb147e3b8cb7325
+    last_write_checksum: sha1:a394054fad73c816ef466c61cdc66482ecff77fb
+    pristine_git_object: fff5d8e265963dc7f08deb5e111536e79e28802f
   models/components/inputeventhubinput.go:
     id: 84686f8d58d8
     last_write_checksum: sha1:812470dba0ca2359bc173493b425e7ead442706a
@@ -18613,24 +18577,24 @@ trackedFiles:
     pristine_git_object: 47c81117319ab0eaea2173475e60a01a25c6555d
   models/components/inputresponse.go:
     id: 276eb094c51d
-    last_write_checksum: sha1:9d2ed262434ff348ebab2cdf6583da819105daec
-    pristine_git_object: 511624dcb1d1aa8a305ba477ec74632ccecb1eea
+    last_write_checksum: sha1:459894622635b72c741573470862e9d793181c46
+    pristine_git_object: f00ec2310e2028b341f344cd01c6b596aa12180f
   models/components/inputresponseloggedinusers.go:
     id: f2311e57078c
-    last_write_checksum: sha1:2099a97371e0db90c75af4aa313e1e8b8042b369
-    pristine_git_object: f03eb4d5c707c32c2489b6764a98f5e240833ab4
+    last_write_checksum: sha1:36575c60e080334ab0c94e2bb3042dfee71d09d9
+    pristine_git_object: 58c9774d5907f8a85e0672f20baba286fd97df31
   models/components/inputs3input.go:
     id: 0feb2a99382e
-    last_write_checksum: sha1:1a37c4f3a4f4e1a15a8439209d33138bb69d5d9b
-    pristine_git_object: cad2145d1273d55ab33cbfa6d699ac0ab25be710
+    last_write_checksum: sha1:d65d400dd7954b961e13c42a162019bbb34b7f15
+    pristine_git_object: b50de3659362c6aead386e5c136ae059bf64549f
   models/components/inputs3inventoryinput.go:
     id: 0bc55d7fe28e
-    last_write_checksum: sha1:debbea4c8b92f9ef036d210799f3edaa6b44dbdd
-    pristine_git_object: b48156dae19ea5469fc9768f8f75273035be388b
+    last_write_checksum: sha1:e21c468657ba309d80b67ed5573c7d68d2df56b3
+    pristine_git_object: fc7491afe3663e90cbf46922c0023a27450a2e09
   models/components/inputsecuritylakeinput.go:
     id: c53306f79661
-    last_write_checksum: sha1:31d7ee217b8798778fa6f930ae9cf2b57d58249f
-    pristine_git_object: 16bbe8c4a8035405a25e205a9c8bee39ec5ed033
+    last_write_checksum: sha1:7532f8244587aecf996204e9dd93e32a5e2be814
+    pristine_git_object: e1ebe48bb1439b3f01fda61c6c1e0a97072d4e4f
   models/components/inputservicenowtableinput.go:
     id: 18d2baa5b64d
     last_write_checksum: sha1:81b78db82b993898d975a875d4bbfa1e38420f0e
@@ -18933,8 +18897,8 @@ trackedFiles:
     pristine_git_object: ff0b198a48dbda90fdf093c8e3900a71a01ca050
   models/components/outputclickhouse.go:
     id: 7052b6e0563b
-    last_write_checksum: sha1:c5ccd18cf66a87c038dcd6e39d7d4ae57f3ce3ca
-    pristine_git_object: c1b0c5a098fb1f9efe3e1239772d08502ad79f7d
+    last_write_checksum: sha1:3f33df491a8798149574e8a6252d97303bea0578
+    pristine_git_object: 87bbb6bf97170579900d52362702212cb9680d22
   models/components/outputcloudflarer2.go:
     id: 599ea967df20
     last_write_checksum: sha1:d0ea8769524d87eccb7151498110c549c48444f4
@@ -19125,8 +19089,8 @@ trackedFiles:
     pristine_git_object: 41dcbd457a94ab3f821a98f8ab11b8ecef8cd1d4
   models/components/outputresponsetypestatsd.go:
     id: 50b8055ac2ab
-    last_write_checksum: sha1:58c997b34f14ca309ba9b0d8ab58cafb5e580c31
-    pristine_git_object: ad18cc209efce451342552fa15c8c03e56b4f0b8
+    last_write_checksum: sha1:6385223d10e37a174674de6d15fab74bf9b10484
+    pristine_git_object: a0746c000967ea3bf66d3e20c29c6bc4cde27a00
   models/components/outputring.go:
     id: 0478fb453f3d
     last_write_checksum: sha1:c58c1e80a603e9f3b8a21d03b89c538debca52c4
@@ -19761,8 +19725,8 @@ trackedFiles:
     pristine_git_object: 6d2074b7f3328c7d0cadf699c52de0909d31979c
   models/components/s3collectorconf.go:
     id: d149d8552420
-    last_write_checksum: sha1:08de76fa8cc261b3a63422396fb2777462709d64
-    pristine_git_object: aa4fe2b600b800387c84830b5db56d4011af3cba
+    last_write_checksum: sha1:d767e397872beafbb3202afea5dbda6f09d6913e
+    pristine_git_object: f05cf4d79222e2a0c67faaf67002cf2f69c76a31
   models/components/saslextensionconfinputkafka.go:
     id: ac1ec3055f90
     last_write_checksum: sha1:8d0fd43807d3200d2a955122ab96f6db1de76b3e
@@ -20049,20 +20013,20 @@ trackedFiles:
     pristine_git_object: 9d985959405459d441402c4c6b3658834d9cac54
   models/operations/createinputloggedinusers.go:
     id: 84d431d799a9
-    last_write_checksum: sha1:a945ccbed0360f51880ed40d0aaf90b693790fe1
-    pristine_git_object: b2ac9375f2b7590f3f66677241d80b968a1b8088
+    last_write_checksum: sha1:20ab6471fddfa1e5099c8f25ba67149b2de83d8a
+    pristine_git_object: f11e9e68ba1acbde14432693b75af6f0dcc7cd86
   models/operations/createinputresponse.go:
     id: 4a65919a7957
-    last_write_checksum: sha1:0db3102796f24a13bd2d46e101fa6d4e8c0dbac5
-    pristine_git_object: 08889c6108115d284a4e7005ff7f87f156658155
+    last_write_checksum: sha1:84d768a935791b4a1a64e5b7ce685f1cf0493260
+    pristine_git_object: fa11d9da6f8ec1d7fab913c681475334ec2f0f7b
   models/operations/createinputsystembypackloggedinusers.go:
     id: a7734e36c086
-    last_write_checksum: sha1:42077ce533bffa3762d3834631b8c32964755560
-    pristine_git_object: 4f94720093f057b5ddfe01630e68f7f4fad4797f
+    last_write_checksum: sha1:706954d62a51709155a6e3ffb33bf517edf38121
+    pristine_git_object: 59b36ebf8e5dba7ebd281fca96e22c0e88fbb354
   models/operations/createinputsystembypackresponse.go:
     id: 7f6c1101c884
-    last_write_checksum: sha1:5a85262941a826310305b13b02fcc9ffab958354
-    pristine_git_object: c12068451450ace5185e0a605753ea06fc31edb1
+    last_write_checksum: sha1:07e1d33239e357456395ea01e14f4592e0e03256
+    pristine_git_object: 9f027953d7a595e4362ff9a9a0974577a89993cd
   models/operations/createinputsystemhectokenbypackandid.go:
     id: 106b6f03830d
     last_write_checksum: sha1:df71582e617bcb0dabf5e23f2bce5d665c4b0dad
@@ -20077,8 +20041,8 @@ trackedFiles:
     pristine_git_object: d24c4547cec2768090aeb925b8e8edc34f268b34
   models/operations/createoutputsystembypacktypestatsd.go:
     id: 40522e2d8a2f
-    last_write_checksum: sha1:74ae862711d144c93615ee14d4f46aa0abbc1dcc
-    pristine_git_object: 2c3c024281d5e478be810caf0731288d50af5262
+    last_write_checksum: sha1:abb886c7003ecf3aac519168064e2868fb356f97
+    pristine_git_object: f70c8e758c1947b21a40aae6f1dbf213ad39efe1
   models/operations/createoutputsystemtestbypackandid.go:
     id: 3c3fbdbac29f
     last_write_checksum: sha1:0daabfddf073e9bcd4616bff077b2f0c63cd294a
@@ -20089,8 +20053,8 @@ trackedFiles:
     pristine_git_object: a153b1d64efd36b26f47b6815bd87ed0b64f8346
   models/operations/createoutputtypestatsd.go:
     id: c54c5cb08899
-    last_write_checksum: sha1:9b12559a4cc5f992d118600f3484b2d33e6e810f
-    pristine_git_object: 35dcc4eca60442cb639eca376fe0c7525b091d96
+    last_write_checksum: sha1:c316982e86f3a5ff6561e57efe34e68d8876247e
+    pristine_git_object: a46eaa790f3980d6ecb49d9d601edf686ef7ac6c
   models/operations/createpacks.go:
     id: 9f29a81ad83c
     last_write_checksum: sha1:38e4b94d699d3432f8b0fdda9ed7f3f62e2b6002
@@ -21182,7 +21146,7 @@ examples:
           application/json: {}
     InputCreateExamplesEventhubAmqp:
       requestBody:
-        application/json: {"id": "eventhub-amqp-source", "type": "eventhub_amqp", "sendToRoutes": true, "pqEnabled": false, "eventHubName": "my-event-hub", "consumerGroup": "$Default"}
+        application/json: {"id": "eventhub-amqp-source", "type": "eventhub_amqp", "sendToRoutes": true, "pqEnabled": false, "eventHubName": "my-event-hub", "consumerGroup": "$Default", "checkpointing": {"blobStore": {"containerName": "my-container"}}}
       responses:
         "200":
           application/json: {}
@@ -21943,7 +21907,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "eventhub-amqp-source", "type": "eventhub_amqp", "sendToRoutes": true, "pqEnabled": false, "eventHubName": "my-event-hub", "consumerGroup": "$Default"}
+        application/json: {"id": "eventhub-amqp-source", "type": "eventhub_amqp", "sendToRoutes": true, "pqEnabled": false, "eventHubName": "my-event-hub", "consumerGroup": "$Default", "checkpointing": {"blobStore": {"containerName": "my-container"}}}
       responses:
         "200":
           application/json: {}
@@ -25571,7 +25535,7 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "<id>", "description": "unabashedly notwithstanding ugh digestive", "type": "scheduledSearch", "ttl": "<value>", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": false, "resumeMissed": false, "cronSchedule": "<value>", "maxConcurrentRuns": 1498.35, "run": {"type": "collection", "rescheduleDroppedTasks": false, "maxTaskReschedule": 9677.47, "logLevel": "error", "jobTimeout": "<value>", "mode": "<value>", "timeRangeType": "<value>", "earliest": 8882.78, "latest": 6778.74, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "<value>", "minTaskSize": "<value>", "maxTaskSize": "<value>"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "s3", "conf": {"awsAuthenticationMethod": "auto", "outputName": "<value>", "bucket": "<value>", "parquetChunkSizeMB": 2532.22, "parquetChunkDownloadTimeout": 6271.26, "region": "<value>", "path": "/selinux", "partitioningScheme": "none", "extractors": [{"key": "<key>", "expression": "<value>"}], "endpoint": "<value>", "signatureVersion": "v4", "enableAssumeRole": true, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 2075.63, "maxBatchSize": 968.91, "reuseConnections": true, "rejectUnauthorized": false, "verifyPermissions": true, "disableTimeFilter": true}, "destructive": true, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 2918.22, "sendToRoutes": false, "preprocess": {"disabled": false, "command": "<value>", "args": ["<value 1>"]}, "throttleRatePerSec": "<value>", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}}
+        application/json: {"id": "<id>", "description": "unabashedly notwithstanding ugh digestive", "type": "scheduledSearch", "ttl": "<value>", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": false, "resumeMissed": false, "cronSchedule": "<value>", "maxConcurrentRuns": 1498.35, "run": {"type": "collection", "rescheduleDroppedTasks": false, "maxTaskReschedule": 9677.47, "logLevel": "error", "jobTimeout": "<value>", "mode": "<value>", "timeRangeType": "<value>", "earliest": 8882.78, "latest": 6778.74, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "<value>", "minTaskSize": "<value>", "maxTaskSize": "<value>"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "s3", "conf": {"awsAuthenticationMethod": "auto", "outputName": "<value>", "bucket": "<value>", "parquetChunkSizeMB": 2532.22, "parquetChunkDownloadTimeout": 6271.26, "region": "<value>", "path": "/selinux", "partitioningScheme": "none", "extractors": [{"key": "<key>", "expression": "<value>"}], "endpoint": "<value>", "enableAssumeRole": true, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 2075.63, "maxBatchSize": 968.91, "reuseConnections": true, "rejectUnauthorized": false, "verifyPermissions": true, "disableTimeFilter": true}, "destructive": true, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 2918.22, "sendToRoutes": false, "preprocess": {"disabled": false, "command": "<value>", "args": ["<value 1>"]}, "throttleRatePerSec": "<value>", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}}
       responses:
         "200":
           application/json: {}
@@ -25584,7 +25548,7 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "<id>", "description": "unabashedly notwithstanding ugh digestive", "type": "scheduledSearch", "ttl": "<value>", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": false, "resumeMissed": false, "cronSchedule": "<value>", "maxConcurrentRuns": 1498.35, "run": {"type": "collection", "rescheduleDroppedTasks": false, "maxTaskReschedule": 9677.47, "logLevel": "error", "jobTimeout": "<value>", "mode": "<value>", "timeRangeType": "<value>", "earliest": 8882.78, "latest": 6778.74, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "<value>", "minTaskSize": "<value>", "maxTaskSize": "<value>"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "s3", "conf": {"awsAuthenticationMethod": "auto", "outputName": "<value>", "bucket": "<value>", "parquetChunkSizeMB": 2532.22, "parquetChunkDownloadTimeout": 6271.26, "region": "<value>", "path": "/selinux", "partitioningScheme": "none", "extractors": [{"key": "<key>", "expression": "<value>"}], "endpoint": "<value>", "signatureVersion": "v4", "enableAssumeRole": true, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 2075.63, "maxBatchSize": 968.91, "reuseConnections": true, "rejectUnauthorized": false, "verifyPermissions": true, "disableTimeFilter": true}, "destructive": true, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 2918.22, "sendToRoutes": false, "preprocess": {"disabled": false, "command": "<value>", "args": ["<value 1>"]}, "throttleRatePerSec": "<value>", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}}
+        application/json: {"id": "<id>", "description": "unabashedly notwithstanding ugh digestive", "type": "scheduledSearch", "ttl": "<value>", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": false, "resumeMissed": false, "cronSchedule": "<value>", "maxConcurrentRuns": 1498.35, "run": {"type": "collection", "rescheduleDroppedTasks": false, "maxTaskReschedule": 9677.47, "logLevel": "error", "jobTimeout": "<value>", "mode": "<value>", "timeRangeType": "<value>", "earliest": 8882.78, "latest": 6778.74, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "<value>", "minTaskSize": "<value>", "maxTaskSize": "<value>"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "s3", "conf": {"awsAuthenticationMethod": "auto", "outputName": "<value>", "bucket": "<value>", "parquetChunkSizeMB": 2532.22, "parquetChunkDownloadTimeout": 6271.26, "region": "<value>", "path": "/selinux", "partitioningScheme": "none", "extractors": [{"key": "<key>", "expression": "<value>"}], "endpoint": "<value>", "enableAssumeRole": true, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 2075.63, "maxBatchSize": 968.91, "reuseConnections": true, "rejectUnauthorized": false, "verifyPermissions": true, "disableTimeFilter": true}, "destructive": true, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 2918.22, "sendToRoutes": false, "preprocess": {"disabled": false, "command": "<value>", "args": ["<value 1>"]}, "throttleRatePerSec": "<value>", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}}
       responses:
         "200":
           application/json: {}
@@ -25597,7 +25561,7 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "<id>", "description": "unabashedly notwithstanding ugh digestive", "type": "scheduledSearch", "ttl": "<value>", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": false, "resumeMissed": false, "cronSchedule": "<value>", "maxConcurrentRuns": 1498.35, "run": {"type": "collection", "rescheduleDroppedTasks": false, "maxTaskReschedule": 9677.47, "logLevel": "error", "jobTimeout": "<value>", "mode": "<value>", "timeRangeType": "<value>", "earliest": 8882.78, "latest": 6778.74, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "<value>", "minTaskSize": "<value>", "maxTaskSize": "<value>"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "s3", "conf": {"awsAuthenticationMethod": "auto", "outputName": "<value>", "bucket": "<value>", "parquetChunkSizeMB": 2532.22, "parquetChunkDownloadTimeout": 6271.26, "region": "<value>", "path": "/selinux", "partitioningScheme": "none", "extractors": [{"key": "<key>", "expression": "<value>"}], "endpoint": "<value>", "signatureVersion": "v4", "enableAssumeRole": true, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 2075.63, "maxBatchSize": 968.91, "reuseConnections": true, "rejectUnauthorized": false, "verifyPermissions": true, "disableTimeFilter": true}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 2918.22, "sendToRoutes": false, "preprocess": {"disabled": false, "command": "<value>", "args": ["<value 1>"]}, "throttleRatePerSec": "<value>", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}}
+        application/json: {"id": "<id>", "description": "unabashedly notwithstanding ugh digestive", "type": "scheduledSearch", "ttl": "<value>", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": false, "resumeMissed": false, "cronSchedule": "<value>", "maxConcurrentRuns": 1498.35, "run": {"type": "collection", "rescheduleDroppedTasks": false, "maxTaskReschedule": 9677.47, "logLevel": "error", "jobTimeout": "<value>", "mode": "<value>", "timeRangeType": "<value>", "earliest": 8882.78, "latest": 6778.74, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "<value>", "minTaskSize": "<value>", "maxTaskSize": "<value>"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "s3", "conf": {"awsAuthenticationMethod": "auto", "outputName": "<value>", "bucket": "<value>", "parquetChunkSizeMB": 2532.22, "parquetChunkDownloadTimeout": 6271.26, "region": "<value>", "path": "/selinux", "partitioningScheme": "none", "extractors": [{"key": "<key>", "expression": "<value>"}], "endpoint": "<value>", "enableAssumeRole": true, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 2075.63, "maxBatchSize": 968.91, "reuseConnections": true, "rejectUnauthorized": false, "verifyPermissions": true, "disableTimeFilter": true}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 2918.22, "sendToRoutes": false, "preprocess": {"disabled": false, "command": "<value>", "args": ["<value 1>"]}, "throttleRatePerSec": "<value>", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}}
       responses:
         "200":
           application/json: {}
@@ -25623,7 +25587,7 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "<id>", "description": "unabashedly notwithstanding ugh digestive", "type": "scheduledSearch", "ttl": "<value>", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": false, "resumeMissed": false, "cronSchedule": "<value>", "maxConcurrentRuns": 1498.35, "run": {"type": "collection", "rescheduleDroppedTasks": false, "maxTaskReschedule": 9677.47, "logLevel": "error", "jobTimeout": "<value>", "mode": "<value>", "timeRangeType": "<value>", "earliest": 8882.78, "latest": 6778.74, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "<value>", "minTaskSize": "<value>", "maxTaskSize": "<value>"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "s3", "conf": {"awsAuthenticationMethod": "auto", "outputName": "<value>", "bucket": "<value>", "parquetChunkSizeMB": 2532.22, "parquetChunkDownloadTimeout": 6271.26, "region": "<value>", "path": "/selinux", "partitioningScheme": "none", "extractors": [{"key": "<key>", "expression": "<value>"}], "endpoint": "<value>", "signatureVersion": "v4", "enableAssumeRole": true, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 2075.63, "maxBatchSize": 968.91, "reuseConnections": true, "rejectUnauthorized": false, "verifyPermissions": true, "disableTimeFilter": true}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 2918.22, "sendToRoutes": false, "preprocess": {"disabled": false, "command": "<value>", "args": ["<value 1>"]}, "throttleRatePerSec": "<value>", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}}
+        application/json: {"id": "<id>", "description": "unabashedly notwithstanding ugh digestive", "type": "scheduledSearch", "ttl": "<value>", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": false, "resumeMissed": false, "cronSchedule": "<value>", "maxConcurrentRuns": 1498.35, "run": {"type": "collection", "rescheduleDroppedTasks": false, "maxTaskReschedule": 9677.47, "logLevel": "error", "jobTimeout": "<value>", "mode": "<value>", "timeRangeType": "<value>", "earliest": 8882.78, "latest": 6778.74, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "<value>", "minTaskSize": "<value>", "maxTaskSize": "<value>"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "s3", "conf": {"awsAuthenticationMethod": "auto", "outputName": "<value>", "bucket": "<value>", "parquetChunkSizeMB": 2532.22, "parquetChunkDownloadTimeout": 6271.26, "region": "<value>", "path": "/selinux", "partitioningScheme": "none", "extractors": [{"key": "<key>", "expression": "<value>"}], "endpoint": "<value>", "enableAssumeRole": true, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 2075.63, "maxBatchSize": 968.91, "reuseConnections": true, "rejectUnauthorized": false, "verifyPermissions": true, "disableTimeFilter": true}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 2918.22, "sendToRoutes": false, "preprocess": {"disabled": false, "command": "<value>", "args": ["<value 1>"]}, "throttleRatePerSec": "<value>", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}}
       responses:
         "200":
           application/json: {}
@@ -25649,7 +25613,7 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "<id>", "description": "unabashedly notwithstanding ugh digestive", "type": "scheduledSearch", "ttl": "<value>", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": false, "resumeMissed": false, "cronSchedule": "<value>", "maxConcurrentRuns": 1498.35, "run": {"type": "collection", "rescheduleDroppedTasks": false, "maxTaskReschedule": 9677.47, "logLevel": "error", "jobTimeout": "<value>", "mode": "<value>", "timeRangeType": "<value>", "earliest": 8882.78, "latest": 6778.74, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "<value>", "minTaskSize": "<value>", "maxTaskSize": "<value>"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "s3", "conf": {"awsAuthenticationMethod": "auto", "outputName": "<value>", "bucket": "<value>", "parquetChunkSizeMB": 2532.22, "parquetChunkDownloadTimeout": 6271.26, "region": "<value>", "path": "/selinux", "partitioningScheme": "none", "extractors": [{"key": "<key>", "expression": "<value>"}], "endpoint": "<value>", "signatureVersion": "v4", "enableAssumeRole": true, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 2075.63, "maxBatchSize": 968.91, "reuseConnections": true, "rejectUnauthorized": false, "verifyPermissions": true, "disableTimeFilter": true}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 2918.22, "sendToRoutes": false, "preprocess": {"disabled": false, "command": "<value>", "args": ["<value 1>"]}, "throttleRatePerSec": "<value>", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}}
+        application/json: {"id": "<id>", "description": "unabashedly notwithstanding ugh digestive", "type": "scheduledSearch", "ttl": "<value>", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": false, "resumeMissed": false, "cronSchedule": "<value>", "maxConcurrentRuns": 1498.35, "run": {"type": "collection", "rescheduleDroppedTasks": false, "maxTaskReschedule": 9677.47, "logLevel": "error", "jobTimeout": "<value>", "mode": "<value>", "timeRangeType": "<value>", "earliest": 8882.78, "latest": 6778.74, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "<value>", "minTaskSize": "<value>", "maxTaskSize": "<value>"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "s3", "conf": {"awsAuthenticationMethod": "auto", "outputName": "<value>", "bucket": "<value>", "parquetChunkSizeMB": 2532.22, "parquetChunkDownloadTimeout": 6271.26, "region": "<value>", "path": "/selinux", "partitioningScheme": "none", "extractors": [{"key": "<key>", "expression": "<value>"}], "endpoint": "<value>", "enableAssumeRole": true, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 2075.63, "maxBatchSize": 968.91, "reuseConnections": true, "rejectUnauthorized": false, "verifyPermissions": true, "disableTimeFilter": true}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 2918.22, "sendToRoutes": false, "preprocess": {"disabled": false, "command": "<value>", "args": ["<value 1>"]}, "throttleRatePerSec": "<value>", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}}
       responses:
         "200":
           application/json: {}
@@ -25662,7 +25626,7 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "<id>", "description": "unabashedly notwithstanding ugh digestive", "type": "scheduledSearch", "ttl": "<value>", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": false, "resumeMissed": false, "cronSchedule": "<value>", "maxConcurrentRuns": 1498.35, "run": {"type": "collection", "rescheduleDroppedTasks": false, "maxTaskReschedule": 9677.47, "logLevel": "error", "jobTimeout": "<value>", "mode": "<value>", "timeRangeType": "<value>", "earliest": 8882.78, "latest": 6778.74, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "<value>", "minTaskSize": "<value>", "maxTaskSize": "<value>"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "s3", "conf": {"awsAuthenticationMethod": "auto", "outputName": "<value>", "bucket": "<value>", "parquetChunkSizeMB": 2532.22, "parquetChunkDownloadTimeout": 6271.26, "region": "<value>", "path": "/selinux", "partitioningScheme": "none", "extractors": [{"key": "<key>", "expression": "<value>"}], "endpoint": "<value>", "signatureVersion": "v4", "enableAssumeRole": true, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 2075.63, "maxBatchSize": 968.91, "reuseConnections": true, "rejectUnauthorized": false, "verifyPermissions": true, "disableTimeFilter": true}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 2918.22, "sendToRoutes": false, "preprocess": {"disabled": false, "command": "<value>", "args": ["<value 1>"]}, "throttleRatePerSec": "<value>", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}}
+        application/json: {"id": "<id>", "description": "unabashedly notwithstanding ugh digestive", "type": "scheduledSearch", "ttl": "<value>", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": false, "resumeMissed": false, "cronSchedule": "<value>", "maxConcurrentRuns": 1498.35, "run": {"type": "collection", "rescheduleDroppedTasks": false, "maxTaskReschedule": 9677.47, "logLevel": "error", "jobTimeout": "<value>", "mode": "<value>", "timeRangeType": "<value>", "earliest": 8882.78, "latest": 6778.74, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "<value>", "minTaskSize": "<value>", "maxTaskSize": "<value>"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "s3", "conf": {"awsAuthenticationMethod": "auto", "outputName": "<value>", "bucket": "<value>", "parquetChunkSizeMB": 2532.22, "parquetChunkDownloadTimeout": 6271.26, "region": "<value>", "path": "/selinux", "partitioningScheme": "none", "extractors": [{"key": "<key>", "expression": "<value>"}], "endpoint": "<value>", "enableAssumeRole": true, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 2075.63, "maxBatchSize": 968.91, "reuseConnections": true, "rejectUnauthorized": false, "verifyPermissions": true, "disableTimeFilter": true}, "destructive": false, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 2918.22, "sendToRoutes": false, "preprocess": {"disabled": false, "command": "<value>", "args": ["<value 1>"]}, "throttleRatePerSec": "<value>", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}}
       responses:
         "200":
           application/json: {}
@@ -25688,7 +25652,7 @@ examples:
         query:
           criblPack: "<value>"
       requestBody:
-        application/json: {"id": "<id>", "description": "unabashedly notwithstanding ugh digestive", "type": "scheduledSearch", "ttl": "<value>", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": false, "resumeMissed": false, "cronSchedule": "<value>", "maxConcurrentRuns": 1498.35, "run": {"type": "collection", "rescheduleDroppedTasks": false, "maxTaskReschedule": 9677.47, "logLevel": "error", "jobTimeout": "<value>", "mode": "<value>", "timeRangeType": "<value>", "earliest": 8882.78, "latest": 6778.74, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "<value>", "minTaskSize": "<value>", "maxTaskSize": "<value>"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "s3", "conf": {"awsAuthenticationMethod": "auto", "outputName": "<value>", "bucket": "<value>", "parquetChunkSizeMB": 2532.22, "parquetChunkDownloadTimeout": 6271.26, "region": "<value>", "path": "/selinux", "partitioningScheme": "none", "extractors": [{"key": "<key>", "expression": "<value>"}], "endpoint": "<value>", "signatureVersion": "v4", "enableAssumeRole": true, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 2075.63, "maxBatchSize": 968.91, "reuseConnections": true, "rejectUnauthorized": false, "verifyPermissions": true, "disableTimeFilter": true}, "destructive": true, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 2918.22, "sendToRoutes": false, "preprocess": {"disabled": false, "command": "<value>", "args": ["<value 1>"]}, "throttleRatePerSec": "<value>", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}}
+        application/json: {"id": "<id>", "description": "unabashedly notwithstanding ugh digestive", "type": "scheduledSearch", "ttl": "<value>", "ignoreGroupJobsLimit": false, "removeFields": ["<value 1>"], "resumeOnBoot": false, "environment": "<value>", "schedule": {"enabled": true, "skippable": false, "resumeMissed": false, "cronSchedule": "<value>", "maxConcurrentRuns": 1498.35, "run": {"type": "collection", "rescheduleDroppedTasks": false, "maxTaskReschedule": 9677.47, "logLevel": "error", "jobTimeout": "<value>", "mode": "<value>", "timeRangeType": "<value>", "earliest": 8882.78, "latest": 6778.74, "timestampTimezone": "<value>", "timeWarning": {}, "expression": "<value>", "minTaskSize": "<value>", "maxTaskSize": "<value>"}}, "streamtags": ["<value 1>", "<value 2>"], "workerAffinity": false, "collector": {"type": "s3", "conf": {"awsAuthenticationMethod": "auto", "outputName": "<value>", "bucket": "<value>", "parquetChunkSizeMB": 2532.22, "parquetChunkDownloadTimeout": 6271.26, "region": "<value>", "path": "/selinux", "partitioningScheme": "none", "extractors": [{"key": "<key>", "expression": "<value>"}], "endpoint": "<value>", "enableAssumeRole": true, "assumeRoleArn": "<value>", "assumeRoleExternalId": "<id>", "durationSeconds": 2075.63, "maxBatchSize": 968.91, "reuseConnections": true, "rejectUnauthorized": false, "verifyPermissions": true, "disableTimeFilter": true}, "destructive": true, "encoding": "<value>"}, "input": {"type": "collection", "breakerRulesets": ["<value 1>", "<value 2>"], "staleChannelFlushMs": 2918.22, "sendToRoutes": false, "preprocess": {"disabled": false, "command": "<value>", "args": ["<value 1>"]}, "throttleRatePerSec": "<value>", "metadata": [{"name": "<value>", "value": "<value>"}], "pipeline": "<value>", "output": "<value>"}}
       responses:
         "200":
           application/json: {}
@@ -26688,7 +26652,7 @@ examples:
         path:
           pack: "<value>"
       requestBody:
-        application/json: {"id": "eventhub-amqp-source", "type": "eventhub_amqp", "sendToRoutes": true, "pqEnabled": false, "eventHubName": "my-event-hub", "consumerGroup": "$Default"}
+        application/json: {"id": "eventhub-amqp-source", "type": "eventhub_amqp", "sendToRoutes": true, "pqEnabled": false, "eventHubName": "my-event-hub", "consumerGroup": "$Default", "checkpointing": {"blobStore": {"containerName": "my-container"}}}
       responses:
         "200":
           application/json: {}
@@ -27525,7 +27489,7 @@ examples:
           id: "<id>"
           pack: "<value>"
       requestBody:
-        application/json: {"id": "eventhub-amqp-source", "type": "eventhub_amqp", "sendToRoutes": true, "pqEnabled": false, "eventHubName": "my-event-hub", "consumerGroup": "$Default"}
+        application/json: {"id": "eventhub-amqp-source", "type": "eventhub_amqp", "sendToRoutes": true, "pqEnabled": false, "eventHubName": "my-event-hub", "consumerGroup": "$Default", "checkpointing": {"blobStore": {"containerName": "my-container"}}}
       responses:
         "200":
           application/json: {}
@@ -31725,7 +31689,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Destinations.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Pq.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.List()`: \n  *  `request.Type` **Added**\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Nodes.Summaries.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Nodes.List()`: \n  *  `request.Request.Product` **Changed**\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Nodes.Get()`: \n  *  `request.Product` **Changed**\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Delete()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.System.Settings.Cribl.Update()`: \n  *  `request.Request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.System.Settings.Cribl.List()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.System.Captures.Create()`:  `request.Request` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Lakes.Datasets.Update()`: \n  *  `request.CriblLakeDatasetUpdate` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.List()`: \n  *  `request.Type` **Added**\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Statuses.List()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `error.status[400]` **Added**\n* `CriblControlPlane.Packs.Destinations.List()`: \n  *  `request.Type` **Changed**\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Create()`: \n  *  `request.RequestBody` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Update()`: \n  *  `request.Output` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Delete()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Pq.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Lakes.Datasets.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Lakes.Datasets.Delete()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Statuses.List()`: \n  *  `request` **Changed** (Breaking ⚠️)\n  *  `error.status[400]` **Added**\n* `CriblControlPlane.Lakes.Datasets.List()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Lakes.Datasets.Create()`: \n  *  `request.CriblLakeDataset` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Groups.Deploy()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Groups.Delete()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Groups.Update()`: \n  *  `request.ConfigGroup` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Routes.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Routes.Update()`: \n  *  `request.RoutesInput` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Routes.List()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Routes.Append()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.List()`: \n  *  `request.Type` **Changed**\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Pq.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Delete()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Groups.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Groups.Create()`: \n  *  `request.GroupCreateRequest` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Groups.List()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request.SavedJob` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.List()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request.Request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.Update()`: \n  *  `request.RoutesInput` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.List()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Routes.Append()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Functions.List()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Sources.HecTokens.Create()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Pipelines.Delete()`:  `response.Items[].Conf` **Changed**\n* `CriblControlPlane.Pipelines.List()`:  `response.Items[].Conf` **Changed**\n* `CriblControlPlane.Pipelines.Create()`: \n  *  `request.Request.Conf` **Changed**\n  *  `response.Items[].Conf` **Changed**\n* `CriblControlPlane.Destinations.Statuses.List()`: \n  *  `request` **Changed**\n  *  `error.status[400]` **Added**\n* `CriblControlPlane.Destinations.Samples.Create()`:  `error.status[400]` **Added**\n* `CriblControlPlane.Destinations.Samples.Get()`:  `error.status[400]` **Added**\n* `CriblControlPlane.Packs.Pipelines.Update()`: \n  *  `request.Pipeline.Conf` **Changed**\n  *  `response.Items[].Conf` **Changed**\n* `CriblControlPlane.Packs.Pipelines.Get()`:  `response.Items[].Conf` **Changed**\n* `CriblControlPlane.Packs.Pipelines.List()`:  `response.Items[].Conf` **Changed**\n* `CriblControlPlane.Pipelines.Update()`: \n  *  `request.Pipeline.Conf` **Changed**\n  *  `response.Items[].Conf` **Changed**\n* `CriblControlPlane.Pipelines.Get()`:  `response.Items[].Conf` **Changed**\n* `CriblControlPlane.Groups.Acl.Get()`: \n  *  `request.Type` **Changed**\n  *  `response.Items[].Perms[].Type.Enum(notebookTemplates)` **Added**\n* `CriblControlPlane.Packs.Sources.HecTokens.Create()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Destinations.Samples.Create()`:  `error.status[400]` **Added**\n* `CriblControlPlane.Packs.Destinations.Samples.Get()`:  `error.status[400]` **Added**\n* `CriblControlPlane.Packs.Sources.HecTokens.Update()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Pipelines.Create()`: \n  *  `request.Pipeline.Conf` **Changed**\n  *  `response.Items[].Conf` **Changed**\n* `CriblControlPlane.Sources.Statuses.List()`: \n  *  `request` **Changed**\n  *  `error.status[400]` **Added**\n* `CriblControlPlane.Sources.HecTokens.Update()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Nodes.Count()`:  `request.Product` **Changed**\n* `CriblControlPlane.Packs.Pipelines.Delete()`:  `response.Items[].Conf` **Changed**\n* `CriblControlPlane.Groups.Acl.Teams.Get()`: \n  *  `request.Type` **Changed**\n  *  `response.Items[].Perms[].Type.Enum(notebookTemplates)` **Added**\n* `CriblControlPlane.Nodes.Restart()`:  `request.Product` **Changed**\n* `CriblControlPlane.Functions.Get()`:  `response.Items[]` **Changed**\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Sources.List()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(s3).Conf` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.List()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Get()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Delete()`:  `response.Items[]` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(s3).Conf` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(s3).Conf` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(s3).Conf` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request.Request.union(SavedJobCollection).Collector.union(s3).Conf` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(SavedJobResponseCollection).Collector.union(s3).Conf` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.List()`:  `response.Items[].union(SavedJobResponseCollection).Collector.union(s3).Conf` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Delete()`:  `response.Items[].union(SavedJobResponseCollection).Collector.union(s3).Conf` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Get()`:  `response.Items[].union(SavedJobResponseCollection).Collector.union(s3).Conf` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request.SavedJob.union(SavedJobCollection).Collector.union(s3).Conf` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(SavedJobResponseCollection).Collector.union(s3).Conf` **Changed** (Breaking ⚠️)\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
