@@ -8,15 +8,15 @@ import (
 )
 
 type UpdateProductsWorkersRestartByProductRequest struct {
-	// Name of the Cribl product whose Worker or Edge Nodes you want to restart.
-	Product components.ProductsBase `pathParam:"style=simple,explode=false,name=product"`
+	// Name of the Cribl product whose Worker, Edge, or Outpost Nodes you want to restart.
+	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 	// RestartRequest object.
 	RestartRequest components.RestartRequest `request:"mediaType=application/json"`
 }
 
-func (u *UpdateProductsWorkersRestartByProductRequest) GetProduct() components.ProductsBase {
+func (u *UpdateProductsWorkersRestartByProductRequest) GetProduct() components.ProductsCore {
 	if u == nil {
-		return components.ProductsBase("")
+		return components.ProductsCore("")
 	}
 	return u.Product
 }

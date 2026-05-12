@@ -467,6 +467,12 @@ createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPack
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyScalityS3(operations.CreateOutputSystemByPackOutputScalityS3{/* values here */})
 ```
 
+### CreateOutputSystemByPackOutputAlibabaCloudS3
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyAlibabaCloudS3(operations.CreateOutputSystemByPackOutputAlibabaCloudS3{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -627,5 +633,7 @@ switch createOutputSystemByPackRequestBody.Type {
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputCloudianS3 is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeScalityS3:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputScalityS3 is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeAlibabaCloudS3:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputAlibabaCloudS3 is populated
 }
 ```

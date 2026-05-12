@@ -8142,6 +8142,8 @@ type InputResponseInputFile struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
+	// When enabled, no Event Breaker channel flush timeout applies and the timeout below is ignored. Prefer this option when using header-based breakers for file types such as CSV or IIS.
+	DisableStaleChannelFlush *bool `json:"disableStaleChannelFlush,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	Description         *string  `json:"description,omitzero"`
@@ -8345,6 +8347,13 @@ func (i *InputResponseInputFile) GetBreakerRulesets() []string {
 		return nil
 	}
 	return i.BreakerRulesets
+}
+
+func (i *InputResponseInputFile) GetDisableStaleChannelFlush() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableStaleChannelFlush
 }
 
 func (i *InputResponseInputFile) GetStaleChannelFlushMs() *float64 {
@@ -16143,6 +16152,10 @@ type InputResponseInputKubeMetrics struct {
 	Pq          *PqType                         `json:"pq,omitzero"`
 	// Time, in seconds, between consecutive metrics collections. Default is 15 secs.
 	Interval *float64 `json:"interval,omitzero"`
+	// Enable to scrape kubelet metrics from https://<nodeIP>:10250/metrics. Requires Edge to run as a DaemonSet with direct network access to the node.
+	ScrapeKubelet *bool `json:"scrapeKubelet,omitzero"`
+	// Scrape cAdvisor container metrics from https://<nodeIP>:10250/metrics/cadvisor. Requires Edge to run as a DaemonSet with direct network access to the Node.
+	ScrapeCadvisor *bool `json:"scrapeCadvisor,omitzero"`
 	// Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
 	Rules []RuleConfInputKubeMetrics `json:"rules,omitzero"`
 	// Fields to add to events from this input
@@ -16252,6 +16265,20 @@ func (i *InputResponseInputKubeMetrics) GetInterval() *float64 {
 		return nil
 	}
 	return i.Interval
+}
+
+func (i *InputResponseInputKubeMetrics) GetScrapeKubelet() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ScrapeKubelet
+}
+
+func (i *InputResponseInputKubeMetrics) GetScrapeCadvisor() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.ScrapeCadvisor
 }
 
 func (i *InputResponseInputKubeMetrics) GetRules() []RuleConfInputKubeMetrics {

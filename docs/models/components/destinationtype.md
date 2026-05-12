@@ -95,3 +95,4 @@ custom := components.DestinationType("custom_value")
 | `DestinationTypeDellS3`                 | dell_s3                                 |
 | `DestinationTypeCloudianS3`             | cloudian_s3                             |
 | `DestinationTypeScalityS3`              | scality_s3                              |
+| `DestinationTypeAlibabaCloudS3`         | alibaba_cloud_s3                        |

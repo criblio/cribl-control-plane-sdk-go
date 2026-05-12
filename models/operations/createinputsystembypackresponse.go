@@ -3854,31 +3854,6 @@ func (c *CreateInputSystemByPackAuth) GetTemplateFullyQualifiedNamespace() *stri
 	return c.TemplateFullyQualifiedNamespace
 }
 
-// CreateInputSystemByPackCheckpointStore - The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
-type CreateInputSystemByPackCheckpointStore string
-
-const (
-	// CreateInputSystemByPackCheckpointStoreNone None
-	CreateInputSystemByPackCheckpointStoreNone CreateInputSystemByPackCheckpointStore = "none"
-	// CreateInputSystemByPackCheckpointStoreAzureBlob Azure Blob Storage
-	CreateInputSystemByPackCheckpointStoreAzureBlob CreateInputSystemByPackCheckpointStore = "azureBlob"
-)
-
-func (e CreateInputSystemByPackCheckpointStore) ToPointer() *CreateInputSystemByPackCheckpointStore {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputSystemByPackCheckpointStore) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "azureBlob":
-			return true
-		}
-	}
-	return false
-}
-
 type CreateInputSystemByPackBlobStoreAuthenticationMethod string
 
 const (
@@ -4043,9 +4018,7 @@ func (c *CreateInputSystemByPackAzureBlobStorage) GetTemplateAzureCloud() *strin
 }
 
 type CreateInputSystemByPackCheckpointing struct {
-	// The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
-	CheckpointStoreType *CreateInputSystemByPackCheckpointStore  `json:"checkpointStoreType,omitzero"`
-	BlobStore           *CreateInputSystemByPackAzureBlobStorage `json:"blobStore,omitzero"`
+	BlobStore CreateInputSystemByPackAzureBlobStorage `json:"blobStore"`
 }
 
 func (c CreateInputSystemByPackCheckpointing) MarshalJSON() ([]byte, error) {
@@ -4059,16 +4032,9 @@ func (c *CreateInputSystemByPackCheckpointing) UnmarshalJSON(data []byte) error 
 	return nil
 }
 
-func (c *CreateInputSystemByPackCheckpointing) GetCheckpointStoreType() *CreateInputSystemByPackCheckpointStore {
+func (c *CreateInputSystemByPackCheckpointing) GetBlobStore() CreateInputSystemByPackAzureBlobStorage {
 	if c == nil {
-		return nil
-	}
-	return c.CheckpointStoreType
-}
-
-func (c *CreateInputSystemByPackCheckpointing) GetBlobStore() *CreateInputSystemByPackAzureBlobStorage {
-	if c == nil {
-		return nil
+		return CreateInputSystemByPackAzureBlobStorage{}
 	}
 	return c.BlobStore
 }
@@ -4094,9 +4060,9 @@ type CreateInputSystemByPackInputEventhubAmqp struct {
 	// The name of the Event Hub to consume from
 	EventHubName *string `json:"eventHubName,omitzero"`
 	// The consumer group this instance belongs to. Default is '$Default'.
-	ConsumerGroup string                                `json:"consumerGroup"`
-	Auth          *CreateInputSystemByPackAuth          `json:"auth,omitzero"`
-	Checkpointing *CreateInputSystemByPackCheckpointing `json:"checkpointing,omitzero"`
+	ConsumerGroup string                               `json:"consumerGroup"`
+	Auth          *CreateInputSystemByPackAuth         `json:"auth,omitzero"`
+	Checkpointing CreateInputSystemByPackCheckpointing `json:"checkpointing"`
 	// Start reading from earliest available data; relevant only during initial subscription
 	FromBeginning *bool `json:"fromBeginning,omitzero"`
 	// Maximum number of events in each batch delivered to the consumer
@@ -4230,9 +4196,9 @@ func (c *CreateInputSystemByPackInputEventhubAmqp) GetAuth() *CreateInputSystemB
 	return c.Auth
 }
 
-func (c *CreateInputSystemByPackInputEventhubAmqp) GetCheckpointing() *CreateInputSystemByPackCheckpointing {
+func (c *CreateInputSystemByPackInputEventhubAmqp) GetCheckpointing() CreateInputSystemByPackCheckpointing {
 	if c == nil {
-		return nil
+		return CreateInputSystemByPackCheckpointing{}
 	}
 	return c.Checkpointing
 }
@@ -6654,7 +6620,7 @@ type CreateInputSystemByPackInputEdgePrometheus struct {
 	Pq          *components.PqType                         `json:"pq,omitzero"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitzero"`
-	// Enable to use each metric name as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
+	// When enabled, each metric name is used as the event field key (example: go_threads: 9) instead of the default _metric/_value format.
 	FieldPerMetric *bool `json:"fieldPerMetric,omitzero"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
 	DiscoveryType CreateInputSystemByPackDiscoveryTypeEdgePrometheus `json:"discoveryType"`
@@ -7249,7 +7215,7 @@ type CreateInputSystemByPackInputPrometheus struct {
 	Pq          *components.PqType                         `json:"pq,omitzero"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitzero"`
-	// When enabled, each metric name is used as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
+	// When enabled, each metric name is used as the event field key (example: go_threads: 9) instead of the default _metric/_value format.
 	FieldPerMetric *bool `json:"fieldPerMetric,omitzero"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
 	DiscoveryType *CreateInputSystemByPackDiscoveryTypePrometheus `json:"discoveryType,omitzero"`

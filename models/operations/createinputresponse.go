@@ -3854,31 +3854,6 @@ func (c *CreateInputAuth) GetTemplateFullyQualifiedNamespace() *string {
 	return c.TemplateFullyQualifiedNamespace
 }
 
-// CreateInputCheckpointStore - The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
-type CreateInputCheckpointStore string
-
-const (
-	// CreateInputCheckpointStoreNone None
-	CreateInputCheckpointStoreNone CreateInputCheckpointStore = "none"
-	// CreateInputCheckpointStoreAzureBlob Azure Blob Storage
-	CreateInputCheckpointStoreAzureBlob CreateInputCheckpointStore = "azureBlob"
-)
-
-func (e CreateInputCheckpointStore) ToPointer() *CreateInputCheckpointStore {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputCheckpointStore) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "none", "azureBlob":
-			return true
-		}
-	}
-	return false
-}
-
 type CreateInputBlobStoreAuthenticationMethod string
 
 const (
@@ -4043,9 +4018,7 @@ func (c *CreateInputAzureBlobStorage) GetTemplateAzureCloud() *string {
 }
 
 type CreateInputCheckpointing struct {
-	// The backing store used to persist consumer checkpoints. Select "None" to disable checkpointing (consumers will restart from the configured start position).
-	CheckpointStoreType *CreateInputCheckpointStore  `json:"checkpointStoreType,omitzero"`
-	BlobStore           *CreateInputAzureBlobStorage `json:"blobStore,omitzero"`
+	BlobStore CreateInputAzureBlobStorage `json:"blobStore"`
 }
 
 func (c CreateInputCheckpointing) MarshalJSON() ([]byte, error) {
@@ -4059,16 +4032,9 @@ func (c *CreateInputCheckpointing) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (c *CreateInputCheckpointing) GetCheckpointStoreType() *CreateInputCheckpointStore {
+func (c *CreateInputCheckpointing) GetBlobStore() CreateInputAzureBlobStorage {
 	if c == nil {
-		return nil
-	}
-	return c.CheckpointStoreType
-}
-
-func (c *CreateInputCheckpointing) GetBlobStore() *CreateInputAzureBlobStorage {
-	if c == nil {
-		return nil
+		return CreateInputAzureBlobStorage{}
 	}
 	return c.BlobStore
 }
@@ -4094,9 +4060,9 @@ type CreateInputInputEventhubAmqp struct {
 	// The name of the Event Hub to consume from
 	EventHubName *string `json:"eventHubName,omitzero"`
 	// The consumer group this instance belongs to. Default is '$Default'.
-	ConsumerGroup string                    `json:"consumerGroup"`
-	Auth          *CreateInputAuth          `json:"auth,omitzero"`
-	Checkpointing *CreateInputCheckpointing `json:"checkpointing,omitzero"`
+	ConsumerGroup string                   `json:"consumerGroup"`
+	Auth          *CreateInputAuth         `json:"auth,omitzero"`
+	Checkpointing CreateInputCheckpointing `json:"checkpointing"`
 	// Start reading from earliest available data; relevant only during initial subscription
 	FromBeginning *bool `json:"fromBeginning,omitzero"`
 	// Maximum number of events in each batch delivered to the consumer
@@ -4230,9 +4196,9 @@ func (c *CreateInputInputEventhubAmqp) GetAuth() *CreateInputAuth {
 	return c.Auth
 }
 
-func (c *CreateInputInputEventhubAmqp) GetCheckpointing() *CreateInputCheckpointing {
+func (c *CreateInputInputEventhubAmqp) GetCheckpointing() CreateInputCheckpointing {
 	if c == nil {
-		return nil
+		return CreateInputCheckpointing{}
 	}
 	return c.Checkpointing
 }
@@ -6654,7 +6620,7 @@ type CreateInputInputEdgePrometheus struct {
 	Pq          *components.PqType                         `json:"pq,omitzero"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitzero"`
-	// Enable to use each metric name as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
+	// When enabled, each metric name is used as the event field key (example: go_threads: 9) instead of the default _metric/_value format.
 	FieldPerMetric *bool `json:"fieldPerMetric,omitzero"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
 	DiscoveryType CreateInputDiscoveryTypeEdgePrometheus `json:"discoveryType"`
@@ -7249,7 +7215,7 @@ type CreateInputInputPrometheus struct {
 	Pq          *components.PqType                         `json:"pq,omitzero"`
 	// Other dimensions to include in events
 	DimensionList []string `json:"dimensionList,omitzero"`
-	// When enabled, each metric name is used as the event field key (e.g. go_threads: 9) instead of the default _metric/_value format.
+	// When enabled, each metric name is used as the event field key (example: go_threads: 9) instead of the default _metric/_value format.
 	FieldPerMetric *bool `json:"fieldPerMetric,omitzero"`
 	// Target discovery mechanism. Use static to manually enter a list of targets.
 	DiscoveryType *CreateInputDiscoveryTypePrometheus `json:"discoveryType,omitzero"`

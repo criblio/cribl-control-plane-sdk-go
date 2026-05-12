@@ -336,6 +336,10 @@ func (u *UpdateOutputByIDRequest) GetOutputScalityS3() *components.OutputScality
 	return u.GetOutput().OutputScalityS3
 }
 
+func (u *UpdateOutputByIDRequest) GetOutputAlibabaCloudS3() *components.OutputAlibabaCloudS3 {
+	return u.GetOutput().OutputAlibabaCloudS3
+}
+
 type UpdateOutputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the updated Destination object

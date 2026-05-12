@@ -100,6 +100,8 @@ type InputFileInput struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
+	// When enabled, no Event Breaker channel flush timeout applies and the timeout below is ignored. Prefer this option when using header-based breakers for file types such as CSV or IIS.
+	DisableStaleChannelFlush *bool `json:"disableStaleChannelFlush,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	Description         *string  `json:"description,omitzero"`
@@ -292,6 +294,13 @@ func (i *InputFileInput) GetBreakerRulesets() []string {
 		return nil
 	}
 	return i.BreakerRulesets
+}
+
+func (i *InputFileInput) GetDisableStaleChannelFlush() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.DisableStaleChannelFlush
 }
 
 func (i *InputFileInput) GetStaleChannelFlushMs() *float64 {

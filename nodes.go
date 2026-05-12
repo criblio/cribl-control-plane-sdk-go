@@ -34,9 +34,9 @@ func newNodes(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hoo
 	}
 }
 
-// Count - Get a count of Worker or Edge Nodes
-// Get a count of all Worker or Edge Nodes for the specified Cribl product.
-func (s *Nodes) Count(ctx context.Context, product components.ProductsBase, filterExp *string, opts ...operations.Option) (*operations.GetProductsSummaryWorkersByProductResponse, error) {
+// Count - Get a count of Worker, Edge, or Outpost Nodes
+// Get a count of all Worker, Edge, or Outpost Nodes for the specified Cribl product.
+func (s *Nodes) Count(ctx context.Context, product components.ProductsCore, filterExp *string, opts ...operations.Option) (*operations.GetProductsSummaryWorkersByProductResponse, error) {
 	request := operations.GetProductsSummaryWorkersByProductRequest{
 		Product:   product,
 		FilterExp: filterExp,
@@ -289,9 +289,9 @@ func (s *Nodes) Count(ctx context.Context, product components.ProductsBase, filt
 
 }
 
-// Get detailed metadata for a Worker or Edge Node
-// Get detailed metadata for the specified Worker or Edge Node for the specified Cribl product.
-func (s *Nodes) Get(ctx context.Context, product components.ProductsBase, id string, opts ...operations.Option) (*operations.GetProductsWorkersByProductAndIDResponse, error) {
+// Get detailed metadata for a Worker, Edge, or Outpost Node
+// Get detailed metadata for the specified Worker, Edge, or Outpost Node for the specified Cribl product.
+func (s *Nodes) Get(ctx context.Context, product components.ProductsCore, id string, opts ...operations.Option) (*operations.GetProductsWorkersByProductAndIDResponse, error) {
 	request := operations.GetProductsWorkersByProductAndIDRequest{
 		Product: product,
 		ID:      id,
@@ -538,8 +538,8 @@ func (s *Nodes) Get(ctx context.Context, product components.ProductsBase, id str
 
 }
 
-// List - Get detailed metadata for Worker or Edge Nodes
-// Get detailed metadata for Worker or Edge Nodes for the specified Cribl product.
+// List - Get detailed metadata for Worker, Edge, or Outpost Nodes
+// Get detailed metadata for Worker, Edge, or Outpost Nodes for the specified Cribl product.
 func (s *Nodes) List(ctx context.Context, request operations.GetProductsWorkersByProductRequest, opts ...operations.Option) (*operations.GetProductsWorkersByProductResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -834,9 +834,9 @@ func (s *Nodes) List(ctx context.Context, request operations.GetProductsWorkersB
 
 }
 
-// Restart Worker or Edge Nodes
-// Restart all Worker or Edge Nodes for the specified Cribl product.
-func (s *Nodes) Restart(ctx context.Context, product components.ProductsBase, restartRequest components.RestartRequest, opts ...operations.Option) (*operations.UpdateProductsWorkersRestartByProductResponse, error) {
+// Restart Worker, Edge, or Outpost Nodes
+// Restart all Worker, Edge, or Outpost Nodes for the specified Cribl product.
+func (s *Nodes) Restart(ctx context.Context, product components.ProductsCore, restartRequest components.RestartRequest, opts ...operations.Option) (*operations.UpdateProductsWorkersRestartByProductResponse, error) {
 	request := operations.UpdateProductsWorkersRestartByProductRequest{
 		Product:        product,
 		RestartRequest: restartRequest,

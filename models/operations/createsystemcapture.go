@@ -9,7 +9,7 @@ import (
 
 type CreateSystemCaptureResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// The created CapturedEvent object.
+	// Stream of captured events.
 	CapturedEvent *jsonl.JsonLStream[map[string]any]
 }
 

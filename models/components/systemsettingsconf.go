@@ -8,6 +8,7 @@ import (
 
 type SystemSettingsConf struct {
 	API                  APITypeSystemSettingsConf         `json:"api"`
+	Apps                 *AppsTypeSystemSettingsConf       `json:"apps,omitzero"`
 	Backups              BackupsSettingsUnion              `json:"backups"`
 	CustomLogo           *CustomLogoTypeSystemSettingsConf `json:"customLogo,omitzero"`
 	Pii                  PiiSettingsUnion                  `json:"pii"`
@@ -40,6 +41,13 @@ func (s *SystemSettingsConf) GetAPI() APITypeSystemSettingsConf {
 		return APITypeSystemSettingsConf{}
 	}
 	return s.API
+}
+
+func (s *SystemSettingsConf) GetApps() *AppsTypeSystemSettingsConf {
+	if s == nil {
+		return nil
+	}
+	return s.Apps
 }
 
 func (s *SystemSettingsConf) GetBackups() BackupsSettingsUnion {

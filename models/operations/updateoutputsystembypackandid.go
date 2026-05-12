@@ -345,6 +345,10 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputScalityS3() *components.
 	return u.GetOutput().OutputScalityS3
 }
 
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputAlibabaCloudS3() *components.OutputAlibabaCloudS3 {
+	return u.GetOutput().OutputAlibabaCloudS3
+}
+
 type UpdateOutputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the updated Destination object
