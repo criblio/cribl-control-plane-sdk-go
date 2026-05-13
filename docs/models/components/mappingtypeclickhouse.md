@@ -1,6 +1,6 @@
 # MappingTypeClickHouse
 
-How event fields are mapped to ClickHouse columns.
+How event fields are mapped to ClickHouse columns
 
 ## Example Usage
 
