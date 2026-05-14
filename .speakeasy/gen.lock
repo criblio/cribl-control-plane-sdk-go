@@ -3,16 +3,16 @@ id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
   docChecksum: 2b0fd4418030d72f8e929692bf355672
   docVersion: 4.19.0-alpha.1778713400891-8baa39b9
-  speakeasyVersion: 1.763.0
-  generationVersion: 2.884.0
-  releaseVersion: 0.8.0-beta.14
-  configChecksum: 18bf822ccddd765c84417428dac374e0
+  speakeasyVersion: 1.763.1
+  generationVersion: 2.884.4
+  releaseVersion: 0.8.0-beta.15
+  configChecksum: 687f1f660920654ccaeefcfab14ce28d
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 6acb3939-c4e5-41fd-afe9-6565677db643
-  pristine_commit_hash: f2c5c958d1f11a067f0ff8a68ff2be7fd6be0798
-  pristine_tree_hash: db78ab512e260286e05979b509a35ec4f87a44c1
+  generation_id: 5ecbe624-b635-47dc-9d33-a8dc6eecf0fa
+  pristine_commit_hash: bc3e9951af828aad374a6607777715ecd56c837a
+  pristine_tree_hash: 9666780e2e0b63df4e5983996b0b93f9df4ddb15
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: ac562c044b0a53981079f8cd327cbde917d0eca8
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:95885f3ec8f5e6db1b9d061af7485fea49399076
-    pristine_git_object: 84ca5f4a17f7f810d76b781193b1b2e484b46f91
+    last_write_checksum: sha1:02a2acdb9970a4cf6fe9750296654706cb9c6cc8
+    pristine_git_object: b90b86c7834ed693769924f77da47f9d44df96a7
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:427d5be4538b201a2f3c223f4d2f14a950d95a13
@@ -31715,14 +31715,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: |
-  ## Go SDK Changes:
-  * `CriblControlPlane.Packs.Pipelines.Create()`:  `error.status[400]` **Added**
-  * `CriblControlPlane.Packs.Pipelines.Update()`:  `error.status[400]` **Added**
-  * `CriblControlPlane.Packs.Routes.Update()`:  `error.status[400]` **Added**
-  * `CriblControlPlane.Pipelines.Create()`:  `error.status[400]` **Added**
-  * `CriblControlPlane.Pipelines.Update()`:  `error.status[400]` **Added**
-  * `CriblControlPlane.Routes.Update()`:  `error.status[400]` **Added**
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
