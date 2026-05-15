@@ -8,6 +8,8 @@ import (
 
 // Config - Configuration bundle and policy revision metadata for the node.
 type Config struct {
+	// Current API credentials revision string. Only used in leader <> leader universal subscription.
+	APICredentialsRev *string `json:"apiCredentialsRev,omitzero"`
 	// Feature flags or feature revision string for the bundle.
 	FeaturesRev *string `json:"featuresRev,omitzero"`
 	// Worker-to-Leader heartbeat interval, in seconds.
@@ -20,6 +22,13 @@ type Config struct {
 	UsersRev *string `json:"usersRev,omitzero"`
 	// Configuration bundle version.
 	Version *string `json:"version,omitzero"`
+}
+
+func (c *Config) GetAPICredentialsRev() *string {
+	if c == nil {
+		return nil
+	}
+	return c.APICredentialsRev
 }
 
 func (c *Config) GetFeaturesRev() *string {
