@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 342a517ef2c8ad353c6ef54f314fd93a
-  docVersion: 4.18.0-alpha.1778593897422-b0f720b7
+  docChecksum: 4631972975cca9346ac89b45c7fb82fe
+  docVersion: 4.18.0-alpha.1778797227893-05b0252f
   speakeasyVersion: 1.763.1
   generationVersion: 2.884.4
-  releaseVersion: 0.8.0-alpha.6
-  configChecksum: bf45348e27d02961805d14bd7e03bb93
+  releaseVersion: 0.8.0-alpha.7
+  configChecksum: 8380fd38518b95a06501d4a4831ac302
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 9e007e49-7361-408f-a30b-77bcd0ff885b
-  pristine_commit_hash: c4e94bbfad70c681726b7e0a474185a7dc44b904
-  pristine_tree_hash: 39a7c21e3b0283c04211e9a037854b2179fa908d
+  generation_id: bc623e50-c574-47fb-ab1d-df08d33510f5
+  pristine_commit_hash: b56e7af254f12c0905a64ebf77d659ed577a48c0
+  pristine_tree_hash: 0de0ee494503158273c08b931cc9c1ffeec9e959
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: ac562c044b0a53981079f8cd327cbde917d0eca8
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:b2d4d0a6ba42329cf65ec2a3aeeaed521f734fbe
-    pristine_git_object: 644a82c1e4c2fb06577359d4af04b3b1f89b9269
+    last_write_checksum: sha1:79dfb63d82eea6f6cc61f77d0443366c9684b9f3
+    pristine_git_object: e7498354948f1197c7631d8ce14688a8aebe4199
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:427d5be4538b201a2f3c223f4d2f14a950d95a13
@@ -909,8 +909,8 @@ trackedFiles:
     pristine_git_object: fdad2d69629e1bff3aeac730a9d495a6434b0ede
   docs/models/components/cribllakecollectorconf.md:
     id: bbcdeec2a490
-    last_write_checksum: sha1:34dd1dc9f56a582374792c857096e0b05ab427cf
-    pristine_git_object: c97471ddac75b5ade0389bff8d309a9bbb906ce1
+    last_write_checksum: sha1:b1f070757e22e3b9b6f2a59368101e906c068af8
+    pristine_git_object: 4627139570a75ec03d8eec3fdd45ca63942d2b0f
   docs/models/components/cribllakedataset.md:
     id: 2a58cfccfa05
     last_write_checksum: sha1:986da9f171ad699849e26291895ce4eeeca74466
@@ -3089,8 +3089,8 @@ trackedFiles:
     pristine_git_object: c999ce283f2a122dd6c195775044d6b84e6a51fa
   docs/models/components/inputappleunifiedlogsinput.md:
     id: 7c4366c8ad15
-    last_write_checksum: sha1:52cbabb1ed0d04cf401eefb3f773c0083e35e052
-    pristine_git_object: c9d19a2355f482ed7b55e7c7d120c13181fe53bc
+    last_write_checksum: sha1:5619a04a533172e8190ea7a5b40a46c3a4061666
+    pristine_git_object: 4b5d0eb9d1118ae5c52ee40059fbbb132a8735fa
   docs/models/components/inputappleunifiedlogsreadmode.md:
     id: 613998f60d0e
     last_write_checksum: sha1:f64dbcb94081ce63289c89bc9b3111ff388f9c71
@@ -3789,8 +3789,8 @@ trackedFiles:
     pristine_git_object: 215feff7b43fad38f000daa314a0990c8c6bc7d8
   docs/models/components/inputresponseinputappleunifiedlogs.md:
     id: 7ff4ef8c70cb
-    last_write_checksum: sha1:34946c4506d5c7ed9537c3ace4b12cbf4e89ef19
-    pristine_git_object: d0c5b1402d528f1a5172093b99db5710f9d29ef1
+    last_write_checksum: sha1:18c019c2f5437e7ee32dcf64fc8d51f371751f2b
+    pristine_git_object: e70b9956bd579f6dc8d4c3455e7f8cf4d90fa4c9
   docs/models/components/inputresponseinputappscope.md:
     id: 9b5523b88629
     last_write_checksum: sha1:505a1b03a2f3a5abcdbf2999be9bb15860fa4641
@@ -11829,8 +11829,8 @@ trackedFiles:
     pristine_git_object: 3679807b21295112ceea1198d382adb3a9b70482
   docs/models/operations/createinputinputappleunifiedlogs.md:
     id: c21f4f6928c2
-    last_write_checksum: sha1:dbc3fe969e54019011490210b401a560e0318b90
-    pristine_git_object: 05153448595a96bdd569fa1d27c4579f7d9cac14
+    last_write_checksum: sha1:beb8b3535c1c81cd98497176b44d58cf55335b2f
+    pristine_git_object: 4e4f253342a29b8fb59f5cd49f7b34d3a565f8e3
   docs/models/operations/createinputinputappscope.md:
     id: feb62211c093
     last_write_checksum: sha1:f3c2c199d627ded80b0dbe084041b3adb2dc6142
@@ -12621,8 +12621,8 @@ trackedFiles:
     pristine_git_object: d134a028db9534563f6d46657981abaf83c92d0a
   docs/models/operations/createinputsystembypackinputappleunifiedlogs.md:
     id: a7ca1ba2fcc1
-    last_write_checksum: sha1:b69616bcb60239d9539a9476812927025e85be84
-    pristine_git_object: cc1093372d9358be8f12b9deb946dd61f618dfa6
+    last_write_checksum: sha1:07d136cb32b2e59d12b71575c5b927f349702981
+    pristine_git_object: 8a9b5ca9a7a5d765371040b015f4653f3eeb0eec
   docs/models/operations/createinputsystembypackinputappscope.md:
     id: 205988a74d55
     last_write_checksum: sha1:0ffaf74fcfcf3ea9046c1f64b5e8236eb41acc23
@@ -17697,8 +17697,8 @@ trackedFiles:
     pristine_git_object: 0c3afd5dab9a30f78a1b8927a4e4d22c8faa2299
   models/components/cribllakecollectorconf.go:
     id: 4c33b7e9d2ab
-    last_write_checksum: sha1:d3209ceb7fca66300a2f68796cb92afebf15eb22
-    pristine_git_object: ba7ad977abd0c9415d208be781bafd9244d74c8e
+    last_write_checksum: sha1:7527d1c90912920647f6795bb9ea7bcdcffbb387
+    pristine_git_object: cc239e7e0bf2bc125db56b81c178eb2ecceb1040
   models/components/cribllakedataset.go:
     id: 66aa13a6435f
     last_write_checksum: sha1:2114f4c30397231ec0eedc85b4719d529fdb3d7e
@@ -18385,8 +18385,8 @@ trackedFiles:
     pristine_git_object: 6183aebe5e4df13523f4ceb282c9020e5736a2a9
   models/components/inputappleunifiedlogsinput.go:
     id: b89897495282
-    last_write_checksum: sha1:58fd5c1f486a4c57dd95e0b55057a5e83372041e
-    pristine_git_object: d7debad04f69ec3300f40ed4f514156f25adfdd5
+    last_write_checksum: sha1:d19ce36a6760e0e6946db8f1252def379adb09a4
+    pristine_git_object: 2b8ba479f6dcb029177bc87de29b5f45005cc39b
   models/components/inputappscopeinput.go:
     id: c0583455ae67
     last_write_checksum: sha1:dd4f4d40c87000ed0683e9b15006d0476ab1cc1a
@@ -18581,8 +18581,8 @@ trackedFiles:
     pristine_git_object: f00ec2310e2028b341f344cd01c6b596aa12180f
   models/components/inputresponseloggedinusers.go:
     id: f2311e57078c
-    last_write_checksum: sha1:36575c60e080334ab0c94e2bb3042dfee71d09d9
-    pristine_git_object: 58c9774d5907f8a85e0672f20baba286fd97df31
+    last_write_checksum: sha1:0382dfd99a7eb0ed87990812fcd0c57978e6f511
+    pristine_git_object: 8c71c797f29758a3955f5e807743d9a725ecdbe1
   models/components/inputs3input.go:
     id: 0feb2a99382e
     last_write_checksum: sha1:d65d400dd7954b961e13c42a162019bbb34b7f15
@@ -20013,16 +20013,16 @@ trackedFiles:
     pristine_git_object: 9d985959405459d441402c4c6b3658834d9cac54
   models/operations/createinputloggedinusers.go:
     id: 84d431d799a9
-    last_write_checksum: sha1:20ab6471fddfa1e5099c8f25ba67149b2de83d8a
-    pristine_git_object: f11e9e68ba1acbde14432693b75af6f0dcc7cd86
+    last_write_checksum: sha1:e98f82d4c5209ed7e3f47f0db0af539eb23e5eac
+    pristine_git_object: db968937cdc4c174f50401ec84585da1e5b1a7bb
   models/operations/createinputresponse.go:
     id: 4a65919a7957
     last_write_checksum: sha1:84d768a935791b4a1a64e5b7ce685f1cf0493260
     pristine_git_object: fa11d9da6f8ec1d7fab913c681475334ec2f0f7b
   models/operations/createinputsystembypackloggedinusers.go:
     id: a7734e36c086
-    last_write_checksum: sha1:706954d62a51709155a6e3ffb33bf517edf38121
-    pristine_git_object: 59b36ebf8e5dba7ebd281fca96e22c0e88fbb354
+    last_write_checksum: sha1:1ca3c7e078a49ef40e6b563a50baa961388fa0d7
+    pristine_git_object: 6c8361e935d8889d1306e45881e97335958c5cdf
   models/operations/createinputsystembypackresponse.go:
     id: 7f6c1101c884
     last_write_checksum: sha1:07e1d33239e357456395ea01e14f4592e0e03256
@@ -31689,6 +31689,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Packs.Sources.Get()`:  `response.Items[].union(apple_unified_logs)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input.union(apple_unified_logs)` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(apple_unified_logs)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Get()`:  `response.Items[].union(apple_unified_logs)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input.union(apple_unified_logs)` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(apple_unified_logs)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[].union(apple_unified_logs)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.List()`:  `response.Items[].union(apple_unified_logs)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.List()`:  `response.Items[].union(apple_unified_logs)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody.union(apple_unified_logs)` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(apple_unified_logs)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request.union(apple_unified_logs)` **Changed** (Breaking ⚠️)\n  *  `response.Items[].union(apple_unified_logs)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Packs.Sources.Delete()`:  `response.Items[].union(apple_unified_logs)` **Changed** (Breaking ⚠️)\n* `CriblControlPlane.Sources.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(cribl_lake).Conf.StorageLocationId` **Changed**\n* `CriblControlPlane.Packs.Sources.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(cribl_lake).Conf.StorageLocationId` **Changed**\n* `CriblControlPlane.Packs.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(cribl_lake).Conf.StorageLocationId` **Changed**\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(cribl_lake).Conf.StorageLocationId` **Changed**\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request.Request.union(SavedJobCollection).Collector.union(cribl_lake).Conf.StorageLocationId` **Changed**\n  *  `response.Items[].union(SavedJobResponseCollection).Collector.union(cribl_lake).Conf.StorageLocationId` **Changed**\n* `CriblControlPlane.Collectors.List()`:  `response.Items[].union(SavedJobResponseCollection).Collector.union(cribl_lake).Conf.StorageLocationId` **Changed**\n* `CriblControlPlane.Collectors.Delete()`:  `response.Items[].union(SavedJobResponseCollection).Collector.union(cribl_lake).Conf.StorageLocationId` **Changed**\n* `CriblControlPlane.Collectors.Get()`:  `response.Items[].union(SavedJobResponseCollection).Collector.union(cribl_lake).Conf.StorageLocationId` **Changed**\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request.SavedJob.union(SavedJobCollection).Collector.union(cribl_lake).Conf.StorageLocationId` **Changed**\n  *  `response.Items[].union(SavedJobResponseCollection).Collector.union(cribl_lake).Conf.StorageLocationId` **Changed**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

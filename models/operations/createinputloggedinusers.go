@@ -5454,10 +5454,6 @@ type CreateInputInputAppleUnifiedLogs struct {
 	Predicate string `json:"predicate"`
 	// Read all log entries (historical and upcoming), or only upcoming, from the last entry
 	ReadMode *CreateInputReadModeAppleUnifiedLogs `json:"readMode,omitzero"`
-	// Time, in seconds, between checking for new entries
-	Interval *float64 `json:"interval,omitzero"`
-	// [TO BE REMOVED BEFORE RELEASE] Maximum number of entries to read in each native module call
-	BatchSize *float64 `json:"batchSize,omitzero"`
 	// Fields to add to events from this input
 	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
 	Description *string                                  `json:"description,omitzero"`
@@ -5560,20 +5556,6 @@ func (c *CreateInputInputAppleUnifiedLogs) GetReadMode() *CreateInputReadModeApp
 		return nil
 	}
 	return c.ReadMode
-}
-
-func (c *CreateInputInputAppleUnifiedLogs) GetInterval() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.Interval
-}
-
-func (c *CreateInputInputAppleUnifiedLogs) GetBatchSize() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.BatchSize
 }
 
 func (c *CreateInputInputAppleUnifiedLogs) GetMetadata() []components.MetadataConfInputCollection {
