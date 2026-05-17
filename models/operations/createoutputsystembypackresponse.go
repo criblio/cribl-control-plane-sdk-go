@@ -20510,6 +20510,7 @@ const (
 	CreateOutputSystemByPackRequestBodyTypeCriblLake              CreateOutputSystemByPackRequestBodyType = "cribl_lake"
 	CreateOutputSystemByPackRequestBodyTypeDiskSpool              CreateOutputSystemByPackRequestBodyType = "disk_spool"
 	CreateOutputSystemByPackRequestBodyTypeClickHouse             CreateOutputSystemByPackRequestBodyType = "click_house"
+	CreateOutputSystemByPackRequestBodyTypeCustomerMetricsStorage CreateOutputSystemByPackRequestBodyType = "customer_metrics_storage"
 	CreateOutputSystemByPackRequestBodyTypeLocalSearchStorage     CreateOutputSystemByPackRequestBodyType = "local_search_storage"
 	CreateOutputSystemByPackRequestBodyTypeXsiam                  CreateOutputSystemByPackRequestBodyType = "xsiam"
 	CreateOutputSystemByPackRequestBodyTypeNetflow                CreateOutputSystemByPackRequestBodyType = "netflow"
@@ -20592,6 +20593,7 @@ type CreateOutputSystemByPackRequestBody struct {
 	CreateOutputSystemByPackOutputCriblLake              *CreateOutputSystemByPackOutputCriblLake              `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputDiskSpool              *CreateOutputSystemByPackOutputDiskSpool              `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputClickHouse             *CreateOutputSystemByPackOutputClickHouse             `queryParam:"inline" union:"member"`
+	CreateOutputSystemByPackOutputCustomerMetricsStorage *CreateOutputSystemByPackOutputCustomerMetricsStorage `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputLocalSearchStorage     *CreateOutputSystemByPackOutputLocalSearchStorage     `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputXsiam                  *CreateOutputSystemByPackOutputXsiam                  `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputNetflow                *CreateOutputSystemByPackOutputNetflow                `queryParam:"inline" union:"member"`
@@ -21336,6 +21338,18 @@ func CreateCreateOutputSystemByPackRequestBodyClickHouse(clickHouse CreateOutput
 	return CreateOutputSystemByPackRequestBody{
 		CreateOutputSystemByPackOutputClickHouse: &clickHouse,
 		Type:                                     typ,
+	}
+}
+
+func CreateCreateOutputSystemByPackRequestBodyCustomerMetricsStorage(customerMetricsStorage CreateOutputSystemByPackOutputCustomerMetricsStorage) CreateOutputSystemByPackRequestBody {
+	typ := CreateOutputSystemByPackRequestBodyTypeCustomerMetricsStorage
+
+	typStr := CreateOutputSystemByPackTypeCustomerMetricsStorage(typ)
+	customerMetricsStorage.Type = typStr
+
+	return CreateOutputSystemByPackRequestBody{
+		CreateOutputSystemByPackOutputCustomerMetricsStorage: &customerMetricsStorage,
+		Type: typ,
 	}
 }
 
@@ -22104,6 +22118,15 @@ func (u *CreateOutputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 		u.CreateOutputSystemByPackOutputClickHouse = createOutputSystemByPackOutputClickHouse
 		u.Type = CreateOutputSystemByPackRequestBodyTypeClickHouse
 		return nil
+	case "customer_metrics_storage":
+		createOutputSystemByPackOutputCustomerMetricsStorage := new(CreateOutputSystemByPackOutputCustomerMetricsStorage)
+		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputCustomerMetricsStorage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == customer_metrics_storage) type CreateOutputSystemByPackOutputCustomerMetricsStorage within CreateOutputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateOutputSystemByPackOutputCustomerMetricsStorage = createOutputSystemByPackOutputCustomerMetricsStorage
+		u.Type = CreateOutputSystemByPackRequestBodyTypeCustomerMetricsStorage
+		return nil
 	case "local_search_storage":
 		createOutputSystemByPackOutputLocalSearchStorage := new(CreateOutputSystemByPackOutputLocalSearchStorage)
 		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputLocalSearchStorage, "", true, nil); err != nil {
@@ -22507,6 +22530,10 @@ func (u CreateOutputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputClickHouse, "", true)
 	}
 
+	if u.CreateOutputSystemByPackOutputCustomerMetricsStorage != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputCustomerMetricsStorage, "", true)
+	}
+
 	if u.CreateOutputSystemByPackOutputLocalSearchStorage != nil {
 		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputLocalSearchStorage, "", true)
 	}
@@ -22841,6 +22868,10 @@ func (c *CreateOutputSystemByPackRequest) GetRequestBodyDiskSpool() *CreateOutpu
 
 func (c *CreateOutputSystemByPackRequest) GetRequestBodyClickHouse() *CreateOutputSystemByPackOutputClickHouse {
 	return c.GetRequestBody().CreateOutputSystemByPackOutputClickHouse
+}
+
+func (c *CreateOutputSystemByPackRequest) GetRequestBodyCustomerMetricsStorage() *CreateOutputSystemByPackOutputCustomerMetricsStorage {
+	return c.GetRequestBody().CreateOutputSystemByPackOutputCustomerMetricsStorage
 }
 
 func (c *CreateOutputSystemByPackRequest) GetRequestBodyLocalSearchStorage() *CreateOutputSystemByPackOutputLocalSearchStorage {

@@ -21175,6 +21175,7 @@ const (
 	OutputResponseTypeCriblLakeValue              OutputResponseType = "cribl_lake"
 	OutputResponseTypeDiskSpoolValue              OutputResponseType = "disk_spool"
 	OutputResponseTypeClickHouseValue             OutputResponseType = "click_house"
+	OutputResponseTypeCustomerMetricsStorageValue OutputResponseType = "customer_metrics_storage"
 	OutputResponseTypeLocalSearchStorageValue     OutputResponseType = "local_search_storage"
 	OutputResponseTypeXsiamValue                  OutputResponseType = "xsiam"
 	OutputResponseTypeNetflowValue                OutputResponseType = "netflow"
@@ -21258,6 +21259,7 @@ type OutputResponse struct {
 	OutputResponseOutputCriblLake              *OutputResponseOutputCriblLake              `queryParam:"inline" union:"member"`
 	OutputResponseOutputDiskSpool              *OutputResponseOutputDiskSpool              `queryParam:"inline" union:"member"`
 	OutputResponseOutputClickHouse             *OutputResponseOutputClickHouse             `queryParam:"inline" union:"member"`
+	OutputResponseOutputCustomerMetricsStorage *OutputResponseOutputCustomerMetricsStorage `queryParam:"inline" union:"member"`
 	OutputResponseOutputLocalSearchStorage     *OutputResponseOutputLocalSearchStorage     `queryParam:"inline" union:"member"`
 	OutputResponseOutputXsiam                  *OutputResponseOutputXsiam                  `queryParam:"inline" union:"member"`
 	OutputResponseOutputNetflow                *OutputResponseOutputNetflow                `queryParam:"inline" union:"member"`
@@ -22003,6 +22005,18 @@ func CreateOutputResponseClickHouse(clickHouse OutputResponseOutputClickHouse) O
 	return OutputResponse{
 		OutputResponseOutputClickHouse: &clickHouse,
 		Type:                           typ,
+	}
+}
+
+func CreateOutputResponseCustomerMetricsStorage(customerMetricsStorage OutputResponseOutputCustomerMetricsStorage) OutputResponse {
+	typ := OutputResponseTypeCustomerMetricsStorageValue
+
+	typStr := OutputResponseTypeCustomerMetricsStorage(typ)
+	customerMetricsStorage.Type = typStr
+
+	return OutputResponse{
+		OutputResponseOutputCustomerMetricsStorage: &customerMetricsStorage,
+		Type: typ,
 	}
 }
 
@@ -22793,6 +22807,15 @@ func (u *OutputResponse) UnmarshalJSON(data []byte) error {
 		u.OutputResponseOutputClickHouse = outputResponseOutputClickHouse
 		u.Type = OutputResponseTypeClickHouseValue
 		return nil
+	case "customer_metrics_storage":
+		outputResponseOutputCustomerMetricsStorage := new(OutputResponseOutputCustomerMetricsStorage)
+		if err := utils.UnmarshalJSON(data, &outputResponseOutputCustomerMetricsStorage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == customer_metrics_storage) type OutputResponseOutputCustomerMetricsStorage within OutputResponse: %w", string(data), err)
+		}
+
+		u.OutputResponseOutputCustomerMetricsStorage = outputResponseOutputCustomerMetricsStorage
+		u.Type = OutputResponseTypeCustomerMetricsStorageValue
+		return nil
 	case "local_search_storage":
 		outputResponseOutputLocalSearchStorage := new(OutputResponseOutputLocalSearchStorage)
 		if err := utils.UnmarshalJSON(data, &outputResponseOutputLocalSearchStorage, "", true, nil); err != nil {
@@ -23197,6 +23220,10 @@ func (u OutputResponse) MarshalJSON() ([]byte, error) {
 
 	if u.OutputResponseOutputClickHouse != nil {
 		return utils.MarshalJSON(u.OutputResponseOutputClickHouse, "", true)
+	}
+
+	if u.OutputResponseOutputCustomerMetricsStorage != nil {
+		return utils.MarshalJSON(u.OutputResponseOutputCustomerMetricsStorage, "", true)
 	}
 
 	if u.OutputResponseOutputLocalSearchStorage != nil {

@@ -793,6 +793,48 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputCreateExamplesCustomerMetricsStorage
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesCustomerMetricsStorage" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestCustomerMetricsStorage(
+        operations.CreateOutputOutputCustomerMetricsStorage{
+            ID: "customer-metrics-storage-output",
+            Type: operations.CreateOutputTypeCustomerMetricsStorageCustomerMetricsStorage,
+            URL: "http://localhost:8123/",
+            Database: "default",
+            TableName: "mytable",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputCreateExamplesDatabricks
 
 <!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesDatabricks" -->
@@ -4122,6 +4164,47 @@ func main() {
             Format: components.RequestFormatOptionsJSON,
             AuthType: components.AuthenticationMethodOptionsAuthTokensItemsManual.ToPointer(),
             Token: criblcontrolplanesdkgo.Pointer("your-token"),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesCustomerMetricsStorage
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplesCustomerMetricsStorage" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputCustomerMetricsStorage(
+        components.OutputCustomerMetricsStorage{
+            ID: criblcontrolplanesdkgo.Pointer("customer-metrics-storage-output"),
+            Type: components.OutputCustomerMetricsStorageTypeCustomerMetricsStorage,
+            URL: "http://localhost:8123/",
+            Database: "default",
+            TableName: "mytable",
         },
     ))
     if err != nil {

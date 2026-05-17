@@ -1,4 +1,4 @@
-# CreateOutputColumnMappingClickHouse
+# ColumnMappingConfOutputClickHouse
 
 
 ## Fields

@@ -73,6 +73,7 @@ const (
 	OutputTypeCriblLake              OutputType = "cribl_lake"
 	OutputTypeDiskSpool              OutputType = "disk_spool"
 	OutputTypeClickHouse             OutputType = "click_house"
+	OutputTypeCustomerMetricsStorage OutputType = "customer_metrics_storage"
 	OutputTypeLocalSearchStorage     OutputType = "local_search_storage"
 	OutputTypeXsiam                  OutputType = "xsiam"
 	OutputTypeNetflow                OutputType = "netflow"
@@ -154,6 +155,7 @@ type Output struct {
 	OutputCriblLake              *OutputCriblLake              `queryParam:"inline" union:"member"`
 	OutputDiskSpool              *OutputDiskSpool              `queryParam:"inline" union:"member"`
 	OutputClickHouse             *OutputClickHouse             `queryParam:"inline" union:"member"`
+	OutputCustomerMetricsStorage *OutputCustomerMetricsStorage `queryParam:"inline" union:"member"`
 	OutputLocalSearchStorage     *OutputLocalSearchStorage     `queryParam:"inline" union:"member"`
 	OutputXsiam                  *OutputXsiam                  `queryParam:"inline" union:"member"`
 	OutputNetflow                *OutputNetflow                `queryParam:"inline" union:"member"`
@@ -898,6 +900,18 @@ func CreateOutputClickHouse(clickHouse OutputClickHouse) Output {
 	return Output{
 		OutputClickHouse: &clickHouse,
 		Type:             typ,
+	}
+}
+
+func CreateOutputCustomerMetricsStorage(customerMetricsStorage OutputCustomerMetricsStorage) Output {
+	typ := OutputTypeCustomerMetricsStorage
+
+	typStr := OutputCustomerMetricsStorageType(typ)
+	customerMetricsStorage.Type = typStr
+
+	return Output{
+		OutputCustomerMetricsStorage: &customerMetricsStorage,
+		Type:                         typ,
 	}
 }
 
@@ -1666,6 +1680,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputClickHouse = outputClickHouse
 		u.Type = OutputTypeClickHouse
 		return nil
+	case "customer_metrics_storage":
+		outputCustomerMetricsStorage := new(OutputCustomerMetricsStorage)
+		if err := utils.UnmarshalJSON(data, &outputCustomerMetricsStorage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == customer_metrics_storage) type OutputCustomerMetricsStorage within Output: %w", string(data), err)
+		}
+
+		u.OutputCustomerMetricsStorage = outputCustomerMetricsStorage
+		u.Type = OutputTypeCustomerMetricsStorage
+		return nil
 	case "local_search_storage":
 		outputLocalSearchStorage := new(OutputLocalSearchStorage)
 		if err := utils.UnmarshalJSON(data, &outputLocalSearchStorage, "", true, nil); err != nil {
@@ -2067,6 +2090,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputClickHouse != nil {
 		return utils.MarshalJSON(u.OutputClickHouse, "", true)
+	}
+
+	if u.OutputCustomerMetricsStorage != nil {
+		return utils.MarshalJSON(u.OutputCustomerMetricsStorage, "", true)
 	}
 
 	if u.OutputLocalSearchStorage != nil {

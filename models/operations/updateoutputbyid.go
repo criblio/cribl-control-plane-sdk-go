@@ -272,6 +272,10 @@ func (u *UpdateOutputByIDRequest) GetOutputClickHouse() *components.OutputClickH
 	return u.GetOutput().OutputClickHouse
 }
 
+func (u *UpdateOutputByIDRequest) GetOutputCustomerMetricsStorage() *components.OutputCustomerMetricsStorage {
+	return u.GetOutput().OutputCustomerMetricsStorage
+}
+
 func (u *UpdateOutputByIDRequest) GetOutputLocalSearchStorage() *components.OutputLocalSearchStorage {
 	return u.GetOutput().OutputLocalSearchStorage
 }
