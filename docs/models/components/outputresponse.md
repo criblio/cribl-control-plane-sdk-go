@@ -371,6 +371,12 @@ outputResponse := components.CreateOutputResponseDiskSpool(components.OutputResp
 outputResponse := components.CreateOutputResponseClickHouse(components.OutputResponseOutputClickHouse{/* values here */})
 ```
 
+### OutputResponseOutputCustomerMetricsStorage
+
+```go
+outputResponse := components.CreateOutputResponseCustomerMetricsStorage(components.OutputResponseOutputCustomerMetricsStorage{/* values here */})
+```
+
 ### OutputResponseOutputLocalSearchStorage
 
 ```go
@@ -601,6 +607,8 @@ switch outputResponse.Type {
 		// outputResponse.OutputResponseOutputDiskSpool is populated
 	case components.OutputResponseTypeClickHouseValue:
 		// outputResponse.OutputResponseOutputClickHouse is populated
+	case components.OutputResponseTypeCustomerMetricsStorageValue:
+		// outputResponse.OutputResponseOutputCustomerMetricsStorage is populated
 	case components.OutputResponseTypeLocalSearchStorageValue:
 		// outputResponse.OutputResponseOutputLocalSearchStorage is populated
 	case components.OutputResponseTypeXsiamValue:

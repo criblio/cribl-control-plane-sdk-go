@@ -371,6 +371,12 @@ createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPack
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyClickHouse(operations.CreateOutputSystemByPackOutputClickHouse{/* values here */})
 ```
 
+### CreateOutputSystemByPackOutputCustomerMetricsStorage
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyCustomerMetricsStorage(operations.CreateOutputSystemByPackOutputCustomerMetricsStorage{/* values here */})
+```
+
 ### CreateOutputSystemByPackOutputLocalSearchStorage
 
 ```go
@@ -601,6 +607,8 @@ switch createOutputSystemByPackRequestBody.Type {
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputDiskSpool is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeClickHouse:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputClickHouse is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeCustomerMetricsStorage:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputCustomerMetricsStorage is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeLocalSearchStorage:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputLocalSearchStorage is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeXsiam:

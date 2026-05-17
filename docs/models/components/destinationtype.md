@@ -83,6 +83,7 @@ custom := components.DestinationType("custom_value")
 | `DestinationTypeExabeam`                | exabeam                                 |
 | `DestinationTypeDiskSpool`              | disk_spool                              |
 | `DestinationTypeClickHouse`             | click_house                             |
+| `DestinationTypeCustomerMetricsStorage` | customer_metrics_storage                |
 | `DestinationTypeLocalSearchStorage`     | local_search_storage                    |
 | `DestinationTypeXsiam`                  | xsiam                                   |
 | `DestinationTypeNetflow`                | netflow                                 |

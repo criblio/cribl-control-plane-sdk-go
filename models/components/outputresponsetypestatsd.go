@@ -9786,22 +9786,22 @@ func (e *FormatLocalSearchStorage) IsExact() bool {
 	return false
 }
 
-// MappingTypeLocalSearchStorage - How event fields are mapped to columns.
-type MappingTypeLocalSearchStorage string
+// OutputResponseMappingType - How event fields are mapped to columns.
+type OutputResponseMappingType string
 
 const (
-	// MappingTypeLocalSearchStorageAutomatic Automatic
-	MappingTypeLocalSearchStorageAutomatic MappingTypeLocalSearchStorage = "automatic"
-	// MappingTypeLocalSearchStorageCustom Custom
-	MappingTypeLocalSearchStorageCustom MappingTypeLocalSearchStorage = "custom"
+	// OutputResponseMappingTypeAutomatic Automatic
+	OutputResponseMappingTypeAutomatic OutputResponseMappingType = "automatic"
+	// OutputResponseMappingTypeCustom Custom
+	OutputResponseMappingTypeCustom OutputResponseMappingType = "custom"
 )
 
-func (e MappingTypeLocalSearchStorage) ToPointer() *MappingTypeLocalSearchStorage {
+func (e OutputResponseMappingType) ToPointer() *OutputResponseMappingType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *MappingTypeLocalSearchStorage) IsExact() bool {
+func (e *OutputResponseMappingType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "automatic", "custom":
@@ -9881,7 +9881,7 @@ func (o *OutputResponseStatsDestination) GetPassword() *string {
 	return o.Password
 }
 
-type ColumnMappingLocalSearchStorage struct {
+type OutputResponseColumnMapping struct {
 	// Name of the column that will store field value
 	ColumnName string `json:"columnName"`
 	// Type of the column in the database
@@ -9890,36 +9890,36 @@ type ColumnMappingLocalSearchStorage struct {
 	ColumnValueExpression string `json:"columnValueExpression"`
 }
 
-func (c ColumnMappingLocalSearchStorage) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
+func (o OutputResponseColumnMapping) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (c *ColumnMappingLocalSearchStorage) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+func (o *OutputResponseColumnMapping) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *ColumnMappingLocalSearchStorage) GetColumnName() string {
-	if c == nil {
+func (o *OutputResponseColumnMapping) GetColumnName() string {
+	if o == nil {
 		return ""
 	}
-	return c.ColumnName
+	return o.ColumnName
 }
 
-func (c *ColumnMappingLocalSearchStorage) GetColumnType() *string {
-	if c == nil {
+func (o *OutputResponseColumnMapping) GetColumnType() *string {
+	if o == nil {
 		return nil
 	}
-	return c.ColumnType
+	return o.ColumnType
 }
 
-func (c *ColumnMappingLocalSearchStorage) GetColumnValueExpression() string {
-	if c == nil {
+func (o *OutputResponseColumnMapping) GetColumnValueExpression() string {
+	if o == nil {
 		return ""
 	}
-	return c.ColumnValueExpression
+	return o.ColumnValueExpression
 }
 
 type PqControlsLocalSearchStorage struct {
@@ -9957,7 +9957,7 @@ type OutputResponseOutputLocalSearchStorage struct {
 	// Data format to use when sending data. Defaults to JSON Compact.
 	Format *FormatLocalSearchStorage `json:"format,omitzero"`
 	// How event fields are mapped to columns.
-	MappingType *MappingTypeLocalSearchStorage `json:"mappingType,omitzero"`
+	MappingType *OutputResponseMappingType `json:"mappingType,omitzero"`
 	// Collect data into batches for later processing. Disable to write to a table immediately.
 	AsyncInserts *bool                                            `json:"asyncInserts,omitzero"`
 	TLS          *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
@@ -10007,8 +10007,8 @@ type OutputResponseOutputLocalSearchStorage struct {
 	// Fields to exclude from sending
 	ExcludeMappingFields []string `json:"excludeMappingFields,omitzero"`
 	// Retrieves the table schema and populates the Column Mapping table
-	DescribeTable  *string                           `json:"describeTable,omitzero"`
-	ColumnMappings []ColumnMappingLocalSearchStorage `json:"columnMappings,omitzero"`
+	DescribeTable  *string                       `json:"describeTable,omitzero"`
+	ColumnMappings []OutputResponseColumnMapping `json:"columnMappings,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -10138,7 +10138,7 @@ func (o *OutputResponseOutputLocalSearchStorage) GetFormat() *FormatLocalSearchS
 	return o.Format
 }
 
-func (o *OutputResponseOutputLocalSearchStorage) GetMappingType() *MappingTypeLocalSearchStorage {
+func (o *OutputResponseOutputLocalSearchStorage) GetMappingType() *OutputResponseMappingType {
 	if o == nil {
 		return nil
 	}
@@ -10334,7 +10334,7 @@ func (o *OutputResponseOutputLocalSearchStorage) GetDescribeTable() *string {
 	return o.DescribeTable
 }
 
-func (o *OutputResponseOutputLocalSearchStorage) GetColumnMappings() []ColumnMappingLocalSearchStorage {
+func (o *OutputResponseOutputLocalSearchStorage) GetColumnMappings() []OutputResponseColumnMapping {
 	if o == nil {
 		return nil
 	}
@@ -10481,138 +10481,47 @@ func (o *OutputResponseOutputLocalSearchStorage) GetStatus() *StatusType {
 	return o.Status
 }
 
-type OutputResponseTypeClickHouse string
+type OutputResponseTypeCustomerMetricsStorage string
 
 const (
-	OutputResponseTypeClickHouseClickHouse OutputResponseTypeClickHouse = "click_house"
+	OutputResponseTypeCustomerMetricsStorageCustomerMetricsStorage OutputResponseTypeCustomerMetricsStorage = "customer_metrics_storage"
 )
 
-func (e OutputResponseTypeClickHouse) ToPointer() *OutputResponseTypeClickHouse {
+func (e OutputResponseTypeCustomerMetricsStorage) ToPointer() *OutputResponseTypeCustomerMetricsStorage {
 	return &e
 }
-func (e *OutputResponseTypeClickHouse) UnmarshalJSON(data []byte) error {
+func (e *OutputResponseTypeCustomerMetricsStorage) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
-	case "click_house":
-		*e = OutputResponseTypeClickHouse(v)
+	case "customer_metrics_storage":
+		*e = OutputResponseTypeCustomerMetricsStorage(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputResponseTypeClickHouse: %v", v)
+		return fmt.Errorf("invalid value for OutputResponseTypeCustomerMetricsStorage: %v", v)
 	}
 }
 
-// FormatClickHouse - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
-type FormatClickHouse string
-
-const (
-	// FormatClickHouseJSONCompactEachRowWithNames JSONCompactEachRowWithNames
-	FormatClickHouseJSONCompactEachRowWithNames FormatClickHouse = "json-compact-each-row-with-names"
-	// FormatClickHouseJSONEachRow JSONEachRow
-	FormatClickHouseJSONEachRow FormatClickHouse = "json-each-row"
-)
-
-func (e FormatClickHouse) ToPointer() *FormatClickHouse {
-	return &e
+type PqControlsCustomerMetricsStorage struct {
 }
 
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FormatClickHouse) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "json-compact-each-row-with-names", "json-each-row":
-			return true
-		}
-	}
-	return false
-}
-
-// MappingTypeClickHouse - How event fields are mapped to ClickHouse columns
-type MappingTypeClickHouse string
-
-const (
-	// MappingTypeClickHouseAutomatic Automatic
-	MappingTypeClickHouseAutomatic MappingTypeClickHouse = "automatic"
-	// MappingTypeClickHouseCustom Custom
-	MappingTypeClickHouseCustom MappingTypeClickHouse = "custom"
-)
-
-func (e MappingTypeClickHouse) ToPointer() *MappingTypeClickHouse {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *MappingTypeClickHouse) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "automatic", "custom":
-			return true
-		}
-	}
-	return false
-}
-
-type ColumnMappingClickHouse struct {
-	// Name of the column in ClickHouse that will store field value
-	ColumnName string `json:"columnName"`
-	// Type of the column in the ClickHouse database
-	ColumnType *string `json:"columnType,omitzero"`
-	// JavaScript expression to compute value to be inserted into ClickHouse table
-	ColumnValueExpression string `json:"columnValueExpression"`
-}
-
-func (c ColumnMappingClickHouse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *ColumnMappingClickHouse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *ColumnMappingClickHouse) GetColumnName() string {
-	if c == nil {
-		return ""
-	}
-	return c.ColumnName
-}
-
-func (c *ColumnMappingClickHouse) GetColumnType() *string {
-	if c == nil {
-		return nil
-	}
-	return c.ColumnType
-}
-
-func (c *ColumnMappingClickHouse) GetColumnValueExpression() string {
-	if c == nil {
-		return ""
-	}
-	return c.ColumnValueExpression
-}
-
-type PqControlsClickHouse struct {
-}
-
-func (p PqControlsClickHouse) MarshalJSON() ([]byte, error) {
+func (p PqControlsCustomerMetricsStorage) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PqControlsClickHouse) UnmarshalJSON(data []byte) error {
+func (p *PqControlsCustomerMetricsStorage) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type OutputResponseOutputClickHouse struct {
+type OutputResponseOutputCustomerMetricsStorage struct {
 	// Unique ID for this output
-	ID   *string                      `json:"id,omitzero"`
-	Type OutputResponseTypeClickHouse `json:"type"`
+	ID   *string                                  `json:"id,omitzero"`
+	Type OutputResponseTypeCustomerMetricsStorage `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -10628,9 +10537,9 @@ type OutputResponseOutputClickHouse struct {
 	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
 	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
-	Format *FormatClickHouse `json:"format,omitzero"`
+	Format *FormatOptions `json:"format,omitzero"`
 	// How event fields are mapped to ClickHouse columns
-	MappingType *MappingTypeClickHouse `json:"mappingType,omitzero"`
+	MappingType *MappingTypeOptions `json:"mappingType,omitzero"`
 	// Collect data into batches for later processing on the ClickHouse server. Disable to write to a ClickHouse table immediately. Cribl sends the configured value with every insert (<code>async_insert=1</code> or <code>async_insert=0</code>) so behavior is consistent across ClickHouse versions, including 26.3 LTS and later, where async inserts are enabled by default on the server.
 	AsyncInserts *bool                                            `json:"asyncInserts,omitzero"`
 	TLS          *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
@@ -10679,8 +10588,582 @@ type OutputResponseOutputClickHouse struct {
 	// Fields to exclude from sending to ClickHouse
 	ExcludeMappingFields []string `json:"excludeMappingFields,omitzero"`
 	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
-	DescribeTable  *string                   `json:"describeTable,omitzero"`
-	ColumnMappings []ColumnMappingClickHouse `json:"columnMappings,omitzero"`
+	DescribeTable  *string                             `json:"describeTable,omitzero"`
+	ColumnMappings []ColumnMappingConfOutputClickHouse `json:"columnMappings,omitzero"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *ModeOptions `json:"pqMode,omitzero"`
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `json:"pqPath,omitzero"`
+	// Codec to use to compress the persisted data
+	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                           `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *PqControlsCustomerMetricsStorage `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
+	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
+	TemplateDatabase *string `json:"__template_database,omitzero"`
+	// Binds 'tableName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tableName' at runtime.
+	TemplateTableName *string `json:"__template_tableName,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Notifications attached to the Destination.
+	Notifications []NotificationUnion `json:"notifications,omitzero"`
+	// Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+	Status *StatusType `json:"status,omitzero"`
+}
+
+func (o OutputResponseOutputCustomerMetricsStorage) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetType() OutputResponseTypeCustomerMetricsStorage {
+	if o == nil {
+		return OutputResponseTypeCustomerMetricsStorage("")
+	}
+	return o.Type
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetPipeline() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Pipeline
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetSystemFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SystemFields
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetEnvironment() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Environment
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetStreamtags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Streamtags
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetURL() string {
+	if o == nil {
+		return ""
+	}
+	return o.URL
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetAuthType() *AuthenticationTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.AuthType
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetDatabase() string {
+	if o == nil {
+		return ""
+	}
+	return o.Database
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetTableName() string {
+	if o == nil {
+		return ""
+	}
+	return o.TableName
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetFormat() *FormatOptions {
+	if o == nil {
+		return nil
+	}
+	return o.Format
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetMappingType() *MappingTypeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.MappingType
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AsyncInserts
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetTLS() *TLSSettingsClientSideTypeCaPathCertPathExtended {
+	if o == nil {
+		return nil
+	}
+	return o.TLS
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetMaxPayloadSizeKB() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadSizeKB
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetCompress() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetRejectUnauthorized() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RejectUnauthorized
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetTimeoutSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutSec
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetFlushPeriodSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.FlushPeriodSec
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
+	if o == nil {
+		return nil
+	}
+	return o.ExtraHTTPHeaders
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetUseRoundRobinDNS() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.UseRoundRobinDNS
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.FailedRequestLoggingMode
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetSafeHeaders() []string {
+	if o == nil {
+		return nil
+	}
+	return o.SafeHeaders
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseRetrySettings
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+	if o == nil {
+		return nil
+	}
+	return o.TimeoutRetrySettings
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetResponseHonorRetryAfterHeader() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetDumpFormatErrorsToDisk() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DumpFormatErrorsToDisk
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetOnBackpressure() *BackpressureBehaviorOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetDescription() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Description
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Username
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetPassword() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Password
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetCredentialsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.CredentialsSecret
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetSQLUsername() *string {
+	if o == nil {
+		return nil
+	}
+	return o.SQLUsername
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetWaitForAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.WaitForAsyncInserts
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetExcludeMappingFields() []string {
+	if o == nil {
+		return nil
+	}
+	return o.ExcludeMappingFields
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetDescribeTable() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DescribeTable
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetColumnMappings() []ColumnMappingConfOutputClickHouse {
+	if o == nil {
+		return nil
+	}
+	return o.ColumnMappings
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetPqStrictOrdering() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PqStrictOrdering
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetPqRatePerSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqRatePerSec
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetPqMode() *ModeOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqMode
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetPqMaxBufferSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSize
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetPqMaxBackpressureSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBackpressureSec
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetPqMaxFileSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxFileSize
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetPqMaxSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxSize
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetPqPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqPath
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetPqCompress() *CompressionOptionsPq {
+	if o == nil {
+		return nil
+	}
+	return o.PqCompress
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetPqOnBackpressure() *QueueFullBehaviorOptions {
+	if o == nil {
+		return nil
+	}
+	return o.PqOnBackpressure
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetPqMaxBufferSizeBytes() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSizeBytes
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetPqControls() *PqControlsCustomerMetricsStorage {
+	if o == nil {
+		return nil
+	}
+	return o.PqControls
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetTemplateURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateURL
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetTemplateDatabase() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateDatabase
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetTemplateTableName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateTableName
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetNotifications() []NotificationUnion {
+	if o == nil {
+		return nil
+	}
+	return o.Notifications
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetStatus() *StatusType {
+	if o == nil {
+		return nil
+	}
+	return o.Status
+}
+
+type OutputResponseTypeClickHouse string
+
+const (
+	OutputResponseTypeClickHouseClickHouse OutputResponseTypeClickHouse = "click_house"
+)
+
+func (e OutputResponseTypeClickHouse) ToPointer() *OutputResponseTypeClickHouse {
+	return &e
+}
+func (e *OutputResponseTypeClickHouse) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "click_house":
+		*e = OutputResponseTypeClickHouse(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for OutputResponseTypeClickHouse: %v", v)
+	}
+}
+
+type PqControlsClickHouse struct {
+}
+
+func (p PqControlsClickHouse) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PqControlsClickHouse) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type OutputResponseOutputClickHouse struct {
+	// Unique ID for this output
+	ID   *string                      `json:"id,omitzero"`
+	Type OutputResponseTypeClickHouse `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// URL of the ClickHouse instance. Example: http://localhost:8123/
+	URL      string                     `json:"url"`
+	AuthType *AuthenticationTypeOptions `json:"authType,omitzero"`
+	Database string                     `json:"database"`
+	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
+	TableName string `json:"tableName"`
+	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
+	Format *FormatOptions `json:"format,omitzero"`
+	// How event fields are mapped to ClickHouse columns
+	MappingType *MappingTypeOptions `json:"mappingType,omitzero"`
+	// Collect data into batches for later processing on the ClickHouse server. Disable to write to a ClickHouse table immediately. Cribl sends the configured value with every insert (<code>async_insert=1</code> or <code>async_insert=0</code>) so behavior is consistent across ClickHouse versions, including 26.3 LTS and later, where async inserts are enabled by default on the server.
+	AsyncInserts *bool                                            `json:"asyncInserts,omitzero"`
+	TLS          *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
+	// Maximum number of ongoing requests before blocking
+	Concurrency *float64 `json:"concurrency,omitzero"`
+	// Maximum size, in KB, of the request body
+	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
+	// Maximum number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
+	// Compress the payload body before sending
+	Compress *bool `json:"compress,omitzero"`
+	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+	//         that value will take precedence.
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Amount of time, in seconds, to wait for a request to complete before canceling it
+	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
+	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
+	// Headers to add to all events
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
+	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
+	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
+	// List of headers that are safe to log in plain text
+	SafeHeaders []string `json:"safeHeaders,omitzero"`
+	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
+	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// Log the most recent event that fails to match the table schema
+	DumpFormatErrorsToDisk *bool `json:"dumpFormatErrorsToDisk,omitzero"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	Description    *string                      `json:"description,omitzero"`
+	Username       *string                      `json:"username,omitzero"`
+	Password       *string                      `json:"password,omitzero"`
+	// Select or create a secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Username for certificate authentication
+	SQLUsername *string `json:"sqlUsername,omitzero"`
+	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won't be able to verify data has been completely inserted.
+	WaitForAsyncInserts *bool `json:"waitForAsyncInserts,omitzero"`
+	// Fields to exclude from sending to ClickHouse
+	ExcludeMappingFields []string `json:"excludeMappingFields,omitzero"`
+	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
+	DescribeTable  *string                             `json:"describeTable,omitzero"`
+	ColumnMappings []ColumnMappingConfOutputClickHouse `json:"columnMappings,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -10803,14 +11286,14 @@ func (o *OutputResponseOutputClickHouse) GetTableName() string {
 	return o.TableName
 }
 
-func (o *OutputResponseOutputClickHouse) GetFormat() *FormatClickHouse {
+func (o *OutputResponseOutputClickHouse) GetFormat() *FormatOptions {
 	if o == nil {
 		return nil
 	}
 	return o.Format
 }
 
-func (o *OutputResponseOutputClickHouse) GetMappingType() *MappingTypeClickHouse {
+func (o *OutputResponseOutputClickHouse) GetMappingType() *MappingTypeOptions {
 	if o == nil {
 		return nil
 	}
@@ -10999,7 +11482,7 @@ func (o *OutputResponseOutputClickHouse) GetDescribeTable() *string {
 	return o.DescribeTable
 }
 
-func (o *OutputResponseOutputClickHouse) GetColumnMappings() []ColumnMappingClickHouse {
+func (o *OutputResponseOutputClickHouse) GetColumnMappings() []ColumnMappingConfOutputClickHouse {
 	if o == nil {
 		return nil
 	}

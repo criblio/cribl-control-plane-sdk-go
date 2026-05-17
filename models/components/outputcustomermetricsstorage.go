@@ -8,47 +8,47 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputClickHouseType string
+type OutputCustomerMetricsStorageType string
 
 const (
-	OutputClickHouseTypeClickHouse OutputClickHouseType = "click_house"
+	OutputCustomerMetricsStorageTypeCustomerMetricsStorage OutputCustomerMetricsStorageType = "customer_metrics_storage"
 )
 
-func (e OutputClickHouseType) ToPointer() *OutputClickHouseType {
+func (e OutputCustomerMetricsStorageType) ToPointer() *OutputCustomerMetricsStorageType {
 	return &e
 }
-func (e *OutputClickHouseType) UnmarshalJSON(data []byte) error {
+func (e *OutputCustomerMetricsStorageType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
 	}
 	switch v {
-	case "click_house":
-		*e = OutputClickHouseType(v)
+	case "customer_metrics_storage":
+		*e = OutputCustomerMetricsStorageType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for OutputClickHouseType: %v", v)
+		return fmt.Errorf("invalid value for OutputCustomerMetricsStorageType: %v", v)
 	}
 }
 
-type OutputClickHousePqControls struct {
+type OutputCustomerMetricsStoragePqControls struct {
 }
 
-func (o OutputClickHousePqControls) MarshalJSON() ([]byte, error) {
+func (o OutputCustomerMetricsStoragePqControls) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputClickHousePqControls) UnmarshalJSON(data []byte) error {
+func (o *OutputCustomerMetricsStoragePqControls) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type OutputClickHouse struct {
+type OutputCustomerMetricsStorage struct {
 	// Unique ID for this output
-	ID   *string              `json:"id,omitzero"`
-	Type OutputClickHouseType `json:"type"`
+	ID   *string                          `json:"id,omitzero"`
+	Type OutputCustomerMetricsStorageType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -138,8 +138,8 @@ type OutputClickHouse struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                     `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputClickHousePqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string                                 `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *OutputCustomerMetricsStoragePqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
@@ -154,410 +154,410 @@ type OutputClickHouse struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
-func (o OutputClickHouse) MarshalJSON() ([]byte, error) {
+func (o OutputCustomerMetricsStorage) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(o, "", false)
 }
 
-func (o *OutputClickHouse) UnmarshalJSON(data []byte) error {
+func (o *OutputCustomerMetricsStorage) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *OutputClickHouse) GetID() *string {
+func (o *OutputCustomerMetricsStorage) GetID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ID
 }
 
-func (o *OutputClickHouse) GetType() OutputClickHouseType {
+func (o *OutputCustomerMetricsStorage) GetType() OutputCustomerMetricsStorageType {
 	if o == nil {
-		return OutputClickHouseType("")
+		return OutputCustomerMetricsStorageType("")
 	}
 	return o.Type
 }
 
-func (o *OutputClickHouse) GetPipeline() *string {
+func (o *OutputCustomerMetricsStorage) GetPipeline() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Pipeline
 }
 
-func (o *OutputClickHouse) GetSystemFields() []string {
+func (o *OutputCustomerMetricsStorage) GetSystemFields() []string {
 	if o == nil {
 		return nil
 	}
 	return o.SystemFields
 }
 
-func (o *OutputClickHouse) GetEnvironment() *string {
+func (o *OutputCustomerMetricsStorage) GetEnvironment() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Environment
 }
 
-func (o *OutputClickHouse) GetStreamtags() []string {
+func (o *OutputCustomerMetricsStorage) GetStreamtags() []string {
 	if o == nil {
 		return nil
 	}
 	return o.Streamtags
 }
 
-func (o *OutputClickHouse) GetURL() string {
+func (o *OutputCustomerMetricsStorage) GetURL() string {
 	if o == nil {
 		return ""
 	}
 	return o.URL
 }
 
-func (o *OutputClickHouse) GetAuthType() *AuthenticationTypeOptions {
+func (o *OutputCustomerMetricsStorage) GetAuthType() *AuthenticationTypeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.AuthType
 }
 
-func (o *OutputClickHouse) GetDatabase() string {
+func (o *OutputCustomerMetricsStorage) GetDatabase() string {
 	if o == nil {
 		return ""
 	}
 	return o.Database
 }
 
-func (o *OutputClickHouse) GetTableName() string {
+func (o *OutputCustomerMetricsStorage) GetTableName() string {
 	if o == nil {
 		return ""
 	}
 	return o.TableName
 }
 
-func (o *OutputClickHouse) GetFormat() *FormatOptions {
+func (o *OutputCustomerMetricsStorage) GetFormat() *FormatOptions {
 	if o == nil {
 		return nil
 	}
 	return o.Format
 }
 
-func (o *OutputClickHouse) GetMappingType() *MappingTypeOptions {
+func (o *OutputCustomerMetricsStorage) GetMappingType() *MappingTypeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.MappingType
 }
 
-func (o *OutputClickHouse) GetAsyncInserts() *bool {
+func (o *OutputCustomerMetricsStorage) GetAsyncInserts() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.AsyncInserts
 }
 
-func (o *OutputClickHouse) GetTLS() *TLSSettingsClientSideTypeCaPathCertPathExtended {
+func (o *OutputCustomerMetricsStorage) GetTLS() *TLSSettingsClientSideTypeCaPathCertPathExtended {
 	if o == nil {
 		return nil
 	}
 	return o.TLS
 }
 
-func (o *OutputClickHouse) GetConcurrency() *float64 {
+func (o *OutputCustomerMetricsStorage) GetConcurrency() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.Concurrency
 }
 
-func (o *OutputClickHouse) GetMaxPayloadSizeKB() *float64 {
+func (o *OutputCustomerMetricsStorage) GetMaxPayloadSizeKB() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxPayloadSizeKB
 }
 
-func (o *OutputClickHouse) GetMaxPayloadEvents() *float64 {
+func (o *OutputCustomerMetricsStorage) GetMaxPayloadEvents() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.MaxPayloadEvents
 }
 
-func (o *OutputClickHouse) GetCompress() *bool {
+func (o *OutputCustomerMetricsStorage) GetCompress() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.Compress
 }
 
-func (o *OutputClickHouse) GetRejectUnauthorized() *bool {
+func (o *OutputCustomerMetricsStorage) GetRejectUnauthorized() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.RejectUnauthorized
 }
 
-func (o *OutputClickHouse) GetTimeoutSec() *float64 {
+func (o *OutputCustomerMetricsStorage) GetTimeoutSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.TimeoutSec
 }
 
-func (o *OutputClickHouse) GetFlushPeriodSec() *float64 {
+func (o *OutputCustomerMetricsStorage) GetFlushPeriodSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.FlushPeriodSec
 }
 
-func (o *OutputClickHouse) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
+func (o *OutputCustomerMetricsStorage) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
 	return o.ExtraHTTPHeaders
 }
 
-func (o *OutputClickHouse) GetUseRoundRobinDNS() *bool {
+func (o *OutputCustomerMetricsStorage) GetUseRoundRobinDNS() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.UseRoundRobinDNS
 }
 
-func (o *OutputClickHouse) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
+func (o *OutputCustomerMetricsStorage) GetFailedRequestLoggingMode() *FailedRequestLoggingModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.FailedRequestLoggingMode
 }
 
-func (o *OutputClickHouse) GetSafeHeaders() []string {
+func (o *OutputCustomerMetricsStorage) GetSafeHeaders() []string {
 	if o == nil {
 		return nil
 	}
 	return o.SafeHeaders
 }
 
-func (o *OutputClickHouse) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
+func (o *OutputCustomerMetricsStorage) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseRetrySettings
 }
 
-func (o *OutputClickHouse) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
+func (o *OutputCustomerMetricsStorage) GetTimeoutRetrySettings() *TimeoutRetrySettingsType {
 	if o == nil {
 		return nil
 	}
 	return o.TimeoutRetrySettings
 }
 
-func (o *OutputClickHouse) GetResponseHonorRetryAfterHeader() *bool {
+func (o *OutputCustomerMetricsStorage) GetResponseHonorRetryAfterHeader() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputClickHouse) GetDumpFormatErrorsToDisk() *bool {
+func (o *OutputCustomerMetricsStorage) GetDumpFormatErrorsToDisk() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.DumpFormatErrorsToDisk
 }
 
-func (o *OutputClickHouse) GetOnBackpressure() *BackpressureBehaviorOptions {
+func (o *OutputCustomerMetricsStorage) GetOnBackpressure() *BackpressureBehaviorOptions {
 	if o == nil {
 		return nil
 	}
 	return o.OnBackpressure
 }
 
-func (o *OutputClickHouse) GetDescription() *string {
+func (o *OutputCustomerMetricsStorage) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *OutputClickHouse) GetUsername() *string {
+func (o *OutputCustomerMetricsStorage) GetUsername() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Username
 }
 
-func (o *OutputClickHouse) GetPassword() *string {
+func (o *OutputCustomerMetricsStorage) GetPassword() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Password
 }
 
-func (o *OutputClickHouse) GetCredentialsSecret() *string {
+func (o *OutputCustomerMetricsStorage) GetCredentialsSecret() *string {
 	if o == nil {
 		return nil
 	}
 	return o.CredentialsSecret
 }
 
-func (o *OutputClickHouse) GetSQLUsername() *string {
+func (o *OutputCustomerMetricsStorage) GetSQLUsername() *string {
 	if o == nil {
 		return nil
 	}
 	return o.SQLUsername
 }
 
-func (o *OutputClickHouse) GetWaitForAsyncInserts() *bool {
+func (o *OutputCustomerMetricsStorage) GetWaitForAsyncInserts() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.WaitForAsyncInserts
 }
 
-func (o *OutputClickHouse) GetExcludeMappingFields() []string {
+func (o *OutputCustomerMetricsStorage) GetExcludeMappingFields() []string {
 	if o == nil {
 		return nil
 	}
 	return o.ExcludeMappingFields
 }
 
-func (o *OutputClickHouse) GetDescribeTable() *string {
+func (o *OutputCustomerMetricsStorage) GetDescribeTable() *string {
 	if o == nil {
 		return nil
 	}
 	return o.DescribeTable
 }
 
-func (o *OutputClickHouse) GetColumnMappings() []ColumnMappingConfOutputClickHouse {
+func (o *OutputCustomerMetricsStorage) GetColumnMappings() []ColumnMappingConfOutputClickHouse {
 	if o == nil {
 		return nil
 	}
 	return o.ColumnMappings
 }
 
-func (o *OutputClickHouse) GetPqStrictOrdering() *bool {
+func (o *OutputCustomerMetricsStorage) GetPqStrictOrdering() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.PqStrictOrdering
 }
 
-func (o *OutputClickHouse) GetPqRatePerSec() *float64 {
+func (o *OutputCustomerMetricsStorage) GetPqRatePerSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.PqRatePerSec
 }
 
-func (o *OutputClickHouse) GetPqMode() *ModeOptions {
+func (o *OutputCustomerMetricsStorage) GetPqMode() *ModeOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqMode
 }
 
-func (o *OutputClickHouse) GetPqMaxBufferSize() *float64 {
+func (o *OutputCustomerMetricsStorage) GetPqMaxBufferSize() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.PqMaxBufferSize
 }
 
-func (o *OutputClickHouse) GetPqMaxBackpressureSec() *float64 {
+func (o *OutputCustomerMetricsStorage) GetPqMaxBackpressureSec() *float64 {
 	if o == nil {
 		return nil
 	}
 	return o.PqMaxBackpressureSec
 }
 
-func (o *OutputClickHouse) GetPqMaxFileSize() *string {
+func (o *OutputCustomerMetricsStorage) GetPqMaxFileSize() *string {
 	if o == nil {
 		return nil
 	}
 	return o.PqMaxFileSize
 }
 
-func (o *OutputClickHouse) GetPqMaxSize() *string {
+func (o *OutputCustomerMetricsStorage) GetPqMaxSize() *string {
 	if o == nil {
 		return nil
 	}
 	return o.PqMaxSize
 }
 
-func (o *OutputClickHouse) GetPqPath() *string {
+func (o *OutputCustomerMetricsStorage) GetPqPath() *string {
 	if o == nil {
 		return nil
 	}
 	return o.PqPath
 }
 
-func (o *OutputClickHouse) GetPqCompress() *CompressionOptionsPq {
+func (o *OutputCustomerMetricsStorage) GetPqCompress() *CompressionOptionsPq {
 	if o == nil {
 		return nil
 	}
 	return o.PqCompress
 }
 
-func (o *OutputClickHouse) GetPqOnBackpressure() *QueueFullBehaviorOptions {
+func (o *OutputCustomerMetricsStorage) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	if o == nil {
 		return nil
 	}
 	return o.PqOnBackpressure
 }
 
-func (o *OutputClickHouse) GetPqMaxBufferSizeBytes() *string {
+func (o *OutputCustomerMetricsStorage) GetPqMaxBufferSizeBytes() *string {
 	if o == nil {
 		return nil
 	}
 	return o.PqMaxBufferSizeBytes
 }
 
-func (o *OutputClickHouse) GetPqControls() *OutputClickHousePqControls {
+func (o *OutputCustomerMetricsStorage) GetPqControls() *OutputCustomerMetricsStoragePqControls {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
 }
 
-func (o *OutputClickHouse) GetTemplateStreamtags() *string {
+func (o *OutputCustomerMetricsStorage) GetTemplateStreamtags() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateStreamtags
 }
 
-func (o *OutputClickHouse) GetTemplateURL() *string {
+func (o *OutputCustomerMetricsStorage) GetTemplateURL() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateURL
 }
 
-func (o *OutputClickHouse) GetTemplateDatabase() *string {
+func (o *OutputCustomerMetricsStorage) GetTemplateDatabase() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateDatabase
 }
 
-func (o *OutputClickHouse) GetTemplateTableName() *string {
+func (o *OutputCustomerMetricsStorage) GetTemplateTableName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateTableName
 }
 
-func (o *OutputClickHouse) GetTemplateFailedRequestLoggingMode() *string {
+func (o *OutputCustomerMetricsStorage) GetTemplateFailedRequestLoggingMode() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateFailedRequestLoggingMode
 }
 
-func (o *OutputClickHouse) GetTemplateOnBackpressure() *string {
+func (o *OutputCustomerMetricsStorage) GetTemplateOnBackpressure() *string {
 	if o == nil {
 		return nil
 	}
