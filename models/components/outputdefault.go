@@ -45,6 +45,8 @@ type OutputDefault struct {
 	Streamtags []string `json:"streamtags,omitzero"`
 	// ID of the default output. This will be used whenever a nonexistent/deleted output is referenced.
 	DefaultID *string `json:"defaultId"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (o OutputDefault) MarshalJSON() ([]byte, error) {
@@ -105,4 +107,11 @@ func (o *OutputDefault) GetDefaultID() *string {
 		return nil
 	}
 	return o.DefaultID
+}
+
+func (o *OutputDefault) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }

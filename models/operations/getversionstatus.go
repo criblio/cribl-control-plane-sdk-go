@@ -9,7 +9,7 @@ import (
 
 type GetVersionStatusResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of GitStatusResult objects
+	// List of GitStatusResult objects.
 	CountedGitStatusResult *components.CountedGitStatusResult
 }
 

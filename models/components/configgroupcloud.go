@@ -4,7 +4,8 @@ package components
 
 type ConfigGroupCloud struct {
 	Provider *CloudProvider `json:"provider"`
-	Region   string         `json:"region"`
+	// Cloud region where the Worker Group is deployed.
+	Region string `json:"region"`
 }
 
 func (c *ConfigGroupCloud) GetProvider() *CloudProvider {

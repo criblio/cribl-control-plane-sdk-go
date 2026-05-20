@@ -19,7 +19,7 @@ custom := components.AuthenticationMethodOptions("custom_value")
 | Name                                            | Value                                           |
 | ----------------------------------------------- | ----------------------------------------------- |
 | `AuthenticationMethodOptionsManual`             | manual                                          |
-| `AuthenticationMethodOptionsSecret`             | secret                                          |
+| `AuthenticationMethodOptionsSecretValue`        | secret                                          |
 | `AuthenticationMethodOptionsClientSecret`       | clientSecret                                    |
 | `AuthenticationMethodOptionsClientCert`         | clientCert                                      |
 | `AuthenticationMethodOptionsClientAssertion`    | clientAssertion                                 |

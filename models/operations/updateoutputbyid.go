@@ -10,7 +10,7 @@ import (
 type UpdateOutputByIDRequest struct {
 	// The <code>id</code> of the Destination to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// Output object
+	// Output object.
 	Output components.Output `request:"mediaType=application/json"`
 }
 
@@ -312,10 +312,38 @@ func (u *UpdateOutputByIDRequest) GetOutputCloudflareR2() *components.OutputClou
 	return u.GetOutput().OutputCloudflareR2
 }
 
+func (u *UpdateOutputByIDRequest) GetOutputNutanixObjects() *components.OutputNutanixObjects {
+	return u.GetOutput().OutputNutanixObjects
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputStorjS3() *components.OutputStorjS3 {
+	return u.GetOutput().OutputStorjS3
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputAlphasocS3() *components.OutputAlphasocS3 {
+	return u.GetOutput().OutputAlphasocS3
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputDellS3() *components.OutputDellS3 {
+	return u.GetOutput().OutputDellS3
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputCloudianS3() *components.OutputCloudianS3 {
+	return u.GetOutput().OutputCloudianS3
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputScalityS3() *components.OutputScalityS3 {
+	return u.GetOutput().OutputScalityS3
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputAlibabaCloudS3() *components.OutputAlibabaCloudS3 {
+	return u.GetOutput().OutputAlibabaCloudS3
+}
+
 type UpdateOutputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the updated Destination object
-	CountedOutput *components.CountedOutput
+	CountedOutputResponse *components.CountedOutputResponse
 }
 
 func (u UpdateOutputByIDResponse) MarshalJSON() ([]byte, error) {
@@ -336,9 +364,9 @@ func (u *UpdateOutputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return u.HTTPMeta
 }
 
-func (u *UpdateOutputByIDResponse) GetCountedOutput() *components.CountedOutput {
+func (u *UpdateOutputByIDResponse) GetCountedOutputResponse() *components.CountedOutputResponse {
 	if u == nil {
 		return nil
 	}
-	return u.CountedOutput
+	return u.CountedOutputResponse
 }

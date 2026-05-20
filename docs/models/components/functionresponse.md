@@ -183,6 +183,12 @@ functionResponse := components.CreateFunctionResponseLocalSearchRulesetRunner(co
 functionResponse := components.CreateFunctionResponseLocalSearchSchemaMapper(components.FunctionLocalSearchSchemaMapper{/* values here */})
 ```
 
+### FunctionLocalSearchTimeRangeNormalizer
+
+```go
+functionResponse := components.CreateFunctionResponseLocalSearchTimeRangeNormalizer(components.FunctionLocalSearchTimeRangeNormalizer{/* values here */})
+```
+
 ### FunctionLocalSearchTransformer
 
 ```go
@@ -307,6 +313,12 @@ functionResponse := components.CreateFunctionResponseRollupMetrics(components.Fu
 
 ```go
 functionResponse := components.CreateFunctionResponseSampling(components.FunctionSampling{/* values here */})
+```
+
+### FunctionSearchEngineExport
+
+```go
+functionResponse := components.CreateFunctionResponseSearchEngineExport(components.FunctionSearchEngineExport{/* values here */})
 ```
 
 ### FunctionSend
@@ -471,6 +483,8 @@ switch functionResponse.Type {
 		// functionResponse.FunctionLocalSearchRulesetRunner is populated
 	case components.FunctionResponseTypeLocalSearchSchemaMapper:
 		// functionResponse.FunctionLocalSearchSchemaMapper is populated
+	case components.FunctionResponseTypeLocalSearchTimeRangeNormalizer:
+		// functionResponse.FunctionLocalSearchTimeRangeNormalizer is populated
 	case components.FunctionResponseTypeLocalSearchTransformer:
 		// functionResponse.FunctionLocalSearchTransformer is populated
 	case components.FunctionResponseTypeLookup:
@@ -513,6 +527,8 @@ switch functionResponse.Type {
 		// functionResponse.FunctionRollupMetrics is populated
 	case components.FunctionResponseTypeSampling:
 		// functionResponse.FunctionSampling is populated
+	case components.FunctionResponseTypeSearchEngineExport:
+		// functionResponse.FunctionSearchEngineExport is populated
 	case components.FunctionResponseTypeSend:
 		// functionResponse.FunctionSend is populated
 	case components.FunctionResponseTypeSensitiveDataScanner:

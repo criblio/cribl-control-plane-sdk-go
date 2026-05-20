@@ -13,6 +13,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
+	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
 )
@@ -285,10 +286,12 @@ func (s *SourcesStatuses) Get(ctx context.Context, id string, metrics *bool, typ
 
 // List the status of all Sources
 // List status information and optional metrics for all configured Sources in the Worker Group or Edge Fleet.
-func (s *SourcesStatuses) List(ctx context.Context, metrics *bool, type_ *bool, opts ...operations.Option) (*operations.GetInputStatusResponse, error) {
+func (s *SourcesStatuses) List(ctx context.Context, metrics *bool, type_ *bool, offset *int64, limit *int64, opts ...operations.Option) (*operations.GetInputStatusResponse, error) {
 	request := operations.GetInputStatusRequest{
 		Metrics: metrics,
 		Type:    type_,
+		Offset:  offset,
+		Limit:   limit,
 	}
 
 	o := operations.Options{}
@@ -458,6 +461,54 @@ func (s *SourcesStatuses) List(ctx context.Context, metrics *bool, type_ *bool, 
 			Response: httpRes,
 		},
 	}
+	res.Next = func() (*operations.GetInputStatusResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offset != nil {
+			oS = int(*offset)
+		}
+		r, err := ajson.Eval(b, "$.items")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if limit != nil {
+			l = int(*limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+
+		return s.List(
+			ctx,
+			metrics,
+			type_,
+			&nOS,
+			limit,
+			opts...,
+		)
+	}
 
 	switch {
 	case httpRes.StatusCode == 200:
@@ -508,6 +559,8 @@ func (s *SourcesStatuses) List(ctx context.Context, metrics *bool, type_ *bool, 
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 400:
+		fallthrough
 	case httpRes.StatusCode == 401:
 		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:

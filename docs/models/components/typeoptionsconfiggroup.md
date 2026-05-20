@@ -1,5 +1,7 @@
 # TypeOptionsConfigGroup
 
+Explicit type of the Worker Group, Outpost Group, or Edge Fleet.
+
 ## Example Usage
 
 ```go
@@ -19,8 +21,8 @@ custom := components.TypeOptionsConfigGroup("custom_value")
 | Name                                | Value                               |
 | ----------------------------------- | ----------------------------------- |
 | `TypeOptionsConfigGroupEdge`        | edge                                |
-| `TypeOptionsConfigGroupOutpost`     | outpost                             |
-| `TypeOptionsConfigGroupStream`      | stream                              |
-| `TypeOptionsConfigGroupSearch`      | search                              |
 | `TypeOptionsConfigGroupLakeAccess`  | lake_access                         |
 | `TypeOptionsConfigGroupLocalSearch` | local_search                        |
+| `TypeOptionsConfigGroupOutpost`     | outpost                             |
+| `TypeOptionsConfigGroupSearch`      | search                              |
+| `TypeOptionsConfigGroupStream`      | stream                              |

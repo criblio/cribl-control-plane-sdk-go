@@ -183,6 +183,12 @@ pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputLocalSear
 pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputLocalSearchSchemaMapper(components.PipelineFunctionLocalSearchSchemaMapper{/* values here */})
 ```
 
+### PipelineFunctionLocalSearchTimeRangeNormalizer
+
+```go
+pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputLocalSearchTimeRangeNormalizer(components.PipelineFunctionLocalSearchTimeRangeNormalizer{/* values here */})
+```
+
 ### PipelineFunctionLocalSearchTransformer
 
 ```go
@@ -307,6 +313,12 @@ pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputRollupMet
 
 ```go
 pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputSampling(components.PipelineFunctionSampling{/* values here */})
+```
+
+### PipelineFunctionSearchEngineExport
+
+```go
+pipelineFunctionConfInput := components.CreatePipelineFunctionConfInputSearchEngineExport(components.PipelineFunctionSearchEngineExport{/* values here */})
 ```
 
 ### PipelineFunctionSend
@@ -471,6 +483,8 @@ switch pipelineFunctionConfInput.Type {
 		// pipelineFunctionConfInput.PipelineFunctionLocalSearchRulesetRunner is populated
 	case components.PipelineFunctionConfInputTypeLocalSearchSchemaMapper:
 		// pipelineFunctionConfInput.PipelineFunctionLocalSearchSchemaMapper is populated
+	case components.PipelineFunctionConfInputTypeLocalSearchTimeRangeNormalizer:
+		// pipelineFunctionConfInput.PipelineFunctionLocalSearchTimeRangeNormalizer is populated
 	case components.PipelineFunctionConfInputTypeLocalSearchTransformer:
 		// pipelineFunctionConfInput.PipelineFunctionLocalSearchTransformer is populated
 	case components.PipelineFunctionConfInputTypeLookup:
@@ -513,6 +527,8 @@ switch pipelineFunctionConfInput.Type {
 		// pipelineFunctionConfInput.PipelineFunctionRollupMetrics is populated
 	case components.PipelineFunctionConfInputTypeSampling:
 		// pipelineFunctionConfInput.PipelineFunctionSampling is populated
+	case components.PipelineFunctionConfInputTypeSearchEngineExport:
+		// pipelineFunctionConfInput.PipelineFunctionSearchEngineExport is populated
 	case components.PipelineFunctionConfInputTypeSend:
 		// pipelineFunctionConfInput.PipelineFunctionSend is populated
 	case components.PipelineFunctionConfInputTypeSensitiveDataScanner:

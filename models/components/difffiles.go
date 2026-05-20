@@ -2,12 +2,6 @@
 
 package components
 
-import (
-	"errors"
-	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-)
-
 type Block struct {
 	Header string `json:"header"`
 	// Diff Line
@@ -52,208 +46,30 @@ func (b *Block) GetOldStartLine2() *float64 {
 	return b.OldStartLine2
 }
 
-type ChecksumBeforeType string
-
-const (
-	ChecksumBeforeTypeStr        ChecksumBeforeType = "str"
-	ChecksumBeforeTypeArrayOfStr ChecksumBeforeType = "arrayOfStr"
-)
-
-type ChecksumBefore struct {
-	Str        *string  `queryParam:"inline" union:"member"`
-	ArrayOfStr []string `queryParam:"inline" union:"member"`
-
-	Type ChecksumBeforeType
-}
-
-func CreateChecksumBeforeStr(str string) ChecksumBefore {
-	typ := ChecksumBeforeTypeStr
-
-	return ChecksumBefore{
-		Str:  &str,
-		Type: typ,
-	}
-}
-
-func CreateChecksumBeforeArrayOfStr(arrayOfStr []string) ChecksumBefore {
-	typ := ChecksumBeforeTypeArrayOfStr
-
-	return ChecksumBefore{
-		ArrayOfStr: arrayOfStr,
-		Type:       typ,
-	}
-}
-
-func (u *ChecksumBefore) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChecksumBeforeTypeStr,
-			Value: &str,
-		})
-	}
-
-	var arrayOfStr []string = []string{}
-	if err := utils.UnmarshalJSON(data, &arrayOfStr, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  ChecksumBeforeTypeArrayOfStr,
-			Value: arrayOfStr,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChecksumBefore", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChecksumBefore", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(ChecksumBeforeType)
-	switch best.Type {
-	case ChecksumBeforeTypeStr:
-		u.Str = best.Value.(*string)
-		return nil
-	case ChecksumBeforeTypeArrayOfStr:
-		u.ArrayOfStr = best.Value.([]string)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChecksumBefore", string(data))
-}
-
-func (u ChecksumBefore) MarshalJSON() ([]byte, error) {
-	if u.Str != nil {
-		return utils.MarshalJSON(u.Str, "", true)
-	}
-
-	if u.ArrayOfStr != nil {
-		return utils.MarshalJSON(u.ArrayOfStr, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type ChecksumBefore: all fields are null")
-}
-
-type OldModeType string
-
-const (
-	OldModeTypeStr        OldModeType = "str"
-	OldModeTypeArrayOfStr OldModeType = "arrayOfStr"
-)
-
-type OldMode struct {
-	Str        *string  `queryParam:"inline" union:"member"`
-	ArrayOfStr []string `queryParam:"inline" union:"member"`
-
-	Type OldModeType
-}
-
-func CreateOldModeStr(str string) OldMode {
-	typ := OldModeTypeStr
-
-	return OldMode{
-		Str:  &str,
-		Type: typ,
-	}
-}
-
-func CreateOldModeArrayOfStr(arrayOfStr []string) OldMode {
-	typ := OldModeTypeArrayOfStr
-
-	return OldMode{
-		ArrayOfStr: arrayOfStr,
-		Type:       typ,
-	}
-}
-
-func (u *OldMode) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var str string = ""
-	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OldModeTypeStr,
-			Value: &str,
-		})
-	}
-
-	var arrayOfStr []string = []string{}
-	if err := utils.UnmarshalJSON(data, &arrayOfStr, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OldModeTypeArrayOfStr,
-			Value: arrayOfStr,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OldMode", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OldMode", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(OldModeType)
-	switch best.Type {
-	case OldModeTypeStr:
-		u.Str = best.Value.(*string)
-		return nil
-	case OldModeTypeArrayOfStr:
-		u.ArrayOfStr = best.Value.([]string)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OldMode", string(data))
-}
-
-func (u OldMode) MarshalJSON() ([]byte, error) {
-	if u.Str != nil {
-		return utils.MarshalJSON(u.Str, "", true)
-	}
-
-	if u.ArrayOfStr != nil {
-		return utils.MarshalJSON(u.ArrayOfStr, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type OldMode: all fields are null")
-}
-
 type DiffFiles struct {
-	AddedLines          float64         `json:"addedLines"`
-	Blocks              []Block         `json:"blocks"`
-	ChangedPercentage   *float64        `json:"changedPercentage,omitzero"`
-	ChecksumAfter       *string         `json:"checksumAfter,omitzero"`
-	ChecksumBefore      *ChecksumBefore `json:"checksumBefore,omitzero"`
-	DeletedFileMode     *string         `json:"deletedFileMode,omitzero"`
-	DeletedLines        float64         `json:"deletedLines"`
-	IsBinary            *bool           `json:"isBinary,omitzero"`
-	IsCombined          bool            `json:"isCombined"`
-	IsCopy              *bool           `json:"isCopy,omitzero"`
-	IsDeleted           *bool           `json:"isDeleted,omitzero"`
-	IsGitDiff           bool            `json:"isGitDiff"`
-	IsNew               *bool           `json:"isNew,omitzero"`
-	IsRename            *bool           `json:"isRename,omitzero"`
-	IsTooBig            *bool           `json:"isTooBig,omitzero"`
-	Language            string          `json:"language"`
-	Mode                *string         `json:"mode,omitzero"`
-	NewFileMode         *string         `json:"newFileMode,omitzero"`
-	NewMode             *string         `json:"newMode,omitzero"`
-	NewName             string          `json:"newName"`
-	OldMode             *OldMode        `json:"oldMode,omitzero"`
-	OldName             string          `json:"oldName"`
-	UnchangedPercentage *float64        `json:"unchangedPercentage,omitzero"`
+	AddedLines          float64        `json:"addedLines"`
+	Blocks              []Block        `json:"blocks"`
+	ChangedPercentage   *float64       `json:"changedPercentage,omitzero"`
+	ChecksumAfter       *string        `json:"checksumAfter,omitzero"`
+	ChecksumBefore      *ScalarOrArray `json:"checksumBefore,omitzero"`
+	DeletedFileMode     *string        `json:"deletedFileMode,omitzero"`
+	DeletedLines        float64        `json:"deletedLines"`
+	IsBinary            *bool          `json:"isBinary,omitzero"`
+	IsCombined          bool           `json:"isCombined"`
+	IsCopy              *bool          `json:"isCopy,omitzero"`
+	IsDeleted           *bool          `json:"isDeleted,omitzero"`
+	IsGitDiff           bool           `json:"isGitDiff"`
+	IsNew               *bool          `json:"isNew,omitzero"`
+	IsRename            *bool          `json:"isRename,omitzero"`
+	IsTooBig            *bool          `json:"isTooBig,omitzero"`
+	Language            string         `json:"language"`
+	Mode                *string        `json:"mode,omitzero"`
+	NewFileMode         *string        `json:"newFileMode,omitzero"`
+	NewMode             *string        `json:"newMode,omitzero"`
+	NewName             string         `json:"newName"`
+	OldMode             *ScalarOrArray `json:"oldMode,omitzero"`
+	OldName             string         `json:"oldName"`
+	UnchangedPercentage *float64       `json:"unchangedPercentage,omitzero"`
 }
 
 func (d *DiffFiles) GetAddedLines() float64 {
@@ -284,7 +100,7 @@ func (d *DiffFiles) GetChecksumAfter() *string {
 	return d.ChecksumAfter
 }
 
-func (d *DiffFiles) GetChecksumBefore() *ChecksumBefore {
+func (d *DiffFiles) GetChecksumBefore() *ScalarOrArray {
 	if d == nil {
 		return nil
 	}
@@ -396,7 +212,7 @@ func (d *DiffFiles) GetNewName() string {
 	return d.NewName
 }
 
-func (d *DiffFiles) GetOldMode() *OldMode {
+func (d *DiffFiles) GetOldMode() *ScalarOrArray {
 	if d == nil {
 		return nil
 	}

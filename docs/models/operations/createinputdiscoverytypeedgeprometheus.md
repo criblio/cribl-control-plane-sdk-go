@@ -18,10 +18,11 @@ custom := operations.CreateInputDiscoveryTypeEdgePrometheus("custom_value")
 
 ## Values
 
-| Name                                            | Value                                           |
-| ----------------------------------------------- | ----------------------------------------------- |
-| `CreateInputDiscoveryTypeEdgePrometheusStatic`  | static                                          |
-| `CreateInputDiscoveryTypeEdgePrometheusDNS`     | dns                                             |
-| `CreateInputDiscoveryTypeEdgePrometheusEc2`     | ec2                                             |
-| `CreateInputDiscoveryTypeEdgePrometheusK8sNode` | k8s-node                                        |
-| `CreateInputDiscoveryTypeEdgePrometheusK8sPods` | k8s-pods                                        |
+| Name                                                      | Value                                                     |
+| --------------------------------------------------------- | --------------------------------------------------------- |
+| `CreateInputDiscoveryTypeEdgePrometheusStatic`            | static                                                    |
+| `CreateInputDiscoveryTypeEdgePrometheusDNS`               | dns                                                       |
+| `CreateInputDiscoveryTypeEdgePrometheusEc2`               | ec2                                                       |
+| `CreateInputDiscoveryTypeEdgePrometheusK8sNode`           | k8s-node                                                  |
+| `CreateInputDiscoveryTypeEdgePrometheusK8sPods`           | k8s-pods                                                  |
+| `CreateInputDiscoveryTypeEdgePrometheusK8sServiceMonitor` | k8s-service-monitor                                       |

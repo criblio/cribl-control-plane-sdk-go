@@ -37,8 +37,10 @@ func (e *State) IsExact() bool {
 	return false
 }
 
+// JobStatus - Status of a job, including its current state and failure reason.
 type JobStatus struct {
-	Reason map[string]any `json:"reason,omitzero"`
+	// Task error details. May include a nested <code>reason</code> for wrapped errors and additional properties from the original error.
+	Reason *TaskErrorDetail `json:"reason,omitzero"`
 	// State of the Job
 	State State `json:"state"`
 }
@@ -54,7 +56,7 @@ func (j *JobStatus) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (j *JobStatus) GetReason() map[string]any {
+func (j *JobStatus) GetReason() *TaskErrorDetail {
 	if j == nil {
 		return nil
 	}

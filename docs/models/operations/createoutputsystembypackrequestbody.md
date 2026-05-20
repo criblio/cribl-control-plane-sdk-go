@@ -1,6 +1,6 @@
 # CreateOutputSystemByPackRequestBody
 
-Output object
+Output object.
 
 
 ## Supported Types
@@ -11,10 +11,10 @@ Output object
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyDefault(operations.CreateOutputSystemByPackOutputDefault{/* values here */})
 ```
 
-### CreateOutputSystemByPackOutputWebhook
+### CreateOutputSystemByPackOutputWebhookUnion
 
 ```go
-createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyWebhook(operations.CreateOutputSystemByPackOutputWebhook{/* values here */})
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyWebhook(operations.CreateOutputSystemByPackOutputWebhookUnion{/* values here */})
 ```
 
 ### CreateOutputSystemByPackOutputSentinel
@@ -431,6 +431,48 @@ createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPack
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyCloudflareR2(operations.CreateOutputSystemByPackOutputCloudflareR2{/* values here */})
 ```
 
+### CreateOutputSystemByPackOutputNutanixObjects
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyNutanixObjects(operations.CreateOutputSystemByPackOutputNutanixObjects{/* values here */})
+```
+
+### CreateOutputSystemByPackOutputStorjS3
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyStorjS3(operations.CreateOutputSystemByPackOutputStorjS3{/* values here */})
+```
+
+### CreateOutputSystemByPackOutputAlphasocS3
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyAlphasocS3(operations.CreateOutputSystemByPackOutputAlphasocS3{/* values here */})
+```
+
+### CreateOutputSystemByPackOutputDellS3
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyDellS3(operations.CreateOutputSystemByPackOutputDellS3{/* values here */})
+```
+
+### CreateOutputSystemByPackOutputCloudianS3
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyCloudianS3(operations.CreateOutputSystemByPackOutputCloudianS3{/* values here */})
+```
+
+### CreateOutputSystemByPackOutputScalityS3
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyScalityS3(operations.CreateOutputSystemByPackOutputScalityS3{/* values here */})
+```
+
+### CreateOutputSystemByPackOutputAlibabaCloudS3
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyAlibabaCloudS3(operations.CreateOutputSystemByPackOutputAlibabaCloudS3{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -440,7 +482,7 @@ switch createOutputSystemByPackRequestBody.Type {
 	case operations.CreateOutputSystemByPackRequestBodyTypeDefault:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputDefault is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeWebhook:
-		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputWebhook is populated
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputWebhookUnion is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeSentinel:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputSentinel is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeDevnull:
@@ -579,5 +621,19 @@ switch createOutputSystemByPackRequestBody.Type {
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputMicrosoftFabric is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeCloudflareR2:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputCloudflareR2 is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeNutanixObjects:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputNutanixObjects is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeStorjS3:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputStorjS3 is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeAlphasocS3:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputAlphasocS3 is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeDellS3:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputDellS3 is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeCloudianS3:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputCloudianS3 is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeScalityS3:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputScalityS3 is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeAlibabaCloudS3:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputAlibabaCloudS3 is populated
 }
 ```

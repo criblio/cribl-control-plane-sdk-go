@@ -21,7 +21,7 @@ func (d *DeleteSavedJobByIDRequest) GetID() string {
 
 type DeleteSavedJobByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of SavedJobResponse objects
+	// The deleted SavedJobResponse object in a single-item list.
 	CountedSavedJobResponse *components.CountedSavedJobResponse
 }
 

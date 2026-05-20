@@ -18,10 +18,11 @@ custom := operations.CreateInputSystemByPackDiscoveryTypeEdgePrometheus("custom_
 
 ## Values
 
-| Name                                                        | Value                                                       |
-| ----------------------------------------------------------- | ----------------------------------------------------------- |
-| `CreateInputSystemByPackDiscoveryTypeEdgePrometheusStatic`  | static                                                      |
-| `CreateInputSystemByPackDiscoveryTypeEdgePrometheusDNS`     | dns                                                         |
-| `CreateInputSystemByPackDiscoveryTypeEdgePrometheusEc2`     | ec2                                                         |
-| `CreateInputSystemByPackDiscoveryTypeEdgePrometheusK8sNode` | k8s-node                                                    |
-| `CreateInputSystemByPackDiscoveryTypeEdgePrometheusK8sPods` | k8s-pods                                                    |
+| Name                                                                  | Value                                                                 |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `CreateInputSystemByPackDiscoveryTypeEdgePrometheusStatic`            | static                                                                |
+| `CreateInputSystemByPackDiscoveryTypeEdgePrometheusDNS`               | dns                                                                   |
+| `CreateInputSystemByPackDiscoveryTypeEdgePrometheusEc2`               | ec2                                                                   |
+| `CreateInputSystemByPackDiscoveryTypeEdgePrometheusK8sNode`           | k8s-node                                                              |
+| `CreateInputSystemByPackDiscoveryTypeEdgePrometheusK8sPods`           | k8s-pods                                                              |
+| `CreateInputSystemByPackDiscoveryTypeEdgePrometheusK8sServiceMonitor` | k8s-service-monitor                                                   |

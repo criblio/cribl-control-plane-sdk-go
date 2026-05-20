@@ -41,7 +41,11 @@ func newSources(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, h
 
 // List all Sources
 // Get a list of all Sources.
-func (s *Sources) List(ctx context.Context, opts ...operations.Option) (*operations.ListInputResponse, error) {
+func (s *Sources) List(ctx context.Context, type_ []string, opts ...operations.Option) (*operations.ListInputResponse, error) {
+	request := operations.ListInputRequest{
+		Type: type_,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -93,6 +97,10 @@ func (s *Sources) List(ctx context.Context, opts ...operations.Option) (*operati
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -216,12 +224,12 @@ func (s *Sources) List(ctx context.Context, opts ...operations.Option) (*operati
 					return nil, err
 				}
 
-				var out components.CountedInput
+				var out components.CountedInputResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedInput = &out
+				res.CountedInputResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -282,7 +290,7 @@ func (s *Sources) List(ctx context.Context, opts ...operations.Option) (*operati
 }
 
 // Create a Source
-// Create a new Source.
+// Create a new Source. The system-managed provenance field (JSON <code>criblSourceProvenance</code>) must be omitted from the request body.
 func (s *Sources) Create(ctx context.Context, request operations.CreateInputRequest, opts ...operations.Option) (*operations.CreateInputResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -465,12 +473,12 @@ func (s *Sources) Create(ctx context.Context, request operations.CreateInputRequ
 					return nil, err
 				}
 
-				var out components.CountedInput
+				var out components.CountedInputResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedInput = &out
+				res.CountedInputResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -711,12 +719,12 @@ func (s *Sources) Get(ctx context.Context, id string, opts ...operations.Option)
 					return nil, err
 				}
 
-				var out components.CountedInput
+				var out components.CountedInputResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedInput = &out
+				res.CountedInputResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -777,8 +785,8 @@ func (s *Sources) Get(ctx context.Context, id string, opts ...operations.Option)
 }
 
 // Update a Source
-// Update the specified Source.</br></br>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
-func (s *Sources) Update(ctx context.Context, id string, input components.Input2, opts ...operations.Option) (*operations.UpdateInputByIDResponse, error) {
+// Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes omitted fields when updating the Source, except for <code>criblSourceProvenance</code> (its value is preserved when omitted and cannot be overwritten).<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.
+func (s *Sources) Update(ctx context.Context, id string, input components.Input, opts ...operations.Option) (*operations.UpdateInputByIDResponse, error) {
 	request := operations.UpdateInputByIDRequest{
 		ID:    id,
 		Input: input,
@@ -965,12 +973,12 @@ func (s *Sources) Update(ctx context.Context, id string, input components.Input2
 					return nil, err
 				}
 
-				var out components.CountedInput
+				var out components.CountedInputResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedInput = &out
+				res.CountedInputResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1211,12 +1219,12 @@ func (s *Sources) Delete(ctx context.Context, id string, opts ...operations.Opti
 					return nil, err
 				}
 
-				var out components.CountedInput
+				var out components.CountedInputResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedInput = &out
+				res.CountedInputResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

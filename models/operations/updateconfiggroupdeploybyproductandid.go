@@ -12,7 +12,7 @@ type UpdateConfigGroupDeployByProductAndIDRequest struct {
 	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 	// The <code>id</code> of the target Worker Group, Outpost Group, or Edge Fleet for commit deployment.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// DeployRequest object
+	// DeployRequest object.
 	DeployRequest components.DeployRequest `request:"mediaType=application/json"`
 }
 
@@ -39,7 +39,7 @@ func (u *UpdateConfigGroupDeployByProductAndIDRequest) GetDeployRequest() compon
 
 type UpdateConfigGroupDeployByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of ConfigGroup objects
+	// The updated ConfigGroup object in a single-item list.
 	CountedConfigGroup *components.CountedConfigGroup
 }
 

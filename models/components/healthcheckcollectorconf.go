@@ -257,6 +257,8 @@ type HealthCheckAuthenticationNone struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckAuthenticationNone) MarshalJSON() ([]byte, error) {
@@ -410,6 +412,13 @@ func (h *HealthCheckAuthenticationNone) GetTextSecret() *string {
 	return h.TextSecret
 }
 
+func (h *HealthCheckAuthenticationNone) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
+}
+
 // HealthCheckCollectMethodPostWithBodyHealthCheckMethod - Health check HTTP method.
 type HealthCheckCollectMethodPostWithBodyHealthCheckMethod string
 
@@ -474,7 +483,7 @@ type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone st
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -513,7 +522,7 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNon
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -573,7 +582,7 @@ type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList st
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
@@ -617,7 +626,7 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeLis
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -672,7 +681,7 @@ type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJSON st
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
 	ItemList []string `json:"itemList,omitzero"`
 }
@@ -723,7 +732,7 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJSO
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -776,7 +785,7 @@ type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDis
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
@@ -824,7 +833,7 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverURL
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -885,13 +894,13 @@ type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDis
 	// Discover HTTP method.
 	DiscoverMethod DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
 	// Optional discover request parameters.
-	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverRequestParams []CollectRequestParamConfHealthCheckCollectMethodPost `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
@@ -918,7 +927,7 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []CollectRequestParamConfHealthCheckCollectMethodPost {
 	if h == nil {
 		return nil
 	}
@@ -939,7 +948,7 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverURL
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -1000,13 +1009,13 @@ type HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDis
 	// Discover HTTP method.
 	DiscoverMethod DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
 	// Optional discover request parameters.
-	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverRequestParams []CollectRequestParamConfHealthCheckCollectMethodPost `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
@@ -1033,7 +1042,7 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []CollectRequestParamConfHealthCheckCollectMethodPost {
 	if h == nil {
 		return nil
 	}
@@ -1054,7 +1063,7 @@ func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverURL
 }
 
-func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodPostWithBodyHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -1768,6 +1777,8 @@ type HealthCheckCollectMethodPostWithBody struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckCollectMethodPostWithBody) MarshalJSON() ([]byte, error) {
@@ -1928,6 +1939,13 @@ func (h *HealthCheckCollectMethodPostWithBody) GetTextSecret() *string {
 	return h.TextSecret
 }
 
+func (h *HealthCheckCollectMethodPostWithBody) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
+}
+
 // HealthCheckCollectMethodPostHealthCheckMethod - Health check HTTP method.
 type HealthCheckCollectMethodPostHealthCheckMethod string
 
@@ -1992,7 +2010,7 @@ type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone struct {
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -2031,7 +2049,7 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone) GetDi
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -2091,7 +2109,7 @@ type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList struct {
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
@@ -2135,7 +2153,7 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList) GetDi
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -2190,7 +2208,7 @@ type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJSON struct {
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
 	ItemList []string `json:"itemList,omitzero"`
 }
@@ -2241,7 +2259,7 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJSON) GetDi
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -2294,7 +2312,7 @@ type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMet
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
@@ -2342,7 +2360,7 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 	return h.DiscoverURL
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -2403,13 +2421,13 @@ type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMet
 	// Discover HTTP method.
 	DiscoverMethod DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
 	// Optional discover request parameters.
-	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverRequestParams []CollectRequestParamConfHealthCheckCollectMethodPost `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
@@ -2436,7 +2454,7 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
+func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []CollectRequestParamConfHealthCheckCollectMethodPost {
 	if h == nil {
 		return nil
 	}
@@ -2457,7 +2475,7 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 	return h.DiscoverURL
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -2518,13 +2536,13 @@ type HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMet
 	// Discover HTTP method.
 	DiscoverMethod DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
 	// Optional discover request parameters.
-	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverRequestParams []CollectRequestParamConfHealthCheckCollectMethodPost `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
@@ -2551,7 +2569,7 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
+func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []CollectRequestParamConfHealthCheckCollectMethodPost {
 	if h == nil {
 		return nil
 	}
@@ -2572,7 +2590,7 @@ func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscove
 	return h.DiscoverURL
 }
 
-func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodPostHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -3264,8 +3282,8 @@ type HealthCheckCollectMethodPost struct {
 	// Health check HTTP method.
 	CollectMethod HealthCheckCollectMethodPostHealthCheckMethod `json:"collectMethod"`
 	// Optional health check request parameters.
-	CollectRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"collectRequestParams,omitzero"`
-	Discovery            *HealthCheckCollectMethodPostDiscovery                      `json:"discovery,omitzero"`
+	CollectRequestParams []CollectRequestParamConfHealthCheckCollectMethodPost `json:"collectRequestParams,omitzero"`
+	Discovery            *HealthCheckCollectMethodPostDiscovery                `json:"discovery,omitzero"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Optional health check request headers.
@@ -3286,6 +3304,8 @@ type HealthCheckCollectMethodPost struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckCollectMethodPost) MarshalJSON() ([]byte, error) {
@@ -3306,7 +3326,7 @@ func (h *HealthCheckCollectMethodPost) GetCollectMethod() HealthCheckCollectMeth
 	return h.CollectMethod
 }
 
-func (h *HealthCheckCollectMethodPost) GetCollectRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
+func (h *HealthCheckCollectMethodPost) GetCollectRequestParams() []CollectRequestParamConfHealthCheckCollectMethodPost {
 	if h == nil {
 		return nil
 	}
@@ -3446,6 +3466,13 @@ func (h *HealthCheckCollectMethodPost) GetTextSecret() *string {
 	return h.TextSecret
 }
 
+func (h *HealthCheckCollectMethodPost) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
+}
+
 // HealthCheckCollectMethodGetHealthCheckMethod - Health check HTTP method.
 type HealthCheckCollectMethodGetHealthCheckMethod string
 
@@ -3542,7 +3569,7 @@ type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone struct {
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -3581,7 +3608,7 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone) GetDis
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeNone) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -3641,7 +3668,7 @@ type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList struct {
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
@@ -3685,7 +3712,7 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList) GetDis
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeList) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -3740,7 +3767,7 @@ type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJSON struct {
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
 	ItemList []string `json:"itemList,omitzero"`
 }
@@ -3791,7 +3818,7 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJSON) GetDis
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeJSON) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -3844,7 +3871,7 @@ type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMeth
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
@@ -3892,7 +3919,7 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 	return h.DiscoverURL
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -3953,13 +3980,13 @@ type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMeth
 	// Discover HTTP method.
 	DiscoverMethod DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
 	// Optional discover request parameters.
-	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverRequestParams []CollectRequestParamConfHealthCheckCollectMethodPost `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
@@ -3986,7 +4013,7 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
+func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestParams() []CollectRequestParamConfHealthCheckCollectMethodPost {
 	if h == nil {
 		return nil
 	}
@@ -4007,7 +4034,7 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 	return h.DiscoverURL
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -4068,13 +4095,13 @@ type HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMeth
 	// Discover HTTP method.
 	DiscoverMethod DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
 	// Optional discover request parameters.
-	DiscoverRequestParams []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams `json:"discoverRequestParams,omitzero"`
+	DiscoverRequestParams []CollectRequestParamConfHealthCheckCollectMethodPost `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
 	DiscoverType HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL string `json:"discoverUrl"`
 	// Optional discover request headers.
-	DiscoverRequestHeaders []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders `json:"discoverRequestHeaders,omitzero"`
+	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
@@ -4101,7 +4128,7 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 	return h.DiscoverMethod
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []ItemsTypeHealthCheckCollectMethodPostCollectRequestParams {
+func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestParams() []CollectRequestParamConfHealthCheckCollectMethodPost {
 	if h == nil {
 		return nil
 	}
@@ -4122,7 +4149,7 @@ func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscover
 	return h.DiscoverURL
 }
 
-func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []ItemsTypeHealthCheckAuthenticationLoginAuthRequestHeaders {
+func (h *HealthCheckCollectMethodGetHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetDiscoverRequestHeaders() []AuthRequestHeaderConfHealthCheckAuthenticationLogin {
 	if h == nil {
 		return nil
 	}
@@ -4836,6 +4863,8 @@ type HealthCheckCollectMethodGet struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
+	TemplateCollectURL *string `json:"__template_collectUrl,omitzero"`
 }
 
 func (h HealthCheckCollectMethodGet) MarshalJSON() ([]byte, error) {
@@ -4994,6 +5023,13 @@ func (h *HealthCheckCollectMethodGet) GetTextSecret() *string {
 		return nil
 	}
 	return h.TextSecret
+}
+
+func (h *HealthCheckCollectMethodGet) GetTemplateCollectURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateCollectURL
 }
 
 type HealthCheckCollectorConfType string
