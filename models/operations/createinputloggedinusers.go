@@ -4972,7 +4972,7 @@ type CreateInputInputJournalFiles struct {
 	Journals []string `json:"journals"`
 	// Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
 	Rules []CreateInputInputJournalFilesRule `json:"rules,omitzero"`
-	// Skip log messages that are not part of the current boot session.
+	// Skip log messages that are not part of the current boot session
 	CurrentBoot *bool `json:"currentBoot,omitzero"`
 	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
 	MaxAgeDur                 *string `json:"maxAgeDur,omitzero"`

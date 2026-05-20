@@ -249,9 +249,9 @@ type InputEdgePrometheusInput struct {
 	ScrapePortExpr *string `json:"scrapePortExpr,omitzero"`
 	// Path to use when collecting metrics from discovered targets
 	ScrapePathExpr *string `json:"scrapePathExpr,omitzero"`
-	//   Add rules to decide which pods to discover for metrics.
-	//   Pods are searched if no rules are given or of all the rules'
-	//   expressions evaluate to true.
+	// Add rules to decide which pods to discover for metrics.
+	// Pods are searched if no rules are given or of all the rules'
+	// expressions evaluate to true.
 	//
 	PodFilter []InputEdgePrometheusPodFilter `json:"podFilter,omitzero"`
 	// Username for Prometheus Basic authentication
