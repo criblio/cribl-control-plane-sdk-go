@@ -31,29 +31,6 @@ func (e *OutputSnsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputSnsSignatureVersion - Signature version to use for signing SNS requests
-type OutputSnsSignatureVersion string
-
-const (
-	OutputSnsSignatureVersionV2 OutputSnsSignatureVersion = "v2"
-	OutputSnsSignatureVersionV4 OutputSnsSignatureVersion = "v4"
-)
-
-func (e OutputSnsSignatureVersion) ToPointer() *OutputSnsSignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSnsSignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputSnsPqControls struct {
 }
 
@@ -93,8 +70,6 @@ type OutputSns struct {
 	Region *string `json:"region,omitzero"`
 	// SNS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SNS-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing SNS requests
-	SignatureVersion *OutputSnsSignatureVersion `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -119,7 +94,7 @@ type OutputSns struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -133,15 +108,27 @@ type OutputSns struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	PqControls       *OutputSnsPqControls      `json:"pqControls,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string              `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *OutputSnsPqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'topicArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicArn' at runtime.
+	TemplateTopicArn *string `json:"__template_topicArn,omitzero"`
+	// Binds 'messageGroupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'messageGroupId' at runtime.
+	TemplateMessageGroupID *string `json:"__template_messageGroupId,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
 	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
+	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 }
@@ -246,13 +233,6 @@ func (o *OutputSns) GetEndpoint() *string {
 		return nil
 	}
 	return o.Endpoint
-}
-
-func (o *OutputSns) GetSignatureVersion() *OutputSnsSignatureVersion {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
 }
 
 func (o *OutputSns) GetReuseConnections() *bool {
@@ -395,11 +375,39 @@ func (o *OutputSns) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	return o.PqOnBackpressure
 }
 
+func (o *OutputSns) GetPqMaxBufferSizeBytes() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSizeBytes
+}
+
 func (o *OutputSns) GetPqControls() *OutputSnsPqControls {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputSns) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
+}
+
+func (o *OutputSns) GetTemplateTopicArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateTopicArn
+}
+
+func (o *OutputSns) GetTemplateMessageGroupID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateMessageGroupID
 }
 
 func (o *OutputSns) GetTemplateAwsSecretKey() *string {
@@ -416,6 +424,13 @@ func (o *OutputSns) GetTemplateRegion() *string {
 	return o.TemplateRegion
 }
 
+func (o *OutputSns) GetTemplateEndpoint() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateEndpoint
+}
+
 func (o *OutputSns) GetTemplateAssumeRoleArn() *string {
 	if o == nil {
 		return nil
@@ -428,6 +443,13 @@ func (o *OutputSns) GetTemplateAssumeRoleExternalID() *string {
 		return nil
 	}
 	return o.TemplateAssumeRoleExternalID
+}
+
+func (o *OutputSns) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }
 
 func (o *OutputSns) GetTemplateAwsAPIKey() *string {

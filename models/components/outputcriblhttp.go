@@ -58,14 +58,14 @@ type OutputCriblHTTP struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs. If this setting is disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool                                         `json:"loadBalanced,omitzero"`
-	TLS          *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	LoadBalanced *bool                                    `json:"loadBalanced,omitzero"`
+	TLS          *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// The number of minutes before the internally generated authentication token expires. Valid values are between 1 and 60.
 	TokenTTLMinutes *float64 `json:"tokenTTLMinutes,omitzero"`
 	// Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
 	ExcludeFields []string `json:"excludeFields,omitzero"`
 	// Codec to use to compress the data before sending
-	Compression *CompressionOptions1 `json:"compression,omitzero"`
+	Compression *CompressionOptionsGzipNone `json:"compression,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -81,7 +81,7 @@ type OutputCriblHTTP struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
@@ -89,12 +89,12 @@ type OutputCriblHTTP struct {
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
 	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl HTTP Source in Cribl.Cloud.
-	AuthTokens []ItemsTypeAuthTokens1 `json:"authTokens,omitzero"`
+	AuthTokens []AuthTokenConfOutputCriblHTTP `json:"authTokens,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	Description    *string                      `json:"description,omitzero"`
@@ -103,8 +103,8 @@ type OutputCriblHTTP struct {
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool           `json:"excludeSelf,omitzero"`
-	Urls        []ItemsTypeUrls `json:"urls,omitzero"`
+	ExcludeSelf *bool                    `json:"excludeSelf,omitzero"`
+	Urls        []URLConfOutputCriblHTTP `json:"urls,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -115,7 +115,7 @@ type OutputCriblHTTP struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -128,8 +128,16 @@ type OutputCriblHTTP struct {
 	// Codec to use to compress the persisted data
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *QueueFullBehaviorOptions  `json:"pqOnBackpressure,omitzero"`
-	PqControls       *OutputCriblHTTPPqControls `json:"pqControls,omitzero"`
+	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                    `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *OutputCriblHTTPPqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
@@ -194,7 +202,7 @@ func (o *OutputCriblHTTP) GetLoadBalanced() *bool {
 	return o.LoadBalanced
 }
 
-func (o *OutputCriblHTTP) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (o *OutputCriblHTTP) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
 	if o == nil {
 		return nil
 	}
@@ -215,7 +223,7 @@ func (o *OutputCriblHTTP) GetExcludeFields() []string {
 	return o.ExcludeFields
 }
 
-func (o *OutputCriblHTTP) GetCompression() *CompressionOptions1 {
+func (o *OutputCriblHTTP) GetCompression() *CompressionOptionsGzipNone {
 	if o == nil {
 		return nil
 	}
@@ -264,7 +272,7 @@ func (o *OutputCriblHTTP) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputCriblHTTP) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputCriblHTTP) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -292,7 +300,7 @@ func (o *OutputCriblHTTP) GetThrottleRatePerSec() *string {
 	return o.ThrottleRatePerSec
 }
 
-func (o *OutputCriblHTTP) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputCriblHTTP) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}
@@ -313,7 +321,7 @@ func (o *OutputCriblHTTP) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputCriblHTTP) GetAuthTokens() []ItemsTypeAuthTokens1 {
+func (o *OutputCriblHTTP) GetAuthTokens() []AuthTokenConfOutputCriblHTTP {
 	if o == nil {
 		return nil
 	}
@@ -355,7 +363,7 @@ func (o *OutputCriblHTTP) GetExcludeSelf() *bool {
 	return o.ExcludeSelf
 }
 
-func (o *OutputCriblHTTP) GetUrls() []ItemsTypeUrls {
+func (o *OutputCriblHTTP) GetUrls() []URLConfOutputCriblHTTP {
 	if o == nil {
 		return nil
 	}
@@ -446,11 +454,39 @@ func (o *OutputCriblHTTP) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	return o.PqOnBackpressure
 }
 
+func (o *OutputCriblHTTP) GetPqMaxBufferSizeBytes() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSizeBytes
+}
+
 func (o *OutputCriblHTTP) GetPqControls() *OutputCriblHTTPPqControls {
 	if o == nil {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputCriblHTTP) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
+}
+
+func (o *OutputCriblHTTP) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputCriblHTTP) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }
 
 func (o *OutputCriblHTTP) GetTemplateURL() *string {

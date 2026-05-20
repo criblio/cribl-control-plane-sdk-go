@@ -28,8 +28,10 @@ type SavedJobCollection struct {
 	// If enabled, tasks are created and run by the same Worker Node
 	WorkerAffinity *bool `json:"workerAffinity,omitzero"`
 	// Collector configuration
-	Collector Collector                                    `json:"collector"`
-	Input     *TypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
+	Collector Collector                                                         `json:"collector"`
+	Input     *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (s SavedJobCollection) MarshalJSON() ([]byte, error) {
@@ -167,9 +169,16 @@ func (s *SavedJobCollection) GetCollectorSplunk() *CollectorSplunk {
 	return s.GetCollector().CollectorSplunk
 }
 
-func (s *SavedJobCollection) GetInput() *TypeCollectionWithBreakerRulesetsConstraint {
+func (s *SavedJobCollection) GetInput() *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint {
 	if s == nil {
 		return nil
 	}
 	return s.Input
+}
+
+func (s *SavedJobCollection) GetTemplateStreamtags() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TemplateStreamtags
 }

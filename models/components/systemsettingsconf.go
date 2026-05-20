@@ -8,6 +8,7 @@ import (
 
 type SystemSettingsConf struct {
 	API                  APITypeSystemSettingsConf         `json:"api"`
+	Apps                 *AppsTypeSystemSettingsConf       `json:"apps,omitzero"`
 	Backups              BackupsSettingsUnion              `json:"backups"`
 	CustomLogo           *CustomLogoTypeSystemSettingsConf `json:"customLogo,omitzero"`
 	Pii                  PiiSettingsUnion                  `json:"pii"`
@@ -19,7 +20,7 @@ type SystemSettingsConf struct {
 	Support              *SupportTypeSystemSettingsConf    `json:"support,omitzero"`
 	System               SystemTypeSystemSettingsConf      `json:"system"`
 	TLS                  TLSSettingsUnion                  `json:"tls"`
-	UpgradeGroupSettings UpgradeGroupSettingsUnion         `json:"upgradeGroupSettings"`
+	UpgradeGroupSettings UpgradeGroupSettings              `json:"upgradeGroupSettings"`
 	UpgradeSettings      UpgradeSettings                   `json:"upgradeSettings"`
 	Workers              WorkersTypeSystemSettingsConf     `json:"workers"`
 }
@@ -40,6 +41,13 @@ func (s *SystemSettingsConf) GetAPI() APITypeSystemSettingsConf {
 		return APITypeSystemSettingsConf{}
 	}
 	return s.API
+}
+
+func (s *SystemSettingsConf) GetApps() *AppsTypeSystemSettingsConf {
+	if s == nil {
+		return nil
+	}
+	return s.Apps
 }
 
 func (s *SystemSettingsConf) GetBackups() BackupsSettingsUnion {
@@ -119,9 +127,9 @@ func (s *SystemSettingsConf) GetTLS() TLSSettingsUnion {
 	return s.TLS
 }
 
-func (s *SystemSettingsConf) GetUpgradeGroupSettings() UpgradeGroupSettingsUnion {
+func (s *SystemSettingsConf) GetUpgradeGroupSettings() UpgradeGroupSettings {
 	if s == nil {
-		return UpgradeGroupSettingsUnion{}
+		return UpgradeGroupSettings{}
 	}
 	return s.UpgradeGroupSettings
 }

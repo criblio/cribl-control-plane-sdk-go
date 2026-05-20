@@ -27,6 +27,8 @@ type RunnableJobScheduledSearch struct {
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Identifies which search query to run
 	SavedQueryID string `json:"savedQueryId"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (r RunnableJobScheduledSearch) MarshalJSON() ([]byte, error) {
@@ -115,4 +117,11 @@ func (r *RunnableJobScheduledSearch) GetSavedQueryID() string {
 		return ""
 	}
 	return r.SavedQueryID
+}
+
+func (r *RunnableJobScheduledSearch) GetTemplateStreamtags() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateStreamtags
 }

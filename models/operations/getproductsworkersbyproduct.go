@@ -8,8 +8,8 @@ import (
 )
 
 type GetProductsWorkersByProductRequest struct {
-	// Name of the Cribl product to get Worker or Edge Nodes for.
-	Product components.ProductsBase `pathParam:"style=simple,explode=false,name=product"`
+	// Name of the Cribl product to get Worker, Edge, or Outpost Nodes for.
+	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 	// Filter expression to evaluate against Nodes for inclusion in the response.
 	FilterExp *string `queryParam:"style=form,explode=true,name=filterExp"`
 	// Sorting expression to evaluate against Nodes to specify the sort order for the response.
@@ -24,9 +24,9 @@ type GetProductsWorkersByProductRequest struct {
 	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
 }
 
-func (g *GetProductsWorkersByProductRequest) GetProduct() components.ProductsBase {
+func (g *GetProductsWorkersByProductRequest) GetProduct() components.ProductsCore {
 	if g == nil {
-		return components.ProductsBase("")
+		return components.ProductsCore("")
 	}
 	return g.Product
 }
@@ -75,7 +75,7 @@ func (g *GetProductsWorkersByProductRequest) GetOffset() *int64 {
 
 type GetProductsWorkersByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of MasterWorkerEntry objects
+	// List of MasterWorkerEntry objects.
 	CountedMasterWorkerEntry *components.CountedMasterWorkerEntry
 
 	Next func() (*GetProductsWorkersByProductResponse, error)

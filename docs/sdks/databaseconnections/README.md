@@ -2,6 +2,8 @@
 
 ## Overview
 
+Actions related to DatabaseConnections
+
 ### Available Operations
 
 * [Create](#create) - Create Database Connection
@@ -992,7 +994,7 @@ func main() {
 | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
 | `ctx`                                                                                      | [context.Context](https://pkg.go.dev/context#Context)                                      | :heavy_check_mark:                                                                         | The context to use for the request.                                                        |
 | `id`                                                                                       | `string`                                                                                   | :heavy_check_mark:                                                                         | The <code>id</code> of the Database Connection to update.                                  |
-| `databaseConnectionConfig`                                                                 | [components.DatabaseConnectionConfig](../../models/components/databaseconnectionconfig.md) | :heavy_check_mark:                                                                         | DatabaseConnectionConfig object                                                            |
+| `databaseConnectionConfig`                                                                 | [components.DatabaseConnectionConfig](../../models/components/databaseconnectionconfig.md) | :heavy_check_mark:                                                                         | DatabaseConnectionConfig object.                                                           |
 | `opts`                                                                                     | [][operations.Option](../../models/operations/option.md)                                   | :heavy_minus_sign:                                                                         | The options for this request.                                                              |
 
 ### Response

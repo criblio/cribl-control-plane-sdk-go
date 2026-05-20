@@ -12,6 +12,10 @@ type GetOutputStatusRequest struct {
 	Metrics *bool `queryParam:"style=form,explode=true,name=metrics"`
 	// Set to <code>true</code> to prefix the Destination <code>id</code> with the Destination type. Otherwise, <code>false</code> (default).
 	Type *bool `queryParam:"style=form,explode=true,name=type"`
+	// Starting point from which to retrieve results for this request. Use with <code>limit</code> to paginate the response into manageable batches.
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return in the response for this request. Use with <code>offset</code> to paginate the response into manageable batches.
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (g *GetOutputStatusRequest) GetMetrics() *bool {
@@ -28,10 +32,26 @@ func (g *GetOutputStatusRequest) GetType() *bool {
 	return g.Type
 }
 
+func (g *GetOutputStatusRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetOutputStatusRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
 type GetOutputStatusResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Destination status objects
 	CountedOutputStatus *components.CountedOutputStatus
+
+	Next func() (*GetOutputStatusResponse, error)
 }
 
 func (g GetOutputStatusResponse) MarshalJSON() ([]byte, error) {

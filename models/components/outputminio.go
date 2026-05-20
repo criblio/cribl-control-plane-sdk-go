@@ -43,36 +43,28 @@ type OutputMinio struct {
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
-	// MinIO service url (e.g. http://minioHost:9000)
-	Endpoint string `json:"endpoint"`
-	// Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	Bucket string `json:"bucket"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
-	// Region where the MinIO service/cluster is located
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Name of the destination MinIO bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the MinIO bucket is located
 	Region *string `json:"region,omitzero"`
-	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `json:"destPath,omitzero"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
 	// Add the Output ID value to staging location
 	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
-	// Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
-	DestPath *string `json:"destPath,omitzero"`
-	// Signature version to use for signing MinIO requests
-	SignatureVersion *SignatureVersionOptions5 `json:"signatureVersion,omitzero"`
-	// Object ACL to assign to uploaded objects
-	ObjectACL *ObjectACLOptions `json:"objectACL,omitzero"`
-	// Storage class to select for uploaded objects
-	StorageClass *StorageClassOptions2 `json:"storageClass,omitzero"`
-	// Server-side encryption for uploaded objects
-	ServerSideEncryption *ServerSideEncryptionOptions `json:"serverSideEncryption,omitzero"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitzero"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Disable if you can access files within the bucket but not the bucket itself
-	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
 	// Remove empty staging directories after moving files
 	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
 	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
@@ -85,6 +77,10 @@ type OutputMinio struct {
 	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
 	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
 	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
 	// If set, this line will be written to the beginning of each output file
@@ -92,7 +88,7 @@ type OutputMinio struct {
 	// Buffer size used to write to a file
 	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions1 `json:"onBackpressure,omitzero"`
+	OnBackpressure *BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
 	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
 	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
 	// How to handle events when disk space is below the global 'Min free disk space' limit
@@ -101,19 +97,23 @@ type OutputMinio struct {
 	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
 	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
-	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
-	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
-	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
-	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
-	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
-	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
-	Description            *string  `json:"description,omitzero"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
+	// MinIO service url (e.g. http://minioHost:9000)
+	Endpoint string `json:"endpoint"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *ObjectACLOptions `json:"objectACL,omitzero"`
+	// Storage class to select for uploaded objects
+	StorageClass *StorageClassOptionsReducedredundancyStandard `json:"storageClass,omitzero"`
+	// Server-side encryption to use for uploaded objects
+	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptionsAes256 `json:"serverSideEncryption,omitzero"`
+	Description          *string                                              `json:"description,omitzero"`
 	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
 	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
-	Compress *CompressionOptions2 `json:"compress,omitzero"`
+	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
 	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitzero"`
 	// Automatically calculate the schema based on the events of each Parquet file generated
@@ -131,7 +131,7 @@ type OutputMinio struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -146,14 +146,38 @@ type OutputMinio struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+	TemplateDestPath *string `json:"__template_destPath,omitzero"`
+	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
 	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
+	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+	TemplateStorageClass *string `json:"__template_storageClass,omitzero"`
+	// Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
 func (o OutputMinio) MarshalJSON() ([]byte, error) {
@@ -209,88 +233,11 @@ func (o *OutputMinio) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputMinio) GetEndpoint() string {
-	if o == nil {
-		return ""
-	}
-	return o.Endpoint
-}
-
-func (o *OutputMinio) GetBucket() string {
-	if o == nil {
-		return ""
-	}
-	return o.Bucket
-}
-
 func (o *OutputMinio) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3CollectorConf {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
-}
-
-func (o *OutputMinio) GetAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsSecretKey
-}
-
-func (o *OutputMinio) GetRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Region
-}
-
-func (o *OutputMinio) GetStagePath() string {
-	if o == nil {
-		return ""
-	}
-	return o.StagePath
-}
-
-func (o *OutputMinio) GetAddIDToStagePath() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.AddIDToStagePath
-}
-
-func (o *OutputMinio) GetDestPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.DestPath
-}
-
-func (o *OutputMinio) GetSignatureVersion() *SignatureVersionOptions5 {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
-}
-
-func (o *OutputMinio) GetObjectACL() *ObjectACLOptions {
-	if o == nil {
-		return nil
-	}
-	return o.ObjectACL
-}
-
-func (o *OutputMinio) GetStorageClass() *StorageClassOptions2 {
-	if o == nil {
-		return nil
-	}
-	return o.StorageClass
-}
-
-func (o *OutputMinio) GetServerSideEncryption() *ServerSideEncryptionOptions {
-	if o == nil {
-		return nil
-	}
-	return o.ServerSideEncryption
 }
 
 func (o *OutputMinio) GetReuseConnections() *bool {
@@ -307,11 +254,60 @@ func (o *OutputMinio) GetRejectUnauthorized() *bool {
 	return o.RejectUnauthorized
 }
 
+func (o *OutputMinio) GetBucket() string {
+	if o == nil {
+		return ""
+	}
+	return o.Bucket
+}
+
+func (o *OutputMinio) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputMinio) GetDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.DestPath
+}
+
+func (o *OutputMinio) GetMaxConcurrentFileParts() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxConcurrentFileParts
+}
+
 func (o *OutputMinio) GetVerifyPermissions() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.VerifyPermissions
+}
+
+func (o *OutputMinio) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
+}
+
+func (o *OutputMinio) GetStagePath() string {
+	if o == nil {
+		return ""
+	}
+	return o.StagePath
+}
+
+func (o *OutputMinio) GetAddIDToStagePath() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AddIDToStagePath
 }
 
 func (o *OutputMinio) GetRemoveEmptyDirs() *bool {
@@ -356,6 +352,20 @@ func (o *OutputMinio) GetMaxFileSizeMB() *float64 {
 	return o.MaxFileSizeMB
 }
 
+func (o *OutputMinio) GetMaxFileOpenTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileOpenTimeSec
+}
+
+func (o *OutputMinio) GetMaxFileIdleTimeSec() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxFileIdleTimeSec
+}
+
 func (o *OutputMinio) GetMaxOpenFiles() *float64 {
 	if o == nil {
 		return nil
@@ -377,7 +387,7 @@ func (o *OutputMinio) GetWriteHighWaterMark() *float64 {
 	return o.WriteHighWaterMark
 }
 
-func (o *OutputMinio) GetOnBackpressure() *BackpressureBehaviorOptions1 {
+func (o *OutputMinio) GetOnBackpressure() *BackpressureBehaviorOptionsBlockDrop {
 	if o == nil {
 		return nil
 	}
@@ -419,25 +429,39 @@ func (o *OutputMinio) GetOrphans() *OrphanFileRecoveryType {
 	return o.Orphans
 }
 
-func (o *OutputMinio) GetMaxFileOpenTimeSec() *float64 {
+func (o *OutputMinio) GetAwsSecretKey() *string {
 	if o == nil {
 		return nil
 	}
-	return o.MaxFileOpenTimeSec
+	return o.AwsSecretKey
 }
 
-func (o *OutputMinio) GetMaxFileIdleTimeSec() *float64 {
+func (o *OutputMinio) GetEndpoint() string {
 	if o == nil {
-		return nil
+		return ""
 	}
-	return o.MaxFileIdleTimeSec
+	return o.Endpoint
 }
 
-func (o *OutputMinio) GetMaxConcurrentFileParts() *float64 {
+func (o *OutputMinio) GetObjectACL() *ObjectACLOptions {
 	if o == nil {
 		return nil
 	}
-	return o.MaxConcurrentFileParts
+	return o.ObjectACL
+}
+
+func (o *OutputMinio) GetStorageClass() *StorageClassOptionsReducedredundancyStandard {
+	if o == nil {
+		return nil
+	}
+	return o.StorageClass
+}
+
+func (o *OutputMinio) GetServerSideEncryption() *ServerSideEncryptionForUploadedObjectsOptionsAes256 {
+	if o == nil {
+		return nil
+	}
+	return o.ServerSideEncryption
 }
 
 func (o *OutputMinio) GetDescription() *string {
@@ -461,7 +485,7 @@ func (o *OutputMinio) GetAwsSecret() *string {
 	return o.AwsSecret
 }
 
-func (o *OutputMinio) GetCompress() *CompressionOptions2 {
+func (o *OutputMinio) GetCompress() *CompressionOptionsHTTP {
 	if o == nil {
 		return nil
 	}
@@ -524,7 +548,7 @@ func (o *OutputMinio) GetShouldLogInvalidRows() *bool {
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputMinio) GetKeyValueMetadata() []ItemsTypeKeyValueMetadata {
+func (o *OutputMinio) GetKeyValueMetadata() []KeyValueMetadataConfOutputFilesystem {
 	if o == nil {
 		return nil
 	}
@@ -580,6 +604,13 @@ func (o *OutputMinio) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
+func (o *OutputMinio) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
+}
+
 func (o *OutputMinio) GetTemplateBucket() *string {
 	if o == nil {
 		return nil
@@ -594,6 +625,20 @@ func (o *OutputMinio) GetTemplateRegion() *string {
 	return o.TemplateRegion
 }
 
+func (o *OutputMinio) GetTemplateDestPath() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateDestPath
+}
+
+func (o *OutputMinio) GetTemplatePartitionExpr() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplatePartitionExpr
+}
+
 func (o *OutputMinio) GetTemplateFormat() *string {
 	if o == nil {
 		return nil
@@ -601,9 +646,72 @@ func (o *OutputMinio) GetTemplateFormat() *string {
 	return o.TemplateFormat
 }
 
+func (o *OutputMinio) GetTemplateBaseFileName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateBaseFileName
+}
+
+func (o *OutputMinio) GetTemplateFileNameSuffix() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFileNameSuffix
+}
+
+func (o *OutputMinio) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
+}
+
+func (o *OutputMinio) GetTemplateAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAwsSecretKey
+}
+
+func (o *OutputMinio) GetTemplateObjectACL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateObjectACL
+}
+
+func (o *OutputMinio) GetTemplateStorageClass() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStorageClass
+}
+
+func (o *OutputMinio) GetTemplateServerSideEncryption() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateServerSideEncryption
+}
+
 func (o *OutputMinio) GetTemplateAwsAPIKey() *string {
 	if o == nil {
 		return nil
 	}
 	return o.TemplateAwsAPIKey
+}
+
+func (o *OutputMinio) GetTemplateCompress() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateCompress
+}
+
+func (o *OutputMinio) GetTemplateParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateParquetSchema
 }

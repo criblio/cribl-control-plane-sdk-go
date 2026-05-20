@@ -106,6 +106,10 @@ type AzureBlobAuthTypeClientCert struct {
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Text secret containing the client secret
 	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
+	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+	TemplateContainerName *string `json:"__template_containerName,omitzero"`
+	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+	TemplatePath *string `json:"__template_path,omitzero"`
 }
 
 func (a AzureBlobAuthTypeClientCert) MarshalJSON() ([]byte, error) {
@@ -259,6 +263,20 @@ func (a *AzureBlobAuthTypeClientCert) GetClientTextSecret() *string {
 	return a.ClientTextSecret
 }
 
+func (a *AzureBlobAuthTypeClientCert) GetTemplateContainerName() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateContainerName
+}
+
+func (a *AzureBlobAuthTypeClientCert) GetTemplatePath() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplatePath
+}
+
 // AzureBlobAuthTypeClientSecretAuthenticationMethod - Enter authentication data directly, or select a secret referencing your auth data
 type AzureBlobAuthTypeClientSecretAuthenticationMethod string
 
@@ -356,6 +374,10 @@ type AzureBlobAuthTypeClientSecret struct {
 	// Text secret
 	TextSecret  *string                                     `json:"textSecret,omitzero"`
 	Certificate *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+	TemplateContainerName *string `json:"__template_containerName,omitzero"`
+	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+	TemplatePath *string `json:"__template_path,omitzero"`
 }
 
 func (a AzureBlobAuthTypeClientSecret) MarshalJSON() ([]byte, error) {
@@ -509,6 +531,20 @@ func (a *AzureBlobAuthTypeClientSecret) GetCertificate() *CertificateTypeAzureBl
 	return a.Certificate
 }
 
+func (a *AzureBlobAuthTypeClientSecret) GetTemplateContainerName() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateContainerName
+}
+
+func (a *AzureBlobAuthTypeClientSecret) GetTemplatePath() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplatePath
+}
+
 // AzureBlobAuthTypeSecretAuthenticationMethod - Enter authentication data directly, or select a secret referencing your auth data
 type AzureBlobAuthTypeSecretAuthenticationMethod string
 
@@ -596,6 +632,10 @@ type AzureBlobAuthTypeSecret struct {
 	// Text secret containing the client secret
 	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
 	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+	TemplateContainerName *string `json:"__template_containerName,omitzero"`
+	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+	TemplatePath *string `json:"__template_path,omitzero"`
 }
 
 func (a AzureBlobAuthTypeSecret) MarshalJSON() ([]byte, error) {
@@ -714,6 +754,20 @@ func (a *AzureBlobAuthTypeSecret) GetCertificate() *CertificateTypeAzureBlobAuth
 	return a.Certificate
 }
 
+func (a *AzureBlobAuthTypeSecret) GetTemplateContainerName() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateContainerName
+}
+
+func (a *AzureBlobAuthTypeSecret) GetTemplatePath() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplatePath
+}
+
 // AzureBlobAuthTypeManualAuthenticationMethod - Enter authentication data directly, or select a secret referencing your auth data
 type AzureBlobAuthTypeManualAuthenticationMethod string
 
@@ -801,6 +855,10 @@ type AzureBlobAuthTypeManual struct {
 	// Text secret containing the client secret
 	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
 	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
+	TemplateContainerName *string `json:"__template_containerName,omitzero"`
+	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
+	TemplatePath *string `json:"__template_path,omitzero"`
 }
 
 func (a AzureBlobAuthTypeManual) MarshalJSON() ([]byte, error) {
@@ -917,6 +975,20 @@ func (a *AzureBlobAuthTypeManual) GetCertificate() *CertificateTypeAzureBlobAuth
 		return nil
 	}
 	return a.Certificate
+}
+
+func (a *AzureBlobAuthTypeManual) GetTemplateContainerName() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateContainerName
+}
+
+func (a *AzureBlobAuthTypeManual) GetTemplatePath() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplatePath
 }
 
 type AzureBlobCollectorConfType string

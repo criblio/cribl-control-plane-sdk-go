@@ -34,7 +34,7 @@ func newCaptures(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, 
 
 // Create - Capture live incoming data
 // Initiate a live data capture from Cribl Workers.Returns a stream of captured events in NDJSON format that match the parameters specified in the request body.
-func (s *Captures) Create(ctx context.Context, request components.CaptureParams, opts ...operations.Option) (*operations.CreateSystemCaptureResponse, error) {
+func (s *Captures) Create(ctx context.Context, request components.CaptureParamsReq, opts ...operations.Option) (*operations.CreateSystemCaptureResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -250,6 +250,8 @@ func (s *Captures) Create(ctx context.Context, request components.CaptureParams,
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 400:
+		fallthrough
 	case httpRes.StatusCode == 401:
 		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:

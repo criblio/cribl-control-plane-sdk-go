@@ -14,7 +14,7 @@ type GetOutputStatusSystemOutputsByPackAndIDRequest struct {
 	Metrics *bool `queryParam:"style=form,explode=true,name=metrics"`
 	// Set to <code>true</code> to prefix the Destination <code>id</code> with the Destination type. Otherwise, <code>false</code> (default).
 	Type *bool `queryParam:"style=form,explode=true,name=type"`
-	// The <code>id</code> of the Pack to get.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
 

@@ -1137,7 +1137,7 @@ func main() {
                         ID: components.PipelineFunctionGrokIDGrok,
                         Conf: components.PipelineFunctionGrokConf{
                             Pattern: "%{TIMESTAMP_ISO8601:event_time} %{LOGLEVEL:log_level} %{GREEDYDATA:log_message}",
-                            PatternList: []components.ItemsTypeSerdeTypeGrokPatternList{},
+                            PatternList: []components.PatternListConfSerdeTypeGrok{},
                             Source: criblcontrolplanesdkgo.Pointer("_raw"),
                         },
                     },
@@ -2538,8 +2538,8 @@ func main() {
 | Parameter                                                            | Type                                                                 | Required                                                             | Description                                                          |
 | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | `ctx`                                                                | [context.Context](https://pkg.go.dev/context#Context)                | :heavy_check_mark:                                                   | The context to use for the request.                                  |
-| `pack`                                                               | `string`                                                             | :heavy_check_mark:                                                   | The <code>id</code> of the Pack to create.                           |
-| `pipeline`                                                           | [components.PipelineInput](../../models/components/pipelineinput.md) | :heavy_check_mark:                                                   | Pipeline object                                                      |
+| `pack`                                                               | `string`                                                             | :heavy_check_mark:                                                   | The <code>id</code> of the Pack.                                     |
+| `pipeline`                                                           | [components.PipelineInput](../../models/components/pipelineinput.md) | :heavy_check_mark:                                                   | Pipeline object.                                                     |
 | `opts`                                                               | [][operations.Option](../../models/operations/option.md)             | :heavy_minus_sign:                                                   | The options for this request.                                        |
 
 ### Response
@@ -2596,7 +2596,7 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack to list.                 |
+| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack.                         |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
@@ -2654,7 +2654,7 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pipeline to delete.           |
-| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack to delete.               |
+| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack.                         |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
@@ -2712,7 +2712,7 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pipeline to get.              |
-| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack to get.                  |
+| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack.                         |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
@@ -3853,7 +3853,7 @@ func main() {
                         ID: components.PipelineFunctionGrokIDGrok,
                         Conf: components.PipelineFunctionGrokConf{
                             Pattern: "%{TIMESTAMP_ISO8601:event_time} %{LOGLEVEL:log_level} %{GREEDYDATA:log_message}",
-                            PatternList: []components.ItemsTypeSerdeTypeGrokPatternList{},
+                            PatternList: []components.PatternListConfSerdeTypeGrok{},
                             Source: criblcontrolplanesdkgo.Pointer("_raw"),
                         },
                     },
@@ -5255,8 +5255,8 @@ func main() {
 | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | `ctx`                                                                | [context.Context](https://pkg.go.dev/context#Context)                | :heavy_check_mark:                                                   | The context to use for the request.                                  |
 | `id`                                                                 | `string`                                                             | :heavy_check_mark:                                                   | The <code>id</code> of the Pipeline to update.                       |
-| `pack`                                                               | `string`                                                             | :heavy_check_mark:                                                   | The <code>id</code> of the Pack to update.                           |
-| `pipeline`                                                           | [components.PipelineInput](../../models/components/pipelineinput.md) | :heavy_check_mark:                                                   | Pipeline object                                                      |
+| `pack`                                                               | `string`                                                             | :heavy_check_mark:                                                   | The <code>id</code> of the Pack.                                     |
+| `pipeline`                                                           | [components.PipelineInput](../../models/components/pipelineinput.md) | :heavy_check_mark:                                                   | Pipeline object.                                                     |
 | `opts`                                                               | [][operations.Option](../../models/operations/option.md)             | :heavy_minus_sign:                                                   | The options for this request.                                        |
 
 ### Response

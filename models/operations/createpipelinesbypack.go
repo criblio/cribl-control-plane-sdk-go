@@ -8,9 +8,9 @@ import (
 )
 
 type CreatePipelinesByPackRequest struct {
-	// The <code>id</code> of the Pack to create.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
-	// Pipeline object
+	// Pipeline object.
 	Pipeline components.PipelineInput `request:"mediaType=application/json"`
 }
 

@@ -8,15 +8,15 @@ import (
 )
 
 type GetProductsSummaryWorkersByProductRequest struct {
-	// Name of the Cribl product to get the count of Worker or Edge Nodes for.
-	Product components.ProductsBase `pathParam:"style=simple,explode=false,name=product"`
+	// Name of the Cribl product to get the count of Worker, Edge, or Outpost Nodes for.
+	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 	// Filter expression to evaluate against Nodes for inclusion in the response.
 	FilterExp *string `queryParam:"style=form,explode=true,name=filterExp"`
 }
 
-func (g *GetProductsSummaryWorkersByProductRequest) GetProduct() components.ProductsBase {
+func (g *GetProductsSummaryWorkersByProductRequest) GetProduct() components.ProductsCore {
 	if g == nil {
-		return components.ProductsBase("")
+		return components.ProductsCore("")
 	}
 	return g.Product
 }
@@ -30,7 +30,7 @@ func (g *GetProductsSummaryWorkersByProductRequest) GetFilterExp() *string {
 
 type GetProductsSummaryWorkersByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of number objects
+	// List of number objects.
 	CountedNumber *components.CountedNumber
 }
 

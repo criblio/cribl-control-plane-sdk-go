@@ -67,10 +67,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4847.66),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](3337.75),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        4847.66,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        3337.75,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -99,8 +103,8 @@ func main() {
                     Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
-            Input: &components.TypeCollectionWithBreakerRulesetsConstraint{
-                Type: components.TypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
+            Input: &components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint{
+                Type: components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
                 BreakerRulesets: []string{
                     "<value 1>",
                     "<value 2>",
@@ -118,8 +122,8 @@ func main() {
                     },
                 },
                 ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("<value>"),
-                Metadata: []components.ItemsTypeMetadata{
-                    components.ItemsTypeMetadata{
+                Metadata: []components.MetadataConfInputCollection{
+                    components.MetadataConfInputCollection{
                         Name: "<value>",
                         Value: "<value>",
                     },
@@ -189,10 +193,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4847.66),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](3337.75),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        4847.66,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        3337.75,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -264,10 +272,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4847.66),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](3337.75),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        4847.66,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        3337.75,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -337,10 +349,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4847.66),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](3337.75),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        4847.66,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        3337.75,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -417,10 +433,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4847.66),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](3337.75),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        4847.66,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        3337.75,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -449,8 +469,8 @@ func main() {
                     Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
-            Input: &components.TypeCollectionWithBreakerRulesetsConstraint{
-                Type: components.TypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
+            Input: &components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint{
+                Type: components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
                 BreakerRulesets: []string{
                     "<value 1>",
                     "<value 2>",
@@ -468,8 +488,8 @@ func main() {
                     },
                 },
                 ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("<value>"),
-                Metadata: []components.ItemsTypeMetadata{
-                    components.ItemsTypeMetadata{
+                Metadata: []components.MetadataConfInputCollection{
+                    components.MetadataConfInputCollection{
                         Name: "<value>",
                         Value: "<value>",
                     },
@@ -538,10 +558,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4847.66),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](3337.75),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        4847.66,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        3337.75,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -570,8 +594,8 @@ func main() {
                     Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
-            Input: &components.TypeCollectionWithBreakerRulesetsConstraint{
-                Type: components.TypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
+            Input: &components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint{
+                Type: components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
                 BreakerRulesets: []string{
                     "<value 1>",
                     "<value 2>",
@@ -589,8 +613,8 @@ func main() {
                     },
                 },
                 ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("<value>"),
-                Metadata: []components.ItemsTypeMetadata{
-                    components.ItemsTypeMetadata{
+                Metadata: []components.MetadataConfInputCollection{
+                    components.MetadataConfInputCollection{
                         Name: "<value>",
                         Value: "<value>",
                     },
@@ -659,10 +683,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4847.66),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](3337.75),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        4847.66,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        3337.75,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -691,8 +719,8 @@ func main() {
                     Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
-            Input: &components.TypeCollectionWithBreakerRulesetsConstraint{
-                Type: components.TypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
+            Input: &components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint{
+                Type: components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
                 BreakerRulesets: []string{
                     "<value 1>",
                     "<value 2>",
@@ -710,8 +738,8 @@ func main() {
                     },
                 },
                 ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("<value>"),
-                Metadata: []components.ItemsTypeMetadata{
-                    components.ItemsTypeMetadata{
+                Metadata: []components.MetadataConfInputCollection{
+                    components.MetadataConfInputCollection{
                         Name: "<value>",
                         Value: "<value>",
                     },
@@ -780,10 +808,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4847.66),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](3337.75),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        4847.66,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        3337.75,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -812,8 +844,8 @@ func main() {
                     Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
-            Input: &components.TypeCollectionWithBreakerRulesetsConstraint{
-                Type: components.TypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
+            Input: &components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint{
+                Type: components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
                 BreakerRulesets: []string{
                     "<value 1>",
                     "<value 2>",
@@ -831,8 +863,8 @@ func main() {
                     },
                 },
                 ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("<value>"),
-                Metadata: []components.ItemsTypeMetadata{
-                    components.ItemsTypeMetadata{
+                Metadata: []components.MetadataConfInputCollection{
+                    components.MetadataConfInputCollection{
                         Name: "<value>",
                         Value: "<value>",
                     },
@@ -901,10 +933,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](4847.66),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](3337.75),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        4847.66,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        3337.75,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -933,8 +969,8 @@ func main() {
                     Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
-            Input: &components.TypeCollectionWithBreakerRulesetsConstraint{
-                Type: components.TypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
+            Input: &components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint{
+                Type: components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
                 BreakerRulesets: []string{
                     "<value 1>",
                     "<value 2>",
@@ -952,8 +988,8 @@ func main() {
                     },
                 },
                 ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("<value>"),
-                Metadata: []components.ItemsTypeMetadata{
-                    components.ItemsTypeMetadata{
+                Metadata: []components.MetadataConfInputCollection{
+                    components.MetadataConfInputCollection{
                         Name: "<value>",
                         Value: "<value>",
                     },
@@ -1216,10 +1252,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](8882.78),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](6778.74),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        8882.78,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        6778.74,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -1294,10 +1334,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](8882.78),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](6778.74),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        8882.78,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        6778.74,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -1328,7 +1372,6 @@ func main() {
                                 },
                             },
                             Endpoint: criblcontrolplanesdkgo.Pointer("<value>"),
-                            SignatureVersion: components.SignatureVersionOptionsS3CollectorConfV4.ToPointer(),
                             EnableAssumeRole: criblcontrolplanesdkgo.Pointer(true),
                             AssumeRoleArn: criblcontrolplanesdkgo.Pointer("<value>"),
                             AssumeRoleExternalID: criblcontrolplanesdkgo.Pointer("<id>"),
@@ -1344,8 +1387,8 @@ func main() {
                     Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
-            Input: &components.TypeCollectionWithBreakerRulesetsConstraint{
-                Type: components.TypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
+            Input: &components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint{
+                Type: components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
                 BreakerRulesets: []string{
                     "<value 1>",
                 },
@@ -1361,8 +1404,8 @@ func main() {
                     },
                 },
                 ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("<value>"),
-                Metadata: []components.ItemsTypeMetadata{
-                    components.ItemsTypeMetadata{
+                Metadata: []components.MetadataConfInputCollection{
+                    components.MetadataConfInputCollection{
                         Name: "<value>",
                         Value: "<value>",
                     },
@@ -1430,10 +1473,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](8882.78),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](6778.74),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        8882.78,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        6778.74,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -1464,7 +1511,6 @@ func main() {
                                 },
                             },
                             Endpoint: criblcontrolplanesdkgo.Pointer("<value>"),
-                            SignatureVersion: components.SignatureVersionOptionsS3CollectorConfV4.ToPointer(),
                             EnableAssumeRole: criblcontrolplanesdkgo.Pointer(true),
                             AssumeRoleArn: criblcontrolplanesdkgo.Pointer("<value>"),
                             AssumeRoleExternalID: criblcontrolplanesdkgo.Pointer("<id>"),
@@ -1480,8 +1526,8 @@ func main() {
                     Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
-            Input: &components.TypeCollectionWithBreakerRulesetsConstraint{
-                Type: components.TypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
+            Input: &components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint{
+                Type: components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
                 BreakerRulesets: []string{
                     "<value 1>",
                 },
@@ -1497,8 +1543,8 @@ func main() {
                     },
                 },
                 ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("<value>"),
-                Metadata: []components.ItemsTypeMetadata{
-                    components.ItemsTypeMetadata{
+                Metadata: []components.MetadataConfInputCollection{
+                    components.MetadataConfInputCollection{
                         Name: "<value>",
                         Value: "<value>",
                     },
@@ -1568,10 +1614,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](8882.78),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](6778.74),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        8882.78,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        6778.74,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -1641,10 +1691,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](8882.78),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](6778.74),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        8882.78,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        6778.74,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -1719,10 +1773,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](8882.78),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](6778.74),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        8882.78,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        6778.74,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -1753,7 +1811,6 @@ func main() {
                                 },
                             },
                             Endpoint: criblcontrolplanesdkgo.Pointer("<value>"),
-                            SignatureVersion: components.SignatureVersionOptionsS3CollectorConfV4.ToPointer(),
                             EnableAssumeRole: criblcontrolplanesdkgo.Pointer(true),
                             AssumeRoleArn: criblcontrolplanesdkgo.Pointer("<value>"),
                             AssumeRoleExternalID: criblcontrolplanesdkgo.Pointer("<id>"),
@@ -1769,8 +1826,8 @@ func main() {
                     Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
-            Input: &components.TypeCollectionWithBreakerRulesetsConstraint{
-                Type: components.TypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
+            Input: &components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint{
+                Type: components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
                 BreakerRulesets: []string{
                     "<value 1>",
                 },
@@ -1786,8 +1843,8 @@ func main() {
                     },
                 },
                 ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("<value>"),
-                Metadata: []components.ItemsTypeMetadata{
-                    components.ItemsTypeMetadata{
+                Metadata: []components.MetadataConfInputCollection{
+                    components.MetadataConfInputCollection{
                         Name: "<value>",
                         Value: "<value>",
                     },
@@ -1855,10 +1912,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](8882.78),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](6778.74),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        8882.78,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        6778.74,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -1933,10 +1994,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](8882.78),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](6778.74),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        8882.78,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        6778.74,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -1967,7 +2032,6 @@ func main() {
                                 },
                             },
                             Endpoint: criblcontrolplanesdkgo.Pointer("<value>"),
-                            SignatureVersion: components.SignatureVersionOptionsS3CollectorConfV4.ToPointer(),
                             EnableAssumeRole: criblcontrolplanesdkgo.Pointer(true),
                             AssumeRoleArn: criblcontrolplanesdkgo.Pointer("<value>"),
                             AssumeRoleExternalID: criblcontrolplanesdkgo.Pointer("<id>"),
@@ -1983,8 +2047,8 @@ func main() {
                     Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
-            Input: &components.TypeCollectionWithBreakerRulesetsConstraint{
-                Type: components.TypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
+            Input: &components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint{
+                Type: components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
                 BreakerRulesets: []string{
                     "<value 1>",
                 },
@@ -2000,8 +2064,8 @@ func main() {
                     },
                 },
                 ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("<value>"),
-                Metadata: []components.ItemsTypeMetadata{
-                    components.ItemsTypeMetadata{
+                Metadata: []components.MetadataConfInputCollection{
+                    components.MetadataConfInputCollection{
                         Name: "<value>",
                         Value: "<value>",
                     },
@@ -2069,10 +2133,14 @@ func main() {
                     JobTimeout: criblcontrolplanesdkgo.Pointer("<value>"),
                     Mode: "<value>",
                     TimeRangeType: criblcontrolplanesdkgo.Pointer("<value>"),
-                    Earliest: criblcontrolplanesdkgo.Pointer[float64](8882.78),
-                    Latest: criblcontrolplanesdkgo.Pointer[float64](6778.74),
+                    Earliest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleEarliestNumber(
+                        8882.78,
+                    )),
+                    Latest: criblcontrolplanesdkgo.Pointer(components.CreateRunSettingsTypeSavedJobResponseCollectionScheduleLatestNumber(
+                        6778.74,
+                    )),
                     TimestampTimezone: "<value>",
-                    TimeWarning: &components.MetricsStore{},
+                    TimeWarning: &components.BrokenEventProcessor{},
                     Expression: criblcontrolplanesdkgo.Pointer("<value>"),
                     MinTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
                     MaxTaskSize: criblcontrolplanesdkgo.Pointer("<value>"),
@@ -2103,7 +2171,6 @@ func main() {
                                 },
                             },
                             Endpoint: criblcontrolplanesdkgo.Pointer("<value>"),
-                            SignatureVersion: components.SignatureVersionOptionsS3CollectorConfV4.ToPointer(),
                             EnableAssumeRole: criblcontrolplanesdkgo.Pointer(true),
                             AssumeRoleArn: criblcontrolplanesdkgo.Pointer("<value>"),
                             AssumeRoleExternalID: criblcontrolplanesdkgo.Pointer("<id>"),
@@ -2119,8 +2186,8 @@ func main() {
                     Encoding: criblcontrolplanesdkgo.Pointer("<value>"),
                 },
             ),
-            Input: &components.TypeCollectionWithBreakerRulesetsConstraint{
-                Type: components.TypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
+            Input: &components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint{
+                Type: components.RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraintTypeCollection.ToPointer(),
                 BreakerRulesets: []string{
                     "<value 1>",
                 },
@@ -2136,8 +2203,8 @@ func main() {
                     },
                 },
                 ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("<value>"),
-                Metadata: []components.ItemsTypeMetadata{
-                    components.ItemsTypeMetadata{
+                Metadata: []components.MetadataConfInputCollection{
+                    components.MetadataConfInputCollection{
                         Name: "<value>",
                         Value: "<value>",
                     },
@@ -2162,7 +2229,7 @@ func main() {
 | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
 | `ctx`                                                      | [context.Context](https://pkg.go.dev/context#Context)      | :heavy_check_mark:                                         | The context to use for the request.                        |
 | `id`                                                       | `string`                                                   | :heavy_check_mark:                                         | The <code>id</code> of the Collector to update.            |
-| `savedJob`                                                 | [components.SavedJob](../../models/components/savedjob.md) | :heavy_check_mark:                                         | SavedJob object                                            |
+| `savedJob`                                                 | [components.SavedJob](../../models/components/savedjob.md) | :heavy_check_mark:                                         | SavedJob object.                                           |
 | `opts`                                                     | [][operations.Option](../../models/operations/option.md)   | :heavy_minus_sign:                                         | The options for this request.                              |
 
 ### Response

@@ -2,127 +2,157 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type DistributedSummaryGroups struct {
-	Count         float64 `json:"count"`
-	Destinations  float64 `json:"destinations"`
-	Packs         float64 `json:"packs"`
-	Pipelines     float64 `json:"pipelines"`
-	QuickConnects float64 `json:"quickConnects"`
-	Routes        float64 `json:"routes"`
-	Sources       float64 `json:"sources"`
+	// Total number of Worker Groups or Edge Fleets.
+	Count int64 `json:"count"`
+	// Total number of Destinations.
+	Destinations int64 `json:"destinations"`
+	// Total number of Packs.
+	Packs int64 `json:"packs"`
+	// Total number of Pipelines.
+	Pipelines int64 `json:"pipelines"`
+	// Total number of QuickConnect configurations.
+	QuickConnects int64 `json:"quickConnects"`
+	// Total number of Routes.
+	Routes int64 `json:"routes"`
+	// Total number of Sources.
+	Sources int64 `json:"sources"`
 }
 
-func (d *DistributedSummaryGroups) GetCount() float64 {
+func (d *DistributedSummaryGroups) GetCount() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.Count
 }
 
-func (d *DistributedSummaryGroups) GetDestinations() float64 {
+func (d *DistributedSummaryGroups) GetDestinations() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.Destinations
 }
 
-func (d *DistributedSummaryGroups) GetPacks() float64 {
+func (d *DistributedSummaryGroups) GetPacks() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.Packs
 }
 
-func (d *DistributedSummaryGroups) GetPipelines() float64 {
+func (d *DistributedSummaryGroups) GetPipelines() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.Pipelines
 }
 
-func (d *DistributedSummaryGroups) GetQuickConnects() float64 {
+func (d *DistributedSummaryGroups) GetQuickConnects() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.QuickConnects
 }
 
-func (d *DistributedSummaryGroups) GetRoutes() float64 {
+func (d *DistributedSummaryGroups) GetRoutes() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.Routes
 }
 
-func (d *DistributedSummaryGroups) GetSources() float64 {
+func (d *DistributedSummaryGroups) GetSources() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.Sources
 }
 
 type DistributedSummaryWorkers struct {
-	Alive             float64 `json:"alive"`
-	ConfVersions      float64 `json:"confVersions"`
-	Count             float64 `json:"count"`
-	DisconnectedCount float64 `json:"disconnectedCount"`
-	Groups            float64 `json:"groups"`
-	SoftwareVersions  float64 `json:"softwareVersions"`
-	Unhealthy         float64 `json:"unhealthy"`
+	// Total number of Worker or Edge Nodes that are connected with <code>healthy</code> status.
+	Alive int64 `json:"alive"`
+	// Total number of unique configuration versions across all Worker or Edge Nodes.
+	ConfVersions int64 `json:"confVersions"`
+	// Total number of Worker or Edge Nodes.
+	Count int64 `json:"count"`
+	// Total number of Worker or Edge Nodes in a disconnected state.
+	DisconnectedCount int64 `json:"disconnectedCount"`
+	// Total number of distinct Worker Groups or Edge Fleets that the Workers or Edge Nodes belong to.
+	Groups int64 `json:"groups"`
+	// Total number of unique Cribl software versions across all Worker or Edge Nodes.
+	SoftwareVersions int64 `json:"softwareVersions"`
+	// Total number of Worker or Edge Nodes that are connected with a status other than <code>healthy</code>.
+	Unhealthy int64 `json:"unhealthy"`
 }
 
-func (d *DistributedSummaryWorkers) GetAlive() float64 {
+func (d *DistributedSummaryWorkers) GetAlive() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.Alive
 }
 
-func (d *DistributedSummaryWorkers) GetConfVersions() float64 {
+func (d *DistributedSummaryWorkers) GetConfVersions() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.ConfVersions
 }
 
-func (d *DistributedSummaryWorkers) GetCount() float64 {
+func (d *DistributedSummaryWorkers) GetCount() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.Count
 }
 
-func (d *DistributedSummaryWorkers) GetDisconnectedCount() float64 {
+func (d *DistributedSummaryWorkers) GetDisconnectedCount() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.DisconnectedCount
 }
 
-func (d *DistributedSummaryWorkers) GetGroups() float64 {
+func (d *DistributedSummaryWorkers) GetGroups() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.Groups
 }
 
-func (d *DistributedSummaryWorkers) GetSoftwareVersions() float64 {
+func (d *DistributedSummaryWorkers) GetSoftwareVersions() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.SoftwareVersions
 }
 
-func (d *DistributedSummaryWorkers) GetUnhealthy() float64 {
+func (d *DistributedSummaryWorkers) GetUnhealthy() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.Unhealthy
 }
 
+// DistributedSummary - Summary of the deployment for the specified Cribl product (Stream or Edge).
 type DistributedSummary struct {
-	Groups  DistributedSummaryGroups  `json:"groups"`
-	Workers DistributedSummaryWorkers `json:"workers"`
+	Groups  DistributedSummaryGroups   `json:"groups"`
+	Workers *DistributedSummaryWorkers `json:"workers,omitzero"`
+}
+
+func (d DistributedSummary) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DistributedSummary) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (d *DistributedSummary) GetGroups() DistributedSummaryGroups {
@@ -132,9 +162,9 @@ func (d *DistributedSummary) GetGroups() DistributedSummaryGroups {
 	return d.Groups
 }
 
-func (d *DistributedSummary) GetWorkers() DistributedSummaryWorkers {
+func (d *DistributedSummary) GetWorkers() *DistributedSummaryWorkers {
 	if d == nil {
-		return DistributedSummaryWorkers{}
+		return nil
 	}
 	return d.Workers
 }

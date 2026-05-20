@@ -8,77 +8,57 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type PiiSettings2 struct {
-}
-
-func (p PiiSettings2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(p, "", false)
-}
-
-func (p *PiiSettings2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-// #region class-body-piisettings2
-// #endregion class-body-piisettings2
-
-type PiiSettings1 struct {
+type PiiSettings struct {
 	EnablePiiDetection bool `json:"enablePiiDetection"`
 }
 
-func (p PiiSettings1) MarshalJSON() ([]byte, error) {
+func (p PiiSettings) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(p, "", false)
 }
 
-func (p *PiiSettings1) UnmarshalJSON(data []byte) error {
+func (p *PiiSettings) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (p *PiiSettings1) GetEnablePiiDetection() bool {
+func (p *PiiSettings) GetEnablePiiDetection() bool {
 	if p == nil {
 		return false
 	}
 	return p.EnablePiiDetection
 }
 
-// #region class-body-piisettings1
-// #endregion class-body-piisettings1
-
 type PiiSettingsUnionType string
 
 const (
-	PiiSettingsUnionTypePiiSettings1 PiiSettingsUnionType = "PiiSettings_1"
-	PiiSettingsUnionTypePiiSettings2 PiiSettingsUnionType = "PiiSettings_2"
+	PiiSettingsUnionTypePiiSettings PiiSettingsUnionType = "PiiSettings"
+	PiiSettingsUnionTypeEmptyObject PiiSettingsUnionType = "EmptyObject"
 )
 
 type PiiSettingsUnion struct {
-	PiiSettings1 *PiiSettings1 `queryParam:"inline" union:"member"`
-	PiiSettings2 *PiiSettings2 `queryParam:"inline" union:"member"`
+	PiiSettings *PiiSettings `queryParam:"inline" union:"member"`
+	EmptyObject *EmptyObject `queryParam:"inline" union:"member"`
 
 	Type PiiSettingsUnionType
 }
 
-func CreatePiiSettingsUnionPiiSettings1(piiSettings1 PiiSettings1) PiiSettingsUnion {
-	typ := PiiSettingsUnionTypePiiSettings1
+func CreatePiiSettingsUnionPiiSettings(piiSettings PiiSettings) PiiSettingsUnion {
+	typ := PiiSettingsUnionTypePiiSettings
 
 	return PiiSettingsUnion{
-		PiiSettings1: &piiSettings1,
-		Type:         typ,
+		PiiSettings: &piiSettings,
+		Type:        typ,
 	}
 }
 
-func CreatePiiSettingsUnionPiiSettings2(piiSettings2 PiiSettings2) PiiSettingsUnion {
-	typ := PiiSettingsUnionTypePiiSettings2
+func CreatePiiSettingsUnionEmptyObject(emptyObject EmptyObject) PiiSettingsUnion {
+	typ := PiiSettingsUnionTypeEmptyObject
 
 	return PiiSettingsUnion{
-		PiiSettings2: &piiSettings2,
-		Type:         typ,
+		EmptyObject: &emptyObject,
+		Type:        typ,
 	}
 }
 
@@ -87,19 +67,19 @@ func (u *PiiSettingsUnion) UnmarshalJSON(data []byte) error {
 	var candidates []utils.UnionCandidate
 
 	// Collect all valid candidates
-	var piiSettings1 PiiSettings1 = PiiSettings1{}
-	if err := utils.UnmarshalJSON(data, &piiSettings1, "", true, nil); err == nil {
+	var piiSettings PiiSettings = PiiSettings{}
+	if err := utils.UnmarshalJSON(data, &piiSettings, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  PiiSettingsUnionTypePiiSettings1,
-			Value: &piiSettings1,
+			Type:  PiiSettingsUnionTypePiiSettings,
+			Value: &piiSettings,
 		})
 	}
 
-	var piiSettings2 PiiSettings2 = PiiSettings2{}
-	if err := utils.UnmarshalJSON(data, &piiSettings2, "", true, nil); err == nil {
+	var emptyObject EmptyObject = EmptyObject{}
+	if err := utils.UnmarshalJSON(data, &emptyObject, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  PiiSettingsUnionTypePiiSettings2,
-			Value: &piiSettings2,
+			Type:  PiiSettingsUnionTypeEmptyObject,
+			Value: &emptyObject,
 		})
 	}
 
@@ -116,11 +96,11 @@ func (u *PiiSettingsUnion) UnmarshalJSON(data []byte) error {
 	// Set the union type and value based on the best candidate
 	u.Type = best.Type.(PiiSettingsUnionType)
 	switch best.Type {
-	case PiiSettingsUnionTypePiiSettings1:
-		u.PiiSettings1 = best.Value.(*PiiSettings1)
+	case PiiSettingsUnionTypePiiSettings:
+		u.PiiSettings = best.Value.(*PiiSettings)
 		return nil
-	case PiiSettingsUnionTypePiiSettings2:
-		u.PiiSettings2 = best.Value.(*PiiSettings2)
+	case PiiSettingsUnionTypeEmptyObject:
+		u.EmptyObject = best.Value.(*EmptyObject)
 		return nil
 	}
 
@@ -128,12 +108,12 @@ func (u *PiiSettingsUnion) UnmarshalJSON(data []byte) error {
 }
 
 func (u PiiSettingsUnion) MarshalJSON() ([]byte, error) {
-	if u.PiiSettings1 != nil {
-		return utils.MarshalJSON(u.PiiSettings1, "", true)
+	if u.PiiSettings != nil {
+		return utils.MarshalJSON(u.PiiSettings, "", true)
 	}
 
-	if u.PiiSettings2 != nil {
-		return utils.MarshalJSON(u.PiiSettings2, "", true)
+	if u.EmptyObject != nil {
+		return utils.MarshalJSON(u.EmptyObject, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type PiiSettingsUnion: all fields are null")

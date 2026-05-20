@@ -12,7 +12,7 @@ type UpdateCriblLakeDatasetByLakeIDAndIDRequest struct {
 	LakeID string `pathParam:"style=simple,explode=false,name=lakeId"`
 	// The <code>id</code> of the Lake Dataset to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// CriblLakeDatasetUpdate object
+	// CriblLakeDatasetUpdate object.
 	CriblLakeDatasetUpdate components.CriblLakeDatasetUpdate `request:"mediaType=application/json"`
 }
 
@@ -39,7 +39,7 @@ func (u *UpdateCriblLakeDatasetByLakeIDAndIDRequest) GetCriblLakeDatasetUpdate()
 
 type UpdateCriblLakeDatasetByLakeIDAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of CriblLakeDataset objects
+	// The updated CriblLakeDataset object in a single-item list.
 	CountedCriblLakeDataset *components.CountedCriblLakeDataset
 }
 
