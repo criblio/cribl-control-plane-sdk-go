@@ -248,7 +248,7 @@ func main() {
 | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | `ctx`                                                                               | [context.Context](https://pkg.go.dev/context#Context)                               | :heavy_check_mark:                                                                  | The context to use for the request.                                                 |
 | `product`                                                                           | [components.ProductsCore](../../models/components/productscore.md)                  | :heavy_check_mark:                                                                  | Name of the Cribl product to add the Worker Group, Outpost Group, or Edge Fleet to. |
-| `groupCreateRequest`                                                                | [components.GroupCreateRequest](../../models/components/groupcreaterequest.md)      | :heavy_check_mark:                                                                  | GroupCreateRequest object                                                           |
+| `groupCreateRequest`                                                                | [components.GroupCreateRequest](../../models/components/groupcreaterequest.md)      | :heavy_check_mark:                                                                  | GroupCreateRequest object.                                                          |
 | `opts`                                                                              | [][operations.Option](../../models/operations/option.md)                            | :heavy_minus_sign:                                                                  | The options for this request.                                                       |
 
 ### Response
@@ -323,9 +323,9 @@ func main() {
 
 ## Update
 
-Update the specified Worker Group, Outpost Group, or Edge Fleet.
+Update the specified Worker Group, Outpost Group, or Edge Fleet.<br/><br/>Provide a complete representation of the Group or Fleet that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Group or Fleet.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Group or Fleet might not function as expected.**Warning**: Do not change the values for the following parameters in the body of PATCH requests. The request body must include the values as they appear in the <code>GET /products/{product}/groups/{id}</code> response.<br/>- <code>configVersion</code><br/>- <code>deployingWorkerCount</code><br/>- <code>incompatibleWorkerCount</code><br/>- <code>workerCount</code><br/>- <code>lookupDeployments</code>.
 
-### Example Usage
+### Example Usage: UpdateGroupExamplesScaleCloudWorkerGroup
 
 <!-- UsageSnippet language="go" operationID="updateConfigGroupByProductAndId" method="patch" path="/products/{product}/groups/{id}" example="UpdateGroupExamplesScaleCloudWorkerGroup" -->
 ```go
@@ -354,13 +354,63 @@ func main() {
             Provider: components.CloudProviderAws.ToPointer(),
             Region: "us-west-2",
         },
+        ConfigVersion: criblcontrolplanesdkgo.Pointer("abc1234"),
+        DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[int64](0),
         Description: criblcontrolplanesdkgo.Pointer("Scaled Worker Group with estimated ingest rate of 4096 (48 MB/s, 21 Worker Processes) for increased capacity"),
         EstimatedIngestRate: components.EstimatedIngestRateOptionsConfigGroupRate48MbPerSec.ToPointer(),
         ID: "goatCloudIanWg",
+        IncompatibleWorkerCount: criblcontrolplanesdkgo.Pointer[int64](0),
+        LookupDeployments: []components.ConfigGroupLookups{},
         Name: criblcontrolplanesdkgo.Pointer("goatcloudianwg"),
         OnPrem: criblcontrolplanesdkgo.Pointer(false),
         Provisioned: criblcontrolplanesdkgo.Pointer(true),
         Type: components.TypeOptionsConfigGroupStream.ToPointer(),
+        WorkerCount: criblcontrolplanesdkgo.Pointer[int64](3),
+        WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedConfigGroup != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateGroupExamplesUpdateOnPremWorkerGroup
+
+<!-- UsageSnippet language="go" operationID="updateConfigGroupByProductAndId" method="patch" path="/products/{product}/groups/{id}" example="UpdateGroupExamplesUpdateOnPremWorkerGroup" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Groups.Update(ctx, components.ProductsCoreOutpost, "<id>", components.ConfigGroup{
+        ConfigVersion: criblcontrolplanesdkgo.Pointer("abc1234"),
+        DeployingWorkerCount: criblcontrolplanesdkgo.Pointer[int64](0),
+        Description: criblcontrolplanesdkgo.Pointer("Updated customer-managed Worker Group with remote access enabled"),
+        ID: "goatOnPremIanWg",
+        IncompatibleWorkerCount: criblcontrolplanesdkgo.Pointer[int64](0),
+        LookupDeployments: []components.ConfigGroupLookups{},
+        Name: criblcontrolplanesdkgo.Pointer("goatonpremianwg"),
+        OnPrem: criblcontrolplanesdkgo.Pointer(true),
+        Type: components.TypeOptionsConfigGroupStream.ToPointer(),
+        WorkerCount: criblcontrolplanesdkgo.Pointer[int64](5),
         WorkerRemoteAccess: criblcontrolplanesdkgo.Pointer(true),
     })
     if err != nil {
@@ -379,7 +429,7 @@ func main() {
 | `ctx`                                                                                   | [context.Context](https://pkg.go.dev/context#Context)                                   | :heavy_check_mark:                                                                      | The context to use for the request.                                                     |
 | `product`                                                                               | [components.ProductsCore](../../models/components/productscore.md)                      | :heavy_check_mark:                                                                      | Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for. |
 | `id`                                                                                    | `string`                                                                                | :heavy_check_mark:                                                                      | The <code>id</code> of the Worker Group, Outpost Group, or Edge Fleet to update.        |
-| `configGroup`                                                                           | [components.ConfigGroup](../../models/components/configgroup.md)                        | :heavy_check_mark:                                                                      | ConfigGroup object                                                                      |
+| `configGroup`                                                                           | [components.ConfigGroup](../../models/components/configgroup.md)                        | :heavy_check_mark:                                                                      | ConfigGroup object.                                                                     |
 | `opts`                                                                                  | [][operations.Option](../../models/operations/option.md)                                | :heavy_minus_sign:                                                                      | The options for this request.                                                           |
 
 ### Response
@@ -498,7 +548,7 @@ func main() {
 | `ctx`                                                                                                 | [context.Context](https://pkg.go.dev/context#Context)                                                 | :heavy_check_mark:                                                                                    | The context to use for the request.                                                                   |
 | `product`                                                                                             | [components.ProductsCore](../../models/components/productscore.md)                                    | :heavy_check_mark:                                                                                    | Name of the Cribl product to deploy commits to the Worker Groups, Outpost Groups, or Edge Fleets for. |
 | `id`                                                                                                  | `string`                                                                                              | :heavy_check_mark:                                                                                    | The <code>id</code> of the target Worker Group, Outpost Group, or Edge Fleet for commit deployment.   |
-| `deployRequest`                                                                                       | [components.DeployRequest](../../models/components/deployrequest.md)                                  | :heavy_check_mark:                                                                                    | DeployRequest object                                                                                  |
+| `deployRequest`                                                                                       | [components.DeployRequest](../../models/components/deployrequest.md)                                  | :heavy_check_mark:                                                                                    | DeployRequest object.                                                                                 |
 | `opts`                                                                                                | [][operations.Option](../../models/operations/option.md)                                              | :heavy_minus_sign:                                                                                    | The options for this request.                                                                         |
 
 ### Response

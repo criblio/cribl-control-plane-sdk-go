@@ -22,7 +22,7 @@ func (l *ListOutputRequest) GetType() *components.DestinationType {
 type ListOutputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Destination objects
-	CountedOutput *components.CountedOutput
+	CountedOutputResponse *components.CountedOutputResponse
 }
 
 func (l ListOutputResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +43,9 @@ func (l *ListOutputResponse) GetHTTPMeta() components.HTTPMetadata {
 	return l.HTTPMeta
 }
 
-func (l *ListOutputResponse) GetCountedOutput() *components.CountedOutput {
+func (l *ListOutputResponse) GetCountedOutputResponse() *components.CountedOutputResponse {
 	if l == nil {
 		return nil
 	}
-	return l.CountedOutput
+	return l.CountedOutputResponse
 }

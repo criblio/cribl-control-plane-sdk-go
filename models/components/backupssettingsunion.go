@@ -8,85 +8,65 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type BackupsSettings2 struct {
-}
-
-func (b BackupsSettings2) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(b, "", false)
-}
-
-func (b *BackupsSettings2) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-// #region class-body-backupssettings2
-// #endregion class-body-backupssettings2
-
-type BackupsSettings1 struct {
+type BackupsSettings struct {
 	BackupPersistence string `json:"backupPersistence"`
 	BackupsDirectory  string `json:"backupsDirectory"`
 }
 
-func (b BackupsSettings1) MarshalJSON() ([]byte, error) {
+func (b BackupsSettings) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(b, "", false)
 }
 
-func (b *BackupsSettings1) UnmarshalJSON(data []byte) error {
+func (b *BackupsSettings) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &b, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (b *BackupsSettings1) GetBackupPersistence() string {
+func (b *BackupsSettings) GetBackupPersistence() string {
 	if b == nil {
 		return ""
 	}
 	return b.BackupPersistence
 }
 
-func (b *BackupsSettings1) GetBackupsDirectory() string {
+func (b *BackupsSettings) GetBackupsDirectory() string {
 	if b == nil {
 		return ""
 	}
 	return b.BackupsDirectory
 }
 
-// #region class-body-backupssettings1
-// #endregion class-body-backupssettings1
-
 type BackupsSettingsUnionType string
 
 const (
-	BackupsSettingsUnionTypeBackupsSettings1 BackupsSettingsUnionType = "BackupsSettings_1"
-	BackupsSettingsUnionTypeBackupsSettings2 BackupsSettingsUnionType = "BackupsSettings_2"
+	BackupsSettingsUnionTypeBackupsSettings BackupsSettingsUnionType = "BackupsSettings"
+	BackupsSettingsUnionTypeEmptyObject     BackupsSettingsUnionType = "EmptyObject"
 )
 
 type BackupsSettingsUnion struct {
-	BackupsSettings1 *BackupsSettings1 `queryParam:"inline" union:"member"`
-	BackupsSettings2 *BackupsSettings2 `queryParam:"inline" union:"member"`
+	BackupsSettings *BackupsSettings `queryParam:"inline" union:"member"`
+	EmptyObject     *EmptyObject     `queryParam:"inline" union:"member"`
 
 	Type BackupsSettingsUnionType
 }
 
-func CreateBackupsSettingsUnionBackupsSettings1(backupsSettings1 BackupsSettings1) BackupsSettingsUnion {
-	typ := BackupsSettingsUnionTypeBackupsSettings1
+func CreateBackupsSettingsUnionBackupsSettings(backupsSettings BackupsSettings) BackupsSettingsUnion {
+	typ := BackupsSettingsUnionTypeBackupsSettings
 
 	return BackupsSettingsUnion{
-		BackupsSettings1: &backupsSettings1,
-		Type:             typ,
+		BackupsSettings: &backupsSettings,
+		Type:            typ,
 	}
 }
 
-func CreateBackupsSettingsUnionBackupsSettings2(backupsSettings2 BackupsSettings2) BackupsSettingsUnion {
-	typ := BackupsSettingsUnionTypeBackupsSettings2
+func CreateBackupsSettingsUnionEmptyObject(emptyObject EmptyObject) BackupsSettingsUnion {
+	typ := BackupsSettingsUnionTypeEmptyObject
 
 	return BackupsSettingsUnion{
-		BackupsSettings2: &backupsSettings2,
-		Type:             typ,
+		EmptyObject: &emptyObject,
+		Type:        typ,
 	}
 }
 
@@ -95,19 +75,19 @@ func (u *BackupsSettingsUnion) UnmarshalJSON(data []byte) error {
 	var candidates []utils.UnionCandidate
 
 	// Collect all valid candidates
-	var backupsSettings1 BackupsSettings1 = BackupsSettings1{}
-	if err := utils.UnmarshalJSON(data, &backupsSettings1, "", true, nil); err == nil {
+	var backupsSettings BackupsSettings = BackupsSettings{}
+	if err := utils.UnmarshalJSON(data, &backupsSettings, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  BackupsSettingsUnionTypeBackupsSettings1,
-			Value: &backupsSettings1,
+			Type:  BackupsSettingsUnionTypeBackupsSettings,
+			Value: &backupsSettings,
 		})
 	}
 
-	var backupsSettings2 BackupsSettings2 = BackupsSettings2{}
-	if err := utils.UnmarshalJSON(data, &backupsSettings2, "", true, nil); err == nil {
+	var emptyObject EmptyObject = EmptyObject{}
+	if err := utils.UnmarshalJSON(data, &emptyObject, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  BackupsSettingsUnionTypeBackupsSettings2,
-			Value: &backupsSettings2,
+			Type:  BackupsSettingsUnionTypeEmptyObject,
+			Value: &emptyObject,
 		})
 	}
 
@@ -124,11 +104,11 @@ func (u *BackupsSettingsUnion) UnmarshalJSON(data []byte) error {
 	// Set the union type and value based on the best candidate
 	u.Type = best.Type.(BackupsSettingsUnionType)
 	switch best.Type {
-	case BackupsSettingsUnionTypeBackupsSettings1:
-		u.BackupsSettings1 = best.Value.(*BackupsSettings1)
+	case BackupsSettingsUnionTypeBackupsSettings:
+		u.BackupsSettings = best.Value.(*BackupsSettings)
 		return nil
-	case BackupsSettingsUnionTypeBackupsSettings2:
-		u.BackupsSettings2 = best.Value.(*BackupsSettings2)
+	case BackupsSettingsUnionTypeEmptyObject:
+		u.EmptyObject = best.Value.(*EmptyObject)
 		return nil
 	}
 
@@ -136,12 +116,12 @@ func (u *BackupsSettingsUnion) UnmarshalJSON(data []byte) error {
 }
 
 func (u BackupsSettingsUnion) MarshalJSON() ([]byte, error) {
-	if u.BackupsSettings1 != nil {
-		return utils.MarshalJSON(u.BackupsSettings1, "", true)
+	if u.BackupsSettings != nil {
+		return utils.MarshalJSON(u.BackupsSettings, "", true)
 	}
 
-	if u.BackupsSettings2 != nil {
-		return utils.MarshalJSON(u.BackupsSettings2, "", true)
+	if u.EmptyObject != nil {
+		return utils.MarshalJSON(u.EmptyObject, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type BackupsSettingsUnion: all fields are null")

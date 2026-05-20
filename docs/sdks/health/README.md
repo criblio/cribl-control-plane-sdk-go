@@ -10,7 +10,7 @@ Actions related to REST server health
 
 ## Get
 
-Get the current health status of the server (Leader or Worker Node).
+Get the current health status of the server (Leader or Worker Node).  In Distributed deployments, requests routed to a Worker or Edge node using the [host context](https://docs.cribl.io/cribl-as-code/api#base-url-group-fleet-host) require a Bearer token for [authentication](https://docs.cribl.io/cribl-as-code/api-auth/).
 
 ### Example Usage
 
@@ -20,6 +20,8 @@ package main
 
 import(
 	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"log"
 )
@@ -29,6 +31,9 @@ func main() {
 
     s := criblcontrolplanesdkgo.New(
         "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
     )
 
     res, err := s.Health.Get(ctx)

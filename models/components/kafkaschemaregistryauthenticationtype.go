@@ -17,8 +17,10 @@ type KafkaSchemaRegistryAuthenticationType struct {
 	// Maximum number of times to try fetching schemas from the Schema Registry
 	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// Credentials to use when authenticating with the schema registry using basic HTTP authentication
-	Auth *AuthTypeKafkaSchemaRegistry                  `json:"auth,omitzero"`
-	TLS  *TLSSettingsClientSideTypeKafkaSchemaRegistry `json:"tls,omitzero"`
+	Auth *AuthType                                `json:"auth,omitzero"`
+	TLS  *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	// Binds 'schemaRegistryURL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'schemaRegistryURL' at runtime.
+	TemplateSchemaRegistryURL *string `json:"__template_schemaRegistryURL,omitzero"`
 }
 
 func (k KafkaSchemaRegistryAuthenticationType) MarshalJSON() ([]byte, error) {
@@ -67,16 +69,23 @@ func (k *KafkaSchemaRegistryAuthenticationType) GetMaxRetries() *float64 {
 	return k.MaxRetries
 }
 
-func (k *KafkaSchemaRegistryAuthenticationType) GetAuth() *AuthTypeKafkaSchemaRegistry {
+func (k *KafkaSchemaRegistryAuthenticationType) GetAuth() *AuthType {
 	if k == nil {
 		return nil
 	}
 	return k.Auth
 }
 
-func (k *KafkaSchemaRegistryAuthenticationType) GetTLS() *TLSSettingsClientSideTypeKafkaSchemaRegistry {
+func (k *KafkaSchemaRegistryAuthenticationType) GetTLS() *TLSSettingsClientSideTypeCaPathCertPath {
 	if k == nil {
 		return nil
 	}
 	return k.TLS
+}
+
+func (k *KafkaSchemaRegistryAuthenticationType) GetTemplateSchemaRegistryURL() *string {
+	if k == nil {
+		return nil
+	}
+	return k.TemplateSchemaRegistryURL
 }

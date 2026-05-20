@@ -31,22 +31,22 @@ func (e *OutputDatadogType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// SendLogsAs - The content type to use when sending logs
-type SendLogsAs string
+// OutputDatadogSendLogsAs - The content type to use when sending logs
+type OutputDatadogSendLogsAs string
 
 const (
-	// SendLogsAsText text/plain
-	SendLogsAsText SendLogsAs = "text"
-	// SendLogsAsJSON application/json
-	SendLogsAsJSON SendLogsAs = "json"
+	// OutputDatadogSendLogsAsText text/plain
+	OutputDatadogSendLogsAsText OutputDatadogSendLogsAs = "text"
+	// OutputDatadogSendLogsAsJSON application/json
+	OutputDatadogSendLogsAsJSON OutputDatadogSendLogsAs = "json"
 )
 
-func (e SendLogsAs) ToPointer() *SendLogsAs {
+func (e OutputDatadogSendLogsAs) ToPointer() *OutputDatadogSendLogsAs {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *SendLogsAs) IsExact() bool {
+func (e *OutputDatadogSendLogsAs) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "text", "json":
@@ -93,32 +93,32 @@ func (e *OutputDatadogSeverity) IsExact() bool {
 	return false
 }
 
-// DatadogSite - Datadog site to which events should be sent
-type DatadogSite string
+// OutputDatadogDatadogSite - Datadog site to which events should be sent
+type OutputDatadogDatadogSite string
 
 const (
-	// DatadogSiteUs US
-	DatadogSiteUs DatadogSite = "us"
-	// DatadogSiteUs3 US3
-	DatadogSiteUs3 DatadogSite = "us3"
-	// DatadogSiteUs5 US5
-	DatadogSiteUs5 DatadogSite = "us5"
-	// DatadogSiteEu Europe
-	DatadogSiteEu DatadogSite = "eu"
-	// DatadogSiteFed1 US1-FED
-	DatadogSiteFed1 DatadogSite = "fed1"
-	// DatadogSiteAp1 AP1
-	DatadogSiteAp1 DatadogSite = "ap1"
-	// DatadogSiteCustom Custom
-	DatadogSiteCustom DatadogSite = "custom"
+	// OutputDatadogDatadogSiteUs US
+	OutputDatadogDatadogSiteUs OutputDatadogDatadogSite = "us"
+	// OutputDatadogDatadogSiteUs3 US3
+	OutputDatadogDatadogSiteUs3 OutputDatadogDatadogSite = "us3"
+	// OutputDatadogDatadogSiteUs5 US5
+	OutputDatadogDatadogSiteUs5 OutputDatadogDatadogSite = "us5"
+	// OutputDatadogDatadogSiteEu Europe
+	OutputDatadogDatadogSiteEu OutputDatadogDatadogSite = "eu"
+	// OutputDatadogDatadogSiteFed1 US1-FED
+	OutputDatadogDatadogSiteFed1 OutputDatadogDatadogSite = "fed1"
+	// OutputDatadogDatadogSiteAp1 AP1
+	OutputDatadogDatadogSiteAp1 OutputDatadogDatadogSite = "ap1"
+	// OutputDatadogDatadogSiteCustom Custom
+	OutputDatadogDatadogSiteCustom OutputDatadogDatadogSite = "custom"
 )
 
-func (e DatadogSite) ToPointer() *DatadogSite {
+func (e OutputDatadogDatadogSite) ToPointer() *OutputDatadogDatadogSite {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *DatadogSite) IsExact() bool {
+func (e *OutputDatadogDatadogSite) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "us", "us3", "us5", "eu", "fed1", "ap1", "custom":
@@ -155,7 +155,7 @@ type OutputDatadog struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The content type to use when sending logs
-	ContentType *SendLogsAs `json:"contentType,omitzero"`
+	ContentType *OutputDatadogSendLogsAs `json:"contentType,omitzero"`
 	// Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
 	Message *string `json:"message,omitzero"`
 	// Name of the source to send with logs. When you send logs as JSON objects, the event's 'source' field (if set) will override this value.
@@ -173,7 +173,7 @@ type OutputDatadog struct {
 	// Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
 	Severity *OutputDatadogSeverity `json:"severity,omitzero"`
 	// Datadog site to which events should be sent
-	Site *DatadogSite `json:"site,omitzero"`
+	Site *OutputDatadogDatadogSite `json:"site,omitzero"`
 	// If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
 	SendCountersAsCount *bool `json:"sendCountersAsCount,omitzero"`
 	// Maximum number of ongoing requests before blocking
@@ -193,7 +193,7 @@ type OutputDatadog struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -201,14 +201,14 @@ type OutputDatadog struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType *AuthenticationMethodOptions2 `json:"authType,omitzero"`
+	AuthType *AuthenticationMethodOptionsAPI `json:"authType,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	Description        *string  `json:"description,omitzero"`
@@ -219,7 +219,7 @@ type OutputDatadog struct {
 	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
 	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
 	PqMode *ModeOptions `json:"pqMode,omitzero"`
-	// The maximum number of events to hold in memory before writing the events to disk
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
 	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
 	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
 	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
@@ -233,11 +233,21 @@ type OutputDatadog struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	PqControls       *OutputDatadogPqControls  `json:"pqControls,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                  `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *OutputDatadogPqControls `json:"pqControls,omitzero"`
 	// Organization's API key in Datadog
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'tags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tags' at runtime.
+	TemplateTags *string `json:"__template_tags,omitzero"`
+	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
+	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (o OutputDatadog) MarshalJSON() ([]byte, error) {
@@ -293,7 +303,7 @@ func (o *OutputDatadog) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputDatadog) GetContentType() *SendLogsAs {
+func (o *OutputDatadog) GetContentType() *OutputDatadogSendLogsAs {
 	if o == nil {
 		return nil
 	}
@@ -356,7 +366,7 @@ func (o *OutputDatadog) GetSeverity() *OutputDatadogSeverity {
 	return o.Severity
 }
 
-func (o *OutputDatadog) GetSite() *DatadogSite {
+func (o *OutputDatadog) GetSite() *OutputDatadogDatadogSite {
 	if o == nil {
 		return nil
 	}
@@ -419,7 +429,7 @@ func (o *OutputDatadog) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputDatadog) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputDatadog) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -447,7 +457,7 @@ func (o *OutputDatadog) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputDatadog) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputDatadog) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}
@@ -475,7 +485,7 @@ func (o *OutputDatadog) GetOnBackpressure() *BackpressureBehaviorOptions {
 	return o.OnBackpressure
 }
 
-func (o *OutputDatadog) GetAuthType() *AuthenticationMethodOptions2 {
+func (o *OutputDatadog) GetAuthType() *AuthenticationMethodOptionsAPI {
 	if o == nil {
 		return nil
 	}
@@ -573,6 +583,13 @@ func (o *OutputDatadog) GetPqOnBackpressure() *QueueFullBehaviorOptions {
 	return o.PqOnBackpressure
 }
 
+func (o *OutputDatadog) GetPqMaxBufferSizeBytes() *string {
+	if o == nil {
+		return nil
+	}
+	return o.PqMaxBufferSizeBytes
+}
+
 func (o *OutputDatadog) GetPqControls() *OutputDatadogPqControls {
 	if o == nil {
 		return nil
@@ -592,4 +609,32 @@ func (o *OutputDatadog) GetTextSecret() *string {
 		return nil
 	}
 	return o.TextSecret
+}
+
+func (o *OutputDatadog) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
+}
+
+func (o *OutputDatadog) GetTemplateTags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateTags
+}
+
+func (o *OutputDatadog) GetTemplateFailedRequestLoggingMode() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateFailedRequestLoggingMode
+}
+
+func (o *OutputDatadog) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }

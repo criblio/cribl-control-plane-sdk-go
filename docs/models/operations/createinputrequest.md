@@ -1,6 +1,6 @@
 # CreateInputRequest
 
-Input object
+Input object.
 
 
 ## Supported Types
@@ -123,6 +123,12 @@ createInputRequest := operations.CreateCreateInputRequestMicrosoftGraph(operatio
 
 ```go
 createInputRequest := operations.CreateCreateInputRequestEventhub(operations.CreateInputInputEventhub{/* values here */})
+```
+
+### CreateInputInputEventhubAmqp
+
+```go
+createInputRequest := operations.CreateCreateInputRequestEventhubAmqp(operations.CreateInputInputEventhubAmqp{/* values here */})
 ```
 
 ### CreateInputInputExec
@@ -323,6 +329,12 @@ createInputRequest := operations.CreateCreateInputRequestWef(operations.CreateIn
 createInputRequest := operations.CreateCreateInputRequestWinEventLogs(operations.CreateInputInputWinEventLogs{/* values here */})
 ```
 
+### CreateInputInputAppleUnifiedLogs
+
+```go
+createInputRequest := operations.CreateCreateInputRequestAppleUnifiedLogs(operations.CreateInputInputAppleUnifiedLogs{/* values here */})
+```
+
 ### CreateInputInputRawUDP
 
 ```go
@@ -365,6 +377,12 @@ createInputRequest := operations.CreateCreateInputRequestNetflow(operations.Crea
 createInputRequest := operations.CreateCreateInputRequestSecurityLake(operations.CreateInputInputSecurityLake{/* values here */})
 ```
 
+### CreateInputInputServicenowTable
+
+```go
+createInputRequest := operations.CreateCreateInputRequestServicenowTable(operations.CreateInputInputServicenowTable{/* values here */})
+```
+
 ### CreateInputInputZscalerHec
 
 ```go
@@ -375,6 +393,24 @@ createInputRequest := operations.CreateCreateInputRequestZscalerHec(operations.C
 
 ```go
 createInputRequest := operations.CreateCreateInputRequestCloudflareHec(operations.CreateInputInputCloudflareHec{/* values here */})
+```
+
+### CreateInputInputOpenaiComplianceLogs
+
+```go
+createInputRequest := operations.CreateCreateInputRequestOpenaiComplianceLogs(operations.CreateInputInputOpenaiComplianceLogs{/* values here */})
+```
+
+### CreateInputInputAnthropicCompliance
+
+```go
+createInputRequest := operations.CreateCreateInputRequestAnthropicCompliance(operations.CreateInputInputAnthropicCompliance{/* values here */})
+```
+
+### CreateInputInputOkta
+
+```go
+createInputRequest := operations.CreateCreateInputRequestOkta(operations.CreateInputInputOkta{/* values here */})
 ```
 
 ## Union Discrimination
@@ -423,6 +459,8 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputMicrosoftGraph is populated
 	case operations.CreateInputRequestTypeEventhub:
 		// createInputRequest.CreateInputInputEventhub is populated
+	case operations.CreateInputRequestTypeEventhubAmqp:
+		// createInputRequest.CreateInputInputEventhubAmqp is populated
 	case operations.CreateInputRequestTypeExec:
 		// createInputRequest.CreateInputInputExec is populated
 	case operations.CreateInputRequestTypeFirehose:
@@ -489,6 +527,8 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputWef is populated
 	case operations.CreateInputRequestTypeWinEventLogs:
 		// createInputRequest.CreateInputInputWinEventLogs is populated
+	case operations.CreateInputRequestTypeAppleUnifiedLogs:
+		// createInputRequest.CreateInputInputAppleUnifiedLogs is populated
 	case operations.CreateInputRequestTypeRawUDP:
 		// createInputRequest.CreateInputInputRawUDP is populated
 	case operations.CreateInputRequestTypeJournalFiles:
@@ -503,9 +543,17 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputNetflow is populated
 	case operations.CreateInputRequestTypeSecurityLake:
 		// createInputRequest.CreateInputInputSecurityLake is populated
+	case operations.CreateInputRequestTypeServicenowTable:
+		// createInputRequest.CreateInputInputServicenowTable is populated
 	case operations.CreateInputRequestTypeZscalerHec:
 		// createInputRequest.CreateInputInputZscalerHec is populated
 	case operations.CreateInputRequestTypeCloudflareHec:
 		// createInputRequest.CreateInputInputCloudflareHec is populated
+	case operations.CreateInputRequestTypeOpenaiComplianceLogs:
+		// createInputRequest.CreateInputInputOpenaiComplianceLogs is populated
+	case operations.CreateInputRequestTypeAnthropicCompliance:
+		// createInputRequest.CreateInputInputAnthropicCompliance is populated
+	case operations.CreateInputRequestTypeOkta:
+		// createInputRequest.CreateInputInputOkta is populated
 }
 ```

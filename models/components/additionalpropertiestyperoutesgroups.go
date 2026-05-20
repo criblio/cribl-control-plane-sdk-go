@@ -6,7 +6,7 @@ type AdditionalPropertiesTypeRoutesGroups struct {
 	// Brief description of the Route Group.
 	Description *string `json:"description,omitzero"`
 	// Relative position of the Route Group among all Route Groups. Routes are evaluated in ascending order according to the index value of their Route Group.
-	Index float64 `json:"index"`
+	Index int64 `json:"index"`
 	// Name of the Route Group.
 	Name string `json:"name"`
 }
@@ -18,9 +18,9 @@ func (a *AdditionalPropertiesTypeRoutesGroups) GetDescription() *string {
 	return a.Description
 }
 
-func (a *AdditionalPropertiesTypeRoutesGroups) GetIndex() float64 {
+func (a *AdditionalPropertiesTypeRoutesGroups) GetIndex() int64 {
 	if a == nil {
-		return 0.0
+		return 0
 	}
 	return a.Index
 }

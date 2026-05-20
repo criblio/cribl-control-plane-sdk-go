@@ -10,7 +10,7 @@ import (
 type GetOutputSystemByPackRequest struct {
 	// Type of Destination to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
 	Type *components.DestinationType `queryParam:"style=form,explode=true,name=type"`
-	// The <code>id</code> of the Pack to list.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
 
@@ -31,7 +31,7 @@ func (g *GetOutputSystemByPackRequest) GetPack() string {
 type GetOutputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Destination objects
-	CountedOutput *components.CountedOutput
+	CountedOutputResponse *components.CountedOutputResponse
 }
 
 func (g GetOutputSystemByPackResponse) MarshalJSON() ([]byte, error) {
@@ -52,9 +52,9 @@ func (g *GetOutputSystemByPackResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetOutputSystemByPackResponse) GetCountedOutput() *components.CountedOutput {
+func (g *GetOutputSystemByPackResponse) GetCountedOutputResponse() *components.CountedOutputResponse {
 	if g == nil {
 		return nil
 	}
-	return g.CountedOutput
+	return g.CountedOutputResponse
 }

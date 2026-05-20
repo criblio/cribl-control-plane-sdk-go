@@ -7,13 +7,18 @@ import (
 )
 
 type CacheConnection struct {
-	AcceleratedFields       []string                       `json:"acceleratedFields,omitzero"`
-	BackfillStatus          *CacheConnectionBackfillStatus `json:"backfillStatus,omitzero"`
-	CacheRef                string                         `json:"cacheRef"`
-	CreatedAt               float64                        `json:"createdAt"`
-	LakehouseConnectionType *LakehouseConnectionType       `json:"lakehouseConnectionType,omitzero"`
-	MigrationQueryID        *string                        `json:"migrationQueryId,omitzero"`
-	RetentionInDays         float64                        `json:"retentionInDays"`
+	// Accelerated fields (materialized columns) for the cache connection.
+	AcceleratedFields []string                       `json:"acceleratedFields,omitzero"`
+	BackfillStatus    *CacheConnectionBackfillStatus `json:"backfillStatus,omitzero"`
+	// Identifier of the Lakehouse cache referenced by the Dataset.
+	CacheRef string `json:"cacheRef"`
+	// Timestamp when the continuous data feed to the Lakehouse cache started, in Unix time (milliseconds).
+	CreatedAt               float64                  `json:"createdAt"`
+	LakehouseConnectionType *LakehouseConnectionType `json:"lakehouseConnectionType,omitzero"`
+	// Query identifier of the active Lakehouse migration. Omitted if no migration is in progress.
+	MigrationQueryID *string `json:"migrationQueryId,omitzero"`
+	// Retention period for the Lakehouse cache connection, in days.
+	RetentionInDays float64 `json:"retentionInDays"`
 }
 
 func (c CacheConnection) MarshalJSON() ([]byte, error) {

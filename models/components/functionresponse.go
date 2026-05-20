@@ -12,145 +12,149 @@ import (
 type FunctionResponseType string
 
 const (
-	FunctionResponseTypeAggregateMetrics          FunctionResponseType = "aggregate_metrics"
-	FunctionResponseTypeAggregation               FunctionResponseType = "aggregation"
-	FunctionResponseTypeAutoTimestamp             FunctionResponseType = "auto_timestamp"
-	FunctionResponseTypeCef                       FunctionResponseType = "cef"
-	FunctionResponseTypeChain                     FunctionResponseType = "chain"
-	FunctionResponseTypeClone                     FunctionResponseType = "clone"
-	FunctionResponseTypeCode                      FunctionResponseType = "code"
-	FunctionResponseTypeComment                   FunctionResponseType = "comment"
-	FunctionResponseTypeDistinct                  FunctionResponseType = "distinct"
-	FunctionResponseTypeDNSLookup                 FunctionResponseType = "dns_lookup"
-	FunctionResponseTypeDrop                      FunctionResponseType = "drop"
-	FunctionResponseTypeDropDimensions            FunctionResponseType = "drop_dimensions"
-	FunctionResponseTypeDynamicSampling           FunctionResponseType = "dynamic_sampling"
-	FunctionResponseTypeEval                      FunctionResponseType = "eval"
-	FunctionResponseTypeEventBreaker              FunctionResponseType = "event_breaker"
-	FunctionResponseTypeEventstats                FunctionResponseType = "eventstats"
-	FunctionResponseTypeExternaldata              FunctionResponseType = "externaldata"
-	FunctionResponseTypeFlatten                   FunctionResponseType = "flatten"
-	FunctionResponseTypeFoldkeys                  FunctionResponseType = "foldkeys"
-	FunctionResponseTypeGenStats                  FunctionResponseType = "gen_stats"
-	FunctionResponseTypeGeoip                     FunctionResponseType = "geoip"
-	FunctionResponseTypeGrok                      FunctionResponseType = "grok"
-	FunctionResponseTypeHandlebars                FunctionResponseType = "handlebars"
-	FunctionResponseTypeJoin                      FunctionResponseType = "join"
-	FunctionResponseTypeJSONUnroll                FunctionResponseType = "json_unroll"
-	FunctionResponseTypeLakeExport                FunctionResponseType = "lake_export"
-	FunctionResponseTypeLimit                     FunctionResponseType = "limit"
-	FunctionResponseTypeLocalSearchDatatypeParser FunctionResponseType = "local_search_datatype_parser"
-	FunctionResponseTypeLocalSearchRulesetRunner  FunctionResponseType = "local_search_ruleset_runner"
-	FunctionResponseTypeLocalSearchSchemaMapper   FunctionResponseType = "local_search_schema_mapper"
-	FunctionResponseTypeLocalSearchTransformer    FunctionResponseType = "local_search_transformer"
-	FunctionResponseTypeLookup                    FunctionResponseType = "lookup"
-	FunctionResponseTypeMask                      FunctionResponseType = "mask"
-	FunctionResponseTypeMvExpand                  FunctionResponseType = "mv_expand"
-	FunctionResponseTypeMvPull                    FunctionResponseType = "mv_pull"
-	FunctionResponseTypeNotificationPolicies      FunctionResponseType = "notification_policies"
-	FunctionResponseTypeNotifications             FunctionResponseType = "notifications"
-	FunctionResponseTypeNotify                    FunctionResponseType = "notify"
-	FunctionResponseTypeNumerify                  FunctionResponseType = "numerify"
-	FunctionResponseTypeOtlpLogs                  FunctionResponseType = "otlp_logs"
-	FunctionResponseTypeOtlpMetrics               FunctionResponseType = "otlp_metrics"
-	FunctionResponseTypeOtlpTraces                FunctionResponseType = "otlp_traces"
-	FunctionResponseTypePack                      FunctionResponseType = "pack"
-	FunctionResponseTypePivot                     FunctionResponseType = "pivot"
-	FunctionResponseTypePublishMetrics            FunctionResponseType = "publish_metrics"
-	FunctionResponseTypeRedis                     FunctionResponseType = "redis"
-	FunctionResponseTypeRegexExtract              FunctionResponseType = "regex_extract"
-	FunctionResponseTypeRegexFilter               FunctionResponseType = "regex_filter"
-	FunctionResponseTypeRename                    FunctionResponseType = "rename"
-	FunctionResponseTypeRollupMetrics             FunctionResponseType = "rollup_metrics"
-	FunctionResponseTypeSampling                  FunctionResponseType = "sampling"
-	FunctionResponseTypeSend                      FunctionResponseType = "send"
-	FunctionResponseTypeSensitiveDataScanner      FunctionResponseType = "sensitive_data_scanner"
-	FunctionResponseTypeSerde                     FunctionResponseType = "serde"
-	FunctionResponseTypeSerialize                 FunctionResponseType = "serialize"
-	FunctionResponseTypeSidlookup                 FunctionResponseType = "sidlookup"
-	FunctionResponseTypeSignalFilter              FunctionResponseType = "signal_filter"
-	FunctionResponseTypeSnmpTrapSerialize         FunctionResponseType = "snmp_trap_serialize"
-	FunctionResponseTypeSort                      FunctionResponseType = "sort"
-	FunctionResponseTypeStore                     FunctionResponseType = "store"
-	FunctionResponseTypeSuppress                  FunctionResponseType = "suppress"
-	FunctionResponseTypeTee                       FunctionResponseType = "tee"
-	FunctionResponseTypeTrimTimestamp             FunctionResponseType = "trim_timestamp"
-	FunctionResponseTypeUnion                     FunctionResponseType = "union"
-	FunctionResponseTypeUnroll                    FunctionResponseType = "unroll"
-	FunctionResponseTypeWindow                    FunctionResponseType = "window"
-	FunctionResponseTypeXMLUnroll                 FunctionResponseType = "xml_unroll"
-	FunctionResponseTypeUnknown                   FunctionResponseType = "UNKNOWN"
+	FunctionResponseTypeAggregateMetrics               FunctionResponseType = "aggregate_metrics"
+	FunctionResponseTypeAggregation                    FunctionResponseType = "aggregation"
+	FunctionResponseTypeAutoTimestamp                  FunctionResponseType = "auto_timestamp"
+	FunctionResponseTypeCef                            FunctionResponseType = "cef"
+	FunctionResponseTypeChain                          FunctionResponseType = "chain"
+	FunctionResponseTypeClone                          FunctionResponseType = "clone"
+	FunctionResponseTypeCode                           FunctionResponseType = "code"
+	FunctionResponseTypeComment                        FunctionResponseType = "comment"
+	FunctionResponseTypeDistinct                       FunctionResponseType = "distinct"
+	FunctionResponseTypeDNSLookup                      FunctionResponseType = "dns_lookup"
+	FunctionResponseTypeDrop                           FunctionResponseType = "drop"
+	FunctionResponseTypeDropDimensions                 FunctionResponseType = "drop_dimensions"
+	FunctionResponseTypeDynamicSampling                FunctionResponseType = "dynamic_sampling"
+	FunctionResponseTypeEval                           FunctionResponseType = "eval"
+	FunctionResponseTypeEventBreaker                   FunctionResponseType = "event_breaker"
+	FunctionResponseTypeEventstats                     FunctionResponseType = "eventstats"
+	FunctionResponseTypeExternaldata                   FunctionResponseType = "externaldata"
+	FunctionResponseTypeFlatten                        FunctionResponseType = "flatten"
+	FunctionResponseTypeFoldkeys                       FunctionResponseType = "foldkeys"
+	FunctionResponseTypeGenStats                       FunctionResponseType = "gen_stats"
+	FunctionResponseTypeGeoip                          FunctionResponseType = "geoip"
+	FunctionResponseTypeGrok                           FunctionResponseType = "grok"
+	FunctionResponseTypeHandlebars                     FunctionResponseType = "handlebars"
+	FunctionResponseTypeJoin                           FunctionResponseType = "join"
+	FunctionResponseTypeJSONUnroll                     FunctionResponseType = "json_unroll"
+	FunctionResponseTypeLakeExport                     FunctionResponseType = "lake_export"
+	FunctionResponseTypeLimit                          FunctionResponseType = "limit"
+	FunctionResponseTypeLocalSearchDatatypeParser      FunctionResponseType = "local_search_datatype_parser"
+	FunctionResponseTypeLocalSearchRulesetRunner       FunctionResponseType = "local_search_ruleset_runner"
+	FunctionResponseTypeLocalSearchSchemaMapper        FunctionResponseType = "local_search_schema_mapper"
+	FunctionResponseTypeLocalSearchTimeRangeNormalizer FunctionResponseType = "local_search_time_range_normalizer"
+	FunctionResponseTypeLocalSearchTransformer         FunctionResponseType = "local_search_transformer"
+	FunctionResponseTypeLookup                         FunctionResponseType = "lookup"
+	FunctionResponseTypeMask                           FunctionResponseType = "mask"
+	FunctionResponseTypeMvExpand                       FunctionResponseType = "mv_expand"
+	FunctionResponseTypeMvPull                         FunctionResponseType = "mv_pull"
+	FunctionResponseTypeNotificationPolicies           FunctionResponseType = "notification_policies"
+	FunctionResponseTypeNotifications                  FunctionResponseType = "notifications"
+	FunctionResponseTypeNotify                         FunctionResponseType = "notify"
+	FunctionResponseTypeNumerify                       FunctionResponseType = "numerify"
+	FunctionResponseTypeOtlpLogs                       FunctionResponseType = "otlp_logs"
+	FunctionResponseTypeOtlpMetrics                    FunctionResponseType = "otlp_metrics"
+	FunctionResponseTypeOtlpTraces                     FunctionResponseType = "otlp_traces"
+	FunctionResponseTypePack                           FunctionResponseType = "pack"
+	FunctionResponseTypePivot                          FunctionResponseType = "pivot"
+	FunctionResponseTypePublishMetrics                 FunctionResponseType = "publish_metrics"
+	FunctionResponseTypeRedis                          FunctionResponseType = "redis"
+	FunctionResponseTypeRegexExtract                   FunctionResponseType = "regex_extract"
+	FunctionResponseTypeRegexFilter                    FunctionResponseType = "regex_filter"
+	FunctionResponseTypeRename                         FunctionResponseType = "rename"
+	FunctionResponseTypeRollupMetrics                  FunctionResponseType = "rollup_metrics"
+	FunctionResponseTypeSampling                       FunctionResponseType = "sampling"
+	FunctionResponseTypeSearchEngineExport             FunctionResponseType = "search_engine_export"
+	FunctionResponseTypeSend                           FunctionResponseType = "send"
+	FunctionResponseTypeSensitiveDataScanner           FunctionResponseType = "sensitive_data_scanner"
+	FunctionResponseTypeSerde                          FunctionResponseType = "serde"
+	FunctionResponseTypeSerialize                      FunctionResponseType = "serialize"
+	FunctionResponseTypeSidlookup                      FunctionResponseType = "sidlookup"
+	FunctionResponseTypeSignalFilter                   FunctionResponseType = "signal_filter"
+	FunctionResponseTypeSnmpTrapSerialize              FunctionResponseType = "snmp_trap_serialize"
+	FunctionResponseTypeSort                           FunctionResponseType = "sort"
+	FunctionResponseTypeStore                          FunctionResponseType = "store"
+	FunctionResponseTypeSuppress                       FunctionResponseType = "suppress"
+	FunctionResponseTypeTee                            FunctionResponseType = "tee"
+	FunctionResponseTypeTrimTimestamp                  FunctionResponseType = "trim_timestamp"
+	FunctionResponseTypeUnion                          FunctionResponseType = "union"
+	FunctionResponseTypeUnroll                         FunctionResponseType = "unroll"
+	FunctionResponseTypeWindow                         FunctionResponseType = "window"
+	FunctionResponseTypeXMLUnroll                      FunctionResponseType = "xml_unroll"
+	FunctionResponseTypeUnknown                        FunctionResponseType = "UNKNOWN"
 )
 
 type FunctionResponse struct {
-	FunctionAggregateMetrics          *FunctionAggregateMetrics          `queryParam:"inline" union:"member"`
-	FunctionAggregation               *FunctionAggregation               `queryParam:"inline" union:"member"`
-	FunctionAutoTimestamp             *FunctionAutoTimestamp             `queryParam:"inline" union:"member"`
-	FunctionCef                       *FunctionCef                       `queryParam:"inline" union:"member"`
-	FunctionChain                     *FunctionChain                     `queryParam:"inline" union:"member"`
-	FunctionClone                     *FunctionClone                     `queryParam:"inline" union:"member"`
-	FunctionCode                      *FunctionCode                      `queryParam:"inline" union:"member"`
-	FunctionComment                   *FunctionComment                   `queryParam:"inline" union:"member"`
-	FunctionDistinct                  *FunctionDistinct                  `queryParam:"inline" union:"member"`
-	FunctionDNSLookup                 *FunctionDNSLookup                 `queryParam:"inline" union:"member"`
-	FunctionDrop                      *FunctionDrop                      `queryParam:"inline" union:"member"`
-	FunctionDropDimensions            *FunctionDropDimensions            `queryParam:"inline" union:"member"`
-	FunctionDynamicSampling           *FunctionDynamicSampling           `queryParam:"inline" union:"member"`
-	FunctionEval                      *FunctionEval                      `queryParam:"inline" union:"member"`
-	FunctionEventBreaker              *FunctionEventBreaker              `queryParam:"inline" union:"member"`
-	FunctionEventstats                *FunctionEventstats                `queryParam:"inline" union:"member"`
-	FunctionExternaldata              *FunctionExternaldata              `queryParam:"inline" union:"member"`
-	FunctionFlatten                   *FunctionFlatten                   `queryParam:"inline" union:"member"`
-	FunctionFoldkeys                  *FunctionFoldkeys                  `queryParam:"inline" union:"member"`
-	FunctionGenStats                  *FunctionGenStats                  `queryParam:"inline" union:"member"`
-	FunctionGeoip                     *FunctionGeoip                     `queryParam:"inline" union:"member"`
-	FunctionGrok                      *FunctionGrok                      `queryParam:"inline" union:"member"`
-	FunctionHandlebars                *FunctionHandlebars                `queryParam:"inline" union:"member"`
-	FunctionJoin                      *FunctionJoin                      `queryParam:"inline" union:"member"`
-	FunctionJSONUnroll                *FunctionJSONUnroll                `queryParam:"inline" union:"member"`
-	FunctionLakeExport                *FunctionLakeExport                `queryParam:"inline" union:"member"`
-	FunctionLimit                     *FunctionLimit                     `queryParam:"inline" union:"member"`
-	FunctionLocalSearchDatatypeParser *FunctionLocalSearchDatatypeParser `queryParam:"inline" union:"member"`
-	FunctionLocalSearchRulesetRunner  *FunctionLocalSearchRulesetRunner  `queryParam:"inline" union:"member"`
-	FunctionLocalSearchSchemaMapper   *FunctionLocalSearchSchemaMapper   `queryParam:"inline" union:"member"`
-	FunctionLocalSearchTransformer    *FunctionLocalSearchTransformer    `queryParam:"inline" union:"member"`
-	FunctionLookup                    *FunctionLookup                    `queryParam:"inline" union:"member"`
-	FunctionMask                      *FunctionMask                      `queryParam:"inline" union:"member"`
-	FunctionMvExpand                  *FunctionMvExpand                  `queryParam:"inline" union:"member"`
-	FunctionMvPull                    *FunctionMvPull                    `queryParam:"inline" union:"member"`
-	FunctionNotificationPolicies      *FunctionNotificationPolicies      `queryParam:"inline" union:"member"`
-	FunctionNotifications             *FunctionNotifications             `queryParam:"inline" union:"member"`
-	FunctionNotify                    *FunctionNotify                    `queryParam:"inline" union:"member"`
-	FunctionNumerify                  *FunctionNumerify                  `queryParam:"inline" union:"member"`
-	FunctionOtlpLogs                  *FunctionOtlpLogs                  `queryParam:"inline" union:"member"`
-	FunctionOtlpMetrics               *FunctionOtlpMetrics               `queryParam:"inline" union:"member"`
-	FunctionOtlpTraces                *FunctionOtlpTraces                `queryParam:"inline" union:"member"`
-	FunctionPack                      *FunctionPack                      `queryParam:"inline" union:"member"`
-	FunctionPivot                     *FunctionPivot                     `queryParam:"inline" union:"member"`
-	FunctionPublishMetrics            *FunctionPublishMetrics            `queryParam:"inline" union:"member"`
-	FunctionRedis                     *FunctionRedis                     `queryParam:"inline" union:"member"`
-	FunctionRegexExtract              *FunctionRegexExtract              `queryParam:"inline" union:"member"`
-	FunctionRegexFilter               *FunctionRegexFilter               `queryParam:"inline" union:"member"`
-	FunctionRename                    *FunctionRename                    `queryParam:"inline" union:"member"`
-	FunctionRollupMetrics             *FunctionRollupMetrics             `queryParam:"inline" union:"member"`
-	FunctionSampling                  *FunctionSampling                  `queryParam:"inline" union:"member"`
-	FunctionSend                      *FunctionSend                      `queryParam:"inline" union:"member"`
-	FunctionSensitiveDataScanner      *FunctionSensitiveDataScanner      `queryParam:"inline" union:"member"`
-	FunctionSerde                     *FunctionSerde                     `queryParam:"inline" union:"member"`
-	FunctionSerialize                 *FunctionSerialize                 `queryParam:"inline" union:"member"`
-	FunctionSidlookup                 *FunctionSidlookup                 `queryParam:"inline" union:"member"`
-	FunctionSignalFilter              *FunctionSignalFilter              `queryParam:"inline" union:"member"`
-	FunctionSnmpTrapSerialize         *FunctionSnmpTrapSerialize         `queryParam:"inline" union:"member"`
-	FunctionSort                      *FunctionSort                      `queryParam:"inline" union:"member"`
-	FunctionStore                     *FunctionStore                     `queryParam:"inline" union:"member"`
-	FunctionSuppress                  *FunctionSuppress                  `queryParam:"inline" union:"member"`
-	FunctionTee                       *FunctionTee                       `queryParam:"inline" union:"member"`
-	FunctionTrimTimestamp             *FunctionTrimTimestamp             `queryParam:"inline" union:"member"`
-	FunctionUnion                     *FunctionUnion                     `queryParam:"inline" union:"member"`
-	FunctionUnroll                    *FunctionUnroll                    `queryParam:"inline" union:"member"`
-	FunctionWindow                    *FunctionWindow                    `queryParam:"inline" union:"member"`
-	FunctionXMLUnroll                 *FunctionXMLUnroll                 `queryParam:"inline" union:"member"`
-	UnknownRaw                        json.RawMessage                    `json:"-" union:"unknown"`
+	FunctionAggregateMetrics               *FunctionAggregateMetrics               `queryParam:"inline" union:"member"`
+	FunctionAggregation                    *FunctionAggregation                    `queryParam:"inline" union:"member"`
+	FunctionAutoTimestamp                  *FunctionAutoTimestamp                  `queryParam:"inline" union:"member"`
+	FunctionCef                            *FunctionCef                            `queryParam:"inline" union:"member"`
+	FunctionChain                          *FunctionChain                          `queryParam:"inline" union:"member"`
+	FunctionClone                          *FunctionClone                          `queryParam:"inline" union:"member"`
+	FunctionCode                           *FunctionCode                           `queryParam:"inline" union:"member"`
+	FunctionComment                        *FunctionComment                        `queryParam:"inline" union:"member"`
+	FunctionDistinct                       *FunctionDistinct                       `queryParam:"inline" union:"member"`
+	FunctionDNSLookup                      *FunctionDNSLookup                      `queryParam:"inline" union:"member"`
+	FunctionDrop                           *FunctionDrop                           `queryParam:"inline" union:"member"`
+	FunctionDropDimensions                 *FunctionDropDimensions                 `queryParam:"inline" union:"member"`
+	FunctionDynamicSampling                *FunctionDynamicSampling                `queryParam:"inline" union:"member"`
+	FunctionEval                           *FunctionEval                           `queryParam:"inline" union:"member"`
+	FunctionEventBreaker                   *FunctionEventBreaker                   `queryParam:"inline" union:"member"`
+	FunctionEventstats                     *FunctionEventstats                     `queryParam:"inline" union:"member"`
+	FunctionExternaldata                   *FunctionExternaldata                   `queryParam:"inline" union:"member"`
+	FunctionFlatten                        *FunctionFlatten                        `queryParam:"inline" union:"member"`
+	FunctionFoldkeys                       *FunctionFoldkeys                       `queryParam:"inline" union:"member"`
+	FunctionGenStats                       *FunctionGenStats                       `queryParam:"inline" union:"member"`
+	FunctionGeoip                          *FunctionGeoip                          `queryParam:"inline" union:"member"`
+	FunctionGrok                           *FunctionGrok                           `queryParam:"inline" union:"member"`
+	FunctionHandlebars                     *FunctionHandlebars                     `queryParam:"inline" union:"member"`
+	FunctionJoin                           *FunctionJoin                           `queryParam:"inline" union:"member"`
+	FunctionJSONUnroll                     *FunctionJSONUnroll                     `queryParam:"inline" union:"member"`
+	FunctionLakeExport                     *FunctionLakeExport                     `queryParam:"inline" union:"member"`
+	FunctionLimit                          *FunctionLimit                          `queryParam:"inline" union:"member"`
+	FunctionLocalSearchDatatypeParser      *FunctionLocalSearchDatatypeParser      `queryParam:"inline" union:"member"`
+	FunctionLocalSearchRulesetRunner       *FunctionLocalSearchRulesetRunner       `queryParam:"inline" union:"member"`
+	FunctionLocalSearchSchemaMapper        *FunctionLocalSearchSchemaMapper        `queryParam:"inline" union:"member"`
+	FunctionLocalSearchTimeRangeNormalizer *FunctionLocalSearchTimeRangeNormalizer `queryParam:"inline" union:"member"`
+	FunctionLocalSearchTransformer         *FunctionLocalSearchTransformer         `queryParam:"inline" union:"member"`
+	FunctionLookup                         *FunctionLookup                         `queryParam:"inline" union:"member"`
+	FunctionMask                           *FunctionMask                           `queryParam:"inline" union:"member"`
+	FunctionMvExpand                       *FunctionMvExpand                       `queryParam:"inline" union:"member"`
+	FunctionMvPull                         *FunctionMvPull                         `queryParam:"inline" union:"member"`
+	FunctionNotificationPolicies           *FunctionNotificationPolicies           `queryParam:"inline" union:"member"`
+	FunctionNotifications                  *FunctionNotifications                  `queryParam:"inline" union:"member"`
+	FunctionNotify                         *FunctionNotify                         `queryParam:"inline" union:"member"`
+	FunctionNumerify                       *FunctionNumerify                       `queryParam:"inline" union:"member"`
+	FunctionOtlpLogs                       *FunctionOtlpLogs                       `queryParam:"inline" union:"member"`
+	FunctionOtlpMetrics                    *FunctionOtlpMetrics                    `queryParam:"inline" union:"member"`
+	FunctionOtlpTraces                     *FunctionOtlpTraces                     `queryParam:"inline" union:"member"`
+	FunctionPack                           *FunctionPack                           `queryParam:"inline" union:"member"`
+	FunctionPivot                          *FunctionPivot                          `queryParam:"inline" union:"member"`
+	FunctionPublishMetrics                 *FunctionPublishMetrics                 `queryParam:"inline" union:"member"`
+	FunctionRedis                          *FunctionRedis                          `queryParam:"inline" union:"member"`
+	FunctionRegexExtract                   *FunctionRegexExtract                   `queryParam:"inline" union:"member"`
+	FunctionRegexFilter                    *FunctionRegexFilter                    `queryParam:"inline" union:"member"`
+	FunctionRename                         *FunctionRename                         `queryParam:"inline" union:"member"`
+	FunctionRollupMetrics                  *FunctionRollupMetrics                  `queryParam:"inline" union:"member"`
+	FunctionSampling                       *FunctionSampling                       `queryParam:"inline" union:"member"`
+	FunctionSearchEngineExport             *FunctionSearchEngineExport             `queryParam:"inline" union:"member"`
+	FunctionSend                           *FunctionSend                           `queryParam:"inline" union:"member"`
+	FunctionSensitiveDataScanner           *FunctionSensitiveDataScanner           `queryParam:"inline" union:"member"`
+	FunctionSerde                          *FunctionSerde                          `queryParam:"inline" union:"member"`
+	FunctionSerialize                      *FunctionSerialize                      `queryParam:"inline" union:"member"`
+	FunctionSidlookup                      *FunctionSidlookup                      `queryParam:"inline" union:"member"`
+	FunctionSignalFilter                   *FunctionSignalFilter                   `queryParam:"inline" union:"member"`
+	FunctionSnmpTrapSerialize              *FunctionSnmpTrapSerialize              `queryParam:"inline" union:"member"`
+	FunctionSort                           *FunctionSort                           `queryParam:"inline" union:"member"`
+	FunctionStore                          *FunctionStore                          `queryParam:"inline" union:"member"`
+	FunctionSuppress                       *FunctionSuppress                       `queryParam:"inline" union:"member"`
+	FunctionTee                            *FunctionTee                            `queryParam:"inline" union:"member"`
+	FunctionTrimTimestamp                  *FunctionTrimTimestamp                  `queryParam:"inline" union:"member"`
+	FunctionUnion                          *FunctionUnion                          `queryParam:"inline" union:"member"`
+	FunctionUnroll                         *FunctionUnroll                         `queryParam:"inline" union:"member"`
+	FunctionWindow                         *FunctionWindow                         `queryParam:"inline" union:"member"`
+	FunctionXMLUnroll                      *FunctionXMLUnroll                      `queryParam:"inline" union:"member"`
+	UnknownRaw                             json.RawMessage                         `json:"-" union:"unknown"`
 
 	Type FunctionResponseType
 }
@@ -515,6 +519,18 @@ func CreateFunctionResponseLocalSearchSchemaMapper(localSearchSchemaMapper Funct
 	}
 }
 
+func CreateFunctionResponseLocalSearchTimeRangeNormalizer(localSearchTimeRangeNormalizer FunctionLocalSearchTimeRangeNormalizer) FunctionResponse {
+	typ := FunctionResponseTypeLocalSearchTimeRangeNormalizer
+
+	typStr := FunctionLocalSearchTimeRangeNormalizerID(typ)
+	localSearchTimeRangeNormalizer.ID = typStr
+
+	return FunctionResponse{
+		FunctionLocalSearchTimeRangeNormalizer: &localSearchTimeRangeNormalizer,
+		Type:                                   typ,
+	}
+}
+
 func CreateFunctionResponseLocalSearchTransformer(localSearchTransformer FunctionLocalSearchTransformer) FunctionResponse {
 	typ := FunctionResponseTypeLocalSearchTransformer
 
@@ -764,6 +780,18 @@ func CreateFunctionResponseSampling(sampling FunctionSampling) FunctionResponse 
 	return FunctionResponse{
 		FunctionSampling: &sampling,
 		Type:             typ,
+	}
+}
+
+func CreateFunctionResponseSearchEngineExport(searchEngineExport FunctionSearchEngineExport) FunctionResponse {
+	typ := FunctionResponseTypeSearchEngineExport
+
+	typStr := FunctionSearchEngineExportID(typ)
+	searchEngineExport.ID = typStr
+
+	return FunctionResponse{
+		FunctionSearchEngineExport: &searchEngineExport,
+		Type:                       typ,
 	}
 }
 
@@ -1263,6 +1291,15 @@ func (u *FunctionResponse) UnmarshalJSON(data []byte) error {
 		u.FunctionLocalSearchSchemaMapper = functionLocalSearchSchemaMapper
 		u.Type = FunctionResponseTypeLocalSearchSchemaMapper
 		return nil
+	case "local_search_time_range_normalizer":
+		functionLocalSearchTimeRangeNormalizer := new(FunctionLocalSearchTimeRangeNormalizer)
+		if err := utils.UnmarshalJSON(data, &functionLocalSearchTimeRangeNormalizer, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == local_search_time_range_normalizer) type FunctionLocalSearchTimeRangeNormalizer within FunctionResponse: %w", string(data), err)
+		}
+
+		u.FunctionLocalSearchTimeRangeNormalizer = functionLocalSearchTimeRangeNormalizer
+		u.Type = FunctionResponseTypeLocalSearchTimeRangeNormalizer
+		return nil
 	case "local_search_transformer":
 		functionLocalSearchTransformer := new(FunctionLocalSearchTransformer)
 		if err := utils.UnmarshalJSON(data, &functionLocalSearchTransformer, "", true, nil); err != nil {
@@ -1451,6 +1488,15 @@ func (u *FunctionResponse) UnmarshalJSON(data []byte) error {
 
 		u.FunctionSampling = functionSampling
 		u.Type = FunctionResponseTypeSampling
+		return nil
+	case "search_engine_export":
+		functionSearchEngineExport := new(FunctionSearchEngineExport)
+		if err := utils.UnmarshalJSON(data, &functionSearchEngineExport, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == search_engine_export) type FunctionSearchEngineExport within FunctionResponse: %w", string(data), err)
+		}
+
+		u.FunctionSearchEngineExport = functionSearchEngineExport
+		u.Type = FunctionResponseTypeSearchEngineExport
 		return nil
 	case "send":
 		functionSend := new(FunctionSend)
@@ -1725,6 +1771,10 @@ func (u FunctionResponse) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.FunctionLocalSearchSchemaMapper, "", true)
 	}
 
+	if u.FunctionLocalSearchTimeRangeNormalizer != nil {
+		return utils.MarshalJSON(u.FunctionLocalSearchTimeRangeNormalizer, "", true)
+	}
+
 	if u.FunctionLocalSearchTransformer != nil {
 		return utils.MarshalJSON(u.FunctionLocalSearchTransformer, "", true)
 	}
@@ -1807,6 +1857,10 @@ func (u FunctionResponse) MarshalJSON() ([]byte, error) {
 
 	if u.FunctionSampling != nil {
 		return utils.MarshalJSON(u.FunctionSampling, "", true)
+	}
+
+	if u.FunctionSearchEngineExport != nil {
+		return utils.MarshalJSON(u.FunctionSearchEngineExport, "", true)
 	}
 
 	if u.FunctionSend != nil {

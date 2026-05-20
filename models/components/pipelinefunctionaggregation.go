@@ -58,7 +58,7 @@ type PipelineFunctionAggregationConf struct {
 	// Allows Cribl Search-specific aggregation configuration
 	SearchAggMode *string `json:"searchAggMode,omitzero"`
 	// Set of key-value pairs to evaluate and add/set
-	Add []ItemsTypeAdd `json:"add,omitzero"`
+	Add []AddConfFunctionConfSchemaAggregation `json:"add,omitzero"`
 	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
 	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitzero"`
 	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
@@ -166,7 +166,7 @@ func (p *PipelineFunctionAggregationConf) GetSearchAggMode() *string {
 	return p.SearchAggMode
 }
 
-func (p *PipelineFunctionAggregationConf) GetAdd() []ItemsTypeAdd {
+func (p *PipelineFunctionAggregationConf) GetAdd() []AddConfFunctionConfSchemaAggregation {
 	if p == nil {
 		return nil
 	}

@@ -1,0 +1,18 @@
+# InputResponseTypeWinEventLogs
+
+## Example Usage
+
+```go
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+)
+
+value := components.InputResponseTypeWinEventLogsWinEventLogs
+```
+
+
+## Values
+
+| Name                                        | Value                                       |
+| ------------------------------------------- | ------------------------------------------- |
+| `InputResponseTypeWinEventLogsWinEventLogs` | win_event_logs                              |
