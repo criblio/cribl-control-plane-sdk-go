@@ -30,7 +30,7 @@ func (d *DeleteConfigGroupByProductAndIDRequest) GetID() string {
 
 type DeleteConfigGroupByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of ConfigGroup objects
+	// The deleted ConfigGroup object in a single-item list.
 	CountedConfigGroup *components.CountedConfigGroup
 }
 

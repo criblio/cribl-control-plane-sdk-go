@@ -2,15 +2,16 @@
 
 package components
 
+// TypeOptionsConfigGroup - Explicit type of the Worker Group, Outpost Group, or Edge Fleet.
 type TypeOptionsConfigGroup string
 
 const (
 	TypeOptionsConfigGroupEdge        TypeOptionsConfigGroup = "edge"
-	TypeOptionsConfigGroupOutpost     TypeOptionsConfigGroup = "outpost"
-	TypeOptionsConfigGroupStream      TypeOptionsConfigGroup = "stream"
-	TypeOptionsConfigGroupSearch      TypeOptionsConfigGroup = "search"
 	TypeOptionsConfigGroupLakeAccess  TypeOptionsConfigGroup = "lake_access"
 	TypeOptionsConfigGroupLocalSearch TypeOptionsConfigGroup = "local_search"
+	TypeOptionsConfigGroupOutpost     TypeOptionsConfigGroup = "outpost"
+	TypeOptionsConfigGroupSearch      TypeOptionsConfigGroup = "search"
+	TypeOptionsConfigGroupStream      TypeOptionsConfigGroup = "stream"
 )
 
 func (e TypeOptionsConfigGroup) ToPointer() *TypeOptionsConfigGroup {
@@ -21,7 +22,7 @@ func (e TypeOptionsConfigGroup) ToPointer() *TypeOptionsConfigGroup {
 func (e *TypeOptionsConfigGroup) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "edge", "outpost", "stream", "search", "lake_access", "local_search":
+		case "edge", "lake_access", "local_search", "outpost", "search", "stream":
 			return true
 		}
 	}

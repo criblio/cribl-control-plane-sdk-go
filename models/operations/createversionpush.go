@@ -9,7 +9,7 @@ import (
 
 type CreateVersionPushResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of string objects
+	// The created string object in a single-item list.
 	CountedString *components.CountedString
 }
 

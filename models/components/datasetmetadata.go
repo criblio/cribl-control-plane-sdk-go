@@ -6,6 +6,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// ScanMode - Acceleration scan mode. <code>quick</code> collects object-level metadata; <code>detailed</code> also collects field-level statistics.
 type ScanMode string
 
 const (
@@ -29,11 +30,15 @@ func (e *ScanMode) IsExact() bool {
 }
 
 type DatasetMetadata struct {
-	Earliest           string                  `json:"earliest"`
-	EnableAcceleration bool                    `json:"enableAcceleration"`
-	FieldList          []string                `json:"fieldList"`
-	LatestRunInfo      *DatasetMetadataRunInfo `json:"latestRunInfo,omitzero"`
-	ScanMode           ScanMode                `json:"scanMode"`
+	// Rolling time window that defines how far back acceleration scans.
+	Earliest string `json:"earliest"`
+	// If <code>true</code>, the system automatically backfills and refreshes Dataset metadata.
+	EnableAcceleration bool `json:"enableAcceleration"`
+	// Fields for which acceleration gathers statistics. Required when scan mode is <code>detailed</code>.
+	FieldList     []string                `json:"fieldList"`
+	LatestRunInfo *DatasetMetadataRunInfo `json:"latestRunInfo,omitzero"`
+	// Acceleration scan mode. <code>quick</code> collects object-level metadata; <code>detailed</code> also collects field-level statistics.
+	ScanMode ScanMode `json:"scanMode"`
 }
 
 func (d DatasetMetadata) MarshalJSON() ([]byte, error) {

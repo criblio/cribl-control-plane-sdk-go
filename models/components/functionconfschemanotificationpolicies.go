@@ -202,7 +202,7 @@ type Policy struct {
 	// List of conditions. If ANY condition matches (OR), the policy applies. Each condition is a list of tags that must ALL match (AND).
 	Conditions [][]Condition `json:"conditions,omitzero"`
 	// List of targets to route to and the templates to use
-	TemplateTargetPairs []ItemsTypePoliciesItemsTemplateTargetPairs `json:"templateTargetPairs"`
+	TemplateTargetPairs []TemplateTargetPairConfFunctionConfSchemaNotificationPolicies `json:"templateTargetPairs"`
 	// If true, stop evaluating further policies after this one matches
 	Final *bool `json:"final,omitzero"`
 	// Evaluation order of this policy (lower numbers evaluated first)
@@ -255,9 +255,9 @@ func (p *Policy) GetConditions() [][]Condition {
 	return p.Conditions
 }
 
-func (p *Policy) GetTemplateTargetPairs() []ItemsTypePoliciesItemsTemplateTargetPairs {
+func (p *Policy) GetTemplateTargetPairs() []TemplateTargetPairConfFunctionConfSchemaNotificationPolicies {
 	if p == nil {
-		return []ItemsTypePoliciesItemsTemplateTargetPairs{}
+		return []TemplateTargetPairConfFunctionConfSchemaNotificationPolicies{}
 	}
 	return p.TemplateTargetPairs
 }

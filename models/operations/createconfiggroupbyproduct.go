@@ -10,7 +10,7 @@ import (
 type CreateConfigGroupByProductRequest struct {
 	// Name of the Cribl product to add the Worker Group, Outpost Group, or Edge Fleet to.
 	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
-	// GroupCreateRequest object
+	// GroupCreateRequest object.
 	GroupCreateRequest components.GroupCreateRequest `request:"mediaType=application/json"`
 }
 
@@ -30,7 +30,7 @@ func (c *CreateConfigGroupByProductRequest) GetGroupCreateRequest() components.G
 
 type CreateConfigGroupByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of ConfigGroup objects
+	// The created ConfigGroup object in a single-item list.
 	CountedConfigGroup *components.CountedConfigGroup
 }
 

@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 )
 
-value := operations.CreateOutputSystemByPackFacilityZero
+value := operations.CreateOutputSystemByPackFacilityKern
 
 // Open enum: custom values can be created with a direct type cast
 custom := operations.CreateOutputSystemByPackFacility(999)
@@ -18,27 +18,27 @@ custom := operations.CreateOutputSystemByPackFacility(999)
 
 ## Values
 
-| Name                                        | Value                                       |
-| ------------------------------------------- | ------------------------------------------- |
-| `CreateOutputSystemByPackFacilityZero`      | 0                                           |
-| `CreateOutputSystemByPackFacilityOne`       | 1                                           |
-| `CreateOutputSystemByPackFacilityTwo`       | 2                                           |
-| `CreateOutputSystemByPackFacilityThree`     | 3                                           |
-| `CreateOutputSystemByPackFacilityFour`      | 4                                           |
-| `CreateOutputSystemByPackFacilityFive`      | 5                                           |
-| `CreateOutputSystemByPackFacilitySix`       | 6                                           |
-| `CreateOutputSystemByPackFacilitySeven`     | 7                                           |
-| `CreateOutputSystemByPackFacilityEight`     | 8                                           |
-| `CreateOutputSystemByPackFacilityNine`      | 9                                           |
-| `CreateOutputSystemByPackFacilityTen`       | 10                                          |
-| `CreateOutputSystemByPackFacilityEleven`    | 11                                          |
-| `CreateOutputSystemByPackFacilityTwelve`    | 12                                          |
-| `CreateOutputSystemByPackFacilityThirteen`  | 13                                          |
-| `CreateOutputSystemByPackFacilityFourteen`  | 14                                          |
-| `CreateOutputSystemByPackFacilityFifteen`   | 15                                          |
-| `CreateOutputSystemByPackFacilitySixteen`   | 16                                          |
-| `CreateOutputSystemByPackFacilitySeventeen` | 17                                          |
-| `CreateOutputSystemByPackFacilityEighteen`  | 18                                          |
-| `CreateOutputSystemByPackFacilityNineteen`  | 19                                          |
-| `CreateOutputSystemByPackFacilityTwenty`    | 20                                          |
-| `CreateOutputSystemByPackFacilityTwentyOne` | 21                                          |
+| Name                                          | Value                                         |
+| --------------------------------------------- | --------------------------------------------- |
+| `CreateOutputSystemByPackFacilityKern`        | 0                                             |
+| `CreateOutputSystemByPackFacilityUser`        | 1                                             |
+| `CreateOutputSystemByPackFacilityMail`        | 2                                             |
+| `CreateOutputSystemByPackFacilityDaemon`      | 3                                             |
+| `CreateOutputSystemByPackFacilityAuth`        | 4                                             |
+| `CreateOutputSystemByPackFacilitySyslog`      | 5                                             |
+| `CreateOutputSystemByPackFacilityLpr`         | 6                                             |
+| `CreateOutputSystemByPackFacilityNews`        | 7                                             |
+| `CreateOutputSystemByPackFacilityUucp`        | 8                                             |
+| `CreateOutputSystemByPackFacilityCron`        | 9                                             |
+| `CreateOutputSystemByPackFacilityAuthpriv`    | 10                                            |
+| `CreateOutputSystemByPackFacilityFtp`         | 11                                            |
+| `CreateOutputSystemByPackFacilityNtp`         | 12                                            |
+| `CreateOutputSystemByPackFacilitySecurity`    | 13                                            |
+| `CreateOutputSystemByPackFacilityConsole`     | 14                                            |
+| `CreateOutputSystemByPackFacilitySolarisCron` | 15                                            |
+| `CreateOutputSystemByPackFacilityLocal0`      | 16                                            |
+| `CreateOutputSystemByPackFacilityLocal1`      | 17                                            |
+| `CreateOutputSystemByPackFacilityLocal2`      | 18                                            |
+| `CreateOutputSystemByPackFacilityLocal3`      | 19                                            |
+| `CreateOutputSystemByPackFacilityLocal4`      | 20                                            |
+| `CreateOutputSystemByPackFacilityLocal5`      | 21                                            |

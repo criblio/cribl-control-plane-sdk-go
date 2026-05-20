@@ -10,7 +10,7 @@ import (
 type CreateOutputTestByIDRequest struct {
 	// The <code>id</code> of the Destination to send sample event data to.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// OutputTestRequest object
+	// OutputTestRequest object.
 	OutputTestRequest components.OutputTestRequest `request:"mediaType=application/json"`
 }
 

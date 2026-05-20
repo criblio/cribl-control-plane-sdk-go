@@ -1,6 +1,6 @@
 # CreateOutputRequest
 
-Output object
+Output object.
 
 
 ## Supported Types
@@ -11,10 +11,10 @@ Output object
 createOutputRequest := operations.CreateCreateOutputRequestDefault(operations.CreateOutputOutputDefault{/* values here */})
 ```
 
-### CreateOutputOutputWebhook
+### CreateOutputOutputWebhookUnion
 
 ```go
-createOutputRequest := operations.CreateCreateOutputRequestWebhook(operations.CreateOutputOutputWebhook{/* values here */})
+createOutputRequest := operations.CreateCreateOutputRequestWebhook(operations.CreateOutputOutputWebhookUnion{/* values here */})
 ```
 
 ### CreateOutputOutputSentinel
@@ -431,6 +431,48 @@ createOutputRequest := operations.CreateCreateOutputRequestMicrosoftFabric(opera
 createOutputRequest := operations.CreateCreateOutputRequestCloudflareR2(operations.CreateOutputOutputCloudflareR2{/* values here */})
 ```
 
+### CreateOutputOutputNutanixObjects
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestNutanixObjects(operations.CreateOutputOutputNutanixObjects{/* values here */})
+```
+
+### CreateOutputOutputStorjS3
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestStorjS3(operations.CreateOutputOutputStorjS3{/* values here */})
+```
+
+### CreateOutputOutputAlphasocS3
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestAlphasocS3(operations.CreateOutputOutputAlphasocS3{/* values here */})
+```
+
+### CreateOutputOutputDellS3
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestDellS3(operations.CreateOutputOutputDellS3{/* values here */})
+```
+
+### CreateOutputOutputCloudianS3
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestCloudianS3(operations.CreateOutputOutputCloudianS3{/* values here */})
+```
+
+### CreateOutputOutputScalityS3
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestScalityS3(operations.CreateOutputOutputScalityS3{/* values here */})
+```
+
+### CreateOutputOutputAlibabaCloudS3
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestAlibabaCloudS3(operations.CreateOutputOutputAlibabaCloudS3{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -440,7 +482,7 @@ switch createOutputRequest.Type {
 	case operations.CreateOutputRequestTypeDefault:
 		// createOutputRequest.CreateOutputOutputDefault is populated
 	case operations.CreateOutputRequestTypeWebhook:
-		// createOutputRequest.CreateOutputOutputWebhook is populated
+		// createOutputRequest.CreateOutputOutputWebhookUnion is populated
 	case operations.CreateOutputRequestTypeSentinel:
 		// createOutputRequest.CreateOutputOutputSentinel is populated
 	case operations.CreateOutputRequestTypeDevnull:
@@ -579,5 +621,19 @@ switch createOutputRequest.Type {
 		// createOutputRequest.CreateOutputOutputMicrosoftFabric is populated
 	case operations.CreateOutputRequestTypeCloudflareR2:
 		// createOutputRequest.CreateOutputOutputCloudflareR2 is populated
+	case operations.CreateOutputRequestTypeNutanixObjects:
+		// createOutputRequest.CreateOutputOutputNutanixObjects is populated
+	case operations.CreateOutputRequestTypeStorjS3:
+		// createOutputRequest.CreateOutputOutputStorjS3 is populated
+	case operations.CreateOutputRequestTypeAlphasocS3:
+		// createOutputRequest.CreateOutputOutputAlphasocS3 is populated
+	case operations.CreateOutputRequestTypeDellS3:
+		// createOutputRequest.CreateOutputOutputDellS3 is populated
+	case operations.CreateOutputRequestTypeCloudianS3:
+		// createOutputRequest.CreateOutputOutputCloudianS3 is populated
+	case operations.CreateOutputRequestTypeScalityS3:
+		// createOutputRequest.CreateOutputOutputScalityS3 is populated
+	case operations.CreateOutputRequestTypeAlibabaCloudS3:
+		// createOutputRequest.CreateOutputOutputAlibabaCloudS3 is populated
 }
 ```

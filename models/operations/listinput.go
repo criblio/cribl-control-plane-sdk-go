@@ -7,10 +7,33 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type ListInputRequest struct {
+	// Type of Source to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
+	Type []string `queryParam:"style=form,explode=true,name=type"`
+}
+
+func (l ListInputRequest) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *ListInputRequest) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *ListInputRequest) GetType() []string {
+	if l == nil {
+		return nil
+	}
+	return l.Type
+}
+
 type ListInputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Source objects
-	CountedInput *components.CountedInput
+	CountedInputResponse *components.CountedInputResponse
 }
 
 func (l ListInputResponse) MarshalJSON() ([]byte, error) {
@@ -31,9 +54,9 @@ func (l *ListInputResponse) GetHTTPMeta() components.HTTPMetadata {
 	return l.HTTPMeta
 }
 
-func (l *ListInputResponse) GetCountedInput() *components.CountedInput {
+func (l *ListInputResponse) GetCountedInputResponse() *components.CountedInputResponse {
 	if l == nil {
 		return nil
 	}
-	return l.CountedInput
+	return l.CountedInputResponse
 }

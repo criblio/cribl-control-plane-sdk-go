@@ -7,19 +7,31 @@ import (
 )
 
 type CriblLakeDataset struct {
-	AcceleratedFields     []string                 `json:"acceleratedFields,omitzero"`
-	BucketName            *string                  `json:"bucketName,omitzero"`
-	CacheConnection       *CacheConnection         `json:"cacheConnection,omitzero"`
-	DeletionStartedAt     *float64                 `json:"deletionStartedAt,omitzero"`
-	Description           *string                  `json:"description,omitzero"`
-	Format                *FormatOptions           `json:"format,omitzero"`
-	HTTPDAUsed            *bool                    `json:"httpDAUsed,omitzero"`
-	ID                    string                   `json:"id"`
-	Metrics               *LakeDatasetMetrics      `json:"metrics,omitzero"`
-	RetentionPeriodInDays *float64                 `json:"retentionPeriodInDays,omitzero"`
+	// Accelerated fields for the Dataset. Data is partitioned by these fields in storage to improve query performance.
+	AcceleratedFields []string `json:"acceleratedFields,omitzero"`
+	// Name of the legacy Cribl Lake bucket that backs the Dataset. Mutually exclusive with <code>storageLocationId</code>.
+	BucketName      *string          `json:"bucketName,omitzero"`
+	CacheConnection *CacheConnection `json:"cacheConnection,omitzero"`
+	// Timestamp (in Unix time) when Dataset deletion was initiated, in milliseconds.
+	DeletionStartedAt *float64 `json:"deletionStartedAt,omitzero"`
+	// Brief description of the Dataset.
+	Description *string `json:"description,omitzero"`
+	// Storage format used for data persisted in the Dataset.
+	Format *FormatOptionsCriblLakeDataset `json:"format,omitzero"`
+	// If <code>true</code>, the Dataset is used by Direct Access HTTP.
+	HTTPDAUsed *bool `json:"httpDAUsed,omitzero"`
+	// Unique identifier for the Dataset.
+	ID      string              `json:"id"`
+	Metrics *LakeDatasetMetrics `json:"metrics,omitzero"`
+	// Dataset retention period, in days.
+	RetentionPeriodInDays *int64                   `json:"retentionPeriodInDays,omitzero"`
 	SearchConfig          *LakeDatasetSearchConfig `json:"searchConfig,omitzero"`
-	StorageLocationID     *string                  `json:"storageLocationId,omitzero"`
-	ViewName              *string                  `json:"viewName,omitzero"`
+	// Storage class used for objects written to the Dataset.
+	StorageClass *StorageClassOptionsCriblLakeDataset `json:"storageClass,omitzero"`
+	// Identifier for the Storage Location that backs the Dataset. Mutually exclusive with <code>bucketName</code>.
+	StorageLocationID *string `json:"storageLocationId,omitzero"`
+	// Name of the ClickHouse view for the Dataset on the Lakehouse.
+	ViewName *string `json:"viewName,omitzero"`
 }
 
 func (c CriblLakeDataset) MarshalJSON() ([]byte, error) {
@@ -68,7 +80,7 @@ func (c *CriblLakeDataset) GetDescription() *string {
 	return c.Description
 }
 
-func (c *CriblLakeDataset) GetFormat() *FormatOptions {
+func (c *CriblLakeDataset) GetFormat() *FormatOptionsCriblLakeDataset {
 	if c == nil {
 		return nil
 	}
@@ -96,7 +108,7 @@ func (c *CriblLakeDataset) GetMetrics() *LakeDatasetMetrics {
 	return c.Metrics
 }
 
-func (c *CriblLakeDataset) GetRetentionPeriodInDays() *float64 {
+func (c *CriblLakeDataset) GetRetentionPeriodInDays() *int64 {
 	if c == nil {
 		return nil
 	}
@@ -108,6 +120,13 @@ func (c *CriblLakeDataset) GetSearchConfig() *LakeDatasetSearchConfig {
 		return nil
 	}
 	return c.SearchConfig
+}
+
+func (c *CriblLakeDataset) GetStorageClass() *StorageClassOptionsCriblLakeDataset {
+	if c == nil {
+		return nil
+	}
+	return c.StorageClass
 }
 
 func (c *CriblLakeDataset) GetStorageLocationID() *string {

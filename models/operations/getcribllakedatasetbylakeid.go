@@ -75,7 +75,7 @@ func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeBYOS() *bool {
 
 type GetCriblLakeDatasetByLakeIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of CriblLakeDataset objects
+	// List of CriblLakeDataset objects.
 	CountedCriblLakeDataset *components.CountedCriblLakeDataset
 }
 

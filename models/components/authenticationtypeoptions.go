@@ -2,7 +2,6 @@
 
 package components
 
-// AuthenticationTypeOptions - OpenTelemetry authentication type
 type AuthenticationTypeOptions string
 
 const (
@@ -12,10 +11,8 @@ const (
 	AuthenticationTypeOptionsBasic AuthenticationTypeOptions = "basic"
 	// AuthenticationTypeOptionsCredentialsSecret Basic (credentials secret)
 	AuthenticationTypeOptionsCredentialsSecret AuthenticationTypeOptions = "credentialsSecret"
-	// AuthenticationTypeOptionsToken Token
-	AuthenticationTypeOptionsToken AuthenticationTypeOptions = "token"
-	// AuthenticationTypeOptionsTextSecret Token (text secret)
-	AuthenticationTypeOptionsTextSecret AuthenticationTypeOptions = "textSecret"
+	// AuthenticationTypeOptionsSslUserCertificate SSL User Certificate
+	AuthenticationTypeOptionsSslUserCertificate AuthenticationTypeOptions = "sslUserCertificate"
 )
 
 func (e AuthenticationTypeOptions) ToPointer() *AuthenticationTypeOptions {
@@ -26,7 +23,7 @@ func (e AuthenticationTypeOptions) ToPointer() *AuthenticationTypeOptions {
 func (e *AuthenticationTypeOptions) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "none", "basic", "credentialsSecret", "token", "textSecret":
+		case "none", "basic", "credentialsSecret", "sslUserCertificate":
 			return true
 		}
 	}

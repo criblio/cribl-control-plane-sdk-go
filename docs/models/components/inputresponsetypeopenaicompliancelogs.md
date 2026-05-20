@@ -1,0 +1,18 @@
+# InputResponseTypeOpenaiComplianceLogs
+
+## Example Usage
+
+```go
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+)
+
+value := components.InputResponseTypeOpenaiComplianceLogsOpenaiComplianceLogs
+```
+
+
+## Values
+
+| Name                                                        | Value                                                       |
+| ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `InputResponseTypeOpenaiComplianceLogsOpenaiComplianceLogs` | openai_compliance_logs                                      |

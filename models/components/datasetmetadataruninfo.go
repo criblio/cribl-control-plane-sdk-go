@@ -3,34 +3,38 @@
 package components
 
 type DatasetMetadataRunInfo struct {
-	EarliestScannedTime *float64 `json:"earliestScannedTime,omitzero"`
-	FinishedAt          *float64 `json:"finishedAt,omitzero"`
-	LatestScannedTime   *float64 `json:"latestScannedTime,omitzero"`
-	ObjectCount         *float64 `json:"objectCount,omitzero"`
+	// Timestamp (in Unix time) for the earliest event that was observed during the scan (seconds).
+	EarliestScannedTime *int64 `json:"earliestScannedTime,omitzero"`
+	// Timestamp (in Unix time) when the acceleration run finished (milliseconds).
+	FinishedAt *int64 `json:"finishedAt,omitzero"`
+	// Timestamp (in Unix time) for the latest event that was observed during the scan (seconds).
+	LatestScannedTime *int64 `json:"latestScannedTime,omitzero"`
+	// Number of objects on the acceleration manifest after the scan completed.
+	ObjectCount *int64 `json:"objectCount,omitzero"`
 }
 
-func (d *DatasetMetadataRunInfo) GetEarliestScannedTime() *float64 {
+func (d *DatasetMetadataRunInfo) GetEarliestScannedTime() *int64 {
 	if d == nil {
 		return nil
 	}
 	return d.EarliestScannedTime
 }
 
-func (d *DatasetMetadataRunInfo) GetFinishedAt() *float64 {
+func (d *DatasetMetadataRunInfo) GetFinishedAt() *int64 {
 	if d == nil {
 		return nil
 	}
 	return d.FinishedAt
 }
 
-func (d *DatasetMetadataRunInfo) GetLatestScannedTime() *float64 {
+func (d *DatasetMetadataRunInfo) GetLatestScannedTime() *int64 {
 	if d == nil {
 		return nil
 	}
 	return d.LatestScannedTime
 }
 
-func (d *DatasetMetadataRunInfo) GetObjectCount() *float64 {
+func (d *DatasetMetadataRunInfo) GetObjectCount() *int64 {
 	if d == nil {
 		return nil
 	}

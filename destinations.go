@@ -224,12 +224,12 @@ func (s *Destinations) List(ctx context.Context, type_ *components.DestinationTy
 					return nil, err
 				}
 
-				var out components.CountedOutput
+				var out components.CountedOutputResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedOutput = &out
+				res.CountedOutputResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -473,12 +473,12 @@ func (s *Destinations) Create(ctx context.Context, request operations.CreateOutp
 					return nil, err
 				}
 
-				var out components.CountedOutput
+				var out components.CountedOutputResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedOutput = &out
+				res.CountedOutputResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -719,12 +719,12 @@ func (s *Destinations) Get(ctx context.Context, id string, opts ...operations.Op
 					return nil, err
 				}
 
-				var out components.CountedOutput
+				var out components.CountedOutputResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedOutput = &out
+				res.CountedOutputResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -973,12 +973,12 @@ func (s *Destinations) Update(ctx context.Context, id string, output components.
 					return nil, err
 				}
 
-				var out components.CountedOutput
+				var out components.CountedOutputResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedOutput = &out
+				res.CountedOutputResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1219,12 +1219,12 @@ func (s *Destinations) Delete(ctx context.Context, id string, opts ...operations
 					return nil, err
 				}
 
-				var out components.CountedOutput
+				var out components.CountedOutputResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedOutput = &out
+				res.CountedOutputResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

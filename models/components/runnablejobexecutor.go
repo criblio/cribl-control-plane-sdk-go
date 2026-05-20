@@ -77,6 +77,8 @@ type RunnableJobExecutor struct {
 	Streamtags []string                        `json:"streamtags,omitzero"`
 	Executor   ExecutorTypeRunnableJobExecutor `json:"executor"`
 	Run        RunnableJobExecutorRun          `json:"run"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (r RunnableJobExecutor) MarshalJSON() ([]byte, error) {
@@ -172,4 +174,11 @@ func (r *RunnableJobExecutor) GetRun() RunnableJobExecutorRun {
 		return RunnableJobExecutorRun{}
 	}
 	return r.Run
+}
+
+func (r *RunnableJobExecutor) GetTemplateStreamtags() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateStreamtags
 }

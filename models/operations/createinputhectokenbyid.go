@@ -10,7 +10,7 @@ import (
 type CreateInputHecTokenByIDRequest struct {
 	// The <code>id</code> of the Splunk HEC Source.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// AddHecTokenRequest object
+	// AddHecTokenRequest object.
 	AddHecTokenRequest components.AddHecTokenRequest `request:"mediaType=application/json"`
 }
 
@@ -30,7 +30,7 @@ func (c *CreateInputHecTokenByIDRequest) GetAddHecTokenRequest() components.AddH
 
 type CreateInputHecTokenByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of InputSplunkHec objects
+	// the updated Splunk HEC Source with the new HEC token
 	CountedInputSplunkHec *components.CountedInputSplunkHec
 }
 

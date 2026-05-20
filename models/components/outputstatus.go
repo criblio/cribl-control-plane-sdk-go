@@ -2,11 +2,11 @@
 
 package components
 
+// OutputStatus - Status of a Destination, aggregated across all Worker Processes.
 type OutputStatus struct {
 	// Unique identifier of the Source or Destination.
-	ID string `json:"id"`
-	// Status information for the Source or Destination, aggregated across all Worker Processes.
-	Status StatusType `json:"status"`
+	ID     string                          `json:"id"`
+	Status AggregatedInputOutputStatusBody `json:"status"`
 	// Type of the Source or Destination.
 	Type *string `json:"type,omitzero"`
 }
@@ -18,9 +18,9 @@ func (o *OutputStatus) GetID() string {
 	return o.ID
 }
 
-func (o *OutputStatus) GetStatus() StatusType {
+func (o *OutputStatus) GetStatus() AggregatedInputOutputStatusBody {
 	if o == nil {
-		return StatusType{}
+		return AggregatedInputOutputStatusBody{}
 	}
 	return o.Status
 }
