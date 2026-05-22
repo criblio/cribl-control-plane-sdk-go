@@ -13,6 +13,8 @@ type JobInfo struct {
 	Stats map[string]AdditionalPropertiesTypeJobInfoStats `json:"stats"`
 	// Status of a job, including its current state and failure reason.
 	Status JobStatus `json:"status"`
+	// The GUID of the worker node that owns this artifact, set when the job ran on a Captain while the leader was offline. When present, the leader proxies read access to the artifact; mutating actions (replay, delete, stop) are not supported.
+	WorkerOwner *string `json:"workerOwner,omitzero"`
 }
 
 func (j *JobInfo) GetArgs() RunnableJob {
@@ -48,4 +50,11 @@ func (j *JobInfo) GetStatus() JobStatus {
 		return JobStatus{}
 	}
 	return j.Status
+}
+
+func (j *JobInfo) GetWorkerOwner() *string {
+	if j == nil {
+		return nil
+	}
+	return j.WorkerOwner
 }
