@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 2c43c0b9379c0c93ba2f77ce97724113
-  docVersion: 4.18.0-dfc74421
+  docChecksum: 70fdd4175b18ed88b946718a359c1d8b
+  docVersion: 4.18.1-37206a7f
   speakeasyVersion: 1.763.3
   generationVersion: 2.884.7
-  releaseVersion: 0.8.0
-  configChecksum: dec71eac43b352be1647f49b51514016
+  releaseVersion: 0.8.1
+  configChecksum: e1b70971b92a7db64510adb11e9ed193
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: d56077a9-76ce-42fa-8bde-038946871499
-  pristine_commit_hash: a7d592dfa17a468f094c16afc720dc3ded0ac7ba
-  pristine_tree_hash: c2110c19303901272e37dfc078c645b2a3559c83
+  generation_id: a0554c3d-e2e6-4a70-9aba-96873150674a
+  pristine_commit_hash: f6b04647dfaf10750b0b4f98e65d9c2d07c29ca8
+  pristine_tree_hash: 080aaf07cb88f9e1c05393202f9f1e3a862eefe7
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: ac562c044b0a53981079f8cd327cbde917d0eca8
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:d8f53743842f27a8ab4b00f10f0863fb411b735e
-    pristine_git_object: e4b8cb46246b9e52bd07e72c9fcea39d79926030
+    last_write_checksum: sha1:f9411eb0d74fb4128335051af30a641d185b36c6
+    pristine_git_object: 6bc5ba1341be57ba81b5b5ca7d83651160bdf980
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:427d5be4538b201a2f3c223f4d2f14a950d95a13
@@ -31692,26 +31692,7 @@ generatedTests:
 releaseNotes: |
   ## Go SDK Changes
 
-  This version of the SDK is generated for Cribl version 4.18.0.
-
-  **New source models**
-
-  * `InputAnthropicCompliance`
-  * `InputAppleUnifiedLogs`
-  * `InputEventhubAmqp`
-  * `InputOkta`
-  * `InputOpenaiComplianceLogs`
-  * `InputServicenowTable`
-
-  **New destination models**
-
-  * `OutputAlibabaCloudS3`
-  * `OutputAlphasocS3`
-  * `OutputCloudianS3`
-  * `OutputDellS3`
-  * `OutputNutanixObjects`
-  * `OutputScalityS3`
-  * `OutputStorjS3`
+  This version of the SDK is generated for Cribl version 4.18.1.
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
