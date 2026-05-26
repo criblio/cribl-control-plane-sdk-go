@@ -6,10 +6,68 @@ Actions related to DatabaseConnections
 
 ### Available Operations
 
+* [List](#list) - List Database Connections
 * [Create](#create) - Create Database Connection
-* [Delete](#delete) - Delete a Database Connection
 * [Get](#get) - Get a Database Connection
 * [Update](#update) - Update a Database Connection
+* [Delete](#delete) - Delete a Database Connection
+
+## List
+
+Get a list of all Database Connections.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getDatabaseConnectionConfig" method="get" path="/lib/database-connections" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.DatabaseConnections.List(ctx, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedDatabaseConnectionConfig != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                               | Type                                                                                    | Required                                                                                | Description                                                                             |
+| --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `ctx`                                                                                   | [context.Context](https://pkg.go.dev/context#Context)                                   | :heavy_check_mark:                                                                      | The context to use for the request.                                                     |
+| `databaseType`                                                                          | [*components.DatabaseConnectionType](../../models/components/databaseconnectiontype.md) | :heavy_minus_sign:                                                                      | Type of Database Connections to include in the results.                                 |
+| `opts`                                                                                  | [][operations.Option](../../models/operations/option.md)                                | :heavy_minus_sign:                                                                      | The options for this request.                                                           |
+
+### Response
+
+**[*operations.GetDatabaseConnectionConfigResponse](../../models/operations/getdatabaseconnectionconfigresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
 ## Create
 
@@ -444,63 +502,6 @@ func main() {
 ### Response
 
 **[*operations.CreateDatabaseConnectionConfigResponse](../../models/operations/createdatabaseconnectionconfigresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
-
-## Delete
-
-Delete the specified Database Connection.
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="deleteDatabaseConnectionConfigById" method="delete" path="/lib/database-connections/{id}" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
-        criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-        }),
-    )
-
-    res, err := s.DatabaseConnections.Delete(ctx, "<id>")
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.CountedDatabaseConnectionConfig != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                 | Type                                                      | Required                                                  | Description                                               |
-| --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
-| `ctx`                                                     | [context.Context](https://pkg.go.dev/context#Context)     | :heavy_check_mark:                                        | The context to use for the request.                       |
-| `id`                                                      | `string`                                                  | :heavy_check_mark:                                        | The <code>id</code> of the Database Connection to delete. |
-| `opts`                                                    | [][operations.Option](../../models/operations/option.md)  | :heavy_minus_sign:                                        | The options for this request.                             |
-
-### Response
-
-**[*operations.DeleteDatabaseConnectionConfigByIDResponse](../../models/operations/deletedatabaseconnectionconfigbyidresponse.md), error**
 
 ### Errors
 
@@ -1000,6 +1001,63 @@ func main() {
 ### Response
 
 **[*operations.UpdateDatabaseConnectionConfigByIDResponse](../../models/operations/updatedatabaseconnectionconfigbyidresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## Delete
+
+Delete the specified Database Connection.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="deleteDatabaseConnectionConfigById" method="delete" path="/lib/database-connections/{id}" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.DatabaseConnections.Delete(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedDatabaseConnectionConfig != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                 | Type                                                      | Required                                                  | Description                                               |
+| --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------- |
+| `ctx`                                                     | [context.Context](https://pkg.go.dev/context#Context)     | :heavy_check_mark:                                        | The context to use for the request.                       |
+| `id`                                                      | `string`                                                  | :heavy_check_mark:                                        | The <code>id</code> of the Database Connection to delete. |
+| `opts`                                                    | [][operations.Option](../../models/operations/option.md)  | :heavy_minus_sign:                                        | The options for this request.                             |
+
+### Response
+
+**[*operations.DeleteDatabaseConnectionConfigByIDResponse](../../models/operations/deletedatabaseconnectionconfigbyidresponse.md), error**
 
 ### Errors
 
