@@ -56,7 +56,7 @@ func (e *OutputClickHouseFormat) IsExact() bool {
 	return false
 }
 
-// OutputClickHouseMappingType - How event fields are mapped to ClickHouse columns.
+// OutputClickHouseMappingType - How event fields are mapped to ClickHouse columns
 type OutputClickHouseMappingType string
 
 const (
@@ -156,9 +156,9 @@ type OutputClickHouse struct {
 	TableName string `json:"tableName"`
 	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
 	Format *OutputClickHouseFormat `json:"format,omitzero"`
-	// How event fields are mapped to ClickHouse columns.
+	// How event fields are mapped to ClickHouse columns
 	MappingType *OutputClickHouseMappingType `json:"mappingType,omitzero"`
-	// Collect data into batches for later processing. Disable to write to a ClickHouse table immediately.
+	// Collect data into batches for later processing on the ClickHouse server. Disable to write to a ClickHouse table immediately. Cribl sends the configured value with every insert (<code>async_insert=1</code> or <code>async_insert=0</code>) so behavior is consistent across ClickHouse versions, including 26.3 LTS and later, where async inserts are enabled by default on the server.
 	AsyncInserts *bool                                            `json:"asyncInserts,omitzero"`
 	TLS          *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
@@ -178,7 +178,7 @@ type OutputClickHouse struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -186,8 +186,8 @@ type OutputClickHouse struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Log the most recent event that fails to match the table schema
@@ -201,7 +201,7 @@ type OutputClickHouse struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Username for certificate authentication
 	SQLUsername *string `json:"sqlUsername,omitzero"`
-	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won’t be able to verify data has been completely inserted.
+	// Cribl will wait for confirmation that data has been fully inserted into the ClickHouse database before proceeding. Disabling this option can increase throughput, but Cribl won't be able to verify data has been completely inserted.
 	WaitForAsyncInserts *bool `json:"waitForAsyncInserts,omitzero"`
 	// Fields to exclude from sending to ClickHouse
 	ExcludeMappingFields []string `json:"excludeMappingFields,omitzero"`
@@ -231,6 +231,8 @@ type OutputClickHouse struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                     `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputClickHousePqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
@@ -401,7 +403,7 @@ func (o *OutputClickHouse) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputClickHouse) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputClickHouse) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -429,7 +431,7 @@ func (o *OutputClickHouse) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputClickHouse) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputClickHouse) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}
@@ -609,6 +611,13 @@ func (o *OutputClickHouse) GetPqControls() *OutputClickHousePqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputClickHouse) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputClickHouse) GetTemplateURL() *string {

@@ -8,7 +8,7 @@ import (
 )
 
 type GetRoutesByPackRequest struct {
-	// The <code>id</code> of the Pack to list.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
 

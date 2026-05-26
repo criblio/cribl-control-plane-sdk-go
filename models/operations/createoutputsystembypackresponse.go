@@ -10,6 +10,1055 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type CreateOutputSystemByPackPqControlsStatsd struct {
+}
+
+func (c CreateOutputSystemByPackPqControlsStatsd) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputSystemByPackPqControlsStatsd) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+type CreateOutputSystemByPackOutputStatsd struct {
+	// Unique ID for this output
+	ID   string                             `json:"id"`
+	Type CreateOutputSystemByPackTypeStatsd `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Protocol to use when communicating with the destination.
+	Protocol components.DestinationProtocolOptions `json:"protocol"`
+	// The hostname of the destination.
+	Host string `json:"host"`
+	// Destination port.
+	Port float64 `json:"port"`
+	// When protocol is UDP, specifies the maximum size of packets sent to the destination. Also known as the MTU for the network path to the destination system.
+	Mtu *float64 `json:"mtu,omitzero"`
+	// When protocol is TCP, specifies how often buffers should be flushed, resulting in records sent to the destination.
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
+	// How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every batch sent will incur a DNS lookup.
+	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
+	Description         *string  `json:"description,omitzero"`
+	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
+	// Amount of time (milliseconds) to wait for the connection to establish before retrying
+	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
+	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+	WriteTimeout *float64 `json:"writeTimeout,omitzero"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
+	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
+	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
+	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
+	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
+	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
+	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
+	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
+	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+	PqMaxSize *string `json:"pqMaxSize,omitzero"`
+	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+	PqPath *string `json:"pqPath,omitzero"`
+	// Codec to use to compress the persisted data
+	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
+	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	PqMaxBufferSizeBytes *string                                   `json:"pqMaxBufferSizeBytes,omitzero"`
+	PqControls           *CreateOutputSystemByPackPqControlsStatsd `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+}
+
+func (c CreateOutputSystemByPackOutputStatsd) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetType() CreateOutputSystemByPackTypeStatsd {
+	if c == nil {
+		return CreateOutputSystemByPackTypeStatsd("")
+	}
+	return c.Type
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetSystemFields() []string {
+	if c == nil {
+		return nil
+	}
+	return c.SystemFields
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetProtocol() components.DestinationProtocolOptions {
+	if c == nil {
+		return components.DestinationProtocolOptions("")
+	}
+	return c.Protocol
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetHost() string {
+	if c == nil {
+		return ""
+	}
+	return c.Host
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetPort() float64 {
+	if c == nil {
+		return 0.0
+	}
+	return c.Port
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetMtu() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Mtu
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetFlushPeriodSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.FlushPeriodSec
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetDNSResolvePeriodSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.DNSResolvePeriodSec
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetThrottleRatePerSec() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ThrottleRatePerSec
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetConnectionTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ConnectionTimeout
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetWriteTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.WriteTimeout
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetOnBackpressure() *components.BackpressureBehaviorOptions {
+	if c == nil {
+		return nil
+	}
+	return c.OnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetPqStrictOrdering() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PqStrictOrdering
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetPqRatePerSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.PqRatePerSec
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetPqMode() *components.ModeOptions {
+	if c == nil {
+		return nil
+	}
+	return c.PqMode
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetPqMaxBufferSize() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSize
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetPqMaxBackpressureSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBackpressureSec
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetPqMaxFileSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxFileSize
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetPqMaxSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxSize
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetPqPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqPath
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetPqCompress() *components.CompressionOptionsPq {
+	if c == nil {
+		return nil
+	}
+	return c.PqCompress
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
+	if c == nil {
+		return nil
+	}
+	return c.PqOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetPqMaxBufferSizeBytes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PqMaxBufferSizeBytes
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetPqControls() *CreateOutputSystemByPackPqControlsStatsd {
+	if c == nil {
+		return nil
+	}
+	return c.PqControls
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateOutputSystemByPackOutputStatsd) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
+type CreateOutputSystemByPackTypeMinio string
+
+const (
+	CreateOutputSystemByPackTypeMinioMinio CreateOutputSystemByPackTypeMinio = "minio"
+)
+
+func (e CreateOutputSystemByPackTypeMinio) ToPointer() *CreateOutputSystemByPackTypeMinio {
+	return &e
+}
+func (e *CreateOutputSystemByPackTypeMinio) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "minio":
+		*e = CreateOutputSystemByPackTypeMinio(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeMinio: %v", v)
+	}
+}
+
+type CreateOutputSystemByPackOutputMinio struct {
+	// Unique ID for this output
+	ID   string                            `json:"id"`
+	Type CreateOutputSystemByPackTypeMinio `json:"type"`
+	// Pipeline to process data before sending out to this output
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+	SystemFields []string `json:"systemFields,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
+	// Reuse connections between requests, which can improve performance
+	ReuseConnections *bool `json:"reuseConnections,omitzero"`
+	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Name of the destination MinIO bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+	Bucket string `json:"bucket"`
+	// Region where the MinIO bucket is located
+	Region *string `json:"region,omitzero"`
+	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+	DestPath *string `json:"destPath,omitzero"`
+	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
+	// Disable if you can access files within the bucket but not the bucket itself
+	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
+	// Maximum number of files that can be waiting for upload before backpressure is applied
+	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
+	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+	StagePath string `json:"stagePath"`
+	// Add the Output ID value to staging location
+	AddIDToStagePath *bool `json:"addIdToStagePath,omitzero"`
+	// Remove empty staging directories after moving files
+	RemoveEmptyDirs *bool `json:"removeEmptyDirs,omitzero"`
+	// JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+	PartitionExpr *string `json:"partitionExpr,omitzero"`
+	// Format of the output data
+	Format *components.DataFormatOptions `json:"format,omitzero"`
+	// JavaScript expression to define the output filename prefix (can be constant)
+	BaseFileName *string `json:"baseFileName,omitzero"`
+	// JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+	FileNameSuffix *string `json:"fileNameSuffix,omitzero"`
+	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
+	// Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+	MaxFileOpenTimeSec *float64 `json:"maxFileOpenTimeSec,omitzero"`
+	// Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+	MaxFileIdleTimeSec *float64 `json:"maxFileIdleTimeSec,omitzero"`
+	// Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+	MaxOpenFiles *float64 `json:"maxOpenFiles,omitzero"`
+	// If set, this line will be written to the beginning of each output file
+	HeaderLine *string `json:"headerLine,omitzero"`
+	// Buffer size used to write to a file
+	WriteHighWaterMark *float64 `json:"writeHighWaterMark,omitzero"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *components.BackpressureBehaviorOptionsBlockDrop `json:"onBackpressure,omitzero"`
+	// If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+	DeadletterEnabled *bool `json:"deadletterEnabled,omitzero"`
+	// How to handle events when disk space is below the global 'Min free disk space' limit
+	OnDiskFullBackpressure *components.DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
+	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
+	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
+	// MinIO service url (e.g. http://minioHost:9000)
+	Endpoint string `json:"endpoint"`
+	// Object ACL to assign to uploaded objects
+	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
+	// Storage class to select for uploaded objects
+	StorageClass *components.StorageClassOptionsReducedredundancyStandard `json:"storageClass,omitzero"`
+	// Server-side encryption to use for uploaded objects
+	ServerSideEncryption *components.ServerSideEncryptionForUploadedObjectsOptionsAes256 `json:"serverSideEncryption,omitzero"`
+	Description          *string                                                         `json:"description,omitzero"`
+	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Data compression format to apply to HTTP content before it is delivered
+	Compress *components.CompressionOptionsHTTP `json:"compress,omitzero"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitzero"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `json:"automaticSchema,omitzero"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitzero"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *components.ParquetVersionOptions `json:"parquetVersion,omitzero"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *components.DataPageVersionOptions `json:"parquetDataPageVersion,omitzero"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitzero"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `json:"parquetPageSize,omitzero"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []components.KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `json:"enableStatistics,omitzero"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitzero"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `json:"enablePageChecksum,omitzero"`
+	// How frequently, in seconds, to clean up empty directories
+	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitzero"`
+	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+	DirectoryBatchSize *float64 `json:"directoryBatchSize,omitzero"`
+	// Storage location for files that fail to reach their final destination after maximum retries are exceeded
+	DeadletterPath *string `json:"deadletterPath,omitzero"`
+	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
+	TemplateBucket *string `json:"__template_bucket,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+	TemplateDestPath *string `json:"__template_destPath,omitzero"`
+	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
+	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
+	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
+	TemplateFormat *string `json:"__template_format,omitzero"`
+	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
+	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
+	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
+	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
+	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
+	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
+	TemplateStorageClass *string `json:"__template_storageClass,omitzero"`
+	// Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
+	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
+	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
+	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
+}
+
+func (c CreateOutputSystemByPackOutputMinio) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetType() CreateOutputSystemByPackTypeMinio {
+	if c == nil {
+		return CreateOutputSystemByPackTypeMinio("")
+	}
+	return c.Type
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetSystemFields() []string {
+	if c == nil {
+		return nil
+	}
+	return c.SystemFields
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetAwsAuthenticationMethod() *components.AuthenticationMethodOptionsS3CollectorConf {
+	if c == nil {
+		return nil
+	}
+	return c.AwsAuthenticationMethod
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetReuseConnections() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ReuseConnections
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RejectUnauthorized
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetBucket() string {
+	if c == nil {
+		return ""
+	}
+	return c.Bucket
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Region
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DestPath
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetMaxConcurrentFileParts() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxConcurrentFileParts
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetVerifyPermissions() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.VerifyPermissions
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetMaxClosingFilesToBackpressure() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxClosingFilesToBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetStagePath() string {
+	if c == nil {
+		return ""
+	}
+	return c.StagePath
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetAddIDToStagePath() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AddIDToStagePath
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetRemoveEmptyDirs() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.RemoveEmptyDirs
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetPartitionExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PartitionExpr
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetFormat() *components.DataFormatOptions {
+	if c == nil {
+		return nil
+	}
+	return c.Format
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetBaseFileName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.BaseFileName
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetFileNameSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.FileNameSuffix
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetMaxFileSizeMB() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileSizeMB
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetMaxFileOpenTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileOpenTimeSec
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetMaxFileIdleTimeSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxFileIdleTimeSec
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetMaxOpenFiles() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxOpenFiles
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetHeaderLine() *string {
+	if c == nil {
+		return nil
+	}
+	return c.HeaderLine
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetWriteHighWaterMark() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.WriteHighWaterMark
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetOnBackpressure() *components.BackpressureBehaviorOptionsBlockDrop {
+	if c == nil {
+		return nil
+	}
+	return c.OnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetDeadletterEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DeadletterEnabled
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetOnDiskFullBackpressure() *components.DiskSpaceProtectionOptions {
+	if c == nil {
+		return nil
+	}
+	return c.OnDiskFullBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetForceCloseOnShutdown() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ForceCloseOnShutdown
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetRetrySettings() *components.RetrySettingsType {
+	if c == nil {
+		return nil
+	}
+	return c.RetrySettings
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetOrphans() *components.OrphanFileRecoveryType {
+	if c == nil {
+		return nil
+	}
+	return c.Orphans
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsSecretKey
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetEndpoint() string {
+	if c == nil {
+		return ""
+	}
+	return c.Endpoint
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetObjectACL() *components.ObjectACLOptions {
+	if c == nil {
+		return nil
+	}
+	return c.ObjectACL
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetStorageClass() *components.StorageClassOptionsReducedredundancyStandard {
+	if c == nil {
+		return nil
+	}
+	return c.StorageClass
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptionsAes256 {
+	if c == nil {
+		return nil
+	}
+	return c.ServerSideEncryption
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetAwsAPIKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsAPIKey
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetAwsSecret() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsSecret
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetCompress() *components.CompressionOptionsHTTP {
+	if c == nil {
+		return nil
+	}
+	return c.Compress
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetCompressionLevel() *components.CompressionLevelOptions {
+	if c == nil {
+		return nil
+	}
+	return c.CompressionLevel
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetAutomaticSchema() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AutomaticSchema
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetSchema
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetParquetVersion() *components.ParquetVersionOptions {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetVersion
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetParquetDataPageVersion() *components.DataPageVersionOptions {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetDataPageVersion
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetParquetRowGroupLength() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetRowGroupLength
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetParquetPageSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetPageSize
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetShouldLogInvalidRows() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ShouldLogInvalidRows
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
+	if c == nil {
+		return nil
+	}
+	return c.KeyValueMetadata
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetEnableStatistics() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableStatistics
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetEnableWritePageIndex() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableWritePageIndex
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetEnablePageChecksum() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnablePageChecksum
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetEmptyDirCleanupSec() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.EmptyDirCleanupSec
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetDirectoryBatchSize() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.DirectoryBatchSize
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetDeadletterPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.DeadletterPath
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetMaxRetryNum() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxRetryNum
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplateBucket() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBucket
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplateRegion() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateRegion
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplateDestPath() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateDestPath
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplatePartitionExpr() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePartitionExpr
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplateFormat() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFormat
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplateBaseFileName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBaseFileName
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplateFileNameSuffix() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateFileNameSuffix
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplateOnBackpressure() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplateAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsSecretKey
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplateObjectACL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateObjectACL
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplateStorageClass() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStorageClass
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplateServerSideEncryption() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateServerSideEncryption
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplateAwsAPIKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsAPIKey
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplateCompress() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateCompress
+}
+
+func (c *CreateOutputSystemByPackOutputMinio) GetTemplateParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateParquetSchema
+}
+
+type CreateOutputSystemByPackTypeCloudwatch string
+
+const (
+	CreateOutputSystemByPackTypeCloudwatchCloudwatch CreateOutputSystemByPackTypeCloudwatch = "cloudwatch"
+)
+
+func (e CreateOutputSystemByPackTypeCloudwatch) ToPointer() *CreateOutputSystemByPackTypeCloudwatch {
+	return &e
+}
+func (e *CreateOutputSystemByPackTypeCloudwatch) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "cloudwatch":
+		*e = CreateOutputSystemByPackTypeCloudwatch(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeCloudwatch: %v", v)
+	}
+}
+
+type CreateOutputSystemByPackPqControlsCloudwatch struct {
+}
+
+func (c CreateOutputSystemByPackPqControlsCloudwatch) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputSystemByPackPqControlsCloudwatch) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
 type CreateOutputSystemByPackOutputCloudwatch struct {
 	// Unique ID for this output
 	ID   string                                 `json:"id"`
@@ -80,6 +1129,8 @@ type CreateOutputSystemByPackOutputCloudwatch struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                       `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsCloudwatch `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'logGroupName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logGroupName' at runtime.
 	TemplateLogGroupName *string `json:"__template_logGroupName,omitzero"`
 	// Binds 'logStreamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logStreamName' at runtime.
@@ -370,6 +1421,13 @@ func (c *CreateOutputSystemByPackOutputCloudwatch) GetPqControls() *CreateOutput
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputCloudwatch) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputCloudwatch) GetTemplateLogGroupName() *string {
 	if c == nil {
 		return nil
@@ -573,7 +1631,7 @@ type CreateOutputSystemByPackOutputInfluxdb struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -581,8 +1639,8 @@ type CreateOutputSystemByPackOutputInfluxdb struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -627,6 +1685,8 @@ type CreateOutputSystemByPackOutputInfluxdb struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
@@ -776,7 +1836,7 @@ func (c *CreateOutputSystemByPackOutputInfluxdb) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputInfluxdb) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputSystemByPackOutputInfluxdb) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -804,7 +1864,7 @@ func (c *CreateOutputSystemByPackOutputInfluxdb) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputSystemByPackOutputInfluxdb) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputInfluxdb) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -986,6 +2046,13 @@ func (c *CreateOutputSystemByPackOutputInfluxdb) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputInfluxdb) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputInfluxdb) GetTemplateURL() *string {
 	if c == nil {
 		return nil
@@ -1093,7 +2160,7 @@ type CreateOutputSystemByPackOutputNewrelicEvents struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -1101,8 +2168,8 @@ type CreateOutputSystemByPackOutputNewrelicEvents struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -1138,6 +2205,8 @@ type CreateOutputSystemByPackOutputNewrelicEvents struct {
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'accountId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accountId' at runtime.
@@ -1275,7 +2344,7 @@ func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetFlushPeriodSec() *floa
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -1303,7 +2372,7 @@ func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetSafeHeaders() []string
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -1448,6 +2517,13 @@ func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetTextSecret() *string {
 		return nil
 	}
 	return c.TextSecret
+}
+
+func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateOutputSystemByPackOutputNewrelicEvents) GetTemplateRegion() *string {
@@ -1621,7 +2697,7 @@ type CreateOutputSystemByPackOutputNewrelic struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -1629,8 +2705,8 @@ type CreateOutputSystemByPackOutputNewrelic struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -1668,6 +2744,8 @@ type CreateOutputSystemByPackOutputNewrelic struct {
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'logType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logType' at runtime.
@@ -1810,7 +2888,7 @@ func (c *CreateOutputSystemByPackOutputNewrelic) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputNewrelic) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputSystemByPackOutputNewrelic) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -1838,7 +2916,7 @@ func (c *CreateOutputSystemByPackOutputNewrelic) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputSystemByPackOutputNewrelic) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputNewrelic) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -1992,6 +3070,13 @@ func (c *CreateOutputSystemByPackOutputNewrelic) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputNewrelic) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputNewrelic) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
@@ -2097,21 +3182,21 @@ type CreateOutputSystemByPackOutputElasticCloud struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Extra parameters to use in HTTP requests
-	ExtraParams []components.ItemsTypeSaslSaslExtensions         `json:"extraParams,omitzero"`
+	ExtraParams []components.SaslExtensionConfInputKafka         `json:"extraParams,omitzero"`
 	Auth        *components.AuthTypeTemplatemanualAPIKeyAuthType `json:"auth,omitzero"`
 	// Optional Elastic Cloud Destination pipeline
 	ElasticPipeline *string `json:"elasticPipeline,omitzero"`
 	// Include the `document_id` field when sending events to an Elastic TSDS (time series data stream)
 	IncludeDocID *bool `json:"includeDocId,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -2140,6 +3225,8 @@ type CreateOutputSystemByPackOutputElasticCloud struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                         `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsElasticCloud `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'index' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'index' at runtime.
@@ -2268,7 +3355,7 @@ func (c *CreateOutputSystemByPackOutputElasticCloud) GetFlushPeriodSec() *float6
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputElasticCloud) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputSystemByPackOutputElasticCloud) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -2289,7 +3376,7 @@ func (c *CreateOutputSystemByPackOutputElasticCloud) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputSystemByPackOutputElasticCloud) GetExtraParams() []components.ItemsTypeSaslSaslExtensions {
+func (c *CreateOutputSystemByPackOutputElasticCloud) GetExtraParams() []components.SaslExtensionConfInputKafka {
 	if c == nil {
 		return nil
 	}
@@ -2317,7 +3404,7 @@ func (c *CreateOutputSystemByPackOutputElasticCloud) GetIncludeDocID() *bool {
 	return c.IncludeDocID
 }
 
-func (c *CreateOutputSystemByPackOutputElasticCloud) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputElasticCloud) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -2434,6 +3521,13 @@ func (c *CreateOutputSystemByPackOutputElasticCloud) GetPqControls() *CreateOutp
 		return nil
 	}
 	return c.PqControls
+}
+
+func (c *CreateOutputSystemByPackOutputElasticCloud) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateOutputSystemByPackOutputElasticCloud) GetTemplateURL() *string {
@@ -2636,17 +3730,17 @@ type CreateOutputSystemByPackOutputElastic struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool                                            `json:"responseHonorRetryAfterHeader,omitzero"`
-	ExtraParams                   []components.ItemsTypeSaslSaslExtensions         `json:"extraParams,omitzero"`
+	ExtraParams                   []components.SaslExtensionConfInputKafka         `json:"extraParams,omitzero"`
 	Auth                          *components.AuthTypeTemplatemanualAPIKeyAuthType `json:"auth,omitzero"`
 	// Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
 	ElasticVersion *CreateOutputSystemByPackElasticVersion `json:"elasticVersion,omitzero"`
@@ -2695,6 +3789,8 @@ type CreateOutputSystemByPackOutputElastic struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                    `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsElastic `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'index' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'index' at runtime.
 	TemplateIndex *string `json:"__template_index,omitzero"`
 	// Binds 'docType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'docType' at runtime.
@@ -2832,7 +3928,7 @@ func (c *CreateOutputSystemByPackOutputElastic) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputElastic) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputSystemByPackOutputElastic) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -2853,7 +3949,7 @@ func (c *CreateOutputSystemByPackOutputElastic) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputSystemByPackOutputElastic) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputElastic) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -2874,7 +3970,7 @@ func (c *CreateOutputSystemByPackOutputElastic) GetResponseHonorRetryAfterHeader
 	return c.ResponseHonorRetryAfterHeader
 }
 
-func (c *CreateOutputSystemByPackOutputElastic) GetExtraParams() []components.ItemsTypeSaslSaslExtensions {
+func (c *CreateOutputSystemByPackOutputElastic) GetExtraParams() []components.SaslExtensionConfInputKafka {
 	if c == nil {
 		return nil
 	}
@@ -3063,6 +4159,13 @@ func (c *CreateOutputSystemByPackOutputElastic) GetPqControls() *CreateOutputSys
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputElastic) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputElastic) GetTemplateIndex() *string {
 	if c == nil {
 		return nil
@@ -3194,8 +4297,6 @@ type CreateOutputSystemByPackOutputMsk struct {
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing MSK cluster requests
-	SignatureVersion *components.SignatureVersionOptions `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -3242,6 +4343,8 @@ type CreateOutputSystemByPackOutputMsk struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsMsk `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
@@ -3464,13 +4567,6 @@ func (c *CreateOutputSystemByPackOutputMsk) GetEndpoint() *string {
 	return c.Endpoint
 }
 
-func (c *CreateOutputSystemByPackOutputMsk) GetSignatureVersion() *components.SignatureVersionOptions {
-	if c == nil {
-		return nil
-	}
-	return c.SignatureVersion
-}
-
 func (c *CreateOutputSystemByPackOutputMsk) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
@@ -3644,6 +4740,13 @@ func (c *CreateOutputSystemByPackOutputMsk) GetPqControls() *CreateOutputSystemB
 		return nil
 	}
 	return c.PqControls
+}
+
+func (c *CreateOutputSystemByPackOutputMsk) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateOutputSystemByPackOutputMsk) GetTemplateTopic() *string {
@@ -3831,6 +4934,10 @@ type CreateOutputSystemByPackOutputConfluentCloud struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                           `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsConfluentCloud `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+	TemplateBrokers *string `json:"__template_brokers,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
@@ -4139,6 +5246,20 @@ func (c *CreateOutputSystemByPackOutputConfluentCloud) GetPqControls() *CreateOu
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputConfluentCloud) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateOutputSystemByPackOutputConfluentCloud) GetTemplateBrokers() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBrokers
+}
+
 func (c *CreateOutputSystemByPackOutputConfluentCloud) GetTemplateTopic() *string {
 	if c == nil {
 		return nil
@@ -4282,6 +5403,8 @@ type CreateOutputSystemByPackOutputKafka struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                  `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsKafka `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
@@ -4590,6 +5713,13 @@ func (c *CreateOutputSystemByPackOutputKafka) GetPqControls() *CreateOutputSyste
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputKafka) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputKafka) GetTemplateTopic() *string {
 	if c == nil {
 		return nil
@@ -4661,8 +5791,6 @@ type CreateOutputSystemByPackOutputExabeam struct {
 	StagePath string `json:"stagePath"`
 	// Google Cloud Storage service endpoint
 	Endpoint string `json:"endpoint"`
-	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion *components.SignatureVersionOptionsGoogle `json:"signatureVersion,omitzero"`
 	// Object ACL to assign to uploaded objects
 	ObjectACL *components.ObjectACLOptionsAuthenticatedreadBucketownerfullcontrol `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
@@ -4714,6 +5842,8 @@ type CreateOutputSystemByPackOutputExabeam struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
@@ -4805,13 +5935,6 @@ func (c *CreateOutputSystemByPackOutputExabeam) GetEndpoint() string {
 		return ""
 	}
 	return c.Endpoint
-}
-
-func (c *CreateOutputSystemByPackOutputExabeam) GetSignatureVersion() *components.SignatureVersionOptionsGoogle {
-	if c == nil {
-		return nil
-	}
-	return c.SignatureVersion
 }
 
 func (c *CreateOutputSystemByPackOutputExabeam) GetObjectACL() *components.ObjectACLOptionsAuthenticatedreadBucketownerfullcontrol {
@@ -5003,6 +6126,13 @@ func (c *CreateOutputSystemByPackOutputExabeam) GetMaxRetryNum() *float64 {
 	return c.MaxRetryNum
 }
 
+func (c *CreateOutputSystemByPackOutputExabeam) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputExabeam) GetTemplateRegion() *string {
 	if c == nil {
 		return nil
@@ -5139,6 +6269,8 @@ type CreateOutputSystemByPackOutputGooglePubsub struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                         `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsGooglePubsub `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'topicName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicName' at runtime.
 	TemplateTopicName *string `json:"__template_topicName,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -5389,6 +6521,13 @@ func (c *CreateOutputSystemByPackOutputGooglePubsub) GetPqControls() *CreateOutp
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputGooglePubsub) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputGooglePubsub) GetTemplateTopicName() *string {
 	if c == nil {
 		return nil
@@ -5519,11 +6658,11 @@ type CreateOutputSystemByPackOutputGoogleCloudLogging struct {
 	// Format to use when sending payload. Defaults to Text.
 	PayloadFormat *CreateOutputSystemByPackPayloadFormat `json:"payloadFormat,omitzero"`
 	// Labels to apply to the log entry
-	LogLabels []components.ItemsTypeLogLabels `json:"logLabels,omitzero"`
+	LogLabels []components.LogLabelConfOutputGoogleCloudLogging `json:"logLabels,omitzero"`
 	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
 	ResourceTypeExpression *string `json:"resourceTypeExpression,omitzero"`
 	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
-	ResourceTypeLabels []components.ItemsTypeLogLabels `json:"resourceTypeLabels,omitzero"`
+	ResourceTypeLabels []components.LogLabelConfOutputGoogleCloudLogging `json:"resourceTypeLabels,omitzero"`
 	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
 	SeverityExpression *string `json:"severityExpression,omitzero"`
 	// JavaScript expression to compute the value of the insert ID field.
@@ -5636,6 +6775,8 @@ type CreateOutputSystemByPackOutputGoogleCloudLogging struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                               `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsGoogleCloudLogging `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'logLocationType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationType' at runtime.
 	TemplateLogLocationType *string `json:"__template_logLocationType,omitzero"`
 	// Binds 'logNameExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logNameExpression' at runtime.
@@ -5743,7 +6884,7 @@ func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetPayloadFormat() *C
 	return c.PayloadFormat
 }
 
-func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetLogLabels() []components.ItemsTypeLogLabels {
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetLogLabels() []components.LogLabelConfOutputGoogleCloudLogging {
 	if c == nil {
 		return nil
 	}
@@ -5757,7 +6898,7 @@ func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetResourceTypeExpres
 	return c.ResourceTypeExpression
 }
 
-func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetResourceTypeLabels() []components.ItemsTypeLogLabels {
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetResourceTypeLabels() []components.LogLabelConfOutputGoogleCloudLogging {
 	if c == nil {
 		return nil
 	}
@@ -6163,6 +7304,13 @@ func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetPqControls() *Crea
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputGoogleCloudLogging) GetTemplateLogLocationType() *string {
 	if c == nil {
 		return nil
@@ -6313,9 +7461,7 @@ type CreateOutputSystemByPackOutputGoogleCloudStorage struct {
 	// Region where the bucket is located
 	Region string `json:"region"`
 	// Google Cloud Storage service endpoint
-	Endpoint string `json:"endpoint"`
-	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion        *components.SignatureVersionOptionsGoogle                       `json:"signatureVersion,omitzero"`
+	Endpoint                string                                                          `json:"endpoint"`
 	AwsAuthenticationMethod *CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage `json:"awsAuthenticationMethod,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
@@ -6385,7 +7531,7 @@ type CreateOutputSystemByPackOutputGoogleCloudStorage struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []components.KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -6406,6 +7552,8 @@ type CreateOutputSystemByPackOutputGoogleCloudStorage struct {
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -6510,13 +7658,6 @@ func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetEndpoint() string 
 		return ""
 	}
 	return c.Endpoint
-}
-
-func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetSignatureVersion() *components.SignatureVersionOptionsGoogle {
-	if c == nil {
-		return nil
-	}
-	return c.SignatureVersion
 }
 
 func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetAwsAuthenticationMethod() *CreateOutputSystemByPackAuthenticationMethodGoogleCloudStorage {
@@ -6771,7 +7912,7 @@ func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetShouldLogInvalidRo
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetKeyValueMetadata() []components.ItemsTypeKeyValueMetadata {
+func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
@@ -6846,6 +7987,13 @@ func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetAwsSecret() *strin
 		return nil
 	}
 	return c.AwsSecret
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateOutputSystemByPackOutputGoogleCloudStorage) GetTemplateBucket() *string {
@@ -7134,8 +8282,8 @@ type CreateOutputSystemByPackOutputGoogleChronicle struct {
 	APIVersion           *CreateOutputSystemByPackAPIVersion                          `json:"apiVersion,omitzero"`
 	AuthenticationMethod *CreateOutputSystemByPackAuthenticationMethodGoogleChronicle `json:"authenticationMethod,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool                                `json:"responseHonorRetryAfterHeader,omitzero"`
 	LogFormatType                 CreateOutputSystemByPackSendEventsAs `json:"logFormatType"`
@@ -7158,7 +8306,7 @@ type CreateOutputSystemByPackOutputGoogleChronicle struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
@@ -7181,7 +8329,7 @@ type CreateOutputSystemByPackOutputGoogleChronicle struct {
 	// User-configured environment namespace to identify the data domain the logs originated from. Use namespace as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
 	Namespace *string `json:"namespace,omitzero"`
 	// Custom labels to be added to every batch
-	CustomLabels []components.ItemsTypeKeyValueMetadata `json:"customLabels,omitzero"`
+	CustomLabels []components.KeyValueMetadataConfOutputFilesystem `json:"customLabels,omitzero"`
 	// Defines the specific format for UDM events sent to Google SecOps. This must match the type of UDM data being sent.
 	UdmType *CreateOutputSystemByPackUDMType `json:"udmType,omitzero"`
 	// Organization's API key in Google SecOps
@@ -7215,6 +8363,8 @@ type CreateOutputSystemByPackOutputGoogleChronicle struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                            `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsGoogleChronicle `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'apiVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'apiVersion' at runtime.
 	TemplateAPIVersion *string `json:"__template_apiVersion,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -7294,7 +8444,7 @@ func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetAuthenticationMethod(
 	return c.AuthenticationMethod
 }
 
-func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -7378,7 +8528,7 @@ func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetFlushPeriodSec() *flo
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -7462,7 +8612,7 @@ func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetNamespace() *string {
 	return c.Namespace
 }
 
-func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetCustomLabels() []components.ItemsTypeKeyValueMetadata {
+func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetCustomLabels() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
@@ -7586,6 +8736,13 @@ func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetPqControls() *CreateO
 		return nil
 	}
 	return c.PqControls
+}
+
+func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateOutputSystemByPackOutputGoogleChronicle) GetTemplateAPIVersion() *string {
@@ -7731,6 +8888,10 @@ type CreateOutputSystemByPackOutputAzureEventhub struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                          `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsAzureEventhub `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
+	TemplateBrokers *string `json:"__template_brokers,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
 	TemplateTopic *string `json:"__template_topic,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
@@ -8009,6 +9170,20 @@ func (c *CreateOutputSystemByPackOutputAzureEventhub) GetPqControls() *CreateOut
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputAzureEventhub) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateOutputSystemByPackOutputAzureEventhub) GetTemplateBrokers() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateBrokers
+}
+
 func (c *CreateOutputSystemByPackOutputAzureEventhub) GetTemplateTopic() *string {
 	if c == nil {
 		return nil
@@ -8098,7 +9273,7 @@ type CreateOutputSystemByPackOutputHoneycomb struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -8106,8 +9281,8 @@ type CreateOutputSystemByPackOutputHoneycomb struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -8142,6 +9317,8 @@ type CreateOutputSystemByPackOutputHoneycomb struct {
 	Team *string `json:"team,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -8257,7 +9434,7 @@ func (c *CreateOutputSystemByPackOutputHoneycomb) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputHoneycomb) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputSystemByPackOutputHoneycomb) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -8285,7 +9462,7 @@ func (c *CreateOutputSystemByPackOutputHoneycomb) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputSystemByPackOutputHoneycomb) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputHoneycomb) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -8425,6 +9602,13 @@ func (c *CreateOutputSystemByPackOutputHoneycomb) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputHoneycomb) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputHoneycomb) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
@@ -8522,8 +9706,6 @@ type CreateOutputSystemByPackOutputKinesis struct {
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing Kinesis stream requests
-	SignatureVersion *components.SignatureVersionOptionsKinesis `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -8579,6 +9761,8 @@ type CreateOutputSystemByPackOutputKinesis struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                    `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsKinesis `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
 	TemplateStreamName *string `json:"__template_streamName,omitzero"`
 	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
@@ -8683,13 +9867,6 @@ func (c *CreateOutputSystemByPackOutputKinesis) GetEndpoint() *string {
 		return nil
 	}
 	return c.Endpoint
-}
-
-func (c *CreateOutputSystemByPackOutputKinesis) GetSignatureVersion() *components.SignatureVersionOptionsKinesis {
-	if c == nil {
-		return nil
-	}
-	return c.SignatureVersion
 }
 
 func (c *CreateOutputSystemByPackOutputKinesis) GetReuseConnections() *bool {
@@ -8895,6 +10072,13 @@ func (c *CreateOutputSystemByPackOutputKinesis) GetPqControls() *CreateOutputSys
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputKinesis) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputKinesis) GetTemplateStreamName() *string {
 	if c == nil {
 		return nil
@@ -9043,7 +10227,7 @@ type CreateOutputSystemByPackOutputAzureLogs struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -9053,8 +10237,8 @@ type CreateOutputSystemByPackOutputAzureLogs struct {
 	// The DNS name of the Log API endpoint that sends log data to a Log Analytics workspace in Azure Monitor. Defaults to .ods.opinsights.azure.com. @{product} will add a prefix and suffix to construct a URI in this format: <https://<Workspace_ID><your_DNS_name>/api/logs?api-version=<API version>.
 	APIURL *string `json:"apiUrl,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -9091,6 +10275,8 @@ type CreateOutputSystemByPackOutputAzureLogs struct {
 	WorkspaceKey *string `json:"workspaceKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	KeypairSecret *string `json:"keypairSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -9217,7 +10403,7 @@ func (c *CreateOutputSystemByPackOutputAzureLogs) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputAzureLogs) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputSystemByPackOutputAzureLogs) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -9252,7 +10438,7 @@ func (c *CreateOutputSystemByPackOutputAzureLogs) GetAPIURL() *string {
 	return c.APIURL
 }
 
-func (c *CreateOutputSystemByPackOutputAzureLogs) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputAzureLogs) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -9397,6 +10583,13 @@ func (c *CreateOutputSystemByPackOutputAzureLogs) GetKeypairSecret() *string {
 		return nil
 	}
 	return c.KeypairSecret
+}
+
+func (c *CreateOutputSystemByPackOutputAzureLogs) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateOutputSystemByPackOutputAzureLogs) GetTemplateFailedRequestLoggingMode() *string {
@@ -9756,7 +10949,7 @@ type CreateOutputSystemByPackOutputAzureDataExplorer struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []components.KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -9822,8 +11015,8 @@ type CreateOutputSystemByPackOutputAzureDataExplorer struct {
 	// Optionally, enter additional configuration properties to send to the ingestion service
 	AdditionalProperties []CreateOutputSystemByPackAdditionalProperty `json:"additionalProperties,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Maximum number of ongoing requests before blocking
@@ -9865,6 +11058,8 @@ type CreateOutputSystemByPackOutputAzureDataExplorer struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                              `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsAzureDataExplorer `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'clusterUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clusterUrl' at runtime.
 	TemplateClusterURL *string `json:"__template_clusterUrl,omitzero"`
 	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
@@ -10118,7 +11313,7 @@ func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetShouldLogInvalidRow
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetKeyValueMetadata() []components.ItemsTypeKeyValueMetadata {
+func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
@@ -10356,7 +11551,7 @@ func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetAdditionalPropertie
 	return c.AdditionalProperties
 }
 
-func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -10508,6 +11703,13 @@ func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetPqControls() *Creat
 		return nil
 	}
 	return c.PqControls
+}
+
+func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateOutputSystemByPackOutputAzureDataExplorer) GetTemplateClusterURL() *string {
@@ -10746,7 +11948,7 @@ type CreateOutputSystemByPackOutputAzureBlob struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []components.KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -10778,6 +11980,8 @@ type CreateOutputSystemByPackOutputAzureBlob struct {
 	// Select or create a stored text secret
 	ClientTextSecret *string                                                `json:"clientTextSecret,omitzero"`
 	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
 	TemplateContainerName *string `json:"__template_containerName,omitzero"`
 	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
@@ -11106,7 +12310,7 @@ func (c *CreateOutputSystemByPackOutputAzureBlob) GetShouldLogInvalidRows() *boo
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputSystemByPackOutputAzureBlob) GetKeyValueMetadata() []components.ItemsTypeKeyValueMetadata {
+func (c *CreateOutputSystemByPackOutputAzureBlob) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
@@ -11223,6 +12427,13 @@ func (c *CreateOutputSystemByPackOutputAzureBlob) GetCertificate() *components.C
 		return nil
 	}
 	return c.Certificate
+}
+
+func (c *CreateOutputSystemByPackOutputAzureBlob) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateOutputSystemByPackOutputAzureBlob) GetTemplateContainerName() *string {
@@ -11370,14 +12581,10 @@ type CreateOutputSystemByPackOutputS3 struct {
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	// Signature version to use for signing S3 requests
-	SignatureVersion *components.SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
 	// Region where the S3 bucket is located
@@ -11426,6 +12633,8 @@ type CreateOutputSystemByPackOutputS3 struct {
 	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
 	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Object ACL to assign to uploaded objects
 	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
@@ -11458,7 +12667,7 @@ type CreateOutputSystemByPackOutputS3 struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []components.KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -11473,14 +12682,14 @@ type CreateOutputSystemByPackOutputS3 struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -11497,6 +12706,8 @@ type CreateOutputSystemByPackOutputS3 struct {
 	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
 	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
 	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
@@ -11608,13 +12819,6 @@ func (c *CreateOutputSystemByPackOutputS3) GetAwsAuthenticationMethod() *compone
 	return c.AwsAuthenticationMethod
 }
 
-func (c *CreateOutputSystemByPackOutputS3) GetSignatureVersion() *components.SignatureVersionOptionsS3CollectorConf {
-	if c == nil {
-		return nil
-	}
-	return c.SignatureVersion
-}
-
 func (c *CreateOutputSystemByPackOutputS3) GetReuseConnections() *bool {
 	if c == nil {
 		return nil
@@ -11627,13 +12831,6 @@ func (c *CreateOutputSystemByPackOutputS3) GetRejectUnauthorized() *bool {
 		return nil
 	}
 	return c.RejectUnauthorized
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetAwsSecretKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AwsSecretKey
 }
 
 func (c *CreateOutputSystemByPackOutputS3) GetBucket() string {
@@ -11811,6 +13008,13 @@ func (c *CreateOutputSystemByPackOutputS3) GetOrphans() *components.OrphanFileRe
 	return c.Orphans
 }
 
+func (c *CreateOutputSystemByPackOutputS3) GetAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.AwsSecretKey
+}
+
 func (c *CreateOutputSystemByPackOutputS3) GetObjectACL() *components.ObjectACLOptions {
 	if c == nil {
 		return nil
@@ -11923,7 +13127,7 @@ func (c *CreateOutputSystemByPackOutputS3) GetShouldLogInvalidRows() *bool {
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputSystemByPackOutputS3) GetKeyValueMetadata() []components.ItemsTypeKeyValueMetadata {
+func (c *CreateOutputSystemByPackOutputS3) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
@@ -11979,6 +13183,13 @@ func (c *CreateOutputSystemByPackOutputS3) GetMaxRetryNum() *float64 {
 	return c.MaxRetryNum
 }
 
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputS3) GetTemplateEndpoint() *string {
 	if c == nil {
 		return nil
@@ -11998,13 +13209,6 @@ func (c *CreateOutputSystemByPackOutputS3) GetTemplateAssumeRoleExternalID() *st
 		return nil
 	}
 	return c.TemplateAssumeRoleExternalID
-}
-
-func (c *CreateOutputSystemByPackOutputS3) GetTemplateAwsSecretKey() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateAwsSecretKey
 }
 
 func (c *CreateOutputSystemByPackOutputS3) GetTemplateBucket() *string {
@@ -12061,6 +13265,13 @@ func (c *CreateOutputSystemByPackOutputS3) GetTemplateOnBackpressure() *string {
 		return nil
 	}
 	return c.TemplateOnBackpressure
+}
+
+func (c *CreateOutputSystemByPackOutputS3) GetTemplateAwsSecretKey() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAwsSecretKey
 }
 
 func (c *CreateOutputSystemByPackOutputS3) GetTemplateObjectACL() *string {
@@ -12208,7 +13419,7 @@ type CreateOutputSystemByPackOutputFilesystem struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []components.ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []components.KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -12223,6 +13434,8 @@ type CreateOutputSystemByPackOutputFilesystem struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
 	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
@@ -12502,7 +13715,7 @@ func (c *CreateOutputSystemByPackOutputFilesystem) GetShouldLogInvalidRows() *bo
 	return c.ShouldLogInvalidRows
 }
 
-func (c *CreateOutputSystemByPackOutputFilesystem) GetKeyValueMetadata() []components.ItemsTypeKeyValueMetadata {
+func (c *CreateOutputSystemByPackOutputFilesystem) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
 	if c == nil {
 		return nil
 	}
@@ -12556,6 +13769,13 @@ func (c *CreateOutputSystemByPackOutputFilesystem) GetMaxRetryNum() *float64 {
 		return nil
 	}
 	return c.MaxRetryNum
+}
+
+func (c *CreateOutputSystemByPackOutputFilesystem) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateOutputSystemByPackOutputFilesystem) GetTemplatePartitionExpr() *string {
@@ -12677,7 +13897,7 @@ type CreateOutputSystemByPackOutputSignalfx struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -12685,8 +13905,8 @@ type CreateOutputSystemByPackOutputSignalfx struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -12719,6 +13939,8 @@ type CreateOutputSystemByPackOutputSignalfx struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                     `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsSignalfx `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -12841,7 +14063,7 @@ func (c *CreateOutputSystemByPackOutputSignalfx) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputSignalfx) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputSystemByPackOutputSignalfx) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -12869,7 +14091,7 @@ func (c *CreateOutputSystemByPackOutputSignalfx) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputSystemByPackOutputSignalfx) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputSignalfx) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -13002,6 +14224,13 @@ func (c *CreateOutputSystemByPackOutputSignalfx) GetPqControls() *CreateOutputSy
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputSignalfx) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputSignalfx) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
@@ -13086,7 +14315,7 @@ type CreateOutputSystemByPackOutputWavefront struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -13094,8 +14323,8 @@ type CreateOutputSystemByPackOutputWavefront struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -13128,6 +14357,8 @@ type CreateOutputSystemByPackOutputWavefront struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                      `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsWavefront `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -13250,7 +14481,7 @@ func (c *CreateOutputSystemByPackOutputWavefront) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputWavefront) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputSystemByPackOutputWavefront) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -13278,7 +14509,7 @@ func (c *CreateOutputSystemByPackOutputWavefront) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputSystemByPackOutputWavefront) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputWavefront) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -13411,6 +14642,13 @@ func (c *CreateOutputSystemByPackOutputWavefront) GetPqControls() *CreateOutputS
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputWavefront) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputWavefront) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
@@ -13503,7 +14741,7 @@ type CreateOutputSystemByPackOutputTcpjson struct {
 	// Exclude all IPs of the current host from the list of any resolved hostnames
 	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
 	// Set of hosts to load-balance data to
-	Hosts []components.ItemsTypeHosts `json:"hosts,omitzero"`
+	Hosts []components.HostConfOutputSyslog `json:"hosts,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -13537,6 +14775,8 @@ type CreateOutputSystemByPackOutputTcpjson struct {
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -13703,7 +14943,7 @@ func (c *CreateOutputSystemByPackOutputTcpjson) GetExcludeSelf() *bool {
 	return c.ExcludeSelf
 }
 
-func (c *CreateOutputSystemByPackOutputTcpjson) GetHosts() []components.ItemsTypeHosts {
+func (c *CreateOutputSystemByPackOutputTcpjson) GetHosts() []components.HostConfOutputSyslog {
 	if c == nil {
 		return nil
 	}
@@ -13829,6 +15069,13 @@ func (c *CreateOutputSystemByPackOutputTcpjson) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputTcpjson) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputTcpjson) GetTemplateOnBackpressure() *string {
 	if c == nil {
 		return nil
@@ -13921,7 +15168,7 @@ type CreateOutputSystemByPackOutputWizHec struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
@@ -13929,8 +15176,8 @@ type CreateOutputSystemByPackOutputWizHec struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -13970,6 +15217,8 @@ type CreateOutputSystemByPackOutputWizHec struct {
 	Token *string `json:"token,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -14105,7 +15354,7 @@ func (c *CreateOutputSystemByPackOutputWizHec) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputWizHec) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputSystemByPackOutputWizHec) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -14133,7 +15382,7 @@ func (c *CreateOutputSystemByPackOutputWizHec) GetAuthType() *components.Authent
 	return c.AuthType
 }
 
-func (c *CreateOutputSystemByPackOutputWizHec) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputWizHec) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -14294,6 +15543,13 @@ func (c *CreateOutputSystemByPackOutputWizHec) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputWizHec) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputWizHec) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
@@ -14443,7 +15699,7 @@ type CreateOutputSystemByPackOutputSplunkHec struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
@@ -14453,8 +15709,8 @@ type CreateOutputSystemByPackOutputSplunkHec struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -14498,6 +15754,8 @@ type CreateOutputSystemByPackOutputSplunkHec struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                      `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsSplunkHec `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -14636,7 +15894,7 @@ func (c *CreateOutputSystemByPackOutputSplunkHec) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputSplunkHec) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputSystemByPackOutputSplunkHec) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -14671,7 +15929,7 @@ func (c *CreateOutputSystemByPackOutputSplunkHec) GetAuthType() *components.Auth
 	return c.AuthType
 }
 
-func (c *CreateOutputSystemByPackOutputSplunkHec) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputSplunkHec) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -14844,6 +16102,13 @@ func (c *CreateOutputSystemByPackOutputSplunkHec) GetPqControls() *CreateOutputS
 		return nil
 	}
 	return c.PqControls
+}
+
+func (c *CreateOutputSystemByPackOutputSplunkHec) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateOutputSystemByPackOutputSplunkHec) GetTemplateFailedRequestLoggingMode() *string {
@@ -15085,7 +16350,7 @@ type CreateOutputSystemByPackOutputSplunkLb struct {
 	// Exclude all IPs of the current host from the list of any resolved hostnames
 	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
 	// Set of Splunk indexers to load-balance data to.
-	Hosts []components.ItemsTypeHosts `json:"hosts"`
+	Hosts []components.HostConfOutputSyslog `json:"hosts"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -15113,6 +16378,8 @@ type CreateOutputSystemByPackOutputSplunkLb struct {
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'nestedFields' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'nestedFields' at runtime.
 	TemplateNestedFields *string `json:"__template_nestedFields,omitzero"`
 	// Binds 'maxS2Sversion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'maxS2Sversion' at runtime.
@@ -15323,9 +16590,9 @@ func (c *CreateOutputSystemByPackOutputSplunkLb) GetExcludeSelf() *bool {
 	return c.ExcludeSelf
 }
 
-func (c *CreateOutputSystemByPackOutputSplunkLb) GetHosts() []components.ItemsTypeHosts {
+func (c *CreateOutputSystemByPackOutputSplunkLb) GetHosts() []components.HostConfOutputSyslog {
 	if c == nil {
-		return []components.ItemsTypeHosts{}
+		return []components.HostConfOutputSyslog{}
 	}
 	return c.Hosts
 }
@@ -15426,6 +16693,13 @@ func (c *CreateOutputSystemByPackOutputSplunkLb) GetTextSecret() *string {
 		return nil
 	}
 	return c.TextSecret
+}
+
+func (c *CreateOutputSystemByPackOutputSplunkLb) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateOutputSystemByPackOutputSplunkLb) GetTemplateNestedFields() *string {
@@ -15562,6 +16836,8 @@ type CreateOutputSystemByPackOutputSplunk struct {
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -15839,6 +17115,13 @@ func (c *CreateOutputSystemByPackOutputSplunk) GetTextSecret() *string {
 	return c.TextSecret
 }
 
+func (c *CreateOutputSystemByPackOutputSplunk) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputSplunk) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -15933,28 +17216,50 @@ func (e *CreateOutputSystemByPackProtocolSyslog) IsExact() bool {
 type CreateOutputSystemByPackFacility int64
 
 const (
-	CreateOutputSystemByPackFacilityZero      CreateOutputSystemByPackFacility = 0
-	CreateOutputSystemByPackFacilityOne       CreateOutputSystemByPackFacility = 1
-	CreateOutputSystemByPackFacilityTwo       CreateOutputSystemByPackFacility = 2
-	CreateOutputSystemByPackFacilityThree     CreateOutputSystemByPackFacility = 3
-	CreateOutputSystemByPackFacilityFour      CreateOutputSystemByPackFacility = 4
-	CreateOutputSystemByPackFacilityFive      CreateOutputSystemByPackFacility = 5
-	CreateOutputSystemByPackFacilitySix       CreateOutputSystemByPackFacility = 6
-	CreateOutputSystemByPackFacilitySeven     CreateOutputSystemByPackFacility = 7
-	CreateOutputSystemByPackFacilityEight     CreateOutputSystemByPackFacility = 8
-	CreateOutputSystemByPackFacilityNine      CreateOutputSystemByPackFacility = 9
-	CreateOutputSystemByPackFacilityTen       CreateOutputSystemByPackFacility = 10
-	CreateOutputSystemByPackFacilityEleven    CreateOutputSystemByPackFacility = 11
-	CreateOutputSystemByPackFacilityTwelve    CreateOutputSystemByPackFacility = 12
-	CreateOutputSystemByPackFacilityThirteen  CreateOutputSystemByPackFacility = 13
-	CreateOutputSystemByPackFacilityFourteen  CreateOutputSystemByPackFacility = 14
-	CreateOutputSystemByPackFacilityFifteen   CreateOutputSystemByPackFacility = 15
-	CreateOutputSystemByPackFacilitySixteen   CreateOutputSystemByPackFacility = 16
-	CreateOutputSystemByPackFacilitySeventeen CreateOutputSystemByPackFacility = 17
-	CreateOutputSystemByPackFacilityEighteen  CreateOutputSystemByPackFacility = 18
-	CreateOutputSystemByPackFacilityNineteen  CreateOutputSystemByPackFacility = 19
-	CreateOutputSystemByPackFacilityTwenty    CreateOutputSystemByPackFacility = 20
-	CreateOutputSystemByPackFacilityTwentyOne CreateOutputSystemByPackFacility = 21
+	// CreateOutputSystemByPackFacilityKern kern
+	CreateOutputSystemByPackFacilityKern CreateOutputSystemByPackFacility = 0
+	// CreateOutputSystemByPackFacilityUser user
+	CreateOutputSystemByPackFacilityUser CreateOutputSystemByPackFacility = 1
+	// CreateOutputSystemByPackFacilityMail mail
+	CreateOutputSystemByPackFacilityMail CreateOutputSystemByPackFacility = 2
+	// CreateOutputSystemByPackFacilityDaemon daemon
+	CreateOutputSystemByPackFacilityDaemon CreateOutputSystemByPackFacility = 3
+	// CreateOutputSystemByPackFacilityAuth auth
+	CreateOutputSystemByPackFacilityAuth CreateOutputSystemByPackFacility = 4
+	// CreateOutputSystemByPackFacilitySyslog syslog
+	CreateOutputSystemByPackFacilitySyslog CreateOutputSystemByPackFacility = 5
+	// CreateOutputSystemByPackFacilityLpr lpr
+	CreateOutputSystemByPackFacilityLpr CreateOutputSystemByPackFacility = 6
+	// CreateOutputSystemByPackFacilityNews news
+	CreateOutputSystemByPackFacilityNews CreateOutputSystemByPackFacility = 7
+	// CreateOutputSystemByPackFacilityUucp uucp
+	CreateOutputSystemByPackFacilityUucp CreateOutputSystemByPackFacility = 8
+	// CreateOutputSystemByPackFacilityCron cron
+	CreateOutputSystemByPackFacilityCron CreateOutputSystemByPackFacility = 9
+	// CreateOutputSystemByPackFacilityAuthpriv authpriv
+	CreateOutputSystemByPackFacilityAuthpriv CreateOutputSystemByPackFacility = 10
+	// CreateOutputSystemByPackFacilityFtp ftp
+	CreateOutputSystemByPackFacilityFtp CreateOutputSystemByPackFacility = 11
+	// CreateOutputSystemByPackFacilityNtp ntp
+	CreateOutputSystemByPackFacilityNtp CreateOutputSystemByPackFacility = 12
+	// CreateOutputSystemByPackFacilitySecurity security
+	CreateOutputSystemByPackFacilitySecurity CreateOutputSystemByPackFacility = 13
+	// CreateOutputSystemByPackFacilityConsole console
+	CreateOutputSystemByPackFacilityConsole CreateOutputSystemByPackFacility = 14
+	// CreateOutputSystemByPackFacilitySolarisCron solaris-cron
+	CreateOutputSystemByPackFacilitySolarisCron CreateOutputSystemByPackFacility = 15
+	// CreateOutputSystemByPackFacilityLocal0 local0
+	CreateOutputSystemByPackFacilityLocal0 CreateOutputSystemByPackFacility = 16
+	// CreateOutputSystemByPackFacilityLocal1 local1
+	CreateOutputSystemByPackFacilityLocal1 CreateOutputSystemByPackFacility = 17
+	// CreateOutputSystemByPackFacilityLocal2 local2
+	CreateOutputSystemByPackFacilityLocal2 CreateOutputSystemByPackFacility = 18
+	// CreateOutputSystemByPackFacilityLocal3 local3
+	CreateOutputSystemByPackFacilityLocal3 CreateOutputSystemByPackFacility = 19
+	// CreateOutputSystemByPackFacilityLocal4 local4
+	CreateOutputSystemByPackFacilityLocal4 CreateOutputSystemByPackFacility = 20
+	// CreateOutputSystemByPackFacilityLocal5 local5
+	CreateOutputSystemByPackFacilityLocal5 CreateOutputSystemByPackFacility = 21
 )
 
 func (e CreateOutputSystemByPackFacility) ToPointer() *CreateOutputSystemByPackFacility {
@@ -16113,7 +17418,7 @@ type CreateOutputSystemByPackOutputSyslog struct {
 	// Exclude all IPs of the current host from the list of any resolved hostnames
 	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
 	// Set of hosts to load-balance data to
-	Hosts []components.ItemsTypeHosts `json:"hosts,omitzero"`
+	Hosts []components.HostConfOutputSyslog `json:"hosts,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -16156,6 +17461,8 @@ type CreateOutputSystemByPackOutputSyslog struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                                   `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputSystemByPackPqControlsSyslog `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -16315,7 +17622,7 @@ func (c *CreateOutputSystemByPackOutputSyslog) GetExcludeSelf() *bool {
 	return c.ExcludeSelf
 }
 
-func (c *CreateOutputSystemByPackOutputSyslog) GetHosts() []components.ItemsTypeHosts {
+func (c *CreateOutputSystemByPackOutputSyslog) GetHosts() []components.HostConfOutputSyslog {
 	if c == nil {
 		return nil
 	}
@@ -16476,6 +17783,13 @@ func (c *CreateOutputSystemByPackOutputSyslog) GetPqControls() *CreateOutputSyst
 	return c.PqControls
 }
 
+func (c *CreateOutputSystemByPackOutputSyslog) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputSyslog) GetTemplateHost() *string {
 	if c == nil {
 		return nil
@@ -16532,6 +17846,8 @@ type CreateOutputSystemByPackOutputDevnull struct {
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputDevnull) MarshalJSON() ([]byte, error) {
@@ -16585,6 +17901,13 @@ func (c *CreateOutputSystemByPackOutputDevnull) GetStreamtags() []string {
 		return nil
 	}
 	return c.Streamtags
+}
+
+func (c *CreateOutputSystemByPackOutputDevnull) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 type CreateOutputSystemByPackTypeSentinel string
@@ -16725,7 +18048,7 @@ type CreateOutputSystemByPackOutputSentinel struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -16733,8 +18056,8 @@ type CreateOutputSystemByPackOutputSentinel struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -16801,6 +18124,8 @@ type CreateOutputSystemByPackOutputSentinel struct {
 	DceEndpoint *string `json:"dceEndpoint,omitzero"`
 	// The name of the stream (Sentinel table) in which to store the events
 	StreamName *string `json:"streamName,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -16932,7 +18257,7 @@ func (c *CreateOutputSystemByPackOutputSentinel) GetFlushPeriodSec() *float64 {
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputSentinel) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputSystemByPackOutputSentinel) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -16960,7 +18285,7 @@ func (c *CreateOutputSystemByPackOutputSentinel) GetSafeHeaders() []string {
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputSystemByPackOutputSentinel) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputSentinel) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -17219,6 +18544,13 @@ func (c *CreateOutputSystemByPackOutputSentinel) GetStreamName() *string {
 	return c.StreamName
 }
 
+func (c *CreateOutputSystemByPackOutputSentinel) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
 func (c *CreateOutputSystemByPackOutputSentinel) GetTemplateFailedRequestLoggingMode() *string {
 	if c == nil {
 		return nil
@@ -17470,7 +18802,7 @@ type CreateOutputSystemByPackOutputWebhookWebhook2 struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -17478,8 +18810,8 @@ type CreateOutputSystemByPackOutputWebhookWebhook2 struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -17552,9 +18884,9 @@ type CreateOutputSystemByPackOutputWebhookWebhook2 struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
+	OauthParams []components.OauthParamConfInputServicenowTable `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
+	OauthHeaders []components.OauthHeaderConfInputServicenowTable `json:"oauthHeaders,omitzero"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL *string `json:"url,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
@@ -17564,6 +18896,8 @@ type CreateOutputSystemByPackOutputWebhookWebhook2 struct {
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
 	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -17699,7 +19033,7 @@ func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetFlushPeriodSec() *flo
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -17727,7 +19061,7 @@ func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetSafeHeaders() []strin
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -18007,14 +19341,14 @@ func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTokenTimeoutSecs() *f
 	return c.TokenTimeoutSecs
 }
 
-func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetOauthParams() []components.ItemsTypeOauthParams {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetOauthParams() []components.OauthParamConfInputServicenowTable {
 	if c == nil {
 		return nil
 	}
 	return c.OauthParams
 }
 
-func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetOauthHeaders() []components.OauthHeaderConfInputServicenowTable {
 	if c == nil {
 		return nil
 	}
@@ -18054,6 +19388,13 @@ func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetLoadBalanceStatsPerio
 		return nil
 	}
 	return c.LoadBalanceStatsPeriodSec
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateOutputSystemByPackOutputWebhookWebhook2) GetTemplateFailedRequestLoggingMode() *string {
@@ -18275,7 +19616,7 @@ type CreateOutputSystemByPackOutputWebhookWebhook1 struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
-	ExtraHTTPHeaders []components.ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -18283,8 +19624,8 @@ type CreateOutputSystemByPackOutputWebhookWebhook1 struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -18357,9 +19698,9 @@ type CreateOutputSystemByPackOutputWebhookWebhook1 struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.ItemsTypeOauthParams `json:"oauthParams,omitzero"`
+	OauthParams []components.OauthParamConfInputServicenowTable `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
+	OauthHeaders []components.OauthHeaderConfInputServicenowTable `json:"oauthHeaders,omitzero"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL string `json:"url"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
@@ -18369,6 +19710,8 @@ type CreateOutputSystemByPackOutputWebhookWebhook1 struct {
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
 	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -18504,7 +19847,7 @@ func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetFlushPeriodSec() *flo
 	return c.FlushPeriodSec
 }
 
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetExtraHTTPHeaders() []components.ItemsTypeExtraHTTPHeaders {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
 	if c == nil {
 		return nil
 	}
@@ -18532,7 +19875,7 @@ func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetSafeHeaders() []strin
 	return c.SafeHeaders
 }
 
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetResponseRetrySettings() []components.ItemsTypeResponseRetrySettings {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
 	if c == nil {
 		return nil
 	}
@@ -18812,14 +20155,14 @@ func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTokenTimeoutSecs() *f
 	return c.TokenTimeoutSecs
 }
 
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetOauthParams() []components.ItemsTypeOauthParams {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetOauthParams() []components.OauthParamConfInputServicenowTable {
 	if c == nil {
 		return nil
 	}
 	return c.OauthParams
 }
 
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetOauthHeaders() []components.ItemsTypeOauthHeaders {
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetOauthHeaders() []components.OauthHeaderConfInputServicenowTable {
 	if c == nil {
 		return nil
 	}
@@ -18859,6 +20202,13 @@ func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetLoadBalanceStatsPerio
 		return nil
 	}
 	return c.LoadBalanceStatsPeriodSec
+}
+
+func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTemplateFailedRequestLoggingMode() *string {
@@ -19025,6 +20375,8 @@ type CreateOutputSystemByPackOutputDefault struct {
 	Streamtags []string `json:"streamtags,omitzero"`
 	// ID of the default output. This will be used whenever a nonexistent/deleted output is referenced.
 	DefaultID *string `json:"defaultId"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputDefault) MarshalJSON() ([]byte, error) {
@@ -19085,6 +20437,13 @@ func (c *CreateOutputSystemByPackOutputDefault) GetDefaultID() *string {
 		return nil
 	}
 	return c.DefaultID
+}
+
+func (c *CreateOutputSystemByPackOutputDefault) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 type CreateOutputSystemByPackRequestBodyType string
@@ -19162,10 +20521,15 @@ const (
 	CreateOutputSystemByPackRequestBodyTypeMicrosoftFabric        CreateOutputSystemByPackRequestBodyType = "microsoft_fabric"
 	CreateOutputSystemByPackRequestBodyTypeCloudflareR2           CreateOutputSystemByPackRequestBodyType = "cloudflare_r2"
 	CreateOutputSystemByPackRequestBodyTypeNutanixObjects         CreateOutputSystemByPackRequestBodyType = "nutanix_objects"
+	CreateOutputSystemByPackRequestBodyTypeStorjS3                CreateOutputSystemByPackRequestBodyType = "storj_s3"
 	CreateOutputSystemByPackRequestBodyTypeAlphasocS3             CreateOutputSystemByPackRequestBodyType = "alphasoc_s3"
+	CreateOutputSystemByPackRequestBodyTypeDellS3                 CreateOutputSystemByPackRequestBodyType = "dell_s3"
+	CreateOutputSystemByPackRequestBodyTypeCloudianS3             CreateOutputSystemByPackRequestBodyType = "cloudian_s3"
+	CreateOutputSystemByPackRequestBodyTypeScalityS3              CreateOutputSystemByPackRequestBodyType = "scality_s3"
+	CreateOutputSystemByPackRequestBodyTypeAlibabaCloudS3         CreateOutputSystemByPackRequestBodyType = "alibaba_cloud_s3"
 )
 
-// CreateOutputSystemByPackRequestBody - Output object
+// CreateOutputSystemByPackRequestBody - Output object.
 type CreateOutputSystemByPackRequestBody struct {
 	CreateOutputSystemByPackOutputDefault                *CreateOutputSystemByPackOutputDefault                `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputWebhookUnion           *CreateOutputSystemByPackOutputWebhookUnion           `queryParam:"inline" union:"member"`
@@ -19239,7 +20603,12 @@ type CreateOutputSystemByPackRequestBody struct {
 	CreateOutputSystemByPackOutputMicrosoftFabric        *CreateOutputSystemByPackOutputMicrosoftFabric        `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputCloudflareR2           *CreateOutputSystemByPackOutputCloudflareR2           `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputNutanixObjects         *CreateOutputSystemByPackOutputNutanixObjects         `queryParam:"inline" union:"member"`
+	CreateOutputSystemByPackOutputStorjS3                *CreateOutputSystemByPackOutputStorjS3                `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputAlphasocS3             *CreateOutputSystemByPackOutputAlphasocS3             `queryParam:"inline" union:"member"`
+	CreateOutputSystemByPackOutputDellS3                 *CreateOutputSystemByPackOutputDellS3                 `queryParam:"inline" union:"member"`
+	CreateOutputSystemByPackOutputCloudianS3             *CreateOutputSystemByPackOutputCloudianS3             `queryParam:"inline" union:"member"`
+	CreateOutputSystemByPackOutputScalityS3              *CreateOutputSystemByPackOutputScalityS3              `queryParam:"inline" union:"member"`
+	CreateOutputSystemByPackOutputAlibabaCloudS3         *CreateOutputSystemByPackOutputAlibabaCloudS3         `queryParam:"inline" union:"member"`
 
 	Type CreateOutputSystemByPackRequestBodyType
 }
@@ -20102,6 +21471,18 @@ func CreateCreateOutputSystemByPackRequestBodyNutanixObjects(nutanixObjects Crea
 	}
 }
 
+func CreateCreateOutputSystemByPackRequestBodyStorjS3(storjS3 CreateOutputSystemByPackOutputStorjS3) CreateOutputSystemByPackRequestBody {
+	typ := CreateOutputSystemByPackRequestBodyTypeStorjS3
+
+	typStr := CreateOutputSystemByPackTypeStorjS3(typ)
+	storjS3.Type = typStr
+
+	return CreateOutputSystemByPackRequestBody{
+		CreateOutputSystemByPackOutputStorjS3: &storjS3,
+		Type:                                  typ,
+	}
+}
+
 func CreateCreateOutputSystemByPackRequestBodyAlphasocS3(alphasocS3 CreateOutputSystemByPackOutputAlphasocS3) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeAlphasocS3
 
@@ -20111,6 +21492,54 @@ func CreateCreateOutputSystemByPackRequestBodyAlphasocS3(alphasocS3 CreateOutput
 	return CreateOutputSystemByPackRequestBody{
 		CreateOutputSystemByPackOutputAlphasocS3: &alphasocS3,
 		Type:                                     typ,
+	}
+}
+
+func CreateCreateOutputSystemByPackRequestBodyDellS3(dellS3 CreateOutputSystemByPackOutputDellS3) CreateOutputSystemByPackRequestBody {
+	typ := CreateOutputSystemByPackRequestBodyTypeDellS3
+
+	typStr := CreateOutputSystemByPackTypeDellS3(typ)
+	dellS3.Type = typStr
+
+	return CreateOutputSystemByPackRequestBody{
+		CreateOutputSystemByPackOutputDellS3: &dellS3,
+		Type:                                 typ,
+	}
+}
+
+func CreateCreateOutputSystemByPackRequestBodyCloudianS3(cloudianS3 CreateOutputSystemByPackOutputCloudianS3) CreateOutputSystemByPackRequestBody {
+	typ := CreateOutputSystemByPackRequestBodyTypeCloudianS3
+
+	typStr := CreateOutputSystemByPackTypeCloudianS3(typ)
+	cloudianS3.Type = typStr
+
+	return CreateOutputSystemByPackRequestBody{
+		CreateOutputSystemByPackOutputCloudianS3: &cloudianS3,
+		Type:                                     typ,
+	}
+}
+
+func CreateCreateOutputSystemByPackRequestBodyScalityS3(scalityS3 CreateOutputSystemByPackOutputScalityS3) CreateOutputSystemByPackRequestBody {
+	typ := CreateOutputSystemByPackRequestBodyTypeScalityS3
+
+	typStr := CreateOutputSystemByPackTypeScalityS3(typ)
+	scalityS3.Type = typStr
+
+	return CreateOutputSystemByPackRequestBody{
+		CreateOutputSystemByPackOutputScalityS3: &scalityS3,
+		Type:                                    typ,
+	}
+}
+
+func CreateCreateOutputSystemByPackRequestBodyAlibabaCloudS3(alibabaCloudS3 CreateOutputSystemByPackOutputAlibabaCloudS3) CreateOutputSystemByPackRequestBody {
+	typ := CreateOutputSystemByPackRequestBodyTypeAlibabaCloudS3
+
+	typStr := CreateOutputSystemByPackTypeAlibabaCloudS3(typ)
+	alibabaCloudS3.Type = typStr
+
+	return CreateOutputSystemByPackRequestBody{
+		CreateOutputSystemByPackOutputAlibabaCloudS3: &alibabaCloudS3,
+		Type: typ,
 	}
 }
 
@@ -20774,6 +22203,15 @@ func (u *CreateOutputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 		u.CreateOutputSystemByPackOutputNutanixObjects = createOutputSystemByPackOutputNutanixObjects
 		u.Type = CreateOutputSystemByPackRequestBodyTypeNutanixObjects
 		return nil
+	case "storj_s3":
+		createOutputSystemByPackOutputStorjS3 := new(CreateOutputSystemByPackOutputStorjS3)
+		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputStorjS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == storj_s3) type CreateOutputSystemByPackOutputStorjS3 within CreateOutputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateOutputSystemByPackOutputStorjS3 = createOutputSystemByPackOutputStorjS3
+		u.Type = CreateOutputSystemByPackRequestBodyTypeStorjS3
+		return nil
 	case "alphasoc_s3":
 		createOutputSystemByPackOutputAlphasocS3 := new(CreateOutputSystemByPackOutputAlphasocS3)
 		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputAlphasocS3, "", true, nil); err != nil {
@@ -20782,6 +22220,42 @@ func (u *CreateOutputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 
 		u.CreateOutputSystemByPackOutputAlphasocS3 = createOutputSystemByPackOutputAlphasocS3
 		u.Type = CreateOutputSystemByPackRequestBodyTypeAlphasocS3
+		return nil
+	case "dell_s3":
+		createOutputSystemByPackOutputDellS3 := new(CreateOutputSystemByPackOutputDellS3)
+		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputDellS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == dell_s3) type CreateOutputSystemByPackOutputDellS3 within CreateOutputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateOutputSystemByPackOutputDellS3 = createOutputSystemByPackOutputDellS3
+		u.Type = CreateOutputSystemByPackRequestBodyTypeDellS3
+		return nil
+	case "cloudian_s3":
+		createOutputSystemByPackOutputCloudianS3 := new(CreateOutputSystemByPackOutputCloudianS3)
+		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputCloudianS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == cloudian_s3) type CreateOutputSystemByPackOutputCloudianS3 within CreateOutputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateOutputSystemByPackOutputCloudianS3 = createOutputSystemByPackOutputCloudianS3
+		u.Type = CreateOutputSystemByPackRequestBodyTypeCloudianS3
+		return nil
+	case "scality_s3":
+		createOutputSystemByPackOutputScalityS3 := new(CreateOutputSystemByPackOutputScalityS3)
+		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputScalityS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == scality_s3) type CreateOutputSystemByPackOutputScalityS3 within CreateOutputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateOutputSystemByPackOutputScalityS3 = createOutputSystemByPackOutputScalityS3
+		u.Type = CreateOutputSystemByPackRequestBodyTypeScalityS3
+		return nil
+	case "alibaba_cloud_s3":
+		createOutputSystemByPackOutputAlibabaCloudS3 := new(CreateOutputSystemByPackOutputAlibabaCloudS3)
+		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputAlibabaCloudS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == alibaba_cloud_s3) type CreateOutputSystemByPackOutputAlibabaCloudS3 within CreateOutputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateOutputSystemByPackOutputAlibabaCloudS3 = createOutputSystemByPackOutputAlibabaCloudS3
+		u.Type = CreateOutputSystemByPackRequestBodyTypeAlibabaCloudS3
 		return nil
 	}
 
@@ -21077,17 +22551,37 @@ func (u CreateOutputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputNutanixObjects, "", true)
 	}
 
+	if u.CreateOutputSystemByPackOutputStorjS3 != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputStorjS3, "", true)
+	}
+
 	if u.CreateOutputSystemByPackOutputAlphasocS3 != nil {
 		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputAlphasocS3, "", true)
+	}
+
+	if u.CreateOutputSystemByPackOutputDellS3 != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputDellS3, "", true)
+	}
+
+	if u.CreateOutputSystemByPackOutputCloudianS3 != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputCloudianS3, "", true)
+	}
+
+	if u.CreateOutputSystemByPackOutputScalityS3 != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputScalityS3, "", true)
+	}
+
+	if u.CreateOutputSystemByPackOutputAlibabaCloudS3 != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputAlibabaCloudS3, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type CreateOutputSystemByPackRequestBody: all fields are null")
 }
 
 type CreateOutputSystemByPackRequest struct {
-	// The <code>id</code> of the Pack to create.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
-	// Output object
+	// Output object.
 	RequestBody CreateOutputSystemByPackRequestBody `request:"mediaType=application/json"`
 }
 
@@ -21393,14 +22887,34 @@ func (c *CreateOutputSystemByPackRequest) GetRequestBodyNutanixObjects() *Create
 	return c.GetRequestBody().CreateOutputSystemByPackOutputNutanixObjects
 }
 
+func (c *CreateOutputSystemByPackRequest) GetRequestBodyStorjS3() *CreateOutputSystemByPackOutputStorjS3 {
+	return c.GetRequestBody().CreateOutputSystemByPackOutputStorjS3
+}
+
 func (c *CreateOutputSystemByPackRequest) GetRequestBodyAlphasocS3() *CreateOutputSystemByPackOutputAlphasocS3 {
 	return c.GetRequestBody().CreateOutputSystemByPackOutputAlphasocS3
+}
+
+func (c *CreateOutputSystemByPackRequest) GetRequestBodyDellS3() *CreateOutputSystemByPackOutputDellS3 {
+	return c.GetRequestBody().CreateOutputSystemByPackOutputDellS3
+}
+
+func (c *CreateOutputSystemByPackRequest) GetRequestBodyCloudianS3() *CreateOutputSystemByPackOutputCloudianS3 {
+	return c.GetRequestBody().CreateOutputSystemByPackOutputCloudianS3
+}
+
+func (c *CreateOutputSystemByPackRequest) GetRequestBodyScalityS3() *CreateOutputSystemByPackOutputScalityS3 {
+	return c.GetRequestBody().CreateOutputSystemByPackOutputScalityS3
+}
+
+func (c *CreateOutputSystemByPackRequest) GetRequestBodyAlibabaCloudS3() *CreateOutputSystemByPackOutputAlibabaCloudS3 {
+	return c.GetRequestBody().CreateOutputSystemByPackOutputAlibabaCloudS3
 }
 
 type CreateOutputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the created Destination object
-	CountedOutput *components.CountedOutput
+	CountedOutputResponse *components.CountedOutputResponse
 }
 
 func (c CreateOutputSystemByPackResponse) MarshalJSON() ([]byte, error) {
@@ -21421,9 +22935,9 @@ func (c *CreateOutputSystemByPackResponse) GetHTTPMeta() components.HTTPMetadata
 	return c.HTTPMeta
 }
 
-func (c *CreateOutputSystemByPackResponse) GetCountedOutput() *components.CountedOutput {
+func (c *CreateOutputSystemByPackResponse) GetCountedOutputResponse() *components.CountedOutputResponse {
 	if c == nil {
 		return nil
 	}
-	return c.CountedOutput
+	return c.CountedOutputResponse
 }

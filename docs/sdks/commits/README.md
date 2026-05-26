@@ -4,13 +4,70 @@
 
 ### Available Operations
 
+* [List](#list) - List the commit history
 * [Create](#create) - Create a new commit for pending changes to the Cribl configuration
 * [Diff](#diff) - Get the diff for a commit
-* [List](#list) - List the commit history
 * [Push](#push) - Push local commits to the remote repository
 * [Revert](#revert) - Revert a commit in the local repository
 * [Get](#get) - Get the diff and log message for a commit
 * [Undo](#undo) - Discard uncommitted (staged) changes
+
+## List
+
+List the commit history.</br></br>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getVersion" method="get" path="/version" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Versions.Commits.List(ctx, criblcontrolplanesdkgo.Pointer[int64](893.58))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedGitLogResult != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `ctx`                                                                 | [context.Context](https://pkg.go.dev/context#Context)                 | :heavy_check_mark:                                                    | The context to use for the request.                                   |
+| `count`                                                               | `*int64`                                                              | :heavy_minus_sign:                                                    | Maximum number of commits to return in the response for this request. |
+| `opts`                                                                | [][operations.Option](../../models/operations/option.md)              | :heavy_minus_sign:                                                    | The options for this request.                                         |
+
+### Response
+
+**[*operations.GetVersionResponse](../../models/operations/getversionresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
 ## Create
 
@@ -162,63 +219,6 @@ func main() {
 ### Response
 
 **[*operations.GetVersionDiffResponse](../../models/operations/getversiondiffresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
-
-## List
-
-List the commit history.</br></br>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="getVersion" method="get" path="/version" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
-        criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-        }),
-    )
-
-    res, err := s.Versions.Commits.List(ctx, criblcontrolplanesdkgo.Pointer[int64](893.58))
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.CountedGitLogResult != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `ctx`                                                                 | [context.Context](https://pkg.go.dev/context#Context)                 | :heavy_check_mark:                                                    | The context to use for the request.                                   |
-| `count`                                                               | `*int64`                                                              | :heavy_minus_sign:                                                    | Maximum number of commits to return in the response for this request. |
-| `opts`                                                                | [][operations.Option](../../models/operations/option.md)              | :heavy_minus_sign:                                                    | The options for this request.                                         |
-
-### Response
-
-**[*operations.GetVersionResponse](../../models/operations/getversionresponse.md), error**
 
 ### Errors
 

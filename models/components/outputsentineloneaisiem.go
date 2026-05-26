@@ -31,25 +31,25 @@ func (e *OutputSentinelOneAiSiemType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// Region - The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
-type Region string
+// OutputSentinelOneAiSiemRegion - The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+type OutputSentinelOneAiSiemRegion string
 
 const (
-	RegionUs     Region = "US"
-	RegionCa     Region = "CA"
-	RegionEmea   Region = "EMEA"
-	RegionAp     Region = "AP"
-	RegionAps    Region = "APS"
-	RegionAu     Region = "AU"
-	RegionCustom Region = "Custom"
+	OutputSentinelOneAiSiemRegionUs     OutputSentinelOneAiSiemRegion = "US"
+	OutputSentinelOneAiSiemRegionCa     OutputSentinelOneAiSiemRegion = "CA"
+	OutputSentinelOneAiSiemRegionEmea   OutputSentinelOneAiSiemRegion = "EMEA"
+	OutputSentinelOneAiSiemRegionAp     OutputSentinelOneAiSiemRegion = "AP"
+	OutputSentinelOneAiSiemRegionAps    OutputSentinelOneAiSiemRegion = "APS"
+	OutputSentinelOneAiSiemRegionAu     OutputSentinelOneAiSiemRegion = "AU"
+	OutputSentinelOneAiSiemRegionCustom OutputSentinelOneAiSiemRegion = "Custom"
 )
 
-func (e Region) ToPointer() *Region {
+func (e OutputSentinelOneAiSiemRegion) ToPointer() *OutputSentinelOneAiSiemRegion {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Region) IsExact() bool {
+func (e *OutputSentinelOneAiSiemRegion) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "US", "CA", "EMEA", "AP", "APS", "AU", "Custom":
@@ -59,20 +59,20 @@ func (e *Region) IsExact() bool {
 	return false
 }
 
-// AISIEMEndpointPath - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
-type AISIEMEndpointPath string
+// OutputSentinelOneAISIEMAISIEMEndpointPath - Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+type OutputSentinelOneAISIEMAISIEMEndpointPath string
 
 const (
-	AISIEMEndpointPathRootServicesCollectorEvent AISIEMEndpointPath = "/services/collector/event"
-	AISIEMEndpointPathRootServicesCollectorRaw   AISIEMEndpointPath = "/services/collector/raw"
+	OutputSentinelOneAISIEMAISIEMEndpointPathRootServicesCollectorEvent OutputSentinelOneAISIEMAISIEMEndpointPath = "/services/collector/event"
+	OutputSentinelOneAISIEMAISIEMEndpointPathRootServicesCollectorRaw   OutputSentinelOneAISIEMAISIEMEndpointPath = "/services/collector/raw"
 )
 
-func (e AISIEMEndpointPath) ToPointer() *AISIEMEndpointPath {
+func (e OutputSentinelOneAISIEMAISIEMEndpointPath) ToPointer() *OutputSentinelOneAISIEMAISIEMEndpointPath {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AISIEMEndpointPath) IsExact() bool {
+func (e *OutputSentinelOneAISIEMAISIEMEndpointPath) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "/services/collector/event", "/services/collector/raw":
@@ -109,9 +109,9 @@ type OutputSentinelOneAiSiem struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
-	Region Region `json:"region"`
+	Region OutputSentinelOneAiSiemRegion `json:"region"`
 	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
-	Endpoint AISIEMEndpointPath `json:"endpoint"`
+	Endpoint OutputSentinelOneAISIEMAISIEMEndpointPath `json:"endpoint"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -129,7 +129,7 @@ type OutputSentinelOneAiSiem struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
@@ -137,8 +137,8 @@ type OutputSentinelOneAiSiem struct {
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -201,6 +201,8 @@ type OutputSentinelOneAiSiem struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                            `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputSentinelOneAiSiemPqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -260,16 +262,16 @@ func (o *OutputSentinelOneAiSiem) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputSentinelOneAiSiem) GetRegion() Region {
+func (o *OutputSentinelOneAiSiem) GetRegion() OutputSentinelOneAiSiemRegion {
 	if o == nil {
-		return Region("")
+		return OutputSentinelOneAiSiemRegion("")
 	}
 	return o.Region
 }
 
-func (o *OutputSentinelOneAiSiem) GetEndpoint() AISIEMEndpointPath {
+func (o *OutputSentinelOneAiSiem) GetEndpoint() OutputSentinelOneAISIEMAISIEMEndpointPath {
 	if o == nil {
-		return AISIEMEndpointPath("")
+		return OutputSentinelOneAISIEMAISIEMEndpointPath("")
 	}
 	return o.Endpoint
 }
@@ -323,7 +325,7 @@ func (o *OutputSentinelOneAiSiem) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputSentinelOneAiSiem) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputSentinelOneAiSiem) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -351,7 +353,7 @@ func (o *OutputSentinelOneAiSiem) GetAuthType() *AuthenticationMethodOptionsAuth
 	return o.AuthType
 }
 
-func (o *OutputSentinelOneAiSiem) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputSentinelOneAiSiem) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}
@@ -587,6 +589,13 @@ func (o *OutputSentinelOneAiSiem) GetPqControls() *OutputSentinelOneAiSiemPqCont
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputSentinelOneAiSiem) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputSentinelOneAiSiem) GetTemplateFailedRequestLoggingMode() *string {

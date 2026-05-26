@@ -39,7 +39,7 @@ func (g *GetConfigGroupACLTeamsByProductAndIDRequest) GetType() *components.Rbac
 
 type GetConfigGroupACLTeamsByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of TeamAccessControlList objects
+	// List of TeamAccessControlList objects.
 	CountedTeamAccessControlList *components.CountedTeamAccessControlList
 }
 

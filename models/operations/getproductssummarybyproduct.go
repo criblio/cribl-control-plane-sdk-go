@@ -21,7 +21,7 @@ func (g *GetProductsSummaryByProductRequest) GetProduct() components.ProductsBas
 
 type GetProductsSummaryByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of DistributedSummary objects
+	// List of DistributedSummary objects.
 	CountedDistributedSummary *components.CountedDistributedSummary
 }
 

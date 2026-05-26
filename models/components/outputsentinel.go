@@ -31,18 +31,18 @@ func (e *OutputSentinelType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type AuthTypeEnum string
+type OutputSentinelAuthType string
 
 const (
-	AuthTypeEnumOauth AuthTypeEnum = "oauth"
+	OutputSentinelAuthTypeOauth OutputSentinelAuthType = "oauth"
 )
 
-func (e AuthTypeEnum) ToPointer() *AuthTypeEnum {
+func (e OutputSentinelAuthType) ToPointer() *OutputSentinelAuthType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AuthTypeEnum) IsExact() bool {
+func (e *OutputSentinelAuthType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "oauth":
@@ -52,22 +52,22 @@ func (e *AuthTypeEnum) IsExact() bool {
 	return false
 }
 
-// EndpointConfiguration - Enter the data collection endpoint URL or the individual ID
-type EndpointConfiguration string
+// OutputSentinelEndpointConfiguration - Enter the data collection endpoint URL or the individual ID
+type OutputSentinelEndpointConfiguration string
 
 const (
-	// EndpointConfigurationURL URL
-	EndpointConfigurationURL EndpointConfiguration = "url"
-	// EndpointConfigurationID ID
-	EndpointConfigurationID EndpointConfiguration = "ID"
+	// OutputSentinelEndpointConfigurationURL URL
+	OutputSentinelEndpointConfigurationURL OutputSentinelEndpointConfiguration = "url"
+	// OutputSentinelEndpointConfigurationID ID
+	OutputSentinelEndpointConfigurationID OutputSentinelEndpointConfiguration = "ID"
 )
 
-func (e EndpointConfiguration) ToPointer() *EndpointConfiguration {
+func (e OutputSentinelEndpointConfiguration) ToPointer() *OutputSentinelEndpointConfiguration {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *EndpointConfiguration) IsExact() bool {
+func (e *OutputSentinelEndpointConfiguration) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "url", "ID":
@@ -146,7 +146,7 @@ type OutputSentinel struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -154,13 +154,13 @@ type OutputSentinel struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	AuthType       *AuthTypeEnum                `json:"authType,omitzero"`
+	AuthType       *OutputSentinelAuthType      `json:"authType,omitzero"`
 	// URL for OAuth
 	LoginURL string `json:"loginUrl"`
 	// Secret parameter value to pass in request body
@@ -170,7 +170,7 @@ type OutputSentinel struct {
 	// Scope to pass in the OAuth request
 	Scope *string `json:"scope,omitzero"`
 	// Enter the data collection endpoint URL or the individual ID
-	EndpointURLConfiguration EndpointConfiguration `json:"endpointURLConfiguration"`
+	EndpointURLConfiguration OutputSentinelEndpointConfiguration `json:"endpointURLConfiguration"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64              `json:"totalMemoryLimitKB,omitzero"`
 	Description        *string               `json:"description,omitzero"`
@@ -222,6 +222,8 @@ type OutputSentinel struct {
 	DceEndpoint *string `json:"dceEndpoint,omitzero"`
 	// The name of the stream (Sentinel table) in which to store the events
 	StreamName *string `json:"streamName,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -353,7 +355,7 @@ func (o *OutputSentinel) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputSentinel) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputSentinel) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -381,7 +383,7 @@ func (o *OutputSentinel) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputSentinel) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputSentinel) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}
@@ -409,7 +411,7 @@ func (o *OutputSentinel) GetOnBackpressure() *BackpressureBehaviorOptions {
 	return o.OnBackpressure
 }
 
-func (o *OutputSentinel) GetAuthType() *AuthTypeEnum {
+func (o *OutputSentinel) GetAuthType() *OutputSentinelAuthType {
 	if o == nil {
 		return nil
 	}
@@ -444,9 +446,9 @@ func (o *OutputSentinel) GetScope() *string {
 	return o.Scope
 }
 
-func (o *OutputSentinel) GetEndpointURLConfiguration() EndpointConfiguration {
+func (o *OutputSentinel) GetEndpointURLConfiguration() OutputSentinelEndpointConfiguration {
 	if o == nil {
-		return EndpointConfiguration("")
+		return OutputSentinelEndpointConfiguration("")
 	}
 	return o.EndpointURLConfiguration
 }
@@ -638,6 +640,13 @@ func (o *OutputSentinel) GetStreamName() *string {
 		return nil
 	}
 	return o.StreamName
+}
+
+func (o *OutputSentinel) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputSentinel) GetTemplateFailedRequestLoggingMode() *string {

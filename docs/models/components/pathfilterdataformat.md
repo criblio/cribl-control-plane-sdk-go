@@ -1,0 +1,22 @@
+# PathFilterDataFormat
+
+## Example Usage
+
+```go
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+)
+
+value := components.PathFilterDataFormatNdjson
+
+// Open enum: custom values can be created with a direct type cast
+custom := components.PathFilterDataFormat("custom_value")
+```
+
+
+## Values
+
+| Name                          | Value                         |
+| ----------------------------- | ----------------------------- |
+| `PathFilterDataFormatNdjson`  | ndjson                        |
+| `PathFilterDataFormatParquet` | parquet                       |

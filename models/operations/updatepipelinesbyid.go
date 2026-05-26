@@ -10,7 +10,7 @@ import (
 type UpdatePipelinesByIDRequest struct {
 	// The <code>id</code> of the Pipeline to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// Pipeline object
+	// Pipeline object.
 	Pipeline components.PipelineInput `request:"mediaType=application/json"`
 }
 

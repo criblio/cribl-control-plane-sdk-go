@@ -51,8 +51,6 @@ type OutputExabeam struct {
 	StagePath string `json:"stagePath"`
 	// Google Cloud Storage service endpoint
 	Endpoint string `json:"endpoint"`
-	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion *SignatureVersionOptionsGoogle `json:"signatureVersion,omitzero"`
 	// Object ACL to assign to uploaded objects
 	ObjectACL *ObjectACLOptionsAuthenticatedreadBucketownerfullcontrol `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
@@ -104,6 +102,8 @@ type OutputExabeam struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
@@ -195,13 +195,6 @@ func (o *OutputExabeam) GetEndpoint() string {
 		return ""
 	}
 	return o.Endpoint
-}
-
-func (o *OutputExabeam) GetSignatureVersion() *SignatureVersionOptionsGoogle {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
 }
 
 func (o *OutputExabeam) GetObjectACL() *ObjectACLOptionsAuthenticatedreadBucketownerfullcontrol {
@@ -391,6 +384,13 @@ func (o *OutputExabeam) GetMaxRetryNum() *float64 {
 		return nil
 	}
 	return o.MaxRetryNum
+}
+
+func (o *OutputExabeam) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputExabeam) GetTemplateRegion() *string {

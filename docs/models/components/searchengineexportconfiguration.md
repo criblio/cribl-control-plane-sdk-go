@@ -1,0 +1,12 @@
+# SearchEngineExportConfiguration
+
+
+## Fields
+
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `SearchJobID`                                                                          | `string`                                                                               | :heavy_check_mark:                                                                     | Id of the search job this function is running on.                                      |
+| `Dataset`                                                                              | `string`                                                                               | :heavy_check_mark:                                                                     | Id of the dataset                                                                      |
+| `Tee`                                                                                  | `*bool`                                                                                | :heavy_minus_sign:                                                                     | Tee results to search. When set to true results will be shipped instead of stats       |
+| `FlushMs`                                                                              | `*float64`                                                                             | :heavy_minus_sign:                                                                     | How often are stats flushed in ms                                                      |
+| `SuppressPreviews`                                                                     | `*bool`                                                                                | :heavy_minus_sign:                                                                     | Disables generation of intermediate stats. When true stats will be emitted only on end |

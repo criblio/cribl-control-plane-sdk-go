@@ -12,145 +12,149 @@ import (
 type PipelineFunctionConfType string
 
 const (
-	PipelineFunctionConfTypeAggregateMetrics          PipelineFunctionConfType = "aggregate_metrics"
-	PipelineFunctionConfTypeAggregation               PipelineFunctionConfType = "aggregation"
-	PipelineFunctionConfTypeAutoTimestamp             PipelineFunctionConfType = "auto_timestamp"
-	PipelineFunctionConfTypeCef                       PipelineFunctionConfType = "cef"
-	PipelineFunctionConfTypeChain                     PipelineFunctionConfType = "chain"
-	PipelineFunctionConfTypeClone                     PipelineFunctionConfType = "clone"
-	PipelineFunctionConfTypeCode                      PipelineFunctionConfType = "code"
-	PipelineFunctionConfTypeComment                   PipelineFunctionConfType = "comment"
-	PipelineFunctionConfTypeDistinct                  PipelineFunctionConfType = "distinct"
-	PipelineFunctionConfTypeDNSLookup                 PipelineFunctionConfType = "dns_lookup"
-	PipelineFunctionConfTypeDrop                      PipelineFunctionConfType = "drop"
-	PipelineFunctionConfTypeDropDimensions            PipelineFunctionConfType = "drop_dimensions"
-	PipelineFunctionConfTypeDynamicSampling           PipelineFunctionConfType = "dynamic_sampling"
-	PipelineFunctionConfTypeEval                      PipelineFunctionConfType = "eval"
-	PipelineFunctionConfTypeEventBreaker              PipelineFunctionConfType = "event_breaker"
-	PipelineFunctionConfTypeEventstats                PipelineFunctionConfType = "eventstats"
-	PipelineFunctionConfTypeExternaldata              PipelineFunctionConfType = "externaldata"
-	PipelineFunctionConfTypeFlatten                   PipelineFunctionConfType = "flatten"
-	PipelineFunctionConfTypeFoldkeys                  PipelineFunctionConfType = "foldkeys"
-	PipelineFunctionConfTypeGenStats                  PipelineFunctionConfType = "gen_stats"
-	PipelineFunctionConfTypeGeoip                     PipelineFunctionConfType = "geoip"
-	PipelineFunctionConfTypeGrok                      PipelineFunctionConfType = "grok"
-	PipelineFunctionConfTypeHandlebars                PipelineFunctionConfType = "handlebars"
-	PipelineFunctionConfTypeJoin                      PipelineFunctionConfType = "join"
-	PipelineFunctionConfTypeJSONUnroll                PipelineFunctionConfType = "json_unroll"
-	PipelineFunctionConfTypeLakeExport                PipelineFunctionConfType = "lake_export"
-	PipelineFunctionConfTypeLimit                     PipelineFunctionConfType = "limit"
-	PipelineFunctionConfTypeLocalSearchDatatypeParser PipelineFunctionConfType = "local_search_datatype_parser"
-	PipelineFunctionConfTypeLocalSearchRulesetRunner  PipelineFunctionConfType = "local_search_ruleset_runner"
-	PipelineFunctionConfTypeLocalSearchSchemaMapper   PipelineFunctionConfType = "local_search_schema_mapper"
-	PipelineFunctionConfTypeLocalSearchTransformer    PipelineFunctionConfType = "local_search_transformer"
-	PipelineFunctionConfTypeLookup                    PipelineFunctionConfType = "lookup"
-	PipelineFunctionConfTypeMask                      PipelineFunctionConfType = "mask"
-	PipelineFunctionConfTypeMvExpand                  PipelineFunctionConfType = "mv_expand"
-	PipelineFunctionConfTypeMvPull                    PipelineFunctionConfType = "mv_pull"
-	PipelineFunctionConfTypeNotificationPolicies      PipelineFunctionConfType = "notification_policies"
-	PipelineFunctionConfTypeNotifications             PipelineFunctionConfType = "notifications"
-	PipelineFunctionConfTypeNotify                    PipelineFunctionConfType = "notify"
-	PipelineFunctionConfTypeNumerify                  PipelineFunctionConfType = "numerify"
-	PipelineFunctionConfTypeOtlpLogs                  PipelineFunctionConfType = "otlp_logs"
-	PipelineFunctionConfTypeOtlpMetrics               PipelineFunctionConfType = "otlp_metrics"
-	PipelineFunctionConfTypeOtlpTraces                PipelineFunctionConfType = "otlp_traces"
-	PipelineFunctionConfTypePack                      PipelineFunctionConfType = "pack"
-	PipelineFunctionConfTypePivot                     PipelineFunctionConfType = "pivot"
-	PipelineFunctionConfTypePublishMetrics            PipelineFunctionConfType = "publish_metrics"
-	PipelineFunctionConfTypeRedis                     PipelineFunctionConfType = "redis"
-	PipelineFunctionConfTypeRegexExtract              PipelineFunctionConfType = "regex_extract"
-	PipelineFunctionConfTypeRegexFilter               PipelineFunctionConfType = "regex_filter"
-	PipelineFunctionConfTypeRename                    PipelineFunctionConfType = "rename"
-	PipelineFunctionConfTypeRollupMetrics             PipelineFunctionConfType = "rollup_metrics"
-	PipelineFunctionConfTypeSampling                  PipelineFunctionConfType = "sampling"
-	PipelineFunctionConfTypeSend                      PipelineFunctionConfType = "send"
-	PipelineFunctionConfTypeSensitiveDataScanner      PipelineFunctionConfType = "sensitive_data_scanner"
-	PipelineFunctionConfTypeSerde                     PipelineFunctionConfType = "serde"
-	PipelineFunctionConfTypeSerialize                 PipelineFunctionConfType = "serialize"
-	PipelineFunctionConfTypeSidlookup                 PipelineFunctionConfType = "sidlookup"
-	PipelineFunctionConfTypeSignalFilter              PipelineFunctionConfType = "signal_filter"
-	PipelineFunctionConfTypeSnmpTrapSerialize         PipelineFunctionConfType = "snmp_trap_serialize"
-	PipelineFunctionConfTypeSort                      PipelineFunctionConfType = "sort"
-	PipelineFunctionConfTypeStore                     PipelineFunctionConfType = "store"
-	PipelineFunctionConfTypeSuppress                  PipelineFunctionConfType = "suppress"
-	PipelineFunctionConfTypeTee                       PipelineFunctionConfType = "tee"
-	PipelineFunctionConfTypeTrimTimestamp             PipelineFunctionConfType = "trim_timestamp"
-	PipelineFunctionConfTypeUnion                     PipelineFunctionConfType = "union"
-	PipelineFunctionConfTypeUnroll                    PipelineFunctionConfType = "unroll"
-	PipelineFunctionConfTypeWindow                    PipelineFunctionConfType = "window"
-	PipelineFunctionConfTypeXMLUnroll                 PipelineFunctionConfType = "xml_unroll"
-	PipelineFunctionConfTypeUnknown                   PipelineFunctionConfType = "UNKNOWN"
+	PipelineFunctionConfTypeAggregateMetrics               PipelineFunctionConfType = "aggregate_metrics"
+	PipelineFunctionConfTypeAggregation                    PipelineFunctionConfType = "aggregation"
+	PipelineFunctionConfTypeAutoTimestamp                  PipelineFunctionConfType = "auto_timestamp"
+	PipelineFunctionConfTypeCef                            PipelineFunctionConfType = "cef"
+	PipelineFunctionConfTypeChain                          PipelineFunctionConfType = "chain"
+	PipelineFunctionConfTypeClone                          PipelineFunctionConfType = "clone"
+	PipelineFunctionConfTypeCode                           PipelineFunctionConfType = "code"
+	PipelineFunctionConfTypeComment                        PipelineFunctionConfType = "comment"
+	PipelineFunctionConfTypeDistinct                       PipelineFunctionConfType = "distinct"
+	PipelineFunctionConfTypeDNSLookup                      PipelineFunctionConfType = "dns_lookup"
+	PipelineFunctionConfTypeDrop                           PipelineFunctionConfType = "drop"
+	PipelineFunctionConfTypeDropDimensions                 PipelineFunctionConfType = "drop_dimensions"
+	PipelineFunctionConfTypeDynamicSampling                PipelineFunctionConfType = "dynamic_sampling"
+	PipelineFunctionConfTypeEval                           PipelineFunctionConfType = "eval"
+	PipelineFunctionConfTypeEventBreaker                   PipelineFunctionConfType = "event_breaker"
+	PipelineFunctionConfTypeEventstats                     PipelineFunctionConfType = "eventstats"
+	PipelineFunctionConfTypeExternaldata                   PipelineFunctionConfType = "externaldata"
+	PipelineFunctionConfTypeFlatten                        PipelineFunctionConfType = "flatten"
+	PipelineFunctionConfTypeFoldkeys                       PipelineFunctionConfType = "foldkeys"
+	PipelineFunctionConfTypeGenStats                       PipelineFunctionConfType = "gen_stats"
+	PipelineFunctionConfTypeGeoip                          PipelineFunctionConfType = "geoip"
+	PipelineFunctionConfTypeGrok                           PipelineFunctionConfType = "grok"
+	PipelineFunctionConfTypeHandlebars                     PipelineFunctionConfType = "handlebars"
+	PipelineFunctionConfTypeJoin                           PipelineFunctionConfType = "join"
+	PipelineFunctionConfTypeJSONUnroll                     PipelineFunctionConfType = "json_unroll"
+	PipelineFunctionConfTypeLakeExport                     PipelineFunctionConfType = "lake_export"
+	PipelineFunctionConfTypeLimit                          PipelineFunctionConfType = "limit"
+	PipelineFunctionConfTypeLocalSearchDatatypeParser      PipelineFunctionConfType = "local_search_datatype_parser"
+	PipelineFunctionConfTypeLocalSearchRulesetRunner       PipelineFunctionConfType = "local_search_ruleset_runner"
+	PipelineFunctionConfTypeLocalSearchSchemaMapper        PipelineFunctionConfType = "local_search_schema_mapper"
+	PipelineFunctionConfTypeLocalSearchTimeRangeNormalizer PipelineFunctionConfType = "local_search_time_range_normalizer"
+	PipelineFunctionConfTypeLocalSearchTransformer         PipelineFunctionConfType = "local_search_transformer"
+	PipelineFunctionConfTypeLookup                         PipelineFunctionConfType = "lookup"
+	PipelineFunctionConfTypeMask                           PipelineFunctionConfType = "mask"
+	PipelineFunctionConfTypeMvExpand                       PipelineFunctionConfType = "mv_expand"
+	PipelineFunctionConfTypeMvPull                         PipelineFunctionConfType = "mv_pull"
+	PipelineFunctionConfTypeNotificationPolicies           PipelineFunctionConfType = "notification_policies"
+	PipelineFunctionConfTypeNotifications                  PipelineFunctionConfType = "notifications"
+	PipelineFunctionConfTypeNotify                         PipelineFunctionConfType = "notify"
+	PipelineFunctionConfTypeNumerify                       PipelineFunctionConfType = "numerify"
+	PipelineFunctionConfTypeOtlpLogs                       PipelineFunctionConfType = "otlp_logs"
+	PipelineFunctionConfTypeOtlpMetrics                    PipelineFunctionConfType = "otlp_metrics"
+	PipelineFunctionConfTypeOtlpTraces                     PipelineFunctionConfType = "otlp_traces"
+	PipelineFunctionConfTypePack                           PipelineFunctionConfType = "pack"
+	PipelineFunctionConfTypePivot                          PipelineFunctionConfType = "pivot"
+	PipelineFunctionConfTypePublishMetrics                 PipelineFunctionConfType = "publish_metrics"
+	PipelineFunctionConfTypeRedis                          PipelineFunctionConfType = "redis"
+	PipelineFunctionConfTypeRegexExtract                   PipelineFunctionConfType = "regex_extract"
+	PipelineFunctionConfTypeRegexFilter                    PipelineFunctionConfType = "regex_filter"
+	PipelineFunctionConfTypeRename                         PipelineFunctionConfType = "rename"
+	PipelineFunctionConfTypeRollupMetrics                  PipelineFunctionConfType = "rollup_metrics"
+	PipelineFunctionConfTypeSampling                       PipelineFunctionConfType = "sampling"
+	PipelineFunctionConfTypeSearchEngineExport             PipelineFunctionConfType = "search_engine_export"
+	PipelineFunctionConfTypeSend                           PipelineFunctionConfType = "send"
+	PipelineFunctionConfTypeSensitiveDataScanner           PipelineFunctionConfType = "sensitive_data_scanner"
+	PipelineFunctionConfTypeSerde                          PipelineFunctionConfType = "serde"
+	PipelineFunctionConfTypeSerialize                      PipelineFunctionConfType = "serialize"
+	PipelineFunctionConfTypeSidlookup                      PipelineFunctionConfType = "sidlookup"
+	PipelineFunctionConfTypeSignalFilter                   PipelineFunctionConfType = "signal_filter"
+	PipelineFunctionConfTypeSnmpTrapSerialize              PipelineFunctionConfType = "snmp_trap_serialize"
+	PipelineFunctionConfTypeSort                           PipelineFunctionConfType = "sort"
+	PipelineFunctionConfTypeStore                          PipelineFunctionConfType = "store"
+	PipelineFunctionConfTypeSuppress                       PipelineFunctionConfType = "suppress"
+	PipelineFunctionConfTypeTee                            PipelineFunctionConfType = "tee"
+	PipelineFunctionConfTypeTrimTimestamp                  PipelineFunctionConfType = "trim_timestamp"
+	PipelineFunctionConfTypeUnion                          PipelineFunctionConfType = "union"
+	PipelineFunctionConfTypeUnroll                         PipelineFunctionConfType = "unroll"
+	PipelineFunctionConfTypeWindow                         PipelineFunctionConfType = "window"
+	PipelineFunctionConfTypeXMLUnroll                      PipelineFunctionConfType = "xml_unroll"
+	PipelineFunctionConfTypeUnknown                        PipelineFunctionConfType = "UNKNOWN"
 )
 
 type PipelineFunctionConf struct {
-	PipelineFunctionAggregateMetrics          *PipelineFunctionAggregateMetrics          `queryParam:"inline" union:"member"`
-	PipelineFunctionAggregation               *PipelineFunctionAggregation               `queryParam:"inline" union:"member"`
-	PipelineFunctionAutoTimestamp             *PipelineFunctionAutoTimestamp             `queryParam:"inline" union:"member"`
-	PipelineFunctionCef                       *PipelineFunctionCef                       `queryParam:"inline" union:"member"`
-	PipelineFunctionChain                     *PipelineFunctionChain                     `queryParam:"inline" union:"member"`
-	PipelineFunctionClone                     *PipelineFunctionClone                     `queryParam:"inline" union:"member"`
-	PipelineFunctionCode                      *PipelineFunctionCode                      `queryParam:"inline" union:"member"`
-	PipelineFunctionComment                   *PipelineFunctionComment                   `queryParam:"inline" union:"member"`
-	PipelineFunctionDistinct                  *PipelineFunctionDistinct                  `queryParam:"inline" union:"member"`
-	PipelineFunctionDNSLookup                 *PipelineFunctionDNSLookup                 `queryParam:"inline" union:"member"`
-	PipelineFunctionDrop                      *PipelineFunctionDrop                      `queryParam:"inline" union:"member"`
-	PipelineFunctionDropDimensions            *PipelineFunctionDropDimensions            `queryParam:"inline" union:"member"`
-	PipelineFunctionDynamicSampling           *PipelineFunctionDynamicSampling           `queryParam:"inline" union:"member"`
-	PipelineFunctionEval                      *PipelineFunctionEval                      `queryParam:"inline" union:"member"`
-	PipelineFunctionEventBreaker              *PipelineFunctionEventBreaker              `queryParam:"inline" union:"member"`
-	PipelineFunctionEventstats                *PipelineFunctionEventstats                `queryParam:"inline" union:"member"`
-	PipelineFunctionExternaldata              *PipelineFunctionExternaldata              `queryParam:"inline" union:"member"`
-	PipelineFunctionFlatten                   *PipelineFunctionFlatten                   `queryParam:"inline" union:"member"`
-	PipelineFunctionFoldkeys                  *PipelineFunctionFoldkeys                  `queryParam:"inline" union:"member"`
-	PipelineFunctionGenStats                  *PipelineFunctionGenStats                  `queryParam:"inline" union:"member"`
-	PipelineFunctionGeoip                     *PipelineFunctionGeoip                     `queryParam:"inline" union:"member"`
-	PipelineFunctionGrok                      *PipelineFunctionGrok                      `queryParam:"inline" union:"member"`
-	PipelineFunctionHandlebars                *PipelineFunctionHandlebars                `queryParam:"inline" union:"member"`
-	PipelineFunctionJoin                      *PipelineFunctionJoin                      `queryParam:"inline" union:"member"`
-	PipelineFunctionJSONUnroll                *PipelineFunctionJSONUnroll                `queryParam:"inline" union:"member"`
-	PipelineFunctionLakeExport                *PipelineFunctionLakeExport                `queryParam:"inline" union:"member"`
-	PipelineFunctionLimit                     *PipelineFunctionLimit                     `queryParam:"inline" union:"member"`
-	PipelineFunctionLocalSearchDatatypeParser *PipelineFunctionLocalSearchDatatypeParser `queryParam:"inline" union:"member"`
-	PipelineFunctionLocalSearchRulesetRunner  *PipelineFunctionLocalSearchRulesetRunner  `queryParam:"inline" union:"member"`
-	PipelineFunctionLocalSearchSchemaMapper   *PipelineFunctionLocalSearchSchemaMapper   `queryParam:"inline" union:"member"`
-	PipelineFunctionLocalSearchTransformer    *PipelineFunctionLocalSearchTransformer    `queryParam:"inline" union:"member"`
-	PipelineFunctionLookup                    *PipelineFunctionLookup                    `queryParam:"inline" union:"member"`
-	PipelineFunctionMask                      *PipelineFunctionMask                      `queryParam:"inline" union:"member"`
-	PipelineFunctionMvExpand                  *PipelineFunctionMvExpand                  `queryParam:"inline" union:"member"`
-	PipelineFunctionMvPull                    *PipelineFunctionMvPull                    `queryParam:"inline" union:"member"`
-	PipelineFunctionNotificationPolicies      *PipelineFunctionNotificationPolicies      `queryParam:"inline" union:"member"`
-	PipelineFunctionNotifications             *PipelineFunctionNotifications             `queryParam:"inline" union:"member"`
-	PipelineFunctionNotify                    *PipelineFunctionNotify                    `queryParam:"inline" union:"member"`
-	PipelineFunctionNumerify                  *PipelineFunctionNumerify                  `queryParam:"inline" union:"member"`
-	PipelineFunctionOtlpLogs                  *PipelineFunctionOtlpLogs                  `queryParam:"inline" union:"member"`
-	PipelineFunctionOtlpMetrics               *PipelineFunctionOtlpMetrics               `queryParam:"inline" union:"member"`
-	PipelineFunctionOtlpTraces                *PipelineFunctionOtlpTraces                `queryParam:"inline" union:"member"`
-	PipelineFunctionPack                      *PipelineFunctionPack                      `queryParam:"inline" union:"member"`
-	PipelineFunctionPivot                     *PipelineFunctionPivot                     `queryParam:"inline" union:"member"`
-	PipelineFunctionPublishMetrics            *PipelineFunctionPublishMetrics            `queryParam:"inline" union:"member"`
-	PipelineFunctionRedis                     *PipelineFunctionRedis                     `queryParam:"inline" union:"member"`
-	PipelineFunctionRegexExtract              *PipelineFunctionRegexExtract              `queryParam:"inline" union:"member"`
-	PipelineFunctionRegexFilter               *PipelineFunctionRegexFilter               `queryParam:"inline" union:"member"`
-	PipelineFunctionRename                    *PipelineFunctionRename                    `queryParam:"inline" union:"member"`
-	PipelineFunctionRollupMetrics             *PipelineFunctionRollupMetrics             `queryParam:"inline" union:"member"`
-	PipelineFunctionSampling                  *PipelineFunctionSampling                  `queryParam:"inline" union:"member"`
-	PipelineFunctionSend                      *PipelineFunctionSend                      `queryParam:"inline" union:"member"`
-	PipelineFunctionSensitiveDataScanner      *PipelineFunctionSensitiveDataScanner      `queryParam:"inline" union:"member"`
-	PipelineFunctionSerde                     *PipelineFunctionSerde                     `queryParam:"inline" union:"member"`
-	PipelineFunctionSerialize                 *PipelineFunctionSerialize                 `queryParam:"inline" union:"member"`
-	PipelineFunctionSidlookup                 *PipelineFunctionSidlookup                 `queryParam:"inline" union:"member"`
-	PipelineFunctionSignalFilter              *PipelineFunctionSignalFilter              `queryParam:"inline" union:"member"`
-	PipelineFunctionSnmpTrapSerialize         *PipelineFunctionSnmpTrapSerialize         `queryParam:"inline" union:"member"`
-	PipelineFunctionSort                      *PipelineFunctionSort                      `queryParam:"inline" union:"member"`
-	PipelineFunctionStore                     *PipelineFunctionStore                     `queryParam:"inline" union:"member"`
-	PipelineFunctionSuppress                  *PipelineFunctionSuppress                  `queryParam:"inline" union:"member"`
-	PipelineFunctionTee                       *PipelineFunctionTee                       `queryParam:"inline" union:"member"`
-	PipelineFunctionTrimTimestamp             *PipelineFunctionTrimTimestamp             `queryParam:"inline" union:"member"`
-	PipelineFunctionUnion                     *PipelineFunctionUnion                     `queryParam:"inline" union:"member"`
-	PipelineFunctionUnroll                    *PipelineFunctionUnroll                    `queryParam:"inline" union:"member"`
-	PipelineFunctionWindow                    *PipelineFunctionWindow                    `queryParam:"inline" union:"member"`
-	PipelineFunctionXMLUnroll                 *PipelineFunctionXMLUnroll                 `queryParam:"inline" union:"member"`
-	UnknownRaw                                json.RawMessage                            `json:"-" union:"unknown"`
+	PipelineFunctionAggregateMetrics               *PipelineFunctionAggregateMetrics               `queryParam:"inline" union:"member"`
+	PipelineFunctionAggregation                    *PipelineFunctionAggregation                    `queryParam:"inline" union:"member"`
+	PipelineFunctionAutoTimestamp                  *PipelineFunctionAutoTimestamp                  `queryParam:"inline" union:"member"`
+	PipelineFunctionCef                            *PipelineFunctionCef                            `queryParam:"inline" union:"member"`
+	PipelineFunctionChain                          *PipelineFunctionChain                          `queryParam:"inline" union:"member"`
+	PipelineFunctionClone                          *PipelineFunctionClone                          `queryParam:"inline" union:"member"`
+	PipelineFunctionCode                           *PipelineFunctionCode                           `queryParam:"inline" union:"member"`
+	PipelineFunctionComment                        *PipelineFunctionComment                        `queryParam:"inline" union:"member"`
+	PipelineFunctionDistinct                       *PipelineFunctionDistinct                       `queryParam:"inline" union:"member"`
+	PipelineFunctionDNSLookup                      *PipelineFunctionDNSLookup                      `queryParam:"inline" union:"member"`
+	PipelineFunctionDrop                           *PipelineFunctionDrop                           `queryParam:"inline" union:"member"`
+	PipelineFunctionDropDimensions                 *PipelineFunctionDropDimensions                 `queryParam:"inline" union:"member"`
+	PipelineFunctionDynamicSampling                *PipelineFunctionDynamicSampling                `queryParam:"inline" union:"member"`
+	PipelineFunctionEval                           *PipelineFunctionEval                           `queryParam:"inline" union:"member"`
+	PipelineFunctionEventBreaker                   *PipelineFunctionEventBreaker                   `queryParam:"inline" union:"member"`
+	PipelineFunctionEventstats                     *PipelineFunctionEventstats                     `queryParam:"inline" union:"member"`
+	PipelineFunctionExternaldata                   *PipelineFunctionExternaldata                   `queryParam:"inline" union:"member"`
+	PipelineFunctionFlatten                        *PipelineFunctionFlatten                        `queryParam:"inline" union:"member"`
+	PipelineFunctionFoldkeys                       *PipelineFunctionFoldkeys                       `queryParam:"inline" union:"member"`
+	PipelineFunctionGenStats                       *PipelineFunctionGenStats                       `queryParam:"inline" union:"member"`
+	PipelineFunctionGeoip                          *PipelineFunctionGeoip                          `queryParam:"inline" union:"member"`
+	PipelineFunctionGrok                           *PipelineFunctionGrok                           `queryParam:"inline" union:"member"`
+	PipelineFunctionHandlebars                     *PipelineFunctionHandlebars                     `queryParam:"inline" union:"member"`
+	PipelineFunctionJoin                           *PipelineFunctionJoin                           `queryParam:"inline" union:"member"`
+	PipelineFunctionJSONUnroll                     *PipelineFunctionJSONUnroll                     `queryParam:"inline" union:"member"`
+	PipelineFunctionLakeExport                     *PipelineFunctionLakeExport                     `queryParam:"inline" union:"member"`
+	PipelineFunctionLimit                          *PipelineFunctionLimit                          `queryParam:"inline" union:"member"`
+	PipelineFunctionLocalSearchDatatypeParser      *PipelineFunctionLocalSearchDatatypeParser      `queryParam:"inline" union:"member"`
+	PipelineFunctionLocalSearchRulesetRunner       *PipelineFunctionLocalSearchRulesetRunner       `queryParam:"inline" union:"member"`
+	PipelineFunctionLocalSearchSchemaMapper        *PipelineFunctionLocalSearchSchemaMapper        `queryParam:"inline" union:"member"`
+	PipelineFunctionLocalSearchTimeRangeNormalizer *PipelineFunctionLocalSearchTimeRangeNormalizer `queryParam:"inline" union:"member"`
+	PipelineFunctionLocalSearchTransformer         *PipelineFunctionLocalSearchTransformer         `queryParam:"inline" union:"member"`
+	PipelineFunctionLookup                         *PipelineFunctionLookup                         `queryParam:"inline" union:"member"`
+	PipelineFunctionMask                           *PipelineFunctionMask                           `queryParam:"inline" union:"member"`
+	PipelineFunctionMvExpand                       *PipelineFunctionMvExpand                       `queryParam:"inline" union:"member"`
+	PipelineFunctionMvPull                         *PipelineFunctionMvPull                         `queryParam:"inline" union:"member"`
+	PipelineFunctionNotificationPolicies           *PipelineFunctionNotificationPolicies           `queryParam:"inline" union:"member"`
+	PipelineFunctionNotifications                  *PipelineFunctionNotifications                  `queryParam:"inline" union:"member"`
+	PipelineFunctionNotify                         *PipelineFunctionNotify                         `queryParam:"inline" union:"member"`
+	PipelineFunctionNumerify                       *PipelineFunctionNumerify                       `queryParam:"inline" union:"member"`
+	PipelineFunctionOtlpLogs                       *PipelineFunctionOtlpLogs                       `queryParam:"inline" union:"member"`
+	PipelineFunctionOtlpMetrics                    *PipelineFunctionOtlpMetrics                    `queryParam:"inline" union:"member"`
+	PipelineFunctionOtlpTraces                     *PipelineFunctionOtlpTraces                     `queryParam:"inline" union:"member"`
+	PipelineFunctionPack                           *PipelineFunctionPack                           `queryParam:"inline" union:"member"`
+	PipelineFunctionPivot                          *PipelineFunctionPivot                          `queryParam:"inline" union:"member"`
+	PipelineFunctionPublishMetrics                 *PipelineFunctionPublishMetrics                 `queryParam:"inline" union:"member"`
+	PipelineFunctionRedis                          *PipelineFunctionRedis                          `queryParam:"inline" union:"member"`
+	PipelineFunctionRegexExtract                   *PipelineFunctionRegexExtract                   `queryParam:"inline" union:"member"`
+	PipelineFunctionRegexFilter                    *PipelineFunctionRegexFilter                    `queryParam:"inline" union:"member"`
+	PipelineFunctionRename                         *PipelineFunctionRename                         `queryParam:"inline" union:"member"`
+	PipelineFunctionRollupMetrics                  *PipelineFunctionRollupMetrics                  `queryParam:"inline" union:"member"`
+	PipelineFunctionSampling                       *PipelineFunctionSampling                       `queryParam:"inline" union:"member"`
+	PipelineFunctionSearchEngineExport             *PipelineFunctionSearchEngineExport             `queryParam:"inline" union:"member"`
+	PipelineFunctionSend                           *PipelineFunctionSend                           `queryParam:"inline" union:"member"`
+	PipelineFunctionSensitiveDataScanner           *PipelineFunctionSensitiveDataScanner           `queryParam:"inline" union:"member"`
+	PipelineFunctionSerde                          *PipelineFunctionSerde                          `queryParam:"inline" union:"member"`
+	PipelineFunctionSerialize                      *PipelineFunctionSerialize                      `queryParam:"inline" union:"member"`
+	PipelineFunctionSidlookup                      *PipelineFunctionSidlookup                      `queryParam:"inline" union:"member"`
+	PipelineFunctionSignalFilter                   *PipelineFunctionSignalFilter                   `queryParam:"inline" union:"member"`
+	PipelineFunctionSnmpTrapSerialize              *PipelineFunctionSnmpTrapSerialize              `queryParam:"inline" union:"member"`
+	PipelineFunctionSort                           *PipelineFunctionSort                           `queryParam:"inline" union:"member"`
+	PipelineFunctionStore                          *PipelineFunctionStore                          `queryParam:"inline" union:"member"`
+	PipelineFunctionSuppress                       *PipelineFunctionSuppress                       `queryParam:"inline" union:"member"`
+	PipelineFunctionTee                            *PipelineFunctionTee                            `queryParam:"inline" union:"member"`
+	PipelineFunctionTrimTimestamp                  *PipelineFunctionTrimTimestamp                  `queryParam:"inline" union:"member"`
+	PipelineFunctionUnion                          *PipelineFunctionUnion                          `queryParam:"inline" union:"member"`
+	PipelineFunctionUnroll                         *PipelineFunctionUnroll                         `queryParam:"inline" union:"member"`
+	PipelineFunctionWindow                         *PipelineFunctionWindow                         `queryParam:"inline" union:"member"`
+	PipelineFunctionXMLUnroll                      *PipelineFunctionXMLUnroll                      `queryParam:"inline" union:"member"`
+	UnknownRaw                                     json.RawMessage                                 `json:"-" union:"unknown"`
 
 	Type PipelineFunctionConfType
 }
@@ -515,6 +519,18 @@ func CreatePipelineFunctionConfLocalSearchSchemaMapper(localSearchSchemaMapper P
 	}
 }
 
+func CreatePipelineFunctionConfLocalSearchTimeRangeNormalizer(localSearchTimeRangeNormalizer PipelineFunctionLocalSearchTimeRangeNormalizer) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeLocalSearchTimeRangeNormalizer
+
+	typStr := PipelineFunctionLocalSearchTimeRangeNormalizerID(typ)
+	localSearchTimeRangeNormalizer.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionLocalSearchTimeRangeNormalizer: &localSearchTimeRangeNormalizer,
+		Type: typ,
+	}
+}
+
 func CreatePipelineFunctionConfLocalSearchTransformer(localSearchTransformer PipelineFunctionLocalSearchTransformer) PipelineFunctionConf {
 	typ := PipelineFunctionConfTypeLocalSearchTransformer
 
@@ -764,6 +780,18 @@ func CreatePipelineFunctionConfSampling(sampling PipelineFunctionSampling) Pipel
 	return PipelineFunctionConf{
 		PipelineFunctionSampling: &sampling,
 		Type:                     typ,
+	}
+}
+
+func CreatePipelineFunctionConfSearchEngineExport(searchEngineExport PipelineFunctionSearchEngineExport) PipelineFunctionConf {
+	typ := PipelineFunctionConfTypeSearchEngineExport
+
+	typStr := PipelineFunctionSearchEngineExportID(typ)
+	searchEngineExport.ID = typStr
+
+	return PipelineFunctionConf{
+		PipelineFunctionSearchEngineExport: &searchEngineExport,
+		Type:                               typ,
 	}
 }
 
@@ -1263,6 +1291,15 @@ func (u *PipelineFunctionConf) UnmarshalJSON(data []byte) error {
 		u.PipelineFunctionLocalSearchSchemaMapper = pipelineFunctionLocalSearchSchemaMapper
 		u.Type = PipelineFunctionConfTypeLocalSearchSchemaMapper
 		return nil
+	case "local_search_time_range_normalizer":
+		pipelineFunctionLocalSearchTimeRangeNormalizer := new(PipelineFunctionLocalSearchTimeRangeNormalizer)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionLocalSearchTimeRangeNormalizer, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == local_search_time_range_normalizer) type PipelineFunctionLocalSearchTimeRangeNormalizer within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionLocalSearchTimeRangeNormalizer = pipelineFunctionLocalSearchTimeRangeNormalizer
+		u.Type = PipelineFunctionConfTypeLocalSearchTimeRangeNormalizer
+		return nil
 	case "local_search_transformer":
 		pipelineFunctionLocalSearchTransformer := new(PipelineFunctionLocalSearchTransformer)
 		if err := utils.UnmarshalJSON(data, &pipelineFunctionLocalSearchTransformer, "", true, nil); err != nil {
@@ -1451,6 +1488,15 @@ func (u *PipelineFunctionConf) UnmarshalJSON(data []byte) error {
 
 		u.PipelineFunctionSampling = pipelineFunctionSampling
 		u.Type = PipelineFunctionConfTypeSampling
+		return nil
+	case "search_engine_export":
+		pipelineFunctionSearchEngineExport := new(PipelineFunctionSearchEngineExport)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionSearchEngineExport, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == search_engine_export) type PipelineFunctionSearchEngineExport within PipelineFunctionConf: %w", string(data), err)
+		}
+
+		u.PipelineFunctionSearchEngineExport = pipelineFunctionSearchEngineExport
+		u.Type = PipelineFunctionConfTypeSearchEngineExport
 		return nil
 	case "send":
 		pipelineFunctionSend := new(PipelineFunctionSend)
@@ -1725,6 +1771,10 @@ func (u PipelineFunctionConf) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.PipelineFunctionLocalSearchSchemaMapper, "", true)
 	}
 
+	if u.PipelineFunctionLocalSearchTimeRangeNormalizer != nil {
+		return utils.MarshalJSON(u.PipelineFunctionLocalSearchTimeRangeNormalizer, "", true)
+	}
+
 	if u.PipelineFunctionLocalSearchTransformer != nil {
 		return utils.MarshalJSON(u.PipelineFunctionLocalSearchTransformer, "", true)
 	}
@@ -1807,6 +1857,10 @@ func (u PipelineFunctionConf) MarshalJSON() ([]byte, error) {
 
 	if u.PipelineFunctionSampling != nil {
 		return utils.MarshalJSON(u.PipelineFunctionSampling, "", true)
+	}
+
+	if u.PipelineFunctionSearchEngineExport != nil {
+		return utils.MarshalJSON(u.PipelineFunctionSearchEngineExport, "", true)
 	}
 
 	if u.PipelineFunctionSend != nil {

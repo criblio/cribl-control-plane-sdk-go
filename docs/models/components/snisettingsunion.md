@@ -3,16 +3,16 @@
 
 ## Supported Types
 
-### SniSettings1
+### SniSettings
 
 ```go
-sniSettingsUnion := components.CreateSniSettingsUnionSniSettings1(components.SniSettings1{/* values here */})
+sniSettingsUnion := components.CreateSniSettingsUnionSniSettings(components.SniSettings{/* values here */})
 ```
 
-### SniSettings2
+### EmptyObject
 
 ```go
-sniSettingsUnion := components.CreateSniSettingsUnionSniSettings2(components.SniSettings2{/* values here */})
+sniSettingsUnion := components.CreateSniSettingsUnionEmptyObject(components.EmptyObject{/* values here */})
 ```
 
 ## Union Discrimination
@@ -21,9 +21,9 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch sniSettingsUnion.Type {
-	case components.SniSettingsUnionTypeSniSettings1:
-		// sniSettingsUnion.SniSettings1 is populated
-	case components.SniSettingsUnionTypeSniSettings2:
-		// sniSettingsUnion.SniSettings2 is populated
+	case components.SniSettingsUnionTypeSniSettings:
+		// sniSettingsUnion.SniSettings is populated
+	case components.SniSettingsUnionTypeEmptyObject:
+		// sniSettingsUnion.EmptyObject is populated
 }
 ```

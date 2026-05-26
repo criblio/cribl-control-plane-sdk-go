@@ -45,14 +45,10 @@ type OutputMinio struct {
 	Streamtags []string `json:"streamtags,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	// Signature version to use for signing MinIO requests
-	SignatureVersion *SignatureVersionOptionsMinIo `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Name of the destination MinIO bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
 	// Region where the MinIO bucket is located
@@ -101,6 +97,8 @@ type OutputMinio struct {
 	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
 	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// MinIO service url (e.g. http://minioHost:9000)
 	Endpoint string `json:"endpoint"`
 	// Object ACL to assign to uploaded objects
@@ -133,7 +131,7 @@ type OutputMinio struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -148,8 +146,8 @@ type OutputMinio struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -166,6 +164,8 @@ type OutputMinio struct {
 	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
 	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
 	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
@@ -240,13 +240,6 @@ func (o *OutputMinio) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS
 	return o.AwsAuthenticationMethod
 }
 
-func (o *OutputMinio) GetSignatureVersion() *SignatureVersionOptionsMinIo {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
-}
-
 func (o *OutputMinio) GetReuseConnections() *bool {
 	if o == nil {
 		return nil
@@ -259,13 +252,6 @@ func (o *OutputMinio) GetRejectUnauthorized() *bool {
 		return nil
 	}
 	return o.RejectUnauthorized
-}
-
-func (o *OutputMinio) GetAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsSecretKey
 }
 
 func (o *OutputMinio) GetBucket() string {
@@ -443,6 +429,13 @@ func (o *OutputMinio) GetOrphans() *OrphanFileRecoveryType {
 	return o.Orphans
 }
 
+func (o *OutputMinio) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
 func (o *OutputMinio) GetEndpoint() string {
 	if o == nil {
 		return ""
@@ -555,7 +548,7 @@ func (o *OutputMinio) GetShouldLogInvalidRows() *bool {
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputMinio) GetKeyValueMetadata() []ItemsTypeKeyValueMetadata {
+func (o *OutputMinio) GetKeyValueMetadata() []KeyValueMetadataConfOutputFilesystem {
 	if o == nil {
 		return nil
 	}
@@ -611,11 +604,11 @@ func (o *OutputMinio) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
-func (o *OutputMinio) GetTemplateAwsSecretKey() *string {
+func (o *OutputMinio) GetTemplateStreamtags() *string {
 	if o == nil {
 		return nil
 	}
-	return o.TemplateAwsSecretKey
+	return o.TemplateStreamtags
 }
 
 func (o *OutputMinio) GetTemplateBucket() *string {
@@ -672,6 +665,13 @@ func (o *OutputMinio) GetTemplateOnBackpressure() *string {
 		return nil
 	}
 	return o.TemplateOnBackpressure
+}
+
+func (o *OutputMinio) GetTemplateAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAwsSecretKey
 }
 
 func (o *OutputMinio) GetTemplateObjectACL() *string {

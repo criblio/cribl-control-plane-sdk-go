@@ -55,14 +55,10 @@ type OutputS3 struct {
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
 	// Region where the S3 bucket is located
@@ -111,6 +107,8 @@ type OutputS3 struct {
 	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
 	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
+	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Object ACL to assign to uploaded objects
 	ObjectACL *ObjectACLOptions `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
@@ -143,7 +141,7 @@ type OutputS3 struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -158,14 +156,14 @@ type OutputS3 struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
 	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
 	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
 	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -182,6 +180,8 @@ type OutputS3 struct {
 	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
+	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
 	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
 	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
 	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
@@ -293,13 +293,6 @@ func (o *OutputS3) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsS3Co
 	return o.AwsAuthenticationMethod
 }
 
-func (o *OutputS3) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
-}
-
 func (o *OutputS3) GetReuseConnections() *bool {
 	if o == nil {
 		return nil
@@ -312,13 +305,6 @@ func (o *OutputS3) GetRejectUnauthorized() *bool {
 		return nil
 	}
 	return o.RejectUnauthorized
-}
-
-func (o *OutputS3) GetAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsSecretKey
 }
 
 func (o *OutputS3) GetBucket() string {
@@ -496,6 +482,13 @@ func (o *OutputS3) GetOrphans() *OrphanFileRecoveryType {
 	return o.Orphans
 }
 
+func (o *OutputS3) GetAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecretKey
+}
+
 func (o *OutputS3) GetObjectACL() *ObjectACLOptions {
 	if o == nil {
 		return nil
@@ -608,7 +601,7 @@ func (o *OutputS3) GetShouldLogInvalidRows() *bool {
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputS3) GetKeyValueMetadata() []ItemsTypeKeyValueMetadata {
+func (o *OutputS3) GetKeyValueMetadata() []KeyValueMetadataConfOutputFilesystem {
 	if o == nil {
 		return nil
 	}
@@ -664,6 +657,13 @@ func (o *OutputS3) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
+func (o *OutputS3) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
+}
+
 func (o *OutputS3) GetTemplateEndpoint() *string {
 	if o == nil {
 		return nil
@@ -683,13 +683,6 @@ func (o *OutputS3) GetTemplateAssumeRoleExternalID() *string {
 		return nil
 	}
 	return o.TemplateAssumeRoleExternalID
-}
-
-func (o *OutputS3) GetTemplateAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsSecretKey
 }
 
 func (o *OutputS3) GetTemplateBucket() *string {
@@ -746,6 +739,13 @@ func (o *OutputS3) GetTemplateOnBackpressure() *string {
 		return nil
 	}
 	return o.TemplateOnBackpressure
+}
+
+func (o *OutputS3) GetTemplateAwsSecretKey() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAwsSecretKey
 }
 
 func (o *OutputS3) GetTemplateObjectACL() *string {

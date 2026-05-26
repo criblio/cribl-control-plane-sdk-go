@@ -10,7 +10,7 @@ import (
 type GetInputSystemByPackRequest struct {
 	// Type of Source to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
 	Type []string `queryParam:"style=form,explode=true,name=type"`
-	// The <code>id</code> of the Pack to list.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
 
@@ -42,7 +42,7 @@ func (g *GetInputSystemByPackRequest) GetPack() string {
 type GetInputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a list of Source objects
-	CountedInput *components.CountedInput
+	CountedInputResponse *components.CountedInputResponse
 }
 
 func (g GetInputSystemByPackResponse) MarshalJSON() ([]byte, error) {
@@ -63,9 +63,9 @@ func (g *GetInputSystemByPackResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetInputSystemByPackResponse) GetCountedInput() *components.CountedInput {
+func (g *GetInputSystemByPackResponse) GetCountedInputResponse() *components.CountedInputResponse {
 	if g == nil {
 		return nil
 	}
-	return g.CountedInput
+	return g.CountedInputResponse
 }

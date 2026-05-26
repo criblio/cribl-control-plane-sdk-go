@@ -22,7 +22,7 @@ func (g *GetOutputByIDRequest) GetID() string {
 type GetOutputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// a Destination object
-	CountedOutput *components.CountedOutput
+	CountedOutputResponse *components.CountedOutputResponse
 }
 
 func (g GetOutputByIDResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +43,9 @@ func (g *GetOutputByIDResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetOutputByIDResponse) GetCountedOutput() *components.CountedOutput {
+func (g *GetOutputByIDResponse) GetCountedOutputResponse() *components.CountedOutputResponse {
 	if g == nil {
 		return nil
 	}
-	return g.CountedOutput
+	return g.CountedOutputResponse
 }

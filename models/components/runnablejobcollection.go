@@ -319,17 +319,15 @@ type RunnableJobCollectionRun struct {
 	// Latest time to collect data for the selected timezone
 	Latest *RunnableJobCollectionLatest `json:"latest,omitzero"`
 	// Timezone to use for Earliest and Latest times
-	TimestampTimezone *string       `json:"timestampTimezone,omitzero"`
-	TimeWarning       *MetricsStore `json:"timeWarning,omitzero"`
+	TimestampTimezone *string               `json:"timestampTimezone,omitzero"`
+	TimeWarning       *BrokenEventProcessor `json:"timeWarning,omitzero"`
 	// A filter for tokens in the provided collect path and/or the events being collected
 	Expression *string `json:"expression,omitzero"`
 	// Limits the bundle size for small tasks. For example,
 	//
-	//
 	//         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
 	MinTaskSize *string `json:"minTaskSize,omitzero"`
 	// Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
-	//
 	//
 	//         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
 	MaxTaskSize *string `json:"maxTaskSize,omitzero"`
@@ -412,7 +410,7 @@ func (r *RunnableJobCollectionRun) GetTimestampTimezone() *string {
 	return r.TimestampTimezone
 }
 
-func (r *RunnableJobCollectionRun) GetTimeWarning() *MetricsStore {
+func (r *RunnableJobCollectionRun) GetTimeWarning() *BrokenEventProcessor {
 	if r == nil {
 		return nil
 	}
@@ -479,6 +477,8 @@ type RunnableJobCollection struct {
 	Collector Collector                                                         `json:"collector"`
 	Input     *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
 	Run       RunnableJobCollectionRun                                          `json:"run"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (r RunnableJobCollection) MarshalJSON() ([]byte, error) {
@@ -628,4 +628,11 @@ func (r *RunnableJobCollection) GetRun() RunnableJobCollectionRun {
 		return RunnableJobCollectionRun{}
 	}
 	return r.Run
+}
+
+func (r *RunnableJobCollection) GetTemplateStreamtags() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateStreamtags
 }

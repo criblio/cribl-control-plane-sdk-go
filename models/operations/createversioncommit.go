@@ -9,7 +9,7 @@ import (
 
 type CreateVersionCommitResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of GitCommitSummary objects
+	// The created GitCommitSummary object in a single-item list.
 	CountedGitCommitSummary *components.CountedGitCommitSummary
 }
 

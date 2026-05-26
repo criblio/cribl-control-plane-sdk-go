@@ -4,10 +4,67 @@
 
 ### Available Operations
 
+* [List](#list) - List all Routes within a Pack
 * [Get](#get) - Get a Routing table within a Pack
 * [Update](#update) - Update a Route within a Pack
-* [List](#list) - List all Routes within a Pack
 * [Append](#append) - Add a Route to the end of the Routing table within a Pack
+
+## List
+
+Get a list of all Routes within the specified Pack.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getRoutesByPack" method="get" path="/p/{pack}/routes" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Routes.List(ctx, "<value>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRoutes != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
+| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
+| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack.                         |
+| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+
+### Response
+
+**[*operations.GetRoutesByPackResponse](../../models/operations/getroutesbypackresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
 ## Get
 
@@ -53,7 +110,7 @@ func main() {
 | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                         | [context.Context](https://pkg.go.dev/context#Context)                                         | :heavy_check_mark:                                                                            | The context to use for the request.                                                           |
 | `id`                                                                                          | `string`                                                                                      | :heavy_check_mark:                                                                            | The <code>id</code> of the Routing table to get. The supported value is <code>default</code>. |
-| `pack`                                                                                        | `string`                                                                                      | :heavy_check_mark:                                                                            | The <code>id</code> of the Pack to get.                                                       |
+| `pack`                                                                                        | `string`                                                                                      | :heavy_check_mark:                                                                            | The <code>id</code> of the Pack.                                                              |
 | `opts`                                                                                        | [][operations.Option](../../models/operations/option.md)                                      | :heavy_minus_sign:                                                                            | The options for this request.                                                                 |
 
 ### Response
@@ -286,70 +343,13 @@ func main() {
 | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
 | `ctx`                                                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                                                    | :heavy_check_mark:                                                                                                       | The context to use for the request.                                                                                      |
 | `id`                                                                                                                     | `string`                                                                                                                 | :heavy_check_mark:                                                                                                       | The <code>id</code> of the Routing table that contains the Route to update. The supported value is <code>default</code>. |
-| `pack`                                                                                                                   | `string`                                                                                                                 | :heavy_check_mark:                                                                                                       | The <code>id</code> of the Pack to update.                                                                               |
-| `routesInput`                                                                                                            | [components.RoutesInput](../../models/components/routesinput.md)                                                         | :heavy_check_mark:                                                                                                       | RoutesInput object                                                                                                       |
+| `pack`                                                                                                                   | `string`                                                                                                                 | :heavy_check_mark:                                                                                                       | The <code>id</code> of the Pack.                                                                                         |
+| `routesInput`                                                                                                            | [components.RoutesInput](../../models/components/routesinput.md)                                                         | :heavy_check_mark:                                                                                                       | RoutesInput object.                                                                                                      |
 | `opts`                                                                                                                   | [][operations.Option](../../models/operations/option.md)                                                                 | :heavy_minus_sign:                                                                                                       | The options for this request.                                                                                            |
 
 ### Response
 
 **[*operations.UpdateRoutesByPackAndIDResponse](../../models/operations/updateroutesbypackandidresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
-
-## List
-
-Get a list of all Routes within the specified Pack.
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="getRoutesByPack" method="get" path="/p/{pack}/routes" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
-        criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-        }),
-    )
-
-    res, err := s.Packs.Routes.List(ctx, "<value>")
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.CountedRoutes != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `pack`                                                   | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack to list.                 |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
-
-### Response
-
-**[*operations.GetRoutesByPackResponse](../../models/operations/getroutesbypackresponse.md), error**
 
 ### Errors
 
@@ -547,8 +547,8 @@ func main() {
 | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                      | [context.Context](https://pkg.go.dev/context#Context)                                                      | :heavy_check_mark:                                                                                         | The context to use for the request.                                                                        |
 | `id`                                                                                                       | `string`                                                                                                   | :heavy_check_mark:                                                                                         | The <code>id</code> of the Routing table to add the Route to. The supported value is <code>default</code>. |
-| `pack`                                                                                                     | `string`                                                                                                   | :heavy_check_mark:                                                                                         | The <code>id</code> of the Pack to append.                                                                 |
-| `requestBody`                                                                                              | [][components.RouteConfInput](../../models/components/routeconfinput.md)                                   | :heavy_check_mark:                                                                                         | RouteDefinitions object                                                                                    |
+| `pack`                                                                                                     | `string`                                                                                                   | :heavy_check_mark:                                                                                         | The <code>id</code> of the Pack.                                                                           |
+| `requestBody`                                                                                              | [][components.RouteConfInput](../../models/components/routeconfinput.md)                                   | :heavy_check_mark:                                                                                         | RouteDefinitions object.                                                                                   |
 | `opts`                                                                                                     | [][operations.Option](../../models/operations/option.md)                                                   | :heavy_minus_sign:                                                                                         | The options for this request.                                                                              |
 
 ### Response

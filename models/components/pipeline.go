@@ -44,6 +44,8 @@ type PipelineConf struct {
 	// List of Functions to pass data through
 	Functions []PipelineFunctionConf    `json:"functions,omitzero"`
 	Groups    map[string]PipelineGroups `json:"groups,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (p PipelineConf) MarshalJSON() ([]byte, error) {
@@ -99,6 +101,13 @@ func (p *PipelineConf) GetGroups() map[string]PipelineGroups {
 	return p.Groups
 }
 
+func (p *PipelineConf) GetTemplateStreamtags() *string {
+	if p == nil {
+		return nil
+	}
+	return p.TemplateStreamtags
+}
+
 type Pipeline struct {
 	ID   string       `json:"id"`
 	Conf PipelineConf `json:"conf"`
@@ -129,6 +138,8 @@ type ConfInput struct {
 	// List of Functions to pass data through
 	Functions []PipelineFunctionConfInput `json:"functions,omitzero"`
 	Groups    map[string]PipelineGroups   `json:"groups,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (c ConfInput) MarshalJSON() ([]byte, error) {
@@ -182,6 +193,13 @@ func (c *ConfInput) GetGroups() map[string]PipelineGroups {
 		return nil
 	}
 	return c.Groups
+}
+
+func (c *ConfInput) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
 }
 
 type PipelineInput struct {

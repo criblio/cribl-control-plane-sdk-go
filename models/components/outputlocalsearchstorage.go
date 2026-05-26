@@ -81,7 +81,7 @@ func (e *OutputLocalSearchStorageMappingType) IsExact() bool {
 	return false
 }
 
-type StatsDestination struct {
+type OutputLocalSearchStorageStatsDestination struct {
 	URL         *string `json:"url,omitzero"`
 	Database    *string `json:"database,omitzero"`
 	TableName   *string `json:"tableName,omitzero"`
@@ -91,64 +91,64 @@ type StatsDestination struct {
 	Password    *string `json:"password,omitzero"`
 }
 
-func (s StatsDestination) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(s, "", false)
+func (o OutputLocalSearchStorageStatsDestination) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (s *StatsDestination) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+func (o *OutputLocalSearchStorageStatsDestination) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *StatsDestination) GetURL() *string {
-	if s == nil {
+func (o *OutputLocalSearchStorageStatsDestination) GetURL() *string {
+	if o == nil {
 		return nil
 	}
-	return s.URL
+	return o.URL
 }
 
-func (s *StatsDestination) GetDatabase() *string {
-	if s == nil {
+func (o *OutputLocalSearchStorageStatsDestination) GetDatabase() *string {
+	if o == nil {
 		return nil
 	}
-	return s.Database
+	return o.Database
 }
 
-func (s *StatsDestination) GetTableName() *string {
-	if s == nil {
+func (o *OutputLocalSearchStorageStatsDestination) GetTableName() *string {
+	if o == nil {
 		return nil
 	}
-	return s.TableName
+	return o.TableName
 }
 
-func (s *StatsDestination) GetAuthType() *string {
-	if s == nil {
+func (o *OutputLocalSearchStorageStatsDestination) GetAuthType() *string {
+	if o == nil {
 		return nil
 	}
-	return s.AuthType
+	return o.AuthType
 }
 
-func (s *StatsDestination) GetUsername() *string {
-	if s == nil {
+func (o *OutputLocalSearchStorageStatsDestination) GetUsername() *string {
+	if o == nil {
 		return nil
 	}
-	return s.Username
+	return o.Username
 }
 
-func (s *StatsDestination) GetSQLUsername() *string {
-	if s == nil {
+func (o *OutputLocalSearchStorageStatsDestination) GetSQLUsername() *string {
+	if o == nil {
 		return nil
 	}
-	return s.SQLUsername
+	return o.SQLUsername
 }
 
-func (s *StatsDestination) GetPassword() *string {
-	if s == nil {
+func (o *OutputLocalSearchStorageStatsDestination) GetPassword() *string {
+	if o == nil {
 		return nil
 	}
-	return s.Password
+	return o.Password
 }
 
 type OutputLocalSearchStorageColumnMapping struct {
@@ -248,7 +248,7 @@ type OutputLocalSearchStorage struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -256,18 +256,18 @@ type OutputLocalSearchStorage struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Log the most recent event that fails to match the table schema
 	DumpFormatErrorsToDisk *bool `json:"dumpFormatErrorsToDisk,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure   *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	StatsDestination *StatsDestination            `json:"statsDestination,omitzero"`
-	Description      *string                      `json:"description,omitzero"`
-	Username         *string                      `json:"username,omitzero"`
-	Password         *string                      `json:"password,omitzero"`
+	OnBackpressure   *BackpressureBehaviorOptions              `json:"onBackpressure,omitzero"`
+	StatsDestination *OutputLocalSearchStorageStatsDestination `json:"statsDestination,omitzero"`
+	Description      *string                                   `json:"description,omitzero"`
+	Username         *string                                   `json:"username,omitzero"`
+	Password         *string                                   `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Username for certificate authentication
@@ -302,6 +302,8 @@ type OutputLocalSearchStorage struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                             `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputLocalSearchStoragePqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 	// Binds 'database' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'database' at runtime.
@@ -472,7 +474,7 @@ func (o *OutputLocalSearchStorage) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputLocalSearchStorage) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputLocalSearchStorage) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -500,7 +502,7 @@ func (o *OutputLocalSearchStorage) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputLocalSearchStorage) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputLocalSearchStorage) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}
@@ -535,7 +537,7 @@ func (o *OutputLocalSearchStorage) GetOnBackpressure() *BackpressureBehaviorOpti
 	return o.OnBackpressure
 }
 
-func (o *OutputLocalSearchStorage) GetStatsDestination() *StatsDestination {
+func (o *OutputLocalSearchStorage) GetStatsDestination() *OutputLocalSearchStorageStatsDestination {
 	if o == nil {
 		return nil
 	}
@@ -687,6 +689,13 @@ func (o *OutputLocalSearchStorage) GetPqControls() *OutputLocalSearchStoragePqCo
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputLocalSearchStorage) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputLocalSearchStorage) GetTemplateURL() *string {

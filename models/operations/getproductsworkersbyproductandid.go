@@ -9,14 +9,14 @@ import (
 
 type GetProductsWorkersByProductAndIDRequest struct {
 	// Name of the Cribl product that contains the Node.
-	Product components.ProductsBase `pathParam:"style=simple,explode=false,name=product"`
+	Product components.ProductsCore `pathParam:"style=simple,explode=false,name=product"`
 	// The <code>id</code> of the Node to get the metadata for.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (g *GetProductsWorkersByProductAndIDRequest) GetProduct() components.ProductsBase {
+func (g *GetProductsWorkersByProductAndIDRequest) GetProduct() components.ProductsCore {
 	if g == nil {
-		return components.ProductsBase("")
+		return components.ProductsCore("")
 	}
 	return g.Product
 }
@@ -30,7 +30,7 @@ func (g *GetProductsWorkersByProductAndIDRequest) GetID() string {
 
 type GetProductsWorkersByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of MasterWorkerEntry objects
+	// List of MasterWorkerEntry objects.
 	CountedMasterWorkerEntry *components.CountedMasterWorkerEntry
 }
 

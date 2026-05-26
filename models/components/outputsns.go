@@ -31,29 +31,6 @@ func (e *OutputSnsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputSnsSignatureVersion - Signature version to use for signing SNS requests
-type OutputSnsSignatureVersion string
-
-const (
-	OutputSnsSignatureVersionV2 OutputSnsSignatureVersion = "v2"
-	OutputSnsSignatureVersionV4 OutputSnsSignatureVersion = "v4"
-)
-
-func (e OutputSnsSignatureVersion) ToPointer() *OutputSnsSignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputSnsSignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputSnsPqControls struct {
 }
 
@@ -93,8 +70,6 @@ type OutputSns struct {
 	Region *string `json:"region,omitzero"`
 	// SNS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SNS-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing SNS requests
-	SignatureVersion *OutputSnsSignatureVersion `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -136,6 +111,8 @@ type OutputSns struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string              `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputSnsPqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'topicArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicArn' at runtime.
 	TemplateTopicArn *string `json:"__template_topicArn,omitzero"`
 	// Binds 'messageGroupId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'messageGroupId' at runtime.
@@ -256,13 +233,6 @@ func (o *OutputSns) GetEndpoint() *string {
 		return nil
 	}
 	return o.Endpoint
-}
-
-func (o *OutputSns) GetSignatureVersion() *OutputSnsSignatureVersion {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
 }
 
 func (o *OutputSns) GetReuseConnections() *bool {
@@ -417,6 +387,13 @@ func (o *OutputSns) GetPqControls() *OutputSnsPqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputSns) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputSns) GetTemplateTopicArn() *string {

@@ -56,40 +56,62 @@ func (e *OutputSyslogProtocol) IsExact() bool {
 	return false
 }
 
-// Facility - Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
-type Facility int64
+// OutputSyslogFacility - Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
+type OutputSyslogFacility int64
 
 const (
-	FacilityZero      Facility = 0
-	FacilityOne       Facility = 1
-	FacilityTwo       Facility = 2
-	FacilityThree     Facility = 3
-	FacilityFour      Facility = 4
-	FacilityFive      Facility = 5
-	FacilitySix       Facility = 6
-	FacilitySeven     Facility = 7
-	FacilityEight     Facility = 8
-	FacilityNine      Facility = 9
-	FacilityTen       Facility = 10
-	FacilityEleven    Facility = 11
-	FacilityTwelve    Facility = 12
-	FacilityThirteen  Facility = 13
-	FacilityFourteen  Facility = 14
-	FacilityFifteen   Facility = 15
-	FacilitySixteen   Facility = 16
-	FacilitySeventeen Facility = 17
-	FacilityEighteen  Facility = 18
-	FacilityNineteen  Facility = 19
-	FacilityTwenty    Facility = 20
-	FacilityTwentyOne Facility = 21
+	// OutputSyslogFacilityKern kern
+	OutputSyslogFacilityKern OutputSyslogFacility = 0
+	// OutputSyslogFacilityUser user
+	OutputSyslogFacilityUser OutputSyslogFacility = 1
+	// OutputSyslogFacilityMail mail
+	OutputSyslogFacilityMail OutputSyslogFacility = 2
+	// OutputSyslogFacilityDaemon daemon
+	OutputSyslogFacilityDaemon OutputSyslogFacility = 3
+	// OutputSyslogFacilityAuth auth
+	OutputSyslogFacilityAuth OutputSyslogFacility = 4
+	// OutputSyslogFacilitySyslog syslog
+	OutputSyslogFacilitySyslog OutputSyslogFacility = 5
+	// OutputSyslogFacilityLpr lpr
+	OutputSyslogFacilityLpr OutputSyslogFacility = 6
+	// OutputSyslogFacilityNews news
+	OutputSyslogFacilityNews OutputSyslogFacility = 7
+	// OutputSyslogFacilityUucp uucp
+	OutputSyslogFacilityUucp OutputSyslogFacility = 8
+	// OutputSyslogFacilityCron cron
+	OutputSyslogFacilityCron OutputSyslogFacility = 9
+	// OutputSyslogFacilityAuthpriv authpriv
+	OutputSyslogFacilityAuthpriv OutputSyslogFacility = 10
+	// OutputSyslogFacilityFtp ftp
+	OutputSyslogFacilityFtp OutputSyslogFacility = 11
+	// OutputSyslogFacilityNtp ntp
+	OutputSyslogFacilityNtp OutputSyslogFacility = 12
+	// OutputSyslogFacilitySecurity security
+	OutputSyslogFacilitySecurity OutputSyslogFacility = 13
+	// OutputSyslogFacilityConsole console
+	OutputSyslogFacilityConsole OutputSyslogFacility = 14
+	// OutputSyslogFacilitySolarisCron solaris-cron
+	OutputSyslogFacilitySolarisCron OutputSyslogFacility = 15
+	// OutputSyslogFacilityLocal0 local0
+	OutputSyslogFacilityLocal0 OutputSyslogFacility = 16
+	// OutputSyslogFacilityLocal1 local1
+	OutputSyslogFacilityLocal1 OutputSyslogFacility = 17
+	// OutputSyslogFacilityLocal2 local2
+	OutputSyslogFacilityLocal2 OutputSyslogFacility = 18
+	// OutputSyslogFacilityLocal3 local3
+	OutputSyslogFacilityLocal3 OutputSyslogFacility = 19
+	// OutputSyslogFacilityLocal4 local4
+	OutputSyslogFacilityLocal4 OutputSyslogFacility = 20
+	// OutputSyslogFacilityLocal5 local5
+	OutputSyslogFacilityLocal5 OutputSyslogFacility = 21
 )
 
-func (e Facility) ToPointer() *Facility {
+func (e OutputSyslogFacility) ToPointer() *OutputSyslogFacility {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *Facility) IsExact() bool {
+func (e *OutputSyslogFacility) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21:
@@ -136,22 +158,22 @@ func (e *OutputSyslogSeverity) IsExact() bool {
 	return false
 }
 
-// MessageFormat - The syslog message format depending on the receiver's support
-type MessageFormat string
+// OutputSyslogMessageFormat - The syslog message format depending on the receiver's support
+type OutputSyslogMessageFormat string
 
 const (
-	// MessageFormatRfc3164 RFC3164
-	MessageFormatRfc3164 MessageFormat = "rfc3164"
-	// MessageFormatRfc5424 RFC5424
-	MessageFormatRfc5424 MessageFormat = "rfc5424"
+	// OutputSyslogMessageFormatRfc3164 RFC3164
+	OutputSyslogMessageFormatRfc3164 OutputSyslogMessageFormat = "rfc3164"
+	// OutputSyslogMessageFormatRfc5424 RFC5424
+	OutputSyslogMessageFormatRfc5424 OutputSyslogMessageFormat = "rfc5424"
 )
 
-func (e MessageFormat) ToPointer() *MessageFormat {
+func (e OutputSyslogMessageFormat) ToPointer() *OutputSyslogMessageFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *MessageFormat) IsExact() bool {
+func (e *OutputSyslogMessageFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "rfc3164", "rfc5424":
@@ -161,22 +183,22 @@ func (e *MessageFormat) IsExact() bool {
 	return false
 }
 
-// TimestampFormat - Timestamp format to use when serializing event's time field
-type TimestampFormat string
+// OutputSyslogTimestampFormat - Timestamp format to use when serializing event's time field
+type OutputSyslogTimestampFormat string
 
 const (
-	// TimestampFormatSyslog Syslog
-	TimestampFormatSyslog TimestampFormat = "syslog"
-	// TimestampFormatIso8601 ISO8601
-	TimestampFormatIso8601 TimestampFormat = "iso8601"
+	// OutputSyslogTimestampFormatSyslog Syslog
+	OutputSyslogTimestampFormatSyslog OutputSyslogTimestampFormat = "syslog"
+	// OutputSyslogTimestampFormatIso8601 ISO8601
+	OutputSyslogTimestampFormatIso8601 OutputSyslogTimestampFormat = "iso8601"
 )
 
-func (e TimestampFormat) ToPointer() *TimestampFormat {
+func (e OutputSyslogTimestampFormat) ToPointer() *OutputSyslogTimestampFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *TimestampFormat) IsExact() bool {
+func (e *OutputSyslogTimestampFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "syslog", "iso8601":
@@ -215,15 +237,15 @@ type OutputSyslog struct {
 	// The network protocol to use for sending out syslog messages
 	Protocol *OutputSyslogProtocol `json:"protocol,omitzero"`
 	// Default value for message facility. Will be overwritten by value of __facility if set. Defaults to user.
-	Facility *Facility `json:"facility,omitzero"`
+	Facility *OutputSyslogFacility `json:"facility,omitzero"`
 	// Default value for message severity. Will be overwritten by value of __severity if set. Defaults to notice.
 	Severity *OutputSyslogSeverity `json:"severity,omitzero"`
 	// Default name for device or application that originated the message. Defaults to Cribl, but will be overwritten by value of __appname if set.
 	AppName *string `json:"appName,omitzero"`
 	// The syslog message format depending on the receiver's support
-	MessageFormat *MessageFormat `json:"messageFormat,omitzero"`
+	MessageFormat *OutputSyslogMessageFormat `json:"messageFormat,omitzero"`
 	// Timestamp format to use when serializing event's time field
-	TimestampFormat *TimestampFormat `json:"timestampFormat,omitzero"`
+	TimestampFormat *OutputSyslogTimestampFormat `json:"timestampFormat,omitzero"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
 	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
 	// Prefix messages with the byte count of the message. If disabled, no prefix will be set, and the message will be appended with a \n.
@@ -240,7 +262,7 @@ type OutputSyslog struct {
 	// Exclude all IPs of the current host from the list of any resolved hostnames
 	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
 	// Set of hosts to load-balance data to
-	Hosts []ItemsTypeHosts `json:"hosts,omitzero"`
+	Hosts []HostConfOutputSyslog `json:"hosts,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -283,6 +305,8 @@ type OutputSyslog struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                 `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputSyslogPqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
 	TemplateHost *string `json:"__template_host,omitzero"`
 	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
@@ -351,7 +375,7 @@ func (o *OutputSyslog) GetProtocol() *OutputSyslogProtocol {
 	return o.Protocol
 }
 
-func (o *OutputSyslog) GetFacility() *Facility {
+func (o *OutputSyslog) GetFacility() *OutputSyslogFacility {
 	if o == nil {
 		return nil
 	}
@@ -372,14 +396,14 @@ func (o *OutputSyslog) GetAppName() *string {
 	return o.AppName
 }
 
-func (o *OutputSyslog) GetMessageFormat() *MessageFormat {
+func (o *OutputSyslog) GetMessageFormat() *OutputSyslogMessageFormat {
 	if o == nil {
 		return nil
 	}
 	return o.MessageFormat
 }
 
-func (o *OutputSyslog) GetTimestampFormat() *TimestampFormat {
+func (o *OutputSyslog) GetTimestampFormat() *OutputSyslogTimestampFormat {
 	if o == nil {
 		return nil
 	}
@@ -442,7 +466,7 @@ func (o *OutputSyslog) GetExcludeSelf() *bool {
 	return o.ExcludeSelf
 }
 
-func (o *OutputSyslog) GetHosts() []ItemsTypeHosts {
+func (o *OutputSyslog) GetHosts() []HostConfOutputSyslog {
 	if o == nil {
 		return nil
 	}
@@ -601,6 +625,13 @@ func (o *OutputSyslog) GetPqControls() *OutputSyslogPqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputSyslog) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputSyslog) GetTemplateHost() *string {

@@ -31,21 +31,21 @@ func (e *OutputNewrelicType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type FieldName string
+type OutputNewrelicFieldName string
 
 const (
-	FieldNameService   FieldName = "service"
-	FieldNameHostname  FieldName = "hostname"
-	FieldNameTimestamp FieldName = "timestamp"
-	FieldNameAuditID   FieldName = "auditId"
+	OutputNewrelicFieldNameService   OutputNewrelicFieldName = "service"
+	OutputNewrelicFieldNameHostname  OutputNewrelicFieldName = "hostname"
+	OutputNewrelicFieldNameTimestamp OutputNewrelicFieldName = "timestamp"
+	OutputNewrelicFieldNameAuditID   OutputNewrelicFieldName = "auditId"
 )
 
-func (e FieldName) ToPointer() *FieldName {
+func (e OutputNewrelicFieldName) ToPointer() *OutputNewrelicFieldName {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *FieldName) IsExact() bool {
+func (e *OutputNewrelicFieldName) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "service", "hostname", "timestamp", "auditId":
@@ -55,35 +55,35 @@ func (e *FieldName) IsExact() bool {
 	return false
 }
 
-type Metadatum struct {
-	Name FieldName `json:"name"`
+type OutputNewrelicMetadatum struct {
+	Name OutputNewrelicFieldName `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
 }
 
-func (m Metadatum) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(m, "", false)
+func (o OutputNewrelicMetadatum) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (m *Metadatum) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &m, "", false, nil); err != nil {
+func (o *OutputNewrelicMetadatum) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (m *Metadatum) GetName() FieldName {
-	if m == nil {
-		return FieldName("")
+func (o *OutputNewrelicMetadatum) GetName() OutputNewrelicFieldName {
+	if o == nil {
+		return OutputNewrelicFieldName("")
 	}
-	return m.Name
+	return o.Name
 }
 
-func (m *Metadatum) GetValue() string {
-	if m == nil {
+func (o *OutputNewrelicMetadatum) GetValue() string {
+	if o == nil {
 		return ""
 	}
-	return m.Value
+	return o.Value
 }
 
 type OutputNewrelicPqControls struct {
@@ -119,7 +119,7 @@ type OutputNewrelic struct {
 	// Name of field to send as log message value. If not present, event will be serialized and sent as JSON.
 	MessageField *string `json:"messageField,omitzero"`
 	// Fields to add to events from this input
-	Metadata []Metadatum `json:"metadata,omitzero"`
+	Metadata []OutputNewrelicMetadatum `json:"metadata,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -137,7 +137,7 @@ type OutputNewrelic struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -145,8 +145,8 @@ type OutputNewrelic struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -184,6 +184,8 @@ type OutputNewrelic struct {
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'logType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logType' at runtime.
@@ -270,7 +272,7 @@ func (o *OutputNewrelic) GetMessageField() *string {
 	return o.MessageField
 }
 
-func (o *OutputNewrelic) GetMetadata() []Metadatum {
+func (o *OutputNewrelic) GetMetadata() []OutputNewrelicMetadatum {
 	if o == nil {
 		return nil
 	}
@@ -326,7 +328,7 @@ func (o *OutputNewrelic) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputNewrelic) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputNewrelic) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -354,7 +356,7 @@ func (o *OutputNewrelic) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputNewrelic) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputNewrelic) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}
@@ -506,6 +508,13 @@ func (o *OutputNewrelic) GetTextSecret() *string {
 		return nil
 	}
 	return o.TextSecret
+}
+
+func (o *OutputNewrelic) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputNewrelic) GetTemplateRegion() *string {
