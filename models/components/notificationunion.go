@@ -248,13 +248,13 @@ type Notification3 struct {
 	// Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
 	Conf *ConditionSpecificConfigurations3 `json:"conf,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// The worker group/fleet this notification belongs to
 	Group *string `json:"group,omitzero"`
 	// The pack this notification belongs to
 	Pack *string `json:"pack,omitzero"`
 	// Pairs of templates and targets for notification routing
-	TemplateTargetPairs []ItemsTypePoliciesItemsTemplateTargetPairs `json:"templateTargetPairs,omitzero"`
+	TemplateTargetPairs []TemplateTargetPairConfFunctionConfSchemaNotificationPolicies `json:"templateTargetPairs,omitzero"`
 }
 
 func (n Notification3) MarshalJSON() ([]byte, error) {
@@ -317,7 +317,7 @@ func (n *Notification3) GetConf() *ConditionSpecificConfigurations3 {
 	return n.Conf
 }
 
-func (n *Notification3) GetMetadata() []ItemsTypeMetadata {
+func (n *Notification3) GetMetadata() []MetadataConfInputCollection {
 	if n == nil {
 		return nil
 	}
@@ -338,7 +338,7 @@ func (n *Notification3) GetPack() *string {
 	return n.Pack
 }
 
-func (n *Notification3) GetTemplateTargetPairs() []ItemsTypePoliciesItemsTemplateTargetPairs {
+func (n *Notification3) GetTemplateTargetPairs() []TemplateTargetPairConfFunctionConfSchemaNotificationPolicies {
 	if n == nil {
 		return nil
 	}
@@ -576,7 +576,7 @@ type Notification2 struct {
 	// Notification mode: direct or policy-based
 	Mode NotificationMode2 `json:"mode"`
 	// Pairs of templates and targets for notification routing
-	TemplateTargetPairs []ItemsTypePoliciesItemsTemplateTargetPairs `json:"templateTargetPairs,omitzero"`
+	TemplateTargetPairs []TemplateTargetPairConfFunctionConfSchemaNotificationPolicies `json:"templateTargetPairs,omitzero"`
 	// Unique identifier for the Notification.
 	ID string `json:"id"`
 	// If true, the Notification is disabled and the specified condition will not trigger it.
@@ -590,7 +590,7 @@ type Notification2 struct {
 	// Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
 	Conf *ConditionSpecificConfigurations2 `json:"conf,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// The worker group/fleet this notification belongs to
 	Group *string `json:"group,omitzero"`
 	// The pack this notification belongs to
@@ -615,7 +615,7 @@ func (n *Notification2) GetMode() NotificationMode2 {
 	return n.Mode
 }
 
-func (n *Notification2) GetTemplateTargetPairs() []ItemsTypePoliciesItemsTemplateTargetPairs {
+func (n *Notification2) GetTemplateTargetPairs() []TemplateTargetPairConfFunctionConfSchemaNotificationPolicies {
 	if n == nil {
 		return nil
 	}
@@ -664,7 +664,7 @@ func (n *Notification2) GetConf() *ConditionSpecificConfigurations2 {
 	return n.Conf
 }
 
-func (n *Notification2) GetMetadata() []ItemsTypeMetadata {
+func (n *Notification2) GetMetadata() []MetadataConfInputCollection {
 	if n == nil {
 		return nil
 	}
@@ -916,7 +916,7 @@ type Notification1 struct {
 	// Notification mode: direct or policy-based
 	Mode NotificationMode1 `json:"mode"`
 	// Pairs of templates and targets for notification routing
-	TemplateTargetPairs []ItemsTypePoliciesItemsTemplateTargetPairs `json:"templateTargetPairs"`
+	TemplateTargetPairs []TemplateTargetPairConfFunctionConfSchemaNotificationPolicies `json:"templateTargetPairs"`
 	// Unique identifier for the Notification.
 	ID string `json:"id"`
 	// If true, the Notification is disabled and the specified condition will not trigger it.
@@ -930,7 +930,7 @@ type Notification1 struct {
 	// Configuration for the condition that triggers the Notification. Supported fields vary depending on the condition.
 	Conf *ConditionSpecificConfigurations1 `json:"conf,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// The worker group/fleet this notification belongs to
 	Group *string `json:"group,omitzero"`
 	// The pack this notification belongs to
@@ -955,9 +955,9 @@ func (n *Notification1) GetMode() NotificationMode1 {
 	return n.Mode
 }
 
-func (n *Notification1) GetTemplateTargetPairs() []ItemsTypePoliciesItemsTemplateTargetPairs {
+func (n *Notification1) GetTemplateTargetPairs() []TemplateTargetPairConfFunctionConfSchemaNotificationPolicies {
 	if n == nil {
-		return []ItemsTypePoliciesItemsTemplateTargetPairs{}
+		return []TemplateTargetPairConfFunctionConfSchemaNotificationPolicies{}
 	}
 	return n.TemplateTargetPairs
 }
@@ -1004,7 +1004,7 @@ func (n *Notification1) GetConf() *ConditionSpecificConfigurations1 {
 	return n.Conf
 }
 
-func (n *Notification1) GetMetadata() []ItemsTypeMetadata {
+func (n *Notification1) GetMetadata() []MetadataConfInputCollection {
 	if n == nil {
 		return nil
 	}

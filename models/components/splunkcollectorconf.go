@@ -462,7 +462,21 @@ type SplunkAuthenticationTokenSecret struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitzero"`
 	RetryRules         *SplunkAuthenticationTokenSecretRetryRules `json:"retryRules,omitzero"`
-	Token              *string                                    `json:"token,omitzero"`
+	// Basic authentication username
+	Username *string `json:"username,omitzero"`
+	// Basic authentication password
+	Password *string `json:"password,omitzero"`
+	// Select or create a stored secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	Token             *string `json:"token,omitzero"`
+	// URL to use for login API call. This call is expected to be a POST.
+	LoginURL *string `json:"loginUrl,omitzero"`
+	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+	LoginBody *string `json:"loginBody,omitzero"`
+	// Path to token attribute in login response body. Nested attributes are allowed.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitzero"`
+	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
 	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
 	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
 	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
@@ -621,11 +635,60 @@ func (s *SplunkAuthenticationTokenSecret) GetRetryRulesBackoff() *SplunkAuthenti
 	return nil
 }
 
+func (s *SplunkAuthenticationTokenSecret) GetUsername() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Username
+}
+
+func (s *SplunkAuthenticationTokenSecret) GetPassword() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Password
+}
+
+func (s *SplunkAuthenticationTokenSecret) GetCredentialsSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.CredentialsSecret
+}
+
 func (s *SplunkAuthenticationTokenSecret) GetToken() *string {
 	if s == nil {
 		return nil
 	}
 	return s.Token
+}
+
+func (s *SplunkAuthenticationTokenSecret) GetLoginURL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.LoginURL
+}
+
+func (s *SplunkAuthenticationTokenSecret) GetLoginBody() *string {
+	if s == nil {
+		return nil
+	}
+	return s.LoginBody
+}
+
+func (s *SplunkAuthenticationTokenSecret) GetTokenRespAttribute() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TokenRespAttribute
+}
+
+func (s *SplunkAuthenticationTokenSecret) GetAuthHeaderExpr() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AuthHeaderExpr
 }
 
 func (s *SplunkAuthenticationTokenSecret) GetTemplateSearchHead() *string {
@@ -1122,8 +1185,22 @@ type SplunkAuthenticationToken struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                                `json:"handleEscapedChars,omitzero"`
 	RetryRules         *SplunkAuthenticationTokenRetryRules `json:"retryRules,omitzero"`
+	// Basic authentication username
+	Username *string `json:"username,omitzero"`
+	// Basic authentication password
+	Password *string `json:"password,omitzero"`
+	// Select or create a stored secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitzero"`
+	// URL to use for login API call. This call is expected to be a POST.
+	LoginURL *string `json:"loginUrl,omitzero"`
+	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+	LoginBody *string `json:"loginBody,omitzero"`
+	// Path to token attribute in login response body. Nested attributes are allowed.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitzero"`
+	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
 	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
 	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
 	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
@@ -1282,11 +1359,60 @@ func (s *SplunkAuthenticationToken) GetRetryRulesBackoff() *SplunkAuthentication
 	return nil
 }
 
+func (s *SplunkAuthenticationToken) GetUsername() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Username
+}
+
+func (s *SplunkAuthenticationToken) GetPassword() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Password
+}
+
+func (s *SplunkAuthenticationToken) GetCredentialsSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.CredentialsSecret
+}
+
 func (s *SplunkAuthenticationToken) GetTokenSecret() *string {
 	if s == nil {
 		return nil
 	}
 	return s.TokenSecret
+}
+
+func (s *SplunkAuthenticationToken) GetLoginURL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.LoginURL
+}
+
+func (s *SplunkAuthenticationToken) GetLoginBody() *string {
+	if s == nil {
+		return nil
+	}
+	return s.LoginBody
+}
+
+func (s *SplunkAuthenticationToken) GetTokenRespAttribute() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TokenRespAttribute
+}
+
+func (s *SplunkAuthenticationToken) GetAuthHeaderExpr() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AuthHeaderExpr
 }
 
 func (s *SplunkAuthenticationToken) GetTemplateSearchHead() *string {
@@ -1784,9 +1910,21 @@ type SplunkAuthenticationBasicSecret struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                                      `json:"handleEscapedChars,omitzero"`
 	RetryRules         *SplunkAuthenticationBasicSecretRetryRules `json:"retryRules,omitzero"`
-	Token              *string                                    `json:"token,omitzero"`
+	// Basic authentication username
+	Username *string `json:"username,omitzero"`
+	// Basic authentication password
+	Password *string `json:"password,omitzero"`
+	Token    *string `json:"token,omitzero"`
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitzero"`
+	// URL to use for login API call. This call is expected to be a POST.
+	LoginURL *string `json:"loginUrl,omitzero"`
+	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+	LoginBody *string `json:"loginBody,omitzero"`
+	// Path to token attribute in login response body. Nested attributes are allowed.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitzero"`
+	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
 	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
 	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
 	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
@@ -1945,6 +2083,20 @@ func (s *SplunkAuthenticationBasicSecret) GetRetryRulesBackoff() *SplunkAuthenti
 	return nil
 }
 
+func (s *SplunkAuthenticationBasicSecret) GetUsername() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Username
+}
+
+func (s *SplunkAuthenticationBasicSecret) GetPassword() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Password
+}
+
 func (s *SplunkAuthenticationBasicSecret) GetToken() *string {
 	if s == nil {
 		return nil
@@ -1957,6 +2109,34 @@ func (s *SplunkAuthenticationBasicSecret) GetTokenSecret() *string {
 		return nil
 	}
 	return s.TokenSecret
+}
+
+func (s *SplunkAuthenticationBasicSecret) GetLoginURL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.LoginURL
+}
+
+func (s *SplunkAuthenticationBasicSecret) GetLoginBody() *string {
+	if s == nil {
+		return nil
+	}
+	return s.LoginBody
+}
+
+func (s *SplunkAuthenticationBasicSecret) GetTokenRespAttribute() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TokenRespAttribute
+}
+
+func (s *SplunkAuthenticationBasicSecret) GetAuthHeaderExpr() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AuthHeaderExpr
 }
 
 func (s *SplunkAuthenticationBasicSecret) GetTemplateSearchHead() *string {
@@ -2456,9 +2636,19 @@ type SplunkAuthenticationBasic struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                                `json:"handleEscapedChars,omitzero"`
 	RetryRules         *SplunkAuthenticationBasicRetryRules `json:"retryRules,omitzero"`
-	Token              *string                              `json:"token,omitzero"`
+	// Select or create a stored secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	Token             *string `json:"token,omitzero"`
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitzero"`
+	// URL to use for login API call. This call is expected to be a POST.
+	LoginURL *string `json:"loginUrl,omitzero"`
+	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+	LoginBody *string `json:"loginBody,omitzero"`
+	// Path to token attribute in login response body. Nested attributes are allowed.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitzero"`
+	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
 	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
 	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
 	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
@@ -2624,6 +2814,13 @@ func (s *SplunkAuthenticationBasic) GetRetryRulesBackoff() *SplunkAuthentication
 	return nil
 }
 
+func (s *SplunkAuthenticationBasic) GetCredentialsSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.CredentialsSecret
+}
+
 func (s *SplunkAuthenticationBasic) GetToken() *string {
 	if s == nil {
 		return nil
@@ -2636,6 +2833,34 @@ func (s *SplunkAuthenticationBasic) GetTokenSecret() *string {
 		return nil
 	}
 	return s.TokenSecret
+}
+
+func (s *SplunkAuthenticationBasic) GetLoginURL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.LoginURL
+}
+
+func (s *SplunkAuthenticationBasic) GetLoginBody() *string {
+	if s == nil {
+		return nil
+	}
+	return s.LoginBody
+}
+
+func (s *SplunkAuthenticationBasic) GetTokenRespAttribute() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TokenRespAttribute
+}
+
+func (s *SplunkAuthenticationBasic) GetAuthHeaderExpr() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AuthHeaderExpr
 }
 
 func (s *SplunkAuthenticationBasic) GetTemplateSearchHead() *string {
@@ -3131,9 +3356,23 @@ type SplunkAuthenticationNone struct {
 	// Escape characters (\") in search queries will be passed directly to Splunk
 	HandleEscapedChars *bool                               `json:"handleEscapedChars,omitzero"`
 	RetryRules         *SplunkAuthenticationNoneRetryRules `json:"retryRules,omitzero"`
-	Token              *string                             `json:"token,omitzero"`
+	// Basic authentication username
+	Username *string `json:"username,omitzero"`
+	// Basic authentication password
+	Password *string `json:"password,omitzero"`
+	// Select or create a stored secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	Token             *string `json:"token,omitzero"`
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitzero"`
+	// URL to use for login API call. This call is expected to be a POST.
+	LoginURL *string `json:"loginUrl,omitzero"`
+	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
+	LoginBody *string `json:"loginBody,omitzero"`
+	// Path to token attribute in login response body. Nested attributes are allowed.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitzero"`
+	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
 	// Binds 'searchHead' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'searchHead' at runtime.
 	TemplateSearchHead *string `json:"__template_searchHead,omitzero"`
 	// Binds 'search' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'search' at runtime.
@@ -3285,6 +3524,27 @@ func (s *SplunkAuthenticationNone) GetRetryRulesBackoff() *SplunkAuthenticationN
 	return nil
 }
 
+func (s *SplunkAuthenticationNone) GetUsername() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Username
+}
+
+func (s *SplunkAuthenticationNone) GetPassword() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Password
+}
+
+func (s *SplunkAuthenticationNone) GetCredentialsSecret() *string {
+	if s == nil {
+		return nil
+	}
+	return s.CredentialsSecret
+}
+
 func (s *SplunkAuthenticationNone) GetToken() *string {
 	if s == nil {
 		return nil
@@ -3297,6 +3557,34 @@ func (s *SplunkAuthenticationNone) GetTokenSecret() *string {
 		return nil
 	}
 	return s.TokenSecret
+}
+
+func (s *SplunkAuthenticationNone) GetLoginURL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.LoginURL
+}
+
+func (s *SplunkAuthenticationNone) GetLoginBody() *string {
+	if s == nil {
+		return nil
+	}
+	return s.LoginBody
+}
+
+func (s *SplunkAuthenticationNone) GetTokenRespAttribute() *string {
+	if s == nil {
+		return nil
+	}
+	return s.TokenRespAttribute
+}
+
+func (s *SplunkAuthenticationNone) GetAuthHeaderExpr() *string {
+	if s == nil {
+		return nil
+	}
+	return s.AuthHeaderExpr
 }
 
 func (s *SplunkAuthenticationNone) GetTemplateSearchHead() *string {

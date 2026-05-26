@@ -44,7 +44,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -110,7 +110,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -151,7 +151,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -202,7 +202,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -245,7 +245,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -288,7 +288,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -331,7 +331,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -373,7 +373,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -415,7 +415,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -457,7 +457,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -500,7 +500,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -539,7 +539,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -578,7 +578,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -636,56 +636,56 @@ func main() {
             FailedRequestLoggingMode: components.FailedRequestLoggingModeOptionsNone.ToPointer(),
             SafeHeaders: []string{},
             ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("0"),
-            ResponseRetrySettings: []components.ItemsTypeResponseRetrySettings{
-                components.ItemsTypeResponseRetrySettings{
+            ResponseRetrySettings: []components.ResponseRetrySettingConfOutputWebhook{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 401.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](20000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 403.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](20000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 408.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 429.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 500.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 502.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 503.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 504.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 509.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
@@ -704,7 +704,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -745,7 +745,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -788,7 +788,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -834,7 +834,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -874,7 +874,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -913,7 +913,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -952,7 +952,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -994,7 +994,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1038,7 +1038,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1082,7 +1082,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1122,7 +1122,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1163,7 +1163,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1207,7 +1207,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1247,7 +1247,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1289,7 +1289,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1331,7 +1331,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1374,7 +1374,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1414,7 +1414,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1456,7 +1456,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1498,7 +1498,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1538,7 +1538,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1581,7 +1581,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1622,7 +1622,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1665,7 +1665,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1706,7 +1706,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1748,7 +1748,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1788,7 +1788,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1829,7 +1829,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1871,7 +1871,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1916,7 +1916,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -1961,7 +1961,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2001,7 +2001,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2043,7 +2043,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2085,7 +2085,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2125,7 +2125,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2165,7 +2165,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2204,7 +2204,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2249,7 +2249,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2291,7 +2291,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2336,7 +2336,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2380,7 +2380,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2421,7 +2421,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2464,7 +2464,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2505,7 +2505,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2550,7 +2550,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2592,7 +2592,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2633,7 +2633,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2672,7 +2672,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2706,8 +2706,8 @@ func main() {
         operations.CreateOutputOutputSplunkLb{
             ID: "splunk-lb-output",
             Type: operations.CreateOutputTypeSplunkLbSplunkLb,
-            Hosts: []components.ItemsTypeHosts{
-                components.ItemsTypeHosts{
+            Hosts: []components.HostConfOutputSyslog{
+                components.HostConfOutputSyslog{
                     Host: "localhost",
                     Port: 9997.0,
                 },
@@ -2717,7 +2717,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2759,7 +2759,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2801,7 +2801,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2843,7 +2843,49 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesStorjS3
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesStorjS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestStorjS3(
+        operations.CreateOutputOutputStorjS3{
+            ID: "storj-s3-output",
+            Type: operations.CreateOutputTypeStorjS3StorjS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://gateway.storjshare.io",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2883,7 +2925,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2924,7 +2966,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -2965,7 +3007,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3006,7 +3048,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3048,7 +3090,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3092,7 +3134,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3131,7 +3173,175 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesalibabaCloudS3
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesalibabaCloudS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestAlibabaCloudS3(
+        operations.CreateOutputOutputAlibabaCloudS3{
+            ID: "alibaba-oss-output",
+            Type: operations.CreateOutputTypeAlibabaCloudS3AlibabaCloudS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://s3.oss-cn-hangzhou.aliyuncs.com",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplescloudianS3
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplescloudianS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestCloudianS3(
+        operations.CreateOutputOutputCloudianS3{
+            ID: "cloudian-s3-output",
+            Type: operations.CreateOutputTypeCloudianS3CloudianS3,
+            Endpoint: "https://s3.hyperstore.example.com",
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesdellS3
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesdellS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestDellS3(
+        operations.CreateOutputOutputDellS3{
+            ID: "dell-s3-output",
+            Type: operations.CreateOutputTypeDellS3DellS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://powerscale.example.com:9021",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesscalityS3
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesscalityS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestScalityS3(
+        operations.CreateOutputOutputScalityS3{
+            ID: "scality-s3-output",
+            Type: operations.CreateOutputTypeScalityS3ScalityS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://s3.scality.example.com",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3188,7 +3398,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3253,7 +3463,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3293,7 +3503,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3329,7 +3539,7 @@ func main() {
             ClusterURL: "https://mycluster.kusto.windows.net",
             Database: "mydatabase",
             Table: "mytable",
-            IngestMode: components.IngestionModeStreaming.ToPointer(),
+            IngestMode: components.OutputAzureDataExplorerIngestionModeStreaming.ToPointer(),
             OauthEndpoint: components.MicrosoftEntraIDAuthenticationEndpointOptionsSaslHTTPSLoginMicrosoftonlineCom,
             TenantID: "tenant-id",
             ClientID: "client-id",
@@ -3343,7 +3553,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3385,7 +3595,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3427,7 +3637,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3469,7 +3679,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3510,7 +3720,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3551,7 +3761,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3592,7 +3802,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3634,7 +3844,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3672,7 +3882,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3710,7 +3920,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3767,56 +3977,56 @@ func main() {
             FailedRequestLoggingMode: components.FailedRequestLoggingModeOptionsNone.ToPointer(),
             SafeHeaders: []string{},
             ThrottleRatePerSec: criblcontrolplanesdkgo.Pointer("0"),
-            ResponseRetrySettings: []components.ItemsTypeResponseRetrySettings{
-                components.ItemsTypeResponseRetrySettings{
+            ResponseRetrySettings: []components.ResponseRetrySettingConfOutputWebhook{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 401.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](20000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 403.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](20000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 408.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 429.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 500.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 502.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 503.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 504.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
                     MaxBackoff: criblcontrolplanesdkgo.Pointer[float64](10000.0),
                 },
-                components.ItemsTypeResponseRetrySettings{
+                components.ResponseRetrySettingConfOutputWebhook{
                     HTTPStatus: 509.0,
                     InitialBackoff: criblcontrolplanesdkgo.Pointer[float64](250.0),
                     BackoffRate: criblcontrolplanesdkgo.Pointer[float64](2.0),
@@ -3835,7 +4045,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3875,7 +4085,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3917,7 +4127,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -3962,7 +4172,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4001,7 +4211,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4039,7 +4249,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4077,7 +4287,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4118,7 +4328,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4153,15 +4363,15 @@ func main() {
             Type: components.OutputDynatraceHTTPTypeDynatraceHTTP,
             AuthType: components.OutputDynatraceHTTPAuthenticationTypeToken.ToPointer(),
             Format: components.OutputDynatraceHTTPFormatJSONArray,
-            Endpoint: components.EndpointCloud,
-            TelemetryType: components.TelemetryTypeLogs,
+            Endpoint: components.OutputDynatraceHTTPEndpointCloud,
+            TelemetryType: components.OutputDynatraceHTTPTelemetryTypeLogs,
             Token: criblcontrolplanesdkgo.Pointer("your-api-key"),
         },
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4197,14 +4407,14 @@ func main() {
             Protocol: components.OutputDynatraceOtlpProtocolHTTP,
             Endpoint: "https://your-environment.live.dynatrace.com/api/v2/otlp",
             OtlpVersion: components.OtlpVersionOptions131OneDot3Dot1,
-            EndpointType: components.EndpointTypeSaas,
+            EndpointType: components.OutputDynatraceOtlpEndpointTypeSaas,
             TokenSecret: "your-token-secret",
         },
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4243,7 +4453,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4283,7 +4493,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4326,7 +4536,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4365,7 +4575,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4398,7 +4608,7 @@ func main() {
         components.OutputGoogleChronicle{
             ID: criblcontrolplanesdkgo.Pointer("google-chronicle-output"),
             Type: components.OutputGoogleChronicleTypeGoogleChronicle,
-            LogFormatType: components.SendEventsAsUnstructured,
+            LogFormatType: components.OutputGoogleChronicleSendEventsAsUnstructured,
             Region: criblcontrolplanesdkgo.Pointer("us"),
             CustomerID: criblcontrolplanesdkgo.Pointer("customer-id"),
         },
@@ -4406,7 +4616,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4439,7 +4649,7 @@ func main() {
         components.OutputGoogleCloudLogging{
             ID: criblcontrolplanesdkgo.Pointer("google-cloud-logging-output"),
             Type: components.OutputGoogleCloudLoggingTypeGoogleCloudLogging,
-            LogLocationType: components.LogLocationTypeProject,
+            LogLocationType: components.OutputGoogleCloudLoggingLogLocationTypeProject,
             LogNameExpression: "my-log",
             LogLocationExpression: "my-project",
         },
@@ -4447,7 +4657,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4489,7 +4699,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4528,7 +4738,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4569,7 +4779,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4610,7 +4820,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4649,7 +4859,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4691,7 +4901,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4731,7 +4941,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4773,7 +4983,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4813,7 +5023,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4854,7 +5064,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4893,7 +5103,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4933,7 +5143,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -4974,7 +5184,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5018,7 +5228,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5062,7 +5272,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5101,7 +5311,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5142,7 +5352,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5183,7 +5393,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5222,7 +5432,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5261,7 +5471,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5299,7 +5509,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5343,7 +5553,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5384,7 +5594,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5428,7 +5638,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5464,14 +5674,14 @@ func main() {
             LoginURL: "https://login.microsoftonline.com",
             Secret: "client-secret",
             ClientID: "client-id",
-            EndpointURLConfiguration: components.EndpointConfigurationURL,
+            EndpointURLConfiguration: components.OutputSentinelEndpointConfigurationURL,
             URL: criblcontrolplanesdkgo.Pointer("https://your-workspace.ingest.monitor.azure.com"),
         },
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5504,14 +5714,14 @@ func main() {
         components.OutputSentinelOneAiSiem{
             ID: criblcontrolplanesdkgo.Pointer("sentinel-one-ai-siem-output"),
             Type: components.OutputSentinelOneAiSiemTypeSentinelOneAiSiem,
-            Region: components.RegionUs,
-            Endpoint: components.AISIEMEndpointPathRootServicesCollectorEvent,
+            Region: components.OutputSentinelOneAiSiemRegionUs,
+            Endpoint: components.OutputSentinelOneAISIEMAISIEMEndpointPathRootServicesCollectorEvent,
         },
     ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5553,7 +5763,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5593,7 +5803,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5637,7 +5847,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5678,7 +5888,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5718,7 +5928,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5756,7 +5966,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5789,8 +5999,8 @@ func main() {
         components.OutputSplunkLb{
             ID: criblcontrolplanesdkgo.Pointer("splunk-lb-output"),
             Type: components.OutputSplunkLbTypeSplunkLb,
-            Hosts: []components.ItemsTypeHosts{
-                components.ItemsTypeHosts{
+            Hosts: []components.HostConfOutputSyslog{
+                components.HostConfOutputSyslog{
                     Host: "localhost",
                     Port: 9997.0,
                 },
@@ -5800,7 +6010,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5841,7 +6051,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5882,7 +6092,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5923,7 +6133,48 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesStorjS3
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplesStorjS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputStorjS3(
+        components.OutputStorjS3{
+            ID: criblcontrolplanesdkgo.Pointer("storj-s3-output"),
+            Type: components.OutputStorjS3TypeStorjS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://gateway.storjshare.io",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -5962,7 +6213,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6002,7 +6253,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6042,7 +6293,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6082,7 +6333,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6123,7 +6374,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6166,7 +6417,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6204,7 +6455,171 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesalibabaCloudS3
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplesalibabaCloudS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputAlibabaCloudS3(
+        components.OutputAlibabaCloudS3{
+            ID: criblcontrolplanesdkgo.Pointer("alibaba-oss-output"),
+            Type: components.OutputAlibabaCloudS3TypeAlibabaCloudS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://s3.oss-cn-hangzhou.aliyuncs.com",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplescloudianS3
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplescloudianS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputCloudianS3(
+        components.OutputCloudianS3{
+            ID: criblcontrolplanesdkgo.Pointer("cloudian-s3-output"),
+            Type: components.OutputCloudianS3TypeCloudianS3,
+            Endpoint: "https://s3.hyperstore.example.com",
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesdellS3
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplesdellS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputDellS3(
+        components.OutputDellS3{
+            ID: criblcontrolplanesdkgo.Pointer("dell-s3-output"),
+            Type: components.OutputDellS3TypeDellS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://powerscale.example.com:9021",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesscalityS3
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputCreateExamplesscalityS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputScalityS3(
+        components.OutputScalityS3{
+            ID: criblcontrolplanesdkgo.Pointer("scality-s3-output"),
+            Type: components.OutputScalityS3TypeScalityS3,
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+            Endpoint: "https://s3.scality.example.com",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6243,7 +6658,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }
@@ -6255,7 +6670,7 @@ func main() {
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
 | `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Destination to update.        |
-| `output`                                                 | [components.Output](../../models/components/output.md)   | :heavy_check_mark:                                       | Output object                                            |
+| `output`                                                 | [components.Output](../../models/components/output.md)   | :heavy_check_mark:                                       | Output object.                                           |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
@@ -6301,7 +6716,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutput != nil {
+    if res.CountedOutputResponse != nil {
         // handle response
     }
 }

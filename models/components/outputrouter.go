@@ -96,6 +96,8 @@ type OutputRouter struct {
 	// Event routing rules
 	Rules       []OutputRouterRule `json:"rules"`
 	Description *string            `json:"description,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
 
 func (o OutputRouter) MarshalJSON() ([]byte, error) {
@@ -163,4 +165,11 @@ func (o *OutputRouter) GetDescription() *string {
 		return nil
 	}
 	return o.Description
+}
+
+func (o *OutputRouter) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }

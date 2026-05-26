@@ -39,7 +39,7 @@ type RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint struct {
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
 	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
 	// Fields to add to events from this input
-	Metadata []ItemsTypeMetadata `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Pipeline to process results
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Destination to send results to
@@ -99,7 +99,7 @@ func (r *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint) GetTh
 	return r.ThrottleRatePerSec
 }
 
-func (r *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint) GetMetadata() []ItemsTypeMetadata {
+func (r *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint) GetMetadata() []MetadataConfInputCollection {
 	if r == nil {
 		return nil
 	}

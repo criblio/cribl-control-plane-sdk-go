@@ -7,12 +7,16 @@ import (
 )
 
 type LakeDatasetSearchConfig struct {
-	Datatypes     []string              `json:"datatypes,omitzero"`
-	Description   *string               `json:"description,omitzero"`
-	Metadata      *DatasetMetadata      `json:"metadata,omitzero"`
+	// Datatype identifiers assigned to the Dataset for search-time event classification.
+	Datatypes []string `json:"datatypes,omitzero"`
+	// Brief description of Dataset search configuration.
+	Description *string          `json:"description,omitzero"`
+	Metadata    *DatasetMetadata `json:"metadata,omitzero"`
+	// Glob-to-Datatype mappings for the Lake bucket path. Used only for search execution v2.
 	PathFilters   []ObjectStorageFilter `json:"pathFilters,omitzero"`
 	SearchVersion *SearchVersion        `json:"searchVersion,omitzero"`
-	Tags          *string               `json:"tags,omitzero"`
+	// Comma-separated tags for the Dataset search configuration.
+	Tags *string `json:"tags,omitzero"`
 }
 
 func (l LakeDatasetSearchConfig) MarshalJSON() ([]byte, error) {

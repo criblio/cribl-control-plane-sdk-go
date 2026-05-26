@@ -7,6 +7,8 @@ import (
 )
 
 type CriblLakeCollectorConf struct {
+	// Storage location for the Lake Dataset
+	StorageLocationID *string `json:"storageLocationId,omitzero"`
 	// Lake dataset to collect data from.
 	Dataset string `json:"dataset"`
 	// Binds 'dataset' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'dataset' at runtime.
@@ -22,6 +24,13 @@ func (c *CriblLakeCollectorConf) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (c *CriblLakeCollectorConf) GetStorageLocationID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.StorageLocationID
 }
 
 func (c *CriblLakeCollectorConf) GetDataset() string {

@@ -31,29 +31,6 @@ func (e *OutputAlphasocS3Type) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputAlphasocS3SignatureVersion - Signature version to use for signing AlphaSOC requests
-type OutputAlphasocS3SignatureVersion string
-
-const (
-	OutputAlphasocS3SignatureVersionV2 OutputAlphasocS3SignatureVersion = "v2"
-	OutputAlphasocS3SignatureVersionV4 OutputAlphasocS3SignatureVersion = "v4"
-)
-
-func (e OutputAlphasocS3SignatureVersion) ToPointer() *OutputAlphasocS3SignatureVersion {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputAlphasocS3SignatureVersion) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "v2", "v4":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputAlphasocS3 struct {
 	// Unique ID for this output
 	ID   *string              `json:"id,omitzero"`
@@ -66,16 +43,12 @@ type OutputAlphasocS3 struct {
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
-	// AWS authentication method.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsa18be1 `json:"awsAuthenticationMethod,omitzero"`
-	// Signature version to use for signing AlphaSOC requests
-	SignatureVersion *OutputAlphasocS3SignatureVersion `json:"signatureVersion,omitzero"`
+	// Authentication method.
+	AwsAuthenticationMethod *AuthenticationMethodOptionsSecret `json:"awsAuthenticationMethod,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Name of the destination AlphaSOC bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	Bucket string `json:"bucket"`
 	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
@@ -125,8 +98,6 @@ type OutputAlphasocS3 struct {
 	// AlphaSOC S3-compatible endpoint URL (example: https://s3.alphasoc.net)
 	Endpoint    *string `json:"endpoint,omitzero"`
 	Description *string `json:"description,omitzero"`
-	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
-	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
@@ -148,7 +119,7 @@ type OutputAlphasocS3 struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -163,8 +134,8 @@ type OutputAlphasocS3 struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
@@ -179,8 +150,6 @@ type OutputAlphasocS3 struct {
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
-	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
-	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
 	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
@@ -240,18 +209,11 @@ func (o *OutputAlphasocS3) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputAlphasocS3) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsa18be1 {
+func (o *OutputAlphasocS3) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsSecret {
 	if o == nil {
 		return nil
 	}
 	return o.AwsAuthenticationMethod
-}
-
-func (o *OutputAlphasocS3) GetSignatureVersion() *OutputAlphasocS3SignatureVersion {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
 }
 
 func (o *OutputAlphasocS3) GetReuseConnections() *bool {
@@ -266,13 +228,6 @@ func (o *OutputAlphasocS3) GetRejectUnauthorized() *bool {
 		return nil
 	}
 	return o.RejectUnauthorized
-}
-
-func (o *OutputAlphasocS3) GetAwsSecretKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsSecretKey
 }
 
 func (o *OutputAlphasocS3) GetBucket() string {
@@ -457,13 +412,6 @@ func (o *OutputAlphasocS3) GetDescription() *string {
 	return o.Description
 }
 
-func (o *OutputAlphasocS3) GetAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AwsAPIKey
-}
-
 func (o *OutputAlphasocS3) GetAwsSecret() *string {
 	if o == nil {
 		return nil
@@ -534,7 +482,7 @@ func (o *OutputAlphasocS3) GetShouldLogInvalidRows() *bool {
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputAlphasocS3) GetKeyValueMetadata() []ItemsTypeKeyValueMetadata {
+func (o *OutputAlphasocS3) GetKeyValueMetadata() []KeyValueMetadataConfOutputFilesystem {
 	if o == nil {
 		return nil
 	}
@@ -590,11 +538,11 @@ func (o *OutputAlphasocS3) GetMaxRetryNum() *float64 {
 	return o.MaxRetryNum
 }
 
-func (o *OutputAlphasocS3) GetTemplateAwsSecretKey() *string {
+func (o *OutputAlphasocS3) GetTemplateStreamtags() *string {
 	if o == nil {
 		return nil
 	}
-	return o.TemplateAwsSecretKey
+	return o.TemplateStreamtags
 }
 
 func (o *OutputAlphasocS3) GetTemplateBucket() *string {
@@ -644,13 +592,6 @@ func (o *OutputAlphasocS3) GetTemplateEndpoint() *string {
 		return nil
 	}
 	return o.TemplateEndpoint
-}
-
-func (o *OutputAlphasocS3) GetTemplateAwsAPIKey() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAwsAPIKey
 }
 
 func (o *OutputAlphasocS3) GetTemplateCompress() *string {

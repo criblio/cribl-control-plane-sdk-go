@@ -10,7 +10,7 @@ import (
 type DeleteOutputSystemByPackAndIDRequest struct {
 	// The <code>id</code> of the Destination to delete.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// The <code>id</code> of the Pack to delete.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
 
@@ -31,7 +31,7 @@ func (d *DeleteOutputSystemByPackAndIDRequest) GetPack() string {
 type DeleteOutputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the deleted Destination object
-	CountedOutput *components.CountedOutput
+	CountedOutputResponse *components.CountedOutputResponse
 }
 
 func (d DeleteOutputSystemByPackAndIDResponse) MarshalJSON() ([]byte, error) {
@@ -52,9 +52,9 @@ func (d *DeleteOutputSystemByPackAndIDResponse) GetHTTPMeta() components.HTTPMet
 	return d.HTTPMeta
 }
 
-func (d *DeleteOutputSystemByPackAndIDResponse) GetCountedOutput() *components.CountedOutput {
+func (d *DeleteOutputSystemByPackAndIDResponse) GetCountedOutputResponse() *components.CountedOutputResponse {
 	if d == nil {
 		return nil
 	}
-	return d.CountedOutput
+	return d.CountedOutputResponse
 }

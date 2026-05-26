@@ -53,43 +53,43 @@ func (e *OutputChronicleAuthenticationMethod) IsExact() bool {
 	return false
 }
 
-type CustomLabel struct {
+type OutputChronicleCustomLabel struct {
 	Key   string `json:"key"`
 	Value string `json:"value"`
 	// Designate this label for role-based access control and filtering
 	RbacEnabled *bool `json:"rbacEnabled,omitzero"`
 }
 
-func (c CustomLabel) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
+func (o OutputChronicleCustomLabel) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
 }
 
-func (c *CustomLabel) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+func (o *OutputChronicleCustomLabel) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (c *CustomLabel) GetKey() string {
-	if c == nil {
+func (o *OutputChronicleCustomLabel) GetKey() string {
+	if o == nil {
 		return ""
 	}
-	return c.Key
+	return o.Key
 }
 
-func (c *CustomLabel) GetValue() string {
-	if c == nil {
+func (o *OutputChronicleCustomLabel) GetValue() string {
+	if o == nil {
 		return ""
 	}
-	return c.Value
+	return o.Value
 }
 
-func (c *CustomLabel) GetRbacEnabled() *bool {
-	if c == nil {
+func (o *OutputChronicleCustomLabel) GetRbacEnabled() *bool {
+	if o == nil {
 		return nil
 	}
-	return c.RbacEnabled
+	return o.RbacEnabled
 }
 
 type OutputChroniclePqControls struct {
@@ -121,8 +121,8 @@ type OutputChronicle struct {
 	APIVersion           *string                              `json:"apiVersion,omitzero"`
 	AuthenticationMethod *OutputChronicleAuthenticationMethod `json:"authenticationMethod,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// Regional endpoint to send events to
@@ -144,7 +144,7 @@ type OutputChronicle struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
 	FailedRequestLoggingMode *FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
 	// List of headers that are safe to log in plain text
@@ -167,7 +167,7 @@ type OutputChronicle struct {
 	// The Google Cloud Platform (GCP) instance to send events to. This is the Chronicle customer uuid.
 	GcpInstance string `json:"gcpInstance"`
 	// Custom labels to be added to every event
-	CustomLabels []CustomLabel `json:"customLabels,omitzero"`
+	CustomLabels []OutputChronicleCustomLabel `json:"customLabels,omitzero"`
 	// Chronicle API service endpoint. If empty, defaults to the Region-specific endpoint. Otherwise, it must point to a Chronicle API-compatible endpoint. (Example: https://custom-endpoint.googleapis.com)
 	Endpoint    *string `json:"endpoint,omitzero"`
 	Description *string `json:"description,omitzero"`
@@ -198,6 +198,8 @@ type OutputChronicle struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                    `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputChroniclePqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
 	TemplateRegion *string `json:"__template_region,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
@@ -285,7 +287,7 @@ func (o *OutputChronicle) GetAuthenticationMethod() *OutputChronicleAuthenticati
 	return o.AuthenticationMethod
 }
 
-func (o *OutputChronicle) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputChronicle) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}
@@ -362,7 +364,7 @@ func (o *OutputChronicle) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputChronicle) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputChronicle) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -446,7 +448,7 @@ func (o *OutputChronicle) GetGcpInstance() string {
 	return o.GcpInstance
 }
 
-func (o *OutputChronicle) GetCustomLabels() []CustomLabel {
+func (o *OutputChronicle) GetCustomLabels() []OutputChronicleCustomLabel {
 	if o == nil {
 		return nil
 	}
@@ -563,6 +565,13 @@ func (o *OutputChronicle) GetPqControls() *OutputChroniclePqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputChronicle) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputChronicle) GetTemplateRegion() *string {

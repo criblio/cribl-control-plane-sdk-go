@@ -31,25 +31,25 @@ func (e *OutputGoogleCloudLoggingType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type LogLocationType string
+type OutputGoogleCloudLoggingLogLocationType string
 
 const (
-	// LogLocationTypeProject Project
-	LogLocationTypeProject LogLocationType = "project"
-	// LogLocationTypeOrganization Organization
-	LogLocationTypeOrganization LogLocationType = "organization"
-	// LogLocationTypeBillingAccount Billing Account
-	LogLocationTypeBillingAccount LogLocationType = "billingAccount"
-	// LogLocationTypeFolder Folder
-	LogLocationTypeFolder LogLocationType = "folder"
+	// OutputGoogleCloudLoggingLogLocationTypeProject Project
+	OutputGoogleCloudLoggingLogLocationTypeProject OutputGoogleCloudLoggingLogLocationType = "project"
+	// OutputGoogleCloudLoggingLogLocationTypeOrganization Organization
+	OutputGoogleCloudLoggingLogLocationTypeOrganization OutputGoogleCloudLoggingLogLocationType = "organization"
+	// OutputGoogleCloudLoggingLogLocationTypeBillingAccount Billing Account
+	OutputGoogleCloudLoggingLogLocationTypeBillingAccount OutputGoogleCloudLoggingLogLocationType = "billingAccount"
+	// OutputGoogleCloudLoggingLogLocationTypeFolder Folder
+	OutputGoogleCloudLoggingLogLocationTypeFolder OutputGoogleCloudLoggingLogLocationType = "folder"
 )
 
-func (e LogLocationType) ToPointer() *LogLocationType {
+func (e OutputGoogleCloudLoggingLogLocationType) ToPointer() *OutputGoogleCloudLoggingLogLocationType {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *LogLocationType) IsExact() bool {
+func (e *OutputGoogleCloudLoggingLogLocationType) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "project", "organization", "billingAccount", "folder":
@@ -59,22 +59,22 @@ func (e *LogLocationType) IsExact() bool {
 	return false
 }
 
-// PayloadFormat - Format to use when sending payload. Defaults to Text.
-type PayloadFormat string
+// OutputGoogleCloudLoggingPayloadFormat - Format to use when sending payload. Defaults to Text.
+type OutputGoogleCloudLoggingPayloadFormat string
 
 const (
-	// PayloadFormatText Text
-	PayloadFormatText PayloadFormat = "text"
-	// PayloadFormatJSON JSON
-	PayloadFormatJSON PayloadFormat = "json"
+	// OutputGoogleCloudLoggingPayloadFormatText Text
+	OutputGoogleCloudLoggingPayloadFormatText OutputGoogleCloudLoggingPayloadFormat = "text"
+	// OutputGoogleCloudLoggingPayloadFormatJSON JSON
+	OutputGoogleCloudLoggingPayloadFormatJSON OutputGoogleCloudLoggingPayloadFormat = "json"
 )
 
-func (e PayloadFormat) ToPointer() *PayloadFormat {
+func (e OutputGoogleCloudLoggingPayloadFormat) ToPointer() *OutputGoogleCloudLoggingPayloadFormat {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *PayloadFormat) IsExact() bool {
+func (e *OutputGoogleCloudLoggingPayloadFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "text", "json":
@@ -109,19 +109,19 @@ type OutputGoogleCloudLogging struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
-	Streamtags      []string        `json:"streamtags,omitzero"`
-	LogLocationType LogLocationType `json:"logLocationType"`
+	Streamtags      []string                                `json:"streamtags,omitzero"`
+	LogLocationType OutputGoogleCloudLoggingLogLocationType `json:"logLocationType"`
 	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
 	LogNameExpression string `json:"logNameExpression"`
 	SanitizeLogNames  *bool  `json:"sanitizeLogNames,omitzero"`
 	// Format to use when sending payload. Defaults to Text.
-	PayloadFormat *PayloadFormat `json:"payloadFormat,omitzero"`
+	PayloadFormat *OutputGoogleCloudLoggingPayloadFormat `json:"payloadFormat,omitzero"`
 	// Labels to apply to the log entry
-	LogLabels []ItemsTypeLogLabels `json:"logLabels,omitzero"`
+	LogLabels []LogLabelConfOutputGoogleCloudLogging `json:"logLabels,omitzero"`
 	// JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
 	ResourceTypeExpression *string `json:"resourceTypeExpression,omitzero"`
 	// Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
-	ResourceTypeLabels []ItemsTypeLogLabels `json:"resourceTypeLabels,omitzero"`
+	ResourceTypeLabels []LogLabelConfOutputGoogleCloudLogging `json:"resourceTypeLabels,omitzero"`
 	// JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
 	SeverityExpression *string `json:"severityExpression,omitzero"`
 	// JavaScript expression to compute the value of the insert ID field.
@@ -234,6 +234,8 @@ type OutputGoogleCloudLogging struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                             `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputGoogleCloudLoggingPqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'logLocationType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationType' at runtime.
 	TemplateLogLocationType *string `json:"__template_logLocationType,omitzero"`
 	// Binds 'logNameExpression' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logNameExpression' at runtime.
@@ -313,9 +315,9 @@ func (o *OutputGoogleCloudLogging) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputGoogleCloudLogging) GetLogLocationType() LogLocationType {
+func (o *OutputGoogleCloudLogging) GetLogLocationType() OutputGoogleCloudLoggingLogLocationType {
 	if o == nil {
-		return LogLocationType("")
+		return OutputGoogleCloudLoggingLogLocationType("")
 	}
 	return o.LogLocationType
 }
@@ -334,14 +336,14 @@ func (o *OutputGoogleCloudLogging) GetSanitizeLogNames() *bool {
 	return o.SanitizeLogNames
 }
 
-func (o *OutputGoogleCloudLogging) GetPayloadFormat() *PayloadFormat {
+func (o *OutputGoogleCloudLogging) GetPayloadFormat() *OutputGoogleCloudLoggingPayloadFormat {
 	if o == nil {
 		return nil
 	}
 	return o.PayloadFormat
 }
 
-func (o *OutputGoogleCloudLogging) GetLogLabels() []ItemsTypeLogLabels {
+func (o *OutputGoogleCloudLogging) GetLogLabels() []LogLabelConfOutputGoogleCloudLogging {
 	if o == nil {
 		return nil
 	}
@@ -355,7 +357,7 @@ func (o *OutputGoogleCloudLogging) GetResourceTypeExpression() *string {
 	return o.ResourceTypeExpression
 }
 
-func (o *OutputGoogleCloudLogging) GetResourceTypeLabels() []ItemsTypeLogLabels {
+func (o *OutputGoogleCloudLogging) GetResourceTypeLabels() []LogLabelConfOutputGoogleCloudLogging {
 	if o == nil {
 		return nil
 	}
@@ -759,6 +761,13 @@ func (o *OutputGoogleCloudLogging) GetPqControls() *OutputGoogleCloudLoggingPqCo
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputGoogleCloudLogging) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputGoogleCloudLogging) GetTemplateLogLocationType() *string {

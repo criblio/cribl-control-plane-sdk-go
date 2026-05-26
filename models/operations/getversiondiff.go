@@ -39,7 +39,7 @@ func (g *GetVersionDiffRequest) GetDiffLineLimit() *int64 {
 
 type GetVersionDiffResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of GitDiffResult objects
+	// List of GitDiffResult objects.
 	CountedGitDiffResult *components.CountedGitDiffResult
 }
 

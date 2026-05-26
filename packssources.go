@@ -223,12 +223,12 @@ func (s *PacksSources) List(ctx context.Context, pack string, type_ []string, op
 					return nil, err
 				}
 
-				var out components.CountedInput
+				var out components.CountedInputResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedInput = &out
+				res.CountedInputResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -289,7 +289,7 @@ func (s *PacksSources) List(ctx context.Context, pack string, type_ []string, op
 }
 
 // Create a Source within a Pack
-// Create a new Source within the specified Pack.
+// Create a new Source. The system-managed provenance field (JSON <code>criblSourceProvenance</code>) must be omitted from the request body within the specified Pack.
 func (s *PacksSources) Create(ctx context.Context, pack string, requestBody operations.CreateInputSystemByPackRequestBody, opts ...operations.Option) (*operations.CreateInputSystemByPackResponse, error) {
 	request := operations.CreateInputSystemByPackRequest{
 		Pack:        pack,
@@ -477,12 +477,12 @@ func (s *PacksSources) Create(ctx context.Context, pack string, requestBody oper
 					return nil, err
 				}
 
-				var out components.CountedInput
+				var out components.CountedInputResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedInput = &out
+				res.CountedInputResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -724,12 +724,12 @@ func (s *PacksSources) Get(ctx context.Context, id string, pack string, opts ...
 					return nil, err
 				}
 
-				var out components.CountedInput
+				var out components.CountedInputResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedInput = &out
+				res.CountedInputResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -790,8 +790,8 @@ func (s *PacksSources) Get(ctx context.Context, id string, pack string, opts ...
 }
 
 // Update a Source within a Pack
-// Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
-func (s *PacksSources) Update(ctx context.Context, id string, pack string, input components.Input2, opts ...operations.Option) (*operations.UpdateInputSystemByPackAndIDResponse, error) {
+// Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes omitted fields when updating the Source, except for <code>criblSourceProvenance</code> (its value is preserved when omitted and cannot be overwritten).<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected within the specified Pack.
+func (s *PacksSources) Update(ctx context.Context, id string, pack string, input components.Input, opts ...operations.Option) (*operations.UpdateInputSystemByPackAndIDResponse, error) {
 	request := operations.UpdateInputSystemByPackAndIDRequest{
 		ID:    id,
 		Pack:  pack,
@@ -979,12 +979,12 @@ func (s *PacksSources) Update(ctx context.Context, id string, pack string, input
 					return nil, err
 				}
 
-				var out components.CountedInput
+				var out components.CountedInputResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedInput = &out
+				res.CountedInputResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1226,12 +1226,12 @@ func (s *PacksSources) Delete(ctx context.Context, id string, pack string, opts 
 					return nil, err
 				}
 
-				var out components.CountedInput
+				var out components.CountedInputResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedInput = &out
+				res.CountedInputResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

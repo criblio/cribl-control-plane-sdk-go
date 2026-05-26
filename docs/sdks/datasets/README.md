@@ -4,11 +4,77 @@
 
 ### Available Operations
 
-* [Create](#create) - Create a Lake Dataset (Cribl.Cloud only)
 * [List](#list) - List all Lake Datasets (Cribl.Cloud only)
-* [Delete](#delete) - Delete a Lake Dataset (Cribl.Cloud only)
+* [Create](#create) - Create a Lake Dataset (Cribl.Cloud only)
 * [Get](#get) - Get a Lake Dataset (Cribl.Cloud only)
 * [Update](#update) - Update a Lake Dataset (Cribl.Cloud only)
+* [Delete](#delete) - Delete a Lake Dataset (Cribl.Cloud only)
+
+## List
+
+Get a list of all Lake Datasets in the specified Lake (Cribl.Cloud only).
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getCriblLakeDatasetByLakeId" method="get" path="/products/lake/lakes/{lakeId}/datasets" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Lakes.Datasets.List(ctx, operations.GetCriblLakeDatasetByLakeIDRequest{
+        LakeID: "<id>",
+        StorageLocationID: criblcontrolplanesdkgo.Pointer("<id>"),
+        Format: criblcontrolplanesdkgo.Pointer("<value>"),
+        ExcludeDDSS: criblcontrolplanesdkgo.Pointer(true),
+        ExcludeDeleted: criblcontrolplanesdkgo.Pointer(true),
+        ExcludeInternal: criblcontrolplanesdkgo.Pointer(false),
+        ExcludeBYOS: criblcontrolplanesdkgo.Pointer(false),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedCriblLakeDataset != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                      | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                          | :heavy_check_mark:                                                                                             | The context to use for the request.                                                                            |
+| `request`                                                                                                      | [operations.GetCriblLakeDatasetByLakeIDRequest](../../models/operations/getcribllakedatasetbylakeidrequest.md) | :heavy_check_mark:                                                                                             | The request object to use for the request.                                                                     |
+| `opts`                                                                                                         | [][operations.Option](../../models/operations/option.md)                                                       | :heavy_minus_sign:                                                                                             | The options for this request.                                                                                  |
+
+### Response
+
+**[*operations.GetCriblLakeDatasetByLakeIDResponse](../../models/operations/getcribllakedatasetbylakeidresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
 ## Create
 
@@ -44,9 +110,9 @@ func main() {
             "status",
         },
         Description: criblcontrolplanesdkgo.Pointer("Web server access logs"),
-        Format: components.FormatOptionsJSON.ToPointer(),
+        Format: components.FormatOptionsCriblLakeDatasetJSON.ToPointer(),
         ID: "web_access_logs",
-        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](90.0),
+        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[int64](90),
         StorageLocationID: criblcontrolplanesdkgo.Pointer("my-storage-location"),
     })
     if err != nil {
@@ -118,9 +184,9 @@ func main() {
 
     res, err := s.Lakes.Datasets.Create(ctx, "<id>", components.CriblLakeDataset{
         Description: criblcontrolplanesdkgo.Pointer("Security event data in Parquet format"),
-        Format: components.FormatOptionsParquet.ToPointer(),
+        Format: components.FormatOptionsCriblLakeDatasetParquet.ToPointer(),
         ID: "security_events",
-        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](365.0),
+        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[int64](365),
         SearchConfig: &components.LakeDatasetSearchConfig{
             Datatypes: []string{
                 "palo_alto_firewall",
@@ -144,136 +210,12 @@ func main() {
 | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | `ctx`                                                                      | [context.Context](https://pkg.go.dev/context#Context)                      | :heavy_check_mark:                                                         | The context to use for the request.                                        |
 | `lakeID`                                                                   | `string`                                                                   | :heavy_check_mark:                                                         | The <code>id</code> of the Lake to create the Lake Dataset in.             |
-| `criblLakeDataset`                                                         | [components.CriblLakeDataset](../../models/components/cribllakedataset.md) | :heavy_check_mark:                                                         | CriblLakeDataset object                                                    |
+| `criblLakeDataset`                                                         | [components.CriblLakeDataset](../../models/components/cribllakedataset.md) | :heavy_check_mark:                                                         | CriblLakeDataset object.                                                   |
 | `opts`                                                                     | [][operations.Option](../../models/operations/option.md)                   | :heavy_minus_sign:                                                         | The options for this request.                                              |
 
 ### Response
 
 **[*operations.CreateCriblLakeDatasetByLakeIDResponse](../../models/operations/createcribllakedatasetbylakeidresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
-
-## List
-
-Get a list of all Lake Datasets in the specified Lake (Cribl.Cloud only).
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="getCriblLakeDatasetByLakeId" method="get" path="/products/lake/lakes/{lakeId}/datasets" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
-        criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-        }),
-    )
-
-    res, err := s.Lakes.Datasets.List(ctx, operations.GetCriblLakeDatasetByLakeIDRequest{
-        LakeID: "<id>",
-        StorageLocationID: criblcontrolplanesdkgo.Pointer("<id>"),
-        Format: criblcontrolplanesdkgo.Pointer("<value>"),
-        ExcludeDDSS: criblcontrolplanesdkgo.Pointer(true),
-        ExcludeDeleted: criblcontrolplanesdkgo.Pointer(true),
-        ExcludeInternal: criblcontrolplanesdkgo.Pointer(false),
-        ExcludeBYOS: criblcontrolplanesdkgo.Pointer(false),
-    })
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.CountedCriblLakeDataset != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                                                      | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
-| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                          | [context.Context](https://pkg.go.dev/context#Context)                                                          | :heavy_check_mark:                                                                                             | The context to use for the request.                                                                            |
-| `request`                                                                                                      | [operations.GetCriblLakeDatasetByLakeIDRequest](../../models/operations/getcribllakedatasetbylakeidrequest.md) | :heavy_check_mark:                                                                                             | The request object to use for the request.                                                                     |
-| `opts`                                                                                                         | [][operations.Option](../../models/operations/option.md)                                                       | :heavy_minus_sign:                                                                                             | The options for this request.                                                                                  |
-
-### Response
-
-**[*operations.GetCriblLakeDatasetByLakeIDResponse](../../models/operations/getcribllakedatasetbylakeidresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
-
-## Delete
-
-Delete the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="deleteCriblLakeDatasetByLakeIdAndId" method="delete" path="/products/lake/lakes/{lakeId}/datasets/{id}" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
-        criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-        }),
-    )
-
-    res, err := s.Lakes.Datasets.Delete(ctx, "<id>", "<id>")
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.CountedCriblLakeDataset != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `ctx`                                                                     | [context.Context](https://pkg.go.dev/context#Context)                     | :heavy_check_mark:                                                        | The context to use for the request.                                       |
-| `lakeID`                                                                  | `string`                                                                  | :heavy_check_mark:                                                        | The <code>id</code> of the Lake that contains the Lake Dataset to delete. |
-| `id`                                                                      | `string`                                                                  | :heavy_check_mark:                                                        | The <code>id</code> of the Lake Dataset to delete.                        |
-| `opts`                                                                    | [][operations.Option](../../models/operations/option.md)                  | :heavy_minus_sign:                                                        | The options for this request.                                             |
-
-### Response
-
-**[*operations.DeleteCriblLakeDatasetByLakeIDAndIDResponse](../../models/operations/deletecribllakedatasetbylakeidandidresponse.md), error**
 
 ### Errors
 
@@ -409,7 +351,7 @@ func main() {
     )
 
     res, err := s.Lakes.Datasets.Update(ctx, "<id>", "<id>", components.CriblLakeDatasetUpdate{
-        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[float64](180.0),
+        RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[int64](180),
     })
     if err != nil {
         log.Fatal(err)
@@ -427,12 +369,70 @@ func main() {
 | `ctx`                                                                                  | [context.Context](https://pkg.go.dev/context#Context)                                  | :heavy_check_mark:                                                                     | The context to use for the request.                                                    |
 | `lakeID`                                                                               | `string`                                                                               | :heavy_check_mark:                                                                     | The <code>id</code> of the Lake that contains the Lake Dataset to update.              |
 | `id`                                                                                   | `string`                                                                               | :heavy_check_mark:                                                                     | The <code>id</code> of the Lake Dataset to update.                                     |
-| `criblLakeDatasetUpdate`                                                               | [components.CriblLakeDatasetUpdate](../../models/components/cribllakedatasetupdate.md) | :heavy_check_mark:                                                                     | CriblLakeDatasetUpdate object                                                          |
+| `criblLakeDatasetUpdate`                                                               | [components.CriblLakeDatasetUpdate](../../models/components/cribllakedatasetupdate.md) | :heavy_check_mark:                                                                     | CriblLakeDatasetUpdate object.                                                         |
 | `opts`                                                                                 | [][operations.Option](../../models/operations/option.md)                               | :heavy_minus_sign:                                                                     | The options for this request.                                                          |
 
 ### Response
 
 **[*operations.UpdateCriblLakeDatasetByLakeIDAndIDResponse](../../models/operations/updatecribllakedatasetbylakeidandidresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## Delete
+
+Delete the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="deleteCriblLakeDatasetByLakeIdAndId" method="delete" path="/products/lake/lakes/{lakeId}/datasets/{id}" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Lakes.Datasets.Delete(ctx, "<id>", "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedCriblLakeDataset != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                 | Type                                                                      | Required                                                                  | Description                                                               |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `ctx`                                                                     | [context.Context](https://pkg.go.dev/context#Context)                     | :heavy_check_mark:                                                        | The context to use for the request.                                       |
+| `lakeID`                                                                  | `string`                                                                  | :heavy_check_mark:                                                        | The <code>id</code> of the Lake that contains the Lake Dataset to delete. |
+| `id`                                                                      | `string`                                                                  | :heavy_check_mark:                                                        | The <code>id</code> of the Lake Dataset to delete.                        |
+| `opts`                                                                    | [][operations.Option](../../models/operations/option.md)                  | :heavy_minus_sign:                                                        | The options for this request.                                             |
+
+### Response
+
+**[*operations.DeleteCriblLakeDatasetByLakeIDAndIDResponse](../../models/operations/deletecribllakedatasetbylakeidandidresponse.md), error**
 
 ### Errors
 

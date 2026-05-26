@@ -11,7 +11,7 @@ type AuthTypeTemplatemanualAPIKeyAuthType struct {
 	Username *string `json:"username,omitzero"`
 	Password *string `json:"password,omitzero"`
 	// Enter credentials directly, or select a stored secret
-	AuthType *AuthenticationMethodOptionsAuth `json:"authType,omitzero"`
+	AuthType *AuthenticationMethodOptionsAuthManualManualAPIKey `json:"authType,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Enter API key directly
@@ -54,7 +54,7 @@ func (a *AuthTypeTemplatemanualAPIKeyAuthType) GetPassword() *string {
 	return a.Password
 }
 
-func (a *AuthTypeTemplatemanualAPIKeyAuthType) GetAuthType() *AuthenticationMethodOptionsAuth {
+func (a *AuthTypeTemplatemanualAPIKeyAuthType) GetAuthType() *AuthenticationMethodOptionsAuthManualManualAPIKey {
 	if a == nil {
 		return nil
 	}

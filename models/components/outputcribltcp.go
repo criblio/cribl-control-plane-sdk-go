@@ -73,7 +73,7 @@ type OutputCriblTCP struct {
 	// The number of minutes before the internally generated authentication token expires, valid values between 1 and 60
 	TokenTTLMinutes *float64 `json:"tokenTTLMinutes,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should also be installed in Cribl TCP Source in Cribl.Cloud.
-	AuthTokens []ItemsTypeAuthTokens `json:"authTokens,omitzero"`
+	AuthTokens []AuthTokenConfInputCriblTCP `json:"authTokens,omitzero"`
 	// Fields to exclude from the event. By default, all internal fields except `__output` are sent. Example: `cribl_pipe`, `c*`. Wildcards supported.
 	ExcludeFields []string `json:"excludeFields,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -86,7 +86,7 @@ type OutputCriblTCP struct {
 	// Exclude all IPs of the current host from the list of any resolved hostnames
 	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
 	// Set of hosts to load-balance data to
-	Hosts []ItemsTypeHosts `json:"hosts,omitzero"`
+	Hosts []HostConfOutputSyslog `json:"hosts,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -116,6 +116,8 @@ type OutputCriblTCP struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string                   `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputCriblTCPPqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -233,7 +235,7 @@ func (o *OutputCriblTCP) GetTokenTTLMinutes() *float64 {
 	return o.TokenTTLMinutes
 }
 
-func (o *OutputCriblTCP) GetAuthTokens() []ItemsTypeAuthTokens {
+func (o *OutputCriblTCP) GetAuthTokens() []AuthTokenConfInputCriblTCP {
 	if o == nil {
 		return nil
 	}
@@ -282,7 +284,7 @@ func (o *OutputCriblTCP) GetExcludeSelf() *bool {
 	return o.ExcludeSelf
 }
 
-func (o *OutputCriblTCP) GetHosts() []ItemsTypeHosts {
+func (o *OutputCriblTCP) GetHosts() []HostConfOutputSyslog {
 	if o == nil {
 		return nil
 	}
@@ -392,6 +394,13 @@ func (o *OutputCriblTCP) GetPqControls() *OutputCriblTCPPqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputCriblTCP) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputCriblTCP) GetTemplateOnBackpressure() *string {

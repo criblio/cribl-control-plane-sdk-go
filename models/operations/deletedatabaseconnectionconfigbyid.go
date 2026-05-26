@@ -21,7 +21,7 @@ func (d *DeleteDatabaseConnectionConfigByIDRequest) GetID() string {
 
 type DeleteDatabaseConnectionConfigByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of DatabaseConnectionConfig objects
+	// The deleted DatabaseConnectionConfig object in a single-item list.
 	CountedDatabaseConnectionConfig *components.CountedDatabaseConnectionConfig
 }
 

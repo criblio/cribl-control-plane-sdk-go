@@ -227,16 +227,14 @@ type RunSettingsTypeRunnableJobCollectionSchedule struct {
 	// Latest time to collect data for the selected timezone
 	Latest            *RunSettingsTypeRunnableJobCollectionScheduleLatest `json:"latest,omitzero"`
 	TimestampTimezone any                                                 `json:"timestampTimezone,omitzero"`
-	TimeWarning       *MetricsStore                                       `json:"timeWarning,omitzero"`
+	TimeWarning       *BrokenEventProcessor                               `json:"timeWarning,omitzero"`
 	// A filter for tokens in the provided collect path and/or the events being collected
 	Expression *string `json:"expression,omitzero"`
 	// Limits the bundle size for small tasks. For example,
 	//
-	//
 	//         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
 	MinTaskSize *string `json:"minTaskSize,omitzero"`
 	// Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
-	//
 	//
 	//         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
 	MaxTaskSize *string `json:"maxTaskSize,omitzero"`
@@ -323,7 +321,7 @@ func (r *RunSettingsTypeRunnableJobCollectionSchedule) GetTimestampTimezone() an
 	return r.TimestampTimezone
 }
 
-func (r *RunSettingsTypeRunnableJobCollectionSchedule) GetTimeWarning() *MetricsStore {
+func (r *RunSettingsTypeRunnableJobCollectionSchedule) GetTimeWarning() *BrokenEventProcessor {
 	if r == nil {
 		return nil
 	}

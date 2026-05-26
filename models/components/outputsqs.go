@@ -99,8 +99,6 @@ type OutputSqs struct {
 	Region *string `json:"region,omitzero"`
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing SQS requests
-	SignatureVersion *SignatureVersionOptionsSqs `json:"signatureVersion,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -150,6 +148,8 @@ type OutputSqs struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
 	PqMaxBufferSizeBytes *string              `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputSqsPqControls `json:"pqControls,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
 	TemplateQueueName *string `json:"__template_queueName,omitzero"`
 	// Binds 'queueType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueType' at runtime.
@@ -288,13 +288,6 @@ func (o *OutputSqs) GetEndpoint() *string {
 		return nil
 	}
 	return o.Endpoint
-}
-
-func (o *OutputSqs) GetSignatureVersion() *SignatureVersionOptionsSqs {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
 }
 
 func (o *OutputSqs) GetReuseConnections() *bool {
@@ -477,6 +470,13 @@ func (o *OutputSqs) GetPqControls() *OutputSqsPqControls {
 		return nil
 	}
 	return o.PqControls
+}
+
+func (o *OutputSqs) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputSqs) GetTemplateQueueName() *string {

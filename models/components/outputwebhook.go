@@ -190,7 +190,7 @@ type OutputWebhookWebhook2 struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -198,8 +198,8 @@ type OutputWebhookWebhook2 struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -272,9 +272,9 @@ type OutputWebhookWebhook2 struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
+	OauthParams []OauthParamConfInputServicenowTable `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
+	OauthHeaders []OauthHeaderConfInputServicenowTable `json:"oauthHeaders,omitzero"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL *string `json:"url,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
@@ -284,6 +284,8 @@ type OutputWebhookWebhook2 struct {
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
 	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -419,7 +421,7 @@ func (o *OutputWebhookWebhook2) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputWebhookWebhook2) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputWebhookWebhook2) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -447,7 +449,7 @@ func (o *OutputWebhookWebhook2) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputWebhookWebhook2) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputWebhookWebhook2) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}
@@ -727,14 +729,14 @@ func (o *OutputWebhookWebhook2) GetTokenTimeoutSecs() *float64 {
 	return o.TokenTimeoutSecs
 }
 
-func (o *OutputWebhookWebhook2) GetOauthParams() []ItemsTypeOauthParams {
+func (o *OutputWebhookWebhook2) GetOauthParams() []OauthParamConfInputServicenowTable {
 	if o == nil {
 		return nil
 	}
 	return o.OauthParams
 }
 
-func (o *OutputWebhookWebhook2) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (o *OutputWebhookWebhook2) GetOauthHeaders() []OauthHeaderConfInputServicenowTable {
 	if o == nil {
 		return nil
 	}
@@ -774,6 +776,13 @@ func (o *OutputWebhookWebhook2) GetLoadBalanceStatsPeriodSec() *float64 {
 		return nil
 	}
 	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputWebhookWebhook2) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputWebhookWebhook2) GetTemplateFailedRequestLoggingMode() *string {
@@ -995,7 +1004,7 @@ type OutputWebhookWebhook1 struct {
 	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
-	ExtraHTTPHeaders []ItemsTypeExtraHTTPHeaders `json:"extraHttpHeaders,omitzero"`
+	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
@@ -1003,8 +1012,8 @@ type OutputWebhookWebhook1 struct {
 	// List of headers that are safe to log in plain text
 	SafeHeaders []string `json:"safeHeaders,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []ItemsTypeResponseRetrySettings `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *TimeoutRetrySettingsType        `json:"timeoutRetrySettings,omitzero"`
+	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
+	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -1077,9 +1086,9 @@ type OutputWebhookWebhook1 struct {
 	// How often the OAuth token should be refreshed.
 	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
 	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []ItemsTypeOauthParams `json:"oauthParams,omitzero"`
+	OauthParams []OauthParamConfInputServicenowTable `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []ItemsTypeOauthHeaders `json:"oauthHeaders,omitzero"`
+	OauthHeaders []OauthHeaderConfInputServicenowTable `json:"oauthHeaders,omitzero"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL string `json:"url"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
@@ -1089,6 +1098,8 @@ type OutputWebhookWebhook1 struct {
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
 	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
@@ -1224,7 +1235,7 @@ func (o *OutputWebhookWebhook1) GetFlushPeriodSec() *float64 {
 	return o.FlushPeriodSec
 }
 
-func (o *OutputWebhookWebhook1) GetExtraHTTPHeaders() []ItemsTypeExtraHTTPHeaders {
+func (o *OutputWebhookWebhook1) GetExtraHTTPHeaders() []ExtraHTTPHeaderConfInputElastic {
 	if o == nil {
 		return nil
 	}
@@ -1252,7 +1263,7 @@ func (o *OutputWebhookWebhook1) GetSafeHeaders() []string {
 	return o.SafeHeaders
 }
 
-func (o *OutputWebhookWebhook1) GetResponseRetrySettings() []ItemsTypeResponseRetrySettings {
+func (o *OutputWebhookWebhook1) GetResponseRetrySettings() []ResponseRetrySettingConfOutputWebhook {
 	if o == nil {
 		return nil
 	}
@@ -1532,14 +1543,14 @@ func (o *OutputWebhookWebhook1) GetTokenTimeoutSecs() *float64 {
 	return o.TokenTimeoutSecs
 }
 
-func (o *OutputWebhookWebhook1) GetOauthParams() []ItemsTypeOauthParams {
+func (o *OutputWebhookWebhook1) GetOauthParams() []OauthParamConfInputServicenowTable {
 	if o == nil {
 		return nil
 	}
 	return o.OauthParams
 }
 
-func (o *OutputWebhookWebhook1) GetOauthHeaders() []ItemsTypeOauthHeaders {
+func (o *OutputWebhookWebhook1) GetOauthHeaders() []OauthHeaderConfInputServicenowTable {
 	if o == nil {
 		return nil
 	}
@@ -1579,6 +1590,13 @@ func (o *OutputWebhookWebhook1) GetLoadBalanceStatsPeriodSec() *float64 {
 		return nil
 	}
 	return o.LoadBalanceStatsPeriodSec
+}
+
+func (o *OutputWebhookWebhook1) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputWebhookWebhook1) GetTemplateFailedRequestLoggingMode() *string {

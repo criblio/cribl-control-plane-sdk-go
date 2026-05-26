@@ -19,3 +19,4 @@ custom := operations.CreateInputAuthenticationMechanism("custom_value")
 | Name                                                 | Value                                                |
 | ---------------------------------------------------- | ---------------------------------------------------- |
 | `CreateInputAuthenticationMechanismConnectionString` | connection-string                                    |
+| `CreateInputAuthenticationMechanismOauthBearer`      | oauth-bearer                                         |

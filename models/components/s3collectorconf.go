@@ -92,8 +92,6 @@ type S3AwsAuthenticationMethodSecret struct {
 	Extractors []S3AwsAuthenticationMethodSecretExtractor `json:"extractors,omitzero"`
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -214,13 +212,6 @@ func (s *S3AwsAuthenticationMethodSecret) GetEndpoint() *string {
 		return nil
 	}
 	return s.Endpoint
-}
-
-func (s *S3AwsAuthenticationMethodSecret) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
-	if s == nil {
-		return nil
-	}
-	return s.SignatureVersion
 }
 
 func (s *S3AwsAuthenticationMethodSecret) GetEnableAssumeRole() *bool {
@@ -423,8 +414,6 @@ type S3AwsAuthenticationMethodManual struct {
 	Extractors []S3AwsAuthenticationMethodManualExtractor `json:"extractors,omitzero"`
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -550,13 +539,6 @@ func (s *S3AwsAuthenticationMethodManual) GetEndpoint() *string {
 		return nil
 	}
 	return s.Endpoint
-}
-
-func (s *S3AwsAuthenticationMethodManual) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
-	if s == nil {
-		return nil
-	}
-	return s.SignatureVersion
 }
 
 func (s *S3AwsAuthenticationMethodManual) GetEnableAssumeRole() *bool {
@@ -748,8 +730,6 @@ type S3AwsAuthenticationMethodAuto struct {
 	Extractors []S3AwsAuthenticationMethodAutoExtractor `json:"extractors,omitzero"`
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -865,13 +845,6 @@ func (s *S3AwsAuthenticationMethodAuto) GetEndpoint() *string {
 		return nil
 	}
 	return s.Endpoint
-}
-
-func (s *S3AwsAuthenticationMethodAuto) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
-	if s == nil {
-		return nil
-	}
-	return s.SignatureVersion
 }
 
 func (s *S3AwsAuthenticationMethodAuto) GetEnableAssumeRole() *bool {
@@ -1079,8 +1052,6 @@ type S3PartitioningSchemeNone struct {
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -1203,13 +1174,6 @@ func (s *S3PartitioningSchemeNone) GetEndpoint() *string {
 		return nil
 	}
 	return s.Endpoint
-}
-
-func (s *S3PartitioningSchemeNone) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
-	if s == nil {
-		return nil
-	}
-	return s.SignatureVersion
 }
 
 func (s *S3PartitioningSchemeNone) GetEnableAssumeRole() *bool {
@@ -1415,8 +1379,6 @@ type S3PartitioningSchemeDdss struct {
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
 	// Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
-	// Signature version to use for signing S3 requests
-	SignatureVersion *SignatureVersionOptionsS3CollectorConf `json:"signatureVersion,omitzero"`
 	// Use AssumeRole credentials
 	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -1532,13 +1494,6 @@ func (s *S3PartitioningSchemeDdss) GetEndpoint() *string {
 		return nil
 	}
 	return s.Endpoint
-}
-
-func (s *S3PartitioningSchemeDdss) GetSignatureVersion() *SignatureVersionOptionsS3CollectorConf {
-	if s == nil {
-		return nil
-	}
-	return s.SignatureVersion
 }
 
 func (s *S3PartitioningSchemeDdss) GetEnableAssumeRole() *bool {

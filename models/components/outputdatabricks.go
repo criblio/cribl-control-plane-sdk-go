@@ -119,7 +119,7 @@ type OutputDatabricks struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -134,6 +134,8 @@ type OutputDatabricks struct {
 	DeadletterPath *string `json:"deadletterPath,omitzero"`
 	// The maximum number of times a file will attempt to move to its final destination before being dead-lettered
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'partitionExpr' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'partitionExpr' at runtime.
 	TemplatePartitionExpr *string `json:"__template_partitionExpr,omitzero"`
 	// Binds 'format' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'format' at runtime.
@@ -476,7 +478,7 @@ func (o *OutputDatabricks) GetShouldLogInvalidRows() *bool {
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputDatabricks) GetKeyValueMetadata() []ItemsTypeKeyValueMetadata {
+func (o *OutputDatabricks) GetKeyValueMetadata() []KeyValueMetadataConfOutputFilesystem {
 	if o == nil {
 		return nil
 	}
@@ -530,6 +532,13 @@ func (o *OutputDatabricks) GetMaxRetryNum() *float64 {
 		return nil
 	}
 	return o.MaxRetryNum
+}
+
+func (o *OutputDatabricks) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputDatabricks) GetTemplatePartitionExpr() *string {

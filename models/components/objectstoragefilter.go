@@ -3,8 +3,18 @@
 package components
 
 type ObjectStorageFilter struct {
+	DataPathFormat *PathFilterDataFormat `json:"dataPathFormat,omitzero"`
+	// Datatype identifier that maps filtered objects to a data type definition.
 	DataTypeID string `json:"dataTypeId"`
-	Filter     string `json:"filter"`
+	// Glob pattern for selecting files within the storage path.
+	Filter string `json:"filter"`
+}
+
+func (o *ObjectStorageFilter) GetDataPathFormat() *PathFilterDataFormat {
+	if o == nil {
+		return nil
+	}
+	return o.DataPathFormat
 }
 
 func (o *ObjectStorageFilter) GetDataTypeID() string {

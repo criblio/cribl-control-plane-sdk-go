@@ -74,9 +74,7 @@ type OutputGoogleCloudStorage struct {
 	// Region where the bucket is located
 	Region string `json:"region"`
 	// Google Cloud Storage service endpoint
-	Endpoint string `json:"endpoint"`
-	// Signature version to use for signing Google Cloud Storage requests
-	SignatureVersion        *SignatureVersionOptionsGoogle                `json:"signatureVersion,omitzero"`
+	Endpoint                string                                        `json:"endpoint"`
 	AwsAuthenticationMethod *OutputGoogleCloudStorageAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
@@ -146,7 +144,7 @@ type OutputGoogleCloudStorage struct {
 	// Log up to 3 rows that @{product} skips due to data mismatch
 	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
 	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
-	KeyValueMetadata []ItemsTypeKeyValueMetadata `json:"keyValueMetadata,omitzero"`
+	KeyValueMetadata []KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
 	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
 	EnableStatistics *bool `json:"enableStatistics,omitzero"`
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
@@ -167,6 +165,8 @@ type OutputGoogleCloudStorage struct {
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
 	TemplateBucket *string `json:"__template_bucket,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
@@ -271,13 +271,6 @@ func (o *OutputGoogleCloudStorage) GetEndpoint() string {
 		return ""
 	}
 	return o.Endpoint
-}
-
-func (o *OutputGoogleCloudStorage) GetSignatureVersion() *SignatureVersionOptionsGoogle {
-	if o == nil {
-		return nil
-	}
-	return o.SignatureVersion
 }
 
 func (o *OutputGoogleCloudStorage) GetAwsAuthenticationMethod() *OutputGoogleCloudStorageAuthenticationMethod {
@@ -532,7 +525,7 @@ func (o *OutputGoogleCloudStorage) GetShouldLogInvalidRows() *bool {
 	return o.ShouldLogInvalidRows
 }
 
-func (o *OutputGoogleCloudStorage) GetKeyValueMetadata() []ItemsTypeKeyValueMetadata {
+func (o *OutputGoogleCloudStorage) GetKeyValueMetadata() []KeyValueMetadataConfOutputFilesystem {
 	if o == nil {
 		return nil
 	}
@@ -607,6 +600,13 @@ func (o *OutputGoogleCloudStorage) GetAwsSecret() *string {
 		return nil
 	}
 	return o.AwsSecret
+}
+
+func (o *OutputGoogleCloudStorage) GetTemplateStreamtags() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateStreamtags
 }
 
 func (o *OutputGoogleCloudStorage) GetTemplateBucket() *string {

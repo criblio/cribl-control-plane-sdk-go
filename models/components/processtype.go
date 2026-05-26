@@ -8,7 +8,7 @@ import (
 
 type ProcessType struct {
 	// Configure sets to collect process metrics
-	Sets []ItemsTypeProcessSets `json:"sets,omitzero"`
+	Sets []SetConfInputSystemMetrics `json:"sets,omitzero"`
 }
 
 func (p ProcessType) MarshalJSON() ([]byte, error) {
@@ -22,7 +22,7 @@ func (p *ProcessType) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (p *ProcessType) GetSets() []ItemsTypeProcessSets {
+func (p *ProcessType) GetSets() []SetConfInputSystemMetrics {
 	if p == nil {
 		return nil
 	}

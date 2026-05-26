@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 )
 
-value := operations.CreateOutputFacilityZero
+value := operations.CreateOutputFacilityKern
 
 // Open enum: custom values can be created with a direct type cast
 custom := operations.CreateOutputFacility(999)
@@ -18,27 +18,27 @@ custom := operations.CreateOutputFacility(999)
 
 ## Values
 
-| Name                            | Value                           |
-| ------------------------------- | ------------------------------- |
-| `CreateOutputFacilityZero`      | 0                               |
-| `CreateOutputFacilityOne`       | 1                               |
-| `CreateOutputFacilityTwo`       | 2                               |
-| `CreateOutputFacilityThree`     | 3                               |
-| `CreateOutputFacilityFour`      | 4                               |
-| `CreateOutputFacilityFive`      | 5                               |
-| `CreateOutputFacilitySix`       | 6                               |
-| `CreateOutputFacilitySeven`     | 7                               |
-| `CreateOutputFacilityEight`     | 8                               |
-| `CreateOutputFacilityNine`      | 9                               |
-| `CreateOutputFacilityTen`       | 10                              |
-| `CreateOutputFacilityEleven`    | 11                              |
-| `CreateOutputFacilityTwelve`    | 12                              |
-| `CreateOutputFacilityThirteen`  | 13                              |
-| `CreateOutputFacilityFourteen`  | 14                              |
-| `CreateOutputFacilityFifteen`   | 15                              |
-| `CreateOutputFacilitySixteen`   | 16                              |
-| `CreateOutputFacilitySeventeen` | 17                              |
-| `CreateOutputFacilityEighteen`  | 18                              |
-| `CreateOutputFacilityNineteen`  | 19                              |
-| `CreateOutputFacilityTwenty`    | 20                              |
-| `CreateOutputFacilityTwentyOne` | 21                              |
+| Name                              | Value                             |
+| --------------------------------- | --------------------------------- |
+| `CreateOutputFacilityKern`        | 0                                 |
+| `CreateOutputFacilityUser`        | 1                                 |
+| `CreateOutputFacilityMail`        | 2                                 |
+| `CreateOutputFacilityDaemon`      | 3                                 |
+| `CreateOutputFacilityAuth`        | 4                                 |
+| `CreateOutputFacilitySyslog`      | 5                                 |
+| `CreateOutputFacilityLpr`         | 6                                 |
+| `CreateOutputFacilityNews`        | 7                                 |
+| `CreateOutputFacilityUucp`        | 8                                 |
+| `CreateOutputFacilityCron`        | 9                                 |
+| `CreateOutputFacilityAuthpriv`    | 10                                |
+| `CreateOutputFacilityFtp`         | 11                                |
+| `CreateOutputFacilityNtp`         | 12                                |
+| `CreateOutputFacilitySecurity`    | 13                                |
+| `CreateOutputFacilityConsole`     | 14                                |
+| `CreateOutputFacilitySolarisCron` | 15                                |
+| `CreateOutputFacilityLocal0`      | 16                                |
+| `CreateOutputFacilityLocal1`      | 17                                |
+| `CreateOutputFacilityLocal2`      | 18                                |
+| `CreateOutputFacilityLocal3`      | 19                                |
+| `CreateOutputFacilityLocal4`      | 20                                |
+| `CreateOutputFacilityLocal5`      | 21                                |

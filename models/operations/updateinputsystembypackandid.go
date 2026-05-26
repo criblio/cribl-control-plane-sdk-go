@@ -10,10 +10,10 @@ import (
 type UpdateInputSystemByPackAndIDRequest struct {
 	// The <code>id</code> of the Source to update.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// The <code>id</code> of the Pack to update.
+	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
-	// Input object
-	Input components.Input2 `request:"mediaType=application/json"`
+	// Input object.
+	Input components.Input `request:"mediaType=application/json"`
 }
 
 func (u *UpdateInputSystemByPackAndIDRequest) GetID() string {
@@ -30,281 +30,289 @@ func (u *UpdateInputSystemByPackAndIDRequest) GetPack() string {
 	return u.Pack
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInput() components.Input2 {
+func (u *UpdateInputSystemByPackAndIDRequest) GetInput() components.Input {
 	if u == nil {
-		return components.Input2{}
+		return components.Input{}
 	}
 	return u.Input
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputCollection() *components.InputCollection {
-	return u.GetInput().InputCollection
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputCollection() *components.InputCollectionInput {
+	return u.GetInput().InputCollectionInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputKafka() *components.InputKafka {
-	return u.GetInput().InputKafka
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputKafka() *components.InputKafkaInput {
+	return u.GetInput().InputKafkaInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputMsk() *components.InputMsk {
-	return u.GetInput().InputMsk
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputMsk() *components.InputMskInput {
+	return u.GetInput().InputMskInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputHTTP() *components.InputHTTP {
-	return u.GetInput().InputHTTP
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputHTTP() *components.InputHTTPInput {
+	return u.GetInput().InputHTTPInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputSplunk() *components.InputSplunk {
-	return u.GetInput().InputSplunk
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputSplunk() *components.InputSplunkInput {
+	return u.GetInput().InputSplunkInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputSplunkSearch() *components.InputSplunkSearch {
-	return u.GetInput().InputSplunkSearch
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputSplunkSearch() *components.InputSplunkSearchInput {
+	return u.GetInput().InputSplunkSearchInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputSplunkHec() *components.InputSplunkHec {
-	return u.GetInput().InputSplunkHec
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputSplunkHec() *components.InputSplunkHecInput {
+	return u.GetInput().InputSplunkHecInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputAzureBlob() *components.InputAzureBlob {
-	return u.GetInput().InputAzureBlob
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputAzureBlob() *components.InputAzureBlobInput {
+	return u.GetInput().InputAzureBlobInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputElastic() *components.InputElastic {
-	return u.GetInput().InputElastic
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputElastic() *components.InputElasticInput {
+	return u.GetInput().InputElasticInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputConfluentCloud() *components.InputConfluentCloud {
-	return u.GetInput().InputConfluentCloud
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputConfluentCloud() *components.InputConfluentCloudInput {
+	return u.GetInput().InputConfluentCloudInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputGrafana() *components.InputGrafana {
-	return u.GetInput().InputGrafana
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputGrafana() *components.InputGrafanaInputUnion {
+	return u.GetInput().InputGrafanaInputUnion
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputLoki() *components.InputLoki {
-	return u.GetInput().InputLoki
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputLoki() *components.InputLokiInput {
+	return u.GetInput().InputLokiInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputPrometheusRw() *components.InputPrometheusRw {
-	return u.GetInput().InputPrometheusRw
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputPrometheusRw() *components.InputPrometheusRwInput {
+	return u.GetInput().InputPrometheusRwInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputPrometheus() *components.InputPrometheus {
-	return u.GetInput().InputPrometheus
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputPrometheus() *components.InputPrometheusInput {
+	return u.GetInput().InputPrometheusInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputEdgePrometheus() *components.InputEdgePrometheus {
-	return u.GetInput().InputEdgePrometheus
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputEdgePrometheus() *components.InputEdgePrometheusInput {
+	return u.GetInput().InputEdgePrometheusInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputOffice365Mgmt() *components.InputOffice365Mgmt {
-	return u.GetInput().InputOffice365Mgmt
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputOffice365Mgmt() *components.InputOffice365MgmtInput {
+	return u.GetInput().InputOffice365MgmtInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputOffice365Service() *components.InputOffice365Service {
-	return u.GetInput().InputOffice365Service
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputOffice365Service() *components.InputOffice365ServiceInput {
+	return u.GetInput().InputOffice365ServiceInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputOffice365MsgTrace() *components.InputOffice365MsgTrace {
-	return u.GetInput().InputOffice365MsgTrace
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputOffice365MsgTrace() *components.InputOffice365MsgTraceInput {
+	return u.GetInput().InputOffice365MsgTraceInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputMicrosoftGraph() *components.InputMicrosoftGraph {
-	return u.GetInput().InputMicrosoftGraph
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputMicrosoftGraph() *components.InputMicrosoftGraphInput {
+	return u.GetInput().InputMicrosoftGraphInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputEventhub() *components.InputEventhub {
-	return u.GetInput().InputEventhub
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputEventhub() *components.InputEventhubInput {
+	return u.GetInput().InputEventhubInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputEventhubAmqp() *components.InputEventhubAmqp {
-	return u.GetInput().InputEventhubAmqp
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputEventhubAmqp() *components.InputEventhubAmqpInput {
+	return u.GetInput().InputEventhubAmqpInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputExec() *components.InputExec {
-	return u.GetInput().InputExec
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputExec() *components.InputExecInput {
+	return u.GetInput().InputExecInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputFirehose() *components.InputFirehose {
-	return u.GetInput().InputFirehose
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputFirehose() *components.InputFirehoseInput {
+	return u.GetInput().InputFirehoseInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputGooglePubsub() *components.InputGooglePubsub {
-	return u.GetInput().InputGooglePubsub
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputGooglePubsub() *components.InputGooglePubsubInput {
+	return u.GetInput().InputGooglePubsubInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputCribl() *components.InputCribl {
-	return u.GetInput().InputCribl
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputCribl() *components.InputCriblInput {
+	return u.GetInput().InputCriblInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputCriblTCP() *components.InputCriblTCP {
-	return u.GetInput().InputCriblTCP
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputCriblTCP() *components.InputCriblTCPInput {
+	return u.GetInput().InputCriblTCPInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputCriblHTTP() *components.InputCriblHTTP {
-	return u.GetInput().InputCriblHTTP
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputCriblHTTP() *components.InputCriblHTTPInput {
+	return u.GetInput().InputCriblHTTPInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputCriblLakeHTTP() *components.InputCriblLakeHTTP {
-	return u.GetInput().InputCriblLakeHTTP
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputCriblLakeHTTP() *components.InputCriblLakeHTTPInput {
+	return u.GetInput().InputCriblLakeHTTPInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputTcpjson() *components.InputTcpjson {
-	return u.GetInput().InputTcpjson
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputTcpjson() *components.InputTcpjsonInput {
+	return u.GetInput().InputTcpjsonInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputSystemMetrics() *components.InputSystemMetrics {
-	return u.GetInput().InputSystemMetrics
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputSystemMetrics() *components.InputSystemMetricsInput {
+	return u.GetInput().InputSystemMetricsInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputSystemState() *components.InputSystemState {
-	return u.GetInput().InputSystemState
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputSystemState() *components.InputSystemStateInput {
+	return u.GetInput().InputSystemStateInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputKubeMetrics() *components.InputKubeMetrics {
-	return u.GetInput().InputKubeMetrics
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputKubeMetrics() *components.InputKubeMetricsInput {
+	return u.GetInput().InputKubeMetricsInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputKubeLogs() *components.InputKubeLogs {
-	return u.GetInput().InputKubeLogs
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputKubeLogs() *components.InputKubeLogsInput {
+	return u.GetInput().InputKubeLogsInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputKubeEvents() *components.InputKubeEvents {
-	return u.GetInput().InputKubeEvents
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputKubeEvents() *components.InputKubeEventsInput {
+	return u.GetInput().InputKubeEventsInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputWindowsMetrics() *components.InputWindowsMetrics {
-	return u.GetInput().InputWindowsMetrics
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputWindowsMetrics() *components.InputWindowsMetricsInput {
+	return u.GetInput().InputWindowsMetricsInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputCrowdstrike() *components.InputCrowdstrike {
-	return u.GetInput().InputCrowdstrike
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputCrowdstrike() *components.InputCrowdstrikeInput {
+	return u.GetInput().InputCrowdstrikeInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputDatadogAgent() *components.InputDatadogAgent {
-	return u.GetInput().InputDatadogAgent
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputDatadogAgent() *components.InputDatadogAgentInput {
+	return u.GetInput().InputDatadogAgentInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputDatagen() *components.InputDatagen {
-	return u.GetInput().InputDatagen
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputDatagen() *components.InputDatagenInput {
+	return u.GetInput().InputDatagenInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputHTTPRaw() *components.InputHTTPRaw {
-	return u.GetInput().InputHTTPRaw
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputHTTPRaw() *components.InputHTTPRawInput {
+	return u.GetInput().InputHTTPRawInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputKinesis() *components.InputKinesis {
-	return u.GetInput().InputKinesis
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputKinesis() *components.InputKinesisInput {
+	return u.GetInput().InputKinesisInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputCriblmetrics() *components.InputCriblmetrics {
-	return u.GetInput().InputCriblmetrics
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputCriblmetrics() *components.InputCriblmetricsInput {
+	return u.GetInput().InputCriblmetricsInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputMetrics() *components.InputMetrics {
-	return u.GetInput().InputMetrics
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputMetrics() *components.InputMetricsInput {
+	return u.GetInput().InputMetricsInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputS3() *components.InputS3 {
-	return u.GetInput().InputS3
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputS3() *components.InputS3Input {
+	return u.GetInput().InputS3Input
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputS3Inventory() *components.InputS3Inventory {
-	return u.GetInput().InputS3Inventory
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputS3Inventory() *components.InputS3InventoryInput {
+	return u.GetInput().InputS3InventoryInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputSnmp() *components.InputSnmp {
-	return u.GetInput().InputSnmp
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputSnmp() *components.InputSnmpInput {
+	return u.GetInput().InputSnmpInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputOpenTelemetry() *components.InputOpenTelemetry {
-	return u.GetInput().InputOpenTelemetry
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputOpenTelemetry() *components.InputOpenTelemetryInput {
+	return u.GetInput().InputOpenTelemetryInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputModelDrivenTelemetry() *components.InputModelDrivenTelemetry {
-	return u.GetInput().InputModelDrivenTelemetry
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputModelDrivenTelemetry() *components.InputModelDrivenTelemetryInput {
+	return u.GetInput().InputModelDrivenTelemetryInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputSqs() *components.InputSqs {
-	return u.GetInput().InputSqs
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputSqs() *components.InputSqsInput {
+	return u.GetInput().InputSqsInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputSyslog() *components.InputSyslog {
-	return u.GetInput().InputSyslog
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputSyslog() *components.InputSyslogInputUnion {
+	return u.GetInput().InputSyslogInputUnion
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputFile() *components.InputFile {
-	return u.GetInput().InputFile
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputFile() *components.InputFileInput {
+	return u.GetInput().InputFileInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputTCP() *components.InputTCP {
-	return u.GetInput().InputTCP
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputTCP() *components.InputTCPInput {
+	return u.GetInput().InputTCPInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputAppscope() *components.InputAppscope {
-	return u.GetInput().InputAppscope
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputAppscope() *components.InputAppscopeInput {
+	return u.GetInput().InputAppscopeInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputWef() *components.InputWef {
-	return u.GetInput().InputWef
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputWef() *components.InputWefInput {
+	return u.GetInput().InputWefInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputWinEventLogs() *components.InputWinEventLogs {
-	return u.GetInput().InputWinEventLogs
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputWinEventLogs() *components.InputWinEventLogsInput {
+	return u.GetInput().InputWinEventLogsInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputRawUDP() *components.InputRawUDP {
-	return u.GetInput().InputRawUDP
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputAppleUnifiedLogs() *components.InputAppleUnifiedLogsInput {
+	return u.GetInput().InputAppleUnifiedLogsInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputJournalFiles() *components.InputJournalFiles {
-	return u.GetInput().InputJournalFiles
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputRawUDP() *components.InputRawUDPInput {
+	return u.GetInput().InputRawUDPInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputWiz() *components.InputWiz {
-	return u.GetInput().InputWiz
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputJournalFiles() *components.InputJournalFilesInput {
+	return u.GetInput().InputJournalFilesInput
+}
+
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputWiz() *components.InputWizInput {
+	return u.GetInput().InputWizInput
 }
 
 func (u *UpdateInputSystemByPackAndIDRequest) GetInputOpenai() *components.InputOpenaiInput {
 	return u.GetInput().InputOpenaiInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputWizWebhook() *components.InputWizWebhook {
-	return u.GetInput().InputWizWebhook
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputWizWebhook() *components.InputWizWebhookInput {
+	return u.GetInput().InputWizWebhookInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputNetflow() *components.InputNetflow {
-	return u.GetInput().InputNetflow
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputNetflow() *components.InputNetflowInput {
+	return u.GetInput().InputNetflowInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputSecurityLake() *components.InputSecurityLake {
-	return u.GetInput().InputSecurityLake
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputSecurityLake() *components.InputSecurityLakeInput {
+	return u.GetInput().InputSecurityLakeInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputServicenowTable() *components.InputServicenowTable {
-	return u.GetInput().InputServicenowTable
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputServicenowTable() *components.InputServicenowTableInput {
+	return u.GetInput().InputServicenowTableInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputZscalerHec() *components.InputZscalerHec {
-	return u.GetInput().InputZscalerHec
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputZscalerHec() *components.InputZscalerHecInput {
+	return u.GetInput().InputZscalerHecInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputCloudflareHec() *components.InputCloudflareHec {
-	return u.GetInput().InputCloudflareHec
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputCloudflareHec() *components.InputCloudflareHecInput {
+	return u.GetInput().InputCloudflareHecInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputOpenaiComplianceLogs() *components.InputOpenaiComplianceLogs {
-	return u.GetInput().InputOpenaiComplianceLogs
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputOpenaiComplianceLogs() *components.InputOpenaiComplianceLogsInput {
+	return u.GetInput().InputOpenaiComplianceLogsInput
 }
 
-func (u *UpdateInputSystemByPackAndIDRequest) GetInputOkta() *components.InputOkta {
-	return u.GetInput().InputOkta
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputAnthropicCompliance() *components.InputAnthropicComplianceInput {
+	return u.GetInput().InputAnthropicComplianceInput
+}
+
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputOkta() *components.InputOktaInput {
+	return u.GetInput().InputOktaInput
 }
 
 type UpdateInputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// the updated Source object
-	CountedInput *components.CountedInput
+	CountedInputResponse *components.CountedInputResponse
 }
 
 func (u UpdateInputSystemByPackAndIDResponse) MarshalJSON() ([]byte, error) {
@@ -325,9 +333,9 @@ func (u *UpdateInputSystemByPackAndIDResponse) GetHTTPMeta() components.HTTPMeta
 	return u.HTTPMeta
 }
 
-func (u *UpdateInputSystemByPackAndIDResponse) GetCountedInput() *components.CountedInput {
+func (u *UpdateInputSystemByPackAndIDResponse) GetCountedInputResponse() *components.CountedInputResponse {
 	if u == nil {
 		return nil
 	}
-	return u.CountedInput
+	return u.CountedInputResponse
 }
