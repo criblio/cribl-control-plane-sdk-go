@@ -76,7 +76,7 @@ func main() {
 
 	// Create Lake Dataset
 	fmt.Printf("Creating Lake Dataset: %s\n", DATASET_ID)
-	retention := float64(30)
+	retention := int64(30)
 	httpDAUsed := false
 	storageLocationID := "cribl_lake"
 
