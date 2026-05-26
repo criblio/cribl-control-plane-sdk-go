@@ -1,6 +1,6 @@
 module github.com/criblio/cribl-control-plane-sdk-go/examples
 
-go 1.22
+go 1.26
 
 require (
 	github.com/criblio/cribl-control-plane-sdk-go v0.0.0
