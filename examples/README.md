@@ -4,7 +4,7 @@ This directory contains example programs demonstrating how to use the cribl-cont
 
 ## Prerequisites
 
-- Go 1.26 or higher
+- Go 1.22 or higher
 - Access to a Cribl instance (cloud or on-prem)
 
 ## Setup
