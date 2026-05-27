@@ -629,9 +629,19 @@ type AzureBlobAuthTypeSecret struct {
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
 	// Enter your Azure storage account Connection String. If left blank, Cribl Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitzero"`
+	// The name of your Azure storage account
+	StorageAccountName *string `json:"storageAccountName,omitzero"`
+	// The service principal's tenant ID
+	TenantID *string `json:"tenantId,omitzero"`
+	// The service principal's client ID
+	ClientID *string `json:"clientId,omitzero"`
 	// Text secret containing the client secret
-	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
-	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
+	// The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+	EndpointSuffix *string `json:"endpointSuffix,omitzero"`
+	// The Azure cloud to use. Defaults to Azure Public Cloud.
+	AzureCloud  *string                                     `json:"azureCloud,omitzero"`
+	Certificate *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
 	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
 	TemplateContainerName *string `json:"__template_containerName,omitzero"`
 	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
@@ -740,11 +750,46 @@ func (a *AzureBlobAuthTypeSecret) GetConnectionString() *string {
 	return a.ConnectionString
 }
 
+func (a *AzureBlobAuthTypeSecret) GetStorageAccountName() *string {
+	if a == nil {
+		return nil
+	}
+	return a.StorageAccountName
+}
+
+func (a *AzureBlobAuthTypeSecret) GetTenantID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TenantID
+}
+
+func (a *AzureBlobAuthTypeSecret) GetClientID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ClientID
+}
+
 func (a *AzureBlobAuthTypeSecret) GetClientTextSecret() *string {
 	if a == nil {
 		return nil
 	}
 	return a.ClientTextSecret
+}
+
+func (a *AzureBlobAuthTypeSecret) GetEndpointSuffix() *string {
+	if a == nil {
+		return nil
+	}
+	return a.EndpointSuffix
+}
+
+func (a *AzureBlobAuthTypeSecret) GetAzureCloud() *string {
+	if a == nil {
+		return nil
+	}
+	return a.AzureCloud
 }
 
 func (a *AzureBlobAuthTypeSecret) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
@@ -852,9 +897,19 @@ type AzureBlobAuthTypeManual struct {
 	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
 	// Text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// The name of your Azure storage account
+	StorageAccountName *string `json:"storageAccountName,omitzero"`
+	// The service principal's tenant ID
+	TenantID *string `json:"tenantId,omitzero"`
+	// The service principal's client ID
+	ClientID *string `json:"clientId,omitzero"`
 	// Text secret containing the client secret
-	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
-	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
+	// The endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+	EndpointSuffix *string `json:"endpointSuffix,omitzero"`
+	// The Azure cloud to use. Defaults to Azure Public Cloud.
+	AzureCloud  *string                                     `json:"azureCloud,omitzero"`
+	Certificate *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
 	// Binds 'containerName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'containerName' at runtime.
 	TemplateContainerName *string `json:"__template_containerName,omitzero"`
 	// Binds 'path' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'path' at runtime.
@@ -963,11 +1018,46 @@ func (a *AzureBlobAuthTypeManual) GetTextSecret() *string {
 	return a.TextSecret
 }
 
+func (a *AzureBlobAuthTypeManual) GetStorageAccountName() *string {
+	if a == nil {
+		return nil
+	}
+	return a.StorageAccountName
+}
+
+func (a *AzureBlobAuthTypeManual) GetTenantID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TenantID
+}
+
+func (a *AzureBlobAuthTypeManual) GetClientID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ClientID
+}
+
 func (a *AzureBlobAuthTypeManual) GetClientTextSecret() *string {
 	if a == nil {
 		return nil
 	}
 	return a.ClientTextSecret
+}
+
+func (a *AzureBlobAuthTypeManual) GetEndpointSuffix() *string {
+	if a == nil {
+		return nil
+	}
+	return a.EndpointSuffix
+}
+
+func (a *AzureBlobAuthTypeManual) GetAzureCloud() *string {
+	if a == nil {
+		return nil
+	}
+	return a.AzureCloud
 }
 
 func (a *AzureBlobAuthTypeManual) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
