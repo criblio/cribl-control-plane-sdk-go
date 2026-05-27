@@ -152,6 +152,10 @@ type RedisAuthTypeTextSecret struct {
 	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	URL        *string                                      `json:"url,omitzero"`
 	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
+	// Root nodes to which the cluster connection should be initiated
+	RootNodes []RootNodeConfRedisDeploymentTypeCluster `json:"rootNodes,omitzero"`
+	// Use TLS for connections to this cluster
+	TLS *bool `json:"tls,omitzero"`
 	// Which nodes read commands should be sent to
 	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster `json:"scaleReads,omitzero"`
 	MasterName *string                                      `json:"masterName,omitzero"`
@@ -226,6 +230,20 @@ func (r *RedisAuthTypeTextSecret) GetTLSOptions() *TLSOptionsTypeRedisDeployment
 		return nil
 	}
 	return r.TLSOptions
+}
+
+func (r *RedisAuthTypeTextSecret) GetRootNodes() []RootNodeConfRedisDeploymentTypeCluster {
+	if r == nil {
+		return nil
+	}
+	return r.RootNodes
+}
+
+func (r *RedisAuthTypeTextSecret) GetTLS() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.TLS
 }
 
 func (r *RedisAuthTypeTextSecret) GetScaleReads() *ScaleReadsOptionsRedisDeploymentTypeCluster {
@@ -382,6 +400,10 @@ type RedisAuthTypeCredentialsSecret struct {
 	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	URL        *string                                      `json:"url,omitzero"`
 	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
+	// Root nodes to which the cluster connection should be initiated
+	RootNodes []RootNodeConfRedisDeploymentTypeCluster `json:"rootNodes,omitzero"`
+	// Use TLS for connections to this cluster
+	TLS *bool `json:"tls,omitzero"`
 	// Which nodes read commands should be sent to
 	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster `json:"scaleReads,omitzero"`
 	MasterName *string                                      `json:"masterName,omitzero"`
@@ -456,6 +478,20 @@ func (r *RedisAuthTypeCredentialsSecret) GetTLSOptions() *TLSOptionsTypeRedisDep
 		return nil
 	}
 	return r.TLSOptions
+}
+
+func (r *RedisAuthTypeCredentialsSecret) GetRootNodes() []RootNodeConfRedisDeploymentTypeCluster {
+	if r == nil {
+		return nil
+	}
+	return r.RootNodes
+}
+
+func (r *RedisAuthTypeCredentialsSecret) GetTLS() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.TLS
 }
 
 func (r *RedisAuthTypeCredentialsSecret) GetScaleReads() *ScaleReadsOptionsRedisDeploymentTypeCluster {
@@ -612,6 +648,10 @@ type RedisAuthTypeManual struct {
 	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	URL        *string                                      `json:"url,omitzero"`
 	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
+	// Root nodes to which the cluster connection should be initiated
+	RootNodes []RootNodeConfRedisDeploymentTypeCluster `json:"rootNodes,omitzero"`
+	// Use TLS for connections to this cluster
+	TLS *bool `json:"tls,omitzero"`
 	// Which nodes read commands should be sent to
 	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster `json:"scaleReads,omitzero"`
 	MasterName *string                                      `json:"masterName,omitzero"`
@@ -693,6 +733,20 @@ func (r *RedisAuthTypeManual) GetTLSOptions() *TLSOptionsTypeRedisDeploymentType
 		return nil
 	}
 	return r.TLSOptions
+}
+
+func (r *RedisAuthTypeManual) GetRootNodes() []RootNodeConfRedisDeploymentTypeCluster {
+	if r == nil {
+		return nil
+	}
+	return r.RootNodes
+}
+
+func (r *RedisAuthTypeManual) GetTLS() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.TLS
 }
 
 func (r *RedisAuthTypeManual) GetScaleReads() *ScaleReadsOptionsRedisDeploymentTypeCluster {
@@ -840,6 +894,10 @@ type RedisAuthTypeNone struct {
 	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	URL        *string                                      `json:"url,omitzero"`
 	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
+	// Root nodes to which the cluster connection should be initiated
+	RootNodes []RootNodeConfRedisDeploymentTypeCluster `json:"rootNodes,omitzero"`
+	// Use TLS for connections to this cluster
+	TLS *bool `json:"tls,omitzero"`
 	// Which nodes read commands should be sent to
 	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster `json:"scaleReads,omitzero"`
 	MasterName *string                                      `json:"masterName,omitzero"`
@@ -911,6 +969,20 @@ func (r *RedisAuthTypeNone) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeSt
 	return r.TLSOptions
 }
 
+func (r *RedisAuthTypeNone) GetRootNodes() []RootNodeConfRedisDeploymentTypeCluster {
+	if r == nil {
+		return nil
+	}
+	return r.RootNodes
+}
+
+func (r *RedisAuthTypeNone) GetTLS() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.TLS
+}
+
 func (r *RedisAuthTypeNone) GetScaleReads() *ScaleReadsOptionsRedisDeploymentTypeCluster {
 	if r == nil {
 		return nil
@@ -978,38 +1050,6 @@ func (e *RedisDeploymentTypeSentinelDeploymentType) IsExact() bool {
 		}
 	}
 	return false
-}
-
-type RedisDeploymentTypeSentinelRootNode struct {
-	// Hostname of sentinel node. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
-	Host string `json:"host"`
-	// Port of sentinel node
-	Port float64 `json:"port"`
-}
-
-func (r RedisDeploymentTypeSentinelRootNode) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RedisDeploymentTypeSentinelRootNode) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RedisDeploymentTypeSentinelRootNode) GetHost() string {
-	if r == nil {
-		return ""
-	}
-	return r.Host
-}
-
-func (r *RedisDeploymentTypeSentinelRootNode) GetPort() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.Port
 }
 
 type RedisDeploymentTypeSentinelCommand struct {
@@ -1094,8 +1134,8 @@ type RedisDeploymentTypeSentinel struct {
 	// How the Redis server is configured. Defaults to Standalone
 	DeploymentType *RedisDeploymentTypeSentinelDeploymentType `json:"deploymentType,omitzero"`
 	MasterName     string                                     `json:"masterName"`
-	// List of sentinels to be used
-	RootNodes []RedisDeploymentTypeSentinelRootNode `json:"rootNodes,omitzero"`
+	// Root nodes to which the cluster connection should be initiated
+	RootNodes []RootNodeConfRedisDeploymentTypeCluster `json:"rootNodes,omitzero"`
 	// Use TLS for connections to this cluster
 	TLS        *bool                                            `json:"tls,omitzero"`
 	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone     `json:"tlsOptions,omitzero"`
@@ -1142,7 +1182,7 @@ func (r *RedisDeploymentTypeSentinel) GetMasterName() string {
 	return r.MasterName
 }
 
-func (r *RedisDeploymentTypeSentinel) GetRootNodes() []RedisDeploymentTypeSentinelRootNode {
+func (r *RedisDeploymentTypeSentinel) GetRootNodes() []RootNodeConfRedisDeploymentTypeCluster {
 	if r == nil {
 		return nil
 	}
@@ -1260,38 +1300,6 @@ func (e *RedisDeploymentTypeClusterDeploymentType) IsExact() bool {
 	return false
 }
 
-type RedisDeploymentTypeClusterRootNode struct {
-	// Hostname of cluster node. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`.
-	Host string `json:"host"`
-	// Port of cluster node
-	Port float64 `json:"port"`
-}
-
-func (r RedisDeploymentTypeClusterRootNode) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(r, "", false)
-}
-
-func (r *RedisDeploymentTypeClusterRootNode) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &r, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (r *RedisDeploymentTypeClusterRootNode) GetHost() string {
-	if r == nil {
-		return ""
-	}
-	return r.Host
-}
-
-func (r *RedisDeploymentTypeClusterRootNode) GetPort() float64 {
-	if r == nil {
-		return 0.0
-	}
-	return r.Port
-}
-
 type RedisDeploymentTypeClusterCommand struct {
 	// Name of the field in which to store the returned value. Leave blank to discard returned value.
 	OutField *string `json:"outField,omitzero"`
@@ -1374,7 +1382,7 @@ type RedisDeploymentTypeCluster struct {
 	// How the Redis server is configured. Defaults to Standalone
 	DeploymentType *RedisDeploymentTypeClusterDeploymentType `json:"deploymentType,omitzero"`
 	// Root nodes to which the cluster connection should be initiated
-	RootNodes []RedisDeploymentTypeClusterRootNode `json:"rootNodes,omitzero"`
+	RootNodes []RootNodeConfRedisDeploymentTypeCluster `json:"rootNodes,omitzero"`
 	// Use TLS for connections to this cluster
 	TLS *bool `json:"tls,omitzero"`
 	// Which nodes read commands should be sent to
@@ -1415,7 +1423,7 @@ func (r *RedisDeploymentTypeCluster) GetDeploymentType() *RedisDeploymentTypeClu
 	return r.DeploymentType
 }
 
-func (r *RedisDeploymentTypeCluster) GetRootNodes() []RedisDeploymentTypeClusterRootNode {
+func (r *RedisDeploymentTypeCluster) GetRootNodes() []RootNodeConfRedisDeploymentTypeCluster {
 	if r == nil {
 		return nil
 	}
@@ -1630,6 +1638,10 @@ type RedisDeploymentTypeStandalone struct {
 	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
+	// Root nodes to which the cluster connection should be initiated
+	RootNodes []RootNodeConfRedisDeploymentTypeCluster `json:"rootNodes,omitzero"`
+	// Use TLS for connections to this cluster
+	TLS *bool `json:"tls,omitzero"`
 	// Which nodes read commands should be sent to
 	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster `json:"scaleReads,omitzero"`
 	MasterName *string                                      `json:"masterName,omitzero"`
@@ -1699,6 +1711,20 @@ func (r *RedisDeploymentTypeStandalone) GetEnableClientSideCaching() *bool {
 		return nil
 	}
 	return r.EnableClientSideCaching
+}
+
+func (r *RedisDeploymentTypeStandalone) GetRootNodes() []RootNodeConfRedisDeploymentTypeCluster {
+	if r == nil {
+		return nil
+	}
+	return r.RootNodes
+}
+
+func (r *RedisDeploymentTypeStandalone) GetTLS() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.TLS
 }
 
 func (r *RedisDeploymentTypeStandalone) GetScaleReads() *ScaleReadsOptionsRedisDeploymentTypeCluster {
