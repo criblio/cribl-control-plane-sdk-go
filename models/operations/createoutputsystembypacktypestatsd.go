@@ -11024,9 +11024,10 @@ func (e *CreateOutputSystemByPackAwsAuthenticationMethod) IsExact() bool {
 type CreateOutputSystemByPackFormatCriblLake string
 
 const (
-	CreateOutputSystemByPackFormatCriblLakeJSON    CreateOutputSystemByPackFormatCriblLake = "json"
-	CreateOutputSystemByPackFormatCriblLakeParquet CreateOutputSystemByPackFormatCriblLake = "parquet"
-	CreateOutputSystemByPackFormatCriblLakeDdss    CreateOutputSystemByPackFormatCriblLake = "ddss"
+	CreateOutputSystemByPackFormatCriblLakeJSON     CreateOutputSystemByPackFormatCriblLake = "json"
+	CreateOutputSystemByPackFormatCriblLakeParquet  CreateOutputSystemByPackFormatCriblLake = "parquet"
+	CreateOutputSystemByPackFormatCriblLakeDdss     CreateOutputSystemByPackFormatCriblLake = "ddss"
+	CreateOutputSystemByPackFormatCriblLakeNetskope CreateOutputSystemByPackFormatCriblLake = "netskope"
 )
 
 func (e CreateOutputSystemByPackFormatCriblLake) ToPointer() *CreateOutputSystemByPackFormatCriblLake {
@@ -11037,7 +11038,7 @@ func (e CreateOutputSystemByPackFormatCriblLake) ToPointer() *CreateOutputSystem
 func (e *CreateOutputSystemByPackFormatCriblLake) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "json", "parquet", "ddss":
+		case "json", "parquet", "ddss", "netskope":
 			return true
 		}
 	}

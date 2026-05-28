@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: dbc19a34c1feda17aaff5f9c4c1888ea
-  docVersion: 4.18.2-alpha.1779818678336-89c93980
+  docChecksum: 39912975f9d8dee0b3f47aa2f58af2b9
+  docVersion: 4.18.2-alpha.1779923016647-1034ea67
   speakeasyVersion: 1.763.3
   generationVersion: 2.884.7
-  releaseVersion: 0.9.0-alpha.2
-  configChecksum: 88dfe20d61171498c9fb9f9c4f1bf1e4
+  releaseVersion: 0.9.0-alpha.3
+  configChecksum: 3dfd16b03cc36b20d729cdd2e17d5340
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 09b860cf-97a6-4b81-aa38-19c909c63ee6
-  pristine_commit_hash: 5c1a308ae859bf2154f8c2d8c13a5d5bcd5b70ae
-  pristine_tree_hash: 1925de158f0b8c09c0beb16b45025f395a4d8543
+  generation_id: 880afd26-31ed-47ad-b5a7-1e800bf582a7
+  pristine_commit_hash: 340617713a12f84ce57b5042707b81511a46e9e6
+  pristine_tree_hash: 4513f8613b8357ee4e8a22f957f266337bd0a815
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: bba69be06926f5c8962b2ff0b439a8f206dac7de
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:ccd873e25b6d98263099cea65d4a89e0bc787319
-    pristine_git_object: 862259c917f8a87ded0c329eeaefdf35a48cee6f
+    last_write_checksum: sha1:7a8676f883162dc4dc8673d221ea4cad6ab1e3c4
+    pristine_git_object: b28dbd3a6fe61140348d22ebada5503b0d842a8f
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:c8425d205417616f5b8e72d6e09080e4cf927a26
@@ -1261,8 +1261,8 @@ trackedFiles:
     pristine_git_object: 20d471b6ba8d89d8635ca5845f9445e661496a63
   docs/models/components/formatcribllake.md:
     id: af51e6b1d80f
-    last_write_checksum: sha1:6893339d3c3d831093d06df44b35790674af46b2
-    pristine_git_object: e26f412482b117655f34c81e944fa6bf5ec08962
+    last_write_checksum: sha1:5206bfdeaaf5b1d838267f8c4c574722849f3d4d
+    pristine_git_object: 711ac371b585dc1951e68947a3b4c34914bc8708
   docs/models/components/formatdynatracehttp.md:
     id: de5457da0c7a
     last_write_checksum: sha1:ea855ea576b65bf19b216ef5930ff3ceef066406
@@ -1273,8 +1273,8 @@ trackedFiles:
     pristine_git_object: 44f0a618c1f629514cb5cadbb53855abd7668065
   docs/models/components/formatoptionscribllakedataset.md:
     id: 2f7520064ea8
-    last_write_checksum: sha1:ea85139d4be65b437cd8957a6489630c3a4ebcd3
-    pristine_git_object: 0a22f81f23a355e513c48539045a461f47be899e
+    last_write_checksum: sha1:818d2120bbd9be7ac8632aa7f81790a2bea0e3e0
+    pristine_git_object: ad15335ce56b6055abaaff0d7676521fd7a2b817
   docs/models/components/formatsentinel.md:
     id: 6194d8d1d0f3
     last_write_checksum: sha1:afde5a25a66f7ee2b31b44387548d7be246fc1c2
@@ -5541,8 +5541,8 @@ trackedFiles:
     pristine_git_object: 464b0bd938017c4452da629c9dc4cebb98c0dbd6
   docs/models/components/outputcribllakeformat.md:
     id: 804f2163b400
-    last_write_checksum: sha1:f099f546fa5daaa94bea6356f6a62ad8df0a4e87
-    pristine_git_object: 6aeefc535092c8c9b575c70fb1219854233960fd
+    last_write_checksum: sha1:4f0d6295d09702abdc8053bec18386c5d78f32c3
+    pristine_git_object: 80a8d2762e4e249ef3a89df7d601951da72cc239
   docs/models/components/outputcribllaketype.md:
     id: 66227484fd33
     last_write_checksum: sha1:c3bc318ee9dc54f333dd57f19886b4ffa0664c7a
@@ -13889,8 +13889,8 @@ trackedFiles:
     pristine_git_object: 800050700fc523c49c752825cb8a1b9b7050ebbd
   docs/models/operations/createoutputformatcribllake.md:
     id: 1b6b5d7076d4
-    last_write_checksum: sha1:821ff54b42a03c8ce125c1a18a5baf8cd8d1c176
-    pristine_git_object: af4cd17758c3536507024e9324ad79ccf24e0bbf
+    last_write_checksum: sha1:5ac9b1970f2776d2adf2a1ba5691dbe76b514178
+    pristine_git_object: 09ba53e740bd7ab17011f25fbf9aa393a474a09d
   docs/models/operations/createoutputformatdynatracehttp.md:
     id: 04550e2b133c
     last_write_checksum: sha1:5c1e6440bb1e74bc04d35dfecb20bc1a9484f68a
@@ -14749,8 +14749,8 @@ trackedFiles:
     pristine_git_object: eabdbb1c23c416e3d831f9038be7f00c0cd52596
   docs/models/operations/createoutputsystembypackformatcribllake.md:
     id: ffcdda64fe04
-    last_write_checksum: sha1:a06d6d6a0fc91789cd681ff15947809180ca5330
-    pristine_git_object: 5f75361971bd837f6271228870529e237532c70a
+    last_write_checksum: sha1:81e0d597d76eeb96bc5d6c4c721d3147f73485cd
+    pristine_git_object: 10176061abd367542a879f451336b52ceef288e6
   docs/models/operations/createoutputsystembypackformatdynatracehttp.md:
     id: b1f6a3794dd6
     last_write_checksum: sha1:15ffc1288bd5fada6f885200387d45009f53e1d1
@@ -17845,8 +17845,8 @@ trackedFiles:
     pristine_git_object: b657551b9ad540d01839f7287fd9f7712d990f02
   models/components/formatoptionscribllakedataset.go:
     id: 308d37d8a4b0
-    last_write_checksum: sha1:abec3b7dd3d9e6161599b8c7dedfce9b09004902
-    pristine_git_object: f202f2d5628d00d00cb8530cf5f6b849ecec700b
+    last_write_checksum: sha1:78982874685f847d2defa3ddcc295caca1bf603b
+    pristine_git_object: f14a8e7d19b3a2ad8690e6896a5aee48e83c17fb
   models/components/functionaggregatemetrics.go:
     id: d745dbad7d07
     last_write_checksum: sha1:82eee1dba1e1ba492077aa0e3b7116f07f8f125d
@@ -18917,8 +18917,8 @@ trackedFiles:
     pristine_git_object: 7476d4eb33b201c54a3af014f8adaf21ee9e6ea0
   models/components/outputcribllake.go:
     id: 142e4351b53c
-    last_write_checksum: sha1:6f2cf2cb9320b4da662d54812b16214c8d2ed26a
-    pristine_git_object: d43e46d1687b23a143d98816a562b61649f686aa
+    last_write_checksum: sha1:4092dd489b6ac026b8faf907797f76604743ad5f
+    pristine_git_object: 462cbd519bac46817936cf591a7c8d3cb7999766
   models/components/outputcriblsearchengine.go:
     id: 40820d447692
     last_write_checksum: sha1:d3248c9a446535064cdb24481f17cd0786fab1df
@@ -19085,8 +19085,8 @@ trackedFiles:
     pristine_git_object: 41dcbd457a94ab3f821a98f8ab11b8ecef8cd1d4
   models/components/outputresponsetypestatsd.go:
     id: 50b8055ac2ab
-    last_write_checksum: sha1:6385223d10e37a174674de6d15fab74bf9b10484
-    pristine_git_object: a0746c000967ea3bf66d3e20c29c6bc4cde27a00
+    last_write_checksum: sha1:821540bed27c09b484c087f52233f4686e2f0e3d
+    pristine_git_object: dcccfeef9f851b8bb51624e9daabf8ccb8964c7c
   models/components/outputring.go:
     id: 0478fb453f3d
     last_write_checksum: sha1:c58c1e80a603e9f3b8a21d03b89c538debca52c4
@@ -20041,8 +20041,8 @@ trackedFiles:
     pristine_git_object: d24c4547cec2768090aeb925b8e8edc34f268b34
   models/operations/createoutputsystembypacktypestatsd.go:
     id: 40522e2d8a2f
-    last_write_checksum: sha1:abb886c7003ecf3aac519168064e2868fb356f97
-    pristine_git_object: f70c8e758c1947b21a40aae6f1dbf213ad39efe1
+    last_write_checksum: sha1:3dc4e7341c3246c50fa18c18ce04c984d1f6fe9b
+    pristine_git_object: 44791531e9d126b3ec5fec348cd795316d99861a
   models/operations/createoutputsystemtestbypackandid.go:
     id: 3c3fbdbac29f
     last_write_checksum: sha1:0daabfddf073e9bcd4616bff077b2f0c63cd294a
@@ -20053,8 +20053,8 @@ trackedFiles:
     pristine_git_object: a153b1d64efd36b26f47b6815bd87ed0b64f8346
   models/operations/createoutputtypestatsd.go:
     id: c54c5cb08899
-    last_write_checksum: sha1:c316982e86f3a5ff6561e57efe34e68d8876247e
-    pristine_git_object: a46eaa790f3980d6ecb49d9d601edf686ef7ac6c
+    last_write_checksum: sha1:3593c99547f1381931a1e78a3278c8e32ff6dded
+    pristine_git_object: af0ded185b9b6661e3727e988007de302ea1363a
   models/operations/createpacks.go:
     id: 9f29a81ad83c
     last_write_checksum: sha1:38e4b94d699d3432f8b0fdda9ed7f3f62e2b6002
@@ -31700,7 +31700,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Collectors.List()`:  `response.Items[].union(SavedJobResponseCollection).Collector` **Changed**\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request.Request.union(SavedJobCollection).Collector` **Changed**\n  *  `response.Items[].union(SavedJobResponseCollection).Collector` **Changed**\n* `CriblControlPlane.Collectors.Get()`:  `response.Items[].union(SavedJobResponseCollection).Collector` **Changed**\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request.SavedJob.union(SavedJobCollection).Collector` **Changed**\n  *  `response.Items[].union(SavedJobResponseCollection).Collector` **Changed**\n* `CriblControlPlane.Collectors.Delete()`:  `response.Items[].union(SavedJobResponseCollection).Collector` **Changed**\n* `CriblControlPlane.Packs.Pipelines.List()`:  `response.Items[].Conf.Functions[]` **Changed**\n* `CriblControlPlane.Packs.Pipelines.Create()`: \n  *  `request.Pipeline.Conf.Functions[]` **Changed**\n  *  `response.Items[].Conf.Functions[]` **Changed**\n* `CriblControlPlane.Packs.Pipelines.Get()`:  `response.Items[].Conf.Functions[]` **Changed**\n* `CriblControlPlane.Packs.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[]` **Changed**\n  *  `response.Items[].Conf.Functions[]` **Changed**\n* `CriblControlPlane.Packs.Pipelines.Delete()`:  `response.Items[].Conf.Functions[]` **Changed**\n* `CriblControlPlane.Packs.Sources.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector` **Changed**\n* `CriblControlPlane.Packs.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector` **Changed**\n* `CriblControlPlane.Pipelines.List()`:  `response.Items[].Conf.Functions[]` **Changed**\n* `CriblControlPlane.Pipelines.Create()`: \n  *  `request.Request.Conf.Functions[]` **Changed**\n  *  `response.Items[].Conf.Functions[]` **Changed**\n* `CriblControlPlane.Pipelines.Delete()`:  `response.Items[].Conf.Functions[]` **Changed**\n* `CriblControlPlane.Pipelines.Get()`:  `response.Items[].Conf.Functions[]` **Changed**\n* `CriblControlPlane.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[]` **Changed**\n  *  `response.Items[].Conf.Functions[]` **Changed**\n* `CriblControlPlane.Sources.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector` **Changed**\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector` **Changed**\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Packs.Destinations.List()`:  `response.Items[].union(cribl_lake).Format.Enum(netskope)` **Added**\n* `CriblControlPlane.Packs.Destinations.Create()`: \n  *  `request.RequestBody.union(cribl_lake).Format.Enum(netskope)` **Added**\n  *  `response.Items[].union(cribl_lake).Format.Enum(netskope)` **Added**\n* `CriblControlPlane.Packs.Destinations.Get()`:  `response.Items[].union(cribl_lake).Format.Enum(netskope)` **Added**\n* `CriblControlPlane.Packs.Destinations.Update()`: \n  *  `request.Output.union(cribl_lake).Format.Enum(netskope)` **Added**\n  *  `response.Items[].union(cribl_lake).Format.Enum(netskope)` **Added**\n* `CriblControlPlane.Packs.Destinations.Delete()`:  `response.Items[].union(cribl_lake).Format.Enum(netskope)` **Added**\n* `CriblControlPlane.Lakes.Datasets.List()`:  `response.Items[].Format.Enum(netskope)` **Added**\n* `CriblControlPlane.Lakes.Datasets.Create()`: \n  *  `request.CriblLakeDataset.Format.Enum(netskope)` **Added**\n  *  `response.Items[].Format.Enum(netskope)` **Added**\n* `CriblControlPlane.Lakes.Datasets.Get()`:  `response.Items[].Format.Enum(netskope)` **Added**\n* `CriblControlPlane.Lakes.Datasets.Update()`: \n  *  `request.CriblLakeDatasetUpdate.Format.Enum(netskope)` **Added**\n  *  `response.Items[].Format.Enum(netskope)` **Added**\n* `CriblControlPlane.Lakes.Datasets.Delete()`:  `response.Items[].Format.Enum(netskope)` **Added**\n* `CriblControlPlane.Destinations.List()`:  `response.Items[].union(cribl_lake).Format.Enum(netskope)` **Added**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.union(cribl_lake).Format.Enum(netskope)` **Added**\n  *  `response.Items[].union(cribl_lake).Format.Enum(netskope)` **Added**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items[].union(cribl_lake).Format.Enum(netskope)` **Added**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.union(cribl_lake).Format.Enum(netskope)` **Added**\n  *  `response.Items[].union(cribl_lake).Format.Enum(netskope)` **Added**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items[].union(cribl_lake).Format.Enum(netskope)` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

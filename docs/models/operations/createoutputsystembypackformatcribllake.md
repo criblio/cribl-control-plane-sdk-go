@@ -16,8 +16,9 @@ custom := operations.CreateOutputSystemByPackFormatCriblLake("custom_value")
 
 ## Values
 
-| Name                                             | Value                                            |
-| ------------------------------------------------ | ------------------------------------------------ |
-| `CreateOutputSystemByPackFormatCriblLakeJSON`    | json                                             |
-| `CreateOutputSystemByPackFormatCriblLakeParquet` | parquet                                          |
-| `CreateOutputSystemByPackFormatCriblLakeDdss`    | ddss                                             |
+| Name                                              | Value                                             |
+| ------------------------------------------------- | ------------------------------------------------- |
+| `CreateOutputSystemByPackFormatCriblLakeJSON`     | json                                              |
+| `CreateOutputSystemByPackFormatCriblLakeParquet`  | parquet                                           |
+| `CreateOutputSystemByPackFormatCriblLakeDdss`     | ddss                                              |
+| `CreateOutputSystemByPackFormatCriblLakeNetskope` | netskope                                          |
