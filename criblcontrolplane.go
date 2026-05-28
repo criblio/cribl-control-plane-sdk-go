@@ -2,7 +2,7 @@
 
 package criblcontrolplanesdkgo
 
-// Generated from OpenAPI doc version 4.18.2-alpha.1779818678336-89c93980 and generator version 2.884.7
+// Generated from OpenAPI doc version 4.18.2-alpha.1779923016647-1034ea67 and generator version 2.884.7
 
 import (
 	"context"
@@ -140,9 +140,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided serverURL and options
 func New(serverURL string, opts ...SDKOption) *CriblControlPlane {
 	sdk := &CriblControlPlane{
-		SDKVersion: "0.9.0-alpha.2",
+		SDKVersion: "0.9.0-alpha.3",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent: "speakeasy-sdk/go 0.9.0-alpha.2 2.884.7 4.18.2-alpha.1779818678336-89c93980 github.com/criblio/cribl-control-plane-sdk-go",
+			UserAgent: "speakeasy-sdk/go 0.9.0-alpha.3 2.884.7 4.18.2-alpha.1779923016647-1034ea67 github.com/criblio/cribl-control-plane-sdk-go",
 		},
 		hooks: hooks.New(),
 	}
