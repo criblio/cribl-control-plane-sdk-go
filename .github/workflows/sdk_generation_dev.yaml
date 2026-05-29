@@ -1,9 +1,4 @@
 name: Generate Dev SDK
-permissions:
-  checks: write
-  contents: write
-  pull-requests: write
-  statuses: write
 
 on:
   workflow_dispatch:
@@ -16,6 +11,8 @@ on:
 jobs:
   check-branch:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Ensure workflow is run from dev branch
         run: |
@@ -29,6 +26,8 @@ jobs:
   version-check:
     needs: check-branch
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     outputs:
       up_to_date: ${{ steps.compare.outputs.up_to_date }}
       local_version: ${{ steps.compare.outputs.local_version }}
@@ -38,6 +37,7 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           ref: dev
+          persist-credentials: false
 
       - name: Compare OpenAPI versions
         id: compare
@@ -48,6 +48,8 @@ jobs:
   compute-version:
     needs: check-branch
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     outputs:
       version: ${{ steps.ver.outputs.version }}
     steps:
@@ -56,6 +58,7 @@ jobs:
         with:
           ref: dev
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Install required tools
         run: |
@@ -72,19 +75,19 @@ jobs:
           MAX_ATTEMPTS=5
           attempt=1
           LATEST_RELEASE=""
-          
+
           while [ $attempt -le $MAX_ATTEMPTS ]; do
             echo "Fetching latest stable release from GitHub repository: ${{ github.repository }} (attempt $attempt/$MAX_ATTEMPTS)"
-            
+
             RELEASE_RESPONSE=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest)
             LATEST_RELEASE=$(echo "$RELEASE_RESPONSE" | jq -r '.tag_name')
-            
+
             echo "GitHub API response for latest release: $LATEST_RELEASE"
-            
+
             if [[ "$LATEST_RELEASE" != "null" && -n "$LATEST_RELEASE" ]]; then
               break
             fi
-            
+
             if [ $attempt -lt $MAX_ATTEMPTS ]; then
               echo "⚠️ No stable release found (attempt $attempt/$MAX_ATTEMPTS), retrying in 2s..."
               sleep 2
@@ -94,14 +97,14 @@ jobs:
               exit 1
             fi
           done
-          
+
           # Remove 'v' prefix if present (e.g., v0.0.3 -> 0.0.3)
           BASE_OFFICIAL="${LATEST_RELEASE#v}"
           echo "✅ Latest stable release from GitHub: ${BASE_OFFICIAL}"
 
           # Parse version components
           IFS='.' read -r major minor _ <<< "${BASE_OFFICIAL}"
-          
+
           # Bump minor version and reset patch to 0 (0.0.3 -> 0.1.0)
           minor=$((minor + 1))
           NEW_BASE="${major}.${minor}.0"
@@ -112,13 +115,13 @@ jobs:
 
           # Find next available beta number for this base
           PREFIX="${NEW_BASE}-beta."
-          
+
           # Helper to get tags with retry on broken pipe
           get_tags() {
             local attempt=1
             local max_attempts=5
             local output
-            
+
             while [ $attempt -le $max_attempts ]; do
               # Capture both stdout and stderr, check for broken pipe error
               if ! output=$(git ls-remote --tags --refs origin | awk '{print $2}' | sed 's|refs/tags/||' 2>&1); then
@@ -139,7 +142,7 @@ jobs:
                   return 1
                 fi
               fi
-              
+
               # Check for broken pipe error in output even if command succeeded
               if echo "$output" | grep -q "Broken pipe"; then
                 if [ $attempt -lt $max_attempts ]; then
@@ -152,13 +155,13 @@ jobs:
                   return 1
                 fi
               fi
-              
+
               # Success - output contains tags
               echo "$output"
               return 0
             done
           }
-          
+
           # Helper to check tag existence with/without 'v'
           tag_exists() {
             local tags
@@ -183,6 +186,11 @@ jobs:
   generate:
     needs: [version-check, compute-version]
     if: needs.version-check.outputs.up_to_date != 'true'
+    permissions:
+      checks: write
+      contents: write
+      pull-requests: write
+      statuses: write
     uses: speakeasy-api/sdk-generation-action/.github/workflows/workflow-executor.yaml@b823adc6be7d30b25198529f99f46303bc083534
     with:
       force: ${{ github.event.inputs.force }}
@@ -196,24 +204,29 @@ jobs:
     needs: [check-branch, version-check, generate]
     if: needs.generate.result == 'skipped'
     runs-on: ubuntu-latest
+    permissions: {}
     steps:
       - name: Summary
+        env:
+          LOCAL_VERSION: ${{ needs.version-check.outputs.local_version }}
+          REMOTE_VERSION: ${{ needs.version-check.outputs.remote_version }}
         run: |
           {
             echo "## ⏭️ SDK Generation Skipped"
             echo ""
             echo "OpenAPI spec versions match - no generation needed:"
-            echo "- **Local** (out.openapi.yaml): \`${{ needs.version-check.outputs.local_version }}\`"
-            echo "- **Remote** (cribl-openapi-spec): \`${{ needs.version-check.outputs.remote_version }}\`"
+            echo "- **Local** (out.openapi.yaml): \`${LOCAL_VERSION}\`"
+            echo "- **Remote** (cribl-openapi-spec): \`${REMOTE_VERSION}\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
   notify-slack-on-failure:
     needs: [check-branch, version-check, compute-version, generate]
     if: failure()
     runs-on: ubuntu-latest
+    permissions: {}
     steps:
       - name: Send Slack notification on failure
-        uses: slackapi/slack-github-action@v1.27.0
+        uses: slackapi/slack-github-action@37ebaef184d7626c5f204ab8d3baff4262dd30f0
         with:
           payload: |
             {

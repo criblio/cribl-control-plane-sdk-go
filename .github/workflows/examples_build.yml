@@ -3,13 +3,16 @@ name: Build Examples on PR
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   examples_build:
     runs-on: ubuntu-latest
     outputs:
       is_speakeasy_pr: ${{ steps.check-pr.outputs.is_speakeasy_pr }}
       target_branch: ${{ steps.check-pr.outputs.target_branch }}
-    
+
     steps:
     - name: Check PR source and target
       id: check-pr
@@ -19,24 +22,26 @@ jobs:
       run: |
         echo "Head ref: $HEAD_REF"
         echo "Base ref: $BASE_REF"
-        
+
         # Check if this is a Speakeasy-generated PR
         if [[ "$HEAD_REF" == speakeasy-sdk-regen* ]]; then
           echo "is_speakeasy_pr=true" >> "$GITHUB_OUTPUT"
         else
           echo "is_speakeasy_pr=false" >> "$GITHUB_OUTPUT"
         fi
-        
+
         echo "target_branch=$BASE_REF" >> "$GITHUB_OUTPUT"
 
     - name: Checkout code
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-      
+      with:
+        persist-credentials: false
+
     - name: Set up Go
       uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00
       with:
         go-version: '1.23'
-        
+
     - name: Cache Go modules
       uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
       with:
@@ -47,25 +52,25 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-go-1.23-
           ${{ runner.os }}-go-
-          
+
     - name: Prepare main module
       run: |
         go mod tidy
         go mod download
-        
+
     - name: Prepare examples module
       run: |
         cd examples
         go mod tidy
         go mod download
-        
+
     - name: Build standalone examples (ending with -auth.go)
       run: |
         cd examples
         echo "🔍 Building standalone examples (ending with -auth.go)..."
-        
+
         standalone_examples=$(find . -name "example-*-auth.go" -type f | sort)
-        
+
         if [ -n "$standalone_examples" ]; then
           for example_file in $standalone_examples; do
             example_name=$(basename "$example_file" .go)
@@ -77,15 +82,15 @@ jobs:
         else
           echo "📭 No standalone examples found"
         fi
-        
+
     - name: Build examples with auth.go dependency
       run: |
         cd examples
         echo "🔍 Building examples that require auth.go..."
-        
+
         # Find all example-*.go files that don't end with -auth.go
         dependency_examples=$(find . -name "example-*.go" -type f ! -name "*-auth.go" | sort)
-        
+
         if [ -n "$dependency_examples" ]; then
           for example_file in $dependency_examples; do
             example_name=$(basename "$example_file" .go)
@@ -117,40 +122,40 @@ jobs:
           TARGET_BRANCH: ${{ needs.examples_build.outputs.target_branch }}
         run: |
           echo "Enabling auto-merge for Speakeasy PR #${PR_NUMBER} targeting ${TARGET_BRANCH}..."
-          
+
           gh pr merge "${PR_NUMBER}" \
             --repo "${{ github.repository }}" \
             --squash \
             --delete-branch \
             --auto
-          
+
           echo "✅ Auto-merge enabled, waiting for PR to be merged..."
-          
+
           # Poll until PR is merged (max 10 minutes)
           for i in {1..60}; do
             STATE=$(gh pr view "${PR_NUMBER}" --repo "${{ github.repository }}" --json state --jq '.state')
             echo "PR state: ${STATE} (attempt ${i}/60)"
-            
+
             if [ "$STATE" = "MERGED" ]; then
               echo "✅ PR #${PR_NUMBER} has been merged!"
-              
+
               # Trigger sdk_publish workflow on the target branch
               echo "Triggering sdk_publish.yaml on ${TARGET_BRANCH} branch..."
               gh workflow run sdk_publish.yaml \
                 --repo "${{ github.repository }}" \
                 --ref "${TARGET_BRANCH}"
-              
+
               echo "✅ sdk_publish.yaml triggered successfully"
               exit 0
             fi
-            
+
             if [ "$STATE" = "CLOSED" ]; then
               echo "❌ PR #${PR_NUMBER} was closed without merging"
               exit 1
             fi
-            
+
             sleep 10
           done
-          
+
           echo "⏱️ Timeout waiting for PR to merge (10 minutes)"
           exit 1
