@@ -33,7 +33,7 @@ func newCaptures(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, 
 }
 
 // Create - Capture live data
-// Initiate a live data capture from Cribl Workers.Returns a stream of captured events in NDJSON format that match the parameters specified in the request body.
+// Initiate a live data capture from Cribl Workers. Returns a stream of captured events in NDJSON format that match the parameters specified in the request body.
 func (s *Captures) Create(ctx context.Context, request components.CaptureParamsReq, opts ...operations.Option) (*operations.CreateSystemCaptureResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

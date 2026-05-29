@@ -35,7 +35,7 @@ func newCommits(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, h
 }
 
 // List the commit history
-// List the commit history.</br></br>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
+// List the commit history.</br></br> Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
 func (s *Commits) List(ctx context.Context, count *int64, opts ...operations.Option) (*operations.GetVersionResponse, error) {
 	request := operations.GetVersionRequest{
 		Count: count,
@@ -285,7 +285,7 @@ func (s *Commits) List(ctx context.Context, count *int64, opts ...operations.Opt
 }
 
 // Create a new commit for pending changes to the Cribl configuration
-// Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
+// Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br> To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
 func (s *Commits) Create(ctx context.Context, request components.GitCommitBody, opts ...operations.Option) (*operations.CreateVersionCommitResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

@@ -32,7 +32,7 @@ func newTokens(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, ho
 }
 
 // Get - Log in and fetch an authentication token
-// This endpoint is unavailable on Cribl.Cloud.Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to get an Auth token for Cribl.Cloud.
+// This endpoint is unavailable on Cribl.Cloud. Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to get an Auth token for Cribl.Cloud.
 func (s *Tokens) Get(ctx context.Context, request components.LoginInfo, opts ...operations.Option) (*operations.CreateAuthLoginResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

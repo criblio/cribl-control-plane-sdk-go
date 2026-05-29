@@ -16,7 +16,7 @@ type KafkaSchemaRegistryAuthenticationType struct {
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// Maximum number of times to try fetching schemas from the Schema Registry
 	MaxRetries *float64 `json:"maxRetries,omitzero"`
-	// Credentials to use when authenticating with the schema registry using basic HTTP authentication
+	// Credentials to use when authenticating with the schema registry
 	Auth *AuthType                                `json:"auth,omitzero"`
 	TLS  *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// Binds 'schemaRegistryURL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'schemaRegistryURL' at runtime.
