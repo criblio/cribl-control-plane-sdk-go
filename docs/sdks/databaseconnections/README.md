@@ -988,6 +988,423 @@ func main() {
     }
 }
 ```
+### Example Usage: UpdateDatabaseConnectionExamplesMySQLWithConnectionString
+
+<!-- UsageSnippet language="go" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesMySQLWithConnectionString" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
+        AuthType: "connectionString",
+        ConnectionString: criblcontrolplanesdkgo.Pointer("mysql://admin:password123@mysql.example.com:3306/production?ssl=true"),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000.0),
+        DatabaseType: components.DatabaseConnectionTypeMysql,
+        Description: "Production MySQL database for customer data",
+        ID: "mysql-prod-db",
+        Tags: criblcontrolplanesdkgo.Pointer("production,mysql,customer-data"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedDatabaseConnectionConfig != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateDatabaseConnectionExamplesMySQLWithSecret
+
+<!-- UsageSnippet language="go" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesMySQLWithSecret" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
+        AuthType: "secret",
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
+        DatabaseType: components.DatabaseConnectionTypeMysql,
+        Description: "Analytics MySQL database",
+        ID: "mysql-analytics-db",
+        Tags: criblcontrolplanesdkgo.Pointer("analytics,mysql"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("mysql-analytics-connection"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedDatabaseConnectionConfig != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateDatabaseConnectionExamplesOracleWithConnectionString
+
+<!-- UsageSnippet language="go" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesOracleWithConnectionString" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
+        AuthType: "connectionString",
+        ConnectionString: criblcontrolplanesdkgo.Pointer("oracle.example.com:1521/ORCL"),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
+        DatabaseType: components.DatabaseConnectionTypeOracle,
+        Description: "Oracle ERP database",
+        ID: "oracle-erp",
+        Password: criblcontrolplanesdkgo.Pointer("Oracle_Pass456!"),
+        Tags: criblcontrolplanesdkgo.Pointer("erp,oracle,finance"),
+        User: criblcontrolplanesdkgo.Pointer("erp_user"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedDatabaseConnectionConfig != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateDatabaseConnectionExamplesOracleWithCredentialsSecrets
+
+<!-- UsageSnippet language="go" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesOracleWithCredentialsSecrets" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
+        AuthType: "secrets",
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
+        CredsSecrets: criblcontrolplanesdkgo.Pointer("oracle-secure-credentials"),
+        DatabaseType: components.DatabaseConnectionTypeOracle,
+        Description: "High-security Oracle database with credential secrets",
+        ID: "oracle-secure-db",
+        Tags: criblcontrolplanesdkgo.Pointer("secure,oracle,sensitive-data"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("oracle-secure-connection"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedDatabaseConnectionConfig != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateDatabaseConnectionExamplesOracleWithSecret
+
+<!-- UsageSnippet language="go" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesOracleWithSecret" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
+        AuthType: "secret",
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](20000.0),
+        DatabaseType: components.DatabaseConnectionTypeOracle,
+        Description: "Oracle data warehouse",
+        ID: "oracle-warehouse",
+        Password: criblcontrolplanesdkgo.Pointer("Warehouse_Pass789!"),
+        Tags: criblcontrolplanesdkgo.Pointer("warehouse,oracle,reporting"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("oracle-warehouse-connection"),
+        User: criblcontrolplanesdkgo.Pointer("warehouse_user"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedDatabaseConnectionConfig != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateDatabaseConnectionExamplesPostgreSQLWithConnectionString
+
+<!-- UsageSnippet language="go" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesPostgreSQLWithConnectionString" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
+        AuthType: "connectionString",
+        ConnectionString: criblcontrolplanesdkgo.Pointer("postgresql://warehouse_user:SecurePass456@postgres.example.com:5432/warehouse?sslmode=require"),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
+        DatabaseType: components.DatabaseConnectionTypePostgres,
+        Description: "Data warehouse PostgreSQL database",
+        ID: "postgres-warehouse",
+        Tags: criblcontrolplanesdkgo.Pointer("warehouse,postgres,reporting"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedDatabaseConnectionConfig != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateDatabaseConnectionExamplesPostgreSQLWithSecret
+
+<!-- UsageSnippet language="go" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesPostgreSQLWithSecret" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
+        AuthType: "secret",
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000.0),
+        DatabaseType: components.DatabaseConnectionTypePostgres,
+        Description: "Logs PostgreSQL database",
+        ID: "postgres-logs",
+        Tags: criblcontrolplanesdkgo.Pointer("logs,postgres"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("postgres-logs-connection"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedDatabaseConnectionConfig != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateDatabaseConnectionExamplesSQLServerWithConfigObject
+
+<!-- UsageSnippet language="go" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesSQLServerWithConfigObject" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
+        AuthType: "configObj",
+        ConfigObj: criblcontrolplanesdkgo.Pointer("{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"report_user\",\"password\":\"Report_Pass123!\",\"options\":{\"encrypt\":true,\"trustServerCertificate\":false,\"connectTimeout\":20000}}"),
+        DatabaseType: components.DatabaseConnectionTypeSqlserver,
+        Description: "Reporting SQL Server database with custom config",
+        ID: "sqlserver-reporting",
+        RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](60000.0),
+        Tags: criblcontrolplanesdkgo.Pointer("reporting,sqlserver,analytics"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedDatabaseConnectionConfig != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateDatabaseConnectionExamplesSQLServerWithConnectionString
+
+<!-- UsageSnippet language="go" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesSQLServerWithConnectionString" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
+        AuthType: "connectionString",
+        ConnectionString: criblcontrolplanesdkgo.Pointer("Server=sqlserver.example.com;Database=ERP;User Id=erp_admin;Password=ERP_Pass789!;Encrypt=true"),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
+        DatabaseType: components.DatabaseConnectionTypeSqlserver,
+        Description: "ERP SQL Server database",
+        ID: "sqlserver-erp",
+        RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](30000.0),
+        Tags: criblcontrolplanesdkgo.Pointer("erp,sqlserver,finance"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedDatabaseConnectionConfig != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateDatabaseConnectionExamplesSQLServerWithSecret
+
+<!-- UsageSnippet language="go" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="UpdateDatabaseConnectionExamplesSQLServerWithSecret" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
+        AuthType: "secret",
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
+        DatabaseType: components.DatabaseConnectionTypeSqlserver,
+        Description: "CRM SQL Server database",
+        ID: "sqlserver-crm",
+        RequestTimeout: criblcontrolplanesdkgo.Pointer[float64](15000.0),
+        Tags: criblcontrolplanesdkgo.Pointer("crm,sqlserver,sales"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("sqlserver-crm-connection"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedDatabaseConnectionConfig != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
