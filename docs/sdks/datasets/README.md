@@ -42,7 +42,6 @@ func main() {
     res, err := s.Lakes.Datasets.List(ctx, operations.GetCriblLakeDatasetByLakeIDRequest{
         LakeID: "<id>",
         StorageLocationID: criblcontrolplanesdkgo.Pointer("<id>"),
-        Format: criblcontrolplanesdkgo.Pointer("<value>"),
         ExcludeDDSS: criblcontrolplanesdkgo.Pointer(true),
         ExcludeDeleted: criblcontrolplanesdkgo.Pointer(true),
         ExcludeInternal: criblcontrolplanesdkgo.Pointer(false),
