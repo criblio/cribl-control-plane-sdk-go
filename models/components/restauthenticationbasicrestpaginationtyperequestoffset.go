@@ -28,6 +28,8 @@ type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithB
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -164,6 +166,13 @@ func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostW
 	return r.FormatResultCode
 }
 
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
+}
+
 func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
 	if r == nil {
 		return nil
@@ -221,6 +230,8 @@ type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost stru
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -357,6 +368,13 @@ func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost)
 	return r.FormatResultCode
 }
 
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
+}
+
 func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
 	if r == nil {
 		return nil
@@ -414,6 +432,8 @@ type RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struc
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -548,6 +568,13 @@ func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) 
 		return nil
 	}
 	return r.FormatResultCode
+}
+
+func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationOauthRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {
@@ -2729,7 +2756,11 @@ type RestAuthenticationOauth struct {
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
 	AuthRequestParams  []CollectRequestParamConfRestCollectMethodGet `json:"authRequestParams,omitzero"`
 	AuthRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"authRequestHeaders,omitzero"`
-	Discovery          *RestAuthenticationOauthDiscovery             `json:"discovery,omitzero"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
+	// Binds 'clientSecretParamValue' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecretParamValue' at runtime.
+	TemplateClientSecretParamValue *string                           `json:"__template_clientSecretParamValue,omitzero"`
+	Discovery                      *RestAuthenticationOauthDiscovery `json:"discovery,omitzero"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL            string                                        `json:"collectUrl"`
 	CollectMethod         RestAuthenticationOauthCollectMethod          `json:"collectMethod"`
@@ -2758,7 +2789,11 @@ type RestAuthenticationOauth struct {
 	MicrosoftGraphDelta *RestAuthenticationOauthMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
 	Scheduling          *RestAuthenticationOauthScheduling          `json:"__scheduling,omitzero"`
 	Username            *string                                     `json:"username,omitzero"`
-	Password            *string                                     `json:"password,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	Password         *string `json:"password,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
 	// Select or create a stored secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
@@ -2771,8 +2806,12 @@ type RestAuthenticationOauth struct {
 	Scopes []string `json:"scopes,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Binds 'serviceAccountCredentials' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serviceAccountCredentials' at runtime.
+	TemplateServiceAccountCredentials *string `json:"__template_serviceAccountCredentials,omitzero"`
 	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
 	Subject *string `json:"subject,omitzero"`
+	// Binds 'subject' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subject' at runtime.
+	TemplateSubject *string `json:"__template_subject,omitzero"`
 	// Select or create an HMAC Function to use with authentication
 	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
@@ -2851,6 +2890,20 @@ func (r *RestAuthenticationOauth) GetAuthRequestHeaders() []CollectRequestParamC
 		return nil
 	}
 	return r.AuthRequestHeaders
+}
+
+func (r *RestAuthenticationOauth) GetTemplateLoginURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateLoginURL
+}
+
+func (r *RestAuthenticationOauth) GetTemplateClientSecretParamValue() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateClientSecretParamValue
 }
 
 func (r *RestAuthenticationOauth) GetDiscovery() *RestAuthenticationOauthDiscovery {
@@ -3070,11 +3123,25 @@ func (r *RestAuthenticationOauth) GetUsername() *string {
 	return r.Username
 }
 
+func (r *RestAuthenticationOauth) GetTemplateUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateUsername
+}
+
 func (r *RestAuthenticationOauth) GetPassword() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Password
+}
+
+func (r *RestAuthenticationOauth) GetTemplatePassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplatePassword
 }
 
 func (r *RestAuthenticationOauth) GetCredentialsSecret() *string {
@@ -3119,11 +3186,25 @@ func (r *RestAuthenticationOauth) GetServiceAccountCredentials() *string {
 	return r.ServiceAccountCredentials
 }
 
+func (r *RestAuthenticationOauth) GetTemplateServiceAccountCredentials() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateServiceAccountCredentials
+}
+
 func (r *RestAuthenticationOauth) GetSubject() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Subject
+}
+
+func (r *RestAuthenticationOauth) GetTemplateSubject() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateSubject
 }
 
 func (r *RestAuthenticationOauth) GetHmacFunctionID() *string {
@@ -3200,7 +3281,9 @@ type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone struct {
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNoneDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
+	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
@@ -3238,6 +3321,13 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone) GetDiscover
 		return nil
 	}
 	return r.DiscoverURL
+}
+
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
@@ -3369,7 +3459,9 @@ type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList struct {
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
 	ItemList []string `json:"itemList"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
+	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
@@ -3412,6 +3504,13 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList) GetDiscover
 		return nil
 	}
 	return r.DiscoverURL
+}
+
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
@@ -3538,7 +3637,9 @@ type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJSON struct {
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
+	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
@@ -3586,6 +3687,13 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJSON) GetDiscover
 		return nil
 	}
 	return r.DiscoverURL
+}
+
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJSON) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJSON) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
@@ -3719,6 +3827,8 @@ type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOth
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -3869,6 +3979,13 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.FormatResultCode
 }
 
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
+}
+
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetManualDiscoverResult() *string {
 	if r == nil {
 		return nil
@@ -3927,6 +4044,8 @@ type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPos
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -4063,6 +4182,13 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.FormatResultCode
 }
 
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
+}
+
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
 	if r == nil {
 		return nil
@@ -4120,6 +4246,8 @@ type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPos
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -4256,6 +4384,13 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.FormatResultCode
 }
 
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
+}
+
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
 	if r == nil {
 		return nil
@@ -4313,6 +4448,8 @@ type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -4447,6 +4584,13 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 		return nil
 	}
 	return r.FormatResultCode
+}
+
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {
@@ -6657,11 +6801,19 @@ type RestAuthenticationLoginSecret struct {
 	MicrosoftGraphDelta *RestAuthenticationLoginSecretMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
 	Scheduling          *RestAuthenticationLoginSecretScheduling          `json:"__scheduling,omitzero"`
 	Username            *string                                           `json:"username,omitzero"`
-	Password            *string                                           `json:"password,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	Password         *string `json:"password,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
 	ClientSecretParamName *string `json:"clientSecretParamName,omitzero"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Binds 'clientSecretParamValue' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecretParamValue' at runtime.
+	TemplateClientSecretParamValue *string `json:"__template_clientSecretParamValue,omitzero"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
 	AuthRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"authRequestParams,omitzero"`
 	// Select or create a text secret that contains the client secret's value
@@ -6670,8 +6822,12 @@ type RestAuthenticationLoginSecret struct {
 	Scopes []string `json:"scopes,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Binds 'serviceAccountCredentials' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serviceAccountCredentials' at runtime.
+	TemplateServiceAccountCredentials *string `json:"__template_serviceAccountCredentials,omitzero"`
 	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
 	Subject *string `json:"subject,omitzero"`
+	// Binds 'subject' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subject' at runtime.
+	TemplateSubject *string `json:"__template_subject,omitzero"`
 	// Select or create an HMAC Function to use with authentication
 	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
@@ -6969,11 +7125,32 @@ func (r *RestAuthenticationLoginSecret) GetUsername() *string {
 	return r.Username
 }
 
+func (r *RestAuthenticationLoginSecret) GetTemplateUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateUsername
+}
+
 func (r *RestAuthenticationLoginSecret) GetPassword() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Password
+}
+
+func (r *RestAuthenticationLoginSecret) GetTemplatePassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplatePassword
+}
+
+func (r *RestAuthenticationLoginSecret) GetTemplateLoginURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateLoginURL
 }
 
 func (r *RestAuthenticationLoginSecret) GetClientSecretParamName() *string {
@@ -6988,6 +7165,13 @@ func (r *RestAuthenticationLoginSecret) GetClientSecretParamValue() *string {
 		return nil
 	}
 	return r.ClientSecretParamValue
+}
+
+func (r *RestAuthenticationLoginSecret) GetTemplateClientSecretParamValue() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateClientSecretParamValue
 }
 
 func (r *RestAuthenticationLoginSecret) GetAuthRequestParams() []CollectRequestParamConfRestCollectMethodGet {
@@ -7018,11 +7202,25 @@ func (r *RestAuthenticationLoginSecret) GetServiceAccountCredentials() *string {
 	return r.ServiceAccountCredentials
 }
 
+func (r *RestAuthenticationLoginSecret) GetTemplateServiceAccountCredentials() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateServiceAccountCredentials
+}
+
 func (r *RestAuthenticationLoginSecret) GetSubject() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Subject
+}
+
+func (r *RestAuthenticationLoginSecret) GetTemplateSubject() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateSubject
 }
 
 func (r *RestAuthenticationLoginSecret) GetHmacFunctionID() *string {
@@ -7099,7 +7297,9 @@ type RestAuthenticationLoginRestDiscoveryDiscoverTypeNone struct {
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationLoginRestDiscoveryDiscoverTypeNoneDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
+	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
@@ -7137,6 +7337,13 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeNone) GetDiscoverURL() 
 		return nil
 	}
 	return r.DiscoverURL
+}
+
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeNone) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeNone) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
@@ -7268,7 +7475,9 @@ type RestAuthenticationLoginRestDiscoveryDiscoverTypeList struct {
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
 	ItemList []string `json:"itemList"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
+	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
@@ -7311,6 +7520,13 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeList) GetDiscoverURL() 
 		return nil
 	}
 	return r.DiscoverURL
+}
+
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeList) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeList) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
@@ -7437,7 +7653,9 @@ type RestAuthenticationLoginRestDiscoveryDiscoverTypeJSON struct {
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
+	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
@@ -7485,6 +7703,13 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeJSON) GetDiscoverURL() 
 		return nil
 	}
 	return r.DiscoverURL
+}
+
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeJSON) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeJSON) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
@@ -7618,6 +7843,8 @@ type RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther str
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -7768,6 +7995,13 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 	return r.FormatResultCode
 }
 
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
+}
+
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetManualDiscoverResult() *string {
 	if r == nil {
 		return nil
@@ -7826,6 +8060,8 @@ type RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithB
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -7962,6 +8198,13 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostW
 	return r.FormatResultCode
 }
 
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
+}
+
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
 	if r == nil {
 		return nil
@@ -8019,6 +8262,8 @@ type RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost stru
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -8155,6 +8400,13 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost)
 	return r.FormatResultCode
 }
 
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
+}
+
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
 	if r == nil {
 		return nil
@@ -8212,6 +8464,8 @@ type RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struc
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -8346,6 +8600,13 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) 
 		return nil
 	}
 	return r.FormatResultCode
+}
+
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {
@@ -10526,8 +10787,14 @@ type RestAuthenticationLogin struct {
 	AuthHeaderExpr     string                                        `json:"authHeaderExpr"`
 	AuthRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"authRequestHeaders,omitzero"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-	TokenRespAttribute *string                           `json:"tokenRespAttribute,omitzero"`
-	Discovery          *RestAuthenticationLoginDiscovery `json:"discovery,omitzero"`
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitzero"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string                           `json:"__template_password,omitzero"`
+	Discovery        *RestAuthenticationLoginDiscovery `json:"discovery,omitzero"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL            string                                        `json:"collectUrl"`
 	CollectMethod         RestAuthenticationLoginCollectMethod          `json:"collectMethod"`
@@ -10561,6 +10828,8 @@ type RestAuthenticationLogin struct {
 	ClientSecretParamName *string `json:"clientSecretParamName,omitzero"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Binds 'clientSecretParamValue' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecretParamValue' at runtime.
+	TemplateClientSecretParamValue *string `json:"__template_clientSecretParamValue,omitzero"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
 	AuthRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"authRequestParams,omitzero"`
 	// Select or create a text secret that contains the client secret's value
@@ -10569,8 +10838,12 @@ type RestAuthenticationLogin struct {
 	Scopes []string `json:"scopes,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Binds 'serviceAccountCredentials' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serviceAccountCredentials' at runtime.
+	TemplateServiceAccountCredentials *string `json:"__template_serviceAccountCredentials,omitzero"`
 	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
 	Subject *string `json:"subject,omitzero"`
+	// Binds 'subject' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subject' at runtime.
+	TemplateSubject *string `json:"__template_subject,omitzero"`
 	// Select or create an HMAC Function to use with authentication
 	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
@@ -10656,6 +10929,27 @@ func (r *RestAuthenticationLogin) GetTokenRespAttribute() *string {
 		return nil
 	}
 	return r.TokenRespAttribute
+}
+
+func (r *RestAuthenticationLogin) GetTemplateLoginURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateLoginURL
+}
+
+func (r *RestAuthenticationLogin) GetTemplateUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateUsername
+}
+
+func (r *RestAuthenticationLogin) GetTemplatePassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplatePassword
 }
 
 func (r *RestAuthenticationLogin) GetDiscovery() *RestAuthenticationLoginDiscovery {
@@ -10889,6 +11183,13 @@ func (r *RestAuthenticationLogin) GetClientSecretParamValue() *string {
 	return r.ClientSecretParamValue
 }
 
+func (r *RestAuthenticationLogin) GetTemplateClientSecretParamValue() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateClientSecretParamValue
+}
+
 func (r *RestAuthenticationLogin) GetAuthRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
@@ -10917,11 +11218,25 @@ func (r *RestAuthenticationLogin) GetServiceAccountCredentials() *string {
 	return r.ServiceAccountCredentials
 }
 
+func (r *RestAuthenticationLogin) GetTemplateServiceAccountCredentials() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateServiceAccountCredentials
+}
+
 func (r *RestAuthenticationLogin) GetSubject() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Subject
+}
+
+func (r *RestAuthenticationLogin) GetTemplateSubject() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateSubject
 }
 
 func (r *RestAuthenticationLogin) GetHmacFunctionID() *string {
@@ -10998,7 +11313,9 @@ type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone struct {
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNoneDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
+	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
@@ -11036,6 +11353,13 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone) GetDiscover
 		return nil
 	}
 	return r.DiscoverURL
+}
+
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
@@ -11167,7 +11491,9 @@ type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList struct {
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
 	ItemList []string `json:"itemList"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
+	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
@@ -11210,6 +11536,13 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList) GetDiscover
 		return nil
 	}
 	return r.DiscoverURL
+}
+
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
@@ -11336,7 +11669,9 @@ type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJSON struct {
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
+	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
@@ -11384,6 +11719,13 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJSON) GetDiscover
 		return nil
 	}
 	return r.DiscoverURL
+}
+
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJSON) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJSON) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
@@ -11517,6 +11859,8 @@ type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOth
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -11667,6 +12011,13 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.FormatResultCode
 }
 
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
+}
+
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetManualDiscoverResult() *string {
 	if r == nil {
 		return nil
@@ -11725,6 +12076,8 @@ type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPos
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -11861,6 +12214,13 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.FormatResultCode
 }
 
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
+}
+
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
 	if r == nil {
 		return nil
@@ -11918,6 +12278,8 @@ type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPos
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -12054,6 +12416,13 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 	return r.FormatResultCode
 }
 
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
+}
+
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
 	if r == nil {
 		return nil
@@ -12111,6 +12480,8 @@ type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -12245,6 +12616,13 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 		return nil
 	}
 	return r.FormatResultCode
+}
+
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {
@@ -14442,9 +14820,15 @@ type RestAuthenticationBasicSecret struct {
 	MicrosoftGraphDelta *RestAuthenticationBasicSecretMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
 	Scheduling          *RestAuthenticationBasicSecretScheduling          `json:"__scheduling,omitzero"`
 	Username            *string                                           `json:"username,omitzero"`
-	Password            *string                                           `json:"password,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	Password         *string `json:"password,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
 	// URL to use for login API call. This call is expected to be a POST.
 	LoginURL *string `json:"loginUrl,omitzero"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
 	LoginBody *string `json:"loginBody,omitzero"`
 	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
@@ -14460,6 +14844,8 @@ type RestAuthenticationBasicSecret struct {
 	ClientSecretParamName *string `json:"clientSecretParamName,omitzero"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// Binds 'clientSecretParamValue' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientSecretParamValue' at runtime.
+	TemplateClientSecretParamValue *string `json:"__template_clientSecretParamValue,omitzero"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
 	AuthRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"authRequestParams,omitzero"`
 	// Select or create a text secret that contains the client secret's value
@@ -14468,8 +14854,12 @@ type RestAuthenticationBasicSecret struct {
 	Scopes []string `json:"scopes,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Binds 'serviceAccountCredentials' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serviceAccountCredentials' at runtime.
+	TemplateServiceAccountCredentials *string `json:"__template_serviceAccountCredentials,omitzero"`
 	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
 	Subject *string `json:"subject,omitzero"`
+	// Binds 'subject' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'subject' at runtime.
+	TemplateSubject *string `json:"__template_subject,omitzero"`
 	// Select or create an HMAC Function to use with authentication
 	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
@@ -14718,6 +15108,13 @@ func (r *RestAuthenticationBasicSecret) GetUsername() *string {
 	return r.Username
 }
 
+func (r *RestAuthenticationBasicSecret) GetTemplateUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateUsername
+}
+
 func (r *RestAuthenticationBasicSecret) GetPassword() *string {
 	if r == nil {
 		return nil
@@ -14725,11 +15122,25 @@ func (r *RestAuthenticationBasicSecret) GetPassword() *string {
 	return r.Password
 }
 
+func (r *RestAuthenticationBasicSecret) GetTemplatePassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplatePassword
+}
+
 func (r *RestAuthenticationBasicSecret) GetLoginURL() *string {
 	if r == nil {
 		return nil
 	}
 	return r.LoginURL
+}
+
+func (r *RestAuthenticationBasicSecret) GetTemplateLoginURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateLoginURL
 }
 
 func (r *RestAuthenticationBasicSecret) GetLoginBody() *string {
@@ -14788,6 +15199,13 @@ func (r *RestAuthenticationBasicSecret) GetClientSecretParamValue() *string {
 	return r.ClientSecretParamValue
 }
 
+func (r *RestAuthenticationBasicSecret) GetTemplateClientSecretParamValue() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateClientSecretParamValue
+}
+
 func (r *RestAuthenticationBasicSecret) GetAuthRequestParams() []CollectRequestParamConfRestCollectMethodGet {
 	if r == nil {
 		return nil
@@ -14816,11 +15234,25 @@ func (r *RestAuthenticationBasicSecret) GetServiceAccountCredentials() *string {
 	return r.ServiceAccountCredentials
 }
 
+func (r *RestAuthenticationBasicSecret) GetTemplateServiceAccountCredentials() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateServiceAccountCredentials
+}
+
 func (r *RestAuthenticationBasicSecret) GetSubject() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Subject
+}
+
+func (r *RestAuthenticationBasicSecret) GetTemplateSubject() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateSubject
 }
 
 func (r *RestAuthenticationBasicSecret) GetHmacFunctionID() *string {
@@ -14897,7 +15329,9 @@ type RestAuthenticationBasicRestDiscoveryDiscoverTypeNone struct {
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationBasicRestDiscoveryDiscoverTypeNoneDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
+	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
@@ -14935,6 +15369,13 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeNone) GetDiscoverURL() 
 		return nil
 	}
 	return r.DiscoverURL
+}
+
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeNone) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeNone) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
@@ -15066,7 +15507,9 @@ type RestAuthenticationBasicRestDiscoveryDiscoverTypeList struct {
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
 	ItemList []string `json:"itemList"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
+	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
@@ -15109,6 +15552,13 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeList) GetDiscoverURL() 
 		return nil
 	}
 	return r.DiscoverURL
+}
+
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeList) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeList) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
@@ -15235,7 +15685,9 @@ type RestAuthenticationBasicRestDiscoveryDiscoverTypeJSON struct {
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
+	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
@@ -15283,6 +15735,13 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeJSON) GetDiscoverURL() 
 		return nil
 	}
 	return r.DiscoverURL
+}
+
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeJSON) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeJSON) GetDiscoverMethod() *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP {
@@ -15416,6 +15875,8 @@ type RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther str
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -15566,6 +16027,13 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther
 	return r.FormatResultCode
 }
 
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
+}
+
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther) GetManualDiscoverResult() *string {
 	if r == nil {
 		return nil
@@ -15624,6 +16092,8 @@ type RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithB
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -15760,6 +16230,13 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostW
 	return r.FormatResultCode
 }
 
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
+}
+
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
 	if r == nil {
 		return nil
@@ -15817,6 +16294,8 @@ type RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost stru
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -15953,6 +16432,13 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost)
 	return r.FormatResultCode
 }
 
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
+}
+
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
 	if r == nil {
 		return nil
@@ -16010,6 +16496,8 @@ type RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struc
 	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -16144,6 +16632,13 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) 
 		return nil
 	}
 	return r.FormatResultCode
+}
+
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateDiscoverURL
 }
 
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {
