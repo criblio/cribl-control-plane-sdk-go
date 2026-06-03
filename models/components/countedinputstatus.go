@@ -8,7 +8,8 @@ import (
 
 type CountedInputStatus struct {
 	// number of items present in the items array
-	Count *int64        `json:"count,omitzero"`
+	Count *int64 `json:"count,omitzero"`
+	// List of items in this response.
 	Items []InputStatus `json:"items,omitzero"`
 }
 

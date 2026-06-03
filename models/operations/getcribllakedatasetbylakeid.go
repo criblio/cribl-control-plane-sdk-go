@@ -44,6 +44,8 @@ type GetCriblLakeDatasetByLakeIDRequest struct {
 	ExcludeInternal *bool `queryParam:"style=form,explode=true,name=excludeInternal"`
 	// Exclude BYOS (Bring Your Own Storage) datasets from the response.
 	ExcludeBYOS *bool `queryParam:"style=form,explode=true,name=excludeBYOS"`
+	// Set to <code>true</code> to include storage metrics for each Lake Dataset. Otherwise, <code>false</code> (default). Requires a Cribl Lake metrics license.
+	IncludeMetrics *bool `queryParam:"style=form,explode=true,name=includeMetrics"`
 }
 
 func (g *GetCriblLakeDatasetByLakeIDRequest) GetLakeID() string {
@@ -93,6 +95,13 @@ func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeBYOS() *bool {
 		return nil
 	}
 	return g.ExcludeBYOS
+}
+
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetIncludeMetrics() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.IncludeMetrics
 }
 
 type GetCriblLakeDatasetByLakeIDResponse struct {
