@@ -1139,6 +1139,8 @@ type CreateInputAuthTokenCloudflareHec struct {
 	AuthType *CreateInputAuthTokenAuthenticationMethod `json:"authType,omitzero"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
+	// Shared secret to be provided by any client (Authorization: <token>)
+	Token       *string `json:"token,omitzero"`
 	Enabled     *bool   `json:"enabled,omitzero"`
 	Description *string `json:"description,omitzero"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
@@ -1170,6 +1172,13 @@ func (c *CreateInputAuthTokenCloudflareHec) GetTokenSecret() *string {
 		return nil
 	}
 	return c.TokenSecret
+}
+
+func (c *CreateInputAuthTokenCloudflareHec) GetToken() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Token
 }
 
 func (c *CreateInputAuthTokenCloudflareHec) GetEnabled() *bool {
