@@ -7,13 +7,35 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+// GetCriblLakeDatasetByLakeIDFormat - Filter datasets by format. Set to <code>ddss</code> to return only DDSS datasets.
+type GetCriblLakeDatasetByLakeIDFormat string
+
+const (
+	GetCriblLakeDatasetByLakeIDFormatDdss GetCriblLakeDatasetByLakeIDFormat = "ddss"
+)
+
+func (e GetCriblLakeDatasetByLakeIDFormat) ToPointer() *GetCriblLakeDatasetByLakeIDFormat {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *GetCriblLakeDatasetByLakeIDFormat) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "ddss":
+			return true
+		}
+	}
+	return false
+}
+
 type GetCriblLakeDatasetByLakeIDRequest struct {
 	// The <code>id</code> of the Lake that contains the Lake Datasets to list.
 	LakeID string `pathParam:"style=simple,explode=false,name=lakeId"`
 	// Filter datasets by storage location ID. Use <code>default</code> for default storage location.
 	StorageLocationID *string `queryParam:"style=form,explode=true,name=storageLocationId"`
 	// Filter datasets by format. Set to <code>ddss</code> to return only DDSS datasets.
-	Format *string `queryParam:"style=form,explode=true,name=format"`
+	Format *GetCriblLakeDatasetByLakeIDFormat `queryParam:"style=form,explode=true,name=format"`
 	// Exclude DDSS format datasets from the response.
 	ExcludeDDSS *bool `queryParam:"style=form,explode=true,name=excludeDDSS"`
 	// Exclude deleted datasets from the response.
@@ -22,6 +44,8 @@ type GetCriblLakeDatasetByLakeIDRequest struct {
 	ExcludeInternal *bool `queryParam:"style=form,explode=true,name=excludeInternal"`
 	// Exclude BYOS (Bring Your Own Storage) datasets from the response.
 	ExcludeBYOS *bool `queryParam:"style=form,explode=true,name=excludeBYOS"`
+	// Set to <code>true</code> to include storage metrics for each Lake Dataset. Otherwise, <code>false</code> (default). Requires a Cribl Lake metrics license.
+	IncludeMetrics *bool `queryParam:"style=form,explode=true,name=includeMetrics"`
 }
 
 func (g *GetCriblLakeDatasetByLakeIDRequest) GetLakeID() string {
@@ -38,7 +62,7 @@ func (g *GetCriblLakeDatasetByLakeIDRequest) GetStorageLocationID() *string {
 	return g.StorageLocationID
 }
 
-func (g *GetCriblLakeDatasetByLakeIDRequest) GetFormat() *string {
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetFormat() *GetCriblLakeDatasetByLakeIDFormat {
 	if g == nil {
 		return nil
 	}
@@ -71,6 +95,13 @@ func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeBYOS() *bool {
 		return nil
 	}
 	return g.ExcludeBYOS
+}
+
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetIncludeMetrics() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.IncludeMetrics
 }
 
 type GetCriblLakeDatasetByLakeIDResponse struct {

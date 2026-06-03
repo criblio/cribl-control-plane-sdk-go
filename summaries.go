@@ -31,7 +31,7 @@ func newSummaries(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration,
 }
 
 // Get a summary of the deployment for a specific product.
-// Get a summary of the deployment for the specified Cribl product (Stream or Edge).<br/><br/>The summary includes a count of Worker Groups or Edge Fleets and resources such as Pipelines, Routes, Sources, and Destinations. For Distributed deployments, it also includes a count and statistics for Worker or Edge Nodes.
+// Get a summary of the deployment for the specified Cribl product (Stream or Edge).<br/><br/>The summary includes a count of Worker Groups or Edge Fleets and resources  such as Pipelines, Routes, Sources, and Destinations. For Distributed deployments,  it also includes a count and statistics for Worker or Edge Nodes.
 func (s *Summaries) Get(ctx context.Context, product components.ProductsBase, opts ...operations.Option) (*operations.GetProductsSummaryByProductResponse, error) {
 	request := operations.GetProductsSummaryByProductRequest{
 		Product: product,

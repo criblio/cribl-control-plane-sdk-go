@@ -9,10 +9,10 @@ import (
 
 type GetSavedJobRequest struct {
 	// Filter by collector type
-	CollectorType *string `queryParam:"style=form,explode=true,name=collectorType"`
+	CollectorType *components.CollectorType `queryParam:"style=form,explode=true,name=collectorType"`
 }
 
-func (g *GetSavedJobRequest) GetCollectorType() *string {
+func (g *GetSavedJobRequest) GetCollectorType() *components.CollectorType {
 	if g == nil {
 		return nil
 	}

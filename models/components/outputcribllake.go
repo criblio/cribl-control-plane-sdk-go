@@ -57,9 +57,10 @@ func (e *OutputCriblLakeAwsAuthenticationMethod) IsExact() bool {
 type OutputCriblLakeFormat string
 
 const (
-	OutputCriblLakeFormatJSON    OutputCriblLakeFormat = "json"
-	OutputCriblLakeFormatParquet OutputCriblLakeFormat = "parquet"
-	OutputCriblLakeFormatDdss    OutputCriblLakeFormat = "ddss"
+	OutputCriblLakeFormatJSON     OutputCriblLakeFormat = "json"
+	OutputCriblLakeFormatParquet  OutputCriblLakeFormat = "parquet"
+	OutputCriblLakeFormatDdss     OutputCriblLakeFormat = "ddss"
+	OutputCriblLakeFormatNetskope OutputCriblLakeFormat = "netskope"
 )
 
 func (e OutputCriblLakeFormat) ToPointer() *OutputCriblLakeFormat {
@@ -70,7 +71,7 @@ func (e OutputCriblLakeFormat) ToPointer() *OutputCriblLakeFormat {
 func (e *OutputCriblLakeFormat) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "json", "parquet", "ddss":
+		case "json", "parquet", "ddss", "netskope":
 			return true
 		}
 	}

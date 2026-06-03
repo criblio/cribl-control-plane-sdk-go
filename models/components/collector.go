@@ -9,20 +9,20 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type CollectorType string
+type CollectorUnionType string
 
 const (
-	CollectorTypeAzureBlob          CollectorType = "azure_blob"
-	CollectorTypeCriblLake          CollectorType = "cribl_lake"
-	CollectorTypeDatabase           CollectorType = "database"
-	CollectorTypeFilesystem         CollectorType = "filesystem"
-	CollectorTypeGoogleCloudStorage CollectorType = "google_cloud_storage"
-	CollectorTypeHealthCheck        CollectorType = "health_check"
-	CollectorTypeRest               CollectorType = "rest"
-	CollectorTypeS3                 CollectorType = "s3"
-	CollectorTypeScript             CollectorType = "script"
-	CollectorTypeSplunk             CollectorType = "splunk"
-	CollectorTypeUnknown            CollectorType = "UNKNOWN"
+	CollectorUnionTypeAzureBlob          CollectorUnionType = "azure_blob"
+	CollectorUnionTypeCriblLake          CollectorUnionType = "cribl_lake"
+	CollectorUnionTypeDatabase           CollectorUnionType = "database"
+	CollectorUnionTypeFilesystem         CollectorUnionType = "filesystem"
+	CollectorUnionTypeGoogleCloudStorage CollectorUnionType = "google_cloud_storage"
+	CollectorUnionTypeHealthCheck        CollectorUnionType = "health_check"
+	CollectorUnionTypeRest               CollectorUnionType = "rest"
+	CollectorUnionTypeS3                 CollectorUnionType = "s3"
+	CollectorUnionTypeScript             CollectorUnionType = "script"
+	CollectorUnionTypeSplunk             CollectorUnionType = "splunk"
+	CollectorUnionTypeUnknown            CollectorUnionType = "UNKNOWN"
 )
 
 // Collector configuration
@@ -39,11 +39,11 @@ type Collector struct {
 	CollectorSplunk             *CollectorSplunk             `queryParam:"inline" union:"member"`
 	UnknownRaw                  json.RawMessage              `json:"-" union:"unknown"`
 
-	Type CollectorType
+	Type CollectorUnionType
 }
 
 func CreateCollectorAzureBlob(azureBlob CollectorAzureBlob) Collector {
-	typ := CollectorTypeAzureBlob
+	typ := CollectorUnionTypeAzureBlob
 
 	typStr := CollectorAzureBlobType(typ)
 	azureBlob.Type = typStr
@@ -55,7 +55,7 @@ func CreateCollectorAzureBlob(azureBlob CollectorAzureBlob) Collector {
 }
 
 func CreateCollectorCriblLake(criblLake CollectorCriblLake) Collector {
-	typ := CollectorTypeCriblLake
+	typ := CollectorUnionTypeCriblLake
 
 	typStr := CollectorCriblLakeType(typ)
 	criblLake.Type = typStr
@@ -67,7 +67,7 @@ func CreateCollectorCriblLake(criblLake CollectorCriblLake) Collector {
 }
 
 func CreateCollectorDatabase(database CollectorDatabase) Collector {
-	typ := CollectorTypeDatabase
+	typ := CollectorUnionTypeDatabase
 
 	typStr := CollectorDatabaseType(typ)
 	database.Type = typStr
@@ -79,7 +79,7 @@ func CreateCollectorDatabase(database CollectorDatabase) Collector {
 }
 
 func CreateCollectorFilesystem(filesystem CollectorFilesystem) Collector {
-	typ := CollectorTypeFilesystem
+	typ := CollectorUnionTypeFilesystem
 
 	typStr := CollectorFilesystemType(typ)
 	filesystem.Type = typStr
@@ -91,7 +91,7 @@ func CreateCollectorFilesystem(filesystem CollectorFilesystem) Collector {
 }
 
 func CreateCollectorGoogleCloudStorage(googleCloudStorage CollectorGoogleCloudStorage) Collector {
-	typ := CollectorTypeGoogleCloudStorage
+	typ := CollectorUnionTypeGoogleCloudStorage
 
 	typStr := CollectorGoogleCloudStorageType(typ)
 	googleCloudStorage.Type = typStr
@@ -103,7 +103,7 @@ func CreateCollectorGoogleCloudStorage(googleCloudStorage CollectorGoogleCloudSt
 }
 
 func CreateCollectorHealthCheck(healthCheck CollectorHealthCheck) Collector {
-	typ := CollectorTypeHealthCheck
+	typ := CollectorUnionTypeHealthCheck
 
 	typStr := CollectorHealthCheckType(typ)
 	healthCheck.Type = typStr
@@ -115,7 +115,7 @@ func CreateCollectorHealthCheck(healthCheck CollectorHealthCheck) Collector {
 }
 
 func CreateCollectorRest(rest CollectorRest) Collector {
-	typ := CollectorTypeRest
+	typ := CollectorUnionTypeRest
 
 	typStr := CollectorRestType(typ)
 	rest.Type = typStr
@@ -127,7 +127,7 @@ func CreateCollectorRest(rest CollectorRest) Collector {
 }
 
 func CreateCollectorS3(s3 CollectorS3) Collector {
-	typ := CollectorTypeS3
+	typ := CollectorUnionTypeS3
 
 	typStr := CollectorS3Type(typ)
 	s3.Type = typStr
@@ -139,7 +139,7 @@ func CreateCollectorS3(s3 CollectorS3) Collector {
 }
 
 func CreateCollectorScript(script CollectorScript) Collector {
-	typ := CollectorTypeScript
+	typ := CollectorUnionTypeScript
 
 	typStr := CollectorScriptType(typ)
 	script.Type = typStr
@@ -151,7 +151,7 @@ func CreateCollectorScript(script CollectorScript) Collector {
 }
 
 func CreateCollectorSplunk(splunk CollectorSplunk) Collector {
-	typ := CollectorTypeSplunk
+	typ := CollectorUnionTypeSplunk
 
 	typStr := CollectorSplunkType(typ)
 	splunk.Type = typStr
@@ -165,7 +165,7 @@ func CreateCollectorSplunk(splunk CollectorSplunk) Collector {
 func CreateCollectorUnknown(raw json.RawMessage) Collector {
 	return Collector{
 		UnknownRaw: raw,
-		Type:       CollectorTypeUnknown,
+		Type:       CollectorUnionTypeUnknown,
 	}
 }
 
@@ -174,7 +174,7 @@ func (u Collector) GetUnknownRaw() json.RawMessage {
 }
 
 func (u Collector) IsUnknown() bool {
-	return u.Type == CollectorTypeUnknown
+	return u.Type == CollectorUnionTypeUnknown
 }
 
 func (u *Collector) UnmarshalJSON(data []byte) error {
@@ -186,12 +186,12 @@ func (u *Collector) UnmarshalJSON(data []byte) error {
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = CollectorTypeUnknown
+		u.Type = CollectorUnionTypeUnknown
 		return nil
 	}
 	if dis == nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = CollectorTypeUnknown
+		u.Type = CollectorUnionTypeUnknown
 		return nil
 	}
 
@@ -203,7 +203,7 @@ func (u *Collector) UnmarshalJSON(data []byte) error {
 		}
 
 		u.CollectorAzureBlob = collectorAzureBlob
-		u.Type = CollectorTypeAzureBlob
+		u.Type = CollectorUnionTypeAzureBlob
 		return nil
 	case "cribl_lake":
 		collectorCriblLake := new(CollectorCriblLake)
@@ -212,7 +212,7 @@ func (u *Collector) UnmarshalJSON(data []byte) error {
 		}
 
 		u.CollectorCriblLake = collectorCriblLake
-		u.Type = CollectorTypeCriblLake
+		u.Type = CollectorUnionTypeCriblLake
 		return nil
 	case "database":
 		collectorDatabase := new(CollectorDatabase)
@@ -221,7 +221,7 @@ func (u *Collector) UnmarshalJSON(data []byte) error {
 		}
 
 		u.CollectorDatabase = collectorDatabase
-		u.Type = CollectorTypeDatabase
+		u.Type = CollectorUnionTypeDatabase
 		return nil
 	case "filesystem":
 		collectorFilesystem := new(CollectorFilesystem)
@@ -230,7 +230,7 @@ func (u *Collector) UnmarshalJSON(data []byte) error {
 		}
 
 		u.CollectorFilesystem = collectorFilesystem
-		u.Type = CollectorTypeFilesystem
+		u.Type = CollectorUnionTypeFilesystem
 		return nil
 	case "google_cloud_storage":
 		collectorGoogleCloudStorage := new(CollectorGoogleCloudStorage)
@@ -239,7 +239,7 @@ func (u *Collector) UnmarshalJSON(data []byte) error {
 		}
 
 		u.CollectorGoogleCloudStorage = collectorGoogleCloudStorage
-		u.Type = CollectorTypeGoogleCloudStorage
+		u.Type = CollectorUnionTypeGoogleCloudStorage
 		return nil
 	case "health_check":
 		collectorHealthCheck := new(CollectorHealthCheck)
@@ -248,7 +248,7 @@ func (u *Collector) UnmarshalJSON(data []byte) error {
 		}
 
 		u.CollectorHealthCheck = collectorHealthCheck
-		u.Type = CollectorTypeHealthCheck
+		u.Type = CollectorUnionTypeHealthCheck
 		return nil
 	case "rest":
 		collectorRest := new(CollectorRest)
@@ -257,7 +257,7 @@ func (u *Collector) UnmarshalJSON(data []byte) error {
 		}
 
 		u.CollectorRest = collectorRest
-		u.Type = CollectorTypeRest
+		u.Type = CollectorUnionTypeRest
 		return nil
 	case "s3":
 		collectorS3 := new(CollectorS3)
@@ -266,7 +266,7 @@ func (u *Collector) UnmarshalJSON(data []byte) error {
 		}
 
 		u.CollectorS3 = collectorS3
-		u.Type = CollectorTypeS3
+		u.Type = CollectorUnionTypeS3
 		return nil
 	case "script":
 		collectorScript := new(CollectorScript)
@@ -275,7 +275,7 @@ func (u *Collector) UnmarshalJSON(data []byte) error {
 		}
 
 		u.CollectorScript = collectorScript
-		u.Type = CollectorTypeScript
+		u.Type = CollectorUnionTypeScript
 		return nil
 	case "splunk":
 		collectorSplunk := new(CollectorSplunk)
@@ -284,11 +284,11 @@ func (u *Collector) UnmarshalJSON(data []byte) error {
 		}
 
 		u.CollectorSplunk = collectorSplunk
-		u.Type = CollectorTypeSplunk
+		u.Type = CollectorUnionTypeSplunk
 		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = CollectorTypeUnknown
+		u.Type = CollectorUnionTypeUnknown
 		return nil
 	}
 

@@ -524,7 +524,7 @@ func (s *PacksRoutes) Get(ctx context.Context, id string, pack string, opts ...o
 }
 
 // Update a Route within a Pack
-// Update the specified Route within the specified Pack.</br></br>Provide a complete representation of the Routing table, including the Route that you want to update, in the request body. This endpoint does not support partial updates. Cribl removes any omitted Routes and fields when updating.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
+// Update the specified Route within the specified Pack.<br/><br/>Provide a complete representation of the Routing table, including the Route that you want to update, in the request body.<br/><br/>This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Routing table.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Routing table might not function as expected.<br/><br/>Cribl also removes any omitted Routes when updating the Routing table.
 func (s *PacksRoutes) Update(ctx context.Context, id string, pack string, routesInput components.RoutesInput, opts ...operations.Option) (*operations.UpdateRoutesByPackAndIDResponse, error) {
 	request := operations.UpdateRoutesByPackAndIDRequest{
 		ID:          id,

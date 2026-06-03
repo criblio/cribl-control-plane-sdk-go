@@ -9525,13 +9525,15 @@ func (e *CreateOutputSystemByPackMappingTypeLocalSearchStorage) IsExact() bool {
 }
 
 type CreateOutputSystemByPackStatsDestination struct {
-	URL         *string `json:"url,omitzero"`
-	Database    *string `json:"database,omitzero"`
-	TableName   *string `json:"tableName,omitzero"`
-	AuthType    *string `json:"authType,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	SQLUsername *string `json:"sqlUsername,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	URL                 *string  `json:"url,omitzero"`
+	Database            *string  `json:"database,omitzero"`
+	TableName           *string  `json:"tableName,omitzero"`
+	AuthType            *string  `json:"authType,omitzero"`
+	Username            *string  `json:"username,omitzero"`
+	SQLUsername         *string  `json:"sqlUsername,omitzero"`
+	Password            *string  `json:"password,omitzero"`
+	WaitForAsyncInserts *bool    `json:"waitForAsyncInserts,omitzero"`
+	Concurrency         *float64 `json:"concurrency,omitzero"`
 }
 
 func (c CreateOutputSystemByPackStatsDestination) MarshalJSON() ([]byte, error) {
@@ -9592,6 +9594,20 @@ func (c *CreateOutputSystemByPackStatsDestination) GetPassword() *string {
 		return nil
 	}
 	return c.Password
+}
+
+func (c *CreateOutputSystemByPackStatsDestination) GetWaitForAsyncInserts() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.WaitForAsyncInserts
+}
+
+func (c *CreateOutputSystemByPackStatsDestination) GetConcurrency() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Concurrency
 }
 
 type CreateOutputSystemByPackColumnMappingLocalSearchStorage struct {
@@ -11024,9 +11040,10 @@ func (e *CreateOutputSystemByPackAwsAuthenticationMethod) IsExact() bool {
 type CreateOutputSystemByPackFormatCriblLake string
 
 const (
-	CreateOutputSystemByPackFormatCriblLakeJSON    CreateOutputSystemByPackFormatCriblLake = "json"
-	CreateOutputSystemByPackFormatCriblLakeParquet CreateOutputSystemByPackFormatCriblLake = "parquet"
-	CreateOutputSystemByPackFormatCriblLakeDdss    CreateOutputSystemByPackFormatCriblLake = "ddss"
+	CreateOutputSystemByPackFormatCriblLakeJSON     CreateOutputSystemByPackFormatCriblLake = "json"
+	CreateOutputSystemByPackFormatCriblLakeParquet  CreateOutputSystemByPackFormatCriblLake = "parquet"
+	CreateOutputSystemByPackFormatCriblLakeDdss     CreateOutputSystemByPackFormatCriblLake = "ddss"
+	CreateOutputSystemByPackFormatCriblLakeNetskope CreateOutputSystemByPackFormatCriblLake = "netskope"
 )
 
 func (e CreateOutputSystemByPackFormatCriblLake) ToPointer() *CreateOutputSystemByPackFormatCriblLake {
@@ -11037,7 +11054,7 @@ func (e CreateOutputSystemByPackFormatCriblLake) ToPointer() *CreateOutputSystem
 func (e *CreateOutputSystemByPackFormatCriblLake) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "json", "parquet", "ddss":
+		case "json", "parquet", "ddss", "netskope":
 			return true
 		}
 	}

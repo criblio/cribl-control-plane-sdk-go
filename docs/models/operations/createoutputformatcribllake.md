@@ -16,8 +16,9 @@ custom := operations.CreateOutputFormatCriblLake("custom_value")
 
 ## Values
 
-| Name                                 | Value                                |
-| ------------------------------------ | ------------------------------------ |
-| `CreateOutputFormatCriblLakeJSON`    | json                                 |
-| `CreateOutputFormatCriblLakeParquet` | parquet                              |
-| `CreateOutputFormatCriblLakeDdss`    | ddss                                 |
+| Name                                  | Value                                 |
+| ------------------------------------- | ------------------------------------- |
+| `CreateOutputFormatCriblLakeJSON`     | json                                  |
+| `CreateOutputFormatCriblLakeParquet`  | parquet                               |
+| `CreateOutputFormatCriblLakeDdss`     | ddss                                  |
+| `CreateOutputFormatCriblLakeNetskope` | netskope                              |
