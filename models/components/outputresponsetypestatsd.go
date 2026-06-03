@@ -9812,13 +9812,15 @@ func (e *MappingTypeLocalSearchStorage) IsExact() bool {
 }
 
 type OutputResponseStatsDestination struct {
-	URL         *string `json:"url,omitzero"`
-	Database    *string `json:"database,omitzero"`
-	TableName   *string `json:"tableName,omitzero"`
-	AuthType    *string `json:"authType,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	SQLUsername *string `json:"sqlUsername,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	URL                 *string  `json:"url,omitzero"`
+	Database            *string  `json:"database,omitzero"`
+	TableName           *string  `json:"tableName,omitzero"`
+	AuthType            *string  `json:"authType,omitzero"`
+	Username            *string  `json:"username,omitzero"`
+	SQLUsername         *string  `json:"sqlUsername,omitzero"`
+	Password            *string  `json:"password,omitzero"`
+	WaitForAsyncInserts *bool    `json:"waitForAsyncInserts,omitzero"`
+	Concurrency         *float64 `json:"concurrency,omitzero"`
 }
 
 func (o OutputResponseStatsDestination) MarshalJSON() ([]byte, error) {
@@ -9879,6 +9881,20 @@ func (o *OutputResponseStatsDestination) GetPassword() *string {
 		return nil
 	}
 	return o.Password
+}
+
+func (o *OutputResponseStatsDestination) GetWaitForAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.WaitForAsyncInserts
+}
+
+func (o *OutputResponseStatsDestination) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
 }
 
 type ColumnMappingLocalSearchStorage struct {
@@ -11365,9 +11381,10 @@ func (e *OutputResponseAwsAuthenticationMethod) IsExact() bool {
 type FormatCriblLake string
 
 const (
-	FormatCriblLakeJSON    FormatCriblLake = "json"
-	FormatCriblLakeParquet FormatCriblLake = "parquet"
-	FormatCriblLakeDdss    FormatCriblLake = "ddss"
+	FormatCriblLakeJSON     FormatCriblLake = "json"
+	FormatCriblLakeParquet  FormatCriblLake = "parquet"
+	FormatCriblLakeDdss     FormatCriblLake = "ddss"
+	FormatCriblLakeNetskope FormatCriblLake = "netskope"
 )
 
 func (e FormatCriblLake) ToPointer() *FormatCriblLake {
@@ -11378,7 +11395,7 @@ func (e FormatCriblLake) ToPointer() *FormatCriblLake {
 func (e *FormatCriblLake) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "json", "parquet", "ddss":
+		case "json", "parquet", "ddss", "netskope":
 			return true
 		}
 	}

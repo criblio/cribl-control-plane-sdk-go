@@ -34,7 +34,7 @@ func newCollectors(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration
 
 // List all Collectors
 // Get a list of all Collectors.
-func (s *Collectors) List(ctx context.Context, collectorType *string, opts ...operations.Option) (*operations.GetSavedJobResponse, error) {
+func (s *Collectors) List(ctx context.Context, collectorType *components.CollectorType, opts ...operations.Option) (*operations.GetSavedJobResponse, error) {
 	request := operations.GetSavedJobRequest{
 		CollectorType: collectorType,
 	}
@@ -778,7 +778,7 @@ func (s *Collectors) Get(ctx context.Context, id string, opts ...operations.Opti
 }
 
 // Update a Collector
-// Update the specified Collector.<br><br>Provide a complete representation of the Collector that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Collector.<br><br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Collector might not function as expected.
+// Update the specified Collector.<br/><br/>Provide a complete representation of the Collector that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Collector.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Collector might not function as expected.
 func (s *Collectors) Update(ctx context.Context, id string, savedJob components.SavedJob, opts ...operations.Option) (*operations.UpdateSavedJobByIDResponse, error) {
 	request := operations.UpdateSavedJobByIDRequest{
 		ID:       id,

@@ -14,7 +14,7 @@
 
 ## List
 
-List the commit history.</br></br>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
+List the commit history.</br></br> Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
 
 ### Example Usage
 
@@ -71,7 +71,7 @@ func main() {
 
 ## Create
 
-Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
+Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br> To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
 
 ### Example Usage: VersionCommitExamplesCommitAll
 

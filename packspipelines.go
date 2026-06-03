@@ -778,7 +778,7 @@ func (s *PacksPipelines) Get(ctx context.Context, id string, pack string, opts .
 }
 
 // Update a Pipeline within a Pack
-// Update the specified Pipeline within the specified Pack.</br></br>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
+// Update the specified Pipeline within the specified Pack.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
 func (s *PacksPipelines) Update(ctx context.Context, id string, pack string, pipeline components.PipelineInput, opts ...operations.Option) (*operations.UpdatePipelinesByPackAndIDResponse, error) {
 	request := operations.UpdatePipelinesByPackAndIDRequest{
 		ID:       id,
