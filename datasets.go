@@ -532,10 +532,11 @@ func (s *Datasets) Create(ctx context.Context, lakeID string, criblLakeDataset c
 
 // Get a Lake Dataset (Cribl.Cloud only)
 // Get the specified Lake Dataset in the specified Lake (Cribl.Cloud only).
-func (s *Datasets) Get(ctx context.Context, lakeID string, id string, opts ...operations.Option) (*operations.GetCriblLakeDatasetByLakeIDAndIDResponse, error) {
+func (s *Datasets) Get(ctx context.Context, lakeID string, id string, includeMetrics *bool, opts ...operations.Option) (*operations.GetCriblLakeDatasetByLakeIDAndIDResponse, error) {
 	request := operations.GetCriblLakeDatasetByLakeIDAndIDRequest{
-		LakeID: lakeID,
-		ID:     id,
+		LakeID:         lakeID,
+		ID:             id,
+		IncludeMetrics: includeMetrics,
 	}
 
 	o := operations.Options{}
@@ -589,6 +590,10 @@ func (s *Datasets) Get(ctx context.Context, lakeID string, id string, opts ...op
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err

@@ -26,3 +26,4 @@ custom := components.RbacResource("custom_value")
 | `RbacResourceMacros`            | macros                          |
 | `RbacResourceNotebooks`         | notebooks                       |
 | `RbacResourceNotebookTemplates` | notebook-templates              |
+| `RbacResourceApps`              | apps                            |
