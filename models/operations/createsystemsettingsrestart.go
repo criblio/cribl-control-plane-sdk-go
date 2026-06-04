@@ -9,7 +9,7 @@ import (
 
 type CreateSystemSettingsRestartResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// Success
+	// The created SystemRestartResponse object in a single-item list.
 	CountedSystemRestartResponse *components.CountedSystemRestartResponse
 }
 

@@ -302,7 +302,7 @@ func (u *UpdateInputByIDRequest) GetInputOkta() *components.InputOktaInput {
 
 type UpdateInputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// the updated Source object
+	// The updated Source object in a single-item list.
 	CountedInputResponse *components.CountedInputResponse
 }
 

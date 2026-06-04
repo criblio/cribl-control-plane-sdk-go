@@ -3,14 +3,17 @@
 package components
 
 type WorkersTypeSystemSettingsConf struct {
-	Count                  float64  `json:"count"`
-	EnableHeapSnapshots    *bool    `json:"enableHeapSnapshots,omitzero"`
-	LoadThrottlePerc       *float64 `json:"loadThrottlePerc,omitzero"`
-	Memory                 float64  `json:"memory"`
-	Minimum                float64  `json:"minimum"`
-	StartupMaxConns        *float64 `json:"startupMaxConns,omitzero"`
-	StartupThrottleTimeout *float64 `json:"startupThrottleTimeout,omitzero"`
-	V8SingleThread         *bool    `json:"v8SingleThread,omitzero"`
+	Count                                float64  `json:"count"`
+	EnableHeapSnapshots                  *bool    `json:"enableHeapSnapshots,omitzero"`
+	LoadThrottlePerc                     *float64 `json:"loadThrottlePerc,omitzero"`
+	Memory                               float64  `json:"memory"`
+	Minimum                              float64  `json:"minimum"`
+	RestartUnresponsiveProcesses         *bool    `json:"restartUnresponsiveProcesses,omitzero"`
+	StartupMaxConns                      *float64 `json:"startupMaxConns,omitzero"`
+	StartupThrottleTimeout               *float64 `json:"startupThrottleTimeout,omitzero"`
+	V8SingleThread                       *bool    `json:"v8SingleThread,omitzero"`
+	WorkerProcessConfigUpdateConcurrency *float64 `json:"workerProcessConfigUpdateConcurrency,omitzero"`
+	WorkerProcessReloadTimeout           *float64 `json:"workerProcessReloadTimeout,omitzero"`
 }
 
 func (w *WorkersTypeSystemSettingsConf) GetCount() float64 {
@@ -48,6 +51,13 @@ func (w *WorkersTypeSystemSettingsConf) GetMinimum() float64 {
 	return w.Minimum
 }
 
+func (w *WorkersTypeSystemSettingsConf) GetRestartUnresponsiveProcesses() *bool {
+	if w == nil {
+		return nil
+	}
+	return w.RestartUnresponsiveProcesses
+}
+
 func (w *WorkersTypeSystemSettingsConf) GetStartupMaxConns() *float64 {
 	if w == nil {
 		return nil
@@ -67,4 +77,18 @@ func (w *WorkersTypeSystemSettingsConf) GetV8SingleThread() *bool {
 		return nil
 	}
 	return w.V8SingleThread
+}
+
+func (w *WorkersTypeSystemSettingsConf) GetWorkerProcessConfigUpdateConcurrency() *float64 {
+	if w == nil {
+		return nil
+	}
+	return w.WorkerProcessConfigUpdateConcurrency
+}
+
+func (w *WorkersTypeSystemSettingsConf) GetWorkerProcessReloadTimeout() *float64 {
+	if w == nil {
+		return nil
+	}
+	return w.WorkerProcessReloadTimeout
 }

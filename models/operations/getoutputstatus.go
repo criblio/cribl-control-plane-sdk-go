@@ -48,7 +48,7 @@ func (g *GetOutputStatusRequest) GetLimit() *int64 {
 
 type GetOutputStatusResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination status objects
+	// List of Destination status objects.
 	CountedOutputStatus *components.CountedOutputStatus
 
 	Next func() (*GetOutputStatusResponse, error)

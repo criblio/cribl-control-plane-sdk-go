@@ -1259,6 +1259,10 @@ type RestAuthenticationOauthRestPaginationTypeResponseHeaderLink struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to collect per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
@@ -1343,6 +1347,20 @@ func (r *RestAuthenticationOauthRestPaginationTypeResponseHeaderLink) GetLimit()
 		return nil
 	}
 	return r.Limit
+}
+
+func (r *RestAuthenticationOauthRestPaginationTypeResponseHeaderLink) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestAuthenticationOauthRestPaginationTypeResponseHeaderLink) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
 }
 
 func (r *RestAuthenticationOauthRestPaginationTypeResponseHeaderLink) GetPageField() *string {
@@ -1490,6 +1508,10 @@ type RestAuthenticationOauthRestPaginationTypeResponseHeader struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to collect per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
@@ -1581,6 +1603,20 @@ func (r *RestAuthenticationOauthRestPaginationTypeResponseHeader) GetLimit() *fl
 		return nil
 	}
 	return r.Limit
+}
+
+func (r *RestAuthenticationOauthRestPaginationTypeResponseHeader) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestAuthenticationOauthRestPaginationTypeResponseHeader) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
 }
 
 func (r *RestAuthenticationOauthRestPaginationTypeResponseHeader) GetPageField() *string {
@@ -1728,6 +1764,10 @@ type RestAuthenticationOauthRestPaginationTypeResponseBody struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to collect per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
@@ -1821,6 +1861,20 @@ func (r *RestAuthenticationOauthRestPaginationTypeResponseBody) GetLimit() *floa
 	return r.Limit
 }
 
+func (r *RestAuthenticationOauthRestPaginationTypeResponseBody) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestAuthenticationOauthRestPaginationTypeResponseBody) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
+}
+
 func (r *RestAuthenticationOauthRestPaginationTypeResponseBody) GetPageField() *string {
 	if r == nil {
 		return nil
@@ -1858,6 +1912,8 @@ func (r *RestAuthenticationOauthRestPaginationTypeResponseBody) GetTotalPageFiel
 
 type RestAuthenticationOauthRestPaginationTypeNone struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
+	MaxPages *float64 `json:"maxPages,omitzero"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
 	LastPageExpr *string `json:"lastPageExpr,omitzero"`
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
@@ -1872,6 +1928,10 @@ type RestAuthenticationOauthRestPaginationTypeNone struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to collect per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
@@ -1900,6 +1960,13 @@ func (r *RestAuthenticationOauthRestPaginationTypeNone) GetType() PaginationOpti
 		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
 	}
 	return r.Type
+}
+
+func (r *RestAuthenticationOauthRestPaginationTypeNone) GetMaxPages() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.MaxPages
 }
 
 func (r *RestAuthenticationOauthRestPaginationTypeNone) GetLastPageExpr() *string {
@@ -1949,6 +2016,20 @@ func (r *RestAuthenticationOauthRestPaginationTypeNone) GetLimit() *float64 {
 		return nil
 	}
 	return r.Limit
+}
+
+func (r *RestAuthenticationOauthRestPaginationTypeNone) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestAuthenticationOauthRestPaginationTypeNone) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
 }
 
 func (r *RestAuthenticationOauthRestPaginationTypeNone) GetPageField() *string {
@@ -2633,13 +2714,13 @@ func (r *RestAuthenticationOauthScheduling) GetStateTracking() *RestAuthenticati
 type RestAuthenticationOauth struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication RestAuthenticationOauthAuthentication `json:"authentication"`
-	// URL to use for the OAuth API call. This call is expected to be a POST.
+	// URL to use for login API call. This call is expected to be a POST.
 	LoginURL string `json:"loginUrl"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitzero"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `json:"authHeaderKey,omitzero"`
-	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+	// JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
 	AuthHeaderExpr string `json:"authHeaderExpr"`
 	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
 	ClientSecretParamName string `json:"clientSecretParamName"`
@@ -2676,8 +2757,22 @@ type RestAuthenticationOauth struct {
 	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
 	MicrosoftGraphDelta *RestAuthenticationOauthMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
 	Scheduling          *RestAuthenticationOauthScheduling          `json:"__scheduling,omitzero"`
+	Username            *string                                     `json:"username,omitzero"`
+	Password            *string                                     `json:"password,omitzero"`
+	// Select or create a stored secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
+	LoginBody *string `json:"loginBody,omitzero"`
+	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+	GetAuthTokenFromHeader *bool `json:"getAuthTokenFromHeader,omitzero"`
+	// Select or create a text secret that contains the client secret's value
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+	Scopes []string `json:"scopes,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+	Subject *string `json:"subject,omitzero"`
 	// Select or create an HMAC Function to use with authentication
 	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
@@ -2968,11 +3063,67 @@ func (r *RestAuthenticationOauth) GetScheduling() *RestAuthenticationOauthSchedu
 	return r.Scheduling
 }
 
+func (r *RestAuthenticationOauth) GetUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Username
+}
+
+func (r *RestAuthenticationOauth) GetPassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Password
+}
+
+func (r *RestAuthenticationOauth) GetCredentialsSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.CredentialsSecret
+}
+
+func (r *RestAuthenticationOauth) GetLoginBody() *string {
+	if r == nil {
+		return nil
+	}
+	return r.LoginBody
+}
+
+func (r *RestAuthenticationOauth) GetGetAuthTokenFromHeader() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.GetAuthTokenFromHeader
+}
+
+func (r *RestAuthenticationOauth) GetTextSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TextSecret
+}
+
+func (r *RestAuthenticationOauth) GetScopes() []string {
+	if r == nil {
+		return nil
+	}
+	return r.Scopes
+}
+
 func (r *RestAuthenticationOauth) GetServiceAccountCredentials() *string {
 	if r == nil {
 		return nil
 	}
 	return r.ServiceAccountCredentials
+}
+
+func (r *RestAuthenticationOauth) GetSubject() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Subject
 }
 
 func (r *RestAuthenticationOauth) GetHmacFunctionID() *string {
@@ -3053,6 +3204,8 @@ type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone struct {
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
@@ -3150,6 +3303,13 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone) GetPaginati
 	return nil
 }
 
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone) GetDiscoverDataField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverDataField
+}
+
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeNone) GetEnableStrictDiscoverParsing() *bool {
 	if r == nil {
 		return nil
@@ -3213,6 +3373,8 @@ type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList struct {
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
@@ -3315,6 +3477,13 @@ func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList) GetPaginati
 	return nil
 }
 
+func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList) GetDiscoverDataField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverDataField
+}
+
 func (r *RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeList) GetEnableStrictDiscoverParsing() *bool {
 	if r == nil {
 		return nil
@@ -3366,7 +3535,7 @@ type RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJSON struct {
 	DiscoverType RestAuthenticationLoginSecretRestDiscoveryDiscoverTypeJSONDiscoverType `json:"discoverType"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult string `json:"manualDiscoverResult"`
-	// Within the response JSON, the name of the field to pull results from, typically a JSON array. Leave blank if the result itself is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
@@ -4989,6 +5158,10 @@ type RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderLink struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to collect per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
@@ -5073,6 +5246,20 @@ func (r *RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderLink) GetL
 		return nil
 	}
 	return r.Limit
+}
+
+func (r *RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderLink) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderLink) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
 }
 
 func (r *RestAuthenticationLoginSecretRestPaginationTypeResponseHeaderLink) GetPageField() *string {
@@ -5220,6 +5407,10 @@ type RestAuthenticationLoginSecretRestPaginationTypeResponseHeader struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to collect per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
@@ -5311,6 +5502,20 @@ func (r *RestAuthenticationLoginSecretRestPaginationTypeResponseHeader) GetLimit
 		return nil
 	}
 	return r.Limit
+}
+
+func (r *RestAuthenticationLoginSecretRestPaginationTypeResponseHeader) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestAuthenticationLoginSecretRestPaginationTypeResponseHeader) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
 }
 
 func (r *RestAuthenticationLoginSecretRestPaginationTypeResponseHeader) GetPageField() *string {
@@ -5458,6 +5663,10 @@ type RestAuthenticationLoginSecretRestPaginationTypeResponseBody struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to collect per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
@@ -5551,6 +5760,20 @@ func (r *RestAuthenticationLoginSecretRestPaginationTypeResponseBody) GetLimit()
 	return r.Limit
 }
 
+func (r *RestAuthenticationLoginSecretRestPaginationTypeResponseBody) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestAuthenticationLoginSecretRestPaginationTypeResponseBody) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
+}
+
 func (r *RestAuthenticationLoginSecretRestPaginationTypeResponseBody) GetPageField() *string {
 	if r == nil {
 		return nil
@@ -5588,6 +5811,8 @@ func (r *RestAuthenticationLoginSecretRestPaginationTypeResponseBody) GetTotalPa
 
 type RestAuthenticationLoginSecretRestPaginationTypeNone struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
+	MaxPages *float64 `json:"maxPages,omitzero"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
 	LastPageExpr *string `json:"lastPageExpr,omitzero"`
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
@@ -5602,6 +5827,10 @@ type RestAuthenticationLoginSecretRestPaginationTypeNone struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to collect per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
@@ -5630,6 +5859,13 @@ func (r *RestAuthenticationLoginSecretRestPaginationTypeNone) GetType() Paginati
 		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
 	}
 	return r.Type
+}
+
+func (r *RestAuthenticationLoginSecretRestPaginationTypeNone) GetMaxPages() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.MaxPages
 }
 
 func (r *RestAuthenticationLoginSecretRestPaginationTypeNone) GetLastPageExpr() *string {
@@ -5679,6 +5915,20 @@ func (r *RestAuthenticationLoginSecretRestPaginationTypeNone) GetLimit() *float6
 		return nil
 	}
 	return r.Limit
+}
+
+func (r *RestAuthenticationLoginSecretRestPaginationTypeNone) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestAuthenticationLoginSecretRestPaginationTypeNone) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
 }
 
 func (r *RestAuthenticationLoginSecretRestPaginationTypeNone) GetPageField() *string {
@@ -6365,7 +6615,7 @@ type RestAuthenticationLoginSecret struct {
 	Authentication RestAuthenticationLoginSecretAuthentication `json:"authentication"`
 	// URL to use for login API call. This call is expected to be a POST.
 	LoginURL string `json:"loginUrl"`
-	// Select or create a stored secret that references your login credentials
+	// Select or create a stored secret that references your credentials
 	CredentialsSecret string `json:"credentialsSecret"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
 	LoginBody string `json:"loginBody"`
@@ -6373,7 +6623,7 @@ type RestAuthenticationLoginSecret struct {
 	GetAuthTokenFromHeader *bool `json:"getAuthTokenFromHeader,omitzero"`
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `json:"authHeaderKey,omitzero"`
-	// JavaScript expression to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+	// JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
 	AuthHeaderExpr     string                                        `json:"authHeaderExpr"`
 	AuthRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"authRequestHeaders,omitzero"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
@@ -6406,10 +6656,22 @@ type RestAuthenticationLoginSecret struct {
 	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
 	MicrosoftGraphDelta *RestAuthenticationLoginSecretMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
 	Scheduling          *RestAuthenticationLoginSecretScheduling          `json:"__scheduling,omitzero"`
+	Username            *string                                           `json:"username,omitzero"`
+	Password            *string                                           `json:"password,omitzero"`
+	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+	ClientSecretParamName *string `json:"clientSecretParamName,omitzero"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+	AuthRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"authRequestParams,omitzero"`
+	// Select or create a text secret that contains the client secret's value
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+	Scopes []string `json:"scopes,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+	Subject *string `json:"subject,omitzero"`
 	// Select or create an HMAC Function to use with authentication
 	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
@@ -6700,6 +6962,27 @@ func (r *RestAuthenticationLoginSecret) GetScheduling() *RestAuthenticationLogin
 	return r.Scheduling
 }
 
+func (r *RestAuthenticationLoginSecret) GetUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Username
+}
+
+func (r *RestAuthenticationLoginSecret) GetPassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Password
+}
+
+func (r *RestAuthenticationLoginSecret) GetClientSecretParamName() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ClientSecretParamName
+}
+
 func (r *RestAuthenticationLoginSecret) GetClientSecretParamValue() *string {
 	if r == nil {
 		return nil
@@ -6707,11 +6990,39 @@ func (r *RestAuthenticationLoginSecret) GetClientSecretParamValue() *string {
 	return r.ClientSecretParamValue
 }
 
+func (r *RestAuthenticationLoginSecret) GetAuthRequestParams() []CollectRequestParamConfRestCollectMethodGet {
+	if r == nil {
+		return nil
+	}
+	return r.AuthRequestParams
+}
+
+func (r *RestAuthenticationLoginSecret) GetTextSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TextSecret
+}
+
+func (r *RestAuthenticationLoginSecret) GetScopes() []string {
+	if r == nil {
+		return nil
+	}
+	return r.Scopes
+}
+
 func (r *RestAuthenticationLoginSecret) GetServiceAccountCredentials() *string {
 	if r == nil {
 		return nil
 	}
 	return r.ServiceAccountCredentials
+}
+
+func (r *RestAuthenticationLoginSecret) GetSubject() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Subject
 }
 
 func (r *RestAuthenticationLoginSecret) GetHmacFunctionID() *string {
@@ -6792,6 +7103,8 @@ type RestAuthenticationLoginRestDiscoveryDiscoverTypeNone struct {
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
@@ -6889,6 +7202,13 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeNone) GetPaginationRequ
 	return nil
 }
 
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeNone) GetDiscoverDataField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverDataField
+}
+
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeNone) GetEnableStrictDiscoverParsing() *bool {
 	if r == nil {
 		return nil
@@ -6952,6 +7272,8 @@ type RestAuthenticationLoginRestDiscoveryDiscoverTypeList struct {
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
@@ -7054,6 +7376,13 @@ func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeList) GetPaginationRequ
 	return nil
 }
 
+func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeList) GetDiscoverDataField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverDataField
+}
+
 func (r *RestAuthenticationLoginRestDiscoveryDiscoverTypeList) GetEnableStrictDiscoverParsing() *bool {
 	if r == nil {
 		return nil
@@ -7105,7 +7434,7 @@ type RestAuthenticationLoginRestDiscoveryDiscoverTypeJSON struct {
 	DiscoverType RestAuthenticationLoginRestDiscoveryDiscoverTypeJSONDiscoverType `json:"discoverType"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult string `json:"manualDiscoverResult"`
-	// Within the response JSON, the name of the field to pull results from, typically a JSON array. Leave blank if the result itself is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
@@ -8728,6 +9057,10 @@ type RestAuthenticationLoginRestPaginationTypeResponseHeaderLink struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to collect per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
@@ -8812,6 +9145,20 @@ func (r *RestAuthenticationLoginRestPaginationTypeResponseHeaderLink) GetLimit()
 		return nil
 	}
 	return r.Limit
+}
+
+func (r *RestAuthenticationLoginRestPaginationTypeResponseHeaderLink) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestAuthenticationLoginRestPaginationTypeResponseHeaderLink) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
 }
 
 func (r *RestAuthenticationLoginRestPaginationTypeResponseHeaderLink) GetPageField() *string {
@@ -8959,6 +9306,10 @@ type RestAuthenticationLoginRestPaginationTypeResponseHeader struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to collect per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
@@ -9050,6 +9401,20 @@ func (r *RestAuthenticationLoginRestPaginationTypeResponseHeader) GetLimit() *fl
 		return nil
 	}
 	return r.Limit
+}
+
+func (r *RestAuthenticationLoginRestPaginationTypeResponseHeader) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestAuthenticationLoginRestPaginationTypeResponseHeader) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
 }
 
 func (r *RestAuthenticationLoginRestPaginationTypeResponseHeader) GetPageField() *string {
@@ -9197,6 +9562,10 @@ type RestAuthenticationLoginRestPaginationTypeResponseBody struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to collect per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
@@ -9290,6 +9659,20 @@ func (r *RestAuthenticationLoginRestPaginationTypeResponseBody) GetLimit() *floa
 	return r.Limit
 }
 
+func (r *RestAuthenticationLoginRestPaginationTypeResponseBody) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestAuthenticationLoginRestPaginationTypeResponseBody) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
+}
+
 func (r *RestAuthenticationLoginRestPaginationTypeResponseBody) GetPageField() *string {
 	if r == nil {
 		return nil
@@ -9327,6 +9710,8 @@ func (r *RestAuthenticationLoginRestPaginationTypeResponseBody) GetTotalPageFiel
 
 type RestAuthenticationLoginRestPaginationTypeNone struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
+	MaxPages *float64 `json:"maxPages,omitzero"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
 	LastPageExpr *string `json:"lastPageExpr,omitzero"`
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
@@ -9341,6 +9726,10 @@ type RestAuthenticationLoginRestPaginationTypeNone struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to collect per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
@@ -9369,6 +9758,13 @@ func (r *RestAuthenticationLoginRestPaginationTypeNone) GetType() PaginationOpti
 		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
 	}
 	return r.Type
+}
+
+func (r *RestAuthenticationLoginRestPaginationTypeNone) GetMaxPages() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.MaxPages
 }
 
 func (r *RestAuthenticationLoginRestPaginationTypeNone) GetLastPageExpr() *string {
@@ -9418,6 +9814,20 @@ func (r *RestAuthenticationLoginRestPaginationTypeNone) GetLimit() *float64 {
 		return nil
 	}
 	return r.Limit
+}
+
+func (r *RestAuthenticationLoginRestPaginationTypeNone) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestAuthenticationLoginRestPaginationTypeNone) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
 }
 
 func (r *RestAuthenticationLoginRestPaginationTypeNone) GetPageField() *string {
@@ -10145,10 +10555,22 @@ type RestAuthenticationLogin struct {
 	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
 	MicrosoftGraphDelta *RestAuthenticationLoginMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
 	Scheduling          *RestAuthenticationLoginScheduling          `json:"__scheduling,omitzero"`
+	// Select or create a stored secret that references your credentials
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+	ClientSecretParamName *string `json:"clientSecretParamName,omitzero"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+	AuthRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"authRequestParams,omitzero"`
+	// Select or create a text secret that contains the client secret's value
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+	Scopes []string `json:"scopes,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+	Subject *string `json:"subject,omitzero"`
 	// Select or create an HMAC Function to use with authentication
 	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
@@ -10446,6 +10868,20 @@ func (r *RestAuthenticationLogin) GetScheduling() *RestAuthenticationLoginSchedu
 	return r.Scheduling
 }
 
+func (r *RestAuthenticationLogin) GetCredentialsSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.CredentialsSecret
+}
+
+func (r *RestAuthenticationLogin) GetClientSecretParamName() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ClientSecretParamName
+}
+
 func (r *RestAuthenticationLogin) GetClientSecretParamValue() *string {
 	if r == nil {
 		return nil
@@ -10453,11 +10889,39 @@ func (r *RestAuthenticationLogin) GetClientSecretParamValue() *string {
 	return r.ClientSecretParamValue
 }
 
+func (r *RestAuthenticationLogin) GetAuthRequestParams() []CollectRequestParamConfRestCollectMethodGet {
+	if r == nil {
+		return nil
+	}
+	return r.AuthRequestParams
+}
+
+func (r *RestAuthenticationLogin) GetTextSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TextSecret
+}
+
+func (r *RestAuthenticationLogin) GetScopes() []string {
+	if r == nil {
+		return nil
+	}
+	return r.Scopes
+}
+
 func (r *RestAuthenticationLogin) GetServiceAccountCredentials() *string {
 	if r == nil {
 		return nil
 	}
 	return r.ServiceAccountCredentials
+}
+
+func (r *RestAuthenticationLogin) GetSubject() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Subject
 }
 
 func (r *RestAuthenticationLogin) GetHmacFunctionID() *string {
@@ -10538,6 +11002,8 @@ type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone struct {
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
@@ -10635,6 +11101,13 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone) GetPaginati
 	return nil
 }
 
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone) GetDiscoverDataField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverDataField
+}
+
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeNone) GetEnableStrictDiscoverParsing() *bool {
 	if r == nil {
 		return nil
@@ -10698,6 +11171,8 @@ type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList struct {
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
@@ -10800,6 +11275,13 @@ func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList) GetPaginati
 	return nil
 }
 
+func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList) GetDiscoverDataField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverDataField
+}
+
 func (r *RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeList) GetEnableStrictDiscoverParsing() *bool {
 	if r == nil {
 		return nil
@@ -10851,7 +11333,7 @@ type RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJSON struct {
 	DiscoverType RestAuthenticationBasicSecretRestDiscoveryDiscoverTypeJSONDiscoverType `json:"discoverType"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult string `json:"manualDiscoverResult"`
-	// Within the response JSON, the name of the field to pull results from, typically a JSON array. Leave blank if the result itself is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`
@@ -12474,6 +12956,10 @@ type RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderLink struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to collect per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
@@ -12558,6 +13044,20 @@ func (r *RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderLink) GetL
 		return nil
 	}
 	return r.Limit
+}
+
+func (r *RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderLink) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderLink) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
 }
 
 func (r *RestAuthenticationBasicSecretRestPaginationTypeResponseHeaderLink) GetPageField() *string {
@@ -12705,6 +13205,10 @@ type RestAuthenticationBasicSecretRestPaginationTypeResponseHeader struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to collect per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
@@ -12796,6 +13300,20 @@ func (r *RestAuthenticationBasicSecretRestPaginationTypeResponseHeader) GetLimit
 		return nil
 	}
 	return r.Limit
+}
+
+func (r *RestAuthenticationBasicSecretRestPaginationTypeResponseHeader) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestAuthenticationBasicSecretRestPaginationTypeResponseHeader) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
 }
 
 func (r *RestAuthenticationBasicSecretRestPaginationTypeResponseHeader) GetPageField() *string {
@@ -12943,6 +13461,10 @@ type RestAuthenticationBasicSecretRestPaginationTypeResponseBody struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to collect per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
@@ -13036,6 +13558,20 @@ func (r *RestAuthenticationBasicSecretRestPaginationTypeResponseBody) GetLimit()
 	return r.Limit
 }
 
+func (r *RestAuthenticationBasicSecretRestPaginationTypeResponseBody) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestAuthenticationBasicSecretRestPaginationTypeResponseBody) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
+}
+
 func (r *RestAuthenticationBasicSecretRestPaginationTypeResponseBody) GetPageField() *string {
 	if r == nil {
 		return nil
@@ -13073,6 +13609,8 @@ func (r *RestAuthenticationBasicSecretRestPaginationTypeResponseBody) GetTotalPa
 
 type RestAuthenticationBasicSecretRestPaginationTypeNone struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
+	MaxPages *float64 `json:"maxPages,omitzero"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
 	LastPageExpr *string `json:"lastPageExpr,omitzero"`
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
@@ -13087,6 +13625,10 @@ type RestAuthenticationBasicSecretRestPaginationTypeNone struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to collect per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start collection from the first page.
@@ -13115,6 +13657,13 @@ func (r *RestAuthenticationBasicSecretRestPaginationTypeNone) GetType() Paginati
 		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
 	}
 	return r.Type
+}
+
+func (r *RestAuthenticationBasicSecretRestPaginationTypeNone) GetMaxPages() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.MaxPages
 }
 
 func (r *RestAuthenticationBasicSecretRestPaginationTypeNone) GetLastPageExpr() *string {
@@ -13164,6 +13713,20 @@ func (r *RestAuthenticationBasicSecretRestPaginationTypeNone) GetLimit() *float6
 		return nil
 	}
 	return r.Limit
+}
+
+func (r *RestAuthenticationBasicSecretRestPaginationTypeNone) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestAuthenticationBasicSecretRestPaginationTypeNone) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
 }
 
 func (r *RestAuthenticationBasicSecretRestPaginationTypeNone) GetPageField() *string {
@@ -13878,10 +14441,35 @@ type RestAuthenticationBasicSecret struct {
 	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
 	MicrosoftGraphDelta *RestAuthenticationBasicSecretMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
 	Scheduling          *RestAuthenticationBasicSecretScheduling          `json:"__scheduling,omitzero"`
+	Username            *string                                           `json:"username,omitzero"`
+	Password            *string                                           `json:"password,omitzero"`
+	// URL to use for login API call. This call is expected to be a POST.
+	LoginURL *string `json:"loginUrl,omitzero"`
+	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message. For x-www-form-urlencoded bodies, wrap values with ${C.Encode.uri(password)} to preserve special characters like +, &, and =.
+	LoginBody *string `json:"loginBody,omitzero"`
+	// Extract the auth token from the HTTP 'Authorization' response header instead of the standard JSON body of the login response
+	GetAuthTokenFromHeader *bool `json:"getAuthTokenFromHeader,omitzero"`
+	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
+	AuthHeaderKey *string `json:"authHeaderKey,omitzero"`
+	// JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
+	AuthHeaderExpr     *string                                       `json:"authHeaderExpr,omitzero"`
+	AuthRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"authRequestHeaders,omitzero"`
+	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+	TokenRespAttribute *string `json:"tokenRespAttribute,omitzero"`
+	// Defaults to 'client_secret'. Automatically added to request parameters using the value specified.
+	ClientSecretParamName *string `json:"clientSecretParamName,omitzero"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Value is stored encrypted on disk and automatically added to request parameters.
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
+	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+	AuthRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"authRequestParams,omitzero"`
+	// Select or create a text secret that contains the client secret's value
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
+	Scopes []string `json:"scopes,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
+	// Email address of a user account with Super Admin permissions to the resources the collector will retrieve
+	Subject *string `json:"subject,omitzero"`
 	// Select or create an HMAC Function to use with authentication
 	HmacFunctionID *string `json:"hmacFunctionId,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
@@ -14123,6 +14711,76 @@ func (r *RestAuthenticationBasicSecret) GetScheduling() *RestAuthenticationBasic
 	return r.Scheduling
 }
 
+func (r *RestAuthenticationBasicSecret) GetUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Username
+}
+
+func (r *RestAuthenticationBasicSecret) GetPassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Password
+}
+
+func (r *RestAuthenticationBasicSecret) GetLoginURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.LoginURL
+}
+
+func (r *RestAuthenticationBasicSecret) GetLoginBody() *string {
+	if r == nil {
+		return nil
+	}
+	return r.LoginBody
+}
+
+func (r *RestAuthenticationBasicSecret) GetGetAuthTokenFromHeader() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.GetAuthTokenFromHeader
+}
+
+func (r *RestAuthenticationBasicSecret) GetAuthHeaderKey() *string {
+	if r == nil {
+		return nil
+	}
+	return r.AuthHeaderKey
+}
+
+func (r *RestAuthenticationBasicSecret) GetAuthHeaderExpr() *string {
+	if r == nil {
+		return nil
+	}
+	return r.AuthHeaderExpr
+}
+
+func (r *RestAuthenticationBasicSecret) GetAuthRequestHeaders() []CollectRequestParamConfRestCollectMethodGet {
+	if r == nil {
+		return nil
+	}
+	return r.AuthRequestHeaders
+}
+
+func (r *RestAuthenticationBasicSecret) GetTokenRespAttribute() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TokenRespAttribute
+}
+
+func (r *RestAuthenticationBasicSecret) GetClientSecretParamName() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ClientSecretParamName
+}
+
 func (r *RestAuthenticationBasicSecret) GetClientSecretParamValue() *string {
 	if r == nil {
 		return nil
@@ -14130,11 +14788,39 @@ func (r *RestAuthenticationBasicSecret) GetClientSecretParamValue() *string {
 	return r.ClientSecretParamValue
 }
 
+func (r *RestAuthenticationBasicSecret) GetAuthRequestParams() []CollectRequestParamConfRestCollectMethodGet {
+	if r == nil {
+		return nil
+	}
+	return r.AuthRequestParams
+}
+
+func (r *RestAuthenticationBasicSecret) GetTextSecret() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TextSecret
+}
+
+func (r *RestAuthenticationBasicSecret) GetScopes() []string {
+	if r == nil {
+		return nil
+	}
+	return r.Scopes
+}
+
 func (r *RestAuthenticationBasicSecret) GetServiceAccountCredentials() *string {
 	if r == nil {
 		return nil
 	}
 	return r.ServiceAccountCredentials
+}
+
+func (r *RestAuthenticationBasicSecret) GetSubject() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Subject
 }
 
 func (r *RestAuthenticationBasicSecret) GetHmacFunctionID() *string {
@@ -14215,6 +14901,8 @@ type RestAuthenticationBasicRestDiscoveryDiscoverTypeNone struct {
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
@@ -14312,6 +15000,13 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeNone) GetPaginationRequ
 	return nil
 }
 
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeNone) GetDiscoverDataField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverDataField
+}
+
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeNone) GetEnableStrictDiscoverParsing() *bool {
 	if r == nil {
 		return nil
@@ -14375,6 +15070,8 @@ type RestAuthenticationBasicRestDiscoveryDiscoverTypeList struct {
 	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
+	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
@@ -14477,6 +15174,13 @@ func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeList) GetPaginationRequ
 	return nil
 }
 
+func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeList) GetDiscoverDataField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.DiscoverDataField
+}
+
 func (r *RestAuthenticationBasicRestDiscoveryDiscoverTypeList) GetEnableStrictDiscoverParsing() *bool {
 	if r == nil {
 		return nil
@@ -14528,7 +15232,7 @@ type RestAuthenticationBasicRestDiscoveryDiscoverTypeJSON struct {
 	DiscoverType RestAuthenticationBasicRestDiscoveryDiscoverTypeJSONDiscoverType `json:"discoverType"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult string `json:"manualDiscoverResult"`
-	// Within the response JSON, the name of the field to pull results from, typically a JSON array. Leave blank if the result itself is an array of values. Sample entry: items, json: { items: [{id: 'first'},{id: 'second'}] }
+	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL            *string                                             `json:"discoverUrl,omitzero"`

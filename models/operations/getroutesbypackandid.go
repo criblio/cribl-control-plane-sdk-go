@@ -30,7 +30,7 @@ func (g *GetRoutesByPackAndIDRequest) GetPack() string {
 
 type GetRoutesByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Routes objects
+	// The requested Routes object in a single-item list.
 	CountedRoutes *components.CountedRoutes
 }
 

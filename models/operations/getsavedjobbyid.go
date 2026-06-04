@@ -21,7 +21,7 @@ func (g *GetSavedJobByIDRequest) GetID() string {
 
 type GetSavedJobByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of SavedJobResponse objects.
+	// The requested SavedJobResponse object in a single-item list.
 	CountedSavedJobResponse *components.CountedSavedJobResponse
 }
 

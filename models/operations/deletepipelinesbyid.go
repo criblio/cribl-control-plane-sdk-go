@@ -21,7 +21,7 @@ func (d *DeletePipelinesByIDRequest) GetID() string {
 
 type DeletePipelinesByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Pipeline objects
+	// The deleted Pipeline object in a single-item list.
 	CountedPipeline *components.CountedPipeline
 }
 

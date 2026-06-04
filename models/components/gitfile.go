@@ -7,9 +7,10 @@ import (
 )
 
 type GitFile struct {
-	Children []GitFile `json:"children,omitzero"`
-	Name     string    `json:"name"`
-	State    *string   `json:"state,omitzero"`
+	AutoIncludedInCommit *bool     `json:"autoIncludedInCommit,omitzero"`
+	Children             []GitFile `json:"children,omitzero"`
+	Name                 string    `json:"name"`
+	State                *string   `json:"state,omitzero"`
 }
 
 func (g GitFile) MarshalJSON() ([]byte, error) {
@@ -21,6 +22,13 @@ func (g *GitFile) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (g *GitFile) GetAutoIncludedInCommit() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.AutoIncludedInCommit
 }
 
 func (g *GitFile) GetChildren() []GitFile {

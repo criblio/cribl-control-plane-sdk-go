@@ -5,8 +5,8 @@
 ### Available Operations
 
 * [Count](#count) - Get a count of Worker, Edge, or Outpost Nodes
-* [Get](#get) - Get detailed metadata for a Worker, Edge, or Outpost Node
 * [List](#list) - Get detailed metadata for Worker, Edge, or Outpost Nodes
+* [Get](#get) - Get detailed metadata for a Worker, Edge, or Outpost Node
 * [Restart](#restart) - Restart Worker, Edge, or Outpost Nodes
 
 ## Count
@@ -59,64 +59,6 @@ func main() {
 ### Response
 
 **[*operations.GetProductsSummaryWorkersByProductResponse](../../models/operations/getproductssummaryworkersbyproductresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
-
-## Get
-
-Get detailed metadata for the specified Worker, Edge, or Outpost Node for the specified Cribl product.
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="getProductsWorkersByProductAndId" method="get" path="/products/{product}/workers/{id}" -->
-```go
-package main
-
-import(
-	"context"
-	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"log"
-)
-
-func main() {
-    ctx := context.Background()
-
-    s := criblcontrolplanesdkgo.New(
-        "https://api.example.com",
-        criblcontrolplanesdkgo.WithSecurity(components.Security{
-            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-        }),
-    )
-
-    res, err := s.Nodes.Get(ctx, components.ProductsCoreStream, "<id>")
-    if err != nil {
-        log.Fatal(err)
-    }
-    if res.CountedMasterWorkerEntry != nil {
-        // handle response
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                          | Type                                                               | Required                                                           | Description                                                        |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| `ctx`                                                              | [context.Context](https://pkg.go.dev/context#Context)              | :heavy_check_mark:                                                 | The context to use for the request.                                |
-| `product`                                                          | [components.ProductsCore](../../models/components/productscore.md) | :heavy_check_mark:                                                 | Name of the Cribl product that contains the Node.                  |
-| `id`                                                               | `string`                                                           | :heavy_check_mark:                                                 | The <code>id</code> of the Node to get the metadata for.           |
-| `opts`                                                             | [][operations.Option](../../models/operations/option.md)           | :heavy_minus_sign:                                                 | The options for this request.                                      |
-
-### Response
-
-**[*operations.GetProductsWorkersByProductAndIDResponse](../../models/operations/getproductsworkersbyproductandidresponse.md), error**
 
 ### Errors
 
@@ -195,6 +137,64 @@ func main() {
 ### Response
 
 **[*operations.GetProductsWorkersByProductResponse](../../models/operations/getproductsworkersbyproductresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## Get
+
+Get detailed metadata for the specified Worker, Edge, or Outpost Node for the specified Cribl product.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getProductsWorkersByProductAndId" method="get" path="/products/{product}/workers/{id}" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Nodes.Get(ctx, components.ProductsCoreStream, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedMasterWorkerEntry != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                          | Type                                                               | Required                                                           | Description                                                        |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `ctx`                                                              | [context.Context](https://pkg.go.dev/context#Context)              | :heavy_check_mark:                                                 | The context to use for the request.                                |
+| `product`                                                          | [components.ProductsCore](../../models/components/productscore.md) | :heavy_check_mark:                                                 | Name of the Cribl product that contains the Node.                  |
+| `id`                                                               | `string`                                                           | :heavy_check_mark:                                                 | The <code>id</code> of the Node to get the metadata for.           |
+| `opts`                                                             | [][operations.Option](../../models/operations/option.md)           | :heavy_minus_sign:                                                 | The options for this request.                                      |
+
+### Response
+
+**[*operations.GetProductsWorkersByProductAndIDResponse](../../models/operations/getproductsworkersbyproductandidresponse.md), error**
 
 ### Errors
 

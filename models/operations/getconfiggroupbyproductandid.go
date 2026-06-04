@@ -39,7 +39,7 @@ func (g *GetConfigGroupByProductAndIDRequest) GetFields() *string {
 
 type GetConfigGroupByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of ConfigGroup objects.
+	// The requested ConfigGroup object in a single-item list.
 	CountedConfigGroup *components.CountedConfigGroup
 }
 

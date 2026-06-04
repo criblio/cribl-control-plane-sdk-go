@@ -21,7 +21,7 @@ func (l *ListOutputRequest) GetType() *components.DestinationType {
 
 type ListOutputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination objects
+	// List of Destination objects.
 	CountedOutputResponse *components.CountedOutputResponse
 }
 

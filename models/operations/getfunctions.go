@@ -9,7 +9,7 @@ import (
 
 type GetFunctionsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Function objects
+	// List of Function objects.
 	CountedFunctionResponse *components.CountedFunctionResponse
 }
 

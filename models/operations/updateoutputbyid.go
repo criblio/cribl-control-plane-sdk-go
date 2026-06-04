@@ -346,7 +346,7 @@ func (u *UpdateOutputByIDRequest) GetOutputAlibabaCloudS3() *components.OutputAl
 
 type UpdateOutputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// the updated Destination object
+	// The updated Destination object in a single-item list.
 	CountedOutputResponse *components.CountedOutputResponse
 }
 

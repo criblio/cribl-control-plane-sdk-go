@@ -9812,13 +9812,15 @@ func (e *OutputResponseMappingType) IsExact() bool {
 }
 
 type OutputResponseStatsDestination struct {
-	URL         *string `json:"url,omitzero"`
-	Database    *string `json:"database,omitzero"`
-	TableName   *string `json:"tableName,omitzero"`
-	AuthType    *string `json:"authType,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	SQLUsername *string `json:"sqlUsername,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	URL                 *string  `json:"url,omitzero"`
+	Database            *string  `json:"database,omitzero"`
+	TableName           *string  `json:"tableName,omitzero"`
+	AuthType            *string  `json:"authType,omitzero"`
+	Username            *string  `json:"username,omitzero"`
+	SQLUsername         *string  `json:"sqlUsername,omitzero"`
+	Password            *string  `json:"password,omitzero"`
+	WaitForAsyncInserts *bool    `json:"waitForAsyncInserts,omitzero"`
+	Concurrency         *float64 `json:"concurrency,omitzero"`
 }
 
 func (o OutputResponseStatsDestination) MarshalJSON() ([]byte, error) {
@@ -9879,6 +9881,20 @@ func (o *OutputResponseStatsDestination) GetPassword() *string {
 		return nil
 	}
 	return o.Password
+}
+
+func (o *OutputResponseStatsDestination) GetWaitForAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.WaitForAsyncInserts
+}
+
+func (o *OutputResponseStatsDestination) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
 }
 
 type OutputResponseColumnMapping struct {
@@ -11848,9 +11864,10 @@ func (e *OutputResponseAwsAuthenticationMethod) IsExact() bool {
 type FormatCriblLake string
 
 const (
-	FormatCriblLakeJSON    FormatCriblLake = "json"
-	FormatCriblLakeParquet FormatCriblLake = "parquet"
-	FormatCriblLakeDdss    FormatCriblLake = "ddss"
+	FormatCriblLakeJSON     FormatCriblLake = "json"
+	FormatCriblLakeParquet  FormatCriblLake = "parquet"
+	FormatCriblLakeDdss     FormatCriblLake = "ddss"
+	FormatCriblLakeNetskope FormatCriblLake = "netskope"
 )
 
 func (e FormatCriblLake) ToPointer() *FormatCriblLake {
@@ -11861,7 +11878,7 @@ func (e FormatCriblLake) ToPointer() *FormatCriblLake {
 func (e *FormatCriblLake) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "json", "parquet", "ddss":
+		case "json", "parquet", "ddss", "netskope":
 			return true
 		}
 	}
@@ -21692,7 +21709,11 @@ type OutputResponseOutputSnmp struct {
 	Hosts []HostSnmp `json:"hosts"`
 	// How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every trap sent will incur a DNS lookup.
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
-	Description         *string  `json:"description,omitzero"`
+	// Send SNMP Trap traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
+	EnableIPSpoofing *bool   `json:"enableIpSpoofing,omitzero"`
+	Description      *string `json:"description,omitzero"`
+	// MTU in bytes. The actual maximum SNMP Trap payload size will be MTU minus IP and UDP headers (28 bytes for IPv4, 48 bytes for IPv6). Payloads exceeding this limit will be dropped.
+	MaxRecordSize *float64 `json:"maxRecordSize,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Notifications attached to the Destination.
@@ -21768,11 +21789,25 @@ func (o *OutputResponseOutputSnmp) GetDNSResolvePeriodSec() *float64 {
 	return o.DNSResolvePeriodSec
 }
 
+func (o *OutputResponseOutputSnmp) GetEnableIPSpoofing() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableIPSpoofing
+}
+
 func (o *OutputResponseOutputSnmp) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
+}
+
+func (o *OutputResponseOutputSnmp) GetMaxRecordSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRecordSize
 }
 
 func (o *OutputResponseOutputSnmp) GetTemplateStreamtags() *string {

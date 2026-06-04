@@ -7,12 +7,13 @@ import (
 )
 
 type PackInfo struct {
-	Author              *string                  `json:"author,omitzero"`
-	Collectors          *float64                 `json:"collectors,omitzero"`
-	Dependencies        map[string]string        `json:"dependencies,omitzero"`
-	Description         *string                  `json:"description,omitzero"`
-	DisplayName         *string                  `json:"displayName,omitzero"`
-	Exports             []string                 `json:"exports,omitzero"`
+	Author       *string           `json:"author,omitzero"`
+	Collectors   *float64          `json:"collectors,omitzero"`
+	Dependencies map[string]string `json:"dependencies,omitzero"`
+	Description  *string           `json:"description,omitzero"`
+	DisplayName  *string           `json:"displayName,omitzero"`
+	Exports      []string          `json:"exports,omitzero"`
+	// Unique identifier.
 	ID                  string                   `json:"id"`
 	Inputs              *float64                 `json:"inputs,omitzero"`
 	IsDisabled          *bool                    `json:"isDisabled,omitzero"`

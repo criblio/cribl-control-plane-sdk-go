@@ -32,7 +32,7 @@ func (l *ListInputRequest) GetType() []string {
 
 type ListInputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source objects
+	// List of Source objects.
 	CountedInputResponse *components.CountedInputResponse
 }
 

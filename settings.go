@@ -35,7 +35,7 @@ func newSettings(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, 
 }
 
 // Restart the Cribl server
-// Restart the Cribl server.Useful for applying configuration changes that require a full process restart, such as changes to system-level settings that cannot be applied by reloading.
+// Restart the Cribl server. Useful for applying configuration changes that require a full process restart, such as changes to system-level settings that cannot be applied by reloading.
 func (s *Settings) Restart(ctx context.Context, opts ...operations.Option) (*operations.CreateSystemSettingsRestartResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{

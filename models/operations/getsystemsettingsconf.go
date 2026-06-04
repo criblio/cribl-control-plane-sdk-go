@@ -9,7 +9,7 @@ import (
 
 type GetSystemSettingsConfResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of SystemSettingsConf objects.
+	// The requested SystemSettingsConf object in a single-item list.
 	CountedSystemSettingsConf *components.CountedSystemSettingsConf
 }
 
