@@ -150,8 +150,10 @@ type RedisAuthTypeTextSecret struct {
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	URL        *string                                      `json:"url,omitzero"`
-	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
+	URL *string `json:"url,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string                                      `json:"__template_url,omitzero"`
+	TLSOptions  *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
 	// Root nodes to which the cluster connection should be initiated
 	RootNodes []RootNodeConfRedisDeploymentTypeCluster `json:"rootNodes,omitzero"`
 	// Use TLS for connections to this cluster
@@ -160,7 +162,11 @@ type RedisAuthTypeTextSecret struct {
 	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster `json:"scaleReads,omitzero"`
 	MasterName *string                                      `json:"masterName,omitzero"`
 	Username   *string                                      `json:"username,omitzero"`
-	Password   *string                                      `json:"password,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	Password         *string `json:"password,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
 	// Secret that references Redis username and password
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 }
@@ -225,6 +231,13 @@ func (r *RedisAuthTypeTextSecret) GetURL() *string {
 	return r.URL
 }
 
+func (r *RedisAuthTypeTextSecret) GetTemplateURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateURL
+}
+
 func (r *RedisAuthTypeTextSecret) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeStandalone {
 	if r == nil {
 		return nil
@@ -267,11 +280,25 @@ func (r *RedisAuthTypeTextSecret) GetUsername() *string {
 	return r.Username
 }
 
+func (r *RedisAuthTypeTextSecret) GetTemplateUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateUsername
+}
+
 func (r *RedisAuthTypeTextSecret) GetPassword() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Password
+}
+
+func (r *RedisAuthTypeTextSecret) GetTemplatePassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplatePassword
 }
 
 func (r *RedisAuthTypeTextSecret) GetCredentialsSecret() *string {
@@ -398,8 +425,10 @@ type RedisAuthTypeCredentialsSecret struct {
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	URL        *string                                      `json:"url,omitzero"`
-	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
+	URL *string `json:"url,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string                                      `json:"__template_url,omitzero"`
+	TLSOptions  *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
 	// Root nodes to which the cluster connection should be initiated
 	RootNodes []RootNodeConfRedisDeploymentTypeCluster `json:"rootNodes,omitzero"`
 	// Use TLS for connections to this cluster
@@ -408,7 +437,11 @@ type RedisAuthTypeCredentialsSecret struct {
 	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster `json:"scaleReads,omitzero"`
 	MasterName *string                                      `json:"masterName,omitzero"`
 	Username   *string                                      `json:"username,omitzero"`
-	Password   *string                                      `json:"password,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	Password         *string `json:"password,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
 	// Secret that references Redis admin password
 	TextSecret *string `json:"textSecret,omitzero"`
 }
@@ -473,6 +506,13 @@ func (r *RedisAuthTypeCredentialsSecret) GetURL() *string {
 	return r.URL
 }
 
+func (r *RedisAuthTypeCredentialsSecret) GetTemplateURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateURL
+}
+
 func (r *RedisAuthTypeCredentialsSecret) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeStandalone {
 	if r == nil {
 		return nil
@@ -515,11 +555,25 @@ func (r *RedisAuthTypeCredentialsSecret) GetUsername() *string {
 	return r.Username
 }
 
+func (r *RedisAuthTypeCredentialsSecret) GetTemplateUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateUsername
+}
+
 func (r *RedisAuthTypeCredentialsSecret) GetPassword() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Password
+}
+
+func (r *RedisAuthTypeCredentialsSecret) GetTemplatePassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplatePassword
 }
 
 func (r *RedisAuthTypeCredentialsSecret) GetTextSecret() *string {
@@ -638,7 +692,11 @@ type RedisAuthTypeManual struct {
 	AuthType *RedisAuthTypeManualAuthenticationMethod `json:"authType,omitzero"`
 	Username *string                                  `json:"username,omitzero"`
 	Password string                                   `json:"password"`
-	Commands []RedisAuthTypeManualCommand             `json:"commands"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string                      `json:"__template_password,omitzero"`
+	Commands         []RedisAuthTypeManualCommand `json:"commands"`
 	// How the Redis server is configured. Defaults to Standalone
 	DeploymentType *RedisAuthTypeManualDeploymentType `json:"deploymentType,omitzero"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
@@ -646,8 +704,10 @@ type RedisAuthTypeManual struct {
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	URL        *string                                      `json:"url,omitzero"`
-	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
+	URL *string `json:"url,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string                                      `json:"__template_url,omitzero"`
+	TLSOptions  *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
 	// Root nodes to which the cluster connection should be initiated
 	RootNodes []RootNodeConfRedisDeploymentTypeCluster `json:"rootNodes,omitzero"`
 	// Use TLS for connections to this cluster
@@ -693,6 +753,20 @@ func (r *RedisAuthTypeManual) GetPassword() string {
 	return r.Password
 }
 
+func (r *RedisAuthTypeManual) GetTemplateUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateUsername
+}
+
+func (r *RedisAuthTypeManual) GetTemplatePassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplatePassword
+}
+
 func (r *RedisAuthTypeManual) GetCommands() []RedisAuthTypeManualCommand {
 	if r == nil {
 		return []RedisAuthTypeManualCommand{}
@@ -726,6 +800,13 @@ func (r *RedisAuthTypeManual) GetURL() *string {
 		return nil
 	}
 	return r.URL
+}
+
+func (r *RedisAuthTypeManual) GetTemplateURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateURL
 }
 
 func (r *RedisAuthTypeManual) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeStandalone {
@@ -892,8 +973,10 @@ type RedisAuthTypeNone struct {
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	URL        *string                                      `json:"url,omitzero"`
-	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
+	URL *string `json:"url,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string                                      `json:"__template_url,omitzero"`
+	TLSOptions  *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
 	// Root nodes to which the cluster connection should be initiated
 	RootNodes []RootNodeConfRedisDeploymentTypeCluster `json:"rootNodes,omitzero"`
 	// Use TLS for connections to this cluster
@@ -902,7 +985,11 @@ type RedisAuthTypeNone struct {
 	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster `json:"scaleReads,omitzero"`
 	MasterName *string                                      `json:"masterName,omitzero"`
 	Username   *string                                      `json:"username,omitzero"`
-	Password   *string                                      `json:"password,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	Password         *string `json:"password,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
 	// Secret that references Redis username and password
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Secret that references Redis admin password
@@ -962,6 +1049,13 @@ func (r *RedisAuthTypeNone) GetURL() *string {
 	return r.URL
 }
 
+func (r *RedisAuthTypeNone) GetTemplateURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateURL
+}
+
 func (r *RedisAuthTypeNone) GetTLSOptions() *TLSOptionsTypeRedisDeploymentTypeStandalone {
 	if r == nil {
 		return nil
@@ -1004,11 +1098,25 @@ func (r *RedisAuthTypeNone) GetUsername() *string {
 	return r.Username
 }
 
+func (r *RedisAuthTypeNone) GetTemplateUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateUsername
+}
+
 func (r *RedisAuthTypeNone) GetPassword() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Password
+}
+
+func (r *RedisAuthTypeNone) GetTemplatePassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplatePassword
 }
 
 func (r *RedisAuthTypeNone) GetCredentialsSecret() *string {
@@ -1147,10 +1255,16 @@ type RedisDeploymentTypeSentinel struct {
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
 	URL *string `json:"url,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
 	// Which nodes read commands should be sent to
 	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster `json:"scaleReads,omitzero"`
 	Username   *string                                      `json:"username,omitzero"`
-	Password   *string                                      `json:"password,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	Password         *string `json:"password,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
 	// Secret that references Redis username and password
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Secret that references Redis admin password
@@ -1238,6 +1352,13 @@ func (r *RedisDeploymentTypeSentinel) GetURL() *string {
 	return r.URL
 }
 
+func (r *RedisDeploymentTypeSentinel) GetTemplateURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateURL
+}
+
 func (r *RedisDeploymentTypeSentinel) GetScaleReads() *ScaleReadsOptionsRedisDeploymentTypeCluster {
 	if r == nil {
 		return nil
@@ -1252,11 +1373,25 @@ func (r *RedisDeploymentTypeSentinel) GetUsername() *string {
 	return r.Username
 }
 
+func (r *RedisDeploymentTypeSentinel) GetTemplateUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateUsername
+}
+
 func (r *RedisDeploymentTypeSentinel) GetPassword() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Password
+}
+
+func (r *RedisDeploymentTypeSentinel) GetTemplatePassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplatePassword
 }
 
 func (r *RedisDeploymentTypeSentinel) GetCredentialsSecret() *string {
@@ -1395,10 +1530,16 @@ type RedisDeploymentTypeCluster struct {
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
 	EnableClientSideCaching *bool `json:"enableClientSideCaching,omitzero"`
 	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	URL        *string `json:"url,omitzero"`
-	MasterName *string `json:"masterName,omitzero"`
-	Username   *string `json:"username,omitzero"`
-	Password   *string `json:"password,omitzero"`
+	URL *string `json:"url,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string `json:"__template_url,omitzero"`
+	MasterName  *string `json:"masterName,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	Password         *string `json:"password,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
 	// Secret that references Redis username and password
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Secret that references Redis admin password
@@ -1486,6 +1627,13 @@ func (r *RedisDeploymentTypeCluster) GetURL() *string {
 	return r.URL
 }
 
+func (r *RedisDeploymentTypeCluster) GetTemplateURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateURL
+}
+
 func (r *RedisDeploymentTypeCluster) GetMasterName() *string {
 	if r == nil {
 		return nil
@@ -1500,11 +1648,25 @@ func (r *RedisDeploymentTypeCluster) GetUsername() *string {
 	return r.Username
 }
 
+func (r *RedisDeploymentTypeCluster) GetTemplateUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateUsername
+}
+
 func (r *RedisDeploymentTypeCluster) GetPassword() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Password
+}
+
+func (r *RedisDeploymentTypeCluster) GetTemplatePassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplatePassword
 }
 
 func (r *RedisDeploymentTypeCluster) GetCredentialsSecret() *string {
@@ -1630,10 +1792,12 @@ type RedisDeploymentTypeStandalone struct {
 	// How the Redis server is configured. Defaults to Standalone
 	DeploymentType *RedisDeploymentTypeStandaloneDeploymentType `json:"deploymentType,omitzero"`
 	// Redis URL to connect to. Format: redis[s]://[[user][:password@]][host][:port][/db-number][?db=db-number[&password=bar[&option=value]]]. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	URL        string                                             `json:"url"`
-	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone       `json:"tlsOptions,omitzero"`
-	Commands   []RedisDeploymentTypeStandaloneCommand             `json:"commands"`
-	AuthType   *RedisDeploymentTypeStandaloneAuthenticationMethod `json:"authType,omitzero"`
+	URL        string                                       `json:"url"`
+	TLSOptions *TLSOptionsTypeRedisDeploymentTypeStandalone `json:"tlsOptions,omitzero"`
+	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
+	TemplateURL *string                                            `json:"__template_url,omitzero"`
+	Commands    []RedisDeploymentTypeStandaloneCommand             `json:"commands"`
+	AuthType    *RedisDeploymentTypeStandaloneAuthenticationMethod `json:"authType,omitzero"`
 	// Maximum amount of time (seconds) to wait before assuming that Redis is down and passing events through. Use 0 to disable.
 	MaxBlockSecs *float64 `json:"maxBlockSecs,omitzero"`
 	// Enable client-side cache. Redundant when using Redis write operations. See more options at Settings > General > Limits > Redis Cache.
@@ -1646,7 +1810,11 @@ type RedisDeploymentTypeStandalone struct {
 	ScaleReads *ScaleReadsOptionsRedisDeploymentTypeCluster `json:"scaleReads,omitzero"`
 	MasterName *string                                      `json:"masterName,omitzero"`
 	Username   *string                                      `json:"username,omitzero"`
-	Password   *string                                      `json:"password,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	Password         *string `json:"password,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
 	// Secret that references Redis username and password
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Secret that references Redis admin password
@@ -1683,6 +1851,13 @@ func (r *RedisDeploymentTypeStandalone) GetTLSOptions() *TLSOptionsTypeRedisDepl
 		return nil
 	}
 	return r.TLSOptions
+}
+
+func (r *RedisDeploymentTypeStandalone) GetTemplateURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateURL
 }
 
 func (r *RedisDeploymentTypeStandalone) GetCommands() []RedisDeploymentTypeStandaloneCommand {
@@ -1748,11 +1923,25 @@ func (r *RedisDeploymentTypeStandalone) GetUsername() *string {
 	return r.Username
 }
 
+func (r *RedisDeploymentTypeStandalone) GetTemplateUsername() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateUsername
+}
+
 func (r *RedisDeploymentTypeStandalone) GetPassword() *string {
 	if r == nil {
 		return nil
 	}
 	return r.Password
+}
+
+func (r *RedisDeploymentTypeStandalone) GetTemplatePassword() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplatePassword
 }
 
 func (r *RedisDeploymentTypeStandalone) GetCredentialsSecret() *string {

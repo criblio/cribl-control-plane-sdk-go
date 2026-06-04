@@ -1139,6 +1139,8 @@ type CreateInputSystemByPackAuthTokenCloudflareHec struct {
 	AuthType *CreateInputSystemByPackAuthTokenAuthenticationMethod `json:"authType,omitzero"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
+	// Shared secret to be provided by any client (Authorization: <token>)
+	Token       *string `json:"token,omitzero"`
 	Enabled     *bool   `json:"enabled,omitzero"`
 	Description *string `json:"description,omitzero"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
@@ -1170,6 +1172,13 @@ func (c *CreateInputSystemByPackAuthTokenCloudflareHec) GetTokenSecret() *string
 		return nil
 	}
 	return c.TokenSecret
+}
+
+func (c *CreateInputSystemByPackAuthTokenCloudflareHec) GetToken() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Token
 }
 
 func (c *CreateInputSystemByPackAuthTokenCloudflareHec) GetEnabled() *bool {
@@ -5450,7 +5459,7 @@ type CreateInputSystemByPackInputAppleUnifiedLogs struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
 	Pq          *components.PqType                         `json:"pq,omitzero"`
-	// String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Predicate format reference](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Predicates/AdditionalChapters/Introduction.html) for more information.
+	// String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Common Log Types and Predicates](https://docs.cribl.io/edge/sources-apple-unified-logs/#examples) for more information.
 	Predicate string `json:"predicate"`
 	// Read all log entries (historical and upcoming), or only upcoming, from the last entry
 	ReadMode *CreateInputSystemByPackReadModeAppleUnifiedLogs `json:"readMode,omitzero"`
