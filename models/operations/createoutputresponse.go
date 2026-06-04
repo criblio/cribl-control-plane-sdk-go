@@ -22607,7 +22607,7 @@ func (u CreateOutputRequest) MarshalJSON() ([]byte, error) {
 
 type CreateOutputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// the created Destination object
+	// The created Destination object in a single-item list.
 	CountedOutputResponse *components.CountedOutputResponse
 }
 

@@ -82,13 +82,15 @@ func (e *OutputLocalSearchStorageMappingType) IsExact() bool {
 }
 
 type OutputLocalSearchStorageStatsDestination struct {
-	URL         *string `json:"url,omitzero"`
-	Database    *string `json:"database,omitzero"`
-	TableName   *string `json:"tableName,omitzero"`
-	AuthType    *string `json:"authType,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	SQLUsername *string `json:"sqlUsername,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	URL                 *string  `json:"url,omitzero"`
+	Database            *string  `json:"database,omitzero"`
+	TableName           *string  `json:"tableName,omitzero"`
+	AuthType            *string  `json:"authType,omitzero"`
+	Username            *string  `json:"username,omitzero"`
+	SQLUsername         *string  `json:"sqlUsername,omitzero"`
+	Password            *string  `json:"password,omitzero"`
+	WaitForAsyncInserts *bool    `json:"waitForAsyncInserts,omitzero"`
+	Concurrency         *float64 `json:"concurrency,omitzero"`
 }
 
 func (o OutputLocalSearchStorageStatsDestination) MarshalJSON() ([]byte, error) {
@@ -149,6 +151,20 @@ func (o *OutputLocalSearchStorageStatsDestination) GetPassword() *string {
 		return nil
 	}
 	return o.Password
+}
+
+func (o *OutputLocalSearchStorageStatsDestination) GetWaitForAsyncInserts() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.WaitForAsyncInserts
+}
+
+func (o *OutputLocalSearchStorageStatsDestination) GetConcurrency() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.Concurrency
 }
 
 type OutputLocalSearchStorageColumnMapping struct {

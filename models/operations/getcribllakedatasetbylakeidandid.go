@@ -12,6 +12,8 @@ type GetCriblLakeDatasetByLakeIDAndIDRequest struct {
 	LakeID string `pathParam:"style=simple,explode=false,name=lakeId"`
 	// The <code>id</code> of the Lake Dataset to get.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
+	// Set to <code>true</code> to include storage metrics for each Lake Dataset. Otherwise, <code>false</code> (default). Requires a Cribl Lake metrics license.
+	IncludeMetrics *bool `queryParam:"style=form,explode=true,name=includeMetrics"`
 }
 
 func (g *GetCriblLakeDatasetByLakeIDAndIDRequest) GetLakeID() string {
@@ -28,9 +30,16 @@ func (g *GetCriblLakeDatasetByLakeIDAndIDRequest) GetID() string {
 	return g.ID
 }
 
+func (g *GetCriblLakeDatasetByLakeIDAndIDRequest) GetIncludeMetrics() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.IncludeMetrics
+}
+
 type GetCriblLakeDatasetByLakeIDAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of CriblLakeDataset objects.
+	// The requested CriblLakeDataset object in a single-item list.
 	CountedCriblLakeDataset *components.CountedCriblLakeDataset
 }
 

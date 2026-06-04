@@ -39,7 +39,7 @@ func (u *UpdatePipelinesByPackAndIDRequest) GetPipeline() components.PipelineInp
 
 type UpdatePipelinesByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Pipeline objects
+	// The updated Pipeline object in a single-item list.
 	CountedPipeline *components.CountedPipeline
 }
 

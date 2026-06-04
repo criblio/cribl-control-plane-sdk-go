@@ -30,7 +30,7 @@ func (u *UpdateRoutesByIDRequest) GetRoutesInput() components.RoutesInput {
 
 type UpdateRoutesByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Routes objects
+	// The updated Routes object in a single-item list.
 	CountedRoutes *components.CountedRoutes
 }
 

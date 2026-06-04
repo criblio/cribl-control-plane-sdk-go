@@ -240,18 +240,19 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Collectors](docs/sdks/collectors/README.md)
 
-* [Create](docs/sdks/collectors/README.md#create) - Create a Collector
 * [List](docs/sdks/collectors/README.md#list) - List all Collectors
-* [Delete](docs/sdks/collectors/README.md#delete) - Delete a Collector
+* [Create](docs/sdks/collectors/README.md#create) - Create a Collector
 * [Get](docs/sdks/collectors/README.md#get) - Get a Collector
 * [Update](docs/sdks/collectors/README.md#update) - Update a Collector
+* [Delete](docs/sdks/collectors/README.md#delete) - Delete a Collector
 
 ### [DatabaseConnections](docs/sdks/databaseconnections/README.md)
 
+* [List](docs/sdks/databaseconnections/README.md#list) - List Database Connections
 * [Create](docs/sdks/databaseconnections/README.md#create) - Create Database Connection
-* [Delete](docs/sdks/databaseconnections/README.md#delete) - Delete a Database Connection
 * [Get](docs/sdks/databaseconnections/README.md#get) - Get a Database Connection
 * [Update](docs/sdks/databaseconnections/README.md#update) - Update a Database Connection
+* [Delete](docs/sdks/databaseconnections/README.md#delete) - Delete a Database Connection
 
 ### [Destinations](docs/sdks/destinations/README.md)
 
@@ -273,13 +274,13 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 #### [Destinations.Statuses](docs/sdks/destinationsstatuses/README.md)
 
-* [Get](docs/sdks/destinationsstatuses/README.md#get) - Get the status of a Destination
 * [List](docs/sdks/destinationsstatuses/README.md#list) - List the status of all Destinations
+* [Get](docs/sdks/destinationsstatuses/README.md#get) - Get the status of a Destination
 
 ### [Functions](docs/sdks/functions/README.md)
 
-* [Get](docs/sdks/functions/README.md#get) - Get a Function
 * [List](docs/sdks/functions/README.md#list) - List all Functions
+* [Get](docs/sdks/functions/README.md#get) - Get a Function
 
 ### [Groups](docs/sdks/groups/README.md)
 
@@ -308,17 +309,17 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Lakes.Datasets](docs/sdks/datasets/README.md)
 
-* [Create](docs/sdks/datasets/README.md#create) - Create a Lake Dataset (Cribl.Cloud only)
 * [List](docs/sdks/datasets/README.md#list) - List all Lake Datasets (Cribl.Cloud only)
-* [Delete](docs/sdks/datasets/README.md#delete) - Delete a Lake Dataset (Cribl.Cloud only)
+* [Create](docs/sdks/datasets/README.md#create) - Create a Lake Dataset (Cribl.Cloud only)
 * [Get](docs/sdks/datasets/README.md#get) - Get a Lake Dataset (Cribl.Cloud only)
 * [Update](docs/sdks/datasets/README.md#update) - Update a Lake Dataset (Cribl.Cloud only)
+* [Delete](docs/sdks/datasets/README.md#delete) - Delete a Lake Dataset (Cribl.Cloud only)
 
 ### [Nodes](docs/sdks/nodes/README.md)
 
 * [Count](docs/sdks/nodes/README.md#count) - Get a count of Worker, Edge, or Outpost Nodes
-* [Get](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker, Edge, or Outpost Node
 * [List](docs/sdks/nodes/README.md#list) - Get detailed metadata for Worker, Edge, or Outpost Nodes
+* [Get](docs/sdks/nodes/README.md#get) - Get detailed metadata for a Worker, Edge, or Outpost Node
 * [Restart](docs/sdks/nodes/README.md#restart) - Restart Worker, Edge, or Outpost Nodes
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
@@ -330,9 +331,9 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [Install](docs/sdks/packs/README.md#install) - Install a Pack
 * [List](docs/sdks/packs/README.md#list) - List all Packs
 * [Upload](docs/sdks/packs/README.md#upload) - Upload a Pack file
-* [Delete](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 * [Get](docs/sdks/packs/README.md#get) - Get a Pack
 * [Update](docs/sdks/packs/README.md#update) - Upgrade a Pack
+* [Delete](docs/sdks/packs/README.md#delete) - Uninstall a Pack
 
 #### [Packs.Destinations](docs/sdks/packsdestinations/README.md)
 
@@ -354,22 +355,22 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ##### [Packs.Destinations.Statuses](docs/sdks/packsdestinationsstatuses/README.md)
 
-* [Get](docs/sdks/packsdestinationsstatuses/README.md#get) - Get the status of a Destination within a Pack
 * [List](docs/sdks/packsdestinationsstatuses/README.md#list) - List the status of all Destinations within a Pack
+* [Get](docs/sdks/packsdestinationsstatuses/README.md#get) - Get the status of a Destination within a Pack
 
 #### [Packs.Pipelines](docs/sdks/packspipelines/README.md)
 
-* [Create](docs/sdks/packspipelines/README.md#create) - Create a Pipeline within a Pack
 * [List](docs/sdks/packspipelines/README.md#list) - List all Pipelines within a Pack
-* [Delete](docs/sdks/packspipelines/README.md#delete) - Delete a Pipeline within a Pack
+* [Create](docs/sdks/packspipelines/README.md#create) - Create a Pipeline within a Pack
 * [Get](docs/sdks/packspipelines/README.md#get) - Get a Pipeline within a Pack
 * [Update](docs/sdks/packspipelines/README.md#update) - Update a Pipeline within a Pack
+* [Delete](docs/sdks/packspipelines/README.md#delete) - Delete a Pipeline within a Pack
 
 #### [Packs.Routes](docs/sdks/packsroutes/README.md)
 
+* [List](docs/sdks/packsroutes/README.md#list) - List all Routes within a Pack
 * [Get](docs/sdks/packsroutes/README.md#get) - Get a Routing table within a Pack
 * [Update](docs/sdks/packsroutes/README.md#update) - Update a Route within a Pack
-* [List](docs/sdks/packsroutes/README.md#list) - List all Routes within a Pack
 * [Append](docs/sdks/packsroutes/README.md#append) - Add a Route to the end of the Routing table within a Pack
 
 #### [Packs.Sources](docs/sdks/packssources/README.md)
@@ -392,22 +393,22 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ##### [Packs.Sources.Statuses](docs/sdks/packssourcesstatuses/README.md)
 
-* [Get](docs/sdks/packssourcesstatuses/README.md#get) - Get the status of a Source within a Pack
 * [List](docs/sdks/packssourcesstatuses/README.md#list) - List the status of all Sources within a Pack
+* [Get](docs/sdks/packssourcesstatuses/README.md#get) - Get the status of a Source within a Pack
 
 ### [Pipelines](docs/sdks/pipelines/README.md)
 
-* [Create](docs/sdks/pipelines/README.md#create) - Create a Pipeline
 * [List](docs/sdks/pipelines/README.md#list) - List all Pipelines
+* [Create](docs/sdks/pipelines/README.md#create) - Create a Pipeline
 * [Delete](docs/sdks/pipelines/README.md#delete) - Delete a Pipeline
 * [Get](docs/sdks/pipelines/README.md#get) - Get a Pipeline
 * [Update](docs/sdks/pipelines/README.md#update) - Update a Pipeline
 
 ### [Routes](docs/sdks/routes/README.md)
 
+* [List](docs/sdks/routes/README.md#list) - List all Routes
 * [Get](docs/sdks/routes/README.md#get) - Get a Routing table
 * [Update](docs/sdks/routes/README.md#update) - Update a Route
-* [List](docs/sdks/routes/README.md#list) - List all Routes
 * [Append](docs/sdks/routes/README.md#append) - Add a Route to the end of the Routing table
 
 ### [Sources](docs/sdks/sources/README.md)
@@ -425,17 +426,17 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 #### [Sources.Pq](docs/sdks/sourcespq/README.md)
 
-* [Clear](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source
 * [Get](docs/sdks/sourcespq/README.md#get) - Get information about the latest job to clear the persistent queue for a Source
+* [Clear](docs/sdks/sourcespq/README.md#clear) - Clear the persistent queue for a Source
 
 #### [Sources.Statuses](docs/sdks/sourcesstatuses/README.md)
 
-* [Get](docs/sdks/sourcesstatuses/README.md#get) - Get the status of a Source
 * [List](docs/sdks/sourcesstatuses/README.md#list) - List the status of all Sources
+* [Get](docs/sdks/sourcesstatuses/README.md#get) - Get the status of a Source
 
 ### [System.Captures](docs/sdks/captures/README.md)
 
-* [Create](docs/sdks/captures/README.md#create) - Capture live incoming data
+* [Create](docs/sdks/captures/README.md#create) - Capture live data
 
 ### [System.Settings](docs/sdks/settings/README.md)
 
@@ -443,7 +444,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 #### [System.Settings.Cribl](docs/sdks/cribl/README.md)
 
-* [List](docs/sdks/cribl/README.md#list) - Get Cribl system settings
+* [List](docs/sdks/cribl/README.md#list) - Get system settings
 * [Update](docs/sdks/cribl/README.md#update) - Update system settings
 
 ### [Versions.Branches](docs/sdks/branches/README.md)
@@ -453,9 +454,9 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Versions.Commits](docs/sdks/commits/README.md)
 
+* [List](docs/sdks/commits/README.md#list) - List the commit history
 * [Create](docs/sdks/commits/README.md#create) - Create a new commit for pending changes to the Cribl configuration
 * [Diff](docs/sdks/commits/README.md#diff) - Get the diff for a commit
-* [List](docs/sdks/commits/README.md#list) - List the commit history
 * [Push](docs/sdks/commits/README.md#push) - Push local commits to the remote repository
 * [Revert](docs/sdks/commits/README.md#revert) - Revert a commit in the local repository
 * [Get](docs/sdks/commits/README.md#get) - Get the diff and log message for a commit
@@ -747,6 +748,7 @@ import (
 	"context"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 	"os"
 )
@@ -761,7 +763,9 @@ func main() {
 		}),
 	)
 
-	res, err := s.Sources.Statuses.List(ctx, nil, nil, nil, nil)
+	res, err := s.Packs.Sources.Statuses.List(ctx, operations.GetInputStatusSystemInputsByPackRequest{
+		Pack: "<value>",
+	})
 	if err != nil {
 		log.Fatal(err)
 	}

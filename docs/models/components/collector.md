@@ -71,25 +71,25 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch collector.Type {
-	case components.CollectorTypeAzureBlob:
+	case components.CollectorUnionTypeAzureBlob:
 		// collector.CollectorAzureBlob is populated
-	case components.CollectorTypeCriblLake:
+	case components.CollectorUnionTypeCriblLake:
 		// collector.CollectorCriblLake is populated
-	case components.CollectorTypeDatabase:
+	case components.CollectorUnionTypeDatabase:
 		// collector.CollectorDatabase is populated
-	case components.CollectorTypeFilesystem:
+	case components.CollectorUnionTypeFilesystem:
 		// collector.CollectorFilesystem is populated
-	case components.CollectorTypeGoogleCloudStorage:
+	case components.CollectorUnionTypeGoogleCloudStorage:
 		// collector.CollectorGoogleCloudStorage is populated
-	case components.CollectorTypeHealthCheck:
+	case components.CollectorUnionTypeHealthCheck:
 		// collector.CollectorHealthCheck is populated
-	case components.CollectorTypeRest:
+	case components.CollectorUnionTypeRest:
 		// collector.CollectorRest is populated
-	case components.CollectorTypeS3:
+	case components.CollectorUnionTypeS3:
 		// collector.CollectorS3 is populated
-	case components.CollectorTypeScript:
+	case components.CollectorUnionTypeScript:
 		// collector.CollectorScript is populated
-	case components.CollectorTypeSplunk:
+	case components.CollectorUnionTypeSplunk:
 		// collector.CollectorSplunk is populated
 	default:
 		// Unknown type - use collector.GetUnknownRaw() for raw JSON

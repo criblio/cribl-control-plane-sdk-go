@@ -30,7 +30,7 @@ func (g *GetConfigGroupConfigVersionByProductAndIDRequest) GetID() string {
 
 type GetConfigGroupConfigVersionByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of string objects.
+	// The requested string object in a single-item list.
 	CountedString *components.CountedString
 }
 

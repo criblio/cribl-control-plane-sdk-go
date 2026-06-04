@@ -21,7 +21,7 @@ func (g *GetDatabaseConnectionConfigByIDRequest) GetID() string {
 
 type GetDatabaseConnectionConfigByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of DatabaseConnectionConfig objects.
+	// The requested DatabaseConnectionConfig object in a single-item list.
 	CountedDatabaseConnectionConfig *components.CountedDatabaseConnectionConfig
 }
 

@@ -39,7 +39,7 @@ func (g *GetConfigGroupACLByProductAndIDRequest) GetType() *components.RbacResou
 
 type GetConfigGroupACLByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of UserAccessControlList objects.
+	// The requested UserAccessControlList object in a single-item list.
 	CountedUserAccessControlList *components.CountedUserAccessControlList
 }
 

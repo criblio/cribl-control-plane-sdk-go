@@ -6,11 +6,34 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// AuthType - Credentials to use when authenticating with the schema registry using basic HTTP authentication
+// AuthType - Credentials to use when authenticating with the schema registry
 type AuthType struct {
 	Disabled bool `json:"disabled"`
+	// Authenticate with the schema registry using OAuth instead of basic HTTP authentication
+	OauthEnabled *bool `json:"oauthEnabled,omitzero"`
+	// URL of the token endpoint to use for OAuth authentication
+	TokenURL *string `json:"tokenUrl,omitzero"`
+	// Client ID to use for OAuth authentication
+	ClientID        *string `json:"clientId,omitzero"`
+	OauthSecretType *string `json:"oauthSecretType,omitzero"`
+	// Select or create a stored text secret
+	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
+	// Additional fields to send to the token endpoint, such as scope or audience
+	OauthParams []OauthParamConfInputKafka `json:"oauthParams,omitzero"`
+	// Confluent Cloud identity pool ID. Sent as the `Confluent-Identity-Pool-Id` header on requests to the schema registry.
+	IdentityPoolID *string `json:"identityPoolId,omitzero"`
+	// Confluent Cloud Schema Registry logical cluster ID. Sent as the `target-sr-cluster` header on requests to the schema registry.
+	LogicalCluster *string `json:"logicalCluster,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// Binds 'tokenUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenUrl' at runtime.
+	TemplateTokenURL *string `json:"__template_tokenUrl,omitzero"`
+	// Binds 'clientId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clientId' at runtime.
+	TemplateClientID *string `json:"__template_clientId,omitzero"`
+	// Binds 'identityPoolId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'identityPoolId' at runtime.
+	TemplateIdentityPoolID *string `json:"__template_identityPoolId,omitzero"`
+	// Binds 'logicalCluster' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logicalCluster' at runtime.
+	TemplateLogicalCluster *string `json:"__template_logicalCluster,omitzero"`
 }
 
 func (a AuthType) MarshalJSON() ([]byte, error) {
@@ -31,9 +54,93 @@ func (a *AuthType) GetDisabled() bool {
 	return a.Disabled
 }
 
+func (a *AuthType) GetOauthEnabled() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.OauthEnabled
+}
+
+func (a *AuthType) GetTokenURL() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TokenURL
+}
+
+func (a *AuthType) GetClientID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ClientID
+}
+
+func (a *AuthType) GetOauthSecretType() *string {
+	if a == nil {
+		return nil
+	}
+	return a.OauthSecretType
+}
+
+func (a *AuthType) GetClientTextSecret() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ClientTextSecret
+}
+
+func (a *AuthType) GetOauthParams() []OauthParamConfInputKafka {
+	if a == nil {
+		return nil
+	}
+	return a.OauthParams
+}
+
+func (a *AuthType) GetIdentityPoolID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.IdentityPoolID
+}
+
+func (a *AuthType) GetLogicalCluster() *string {
+	if a == nil {
+		return nil
+	}
+	return a.LogicalCluster
+}
+
 func (a *AuthType) GetCredentialsSecret() *string {
 	if a == nil {
 		return nil
 	}
 	return a.CredentialsSecret
+}
+
+func (a *AuthType) GetTemplateTokenURL() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateTokenURL
+}
+
+func (a *AuthType) GetTemplateClientID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateClientID
+}
+
+func (a *AuthType) GetTemplateIdentityPoolID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateIdentityPoolID
+}
+
+func (a *AuthType) GetTemplateLogicalCluster() *string {
+	if a == nil {
+		return nil
+	}
+	return a.TemplateLogicalCluster
 }

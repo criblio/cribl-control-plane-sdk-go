@@ -22944,7 +22944,7 @@ func (c *CreateOutputSystemByPackRequest) GetRequestBodyAlibabaCloudS3() *Create
 
 type CreateOutputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// the created Destination object
+	// The created Destination object in a single-item list.
 	CountedOutputResponse *components.CountedOutputResponse
 }
 

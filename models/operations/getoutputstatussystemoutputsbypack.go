@@ -57,7 +57,7 @@ func (g *GetOutputStatusSystemOutputsByPackRequest) GetPack() string {
 
 type GetOutputStatusSystemOutputsByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination status objects
+	// List of Destination status objects.
 	CountedOutputStatus *components.CountedOutputStatus
 
 	Next func() (*GetOutputStatusSystemOutputsByPackResponse, error)

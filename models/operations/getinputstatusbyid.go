@@ -39,7 +39,7 @@ func (g *GetInputStatusByIDRequest) GetType() *bool {
 
 type GetInputStatusByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a Source status object
+	// The requested Source status object in a single-item list.
 	CountedInputStatus *components.CountedInputStatus
 }
 

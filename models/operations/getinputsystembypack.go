@@ -41,7 +41,7 @@ func (g *GetInputSystemByPackRequest) GetPack() string {
 
 type GetInputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source objects
+	// List of Source objects.
 	CountedInputResponse *components.CountedInputResponse
 }
 

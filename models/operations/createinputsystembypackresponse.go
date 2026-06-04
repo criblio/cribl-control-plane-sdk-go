@@ -16148,7 +16148,7 @@ func (c *CreateInputSystemByPackRequest) GetRequestBodyOkta() *CreateInputSystem
 
 type CreateInputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// the created Source object
+	// The created Source object in a single-item list.
 	CountedInputResponse *components.CountedInputResponse
 }
 

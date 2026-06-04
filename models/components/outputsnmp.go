@@ -97,7 +97,11 @@ type OutputSnmp struct {
 	Hosts []OutputSnmpHost `json:"hosts"`
 	// How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every trap sent will incur a DNS lookup.
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
-	Description         *string  `json:"description,omitzero"`
+	// Send SNMP Trap traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
+	EnableIPSpoofing *bool   `json:"enableIpSpoofing,omitzero"`
+	Description      *string `json:"description,omitzero"`
+	// MTU in bytes. The actual maximum SNMP Trap payload size will be MTU minus IP and UDP headers (28 bytes for IPv4, 48 bytes for IPv6). Payloads exceeding this limit will be dropped.
+	MaxRecordSize *float64 `json:"maxRecordSize,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
@@ -169,11 +173,25 @@ func (o *OutputSnmp) GetDNSResolvePeriodSec() *float64 {
 	return o.DNSResolvePeriodSec
 }
 
+func (o *OutputSnmp) GetEnableIPSpoofing() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableIPSpoofing
+}
+
 func (o *OutputSnmp) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
+}
+
+func (o *OutputSnmp) GetMaxRecordSize() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxRecordSize
 }
 
 func (o *OutputSnmp) GetTemplateStreamtags() *string {

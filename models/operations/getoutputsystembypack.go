@@ -30,7 +30,7 @@ func (g *GetOutputSystemByPackRequest) GetPack() string {
 
 type GetOutputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination objects
+	// List of Destination objects.
 	CountedOutputResponse *components.CountedOutputResponse
 }
 

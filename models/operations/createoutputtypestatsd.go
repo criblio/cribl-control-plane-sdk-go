@@ -9525,13 +9525,15 @@ func (e *CreateOutputMappingType) IsExact() bool {
 }
 
 type CreateOutputStatsDestination struct {
-	URL         *string `json:"url,omitzero"`
-	Database    *string `json:"database,omitzero"`
-	TableName   *string `json:"tableName,omitzero"`
-	AuthType    *string `json:"authType,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	SQLUsername *string `json:"sqlUsername,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	URL                 *string  `json:"url,omitzero"`
+	Database            *string  `json:"database,omitzero"`
+	TableName           *string  `json:"tableName,omitzero"`
+	AuthType            *string  `json:"authType,omitzero"`
+	Username            *string  `json:"username,omitzero"`
+	SQLUsername         *string  `json:"sqlUsername,omitzero"`
+	Password            *string  `json:"password,omitzero"`
+	WaitForAsyncInserts *bool    `json:"waitForAsyncInserts,omitzero"`
+	Concurrency         *float64 `json:"concurrency,omitzero"`
 }
 
 func (c CreateOutputStatsDestination) MarshalJSON() ([]byte, error) {
@@ -9592,6 +9594,20 @@ func (c *CreateOutputStatsDestination) GetPassword() *string {
 		return nil
 	}
 	return c.Password
+}
+
+func (c *CreateOutputStatsDestination) GetWaitForAsyncInserts() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.WaitForAsyncInserts
+}
+
+func (c *CreateOutputStatsDestination) GetConcurrency() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Concurrency
 }
 
 type CreateOutputColumnMapping struct {
@@ -11489,9 +11505,10 @@ func (e *CreateOutputAwsAuthenticationMethod) IsExact() bool {
 type CreateOutputFormatCriblLake string
 
 const (
-	CreateOutputFormatCriblLakeJSON    CreateOutputFormatCriblLake = "json"
-	CreateOutputFormatCriblLakeParquet CreateOutputFormatCriblLake = "parquet"
-	CreateOutputFormatCriblLakeDdss    CreateOutputFormatCriblLake = "ddss"
+	CreateOutputFormatCriblLakeJSON     CreateOutputFormatCriblLake = "json"
+	CreateOutputFormatCriblLakeParquet  CreateOutputFormatCriblLake = "parquet"
+	CreateOutputFormatCriblLakeDdss     CreateOutputFormatCriblLake = "ddss"
+	CreateOutputFormatCriblLakeNetskope CreateOutputFormatCriblLake = "netskope"
 )
 
 func (e CreateOutputFormatCriblLake) ToPointer() *CreateOutputFormatCriblLake {
@@ -11502,7 +11519,7 @@ func (e CreateOutputFormatCriblLake) ToPointer() *CreateOutputFormatCriblLake {
 func (e *CreateOutputFormatCriblLake) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "json", "parquet", "ddss":
+		case "json", "parquet", "ddss", "netskope":
 			return true
 		}
 	}
@@ -21009,7 +21026,11 @@ type CreateOutputOutputSnmp struct {
 	Hosts []CreateOutputHostSnmp `json:"hosts"`
 	// How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every trap sent will incur a DNS lookup.
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
-	Description         *string  `json:"description,omitzero"`
+	// Send SNMP Trap traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
+	EnableIPSpoofing *bool   `json:"enableIpSpoofing,omitzero"`
+	Description      *string `json:"description,omitzero"`
+	// MTU in bytes. The actual maximum SNMP Trap payload size will be MTU minus IP and UDP headers (28 bytes for IPv4, 48 bytes for IPv6). Payloads exceeding this limit will be dropped.
+	MaxRecordSize *float64 `json:"maxRecordSize,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
@@ -21081,11 +21102,25 @@ func (c *CreateOutputOutputSnmp) GetDNSResolvePeriodSec() *float64 {
 	return c.DNSResolvePeriodSec
 }
 
+func (c *CreateOutputOutputSnmp) GetEnableIPSpoofing() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableIPSpoofing
+}
+
 func (c *CreateOutputOutputSnmp) GetDescription() *string {
 	if c == nil {
 		return nil
 	}
 	return c.Description
+}
+
+func (c *CreateOutputOutputSnmp) GetMaxRecordSize() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxRecordSize
 }
 
 func (c *CreateOutputOutputSnmp) GetTemplateStreamtags() *string {
