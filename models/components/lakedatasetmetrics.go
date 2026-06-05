@@ -5,7 +5,7 @@ package components
 type LakeDatasetMetrics struct {
 	// Total current logical size of the Dataset, in bytes.
 	CurrentSizeBytes float64 `json:"currentSizeBytes"`
-	// Timestamp (ISO 8601) when the metrics snapshot was generated.
+	// Timestamp (in Unix time) when the metrics snapshot was generated, as a YYYY-MM-DD calendar date.
 	MetricsDate string `json:"metricsDate"`
 }
 

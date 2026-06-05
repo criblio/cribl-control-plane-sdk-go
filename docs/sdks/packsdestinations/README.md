@@ -1029,7 +1029,7 @@ func main() {
             Type: operations.CreateOutputSystemByPackTypeDynatraceHTTPDynatraceHTTP,
             AuthType: operations.CreateOutputSystemByPackAuthenticationTypeDynatraceHTTPToken.ToPointer(),
             Format: operations.CreateOutputSystemByPackFormatDynatraceHTTPJSONArray,
-            Endpoint: operations.CreateOutputSystemByPackEndpointCloud,
+            Endpoint: operations.CreateOutputSystemByPackEndpointDynatraceHTTPCloud,
             TelemetryType: operations.CreateOutputSystemByPackTelemetryTypeLogs,
             Token: criblcontrolplanesdkgo.Pointer("your-api-key"),
         },
@@ -1325,6 +1325,46 @@ func main() {
             LogLocationType: operations.CreateOutputSystemByPackLogLocationTypeProject,
             LogNameExpression: "my-log",
             LogLocationExpression: "my-project",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesGoogleCloudObservability
+
+<!-- UsageSnippet language="go" operationID="createOutputSystemByPack" method="post" path="/p/{pack}/system/outputs" example="OutputCreateExamplesGoogleCloudObservability" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Create(ctx, "<value>", operations.CreateCreateOutputSystemByPackRequestBodyGoogleCloudObservability(
+        operations.CreateOutputSystemByPackOutputGoogleCloudObservability{
+            ID: "google-cloud-observability-output",
+            Type: operations.CreateOutputSystemByPackTypeGoogleCloudObservabilityGoogleCloudObservability,
+            GoogleAuthMethod: operations.CreateOutputSystemByPackGoogleAuthenticationMethodAuto,
         },
     ))
     if err != nil {
@@ -7928,6 +7968,45 @@ func main() {
             LogLocationType: components.OutputGoogleCloudLoggingLogLocationTypeProject,
             LogNameExpression: "my-log",
             LogLocationExpression: "my-project",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateOutputExamplesGoogleCloudObservability
+
+<!-- UsageSnippet language="go" operationID="updateOutputSystemByPackAndId" method="patch" path="/p/{pack}/system/outputs/{id}" example="UpdateOutputExamplesGoogleCloudObservability" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Update(ctx, "<id>", "<value>", components.CreateOutputGoogleCloudObservability(
+        components.OutputGoogleCloudObservability{
+            ID: criblcontrolplanesdkgo.Pointer("google-cloud-observability-output"),
+            Type: components.OutputGoogleCloudObservabilityTypeGoogleCloudObservability,
+            GoogleAuthMethod: components.OutputGoogleCloudObservabilityGoogleAuthenticationMethodAuto,
         },
     ))
     if err != nil {

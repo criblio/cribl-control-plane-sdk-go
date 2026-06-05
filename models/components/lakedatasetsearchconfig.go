@@ -9,7 +9,7 @@ import (
 type LakeDatasetSearchConfig struct {
 	// Datatype identifiers assigned to the Dataset for search-time event classification.
 	Datatypes []string `json:"datatypes,omitzero"`
-	// Brief description of Dataset search configuration.
+	// Brief description of the Dataset search configuration.
 	Description *string          `json:"description,omitzero"`
 	Metadata    *DatasetMetadata `json:"metadata,omitzero"`
 	// Glob-to-Datatype mappings for the Lake bucket path. Used only for search execution v2.

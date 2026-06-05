@@ -8200,23 +8200,23 @@ func (e *CreateOutputSystemByPackFormatDynatraceHTTP) IsExact() bool {
 	return false
 }
 
-type CreateOutputSystemByPackEndpoint string
+type CreateOutputSystemByPackEndpointDynatraceHTTP string
 
 const (
-	// CreateOutputSystemByPackEndpointCloud Cloud
-	CreateOutputSystemByPackEndpointCloud CreateOutputSystemByPackEndpoint = "cloud"
-	// CreateOutputSystemByPackEndpointActiveGate ActiveGate
-	CreateOutputSystemByPackEndpointActiveGate CreateOutputSystemByPackEndpoint = "activeGate"
-	// CreateOutputSystemByPackEndpointManual Manual
-	CreateOutputSystemByPackEndpointManual CreateOutputSystemByPackEndpoint = "manual"
+	// CreateOutputSystemByPackEndpointDynatraceHTTPCloud Cloud
+	CreateOutputSystemByPackEndpointDynatraceHTTPCloud CreateOutputSystemByPackEndpointDynatraceHTTP = "cloud"
+	// CreateOutputSystemByPackEndpointDynatraceHTTPActiveGate ActiveGate
+	CreateOutputSystemByPackEndpointDynatraceHTTPActiveGate CreateOutputSystemByPackEndpointDynatraceHTTP = "activeGate"
+	// CreateOutputSystemByPackEndpointDynatraceHTTPManual Manual
+	CreateOutputSystemByPackEndpointDynatraceHTTPManual CreateOutputSystemByPackEndpointDynatraceHTTP = "manual"
 )
 
-func (e CreateOutputSystemByPackEndpoint) ToPointer() *CreateOutputSystemByPackEndpoint {
+func (e CreateOutputSystemByPackEndpointDynatraceHTTP) ToPointer() *CreateOutputSystemByPackEndpointDynatraceHTTP {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputSystemByPackEndpoint) IsExact() bool {
+func (e *CreateOutputSystemByPackEndpointDynatraceHTTP) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "cloud", "activeGate", "manual":
@@ -8313,9 +8313,9 @@ type CreateOutputSystemByPackOutputDynatraceHTTP struct {
 	OnBackpressure *components.BackpressureBehaviorOptions                  `json:"onBackpressure,omitzero"`
 	AuthType       *CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP `json:"authType,omitzero"`
 	// How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
-	Format        CreateOutputSystemByPackFormatDynatraceHTTP `json:"format"`
-	Endpoint      CreateOutputSystemByPackEndpoint            `json:"endpoint"`
-	TelemetryType CreateOutputSystemByPackTelemetryType       `json:"telemetryType"`
+	Format        CreateOutputSystemByPackFormatDynatraceHTTP   `json:"format"`
+	Endpoint      CreateOutputSystemByPackEndpointDynatraceHTTP `json:"endpoint"`
+	TelemetryType CreateOutputSystemByPackTelemetryType         `json:"telemetryType"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	Description        *string  `json:"description,omitzero"`
@@ -8548,9 +8548,9 @@ func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetFormat() CreateOutputSy
 	return c.Format
 }
 
-func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetEndpoint() CreateOutputSystemByPackEndpoint {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetEndpoint() CreateOutputSystemByPackEndpointDynatraceHTTP {
 	if c == nil {
-		return CreateOutputSystemByPackEndpoint("")
+		return CreateOutputSystemByPackEndpointDynatraceHTTP("")
 	}
 	return c.Endpoint
 }
@@ -16506,22 +16506,22 @@ func (e *CreateOutputSystemByPackTypeOpenTelemetry) UnmarshalJSON(data []byte) e
 	}
 }
 
-// CreateOutputSystemByPackOTLPVersion - The version of OTLP Protobuf definitions to use when structuring data to send
-type CreateOutputSystemByPackOTLPVersion string
+// CreateOutputSystemByPackOTLPVersionOpenTelemetry - The version of OTLP Protobuf definitions to use when structuring data to send
+type CreateOutputSystemByPackOTLPVersionOpenTelemetry string
 
 const (
-	// CreateOutputSystemByPackOTLPVersionZeroDot10Dot0 0.10.0
-	CreateOutputSystemByPackOTLPVersionZeroDot10Dot0 CreateOutputSystemByPackOTLPVersion = "0.10.0"
-	// CreateOutputSystemByPackOTLPVersionOneDot3Dot1 1.3.1
-	CreateOutputSystemByPackOTLPVersionOneDot3Dot1 CreateOutputSystemByPackOTLPVersion = "1.3.1"
+	// CreateOutputSystemByPackOTLPVersionOpenTelemetryZeroDot10Dot0 0.10.0
+	CreateOutputSystemByPackOTLPVersionOpenTelemetryZeroDot10Dot0 CreateOutputSystemByPackOTLPVersionOpenTelemetry = "0.10.0"
+	// CreateOutputSystemByPackOTLPVersionOpenTelemetryOneDot3Dot1 1.3.1
+	CreateOutputSystemByPackOTLPVersionOpenTelemetryOneDot3Dot1 CreateOutputSystemByPackOTLPVersionOpenTelemetry = "1.3.1"
 )
 
-func (e CreateOutputSystemByPackOTLPVersion) ToPointer() *CreateOutputSystemByPackOTLPVersion {
+func (e CreateOutputSystemByPackOTLPVersionOpenTelemetry) ToPointer() *CreateOutputSystemByPackOTLPVersionOpenTelemetry {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputSystemByPackOTLPVersion) IsExact() bool {
+func (e *CreateOutputSystemByPackOTLPVersionOpenTelemetry) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "0.10.0", "1.3.1":
@@ -16594,7 +16594,7 @@ type CreateOutputSystemByPackOutputOpenTelemetry struct {
 	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
 	Endpoint string `json:"endpoint"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
-	OtlpVersion *CreateOutputSystemByPackOTLPVersion `json:"otlpVersion,omitzero"`
+	OtlpVersion *CreateOutputSystemByPackOTLPVersionOpenTelemetry `json:"otlpVersion,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
 	Compress *components.CompressionOptionsDeflateGzip `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
@@ -16771,7 +16771,7 @@ func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetEndpoint() string {
 	return c.Endpoint
 }
 
-func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetOtlpVersion() *CreateOutputSystemByPackOTLPVersion {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetOtlpVersion() *CreateOutputSystemByPackOTLPVersionOpenTelemetry {
 	if c == nil {
 		return nil
 	}
