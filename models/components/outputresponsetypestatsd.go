@@ -8433,23 +8433,23 @@ func (e *FormatDynatraceHTTP) IsExact() bool {
 	return false
 }
 
-type OutputResponseEndpoint string
+type EndpointDynatraceHTTP string
 
 const (
-	// OutputResponseEndpointCloud Cloud
-	OutputResponseEndpointCloud OutputResponseEndpoint = "cloud"
-	// OutputResponseEndpointActiveGate ActiveGate
-	OutputResponseEndpointActiveGate OutputResponseEndpoint = "activeGate"
-	// OutputResponseEndpointManual Manual
-	OutputResponseEndpointManual OutputResponseEndpoint = "manual"
+	// EndpointDynatraceHTTPCloud Cloud
+	EndpointDynatraceHTTPCloud EndpointDynatraceHTTP = "cloud"
+	// EndpointDynatraceHTTPActiveGate ActiveGate
+	EndpointDynatraceHTTPActiveGate EndpointDynatraceHTTP = "activeGate"
+	// EndpointDynatraceHTTPManual Manual
+	EndpointDynatraceHTTPManual EndpointDynatraceHTTP = "manual"
 )
 
-func (e OutputResponseEndpoint) ToPointer() *OutputResponseEndpoint {
+func (e EndpointDynatraceHTTP) ToPointer() *EndpointDynatraceHTTP {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputResponseEndpoint) IsExact() bool {
+func (e *EndpointDynatraceHTTP) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "cloud", "activeGate", "manual":
@@ -8547,7 +8547,7 @@ type OutputResponseOutputDynatraceHTTP struct {
 	AuthType       *AuthenticationTypeDynatraceHTTP `json:"authType,omitzero"`
 	// How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
 	Format        FormatDynatraceHTTP         `json:"format"`
-	Endpoint      OutputResponseEndpoint      `json:"endpoint"`
+	Endpoint      EndpointDynatraceHTTP       `json:"endpoint"`
 	TelemetryType OutputResponseTelemetryType `json:"telemetryType"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
@@ -8785,9 +8785,9 @@ func (o *OutputResponseOutputDynatraceHTTP) GetFormat() FormatDynatraceHTTP {
 	return o.Format
 }
 
-func (o *OutputResponseOutputDynatraceHTTP) GetEndpoint() OutputResponseEndpoint {
+func (o *OutputResponseOutputDynatraceHTTP) GetEndpoint() EndpointDynatraceHTTP {
 	if o == nil {
-		return OutputResponseEndpoint("")
+		return EndpointDynatraceHTTP("")
 	}
 	return o.Endpoint
 }
@@ -17027,22 +17027,22 @@ func (e *OutputResponseTypeOpenTelemetry) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputResponseOTLPVersion - The version of OTLP Protobuf definitions to use when structuring data to send
-type OutputResponseOTLPVersion string
+// OutputResponseOTLPVersionOpenTelemetry - The version of OTLP Protobuf definitions to use when structuring data to send
+type OutputResponseOTLPVersionOpenTelemetry string
 
 const (
-	// OutputResponseOTLPVersionZeroDot10Dot0 0.10.0
-	OutputResponseOTLPVersionZeroDot10Dot0 OutputResponseOTLPVersion = "0.10.0"
-	// OutputResponseOTLPVersionOneDot3Dot1 1.3.1
-	OutputResponseOTLPVersionOneDot3Dot1 OutputResponseOTLPVersion = "1.3.1"
+	// OutputResponseOTLPVersionOpenTelemetryZeroDot10Dot0 0.10.0
+	OutputResponseOTLPVersionOpenTelemetryZeroDot10Dot0 OutputResponseOTLPVersionOpenTelemetry = "0.10.0"
+	// OutputResponseOTLPVersionOpenTelemetryOneDot3Dot1 1.3.1
+	OutputResponseOTLPVersionOpenTelemetryOneDot3Dot1 OutputResponseOTLPVersionOpenTelemetry = "1.3.1"
 )
 
-func (e OutputResponseOTLPVersion) ToPointer() *OutputResponseOTLPVersion {
+func (e OutputResponseOTLPVersionOpenTelemetry) ToPointer() *OutputResponseOTLPVersionOpenTelemetry {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputResponseOTLPVersion) IsExact() bool {
+func (e *OutputResponseOTLPVersionOpenTelemetry) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "0.10.0", "1.3.1":
@@ -17115,7 +17115,7 @@ type OutputResponseOutputOpenTelemetry struct {
 	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
 	Endpoint string `json:"endpoint"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
-	OtlpVersion *OutputResponseOTLPVersion `json:"otlpVersion,omitzero"`
+	OtlpVersion *OutputResponseOTLPVersionOpenTelemetry `json:"otlpVersion,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
 	Compress *CompressionOptionsDeflateGzip `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
@@ -17296,7 +17296,7 @@ func (o *OutputResponseOutputOpenTelemetry) GetEndpoint() string {
 	return o.Endpoint
 }
 
-func (o *OutputResponseOutputOpenTelemetry) GetOtlpVersion() *OutputResponseOTLPVersion {
+func (o *OutputResponseOutputOpenTelemetry) GetOtlpVersion() *OutputResponseOTLPVersionOpenTelemetry {
 	if o == nil {
 		return nil
 	}

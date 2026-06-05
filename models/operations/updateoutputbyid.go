@@ -120,6 +120,10 @@ func (u *UpdateOutputByIDRequest) GetOutputGoogleCloudLogging() *components.Outp
 	return u.GetOutput().OutputGoogleCloudLogging
 }
 
+func (u *UpdateOutputByIDRequest) GetOutputGoogleCloudObservability() *components.OutputGoogleCloudObservability {
+	return u.GetOutput().OutputGoogleCloudObservability
+}
+
 func (u *UpdateOutputByIDRequest) GetOutputGooglePubsub() *components.OutputGooglePubsub {
 	return u.GetOutput().OutputGooglePubsub
 }

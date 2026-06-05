@@ -8200,23 +8200,23 @@ func (e *CreateOutputFormatDynatraceHTTP) IsExact() bool {
 	return false
 }
 
-type CreateOutputEndpoint string
+type CreateOutputEndpointDynatraceHTTP string
 
 const (
-	// CreateOutputEndpointCloud Cloud
-	CreateOutputEndpointCloud CreateOutputEndpoint = "cloud"
-	// CreateOutputEndpointActiveGate ActiveGate
-	CreateOutputEndpointActiveGate CreateOutputEndpoint = "activeGate"
-	// CreateOutputEndpointManual Manual
-	CreateOutputEndpointManual CreateOutputEndpoint = "manual"
+	// CreateOutputEndpointDynatraceHTTPCloud Cloud
+	CreateOutputEndpointDynatraceHTTPCloud CreateOutputEndpointDynatraceHTTP = "cloud"
+	// CreateOutputEndpointDynatraceHTTPActiveGate ActiveGate
+	CreateOutputEndpointDynatraceHTTPActiveGate CreateOutputEndpointDynatraceHTTP = "activeGate"
+	// CreateOutputEndpointDynatraceHTTPManual Manual
+	CreateOutputEndpointDynatraceHTTPManual CreateOutputEndpointDynatraceHTTP = "manual"
 )
 
-func (e CreateOutputEndpoint) ToPointer() *CreateOutputEndpoint {
+func (e CreateOutputEndpointDynatraceHTTP) ToPointer() *CreateOutputEndpointDynatraceHTTP {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputEndpoint) IsExact() bool {
+func (e *CreateOutputEndpointDynatraceHTTP) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "cloud", "activeGate", "manual":
@@ -8313,9 +8313,9 @@ type CreateOutputOutputDynatraceHTTP struct {
 	OnBackpressure *components.BackpressureBehaviorOptions      `json:"onBackpressure,omitzero"`
 	AuthType       *CreateOutputAuthenticationTypeDynatraceHTTP `json:"authType,omitzero"`
 	// How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
-	Format        CreateOutputFormatDynatraceHTTP `json:"format"`
-	Endpoint      CreateOutputEndpoint            `json:"endpoint"`
-	TelemetryType CreateOutputTelemetryType       `json:"telemetryType"`
+	Format        CreateOutputFormatDynatraceHTTP   `json:"format"`
+	Endpoint      CreateOutputEndpointDynatraceHTTP `json:"endpoint"`
+	TelemetryType CreateOutputTelemetryType         `json:"telemetryType"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	Description        *string  `json:"description,omitzero"`
@@ -8548,9 +8548,9 @@ func (c *CreateOutputOutputDynatraceHTTP) GetFormat() CreateOutputFormatDynatrac
 	return c.Format
 }
 
-func (c *CreateOutputOutputDynatraceHTTP) GetEndpoint() CreateOutputEndpoint {
+func (c *CreateOutputOutputDynatraceHTTP) GetEndpoint() CreateOutputEndpointDynatraceHTTP {
 	if c == nil {
-		return CreateOutputEndpoint("")
+		return CreateOutputEndpointDynatraceHTTP("")
 	}
 	return c.Endpoint
 }
@@ -16506,22 +16506,22 @@ func (e *CreateOutputTypeOpenTelemetry) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// CreateOutputOTLPVersion - The version of OTLP Protobuf definitions to use when structuring data to send
-type CreateOutputOTLPVersion string
+// CreateOutputOTLPVersionOpenTelemetry - The version of OTLP Protobuf definitions to use when structuring data to send
+type CreateOutputOTLPVersionOpenTelemetry string
 
 const (
-	// CreateOutputOTLPVersionZeroDot10Dot0 0.10.0
-	CreateOutputOTLPVersionZeroDot10Dot0 CreateOutputOTLPVersion = "0.10.0"
-	// CreateOutputOTLPVersionOneDot3Dot1 1.3.1
-	CreateOutputOTLPVersionOneDot3Dot1 CreateOutputOTLPVersion = "1.3.1"
+	// CreateOutputOTLPVersionOpenTelemetryZeroDot10Dot0 0.10.0
+	CreateOutputOTLPVersionOpenTelemetryZeroDot10Dot0 CreateOutputOTLPVersionOpenTelemetry = "0.10.0"
+	// CreateOutputOTLPVersionOpenTelemetryOneDot3Dot1 1.3.1
+	CreateOutputOTLPVersionOpenTelemetryOneDot3Dot1 CreateOutputOTLPVersionOpenTelemetry = "1.3.1"
 )
 
-func (e CreateOutputOTLPVersion) ToPointer() *CreateOutputOTLPVersion {
+func (e CreateOutputOTLPVersionOpenTelemetry) ToPointer() *CreateOutputOTLPVersionOpenTelemetry {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputOTLPVersion) IsExact() bool {
+func (e *CreateOutputOTLPVersionOpenTelemetry) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "0.10.0", "1.3.1":
@@ -16594,7 +16594,7 @@ type CreateOutputOutputOpenTelemetry struct {
 	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
 	Endpoint string `json:"endpoint"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
-	OtlpVersion *CreateOutputOTLPVersion `json:"otlpVersion,omitzero"`
+	OtlpVersion *CreateOutputOTLPVersionOpenTelemetry `json:"otlpVersion,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
 	Compress *components.CompressionOptionsDeflateGzip `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
@@ -16771,7 +16771,7 @@ func (c *CreateOutputOutputOpenTelemetry) GetEndpoint() string {
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputOpenTelemetry) GetOtlpVersion() *CreateOutputOTLPVersion {
+func (c *CreateOutputOutputOpenTelemetry) GetOtlpVersion() *CreateOutputOTLPVersionOpenTelemetry {
 	if c == nil {
 		return nil
 	}
