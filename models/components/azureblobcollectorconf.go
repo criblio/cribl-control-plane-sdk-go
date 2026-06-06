@@ -96,6 +96,8 @@ type AzureBlobAuthTypeClientCert struct {
 	IncludeTags *bool `json:"includeTags,omitzero"`
 	// Maximum number of metadata objects to batch before recording as results
 	MaxBatchSize *float64 `json:"maxBatchSize,omitzero"`
+	// Disable Collector event time filtering when a date range is specified
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
@@ -238,6 +240,13 @@ func (a *AzureBlobAuthTypeClientCert) GetMaxBatchSize() *float64 {
 		return nil
 	}
 	return a.MaxBatchSize
+}
+
+func (a *AzureBlobAuthTypeClientCert) GetDisableTimeFilter() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.DisableTimeFilter
 }
 
 func (a *AzureBlobAuthTypeClientCert) GetParquetChunkSizeMB() *float64 {
@@ -429,6 +438,8 @@ type AzureBlobAuthTypeClientSecret struct {
 	IncludeTags *bool `json:"includeTags,omitzero"`
 	// Maximum number of metadata objects to batch before recording as results
 	MaxBatchSize *float64 `json:"maxBatchSize,omitzero"`
+	// Disable Collector event time filtering when a date range is specified
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
@@ -597,6 +608,13 @@ func (a *AzureBlobAuthTypeClientSecret) GetMaxBatchSize() *float64 {
 	return a.MaxBatchSize
 }
 
+func (a *AzureBlobAuthTypeClientSecret) GetDisableTimeFilter() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.DisableTimeFilter
+}
+
 func (a *AzureBlobAuthTypeClientSecret) GetParquetChunkSizeMB() *float64 {
 	if a == nil {
 		return nil
@@ -731,6 +749,8 @@ type AzureBlobAuthTypeSecret struct {
 	IncludeTags *bool `json:"includeTags,omitzero"`
 	// Maximum number of metadata objects to batch before recording as results
 	MaxBatchSize *float64 `json:"maxBatchSize,omitzero"`
+	// Disable Collector event time filtering when a date range is specified
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
@@ -847,6 +867,13 @@ func (a *AzureBlobAuthTypeSecret) GetMaxBatchSize() *float64 {
 		return nil
 	}
 	return a.MaxBatchSize
+}
+
+func (a *AzureBlobAuthTypeSecret) GetDisableTimeFilter() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.DisableTimeFilter
 }
 
 func (a *AzureBlobAuthTypeSecret) GetParquetChunkSizeMB() *float64 {
@@ -1055,6 +1082,8 @@ type AzureBlobAuthTypeManual struct {
 	IncludeTags *bool `json:"includeTags,omitzero"`
 	// Maximum number of metadata objects to batch before recording as results
 	MaxBatchSize *float64 `json:"maxBatchSize,omitzero"`
+	// Disable Collector event time filtering when a date range is specified
+	DisableTimeFilter *bool `json:"disableTimeFilter,omitzero"`
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will abort if a chunk cannot be downloaded within the time specified.
@@ -1176,6 +1205,13 @@ func (a *AzureBlobAuthTypeManual) GetMaxBatchSize() *float64 {
 		return nil
 	}
 	return a.MaxBatchSize
+}
+
+func (a *AzureBlobAuthTypeManual) GetDisableTimeFilter() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.DisableTimeFilter
 }
 
 func (a *AzureBlobAuthTypeManual) GetParquetChunkSizeMB() *float64 {
