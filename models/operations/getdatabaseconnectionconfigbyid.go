@@ -21,8 +21,8 @@ func (g *GetDatabaseConnectionConfigByIDRequest) GetID() string {
 
 type GetDatabaseConnectionConfigByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// The requested DatabaseConnectionConfig object in a single-item list.
-	CountedDatabaseConnectionConfig *components.CountedDatabaseConnectionConfig
+	// The requested Database Connection in a response envelope with <code>count</code> and <code>items</code>.
+	DatabaseConnectionResponseEnvelope *components.DatabaseConnectionResponseEnvelope
 }
 
 func (g GetDatabaseConnectionConfigByIDResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +43,9 @@ func (g *GetDatabaseConnectionConfigByIDResponse) GetHTTPMeta() components.HTTPM
 	return g.HTTPMeta
 }
 
-func (g *GetDatabaseConnectionConfigByIDResponse) GetCountedDatabaseConnectionConfig() *components.CountedDatabaseConnectionConfig {
+func (g *GetDatabaseConnectionConfigByIDResponse) GetDatabaseConnectionResponseEnvelope() *components.DatabaseConnectionResponseEnvelope {
 	if g == nil {
 		return nil
 	}
-	return g.CountedDatabaseConnectionConfig
+	return g.DatabaseConnectionResponseEnvelope
 }

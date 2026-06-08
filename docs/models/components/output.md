@@ -141,6 +141,12 @@ output := components.CreateOutputGoogleCloudStorage(components.OutputGoogleCloud
 output := components.CreateOutputGoogleCloudLogging(components.OutputGoogleCloudLogging{/* values here */})
 ```
 
+### OutputGoogleCloudObservability
+
+```go
+output := components.CreateOutputGoogleCloudObservability(components.OutputGoogleCloudObservability{/* values here */})
+```
+
 ### OutputGooglePubsub
 
 ```go
@@ -529,6 +535,8 @@ switch output.Type {
 		// output.OutputGoogleCloudStorage is populated
 	case components.OutputTypeGoogleCloudLogging:
 		// output.OutputGoogleCloudLogging is populated
+	case components.OutputTypeGoogleCloudObservability:
+		// output.OutputGoogleCloudObservability is populated
 	case components.OutputTypeGooglePubsub:
 		// output.OutputGooglePubsub is populated
 	case components.OutputTypeExabeam:

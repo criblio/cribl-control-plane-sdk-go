@@ -129,6 +129,10 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputGoogleCloudLogging() *co
 	return u.GetOutput().OutputGoogleCloudLogging
 }
 
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputGoogleCloudObservability() *components.OutputGoogleCloudObservability {
+	return u.GetOutput().OutputGoogleCloudObservability
+}
+
 func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputGooglePubsub() *components.OutputGooglePubsub {
 	return u.GetOutput().OutputGooglePubsub
 }

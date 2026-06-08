@@ -99,6 +99,8 @@ type OutputCustomerMetricsStorage struct {
 	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// Optional ClickHouse workload name to append as a SETTINGS clause on INSERT queries. Used for workload scheduling classification.
+	Workload *string `json:"workload,omitzero"`
 	// Log the most recent event that fails to match the table schema
 	DumpFormatErrorsToDisk *bool `json:"dumpFormatErrorsToDisk,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -359,6 +361,13 @@ func (o *OutputCustomerMetricsStorage) GetResponseHonorRetryAfterHeader() *bool 
 		return nil
 	}
 	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputCustomerMetricsStorage) GetWorkload() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Workload
 }
 
 func (o *OutputCustomerMetricsStorage) GetDumpFormatErrorsToDisk() *bool {

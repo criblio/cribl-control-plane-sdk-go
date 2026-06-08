@@ -8,8 +8,12 @@ import (
 )
 
 type GetDatabaseConnectionConfigRequest struct {
-	// Type of Database Connections to include in the results.
+	// Filter results by database engine type. Use this parameter to return only Database Connections for the specified engine.
 	DatabaseType *components.DatabaseConnectionType `queryParam:"style=form,explode=true,name=databaseType"`
+	// Maximum number of Database Connections to return in the response for this request. Use with <code>offset</code> to paginate the response into manageable batches.
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
+	// Starting point from which to retrieve results for this request. Use with <code>limit</code> to paginate the response into manageable batches.
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
 }
 
 func (g *GetDatabaseConnectionConfigRequest) GetDatabaseType() *components.DatabaseConnectionType {
@@ -19,10 +23,26 @@ func (g *GetDatabaseConnectionConfigRequest) GetDatabaseType() *components.Datab
 	return g.DatabaseType
 }
 
+func (g *GetDatabaseConnectionConfigRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
+func (g *GetDatabaseConnectionConfigRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
 type GetDatabaseConnectionConfigResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of DatabaseConnectionConfig objects.
-	CountedDatabaseConnectionConfig *components.CountedDatabaseConnectionConfig
+	// Database Connections returned in a response envelope with <code>count</code> and <code>items</code>.
+	DatabaseConnectionResponseEnvelope *components.DatabaseConnectionResponseEnvelope
+
+	Next func() (*GetDatabaseConnectionConfigResponse, error)
 }
 
 func (g GetDatabaseConnectionConfigResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +63,9 @@ func (g *GetDatabaseConnectionConfigResponse) GetHTTPMeta() components.HTTPMetad
 	return g.HTTPMeta
 }
 
-func (g *GetDatabaseConnectionConfigResponse) GetCountedDatabaseConnectionConfig() *components.CountedDatabaseConnectionConfig {
+func (g *GetDatabaseConnectionConfigResponse) GetDatabaseConnectionResponseEnvelope() *components.DatabaseConnectionResponseEnvelope {
 	if g == nil {
 		return nil
 	}
-	return g.CountedDatabaseConnectionConfig
+	return g.DatabaseConnectionResponseEnvelope
 }

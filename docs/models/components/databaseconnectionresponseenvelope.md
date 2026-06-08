@@ -1,0 +1,9 @@
+# DatabaseConnectionResponseEnvelope
+
+
+## Fields
+
+| Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  | Example                                                                                      |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `Count`                                                                                      | `int64`                                                                                      | :heavy_check_mark:                                                                           | Number of Database Connections returned in the response envelope.                            | 1                                                                                            |
+| `Items`                                                                                      | [][components.DatabaseConnectionConfig](../../models/components/databaseconnectionconfig.md) | :heavy_check_mark:                                                                           | Database Connections returned in the response envelope.                                      |                                                                                              |

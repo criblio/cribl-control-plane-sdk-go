@@ -8433,23 +8433,23 @@ func (e *FormatDynatraceHTTP) IsExact() bool {
 	return false
 }
 
-type OutputResponseEndpoint string
+type EndpointDynatraceHTTP string
 
 const (
-	// OutputResponseEndpointCloud Cloud
-	OutputResponseEndpointCloud OutputResponseEndpoint = "cloud"
-	// OutputResponseEndpointActiveGate ActiveGate
-	OutputResponseEndpointActiveGate OutputResponseEndpoint = "activeGate"
-	// OutputResponseEndpointManual Manual
-	OutputResponseEndpointManual OutputResponseEndpoint = "manual"
+	// EndpointDynatraceHTTPCloud Cloud
+	EndpointDynatraceHTTPCloud EndpointDynatraceHTTP = "cloud"
+	// EndpointDynatraceHTTPActiveGate ActiveGate
+	EndpointDynatraceHTTPActiveGate EndpointDynatraceHTTP = "activeGate"
+	// EndpointDynatraceHTTPManual Manual
+	EndpointDynatraceHTTPManual EndpointDynatraceHTTP = "manual"
 )
 
-func (e OutputResponseEndpoint) ToPointer() *OutputResponseEndpoint {
+func (e EndpointDynatraceHTTP) ToPointer() *EndpointDynatraceHTTP {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputResponseEndpoint) IsExact() bool {
+func (e *EndpointDynatraceHTTP) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "cloud", "activeGate", "manual":
@@ -8547,7 +8547,7 @@ type OutputResponseOutputDynatraceHTTP struct {
 	AuthType       *AuthenticationTypeDynatraceHTTP `json:"authType,omitzero"`
 	// How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
 	Format        FormatDynatraceHTTP         `json:"format"`
-	Endpoint      OutputResponseEndpoint      `json:"endpoint"`
+	Endpoint      EndpointDynatraceHTTP       `json:"endpoint"`
 	TelemetryType OutputResponseTelemetryType `json:"telemetryType"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
@@ -8785,9 +8785,9 @@ func (o *OutputResponseOutputDynatraceHTTP) GetFormat() FormatDynatraceHTTP {
 	return o.Format
 }
 
-func (o *OutputResponseOutputDynatraceHTTP) GetEndpoint() OutputResponseEndpoint {
+func (o *OutputResponseOutputDynatraceHTTP) GetEndpoint() EndpointDynatraceHTTP {
 	if o == nil {
-		return OutputResponseEndpoint("")
+		return EndpointDynatraceHTTP("")
 	}
 	return o.Endpoint
 }
@@ -10006,6 +10006,8 @@ type OutputResponseOutputLocalSearchStorage struct {
 	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// Optional ClickHouse workload name to append as a SETTINGS clause on INSERT queries. Used for workload scheduling classification.
+	Workload *string `json:"workload,omitzero"`
 	// Log the most recent event that fails to match the table schema
 	DumpFormatErrorsToDisk *bool `json:"dumpFormatErrorsToDisk,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -10271,6 +10273,13 @@ func (o *OutputResponseOutputLocalSearchStorage) GetResponseHonorRetryAfterHeade
 		return nil
 	}
 	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputResponseOutputLocalSearchStorage) GetWorkload() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Workload
 }
 
 func (o *OutputResponseOutputLocalSearchStorage) GetDumpFormatErrorsToDisk() *bool {
@@ -10588,6 +10597,8 @@ type OutputResponseOutputCustomerMetricsStorage struct {
 	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// Optional ClickHouse workload name to append as a SETTINGS clause on INSERT queries. Used for workload scheduling classification.
+	Workload *string `json:"workload,omitzero"`
 	// Log the most recent event that fails to match the table schema
 	DumpFormatErrorsToDisk *bool `json:"dumpFormatErrorsToDisk,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -10852,6 +10863,13 @@ func (o *OutputResponseOutputCustomerMetricsStorage) GetResponseHonorRetryAfterH
 		return nil
 	}
 	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputResponseOutputCustomerMetricsStorage) GetWorkload() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Workload
 }
 
 func (o *OutputResponseOutputCustomerMetricsStorage) GetDumpFormatErrorsToDisk() *bool {
@@ -11162,6 +11180,8 @@ type OutputResponseOutputClickHouse struct {
 	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// Optional ClickHouse workload name to append as a SETTINGS clause on INSERT queries. Used for workload scheduling classification.
+	Workload *string `json:"workload,omitzero"`
 	// Log the most recent event that fails to match the table schema
 	DumpFormatErrorsToDisk *bool `json:"dumpFormatErrorsToDisk,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -11426,6 +11446,13 @@ func (o *OutputResponseOutputClickHouse) GetResponseHonorRetryAfterHeader() *boo
 		return nil
 	}
 	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputResponseOutputClickHouse) GetWorkload() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Workload
 }
 
 func (o *OutputResponseOutputClickHouse) GetDumpFormatErrorsToDisk() *bool {
@@ -11838,36 +11865,12 @@ func (e *OutputResponseTypeCriblLake) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type OutputResponseAwsAuthenticationMethod string
-
-const (
-	OutputResponseAwsAuthenticationMethodAuto    OutputResponseAwsAuthenticationMethod = "auto"
-	OutputResponseAwsAuthenticationMethodAutoRPC OutputResponseAwsAuthenticationMethod = "auto_rpc"
-	OutputResponseAwsAuthenticationMethodManual  OutputResponseAwsAuthenticationMethod = "manual"
-)
-
-func (e OutputResponseAwsAuthenticationMethod) ToPointer() *OutputResponseAwsAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputResponseAwsAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "auto_rpc", "manual":
-			return true
-		}
-	}
-	return false
-}
-
 type FormatCriblLake string
 
 const (
-	FormatCriblLakeJSON     FormatCriblLake = "json"
-	FormatCriblLakeParquet  FormatCriblLake = "parquet"
-	FormatCriblLakeDdss     FormatCriblLake = "ddss"
-	FormatCriblLakeNetskope FormatCriblLake = "netskope"
+	FormatCriblLakeJSON    FormatCriblLake = "json"
+	FormatCriblLakeParquet FormatCriblLake = "parquet"
+	FormatCriblLakeRaw     FormatCriblLake = "raw"
 )
 
 func (e FormatCriblLake) ToPointer() *FormatCriblLake {
@@ -11878,7 +11881,7 @@ func (e FormatCriblLake) ToPointer() *FormatCriblLake {
 func (e *FormatCriblLake) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "json", "parquet", "ddss", "netskope":
+		case "json", "parquet", "raw":
 			return true
 		}
 	}
@@ -11897,30 +11900,6 @@ type OutputResponseOutputCriblLake struct {
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
-	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitzero"`
-	// Use Assume Role credentials to access S3
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
-	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
-	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
-	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitzero"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	Bucket *string `json:"bucket,omitzero"`
-	// Region where the S3 bucket is located
-	Region *string `json:"region,omitzero"`
-	// Lake dataset to send the data to.
-	DestPath *string `json:"destPath,omitzero"`
-	// Disable if you can access files within the bucket but not the bucket itself
-	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
-	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath *string `json:"stagePath,omitzero"`
 	// Add the Output ID value to staging location
@@ -11953,21 +11932,39 @@ type OutputResponseOutputCriblLake struct {
 	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
 	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
-	// Object ACL to assign to uploaded objects
-	ObjectACL *ObjectACLOptions `json:"objectACL,omitzero"`
-	// Storage class to select for uploaded objects
-	StorageClass *StorageClassOptions `json:"storageClass,omitzero"`
-	// Server-side encryption to use for uploaded objects
-	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
-	// ID or ARN of the KMS customer-managed key to use for encryption
-	KmsKeyID                *string                                `json:"kmsKeyId,omitzero"`
-	AwsAuthenticationMethod *OutputResponseAwsAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
-	Format                  *FormatCriblLake                       `json:"format,omitzero"`
-	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
-	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
-	Description            *string  `json:"description,omitzero"`
+	// Lake dataset to send the data to.
+	DestPath                      *string          `json:"destPath,omitzero"`
+	Format                        *FormatCriblLake `json:"format,omitzero"`
+	DynamicDataset                *bool            `json:"dynamicDataset,omitzero"`
+	MaxClosingFilesToBackpressure *float64         `json:"maxClosingFilesToBackpressure,omitzero"`
+	MaxConcurrentFileParts        *float64         `json:"maxConcurrentFileParts,omitzero"`
+	Description                   *string          `json:"description,omitzero"`
+	// Data compression format to apply to HTTP content before it is delivered
+	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *CompressionLevelOptions `json:"compressionLevel,omitzero"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `json:"automaticSchema,omitzero"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitzero"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *ParquetVersionOptions `json:"parquetVersion,omitzero"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *DataPageVersionOptions `json:"parquetDataPageVersion,omitzero"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitzero"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `json:"parquetPageSize,omitzero"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `json:"enableStatistics,omitzero"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitzero"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `json:"enablePageChecksum,omitzero"`
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitzero"`
 	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
@@ -11978,34 +11975,18 @@ type OutputResponseOutputCriblLake struct {
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
-	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
-	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
-	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-	TemplateBucket *string `json:"__template_bucket,omitzero"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitzero"`
-	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
-	TemplateDestPath *string `json:"__template_destPath,omitzero"`
 	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
 	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
 	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
 	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
-	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
-	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
-	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
-	TemplateStorageClass *string `json:"__template_storageClass,omitzero"`
-	// Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
-	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
-	// Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
-	TemplateKmsKeyID *string `json:"__template_kmsKeyId,omitzero"`
+	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+	TemplateDestPath *string `json:"__template_destPath,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 	// Notifications attached to the Destination.
 	Notifications []NotificationUnion `json:"notifications,omitzero"`
 	// Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
@@ -12063,90 +12044,6 @@ func (o *OutputResponseOutputCriblLake) GetStreamtags() []string {
 		return nil
 	}
 	return o.Streamtags
-}
-
-func (o *OutputResponseOutputCriblLake) GetEndpoint() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Endpoint
-}
-
-func (o *OutputResponseOutputCriblLake) GetEnableAssumeRole() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.EnableAssumeRole
-}
-
-func (o *OutputResponseOutputCriblLake) GetAssumeRoleArn() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AssumeRoleArn
-}
-
-func (o *OutputResponseOutputCriblLake) GetAssumeRoleExternalID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.AssumeRoleExternalID
-}
-
-func (o *OutputResponseOutputCriblLake) GetDurationSeconds() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.DurationSeconds
-}
-
-func (o *OutputResponseOutputCriblLake) GetReuseConnections() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.ReuseConnections
-}
-
-func (o *OutputResponseOutputCriblLake) GetRejectUnauthorized() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.RejectUnauthorized
-}
-
-func (o *OutputResponseOutputCriblLake) GetBucket() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Bucket
-}
-
-func (o *OutputResponseOutputCriblLake) GetRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Region
-}
-
-func (o *OutputResponseOutputCriblLake) GetDestPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.DestPath
-}
-
-func (o *OutputResponseOutputCriblLake) GetVerifyPermissions() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.VerifyPermissions
-}
-
-func (o *OutputResponseOutputCriblLake) GetMaxClosingFilesToBackpressure() *float64 {
-	if o == nil {
-		return nil
-	}
-	return o.MaxClosingFilesToBackpressure
 }
 
 func (o *OutputResponseOutputCriblLake) GetStagePath() *string {
@@ -12268,46 +12165,11 @@ func (o *OutputResponseOutputCriblLake) GetOrphans() *OrphanFileRecoveryType {
 	return o.Orphans
 }
 
-func (o *OutputResponseOutputCriblLake) GetAwsSecretKey() *string {
+func (o *OutputResponseOutputCriblLake) GetDestPath() *string {
 	if o == nil {
 		return nil
 	}
-	return o.AwsSecretKey
-}
-
-func (o *OutputResponseOutputCriblLake) GetObjectACL() *ObjectACLOptions {
-	if o == nil {
-		return nil
-	}
-	return o.ObjectACL
-}
-
-func (o *OutputResponseOutputCriblLake) GetStorageClass() *StorageClassOptions {
-	if o == nil {
-		return nil
-	}
-	return o.StorageClass
-}
-
-func (o *OutputResponseOutputCriblLake) GetServerSideEncryption() *ServerSideEncryptionForUploadedObjectsOptions {
-	if o == nil {
-		return nil
-	}
-	return o.ServerSideEncryption
-}
-
-func (o *OutputResponseOutputCriblLake) GetKmsKeyID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.KmsKeyID
-}
-
-func (o *OutputResponseOutputCriblLake) GetAwsAuthenticationMethod() *OutputResponseAwsAuthenticationMethod {
-	if o == nil {
-		return nil
-	}
-	return o.AwsAuthenticationMethod
+	return o.DestPath
 }
 
 func (o *OutputResponseOutputCriblLake) GetFormat() *FormatCriblLake {
@@ -12315,6 +12177,20 @@ func (o *OutputResponseOutputCriblLake) GetFormat() *FormatCriblLake {
 		return nil
 	}
 	return o.Format
+}
+
+func (o *OutputResponseOutputCriblLake) GetDynamicDataset() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.DynamicDataset
+}
+
+func (o *OutputResponseOutputCriblLake) GetMaxClosingFilesToBackpressure() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxClosingFilesToBackpressure
 }
 
 func (o *OutputResponseOutputCriblLake) GetMaxConcurrentFileParts() *float64 {
@@ -12329,6 +12205,97 @@ func (o *OutputResponseOutputCriblLake) GetDescription() *string {
 		return nil
 	}
 	return o.Description
+}
+
+func (o *OutputResponseOutputCriblLake) GetCompress() *CompressionOptionsHTTP {
+	if o == nil {
+		return nil
+	}
+	return o.Compress
+}
+
+func (o *OutputResponseOutputCriblLake) GetCompressionLevel() *CompressionLevelOptions {
+	if o == nil {
+		return nil
+	}
+	return o.CompressionLevel
+}
+
+func (o *OutputResponseOutputCriblLake) GetAutomaticSchema() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.AutomaticSchema
+}
+
+func (o *OutputResponseOutputCriblLake) GetParquetSchema() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetSchema
+}
+
+func (o *OutputResponseOutputCriblLake) GetParquetVersion() *ParquetVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetVersion
+}
+
+func (o *OutputResponseOutputCriblLake) GetParquetDataPageVersion() *DataPageVersionOptions {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetDataPageVersion
+}
+
+func (o *OutputResponseOutputCriblLake) GetParquetRowGroupLength() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetRowGroupLength
+}
+
+func (o *OutputResponseOutputCriblLake) GetParquetPageSize() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ParquetPageSize
+}
+
+func (o *OutputResponseOutputCriblLake) GetShouldLogInvalidRows() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.ShouldLogInvalidRows
+}
+
+func (o *OutputResponseOutputCriblLake) GetKeyValueMetadata() []KeyValueMetadataConfOutputFilesystem {
+	if o == nil {
+		return nil
+	}
+	return o.KeyValueMetadata
+}
+
+func (o *OutputResponseOutputCriblLake) GetEnableStatistics() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableStatistics
+}
+
+func (o *OutputResponseOutputCriblLake) GetEnableWritePageIndex() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableWritePageIndex
+}
+
+func (o *OutputResponseOutputCriblLake) GetEnablePageChecksum() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnablePageChecksum
 }
 
 func (o *OutputResponseOutputCriblLake) GetEmptyDirCleanupSec() *float64 {
@@ -12366,48 +12333,6 @@ func (o *OutputResponseOutputCriblLake) GetTemplateStreamtags() *string {
 	return o.TemplateStreamtags
 }
 
-func (o *OutputResponseOutputCriblLake) GetTemplateEndpoint() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateEndpoint
-}
-
-func (o *OutputResponseOutputCriblLake) GetTemplateAssumeRoleArn() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleArn
-}
-
-func (o *OutputResponseOutputCriblLake) GetTemplateAssumeRoleExternalID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateAssumeRoleExternalID
-}
-
-func (o *OutputResponseOutputCriblLake) GetTemplateBucket() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateBucket
-}
-
-func (o *OutputResponseOutputCriblLake) GetTemplateRegion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateRegion
-}
-
-func (o *OutputResponseOutputCriblLake) GetTemplateDestPath() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateDestPath
-}
-
 func (o *OutputResponseOutputCriblLake) GetTemplateBaseFileName() *string {
 	if o == nil {
 		return nil
@@ -12429,39 +12354,25 @@ func (o *OutputResponseOutputCriblLake) GetTemplateOnBackpressure() *string {
 	return o.TemplateOnBackpressure
 }
 
-func (o *OutputResponseOutputCriblLake) GetTemplateAwsSecretKey() *string {
+func (o *OutputResponseOutputCriblLake) GetTemplateDestPath() *string {
 	if o == nil {
 		return nil
 	}
-	return o.TemplateAwsSecretKey
+	return o.TemplateDestPath
 }
 
-func (o *OutputResponseOutputCriblLake) GetTemplateObjectACL() *string {
+func (o *OutputResponseOutputCriblLake) GetTemplateCompress() *string {
 	if o == nil {
 		return nil
 	}
-	return o.TemplateObjectACL
+	return o.TemplateCompress
 }
 
-func (o *OutputResponseOutputCriblLake) GetTemplateStorageClass() *string {
+func (o *OutputResponseOutputCriblLake) GetTemplateParquetSchema() *string {
 	if o == nil {
 		return nil
 	}
-	return o.TemplateStorageClass
-}
-
-func (o *OutputResponseOutputCriblLake) GetTemplateServerSideEncryption() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateServerSideEncryption
-}
-
-func (o *OutputResponseOutputCriblLake) GetTemplateKmsKeyID() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateKmsKeyID
+	return o.TemplateParquetSchema
 }
 
 func (o *OutputResponseOutputCriblLake) GetNotifications() []NotificationUnion {
@@ -17510,22 +17421,22 @@ func (e *OutputResponseTypeOpenTelemetry) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputResponseOTLPVersion - The version of OTLP Protobuf definitions to use when structuring data to send
-type OutputResponseOTLPVersion string
+// OutputResponseOTLPVersionOpenTelemetry - The version of OTLP Protobuf definitions to use when structuring data to send
+type OutputResponseOTLPVersionOpenTelemetry string
 
 const (
-	// OutputResponseOTLPVersionZeroDot10Dot0 0.10.0
-	OutputResponseOTLPVersionZeroDot10Dot0 OutputResponseOTLPVersion = "0.10.0"
-	// OutputResponseOTLPVersionOneDot3Dot1 1.3.1
-	OutputResponseOTLPVersionOneDot3Dot1 OutputResponseOTLPVersion = "1.3.1"
+	// OutputResponseOTLPVersionOpenTelemetryZeroDot10Dot0 0.10.0
+	OutputResponseOTLPVersionOpenTelemetryZeroDot10Dot0 OutputResponseOTLPVersionOpenTelemetry = "0.10.0"
+	// OutputResponseOTLPVersionOpenTelemetryOneDot3Dot1 1.3.1
+	OutputResponseOTLPVersionOpenTelemetryOneDot3Dot1 OutputResponseOTLPVersionOpenTelemetry = "1.3.1"
 )
 
-func (e OutputResponseOTLPVersion) ToPointer() *OutputResponseOTLPVersion {
+func (e OutputResponseOTLPVersionOpenTelemetry) ToPointer() *OutputResponseOTLPVersionOpenTelemetry {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputResponseOTLPVersion) IsExact() bool {
+func (e *OutputResponseOTLPVersionOpenTelemetry) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "0.10.0", "1.3.1":
@@ -17598,7 +17509,7 @@ type OutputResponseOutputOpenTelemetry struct {
 	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
 	Endpoint string `json:"endpoint"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
-	OtlpVersion *OutputResponseOTLPVersion `json:"otlpVersion,omitzero"`
+	OtlpVersion *OutputResponseOTLPVersionOpenTelemetry `json:"otlpVersion,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
 	Compress *CompressionOptionsDeflateGzip `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
@@ -17779,7 +17690,7 @@ func (o *OutputResponseOutputOpenTelemetry) GetEndpoint() string {
 	return o.Endpoint
 }
 
-func (o *OutputResponseOutputOpenTelemetry) GetOtlpVersion() *OutputResponseOTLPVersion {
+func (o *OutputResponseOutputOpenTelemetry) GetOtlpVersion() *OutputResponseOTLPVersionOpenTelemetry {
 	if o == nil {
 		return nil
 	}
@@ -23761,4 +23672,18 @@ func (e *OutputResponseTypeStatsd) UnmarshalJSON(data []byte) error {
 	default:
 		return fmt.Errorf("invalid value for OutputResponseTypeStatsd: %v", v)
 	}
+}
+
+type PqControlsStatsd struct {
+}
+
+func (p PqControlsStatsd) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PqControlsStatsd) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }

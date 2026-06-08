@@ -9,8 +9,8 @@ import (
 
 type CreateDatabaseConnectionConfigResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// The created DatabaseConnectionConfig object in a single-item list.
-	CountedDatabaseConnectionConfig *components.CountedDatabaseConnectionConfig
+	// The created Database Connection in a response envelope with <code>count</code> and <code>items</code>.
+	DatabaseConnectionResponseEnvelope *components.DatabaseConnectionResponseEnvelope
 }
 
 func (c CreateDatabaseConnectionConfigResponse) MarshalJSON() ([]byte, error) {
@@ -31,9 +31,9 @@ func (c *CreateDatabaseConnectionConfigResponse) GetHTTPMeta() components.HTTPMe
 	return c.HTTPMeta
 }
 
-func (c *CreateDatabaseConnectionConfigResponse) GetCountedDatabaseConnectionConfig() *components.CountedDatabaseConnectionConfig {
+func (c *CreateDatabaseConnectionConfigResponse) GetDatabaseConnectionResponseEnvelope() *components.DatabaseConnectionResponseEnvelope {
 	if c == nil {
 		return nil
 	}
-	return c.CountedDatabaseConnectionConfig
+	return c.DatabaseConnectionResponseEnvelope
 }

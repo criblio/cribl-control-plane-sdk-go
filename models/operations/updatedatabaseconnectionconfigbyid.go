@@ -30,8 +30,8 @@ func (u *UpdateDatabaseConnectionConfigByIDRequest) GetDatabaseConnectionConfig(
 
 type UpdateDatabaseConnectionConfigByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// The updated DatabaseConnectionConfig object in a single-item list.
-	CountedDatabaseConnectionConfig *components.CountedDatabaseConnectionConfig
+	// The updated Database Connection in a response envelope with <code>count</code> and <code>items</code>.
+	DatabaseConnectionResponseEnvelope *components.DatabaseConnectionResponseEnvelope
 }
 
 func (u UpdateDatabaseConnectionConfigByIDResponse) MarshalJSON() ([]byte, error) {
@@ -52,9 +52,9 @@ func (u *UpdateDatabaseConnectionConfigByIDResponse) GetHTTPMeta() components.HT
 	return u.HTTPMeta
 }
 
-func (u *UpdateDatabaseConnectionConfigByIDResponse) GetCountedDatabaseConnectionConfig() *components.CountedDatabaseConnectionConfig {
+func (u *UpdateDatabaseConnectionConfigByIDResponse) GetDatabaseConnectionResponseEnvelope() *components.DatabaseConnectionResponseEnvelope {
 	if u == nil {
 		return nil
 	}
-	return u.CountedDatabaseConnectionConfig
+	return u.DatabaseConnectionResponseEnvelope
 }

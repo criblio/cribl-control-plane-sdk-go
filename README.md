@@ -248,8 +248,8 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [DatabaseConnections](docs/sdks/databaseconnections/README.md)
 
-* [List](docs/sdks/databaseconnections/README.md#list) - List Database Connections
-* [Create](docs/sdks/databaseconnections/README.md#create) - Create Database Connection
+* [List](docs/sdks/databaseconnections/README.md#list) - List all Database Connections
+* [Create](docs/sdks/databaseconnections/README.md#create) - Create a Database Connection
 * [Get](docs/sdks/databaseconnections/README.md#get) - Get a Database Connection
 * [Update](docs/sdks/databaseconnections/README.md#update) - Update a Database Connection
 * [Delete](docs/sdks/databaseconnections/README.md#delete) - Delete a Database Connection
@@ -748,7 +748,6 @@ import (
 	"context"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 	"os"
 )
@@ -763,13 +762,11 @@ func main() {
 		}),
 	)
 
-	res, err := s.Packs.Sources.Statuses.List(ctx, operations.GetInputStatusSystemInputsByPackRequest{
-		Pack: "<value>",
-	})
+	res, err := s.DatabaseConnections.List(ctx, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.CountedInputStatus != nil {
+	if res.DatabaseConnectionResponseEnvelope != nil {
 		for {
 			// handle items
 
