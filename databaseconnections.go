@@ -13,6 +13,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
+	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
 )
@@ -32,11 +33,13 @@ func newDatabaseConnections(rootSDK *CriblControlPlane, sdkConfig config.SDKConf
 	}
 }
 
-// List Database Connections
+// List all Database Connections
 // Get a list of all Database Connections.
-func (s *DatabaseConnections) List(ctx context.Context, databaseType *components.DatabaseConnectionType, opts ...operations.Option) (*operations.GetDatabaseConnectionConfigResponse, error) {
+func (s *DatabaseConnections) List(ctx context.Context, databaseType *components.DatabaseConnectionType, limit *int64, offset *int64, opts ...operations.Option) (*operations.GetDatabaseConnectionConfigResponse, error) {
 	request := operations.GetDatabaseConnectionConfigRequest{
 		DatabaseType: databaseType,
+		Limit:        limit,
+		Offset:       offset,
 	}
 
 	o := operations.Options{}
@@ -206,6 +209,53 @@ func (s *DatabaseConnections) List(ctx context.Context, databaseType *components
 			Response: httpRes,
 		},
 	}
+	res.Next = func() (*operations.GetDatabaseConnectionConfigResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offset != nil {
+			oS = int(*offset)
+		}
+		r, err := ajson.Eval(b, "$.items")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if limit != nil {
+			l = int(*limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+
+		return s.List(
+			ctx,
+			databaseType,
+			limit,
+			&nOS,
+			opts...,
+		)
+	}
 
 	switch {
 	case httpRes.StatusCode == 200:
@@ -217,12 +267,12 @@ func (s *DatabaseConnections) List(ctx context.Context, databaseType *components
 					return nil, err
 				}
 
-				var out components.CountedDatabaseConnectionConfig
+				var out components.DatabaseConnectionResponseEnvelope
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedDatabaseConnectionConfig = &out
+				res.DatabaseConnectionResponseEnvelope = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -282,7 +332,7 @@ func (s *DatabaseConnections) List(ctx context.Context, databaseType *components
 
 }
 
-// Create Database Connection
+// Create a Database Connection
 // Create a new Database Connection.
 func (s *DatabaseConnections) Create(ctx context.Context, request components.DatabaseConnectionConfig, opts ...operations.Option) (*operations.CreateDatabaseConnectionConfigResponse, error) {
 	o := operations.Options{}
@@ -466,13 +516,38 @@ func (s *DatabaseConnections) Create(ctx context.Context, request components.Dat
 					return nil, err
 				}
 
-				var out components.CountedDatabaseConnectionConfig
+				var out components.DatabaseConnectionResponseEnvelope
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedDatabaseConnectionConfig = &out
+				res.DatabaseConnectionResponseEnvelope = &out
 			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 400:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.RestAPIJSONError
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -712,13 +787,38 @@ func (s *DatabaseConnections) Get(ctx context.Context, id string, opts ...operat
 					return nil, err
 				}
 
-				var out components.CountedDatabaseConnectionConfig
+				var out components.DatabaseConnectionResponseEnvelope
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedDatabaseConnectionConfig = &out
+				res.DatabaseConnectionResponseEnvelope = &out
 			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 404:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.RestAPIJSONError
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -752,8 +852,6 @@ func (s *DatabaseConnections) Get(ctx context.Context, id string, opts ...operat
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
 	case httpRes.StatusCode == 401:
-		fallthrough
-	case httpRes.StatusCode == 404:
 		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -968,13 +1066,40 @@ func (s *DatabaseConnections) Update(ctx context.Context, id string, databaseCon
 					return nil, err
 				}
 
-				var out components.CountedDatabaseConnectionConfig
+				var out components.DatabaseConnectionResponseEnvelope
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedDatabaseConnectionConfig = &out
+				res.DatabaseConnectionResponseEnvelope = &out
 			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 400:
+		fallthrough
+	case httpRes.StatusCode == 404:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.RestAPIJSONError
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1214,13 +1339,38 @@ func (s *DatabaseConnections) Delete(ctx context.Context, id string, opts ...ope
 					return nil, err
 				}
 
-				var out components.CountedDatabaseConnectionConfig
+				var out components.DatabaseConnectionResponseEnvelope
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedDatabaseConnectionConfig = &out
+				res.DatabaseConnectionResponseEnvelope = &out
 			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 404:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.RestAPIJSONError
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {

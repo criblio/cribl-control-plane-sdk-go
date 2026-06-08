@@ -16,9 +16,42 @@ Actions related to Pipelines
 
 Get a list of all Pipelines.
 
-### Example Usage
+### Example Usage: PipelineResponseExamplesEmptyPipeline
 
-<!-- UsageSnippet language="go" operationID="getPipelines" method="get" path="/pipelines" -->
+<!-- UsageSnippet language="go" operationID="getPipelines" method="get" path="/pipelines" example="PipelineResponseExamplesEmptyPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.List(ctx)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="go" operationID="getPipelines" method="get" path="/pipelines" example="PipelineResponseExamplesEvalPipeline" -->
 ```go
 package main
 
@@ -2590,6 +2623,78 @@ func main() {
     }
 }
 ```
+### Example Usage: PipelineResponseExamplesEmptyPipeline
+
+<!-- UsageSnippet language="go" operationID="createPipelines" method="post" path="/pipelines" example="PipelineResponseExamplesEmptyPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.Create(ctx, components.PipelineInput{
+        ID: "<id>",
+        Conf: components.ConfInput{},
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="go" operationID="createPipelines" method="post" path="/pipelines" example="PipelineResponseExamplesEvalPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.Create(ctx, components.PipelineInput{
+        ID: "<id>",
+        Conf: components.ConfInput{},
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -2614,9 +2719,42 @@ func main() {
 
 Delete the specified Pipeline.
 
-### Example Usage
+### Example Usage: PipelineResponseExamplesEmptyPipeline
 
-<!-- UsageSnippet language="go" operationID="deletePipelinesById" method="delete" path="/pipelines/{id}" -->
+<!-- UsageSnippet language="go" operationID="deletePipelinesById" method="delete" path="/pipelines/{id}" example="PipelineResponseExamplesEmptyPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.Delete(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="go" operationID="deletePipelinesById" method="delete" path="/pipelines/{id}" example="PipelineResponseExamplesEvalPipeline" -->
 ```go
 package main
 
@@ -2671,9 +2809,42 @@ func main() {
 
 Get the specified Pipeline.
 
-### Example Usage
+### Example Usage: PipelineResponseExamplesEmptyPipeline
 
-<!-- UsageSnippet language="go" operationID="getPipelinesById" method="get" path="/pipelines/{id}" -->
+<!-- UsageSnippet language="go" operationID="getPipelinesById" method="get" path="/pipelines/{id}" example="PipelineResponseExamplesEmptyPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="go" operationID="getPipelinesById" method="get" path="/pipelines/{id}" example="PipelineResponseExamplesEvalPipeline" -->
 ```go
 package main
 
@@ -5237,6 +5408,78 @@ func main() {
 
             },
         },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEmptyPipeline
+
+<!-- UsageSnippet language="go" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineResponseExamplesEmptyPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.Update(ctx, "<id>", components.PipelineInput{
+        ID: "<id>",
+        Conf: components.ConfInput{},
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="go" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineResponseExamplesEvalPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.Update(ctx, "<id>", components.PipelineInput{
+        ID: "<id>",
+        Conf: components.ConfInput{},
     })
     if err != nil {
         log.Fatal(err)

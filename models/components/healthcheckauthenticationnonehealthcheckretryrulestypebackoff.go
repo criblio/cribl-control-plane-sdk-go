@@ -71,12 +71,16 @@ type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone st
 	DiscoverType HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNoneDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -108,6 +112,13 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNon
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -127,6 +138,13 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNon
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeNone) GetManualDiscoverResult() *string {
@@ -179,12 +197,16 @@ type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList st
 	ItemList []string `json:"itemList"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
@@ -221,6 +243,13 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeLis
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -240,6 +269,13 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeLis
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeList) GetManualDiscoverResult() *string {
@@ -287,10 +323,14 @@ type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJSON st
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
 	ItemList []string `json:"itemList,omitzero"`
 }
@@ -334,6 +374,13 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJSO
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJSON) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJSON) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -346,6 +393,13 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJSO
 		return nil
 	}
 	return h.DiscoverRequestHeaders
+}
+
+func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJSON) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeJSON) GetItemList() []string {
@@ -397,6 +451,10 @@ type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDis
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -456,6 +514,20 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverDataField
 }
 
+func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
+}
+
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
 	if h == nil {
 		return nil
@@ -512,6 +584,10 @@ type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDis
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -571,6 +647,20 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverDataField
 }
 
+func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
+}
+
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
 	if h == nil {
 		return nil
@@ -627,6 +717,10 @@ type HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDis
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -684,6 +778,20 @@ func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTT
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationOauthSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {
@@ -1376,7 +1484,11 @@ type HealthCheckAuthenticationOauthSecret struct {
 	AuthRequestParams []AuthRequestParamConfHealthCheckAuthenticationOauth `json:"authRequestParams,omitzero"`
 	// Optional authentication request headers.
 	AuthRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"authRequestHeaders,omitzero"`
-	Discovery          *HealthCheckAuthenticationOauthSecretDiscovery        `json:"discovery,omitzero"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
+	// Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
+	TemplateTokenRespAttribute *string                                        `json:"__template_tokenRespAttribute,omitzero"`
+	Discovery                  *HealthCheckAuthenticationOauthSecretDiscovery `json:"discovery,omitzero"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
@@ -1395,8 +1507,12 @@ type HealthCheckAuthenticationOauthSecret struct {
 	RetryRules  *HealthCheckAuthenticationOauthSecretRetryRules `json:"retryRules,omitzero"`
 	// Basic authentication username
 	Username *string `json:"username,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
 	// Basic authentication password
 	Password *string `json:"password,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
 	// Select or create a stored secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
@@ -1472,6 +1588,20 @@ func (h *HealthCheckAuthenticationOauthSecret) GetAuthRequestHeaders() []AuthReq
 		return nil
 	}
 	return h.AuthRequestHeaders
+}
+
+func (h *HealthCheckAuthenticationOauthSecret) GetTemplateLoginURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateLoginURL
+}
+
+func (h *HealthCheckAuthenticationOauthSecret) GetTemplateTokenRespAttribute() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateTokenRespAttribute
 }
 
 func (h *HealthCheckAuthenticationOauthSecret) GetDiscovery() *HealthCheckAuthenticationOauthSecretDiscovery {
@@ -1600,11 +1730,25 @@ func (h *HealthCheckAuthenticationOauthSecret) GetUsername() *string {
 	return h.Username
 }
 
+func (h *HealthCheckAuthenticationOauthSecret) GetTemplateUsername() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateUsername
+}
+
 func (h *HealthCheckAuthenticationOauthSecret) GetPassword() *string {
 	if h == nil {
 		return nil
 	}
 	return h.Password
+}
+
+func (h *HealthCheckAuthenticationOauthSecret) GetTemplatePassword() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplatePassword
 }
 
 func (h *HealthCheckAuthenticationOauthSecret) GetCredentialsSecret() *string {
@@ -1697,12 +1841,16 @@ type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone struct {
 	DiscoverType HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNoneDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -1734,6 +1882,13 @@ func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone) Get
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -1753,6 +1908,13 @@ func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone) Get
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeNone) GetManualDiscoverResult() *string {
@@ -1805,12 +1967,16 @@ type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList struct {
 	ItemList []string `json:"itemList"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
@@ -1847,6 +2013,13 @@ func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList) Get
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -1866,6 +2039,13 @@ func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList) Get
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeList) GetManualDiscoverResult() *string {
@@ -1913,10 +2093,14 @@ type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJSON struct {
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
 	ItemList []string `json:"itemList,omitzero"`
 }
@@ -1960,6 +2144,13 @@ func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJSON) Get
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJSON) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJSON) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -1972,6 +2163,13 @@ func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJSON) Get
 		return nil
 	}
 	return h.DiscoverRequestHeaders
+}
+
+func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJSON) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeJSON) GetItemList() []string {
@@ -2023,6 +2221,10 @@ type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverM
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -2082,6 +2284,20 @@ func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDisco
 	return h.DiscoverDataField
 }
 
+func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
+}
+
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
 	if h == nil {
 		return nil
@@ -2138,6 +2354,10 @@ type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverM
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -2197,6 +2417,20 @@ func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDisco
 	return h.DiscoverDataField
 }
 
+func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
+}
+
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
 	if h == nil {
 		return nil
@@ -2253,6 +2487,10 @@ type HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverM
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -2310,6 +2548,20 @@ func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDisco
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationOauthHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {
@@ -3002,7 +3254,11 @@ type HealthCheckAuthenticationOauth struct {
 	AuthRequestParams []AuthRequestParamConfHealthCheckAuthenticationOauth `json:"authRequestParams,omitzero"`
 	// Optional authentication request headers.
 	AuthRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"authRequestHeaders,omitzero"`
-	Discovery          *HealthCheckAuthenticationOauthDiscovery              `json:"discovery,omitzero"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
+	// Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
+	TemplateTokenRespAttribute *string                                  `json:"__template_tokenRespAttribute,omitzero"`
+	Discovery                  *HealthCheckAuthenticationOauthDiscovery `json:"discovery,omitzero"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
@@ -3021,8 +3277,12 @@ type HealthCheckAuthenticationOauth struct {
 	RetryRules  *HealthCheckAuthenticationOauthRetryRules `json:"retryRules,omitzero"`
 	// Basic authentication username
 	Username *string `json:"username,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
 	// Basic authentication password
 	Password *string `json:"password,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
 	// Select or create a stored secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
@@ -3098,6 +3358,20 @@ func (h *HealthCheckAuthenticationOauth) GetAuthRequestHeaders() []AuthRequestHe
 		return nil
 	}
 	return h.AuthRequestHeaders
+}
+
+func (h *HealthCheckAuthenticationOauth) GetTemplateLoginURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateLoginURL
+}
+
+func (h *HealthCheckAuthenticationOauth) GetTemplateTokenRespAttribute() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateTokenRespAttribute
 }
 
 func (h *HealthCheckAuthenticationOauth) GetDiscovery() *HealthCheckAuthenticationOauthDiscovery {
@@ -3226,11 +3500,25 @@ func (h *HealthCheckAuthenticationOauth) GetUsername() *string {
 	return h.Username
 }
 
+func (h *HealthCheckAuthenticationOauth) GetTemplateUsername() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateUsername
+}
+
 func (h *HealthCheckAuthenticationOauth) GetPassword() *string {
 	if h == nil {
 		return nil
 	}
 	return h.Password
+}
+
+func (h *HealthCheckAuthenticationOauth) GetTemplatePassword() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplatePassword
 }
 
 func (h *HealthCheckAuthenticationOauth) GetCredentialsSecret() *string {
@@ -3323,12 +3611,16 @@ type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone st
 	DiscoverType HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNoneDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -3360,6 +3652,13 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNon
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -3379,6 +3678,13 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNon
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeNone) GetManualDiscoverResult() *string {
@@ -3431,12 +3737,16 @@ type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList st
 	ItemList []string `json:"itemList"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
@@ -3473,6 +3783,13 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeLis
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -3492,6 +3809,13 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeLis
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeList) GetManualDiscoverResult() *string {
@@ -3539,10 +3863,14 @@ type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJSON st
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
 	ItemList []string `json:"itemList,omitzero"`
 }
@@ -3586,6 +3914,13 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJSO
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJSON) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJSON) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -3598,6 +3933,13 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJSO
 		return nil
 	}
 	return h.DiscoverRequestHeaders
+}
+
+func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJSON) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeJSON) GetItemList() []string {
@@ -3649,6 +3991,10 @@ type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDis
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -3708,6 +4054,20 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverDataField
 }
 
+func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
+}
+
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
 	if h == nil {
 		return nil
@@ -3764,6 +4124,10 @@ type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDis
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -3823,6 +4187,20 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverDataField
 }
 
+func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
+}
+
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
 	if h == nil {
 		return nil
@@ -3879,6 +4257,10 @@ type HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDis
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -3936,6 +4318,20 @@ func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTT
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationLoginSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {
@@ -4626,7 +5022,11 @@ type HealthCheckAuthenticationLoginSecret struct {
 	AuthHeaderExpr string `json:"authHeaderExpr"`
 	// Optional authentication request headers.
 	AuthRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"authRequestHeaders,omitzero"`
-	Discovery          *HealthCheckAuthenticationLoginSecretDiscovery        `json:"discovery,omitzero"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
+	// Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
+	TemplateTokenRespAttribute *string                                        `json:"__template_tokenRespAttribute,omitzero"`
+	Discovery                  *HealthCheckAuthenticationLoginSecretDiscovery `json:"discovery,omitzero"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
@@ -4645,8 +5045,12 @@ type HealthCheckAuthenticationLoginSecret struct {
 	RetryRules  *HealthCheckAuthenticationLoginSecretRetryRules `json:"retryRules,omitzero"`
 	// Basic authentication username
 	Username *string `json:"username,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
 	// Basic authentication password
 	Password *string `json:"password,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
 	// Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
 	ClientSecretParamName *string `json:"clientSecretParamName,omitzero"`
 	// Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
@@ -4717,6 +5121,20 @@ func (h *HealthCheckAuthenticationLoginSecret) GetAuthRequestHeaders() []AuthReq
 		return nil
 	}
 	return h.AuthRequestHeaders
+}
+
+func (h *HealthCheckAuthenticationLoginSecret) GetTemplateLoginURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateLoginURL
+}
+
+func (h *HealthCheckAuthenticationLoginSecret) GetTemplateTokenRespAttribute() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateTokenRespAttribute
 }
 
 func (h *HealthCheckAuthenticationLoginSecret) GetDiscovery() *HealthCheckAuthenticationLoginSecretDiscovery {
@@ -4845,11 +5263,25 @@ func (h *HealthCheckAuthenticationLoginSecret) GetUsername() *string {
 	return h.Username
 }
 
+func (h *HealthCheckAuthenticationLoginSecret) GetTemplateUsername() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateUsername
+}
+
 func (h *HealthCheckAuthenticationLoginSecret) GetPassword() *string {
 	if h == nil {
 		return nil
 	}
 	return h.Password
+}
+
+func (h *HealthCheckAuthenticationLoginSecret) GetTemplatePassword() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplatePassword
 }
 
 func (h *HealthCheckAuthenticationLoginSecret) GetClientSecretParamName() *string {
@@ -4949,12 +5381,16 @@ type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone struct {
 	DiscoverType HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNoneDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -4986,6 +5422,13 @@ func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone) Get
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -5005,6 +5448,13 @@ func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone) Get
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeNone) GetManualDiscoverResult() *string {
@@ -5057,12 +5507,16 @@ type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList struct {
 	ItemList []string `json:"itemList"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
@@ -5099,6 +5553,13 @@ func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList) Get
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -5118,6 +5579,13 @@ func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList) Get
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeList) GetManualDiscoverResult() *string {
@@ -5165,10 +5633,14 @@ type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJSON struct {
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
 	ItemList []string `json:"itemList,omitzero"`
 }
@@ -5212,6 +5684,13 @@ func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJSON) Get
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJSON) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJSON) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -5224,6 +5703,13 @@ func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJSON) Get
 		return nil
 	}
 	return h.DiscoverRequestHeaders
+}
+
+func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJSON) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeJSON) GetItemList() []string {
@@ -5275,6 +5761,10 @@ type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverM
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -5334,6 +5824,20 @@ func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDisco
 	return h.DiscoverDataField
 }
 
+func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
+}
+
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
 	if h == nil {
 		return nil
@@ -5390,6 +5894,10 @@ type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverM
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -5449,6 +5957,20 @@ func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDisco
 	return h.DiscoverDataField
 }
 
+func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
+}
+
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
 	if h == nil {
 		return nil
@@ -5505,6 +6027,10 @@ type HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverM
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -5562,6 +6088,20 @@ func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDisco
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationLoginHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {
@@ -6254,7 +6794,15 @@ type HealthCheckAuthenticationLogin struct {
 	AuthHeaderExpr string `json:"authHeaderExpr"`
 	// Optional authentication request headers.
 	AuthRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"authRequestHeaders,omitzero"`
-	Discovery          *HealthCheckAuthenticationLoginDiscovery              `json:"discovery,omitzero"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
+	// Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
+	TemplateTokenRespAttribute *string                                  `json:"__template_tokenRespAttribute,omitzero"`
+	Discovery                  *HealthCheckAuthenticationLoginDiscovery `json:"discovery,omitzero"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
@@ -6350,6 +6898,34 @@ func (h *HealthCheckAuthenticationLogin) GetAuthRequestHeaders() []AuthRequestHe
 		return nil
 	}
 	return h.AuthRequestHeaders
+}
+
+func (h *HealthCheckAuthenticationLogin) GetTemplateLoginURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateLoginURL
+}
+
+func (h *HealthCheckAuthenticationLogin) GetTemplateUsername() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateUsername
+}
+
+func (h *HealthCheckAuthenticationLogin) GetTemplatePassword() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplatePassword
+}
+
+func (h *HealthCheckAuthenticationLogin) GetTemplateTokenRespAttribute() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateTokenRespAttribute
 }
 
 func (h *HealthCheckAuthenticationLogin) GetDiscovery() *HealthCheckAuthenticationLoginDiscovery {
@@ -6575,12 +7151,16 @@ type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone st
 	DiscoverType HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNoneDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -6612,6 +7192,13 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNon
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -6631,6 +7218,13 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNon
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeNone) GetManualDiscoverResult() *string {
@@ -6683,12 +7277,16 @@ type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList st
 	ItemList []string `json:"itemList"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
@@ -6725,6 +7323,13 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeLis
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -6744,6 +7349,13 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeLis
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeList) GetManualDiscoverResult() *string {
@@ -6791,10 +7403,14 @@ type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJSON st
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
 	ItemList []string `json:"itemList,omitzero"`
 }
@@ -6838,6 +7454,13 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJSO
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJSON) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJSON) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -6850,6 +7473,13 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJSO
 		return nil
 	}
 	return h.DiscoverRequestHeaders
+}
+
+func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJSON) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeJSON) GetItemList() []string {
@@ -6901,6 +7531,10 @@ type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDis
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -6960,6 +7594,20 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverDataField
 }
 
+func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
+}
+
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
 	if h == nil {
 		return nil
@@ -7016,6 +7664,10 @@ type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDis
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -7075,6 +7727,20 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTT
 	return h.DiscoverDataField
 }
 
+func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
+}
+
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
 	if h == nil {
 		return nil
@@ -7131,6 +7797,10 @@ type HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDis
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -7188,6 +7858,20 @@ func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTT
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationBasicSecretHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {
@@ -7887,14 +8571,22 @@ type HealthCheckAuthenticationBasicSecret struct {
 	RetryRules  *HealthCheckAuthenticationBasicSecretRetryRules `json:"retryRules,omitzero"`
 	// Basic authentication username
 	Username *string `json:"username,omitzero"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
 	// Basic authentication password
 	Password *string `json:"password,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string `json:"__template_password,omitzero"`
 	// URL to use for login API call. This call is expected to be a POST.
 	LoginURL *string `json:"loginUrl,omitzero"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
 	LoginBody *string `json:"loginBody,omitzero"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitzero"`
+	// Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
+	TemplateTokenRespAttribute *string `json:"__template_tokenRespAttribute,omitzero"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
 	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
 	// Optional authentication request headers.
@@ -8062,6 +8754,13 @@ func (h *HealthCheckAuthenticationBasicSecret) GetUsername() *string {
 	return h.Username
 }
 
+func (h *HealthCheckAuthenticationBasicSecret) GetTemplateUsername() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateUsername
+}
+
 func (h *HealthCheckAuthenticationBasicSecret) GetPassword() *string {
 	if h == nil {
 		return nil
@@ -8069,11 +8768,25 @@ func (h *HealthCheckAuthenticationBasicSecret) GetPassword() *string {
 	return h.Password
 }
 
+func (h *HealthCheckAuthenticationBasicSecret) GetTemplatePassword() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplatePassword
+}
+
 func (h *HealthCheckAuthenticationBasicSecret) GetLoginURL() *string {
 	if h == nil {
 		return nil
 	}
 	return h.LoginURL
+}
+
+func (h *HealthCheckAuthenticationBasicSecret) GetTemplateLoginURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateLoginURL
 }
 
 func (h *HealthCheckAuthenticationBasicSecret) GetLoginBody() *string {
@@ -8088,6 +8801,13 @@ func (h *HealthCheckAuthenticationBasicSecret) GetTokenRespAttribute() *string {
 		return nil
 	}
 	return h.TokenRespAttribute
+}
+
+func (h *HealthCheckAuthenticationBasicSecret) GetTemplateTokenRespAttribute() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateTokenRespAttribute
 }
 
 func (h *HealthCheckAuthenticationBasicSecret) GetAuthHeaderExpr() *string {
@@ -8201,12 +8921,16 @@ type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone struct {
 	DiscoverType HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNoneDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -8238,6 +8962,13 @@ func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone) Get
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -8257,6 +8988,13 @@ func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone) Get
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeNone) GetManualDiscoverResult() *string {
@@ -8309,12 +9047,16 @@ type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList struct {
 	ItemList []string `json:"itemList"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
@@ -8351,6 +9093,13 @@ func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList) Get
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -8370,6 +9119,13 @@ func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList) Get
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeList) GetManualDiscoverResult() *string {
@@ -8417,10 +9173,14 @@ type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJSON struct {
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
 	ItemList []string `json:"itemList,omitzero"`
 }
@@ -8464,6 +9224,13 @@ func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJSON) Get
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJSON) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJSON) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -8476,6 +9243,13 @@ func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJSON) Get
 		return nil
 	}
 	return h.DiscoverRequestHeaders
+}
+
+func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJSON) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeJSON) GetItemList() []string {
@@ -8527,6 +9301,10 @@ type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverM
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -8586,6 +9364,20 @@ func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDisco
 	return h.DiscoverDataField
 }
 
+func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
+}
+
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
 	if h == nil {
 		return nil
@@ -8642,6 +9434,10 @@ type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverM
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -8701,6 +9497,20 @@ func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDisco
 	return h.DiscoverDataField
 }
 
+func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
+}
+
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
 	if h == nil {
 		return nil
@@ -8757,6 +9567,10 @@ type HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverM
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -8814,6 +9628,20 @@ func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDisco
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationBasicHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {
@@ -9495,8 +10323,12 @@ type HealthCheckAuthenticationBasic struct {
 	// Basic authentication username
 	Username string `json:"username"`
 	// Basic authentication password
-	Password  string                                   `json:"password"`
-	Discovery *HealthCheckAuthenticationBasicDiscovery `json:"discovery,omitzero"`
+	Password string `json:"password"`
+	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
+	TemplateUsername *string `json:"__template_username,omitzero"`
+	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
+	TemplatePassword *string                                  `json:"__template_password,omitzero"`
+	Discovery        *HealthCheckAuthenticationBasicDiscovery `json:"discovery,omitzero"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
@@ -9517,10 +10349,14 @@ type HealthCheckAuthenticationBasic struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// URL to use for login API call. This call is expected to be a POST.
 	LoginURL *string `json:"loginUrl,omitzero"`
+	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
+	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 	// Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
 	LoginBody *string `json:"loginBody,omitzero"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitzero"`
+	// Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
+	TemplateTokenRespAttribute *string `json:"__template_tokenRespAttribute,omitzero"`
 	// JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
 	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
 	// Optional authentication request headers.
@@ -9567,6 +10403,20 @@ func (h *HealthCheckAuthenticationBasic) GetPassword() string {
 		return ""
 	}
 	return h.Password
+}
+
+func (h *HealthCheckAuthenticationBasic) GetTemplateUsername() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateUsername
+}
+
+func (h *HealthCheckAuthenticationBasic) GetTemplatePassword() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplatePassword
 }
 
 func (h *HealthCheckAuthenticationBasic) GetDiscovery() *HealthCheckAuthenticationBasicDiscovery {
@@ -9702,6 +10552,13 @@ func (h *HealthCheckAuthenticationBasic) GetLoginURL() *string {
 	return h.LoginURL
 }
 
+func (h *HealthCheckAuthenticationBasic) GetTemplateLoginURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateLoginURL
+}
+
 func (h *HealthCheckAuthenticationBasic) GetLoginBody() *string {
 	if h == nil {
 		return nil
@@ -9714,6 +10571,13 @@ func (h *HealthCheckAuthenticationBasic) GetTokenRespAttribute() *string {
 		return nil
 	}
 	return h.TokenRespAttribute
+}
+
+func (h *HealthCheckAuthenticationBasic) GetTemplateTokenRespAttribute() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateTokenRespAttribute
 }
 
 func (h *HealthCheckAuthenticationBasic) GetAuthHeaderExpr() *string {
@@ -9827,12 +10691,16 @@ type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone struct {
 	DiscoverType HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNoneDiscoverType `json:"discoverType"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -9864,6 +10732,13 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone) GetD
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -9883,6 +10758,13 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone) GetD
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeNone) GetManualDiscoverResult() *string {
@@ -9935,12 +10817,16 @@ type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList struct {
 	ItemList []string `json:"itemList"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
@@ -9977,6 +10863,13 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList) GetD
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -9996,6 +10889,13 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList) GetD
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeList) GetManualDiscoverResult() *string {
@@ -10043,10 +10943,14 @@ type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJSON struct {
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Expression to derive URL to use for the Discover operation (can be a constant).
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
 	// Discover HTTP method.
 	DiscoverMethod *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
 	// Optional discover request headers.
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
 	ItemList []string `json:"itemList,omitzero"`
 }
@@ -10090,6 +10994,13 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJSON) GetD
 	return h.DiscoverURL
 }
 
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJSON) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJSON) GetDiscoverMethod() *DiscoverMethodOptionsHealthCheckDiscoveryDiscoverTypeHTTP {
 	if h == nil {
 		return nil
@@ -10102,6 +11013,13 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJSON) GetD
 		return nil
 	}
 	return h.DiscoverRequestHeaders
+}
+
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJSON) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeJSON) GetItemList() []string {
@@ -10153,6 +11071,10 @@ type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMe
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -10212,6 +11134,20 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 	return h.DiscoverDataField
 }
 
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
+}
+
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody) GetManualDiscoverResult() *string {
 	if h == nil {
 		return nil
@@ -10268,6 +11204,10 @@ type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMe
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -10327,6 +11267,20 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 	return h.DiscoverDataField
 }
 
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
+}
+
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodPost) GetManualDiscoverResult() *string {
 	if h == nil {
 		return nil
@@ -10383,6 +11337,10 @@ type HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMe
 	DiscoverRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"discoverRequestHeaders,omitzero"`
 	// Path to field in the response object which contains discover results (e.g.: level1.name), leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
+	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Binds 'discoverDataField' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverDataField' at runtime.
+	TemplateDiscoverDataField *string `json:"__template_discoverDataField,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object. Works with the Discover Data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned will generate a collect task, and can be referenced using `${id}` in the collect URL, headers, or parameters.
@@ -10440,6 +11398,20 @@ func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscov
 		return nil
 	}
 	return h.DiscoverDataField
+}
+
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverURL
+}
+
+func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetTemplateDiscoverDataField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateDiscoverDataField
 }
 
 func (h *HealthCheckAuthenticationNoneHealthCheckDiscoveryDiscoverTypeHTTPDiscoverMethodGet) GetManualDiscoverResult() *string {

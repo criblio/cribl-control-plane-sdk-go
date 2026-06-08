@@ -16,9 +16,8 @@ custom := components.OutputCriblLakeFormat("custom_value")
 
 ## Values
 
-| Name                            | Value                           |
-| ------------------------------- | ------------------------------- |
-| `OutputCriblLakeFormatJSON`     | json                            |
-| `OutputCriblLakeFormatParquet`  | parquet                         |
-| `OutputCriblLakeFormatDdss`     | ddss                            |
-| `OutputCriblLakeFormatNetskope` | netskope                        |
+| Name                           | Value                          |
+| ------------------------------ | ------------------------------ |
+| `OutputCriblLakeFormatJSON`    | json                           |
+| `OutputCriblLakeFormatParquet` | parquet                        |
+| `OutputCriblLakeFormatRaw`     | raw                            |

@@ -8200,23 +8200,23 @@ func (e *CreateOutputSystemByPackFormatDynatraceHTTP) IsExact() bool {
 	return false
 }
 
-type CreateOutputSystemByPackEndpoint string
+type CreateOutputSystemByPackEndpointDynatraceHTTP string
 
 const (
-	// CreateOutputSystemByPackEndpointCloud Cloud
-	CreateOutputSystemByPackEndpointCloud CreateOutputSystemByPackEndpoint = "cloud"
-	// CreateOutputSystemByPackEndpointActiveGate ActiveGate
-	CreateOutputSystemByPackEndpointActiveGate CreateOutputSystemByPackEndpoint = "activeGate"
-	// CreateOutputSystemByPackEndpointManual Manual
-	CreateOutputSystemByPackEndpointManual CreateOutputSystemByPackEndpoint = "manual"
+	// CreateOutputSystemByPackEndpointDynatraceHTTPCloud Cloud
+	CreateOutputSystemByPackEndpointDynatraceHTTPCloud CreateOutputSystemByPackEndpointDynatraceHTTP = "cloud"
+	// CreateOutputSystemByPackEndpointDynatraceHTTPActiveGate ActiveGate
+	CreateOutputSystemByPackEndpointDynatraceHTTPActiveGate CreateOutputSystemByPackEndpointDynatraceHTTP = "activeGate"
+	// CreateOutputSystemByPackEndpointDynatraceHTTPManual Manual
+	CreateOutputSystemByPackEndpointDynatraceHTTPManual CreateOutputSystemByPackEndpointDynatraceHTTP = "manual"
 )
 
-func (e CreateOutputSystemByPackEndpoint) ToPointer() *CreateOutputSystemByPackEndpoint {
+func (e CreateOutputSystemByPackEndpointDynatraceHTTP) ToPointer() *CreateOutputSystemByPackEndpointDynatraceHTTP {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputSystemByPackEndpoint) IsExact() bool {
+func (e *CreateOutputSystemByPackEndpointDynatraceHTTP) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "cloud", "activeGate", "manual":
@@ -8313,9 +8313,9 @@ type CreateOutputSystemByPackOutputDynatraceHTTP struct {
 	OnBackpressure *components.BackpressureBehaviorOptions                  `json:"onBackpressure,omitzero"`
 	AuthType       *CreateOutputSystemByPackAuthenticationTypeDynatraceHTTP `json:"authType,omitzero"`
 	// How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
-	Format        CreateOutputSystemByPackFormatDynatraceHTTP `json:"format"`
-	Endpoint      CreateOutputSystemByPackEndpoint            `json:"endpoint"`
-	TelemetryType CreateOutputSystemByPackTelemetryType       `json:"telemetryType"`
+	Format        CreateOutputSystemByPackFormatDynatraceHTTP   `json:"format"`
+	Endpoint      CreateOutputSystemByPackEndpointDynatraceHTTP `json:"endpoint"`
+	TelemetryType CreateOutputSystemByPackTelemetryType         `json:"telemetryType"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	Description        *string  `json:"description,omitzero"`
@@ -8548,9 +8548,9 @@ func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetFormat() CreateOutputSy
 	return c.Format
 }
 
-func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetEndpoint() CreateOutputSystemByPackEndpoint {
+func (c *CreateOutputSystemByPackOutputDynatraceHTTP) GetEndpoint() CreateOutputSystemByPackEndpointDynatraceHTTP {
 	if c == nil {
-		return CreateOutputSystemByPackEndpoint("")
+		return CreateOutputSystemByPackEndpointDynatraceHTTP("")
 	}
 	return c.Endpoint
 }
@@ -9719,6 +9719,8 @@ type CreateOutputSystemByPackOutputLocalSearchStorage struct {
 	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// Optional ClickHouse workload name to append as a SETTINGS clause on INSERT queries. Used for workload scheduling classification.
+	Workload *string `json:"workload,omitzero"`
 	// Log the most recent event that fails to match the table schema
 	DumpFormatErrorsToDisk *bool `json:"dumpFormatErrorsToDisk,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -9980,6 +9982,13 @@ func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetResponseHonorRetry
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
+}
+
+func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetWorkload() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Workload
 }
 
 func (c *CreateOutputSystemByPackOutputLocalSearchStorage) GetDumpFormatErrorsToDisk() *bool {
@@ -10283,6 +10292,8 @@ type CreateOutputSystemByPackOutputCustomerMetricsStorage struct {
 	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// Optional ClickHouse workload name to append as a SETTINGS clause on INSERT queries. Used for workload scheduling classification.
+	Workload *string `json:"workload,omitzero"`
 	// Log the most recent event that fails to match the table schema
 	DumpFormatErrorsToDisk *bool `json:"dumpFormatErrorsToDisk,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -10543,6 +10554,13 @@ func (c *CreateOutputSystemByPackOutputCustomerMetricsStorage) GetResponseHonorR
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
+}
+
+func (c *CreateOutputSystemByPackOutputCustomerMetricsStorage) GetWorkload() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Workload
 }
 
 func (c *CreateOutputSystemByPackOutputCustomerMetricsStorage) GetDumpFormatErrorsToDisk() *bool {
@@ -10839,6 +10857,8 @@ type CreateOutputSystemByPackOutputClickHouse struct {
 	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// Optional ClickHouse workload name to append as a SETTINGS clause on INSERT queries. Used for workload scheduling classification.
+	Workload *string `json:"workload,omitzero"`
 	// Log the most recent event that fails to match the table schema
 	DumpFormatErrorsToDisk *bool `json:"dumpFormatErrorsToDisk,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
@@ -11099,6 +11119,13 @@ func (c *CreateOutputSystemByPackOutputClickHouse) GetResponseHonorRetryAfterHea
 		return nil
 	}
 	return c.ResponseHonorRetryAfterHeader
+}
+
+func (c *CreateOutputSystemByPackOutputClickHouse) GetWorkload() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Workload
 }
 
 func (c *CreateOutputSystemByPackOutputClickHouse) GetDumpFormatErrorsToDisk() *bool {
@@ -11479,36 +11506,12 @@ func (e *CreateOutputSystemByPackTypeCriblLake) UnmarshalJSON(data []byte) error
 	}
 }
 
-type CreateOutputSystemByPackAwsAuthenticationMethod string
-
-const (
-	CreateOutputSystemByPackAwsAuthenticationMethodAuto    CreateOutputSystemByPackAwsAuthenticationMethod = "auto"
-	CreateOutputSystemByPackAwsAuthenticationMethodAutoRPC CreateOutputSystemByPackAwsAuthenticationMethod = "auto_rpc"
-	CreateOutputSystemByPackAwsAuthenticationMethodManual  CreateOutputSystemByPackAwsAuthenticationMethod = "manual"
-)
-
-func (e CreateOutputSystemByPackAwsAuthenticationMethod) ToPointer() *CreateOutputSystemByPackAwsAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputSystemByPackAwsAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "auto_rpc", "manual":
-			return true
-		}
-	}
-	return false
-}
-
 type CreateOutputSystemByPackFormatCriblLake string
 
 const (
-	CreateOutputSystemByPackFormatCriblLakeJSON     CreateOutputSystemByPackFormatCriblLake = "json"
-	CreateOutputSystemByPackFormatCriblLakeParquet  CreateOutputSystemByPackFormatCriblLake = "parquet"
-	CreateOutputSystemByPackFormatCriblLakeDdss     CreateOutputSystemByPackFormatCriblLake = "ddss"
-	CreateOutputSystemByPackFormatCriblLakeNetskope CreateOutputSystemByPackFormatCriblLake = "netskope"
+	CreateOutputSystemByPackFormatCriblLakeJSON    CreateOutputSystemByPackFormatCriblLake = "json"
+	CreateOutputSystemByPackFormatCriblLakeParquet CreateOutputSystemByPackFormatCriblLake = "parquet"
+	CreateOutputSystemByPackFormatCriblLakeRaw     CreateOutputSystemByPackFormatCriblLake = "raw"
 )
 
 func (e CreateOutputSystemByPackFormatCriblLake) ToPointer() *CreateOutputSystemByPackFormatCriblLake {
@@ -11519,7 +11522,7 @@ func (e CreateOutputSystemByPackFormatCriblLake) ToPointer() *CreateOutputSystem
 func (e *CreateOutputSystemByPackFormatCriblLake) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "json", "parquet", "ddss", "netskope":
+		case "json", "parquet", "raw":
 			return true
 		}
 	}
@@ -11538,30 +11541,6 @@ type CreateOutputSystemByPackOutputCriblLake struct {
 	Environment *string `json:"environment,omitzero"`
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
-	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
-	Endpoint *string `json:"endpoint,omitzero"`
-	// Use Assume Role credentials to access S3
-	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
-	// Amazon Resource Name (ARN) of the role to assume
-	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
-	// External ID to use when assuming role
-	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
-	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
-	// Reuse connections between requests, which can improve performance
-	ReuseConnections *bool `json:"reuseConnections,omitzero"`
-	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
-	Bucket *string `json:"bucket,omitzero"`
-	// Region where the S3 bucket is located
-	Region *string `json:"region,omitzero"`
-	// Lake dataset to send the data to.
-	DestPath *string `json:"destPath,omitzero"`
-	// Disable if you can access files within the bucket but not the bucket itself
-	VerifyPermissions *bool `json:"verifyPermissions,omitzero"`
-	// Maximum number of files that can be waiting for upload before backpressure is applied
-	MaxClosingFilesToBackpressure *float64 `json:"maxClosingFilesToBackpressure,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath *string `json:"stagePath,omitzero"`
 	// Add the Output ID value to staging location
@@ -11594,21 +11573,39 @@ type CreateOutputSystemByPackOutputCriblLake struct {
 	ForceCloseOnShutdown *bool                              `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *components.RetrySettingsType      `json:"retrySettings,omitzero"`
 	Orphans              *components.OrphanFileRecoveryType `json:"orphans,omitzero"`
-	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
-	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
-	// Object ACL to assign to uploaded objects
-	ObjectACL *components.ObjectACLOptions `json:"objectACL,omitzero"`
-	// Storage class to select for uploaded objects
-	StorageClass *components.StorageClassOptions `json:"storageClass,omitzero"`
-	// Server-side encryption to use for uploaded objects
-	ServerSideEncryption *components.ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
-	// ID or ARN of the KMS customer-managed key to use for encryption
-	KmsKeyID                *string                                          `json:"kmsKeyId,omitzero"`
-	AwsAuthenticationMethod *CreateOutputSystemByPackAwsAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
-	Format                  *CreateOutputSystemByPackFormatCriblLake         `json:"format,omitzero"`
-	// Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
-	MaxConcurrentFileParts *float64 `json:"maxConcurrentFileParts,omitzero"`
-	Description            *string  `json:"description,omitzero"`
+	// Lake dataset to send the data to.
+	DestPath                      *string                                  `json:"destPath,omitzero"`
+	Format                        *CreateOutputSystemByPackFormatCriblLake `json:"format,omitzero"`
+	DynamicDataset                *bool                                    `json:"dynamicDataset,omitzero"`
+	MaxClosingFilesToBackpressure *float64                                 `json:"maxClosingFilesToBackpressure,omitzero"`
+	MaxConcurrentFileParts        *float64                                 `json:"maxConcurrentFileParts,omitzero"`
+	Description                   *string                                  `json:"description,omitzero"`
+	// Data compression format to apply to HTTP content before it is delivered
+	Compress *components.CompressionOptionsHTTP `json:"compress,omitzero"`
+	// Compression level to apply before moving files to final destination
+	CompressionLevel *components.CompressionLevelOptions `json:"compressionLevel,omitzero"`
+	// Automatically calculate the schema based on the events of each Parquet file generated
+	AutomaticSchema *bool `json:"automaticSchema,omitzero"`
+	// To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+	ParquetSchema *string `json:"parquetSchema,omitzero"`
+	// Determines which data types are supported and how they are represented
+	ParquetVersion *components.ParquetVersionOptions `json:"parquetVersion,omitzero"`
+	// Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+	ParquetDataPageVersion *components.DataPageVersionOptions `json:"parquetDataPageVersion,omitzero"`
+	// The number of rows that every group will contain. The final group can contain a smaller number of rows.
+	ParquetRowGroupLength *float64 `json:"parquetRowGroupLength,omitzero"`
+	// Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+	ParquetPageSize *string `json:"parquetPageSize,omitzero"`
+	// Log up to 3 rows that @{product} skips due to data mismatch
+	ShouldLogInvalidRows *bool `json:"shouldLogInvalidRows,omitzero"`
+	// The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+	KeyValueMetadata []components.KeyValueMetadataConfOutputFilesystem `json:"keyValueMetadata,omitzero"`
+	// Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+	EnableStatistics *bool `json:"enableStatistics,omitzero"`
+	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitzero"`
+	// Parquet tools can use the checksum of a Parquet page to verify data integrity
+	EnablePageChecksum *bool `json:"enablePageChecksum,omitzero"`
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitzero"`
 	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
@@ -11619,34 +11616,18 @@ type CreateOutputSystemByPackOutputCriblLake struct {
 	MaxRetryNum *float64 `json:"maxRetryNum,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
-	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
-	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
-	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
-	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
-	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
-	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
-	// Binds 'bucket' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'bucket' at runtime.
-	TemplateBucket *string `json:"__template_bucket,omitzero"`
-	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
-	TemplateRegion *string `json:"__template_region,omitzero"`
-	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
-	TemplateDestPath *string `json:"__template_destPath,omitzero"`
 	// Binds 'baseFileName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'baseFileName' at runtime.
 	TemplateBaseFileName *string `json:"__template_baseFileName,omitzero"`
 	// Binds 'fileNameSuffix' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'fileNameSuffix' at runtime.
 	TemplateFileNameSuffix *string `json:"__template_fileNameSuffix,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
-	// Binds 'awsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsSecretKey' at runtime.
-	TemplateAwsSecretKey *string `json:"__template_awsSecretKey,omitzero"`
-	// Binds 'objectACL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'objectACL' at runtime.
-	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
-	// Binds 'storageClass' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'storageClass' at runtime.
-	TemplateStorageClass *string `json:"__template_storageClass,omitzero"`
-	// Binds 'serverSideEncryption' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serverSideEncryption' at runtime.
-	TemplateServerSideEncryption *string `json:"__template_serverSideEncryption,omitzero"`
-	// Binds 'kmsKeyId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'kmsKeyId' at runtime.
-	TemplateKmsKeyID *string `json:"__template_kmsKeyId,omitzero"`
+	// Binds 'destPath' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'destPath' at runtime.
+	TemplateDestPath *string `json:"__template_destPath,omitzero"`
+	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
+	TemplateCompress *string `json:"__template_compress,omitzero"`
+	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
+	TemplateParquetSchema *string `json:"__template_parquetSchema,omitzero"`
 }
 
 func (c CreateOutputSystemByPackOutputCriblLake) MarshalJSON() ([]byte, error) {
@@ -11700,90 +11681,6 @@ func (c *CreateOutputSystemByPackOutputCriblLake) GetStreamtags() []string {
 		return nil
 	}
 	return c.Streamtags
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetEndpoint() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Endpoint
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetEnableAssumeRole() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.EnableAssumeRole
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetAssumeRoleArn() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AssumeRoleArn
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetAssumeRoleExternalID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AssumeRoleExternalID
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetDurationSeconds() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.DurationSeconds
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetReuseConnections() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.ReuseConnections
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetRejectUnauthorized() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.RejectUnauthorized
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetBucket() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Bucket
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetRegion() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Region
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetDestPath() *string {
-	if c == nil {
-		return nil
-	}
-	return c.DestPath
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetVerifyPermissions() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.VerifyPermissions
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetMaxClosingFilesToBackpressure() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.MaxClosingFilesToBackpressure
 }
 
 func (c *CreateOutputSystemByPackOutputCriblLake) GetStagePath() *string {
@@ -11905,46 +11802,11 @@ func (c *CreateOutputSystemByPackOutputCriblLake) GetOrphans() *components.Orpha
 	return c.Orphans
 }
 
-func (c *CreateOutputSystemByPackOutputCriblLake) GetAwsSecretKey() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetDestPath() *string {
 	if c == nil {
 		return nil
 	}
-	return c.AwsSecretKey
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetObjectACL() *components.ObjectACLOptions {
-	if c == nil {
-		return nil
-	}
-	return c.ObjectACL
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetStorageClass() *components.StorageClassOptions {
-	if c == nil {
-		return nil
-	}
-	return c.StorageClass
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetServerSideEncryption() *components.ServerSideEncryptionForUploadedObjectsOptions {
-	if c == nil {
-		return nil
-	}
-	return c.ServerSideEncryption
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetKmsKeyID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.KmsKeyID
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetAwsAuthenticationMethod() *CreateOutputSystemByPackAwsAuthenticationMethod {
-	if c == nil {
-		return nil
-	}
-	return c.AwsAuthenticationMethod
+	return c.DestPath
 }
 
 func (c *CreateOutputSystemByPackOutputCriblLake) GetFormat() *CreateOutputSystemByPackFormatCriblLake {
@@ -11952,6 +11814,20 @@ func (c *CreateOutputSystemByPackOutputCriblLake) GetFormat() *CreateOutputSyste
 		return nil
 	}
 	return c.Format
+}
+
+func (c *CreateOutputSystemByPackOutputCriblLake) GetDynamicDataset() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.DynamicDataset
+}
+
+func (c *CreateOutputSystemByPackOutputCriblLake) GetMaxClosingFilesToBackpressure() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxClosingFilesToBackpressure
 }
 
 func (c *CreateOutputSystemByPackOutputCriblLake) GetMaxConcurrentFileParts() *float64 {
@@ -11966,6 +11842,97 @@ func (c *CreateOutputSystemByPackOutputCriblLake) GetDescription() *string {
 		return nil
 	}
 	return c.Description
+}
+
+func (c *CreateOutputSystemByPackOutputCriblLake) GetCompress() *components.CompressionOptionsHTTP {
+	if c == nil {
+		return nil
+	}
+	return c.Compress
+}
+
+func (c *CreateOutputSystemByPackOutputCriblLake) GetCompressionLevel() *components.CompressionLevelOptions {
+	if c == nil {
+		return nil
+	}
+	return c.CompressionLevel
+}
+
+func (c *CreateOutputSystemByPackOutputCriblLake) GetAutomaticSchema() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.AutomaticSchema
+}
+
+func (c *CreateOutputSystemByPackOutputCriblLake) GetParquetSchema() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetSchema
+}
+
+func (c *CreateOutputSystemByPackOutputCriblLake) GetParquetVersion() *components.ParquetVersionOptions {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetVersion
+}
+
+func (c *CreateOutputSystemByPackOutputCriblLake) GetParquetDataPageVersion() *components.DataPageVersionOptions {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetDataPageVersion
+}
+
+func (c *CreateOutputSystemByPackOutputCriblLake) GetParquetRowGroupLength() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetRowGroupLength
+}
+
+func (c *CreateOutputSystemByPackOutputCriblLake) GetParquetPageSize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ParquetPageSize
+}
+
+func (c *CreateOutputSystemByPackOutputCriblLake) GetShouldLogInvalidRows() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.ShouldLogInvalidRows
+}
+
+func (c *CreateOutputSystemByPackOutputCriblLake) GetKeyValueMetadata() []components.KeyValueMetadataConfOutputFilesystem {
+	if c == nil {
+		return nil
+	}
+	return c.KeyValueMetadata
+}
+
+func (c *CreateOutputSystemByPackOutputCriblLake) GetEnableStatistics() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableStatistics
+}
+
+func (c *CreateOutputSystemByPackOutputCriblLake) GetEnableWritePageIndex() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableWritePageIndex
+}
+
+func (c *CreateOutputSystemByPackOutputCriblLake) GetEnablePageChecksum() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnablePageChecksum
 }
 
 func (c *CreateOutputSystemByPackOutputCriblLake) GetEmptyDirCleanupSec() *float64 {
@@ -12003,48 +11970,6 @@ func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateStreamtags() *strin
 	return c.TemplateStreamtags
 }
 
-func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateEndpoint() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateEndpoint
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateAssumeRoleArn() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateAssumeRoleArn
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateAssumeRoleExternalID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateAssumeRoleExternalID
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateBucket() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateBucket
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateRegion() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateRegion
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateDestPath() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateDestPath
-}
-
 func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateBaseFileName() *string {
 	if c == nil {
 		return nil
@@ -12066,39 +11991,25 @@ func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateOnBackpressure() *s
 	return c.TemplateOnBackpressure
 }
 
-func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateAwsSecretKey() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateDestPath() *string {
 	if c == nil {
 		return nil
 	}
-	return c.TemplateAwsSecretKey
+	return c.TemplateDestPath
 }
 
-func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateObjectACL() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateCompress() *string {
 	if c == nil {
 		return nil
 	}
-	return c.TemplateObjectACL
+	return c.TemplateCompress
 }
 
-func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateStorageClass() *string {
+func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateParquetSchema() *string {
 	if c == nil {
 		return nil
 	}
-	return c.TemplateStorageClass
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateServerSideEncryption() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateServerSideEncryption
-}
-
-func (c *CreateOutputSystemByPackOutputCriblLake) GetTemplateKmsKeyID() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateKmsKeyID
+	return c.TemplateParquetSchema
 }
 
 type CreateOutputSystemByPackTypeSecurityLake string
@@ -16971,22 +16882,22 @@ func (e *CreateOutputSystemByPackTypeOpenTelemetry) UnmarshalJSON(data []byte) e
 	}
 }
 
-// CreateOutputSystemByPackOTLPVersion - The version of OTLP Protobuf definitions to use when structuring data to send
-type CreateOutputSystemByPackOTLPVersion string
+// CreateOutputSystemByPackOTLPVersionOpenTelemetry - The version of OTLP Protobuf definitions to use when structuring data to send
+type CreateOutputSystemByPackOTLPVersionOpenTelemetry string
 
 const (
-	// CreateOutputSystemByPackOTLPVersionZeroDot10Dot0 0.10.0
-	CreateOutputSystemByPackOTLPVersionZeroDot10Dot0 CreateOutputSystemByPackOTLPVersion = "0.10.0"
-	// CreateOutputSystemByPackOTLPVersionOneDot3Dot1 1.3.1
-	CreateOutputSystemByPackOTLPVersionOneDot3Dot1 CreateOutputSystemByPackOTLPVersion = "1.3.1"
+	// CreateOutputSystemByPackOTLPVersionOpenTelemetryZeroDot10Dot0 0.10.0
+	CreateOutputSystemByPackOTLPVersionOpenTelemetryZeroDot10Dot0 CreateOutputSystemByPackOTLPVersionOpenTelemetry = "0.10.0"
+	// CreateOutputSystemByPackOTLPVersionOpenTelemetryOneDot3Dot1 1.3.1
+	CreateOutputSystemByPackOTLPVersionOpenTelemetryOneDot3Dot1 CreateOutputSystemByPackOTLPVersionOpenTelemetry = "1.3.1"
 )
 
-func (e CreateOutputSystemByPackOTLPVersion) ToPointer() *CreateOutputSystemByPackOTLPVersion {
+func (e CreateOutputSystemByPackOTLPVersionOpenTelemetry) ToPointer() *CreateOutputSystemByPackOTLPVersionOpenTelemetry {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputSystemByPackOTLPVersion) IsExact() bool {
+func (e *CreateOutputSystemByPackOTLPVersionOpenTelemetry) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "0.10.0", "1.3.1":
@@ -17059,7 +16970,7 @@ type CreateOutputSystemByPackOutputOpenTelemetry struct {
 	// The endpoint where OTel events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets). Unspecified ports will default to 4317, unless the endpoint is an HTTPS-based URL or TLS is enabled, in which case 443 will be used.
 	Endpoint string `json:"endpoint"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
-	OtlpVersion *CreateOutputSystemByPackOTLPVersion `json:"otlpVersion,omitzero"`
+	OtlpVersion *CreateOutputSystemByPackOTLPVersionOpenTelemetry `json:"otlpVersion,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
 	Compress *components.CompressionOptionsDeflateGzip `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
@@ -17236,7 +17147,7 @@ func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetEndpoint() string {
 	return c.Endpoint
 }
 
-func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetOtlpVersion() *CreateOutputSystemByPackOTLPVersion {
+func (c *CreateOutputSystemByPackOutputOpenTelemetry) GetOtlpVersion() *CreateOutputSystemByPackOTLPVersionOpenTelemetry {
 	if c == nil {
 		return nil
 	}
@@ -22970,4 +22881,18 @@ func (e *CreateOutputSystemByPackTypeStatsd) UnmarshalJSON(data []byte) error {
 	default:
 		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeStatsd: %v", v)
 	}
+}
+
+type CreateOutputSystemByPackPqControlsStatsd struct {
+}
+
+func (c CreateOutputSystemByPackPqControlsStatsd) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateOutputSystemByPackPqControlsStatsd) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }

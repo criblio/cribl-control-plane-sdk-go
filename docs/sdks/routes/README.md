@@ -15,9 +15,42 @@ Actions related to Routes
 
 Get a list of all Routes.
 
-### Example Usage
+### Example Usage: RoutesResponseExamplesDefaultRoutingTable
 
-<!-- UsageSnippet language="go" operationID="getRoutes" method="get" path="/routes" -->
+<!-- UsageSnippet language="go" operationID="getRoutes" method="get" path="/routes" example="RoutesResponseExamplesDefaultRoutingTable" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Routes.List(ctx)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRoutes != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: RoutesResponseExamplesMultiRouteTable
+
+<!-- UsageSnippet language="go" operationID="getRoutes" method="get" path="/routes" example="RoutesResponseExamplesMultiRouteTable" -->
 ```go
 package main
 
@@ -71,9 +104,42 @@ func main() {
 
 Get the specified Routing table.
 
-### Example Usage
+### Example Usage: RoutesResponseExamplesDefaultRoutingTable
 
-<!-- UsageSnippet language="go" operationID="getRoutesById" method="get" path="/routes/{id}" -->
+<!-- UsageSnippet language="go" operationID="getRoutesById" method="get" path="/routes/{id}" example="RoutesResponseExamplesDefaultRoutingTable" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Routes.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRoutes != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: RoutesResponseExamplesMultiRouteTable
+
+<!-- UsageSnippet language="go" operationID="getRoutesById" method="get" path="/routes/{id}" example="RoutesResponseExamplesMultiRouteTable" -->
 ```go
 package main
 
@@ -128,6 +194,78 @@ func main() {
 
 Update a Route in the specified Routing table.<br/><br/>\1 This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Routing table.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Routing table might not function as expected.<br/><br/>Cribl also removes any omitted Routes when updating the Routing table.
 
+### Example Usage: RoutesResponseExamplesDefaultRoutingTable
+
+<!-- UsageSnippet language="go" operationID="updateRoutesById" method="patch" path="/routes/{id}" example="RoutesResponseExamplesDefaultRoutingTable" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Routes.Update(ctx, "<id>", components.RoutesInput{
+        ID: "<id>",
+        Routes: []components.RouteConfInput{},
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRoutes != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: RoutesResponseExamplesMultiRouteTable
+
+<!-- UsageSnippet language="go" operationID="updateRoutesById" method="patch" path="/routes/{id}" example="RoutesResponseExamplesMultiRouteTable" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Routes.Update(ctx, "<id>", components.RoutesInput{
+        ID: "<id>",
+        Routes: []components.RouteConfInput{},
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRoutes != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: RoutesUpdateExamplesBasicRoute
 
 <!-- UsageSnippet language="go" operationID="updateRoutesById" method="patch" path="/routes/{id}" example="RoutesUpdateExamplesBasicRoute" -->
@@ -531,6 +669,72 @@ func main() {
             ID: criblcontrolplanesdkgo.Pointer("route-new"),
         },
     })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRoutes != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: RoutesResponseExamplesDefaultRoutingTable
+
+<!-- UsageSnippet language="go" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" example="RoutesResponseExamplesDefaultRoutingTable" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Routes.Append(ctx, "<id>", []components.RouteConfInput{})
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRoutes != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: RoutesResponseExamplesMultiRouteTable
+
+<!-- UsageSnippet language="go" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" example="RoutesResponseExamplesMultiRouteTable" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Routes.Append(ctx, "<id>", []components.RouteConfInput{})
     if err != nil {
         log.Fatal(err)
     }

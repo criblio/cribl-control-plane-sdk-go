@@ -18,9 +18,9 @@ type CriblLakeDatasetUpdate struct {
 	Description *string `json:"description,omitzero"`
 	// Storage format used for data persisted in the Dataset.
 	Format *FormatOptionsCriblLakeDataset `json:"format,omitzero"`
-	// If <code>true</code>, the Dataset is used by Direct Access HTTP.
+	// If <code>true</code>, the Dataset is used by Direct Access HTTP. Otherwise, <code>false</code>.
 	HTTPDAUsed *bool `json:"httpDAUsed,omitzero"`
-	// Dataset identifier. Optional; the path parameter <code>id</code> is authoritative.
+	// Unique identifier for the Dataset. Optional; the path parameter <code>id</code> is authoritative.
 	ID      *string             `json:"id,omitzero"`
 	Metrics *LakeDatasetMetrics `json:"metrics,omitzero"`
 	// Dataset retention period, in days.
@@ -28,7 +28,7 @@ type CriblLakeDatasetUpdate struct {
 	SearchConfig          *LakeDatasetSearchConfig `json:"searchConfig,omitzero"`
 	// Storage class used for objects written to the Dataset.
 	StorageClass *StorageClassOptionsCriblLakeDataset `json:"storageClass,omitzero"`
-	// Identifier for the Storage Location that backs the Dataset. Mutually exclusive with <code>bucketName</code>.
+	// Unique identifier for the Storage Location that backs the Dataset. Mutually exclusive with <code>bucketName</code>.
 	StorageLocationID *string `json:"storageLocationId,omitzero"`
 	// Name of the ClickHouse view for the Dataset on the Lakehouse.
 	ViewName *string `json:"viewName,omitzero"`

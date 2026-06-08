@@ -14,9 +14,42 @@
 
 Get a list of all Pipelines within the specified Pack.
 
-### Example Usage
+### Example Usage: PipelineResponseExamplesEmptyPipeline
 
-<!-- UsageSnippet language="go" operationID="getPipelinesByPack" method="get" path="/p/{pack}/pipelines" -->
+<!-- UsageSnippet language="go" operationID="getPipelinesByPack" method="get" path="/p/{pack}/pipelines" example="PipelineResponseExamplesEmptyPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Pipelines.List(ctx, "<value>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="go" operationID="getPipelinesByPack" method="get" path="/p/{pack}/pipelines" example="PipelineResponseExamplesEvalPipeline" -->
 ```go
 package main
 
@@ -2589,6 +2622,78 @@ func main() {
     }
 }
 ```
+### Example Usage: PipelineResponseExamplesEmptyPipeline
+
+<!-- UsageSnippet language="go" operationID="createPipelinesByPack" method="post" path="/p/{pack}/pipelines" example="PipelineResponseExamplesEmptyPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Pipelines.Create(ctx, "<value>", components.PipelineInput{
+        ID: "<id>",
+        Conf: components.ConfInput{},
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="go" operationID="createPipelinesByPack" method="post" path="/p/{pack}/pipelines" example="PipelineResponseExamplesEvalPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Pipelines.Create(ctx, "<value>", components.PipelineInput{
+        ID: "<id>",
+        Conf: components.ConfInput{},
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -2614,9 +2719,42 @@ func main() {
 
 Get the specified Pipeline within the specified Pack.
 
-### Example Usage
+### Example Usage: PipelineResponseExamplesEmptyPipeline
 
-<!-- UsageSnippet language="go" operationID="getPipelinesByPackAndId" method="get" path="/p/{pack}/pipelines/{id}" -->
+<!-- UsageSnippet language="go" operationID="getPipelinesByPackAndId" method="get" path="/p/{pack}/pipelines/{id}" example="PipelineResponseExamplesEmptyPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Pipelines.Get(ctx, "<id>", "<value>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="go" operationID="getPipelinesByPackAndId" method="get" path="/p/{pack}/pipelines/{id}" example="PipelineResponseExamplesEvalPipeline" -->
 ```go
 package main
 
@@ -5190,6 +5328,78 @@ func main() {
     }
 }
 ```
+### Example Usage: PipelineResponseExamplesEmptyPipeline
+
+<!-- UsageSnippet language="go" operationID="updatePipelinesByPackAndId" method="patch" path="/p/{pack}/pipelines/{id}" example="PipelineResponseExamplesEmptyPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Pipelines.Update(ctx, "<id>", "<value>", components.PipelineInput{
+        ID: "<id>",
+        Conf: components.ConfInput{},
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="go" operationID="updatePipelinesByPackAndId" method="patch" path="/p/{pack}/pipelines/{id}" example="PipelineResponseExamplesEvalPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Pipelines.Update(ctx, "<id>", "<value>", components.PipelineInput{
+        ID: "<id>",
+        Conf: components.ConfInput{},
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: UpdatePipelineExamplesAggregateMetrics
 
 <!-- UsageSnippet language="go" operationID="updatePipelinesByPackAndId" method="patch" path="/p/{pack}/pipelines/{id}" example="UpdatePipelineExamplesAggregateMetrics" -->
@@ -7734,9 +7944,42 @@ func main() {
 
 Delete the specified Pipeline within the specified Pack.
 
-### Example Usage
+### Example Usage: PipelineResponseExamplesEmptyPipeline
 
-<!-- UsageSnippet language="go" operationID="deletePipelinesByPackAndId" method="delete" path="/p/{pack}/pipelines/{id}" -->
+<!-- UsageSnippet language="go" operationID="deletePipelinesByPackAndId" method="delete" path="/p/{pack}/pipelines/{id}" example="PipelineResponseExamplesEmptyPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Pipelines.Delete(ctx, "<id>", "<value>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="go" operationID="deletePipelinesByPackAndId" method="delete" path="/p/{pack}/pipelines/{id}" example="PipelineResponseExamplesEvalPipeline" -->
 ```go
 package main
 

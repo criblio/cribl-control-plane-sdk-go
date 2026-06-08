@@ -1219,6 +1219,8 @@ type AuthTokenCloudflareHec struct {
 	AuthType *AuthenticationMethodCloudflareHec `json:"authType,omitzero"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
+	// Shared secret to be provided by any client (Authorization: <token>)
+	Token       *string `json:"token,omitzero"`
 	Enabled     *bool   `json:"enabled,omitzero"`
 	Description *string `json:"description,omitzero"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
@@ -1250,6 +1252,13 @@ func (a *AuthTokenCloudflareHec) GetTokenSecret() *string {
 		return nil
 	}
 	return a.TokenSecret
+}
+
+func (a *AuthTokenCloudflareHec) GetToken() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Token
 }
 
 func (a *AuthTokenCloudflareHec) GetEnabled() *bool {
@@ -5835,7 +5844,7 @@ type InputResponseInputAppleUnifiedLogs struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
 	Pq          *PqType                         `json:"pq,omitzero"`
-	// String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Predicate format reference](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Predicates/AdditionalChapters/Introduction.html) for more information.
+	// String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Common Log Types and Predicates](https://docs.cribl.io/edge/sources-apple-unified-logs/#examples) for more information.
 	Predicate string `json:"predicate"`
 	// Read all log entries (historical and upcoming), or only upcoming, from the last entry
 	ReadMode *ReadModeAppleUnifiedLogs `json:"readMode,omitzero"`
