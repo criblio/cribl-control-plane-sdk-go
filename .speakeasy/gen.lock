@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 2720eb88bb0a82652e8c2557592937a8
-  docVersion: 4.18.2-alpha.1780700647849-20fcce49
+  docChecksum: 811a0f501770c73f5011e733ce559d55
+  docVersion: 4.18.2-alpha.1781046554505-ba836f6a
   speakeasyVersion: 1.770.0
   generationVersion: 2.893.0
-  releaseVersion: 0.9.0-alpha.10
-  configChecksum: 235281e765b2af2f98e820ba76ce7f39
+  releaseVersion: 0.9.0-alpha.11
+  configChecksum: 53c9a2cd166b91d895bf1a4ef37d530d
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: d0170097-5547-4e0e-be63-a142e859a7b4
-  pristine_commit_hash: ccb8619ff72f86a7b7c3363d1e55047f0487295e
-  pristine_tree_hash: e8ed810450711486d46638c497a01f217ca6ad8d
+  generation_id: 9f884778-1c50-48b7-acad-6f4181d3be7d
+  pristine_commit_hash: 14033d6e92a0d6af4a82ca78c53cc6f2e9427fb7
+  pristine_tree_hash: 14cea7688c5f67100e6110542e0de56d2b4a8ec9
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: bba69be06926f5c8962b2ff0b439a8f206dac7de
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:6b1c82126e1776aa41276116b5688a8c5b50dd03
-    pristine_git_object: fb6e53a935d48363db16e34ed83d949d4ea34f1f
+    last_write_checksum: sha1:aa9c2050ab79633fcadf644cd423ca9a9b4f5db1
+    pristine_git_object: b277aa77190aa499925e7d1aac64f6da7d6581a9
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:3d059ca22995c03650c4cc7153fb55f73685d21e
@@ -16497,8 +16497,8 @@ trackedFiles:
     pristine_git_object: 32b4dd8f1d2044932ef8f271211d9a5e1d01e1b7
   docs/models/operations/getcribllakedatasetbylakeidrequest.md:
     id: c46d9278f562
-    last_write_checksum: sha1:c184ff3f6dcc5ace467a6a05b1fff82cc2e44f72
-    pristine_git_object: e0d16d6fa7b5f3d81d7140a82c42c43a7ec5163c
+    last_write_checksum: sha1:438e49ef06b8ffe41cc83525e81a73d23a0db0f3
+    pristine_git_object: 0673adcb47c3d81fe8cf3b1f68a248b8e8cab5b1
   docs/models/operations/getcribllakedatasetbylakeidresponse.md:
     id: e40ce058b03a
     last_write_checksum: sha1:93d1a9add287bad97e4d7dc18212e7c22d7c1a97
@@ -20321,8 +20321,8 @@ trackedFiles:
     pristine_git_object: 5f1304d49a5870a499200ffb470a90cde779e0d5
   models/operations/getcribllakedatasetbylakeid.go:
     id: 9dd4043fc3ec
-    last_write_checksum: sha1:f996b7859d10f60be1089966fb4b7ac9aa697ec0
-    pristine_git_object: b69c2b15ad1faa2c8648aca1b13e2758ff072699
+    last_write_checksum: sha1:227ae6e585e2934ae8734145fe00524dfe04b6ba
+    pristine_git_object: 6e4d7a8e0aaddc68af911056c5590f0fc7dd31bf
   models/operations/getcribllakedatasetbylakeidandid.go:
     id: b881ab564621
     last_write_checksum: sha1:bf113c1f85dd5d51ef3f9f347954c22d053b970c
@@ -36247,7 +36247,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Collectors.List()`:  `response.Items[].union(SavedJobResponseCollection).Collector.union(azure_blob).Conf` **Changed**\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request.Request.union(SavedJobCollection).Collector.union(azure_blob).Conf` **Changed**\n  *  `response.Items[].union(SavedJobResponseCollection).Collector.union(azure_blob).Conf` **Changed**\n* `CriblControlPlane.Collectors.Get()`:  `response.Items[].union(SavedJobResponseCollection).Collector.union(azure_blob).Conf` **Changed**\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request.SavedJob.union(SavedJobCollection).Collector.union(azure_blob).Conf` **Changed**\n  *  `response.Items[].union(SavedJobResponseCollection).Collector.union(azure_blob).Conf` **Changed**\n* `CriblControlPlane.Collectors.Delete()`:  `response.Items[].union(SavedJobResponseCollection).Collector.union(azure_blob).Conf` **Changed**\n* `CriblControlPlane.Packs.Sources.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(azure_blob).Conf` **Changed**\n* `CriblControlPlane.Packs.Destinations.List()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Destinations.Create()`: \n  *  `request.RequestBody` **Changed**\n  *  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Destinations.Get()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Destinations.Update()`: \n  *  `request.Output` **Changed**\n  *  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Destinations.Delete()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(azure_blob).Conf` **Changed**\n* `CriblControlPlane.Nodes.List()`:  `response.Items[].Info.Cribl.OverlayId` **Added**\n* `CriblControlPlane.Nodes.Get()`:  `response.Items[].Info.Cribl.OverlayId` **Added**\n* `CriblControlPlane.Sources.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(azure_blob).Conf` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed**\n  *  `response.Items[]` **Changed**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed**\n  *  `response.Items[]` **Changed**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Destinations.Pq.Get()`:  `response.Items[].Args.union(RunnableJobCollection).Collector.union(azure_blob).Conf` **Changed**\n"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Lakes.Datasets.List()`: \n  *  `request.Request.ExcludeNetskope` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
