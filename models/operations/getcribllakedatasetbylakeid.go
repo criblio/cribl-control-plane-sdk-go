@@ -38,6 +38,8 @@ type GetCriblLakeDatasetByLakeIDRequest struct {
 	Format *GetCriblLakeDatasetByLakeIDFormat `queryParam:"style=form,explode=true,name=format"`
 	// Exclude DDSS format datasets from the response.
 	ExcludeDDSS *bool `queryParam:"style=form,explode=true,name=excludeDDSS"`
+	// Exclude Netskope format datasets from the response.
+	ExcludeNetskope *bool `queryParam:"style=form,explode=true,name=excludeNetskope"`
 	// Exclude deleted datasets from the response.
 	ExcludeDeleted *bool `queryParam:"style=form,explode=true,name=excludeDeleted"`
 	// Exclude internal datasets (those with IDs starting with <code>cribl_</code>) from the response.
@@ -74,6 +76,13 @@ func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeDDSS() *bool {
 		return nil
 	}
 	return g.ExcludeDDSS
+}
+
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeNetskope() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.ExcludeNetskope
 }
 
 func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeDeleted() *bool {
