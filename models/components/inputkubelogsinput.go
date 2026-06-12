@@ -87,6 +87,10 @@ type InputKubeLogsInput struct {
 	Rules []InputKubeLogsRule `json:"rules,omitzero"`
 	// For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
 	Timestamps *bool `json:"timestamps,omitzero"`
+	// Maximum bytes to buffer while reassembling a single log line. A line that exceeds this size is flushed as-is, either whole or partially. The default is 1048576 (1 MB).
+	LineBufferLimit *float64 `json:"lineBufferLimit,omitzero"`
+	// Internal flag to disable LB worker payload reassembly.
+	LBDisableAssembly *bool `json:"__LBDisableAssembly,omitzero"`
 	// Fields to add to events from this input
 	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
 	Persistence *DiskSpoolingType             `json:"persistence,omitzero"`
@@ -203,6 +207,20 @@ func (i *InputKubeLogsInput) GetTimestamps() *bool {
 		return nil
 	}
 	return i.Timestamps
+}
+
+func (i *InputKubeLogsInput) GetLineBufferLimit() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.LineBufferLimit
+}
+
+func (i *InputKubeLogsInput) GetLBDisableAssembly() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.LBDisableAssembly
 }
 
 func (i *InputKubeLogsInput) GetMetadata() []MetadataConfInputCollection {
