@@ -4257,10 +4257,10 @@ type ContentConfigOpenai struct {
 	StateMergeExpression *string            `json:"stateMergeExpression,omitzero"`
 	ManageState          *ManageStateOpenai `json:"manageState,omitzero"`
 	// Query-string parameters to send with this endpoint
-	RequestParams          []RequestParamConfInputOpenai `json:"requestParams"`
-	PaginationType         InputResponsePaginationType   `json:"paginationType"`
-	PaginationAttribute    []string                      `json:"paginationAttribute,omitzero"`
-	PaginationLastPageExpr *string                       `json:"paginationLastPageExpr,omitzero"`
+	RequestParams          []HTTPDiscoveryHeaderConfInputPrometheus `json:"requestParams"`
+	PaginationType         InputResponsePaginationType              `json:"paginationType"`
+	PaginationAttribute    []string                                 `json:"paginationAttribute,omitzero"`
+	PaginationLastPageExpr *string                                  `json:"paginationLastPageExpr,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Set to 0 only when unlimited pagination is required.
 	MaxPages *float64 `json:"maxPages,omitzero"`
 	// Used only for RFC 5988 link-header pagination
@@ -4355,9 +4355,9 @@ func (c *ContentConfigOpenai) GetManageState() *ManageStateOpenai {
 	return c.ManageState
 }
 
-func (c *ContentConfigOpenai) GetRequestParams() []RequestParamConfInputOpenai {
+func (c *ContentConfigOpenai) GetRequestParams() []HTTPDiscoveryHeaderConfInputPrometheus {
 	if c == nil {
-		return []RequestParamConfInputOpenai{}
+		return []HTTPDiscoveryHeaderConfInputPrometheus{}
 	}
 	return c.RequestParams
 }

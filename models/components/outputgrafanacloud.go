@@ -70,7 +70,7 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels []RequestParamConfInputOpenai `json:"labels,omitzero"`
+	Labels []HTTPDiscoveryHeaderConfInputPrometheus `json:"labels,omitzero"`
 	// JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
 	MetricRenameExpr *string             `json:"metricRenameExpr,omitzero"`
 	PrometheusAuth   *PrometheusAuthType `json:"prometheusAuth,omitzero"`
@@ -223,7 +223,7 @@ func (o *OutputGrafanaCloudGrafanaCloud2) GetMessageFormat() *MessageFormatOptio
 	return o.MessageFormat
 }
 
-func (o *OutputGrafanaCloudGrafanaCloud2) GetLabels() []RequestParamConfInputOpenai {
+func (o *OutputGrafanaCloudGrafanaCloud2) GetLabels() []HTTPDiscoveryHeaderConfInputPrometheus {
 	if o == nil {
 		return nil
 	}
@@ -546,7 +546,7 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels []RequestParamConfInputOpenai `json:"labels,omitzero"`
+	Labels []HTTPDiscoveryHeaderConfInputPrometheus `json:"labels,omitzero"`
 	// JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
 	MetricRenameExpr *string             `json:"metricRenameExpr,omitzero"`
 	PrometheusAuth   *PrometheusAuthType `json:"prometheusAuth,omitzero"`
@@ -699,7 +699,7 @@ func (o *OutputGrafanaCloudGrafanaCloud1) GetMessageFormat() *MessageFormatOptio
 	return o.MessageFormat
 }
 
-func (o *OutputGrafanaCloudGrafanaCloud1) GetLabels() []RequestParamConfInputOpenai {
+func (o *OutputGrafanaCloudGrafanaCloud1) GetLabels() []HTTPDiscoveryHeaderConfInputPrometheus {
 	if o == nil {
 		return nil
 	}

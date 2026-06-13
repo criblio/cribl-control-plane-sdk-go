@@ -26,3 +26,4 @@ custom := operations.CreateInputDiscoveryTypeEdgePrometheus("custom_value")
 | `CreateInputDiscoveryTypeEdgePrometheusK8sNode`           | k8s-node                                                  |
 | `CreateInputDiscoveryTypeEdgePrometheusK8sPods`           | k8s-pods                                                  |
 | `CreateInputDiscoveryTypeEdgePrometheusK8sServiceMonitor` | k8s-service-monitor                                       |
+| `CreateInputDiscoveryTypeEdgePrometheusHTTPSd`            | http_sd                                                   |

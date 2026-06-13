@@ -23,3 +23,4 @@ custom := components.InputPrometheusDiscoveryType("custom_value")
 | `InputPrometheusDiscoveryTypeStatic` | static                               |
 | `InputPrometheusDiscoveryTypeDNS`    | dns                                  |
 | `InputPrometheusDiscoveryTypeEc2`    | ec2                                  |
+| `InputPrometheusDiscoveryTypeHTTPSd` | http_sd                              |

@@ -1872,12 +1872,12 @@ func main() {
             ContentConfig: []operations.CreateInputSystemByPackContentConfigInput{
                 operations.CreateInputSystemByPackContentConfigInput{
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
-                    RequestParams: []components.RequestParamConfInputOpenai{
-                        components.RequestParamConfInputOpenai{
+                    RequestParams: []components.HTTPDiscoveryHeaderConfInputPrometheus{
+                        components.HTTPDiscoveryHeaderConfInputPrometheus{
                             Name: "effective_at[gt]",
                             Value: "`${Math.round(Date.now()/1000 - 3600)}`",
                         },
-                        components.RequestParamConfInputOpenai{
+                        components.HTTPDiscoveryHeaderConfInputPrometheus{
                             Name: "limit",
                             Value: "100",
                         },
@@ -4858,12 +4858,12 @@ func main() {
             ContentConfig: []components.InputOpenaiContentConfig{
                 components.InputOpenaiContentConfig{
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
-                    RequestParams: []components.RequestParamConfInputOpenai{
-                        components.RequestParamConfInputOpenai{
+                    RequestParams: []components.HTTPDiscoveryHeaderConfInputPrometheus{
+                        components.HTTPDiscoveryHeaderConfInputPrometheus{
                             Name: "effective_at[gt]",
                             Value: "`${Math.round(Date.now()/1000 - 3600)}`",
                         },
-                        components.RequestParamConfInputOpenai{
+                        components.HTTPDiscoveryHeaderConfInputPrometheus{
                             Name: "limit",
                             Value: "100",
                         },
@@ -7896,12 +7896,12 @@ func main() {
             ContentConfig: []components.InputOpenaiContentConfig{
                 components.InputOpenaiContentConfig{
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
-                    RequestParams: []components.RequestParamConfInputOpenai{
-                        components.RequestParamConfInputOpenai{
+                    RequestParams: []components.HTTPDiscoveryHeaderConfInputPrometheus{
+                        components.HTTPDiscoveryHeaderConfInputPrometheus{
                             Name: "effective_at[gt]",
                             Value: "`${Math.round(Date.now()/1000 - 3600)}`",
                         },
-                        components.RequestParamConfInputOpenai{
+                        components.HTTPDiscoveryHeaderConfInputPrometheus{
                             Name: "limit",
                             Value: "100",
                         },

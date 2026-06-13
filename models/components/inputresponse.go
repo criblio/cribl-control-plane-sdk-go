@@ -3995,14 +3995,64 @@ func (e *InputResponseAuthenticationMechanism) IsExact() bool {
 	return false
 }
 
+type InputResponseCertificate struct {
+	// The certificate you registered as credentials for your app in the Azure portal
+	CertificateName string `json:"certificateName"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath string `json:"certPath"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath string `json:"privKeyPath"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitzero"`
+}
+
+func (i InputResponseCertificate) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputResponseCertificate) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputResponseCertificate) GetCertificateName() string {
+	if i == nil {
+		return ""
+	}
+	return i.CertificateName
+}
+
+func (i *InputResponseCertificate) GetCertPath() string {
+	if i == nil {
+		return ""
+	}
+	return i.CertPath
+}
+
+func (i *InputResponseCertificate) GetPrivKeyPath() string {
+	if i == nil {
+		return ""
+	}
+	return i.PrivKeyPath
+}
+
+func (i *InputResponseCertificate) GetPassphrase() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Passphrase
+}
+
 type InputResponseAuth struct {
 	Mechanism InputResponseAuthenticationMechanism `json:"mechanism"`
 	// Select or create a stored text secret
 	TextSecret           *string                          `json:"textSecret,omitzero"`
 	ClientSecretAuthType *AuthenticationMethodOptionsAuth `json:"clientSecretAuthType,omitzero"`
 	// Select or create a stored text secret
-	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
-	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	ClientTextSecret *string                   `json:"clientTextSecret,omitzero"`
+	Certificate      *InputResponseCertificate `json:"certificate,omitzero"`
 	// Endpoint used to acquire authentication tokens from Azure
 	OauthEndpoint *MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint,omitzero"`
 	// client_id to pass in the OAuth request parameter
@@ -4060,7 +4110,7 @@ func (i *InputResponseAuth) GetClientTextSecret() *string {
 	return i.ClientTextSecret
 }
 
-func (i *InputResponseAuth) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+func (i *InputResponseAuth) GetCertificate() *InputResponseCertificate {
 	if i == nil {
 		return nil
 	}
@@ -6901,6 +6951,8 @@ const (
 	DiscoveryTypeEdgePrometheusK8sPods DiscoveryTypeEdgePrometheus = "k8s-pods"
 	// DiscoveryTypeEdgePrometheusK8sServiceMonitor Kubernetes Service Monitor (v4.18+)
 	DiscoveryTypeEdgePrometheusK8sServiceMonitor DiscoveryTypeEdgePrometheus = "k8s-service-monitor"
+	// DiscoveryTypeEdgePrometheusHTTPSd HTTP SD
+	DiscoveryTypeEdgePrometheusHTTPSd DiscoveryTypeEdgePrometheus = "http_sd"
 )
 
 func (e DiscoveryTypeEdgePrometheus) ToPointer() *DiscoveryTypeEdgePrometheus {
@@ -6911,7 +6963,7 @@ func (e DiscoveryTypeEdgePrometheus) ToPointer() *DiscoveryTypeEdgePrometheus {
 func (e *DiscoveryTypeEdgePrometheus) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "static", "dns", "ec2", "k8s-node", "k8s-pods", "k8s-service-monitor":
+		case "static", "dns", "ec2", "k8s-node", "k8s-pods", "k8s-service-monitor", "http_sd":
 			return true
 		}
 	}
@@ -7110,6 +7162,14 @@ type InputResponseInputEdgePrometheus struct {
 	// expressions evaluate to true.
 	//
 	PodFilter []InputResponsePodFilter `json:"podFilter,omitzero"`
+	// URL to fetch target groups from (must be http or https)
+	HTTPDiscoveryURL *string `json:"httpDiscoveryUrl,omitzero"`
+	// Extra headers to send with the discovery request
+	HTTPDiscoveryHeaders []HTTPDiscoveryHeaderConfInputPrometheus `json:"httpDiscoveryHeaders,omitzero"`
+	// Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+	HTTPDiscoveryRejectUnauthorized *bool `json:"httpDiscoveryRejectUnauthorized,omitzero"`
+	// Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitzero"`
 	// Password for Prometheus Basic authentication
@@ -7468,6 +7528,34 @@ func (i *InputResponseInputEdgePrometheus) GetPodFilter() []InputResponsePodFilt
 	return i.PodFilter
 }
 
+func (i *InputResponseInputEdgePrometheus) GetHTTPDiscoveryURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryURL
+}
+
+func (i *InputResponseInputEdgePrometheus) GetHTTPDiscoveryHeaders() []HTTPDiscoveryHeaderConfInputPrometheus {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryHeaders
+}
+
+func (i *InputResponseInputEdgePrometheus) GetHTTPDiscoveryRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryRejectUnauthorized
+}
+
+func (i *InputResponseInputEdgePrometheus) GetMaxResponseBodySize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxResponseBodySize
+}
+
 func (i *InputResponseInputEdgePrometheus) GetUsername() *string {
 	if i == nil {
 		return nil
@@ -7606,6 +7694,8 @@ const (
 	DiscoveryTypePrometheusDNS DiscoveryTypePrometheus = "dns"
 	// DiscoveryTypePrometheusEc2 AWS EC2
 	DiscoveryTypePrometheusEc2 DiscoveryTypePrometheus = "ec2"
+	// DiscoveryTypePrometheusHTTPSd HTTP SD
+	DiscoveryTypePrometheusHTTPSd DiscoveryTypePrometheus = "http_sd"
 )
 
 func (e DiscoveryTypePrometheus) ToPointer() *DiscoveryTypePrometheus {
@@ -7616,7 +7706,7 @@ func (e DiscoveryTypePrometheus) ToPointer() *DiscoveryTypePrometheus {
 func (e *DiscoveryTypePrometheus) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "static", "dns", "ec2":
+		case "static", "dns", "ec2", "http_sd":
 			return true
 		}
 	}
@@ -7731,6 +7821,14 @@ type InputResponseInputPrometheus struct {
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// URL to fetch target groups from (must be http or https)
+	HTTPDiscoveryURL *string `json:"httpDiscoveryUrl,omitzero"`
+	// Extra headers to send with the discovery request
+	HTTPDiscoveryHeaders []HTTPDiscoveryHeaderConfInputPrometheus `json:"httpDiscoveryHeaders,omitzero"`
+	// Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+	HTTPDiscoveryRejectUnauthorized *bool `json:"httpDiscoveryRejectUnauthorized,omitzero"`
+	// Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitzero"`
 	// Password for Prometheus Basic authentication
@@ -8097,6 +8195,34 @@ func (i *InputResponseInputPrometheus) GetDurationSeconds() *float64 {
 		return nil
 	}
 	return i.DurationSeconds
+}
+
+func (i *InputResponseInputPrometheus) GetHTTPDiscoveryURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryURL
+}
+
+func (i *InputResponseInputPrometheus) GetHTTPDiscoveryHeaders() []HTTPDiscoveryHeaderConfInputPrometheus {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryHeaders
+}
+
+func (i *InputResponseInputPrometheus) GetHTTPDiscoveryRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryRejectUnauthorized
+}
+
+func (i *InputResponseInputPrometheus) GetMaxResponseBodySize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxResponseBodySize
 }
 
 func (i *InputResponseInputPrometheus) GetUsername() *string {
