@@ -6713,6 +6713,8 @@ type CreateOutputOutputGoogleCloudObservability struct {
 	// How often the sender should ping the peer to keep the connection open
 	KeepAliveTime *float64                                      `json:"keepAliveTime,omitzero"`
 	TLS           *components.TLSSettingsClientSideTypeExtended `json:"tls,omitzero"`
+	// Max number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	Description    *string                                 `json:"description,omitzero"`
@@ -6905,6 +6907,13 @@ func (c *CreateOutputOutputGoogleCloudObservability) GetTLS() *components.TLSSet
 		return nil
 	}
 	return c.TLS
+}
+
+func (c *CreateOutputOutputGoogleCloudObservability) GetMaxPayloadEvents() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxPayloadEvents
 }
 
 func (c *CreateOutputOutputGoogleCloudObservability) GetOnBackpressure() *components.BackpressureBehaviorOptions {

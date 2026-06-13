@@ -18499,7 +18499,7 @@ type OutputResponseOutputLoki struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels   []RequestParamConfInputOpenai                                  `json:"labels,omitzero"`
+	Labels   []HTTPDiscoveryHeaderConfInputPrometheus                       `json:"labels,omitzero"`
 	AuthType *AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret `json:"authType,omitzero"`
 	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
 	Concurrency *float64 `json:"concurrency,omitzero"`
@@ -18656,7 +18656,7 @@ func (o *OutputResponseOutputLoki) GetMessageFormat() *MessageFormatOptions {
 	return o.MessageFormat
 }
 
-func (o *OutputResponseOutputLoki) GetLabels() []RequestParamConfInputOpenai {
+func (o *OutputResponseOutputLoki) GetLabels() []HTTPDiscoveryHeaderConfInputPrometheus {
 	if o == nil {
 		return nil
 	}
@@ -19011,7 +19011,7 @@ type OutputResponseOutputGrafanaCloudGrafanaCloud2 struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels []RequestParamConfInputOpenai `json:"labels,omitzero"`
+	Labels []HTTPDiscoveryHeaderConfInputPrometheus `json:"labels,omitzero"`
 	// JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
 	MetricRenameExpr *string             `json:"metricRenameExpr,omitzero"`
 	PrometheusAuth   *PrometheusAuthType `json:"prometheusAuth,omitzero"`
@@ -19168,7 +19168,7 @@ func (o *OutputResponseOutputGrafanaCloudGrafanaCloud2) GetMessageFormat() *Mess
 	return o.MessageFormat
 }
 
-func (o *OutputResponseOutputGrafanaCloudGrafanaCloud2) GetLabels() []RequestParamConfInputOpenai {
+func (o *OutputResponseOutputGrafanaCloudGrafanaCloud2) GetLabels() []HTTPDiscoveryHeaderConfInputPrometheus {
 	if o == nil {
 		return nil
 	}
@@ -19505,7 +19505,7 @@ type OutputResponseOutputGrafanaCloudGrafanaCloud1 struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels []RequestParamConfInputOpenai `json:"labels,omitzero"`
+	Labels []HTTPDiscoveryHeaderConfInputPrometheus `json:"labels,omitzero"`
 	// JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
 	MetricRenameExpr *string             `json:"metricRenameExpr,omitzero"`
 	PrometheusAuth   *PrometheusAuthType `json:"prometheusAuth,omitzero"`
@@ -19662,7 +19662,7 @@ func (o *OutputResponseOutputGrafanaCloudGrafanaCloud1) GetMessageFormat() *Mess
 	return o.MessageFormat
 }
 
-func (o *OutputResponseOutputGrafanaCloudGrafanaCloud1) GetLabels() []RequestParamConfInputOpenai {
+func (o *OutputResponseOutputGrafanaCloudGrafanaCloud1) GetLabels() []HTTPDiscoveryHeaderConfInputPrometheus {
 	if o == nil {
 		return nil
 	}

@@ -173,6 +173,8 @@ type OutputGoogleCloudObservability struct {
 	// How often the sender should ping the peer to keep the connection open
 	KeepAliveTime *float64                           `json:"keepAliveTime,omitzero"`
 	TLS           *TLSSettingsClientSideTypeExtended `json:"tls,omitzero"`
+	// Max number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	Description    *string                      `json:"description,omitzero"`
@@ -365,6 +367,13 @@ func (o *OutputGoogleCloudObservability) GetTLS() *TLSSettingsClientSideTypeExte
 		return nil
 	}
 	return o.TLS
+}
+
+func (o *OutputGoogleCloudObservability) GetMaxPayloadEvents() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxPayloadEvents
 }
 
 func (o *OutputGoogleCloudObservability) GetOnBackpressure() *BackpressureBehaviorOptions {

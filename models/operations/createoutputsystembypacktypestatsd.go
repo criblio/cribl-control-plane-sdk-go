@@ -17924,7 +17924,7 @@ type CreateOutputSystemByPackOutputLoki struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *components.MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels   []components.RequestParamConfInputOpenai                                  `json:"labels,omitzero"`
+	Labels   []components.HTTPDiscoveryHeaderConfInputPrometheus                       `json:"labels,omitzero"`
 	AuthType *components.AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret `json:"authType,omitzero"`
 	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
 	Concurrency *float64 `json:"concurrency,omitzero"`
@@ -18077,7 +18077,7 @@ func (c *CreateOutputSystemByPackOutputLoki) GetMessageFormat() *components.Mess
 	return c.MessageFormat
 }
 
-func (c *CreateOutputSystemByPackOutputLoki) GetLabels() []components.RequestParamConfInputOpenai {
+func (c *CreateOutputSystemByPackOutputLoki) GetLabels() []components.HTTPDiscoveryHeaderConfInputPrometheus {
 	if c == nil {
 		return nil
 	}
@@ -18418,7 +18418,7 @@ type CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2 struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *components.MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels []components.RequestParamConfInputOpenai `json:"labels,omitzero"`
+	Labels []components.HTTPDiscoveryHeaderConfInputPrometheus `json:"labels,omitzero"`
 	// JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
 	MetricRenameExpr *string                        `json:"metricRenameExpr,omitzero"`
 	PrometheusAuth   *components.PrometheusAuthType `json:"prometheusAuth,omitzero"`
@@ -18571,7 +18571,7 @@ func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetMessageForm
 	return c.MessageFormat
 }
 
-func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetLabels() []components.RequestParamConfInputOpenai {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud2) GetLabels() []components.HTTPDiscoveryHeaderConfInputPrometheus {
 	if c == nil {
 		return nil
 	}
@@ -18894,7 +18894,7 @@ type CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1 struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *components.MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels []components.RequestParamConfInputOpenai `json:"labels,omitzero"`
+	Labels []components.HTTPDiscoveryHeaderConfInputPrometheus `json:"labels,omitzero"`
 	// JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
 	MetricRenameExpr *string                        `json:"metricRenameExpr,omitzero"`
 	PrometheusAuth   *components.PrometheusAuthType `json:"prometheusAuth,omitzero"`
@@ -19047,7 +19047,7 @@ func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetMessageForm
 	return c.MessageFormat
 }
 
-func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetLabels() []components.RequestParamConfInputOpenai {
+func (c *CreateOutputSystemByPackOutputGrafanaCloudGrafanaCloud1) GetLabels() []components.HTTPDiscoveryHeaderConfInputPrometheus {
 	if c == nil {
 		return nil
 	}
