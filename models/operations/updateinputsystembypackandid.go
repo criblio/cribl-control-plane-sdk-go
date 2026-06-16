@@ -297,6 +297,10 @@ func (u *UpdateInputSystemByPackAndIDRequest) GetInputCloudflareHec() *component
 	return u.GetInput().InputCloudflareHecInput
 }
 
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputSysdigHec() *components.InputSysdigHecInput {
+	return u.GetInput().InputSysdigHecInput
+}
+
 func (u *UpdateInputSystemByPackAndIDRequest) GetInputOpenaiComplianceLogs() *components.InputOpenaiComplianceLogsInput {
 	return u.GetInput().InputOpenaiComplianceLogsInput
 }

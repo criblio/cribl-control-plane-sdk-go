@@ -21,7 +21,7 @@ func (g *GetPacksRequest) GetWith() *string {
 
 type GetPacksResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of PackInfo objects.
+	// List of Pack objects.
 	CountedPackInfo *components.CountedPackInfo
 }
 

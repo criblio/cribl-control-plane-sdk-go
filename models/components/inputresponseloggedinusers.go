@@ -1169,6 +1169,416 @@ func (i *InputResponseInputOpenaiComplianceLogs) GetStatus() *StatusType {
 	return i.Status
 }
 
+type InputResponseTypeSysdigHec string
+
+const (
+	InputResponseTypeSysdigHecSysdigHec InputResponseTypeSysdigHec = "sysdig_hec"
+)
+
+func (e InputResponseTypeSysdigHec) ToPointer() *InputResponseTypeSysdigHec {
+	return &e
+}
+func (e *InputResponseTypeSysdigHec) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sysdig_hec":
+		*e = InputResponseTypeSysdigHec(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for InputResponseTypeSysdigHec: %v", v)
+	}
+}
+
+type InputResponseInputSysdigHec struct {
+	// Unique ID for this input
+	ID       *string                    `json:"id,omitzero"`
+	Type     InputResponseTypeSysdigHec `json:"type"`
+	Disabled *bool                      `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
+	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *PqType                         `json:"pq,omitzero"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host string `json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []AuthTokenConfInputCloudflareHec `json:"authTokens,omitzero"`
+	TLS        *TLSSettingsServerSideType        `json:"tls,omitzero"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
+	// Absolute path on which to listen for the Sysdig HTTP Event Collector API requests. This input supports the /event and /raw endpoints.
+	HecAPI string `json:"hecAPI"`
+	// Fields to add to every event. May be overridden by fields added at the token or request level.
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
+	// HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitzero"`
+	// HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
+	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
+	Description      *string `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
+	TemplateHecAPI *string `json:"__template_hecAPI,omitzero"`
+	// Binds 'allowedIndexes' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedIndexes' at runtime.
+	TemplateAllowedIndexes *string `json:"__template_allowedIndexes,omitzero"`
+	// Binds 'accessControlAllowOrigin' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowOrigin' at runtime.
+	TemplateAccessControlAllowOrigin *string `json:"__template_accessControlAllowOrigin,omitzero"`
+	// Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
+	TemplateAccessControlAllowHeaders *string `json:"__template_accessControlAllowHeaders,omitzero"`
+	// Notifications attached to the Source.
+	Notifications []NotificationUnion `json:"notifications,omitzero"`
+	// Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
+	Status *StatusType `json:"status,omitzero"`
+}
+
+func (i InputResponseInputSysdigHec) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputResponseInputSysdigHec) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputResponseInputSysdigHec) GetID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.ID
+}
+
+func (i *InputResponseInputSysdigHec) GetType() InputResponseTypeSysdigHec {
+	if i == nil {
+		return InputResponseTypeSysdigHec("")
+	}
+	return i.Type
+}
+
+func (i *InputResponseInputSysdigHec) GetDisabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Disabled
+}
+
+func (i *InputResponseInputSysdigHec) GetPipeline() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Pipeline
+}
+
+func (i *InputResponseInputSysdigHec) GetSendToRoutes() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SendToRoutes
+}
+
+func (i *InputResponseInputSysdigHec) GetEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Environment
+}
+
+func (i *InputResponseInputSysdigHec) GetPqEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.PqEnabled
+}
+
+func (i *InputResponseInputSysdigHec) GetStreamtags() []string {
+	if i == nil {
+		return nil
+	}
+	return i.Streamtags
+}
+
+func (i *InputResponseInputSysdigHec) GetCriblSourceProvenance() *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint {
+	if i == nil {
+		return nil
+	}
+	return i.CriblSourceProvenance
+}
+
+func (i *InputResponseInputSysdigHec) GetConnections() []ConnectionConfInputCollection {
+	if i == nil {
+		return nil
+	}
+	return i.Connections
+}
+
+func (i *InputResponseInputSysdigHec) GetPq() *PqType {
+	if i == nil {
+		return nil
+	}
+	return i.Pq
+}
+
+func (i *InputResponseInputSysdigHec) GetHost() string {
+	if i == nil {
+		return ""
+	}
+	return i.Host
+}
+
+func (i *InputResponseInputSysdigHec) GetPort() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Port
+}
+
+func (i *InputResponseInputSysdigHec) GetAuthTokens() []AuthTokenConfInputCloudflareHec {
+	if i == nil {
+		return nil
+	}
+	return i.AuthTokens
+}
+
+func (i *InputResponseInputSysdigHec) GetTLS() *TLSSettingsServerSideType {
+	if i == nil {
+		return nil
+	}
+	return i.TLS
+}
+
+func (i *InputResponseInputSysdigHec) GetMaxActiveReq() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxActiveReq
+}
+
+func (i *InputResponseInputSysdigHec) GetMaxRequestsPerSocket() *int64 {
+	if i == nil {
+		return nil
+	}
+	return i.MaxRequestsPerSocket
+}
+
+func (i *InputResponseInputSysdigHec) GetEnableProxyHeader() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EnableProxyHeader
+}
+
+func (i *InputResponseInputSysdigHec) GetCaptureHeaders() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.CaptureHeaders
+}
+
+func (i *InputResponseInputSysdigHec) GetActivityLogSampleRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.ActivityLogSampleRate
+}
+
+func (i *InputResponseInputSysdigHec) GetRequestTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.RequestTimeout
+}
+
+func (i *InputResponseInputSysdigHec) GetSocketTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SocketTimeout
+}
+
+func (i *InputResponseInputSysdigHec) GetKeepAliveTimeout() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.KeepAliveTimeout
+}
+
+func (i *InputResponseInputSysdigHec) GetIPAllowlistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPAllowlistRegex
+}
+
+func (i *InputResponseInputSysdigHec) GetIPDenylistRegex() *string {
+	if i == nil {
+		return nil
+	}
+	return i.IPDenylistRegex
+}
+
+func (i *InputResponseInputSysdigHec) GetHecAPI() string {
+	if i == nil {
+		return ""
+	}
+	return i.HecAPI
+}
+
+func (i *InputResponseInputSysdigHec) GetMetadata() []MetadataConfInputCollection {
+	if i == nil {
+		return nil
+	}
+	return i.Metadata
+}
+
+func (i *InputResponseInputSysdigHec) GetAllowedIndexes() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AllowedIndexes
+}
+
+func (i *InputResponseInputSysdigHec) GetAccessControlAllowOrigin() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowOrigin
+}
+
+func (i *InputResponseInputSysdigHec) GetAccessControlAllowHeaders() []string {
+	if i == nil {
+		return nil
+	}
+	return i.AccessControlAllowHeaders
+}
+
+func (i *InputResponseInputSysdigHec) GetEmitTokenMetrics() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.EmitTokenMetrics
+}
+
+func (i *InputResponseInputSysdigHec) GetDescription() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Description
+}
+
+func (i *InputResponseInputSysdigHec) GetTemplateEnvironment() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateEnvironment
+}
+
+func (i *InputResponseInputSysdigHec) GetTemplateStreamtags() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateStreamtags
+}
+
+func (i *InputResponseInputSysdigHec) GetTemplateHost() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHost
+}
+
+func (i *InputResponseInputSysdigHec) GetTemplatePort() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplatePort
+}
+
+func (i *InputResponseInputSysdigHec) GetTemplateHecAPI() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateHecAPI
+}
+
+func (i *InputResponseInputSysdigHec) GetTemplateAllowedIndexes() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAllowedIndexes
+}
+
+func (i *InputResponseInputSysdigHec) GetTemplateAccessControlAllowOrigin() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAccessControlAllowOrigin
+}
+
+func (i *InputResponseInputSysdigHec) GetTemplateAccessControlAllowHeaders() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAccessControlAllowHeaders
+}
+
+func (i *InputResponseInputSysdigHec) GetNotifications() []NotificationUnion {
+	if i == nil {
+		return nil
+	}
+	return i.Notifications
+}
+
+func (i *InputResponseInputSysdigHec) GetStatus() *StatusType {
+	if i == nil {
+		return nil
+	}
+	return i.Status
+}
+
 type InputResponseTypeCloudflareHec string
 
 const (
@@ -1190,103 +1600,6 @@ func (e *InputResponseTypeCloudflareHec) UnmarshalJSON(data []byte) error {
 	default:
 		return fmt.Errorf("invalid value for InputResponseTypeCloudflareHec: %v", v)
 	}
-}
-
-// AuthenticationMethodCloudflareHec - Select Secret to use a text secret to authenticate
-type AuthenticationMethodCloudflareHec string
-
-const (
-	AuthenticationMethodCloudflareHecSecret AuthenticationMethodCloudflareHec = "secret"
-)
-
-func (e AuthenticationMethodCloudflareHec) ToPointer() *AuthenticationMethodCloudflareHec {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *AuthenticationMethodCloudflareHec) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "secret":
-			return true
-		}
-	}
-	return false
-}
-
-type AuthTokenCloudflareHec struct {
-	// Select Secret to use a text secret to authenticate
-	AuthType *AuthenticationMethodCloudflareHec `json:"authType,omitzero"`
-	// Select or create a stored text secret
-	TokenSecret *string `json:"tokenSecret,omitzero"`
-	// Shared secret to be provided by any client (Authorization: <token>)
-	Token       *string `json:"token,omitzero"`
-	Enabled     *bool   `json:"enabled,omitzero"`
-	Description *string `json:"description,omitzero"`
-	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
-	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
-	// Fields to add to events referencing this token
-	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
-}
-
-func (a AuthTokenCloudflareHec) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
-}
-
-func (a *AuthTokenCloudflareHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (a *AuthTokenCloudflareHec) GetAuthType() *AuthenticationMethodCloudflareHec {
-	if a == nil {
-		return nil
-	}
-	return a.AuthType
-}
-
-func (a *AuthTokenCloudflareHec) GetTokenSecret() *string {
-	if a == nil {
-		return nil
-	}
-	return a.TokenSecret
-}
-
-func (a *AuthTokenCloudflareHec) GetToken() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Token
-}
-
-func (a *AuthTokenCloudflareHec) GetEnabled() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.Enabled
-}
-
-func (a *AuthTokenCloudflareHec) GetDescription() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Description
-}
-
-func (a *AuthTokenCloudflareHec) GetAllowedIndexesAtToken() []string {
-	if a == nil {
-		return nil
-	}
-	return a.AllowedIndexesAtToken
-}
-
-func (a *AuthTokenCloudflareHec) GetMetadata() []MetadataConfInputCollection {
-	if a == nil {
-		return nil
-	}
-	return a.Metadata
 }
 
 type InputResponseTLSSettingsServerSide struct {
@@ -1425,7 +1738,7 @@ type InputResponseInputCloudflareHec struct {
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []AuthTokenCloudflareHec            `json:"authTokens,omitzero"`
+	AuthTokens []AuthTokenConfInputCloudflareHec   `json:"authTokens,omitzero"`
 	TLS        *InputResponseTLSSettingsServerSide `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
@@ -1453,17 +1766,17 @@ type InputResponseInputCloudflareHec struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
-	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
-	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
 	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitzero"`
 	// HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
 	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
-	Description      *string `json:"description,omitzero"`
+	EmitTokenMetrics *bool `json:"emitTokenMetrics,omitzero"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
+	Description         *string  `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -1588,7 +1901,7 @@ func (i *InputResponseInputCloudflareHec) GetPort() float64 {
 	return i.Port
 }
 
-func (i *InputResponseInputCloudflareHec) GetAuthTokens() []AuthTokenCloudflareHec {
+func (i *InputResponseInputCloudflareHec) GetAuthTokens() []AuthTokenConfInputCloudflareHec {
 	if i == nil {
 		return nil
 	}
@@ -1693,20 +2006,6 @@ func (i *InputResponseInputCloudflareHec) GetAllowedIndexes() []string {
 	return i.AllowedIndexes
 }
 
-func (i *InputResponseInputCloudflareHec) GetBreakerRulesets() []string {
-	if i == nil {
-		return nil
-	}
-	return i.BreakerRulesets
-}
-
-func (i *InputResponseInputCloudflareHec) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.StaleChannelFlushMs
-}
-
 func (i *InputResponseInputCloudflareHec) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
@@ -1726,6 +2025,20 @@ func (i *InputResponseInputCloudflareHec) GetEmitTokenMetrics() *bool {
 		return nil
 	}
 	return i.EmitTokenMetrics
+}
+
+func (i *InputResponseInputCloudflareHec) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputResponseInputCloudflareHec) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
 }
 
 func (i *InputResponseInputCloudflareHec) GetDescription() *string {
@@ -1956,15 +2269,15 @@ type InputResponseInputZscalerHec struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
-	// Whether to enable Zscaler HEC acknowledgements
-	HecAcks *bool `json:"hecAcks,omitzero"`
-	// Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+	// HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
 	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitzero"`
-	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+	// HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
 	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
-	// Enable to emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
-	Description      *string `json:"description,omitzero"`
+	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+	EmitTokenMetrics *bool `json:"emitTokenMetrics,omitzero"`
+	// Whether to enable Zscaler HEC acknowledgements
+	HecAcks     *bool   `json:"hecAcks,omitzero"`
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -1975,6 +2288,12 @@ type InputResponseInputZscalerHec struct {
 	TemplatePort *string `json:"__template_port,omitzero"`
 	// Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
 	TemplateHecAPI *string `json:"__template_hecAPI,omitzero"`
+	// Binds 'allowedIndexes' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedIndexes' at runtime.
+	TemplateAllowedIndexes *string `json:"__template_allowedIndexes,omitzero"`
+	// Binds 'accessControlAllowOrigin' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowOrigin' at runtime.
+	TemplateAccessControlAllowOrigin *string `json:"__template_accessControlAllowOrigin,omitzero"`
+	// Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
+	TemplateAccessControlAllowHeaders *string `json:"__template_accessControlAllowHeaders,omitzero"`
 	// Notifications attached to the Source.
 	Notifications []NotificationUnion `json:"notifications,omitzero"`
 	// Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
@@ -2188,13 +2507,6 @@ func (i *InputResponseInputZscalerHec) GetAllowedIndexes() []string {
 	return i.AllowedIndexes
 }
 
-func (i *InputResponseInputZscalerHec) GetHecAcks() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.HecAcks
-}
-
 func (i *InputResponseInputZscalerHec) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
@@ -2214,6 +2526,13 @@ func (i *InputResponseInputZscalerHec) GetEmitTokenMetrics() *bool {
 		return nil
 	}
 	return i.EmitTokenMetrics
+}
+
+func (i *InputResponseInputZscalerHec) GetHecAcks() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.HecAcks
 }
 
 func (i *InputResponseInputZscalerHec) GetDescription() *string {
@@ -2256,6 +2575,27 @@ func (i *InputResponseInputZscalerHec) GetTemplateHecAPI() *string {
 		return nil
 	}
 	return i.TemplateHecAPI
+}
+
+func (i *InputResponseInputZscalerHec) GetTemplateAllowedIndexes() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAllowedIndexes
+}
+
+func (i *InputResponseInputZscalerHec) GetTemplateAccessControlAllowOrigin() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAccessControlAllowOrigin
+}
+
+func (i *InputResponseInputZscalerHec) GetTemplateAccessControlAllowHeaders() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAccessControlAllowHeaders
 }
 
 func (i *InputResponseInputZscalerHec) GetNotifications() []NotificationUnion {
@@ -4257,10 +4597,10 @@ type ContentConfigOpenai struct {
 	StateMergeExpression *string            `json:"stateMergeExpression,omitzero"`
 	ManageState          *ManageStateOpenai `json:"manageState,omitzero"`
 	// Query-string parameters to send with this endpoint
-	RequestParams          []RequestParamConfInputOpenai `json:"requestParams"`
-	PaginationType         InputResponsePaginationType   `json:"paginationType"`
-	PaginationAttribute    []string                      `json:"paginationAttribute,omitzero"`
-	PaginationLastPageExpr *string                       `json:"paginationLastPageExpr,omitzero"`
+	RequestParams          []HTTPDiscoveryHeaderConfInputPrometheus `json:"requestParams"`
+	PaginationType         InputResponsePaginationType              `json:"paginationType"`
+	PaginationAttribute    []string                                 `json:"paginationAttribute,omitzero"`
+	PaginationLastPageExpr *string                                  `json:"paginationLastPageExpr,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Set to 0 only when unlimited pagination is required.
 	MaxPages *float64 `json:"maxPages,omitzero"`
 	// Used only for RFC 5988 link-header pagination
@@ -4355,9 +4695,9 @@ func (c *ContentConfigOpenai) GetManageState() *ManageStateOpenai {
 	return c.ManageState
 }
 
-func (c *ContentConfigOpenai) GetRequestParams() []RequestParamConfInputOpenai {
+func (c *ContentConfigOpenai) GetRequestParams() []HTTPDiscoveryHeaderConfInputPrometheus {
 	if c == nil {
-		return []RequestParamConfInputOpenai{}
+		return []HTTPDiscoveryHeaderConfInputPrometheus{}
 	}
 	return c.RequestParams
 }
@@ -6113,8 +6453,8 @@ type InputResponseInputWinEventLogs struct {
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// The maximum number of bytes in an event before it is flushed to the pipelines
-	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
-	Description   *string  `json:"description,omitzero"`
+	MaxEventBytes *int64  `json:"maxEventBytes,omitzero"`
+	Description   *string `json:"description,omitzero"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
 	DisableJSONRendering *bool `json:"disableJsonRendering,omitzero"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
@@ -6266,7 +6606,7 @@ func (i *InputResponseInputWinEventLogs) GetMetadata() []MetadataConfInputCollec
 	return i.Metadata
 }
 
-func (i *InputResponseInputWinEventLogs) GetMaxEventBytes() *float64 {
+func (i *InputResponseInputWinEventLogs) GetMaxEventBytes() *int64 {
 	if i == nil {
 		return nil
 	}
@@ -15796,6 +16136,10 @@ type InputResponseInputKubeLogs struct {
 	Rules []RuleKubeLogs `json:"rules,omitzero"`
 	// For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
 	Timestamps *bool `json:"timestamps,omitzero"`
+	// Maximum bytes to buffer while reassembling a single log line. A line that exceeds this size is flushed as-is, either whole or partially. The default is 1048576 (1 MB).
+	LineBufferLimit *float64 `json:"lineBufferLimit,omitzero"`
+	// Internal flag to disable LB worker payload reassembly.
+	LBDisableAssembly *bool `json:"__LBDisableAssembly,omitzero"`
 	// Fields to add to events from this input
 	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
 	Persistence *DiskSpoolingType             `json:"persistence,omitzero"`
@@ -15923,6 +16267,20 @@ func (i *InputResponseInputKubeLogs) GetTimestamps() *bool {
 		return nil
 	}
 	return i.Timestamps
+}
+
+func (i *InputResponseInputKubeLogs) GetLineBufferLimit() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.LineBufferLimit
+}
+
+func (i *InputResponseInputKubeLogs) GetLBDisableAssembly() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.LBDisableAssembly
 }
 
 func (i *InputResponseInputKubeLogs) GetMetadata() []MetadataConfInputCollection {

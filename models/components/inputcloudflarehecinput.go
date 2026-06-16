@@ -31,103 +31,6 @@ func (e *InputCloudflareHecType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// InputCloudflareHecAuthenticationMethod - Select Secret to use a text secret to authenticate
-type InputCloudflareHecAuthenticationMethod string
-
-const (
-	InputCloudflareHecAuthenticationMethodSecret InputCloudflareHecAuthenticationMethod = "secret"
-)
-
-func (e InputCloudflareHecAuthenticationMethod) ToPointer() *InputCloudflareHecAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *InputCloudflareHecAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "secret":
-			return true
-		}
-	}
-	return false
-}
-
-type InputCloudflareHecAuthToken struct {
-	// Select Secret to use a text secret to authenticate
-	AuthType *InputCloudflareHecAuthenticationMethod `json:"authType,omitzero"`
-	// Select or create a stored text secret
-	TokenSecret *string `json:"tokenSecret,omitzero"`
-	// Shared secret to be provided by any client (Authorization: <token>)
-	Token       *string `json:"token,omitzero"`
-	Enabled     *bool   `json:"enabled,omitzero"`
-	Description *string `json:"description,omitzero"`
-	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
-	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
-	// Fields to add to events referencing this token
-	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
-}
-
-func (i InputCloudflareHecAuthToken) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(i, "", false)
-}
-
-func (i *InputCloudflareHecAuthToken) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (i *InputCloudflareHecAuthToken) GetAuthType() *InputCloudflareHecAuthenticationMethod {
-	if i == nil {
-		return nil
-	}
-	return i.AuthType
-}
-
-func (i *InputCloudflareHecAuthToken) GetTokenSecret() *string {
-	if i == nil {
-		return nil
-	}
-	return i.TokenSecret
-}
-
-func (i *InputCloudflareHecAuthToken) GetToken() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Token
-}
-
-func (i *InputCloudflareHecAuthToken) GetEnabled() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.Enabled
-}
-
-func (i *InputCloudflareHecAuthToken) GetDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.Description
-}
-
-func (i *InputCloudflareHecAuthToken) GetAllowedIndexesAtToken() []string {
-	if i == nil {
-		return nil
-	}
-	return i.AllowedIndexesAtToken
-}
-
-func (i *InputCloudflareHecAuthToken) GetMetadata() []MetadataConfInputCollection {
-	if i == nil {
-		return nil
-	}
-	return i.Metadata
-}
-
 type InputCloudflareHecTLSSettingsServerSide struct {
 	// Enable or disable TLS. Defaults to enabled for Cloudflare sources.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -262,7 +165,7 @@ type InputCloudflareHecInput struct {
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []InputCloudflareHecAuthToken            `json:"authTokens,omitzero"`
+	AuthTokens []AuthTokenConfInputCloudflareHec        `json:"authTokens,omitzero"`
 	TLS        *InputCloudflareHecTLSSettingsServerSide `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
@@ -290,17 +193,17 @@ type InputCloudflareHecInput struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
-	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
-	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
 	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitzero"`
 	// HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
 	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
-	Description      *string `json:"description,omitzero"`
+	EmitTokenMetrics *bool `json:"emitTokenMetrics,omitzero"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
+	Description         *string  `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -414,7 +317,7 @@ func (i *InputCloudflareHecInput) GetPort() float64 {
 	return i.Port
 }
 
-func (i *InputCloudflareHecInput) GetAuthTokens() []InputCloudflareHecAuthToken {
+func (i *InputCloudflareHecInput) GetAuthTokens() []AuthTokenConfInputCloudflareHec {
 	if i == nil {
 		return nil
 	}
@@ -519,20 +422,6 @@ func (i *InputCloudflareHecInput) GetAllowedIndexes() []string {
 	return i.AllowedIndexes
 }
 
-func (i *InputCloudflareHecInput) GetBreakerRulesets() []string {
-	if i == nil {
-		return nil
-	}
-	return i.BreakerRulesets
-}
-
-func (i *InputCloudflareHecInput) GetStaleChannelFlushMs() *float64 {
-	if i == nil {
-		return nil
-	}
-	return i.StaleChannelFlushMs
-}
-
 func (i *InputCloudflareHecInput) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
@@ -552,6 +441,20 @@ func (i *InputCloudflareHecInput) GetEmitTokenMetrics() *bool {
 		return nil
 	}
 	return i.EmitTokenMetrics
+}
+
+func (i *InputCloudflareHecInput) GetBreakerRulesets() []string {
+	if i == nil {
+		return nil
+	}
+	return i.BreakerRulesets
+}
+
+func (i *InputCloudflareHecInput) GetStaleChannelFlushMs() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.StaleChannelFlushMs
 }
 
 func (i *InputCloudflareHecInput) GetDescription() *string {

@@ -157,15 +157,15 @@ type InputZscalerHecInput struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
-	// Whether to enable Zscaler HEC acknowledgements
-	HecAcks *bool `json:"hecAcks,omitzero"`
-	// Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+	// HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
 	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitzero"`
-	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+	// HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
 	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
-	// Enable to emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
-	Description      *string `json:"description,omitzero"`
+	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+	EmitTokenMetrics *bool `json:"emitTokenMetrics,omitzero"`
+	// Whether to enable Zscaler HEC acknowledgements
+	HecAcks     *bool   `json:"hecAcks,omitzero"`
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -176,6 +176,12 @@ type InputZscalerHecInput struct {
 	TemplatePort *string `json:"__template_port,omitzero"`
 	// Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
 	TemplateHecAPI *string `json:"__template_hecAPI,omitzero"`
+	// Binds 'allowedIndexes' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedIndexes' at runtime.
+	TemplateAllowedIndexes *string `json:"__template_allowedIndexes,omitzero"`
+	// Binds 'accessControlAllowOrigin' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowOrigin' at runtime.
+	TemplateAccessControlAllowOrigin *string `json:"__template_accessControlAllowOrigin,omitzero"`
+	// Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
+	TemplateAccessControlAllowHeaders *string `json:"__template_accessControlAllowHeaders,omitzero"`
 }
 
 func (i InputZscalerHecInput) MarshalJSON() ([]byte, error) {
@@ -378,13 +384,6 @@ func (i *InputZscalerHecInput) GetAllowedIndexes() []string {
 	return i.AllowedIndexes
 }
 
-func (i *InputZscalerHecInput) GetHecAcks() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.HecAcks
-}
-
 func (i *InputZscalerHecInput) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
@@ -404,6 +403,13 @@ func (i *InputZscalerHecInput) GetEmitTokenMetrics() *bool {
 		return nil
 	}
 	return i.EmitTokenMetrics
+}
+
+func (i *InputZscalerHecInput) GetHecAcks() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.HecAcks
 }
 
 func (i *InputZscalerHecInput) GetDescription() *string {
@@ -446,4 +452,25 @@ func (i *InputZscalerHecInput) GetTemplateHecAPI() *string {
 		return nil
 	}
 	return i.TemplateHecAPI
+}
+
+func (i *InputZscalerHecInput) GetTemplateAllowedIndexes() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAllowedIndexes
+}
+
+func (i *InputZscalerHecInput) GetTemplateAccessControlAllowOrigin() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAccessControlAllowOrigin
+}
+
+func (i *InputZscalerHecInput) GetTemplateAccessControlAllowHeaders() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAccessControlAllowHeaders
 }

@@ -16,9 +16,75 @@ Actions related to Sources
 
 Get a list of all Sources.
 
-### Example Usage
+### Example Usage: InputResponseExamplesHttpSource
 
-<!-- UsageSnippet language="go" operationID="listInput" method="get" path="/system/inputs" -->
+<!-- UsageSnippet language="go" operationID="listInput" method="get" path="/system/inputs" example="InputResponseExamplesHttpSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.List(ctx, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputResponseExamplesSplunkHecSource
+
+<!-- UsageSnippet language="go" operationID="listInput" method="get" path="/system/inputs" example="InputResponseExamplesSplunkHecSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.List(ctx, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputResponseExamplesSyslogSource
+
+<!-- UsageSnippet language="go" operationID="listInput" method="get" path="/system/inputs" example="InputResponseExamplesSyslogSource" -->
 ```go
 package main
 
@@ -66,6 +132,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -1873,12 +1940,12 @@ func main() {
             ContentConfig: []operations.CreateInputContentConfigInput{
                 operations.CreateInputContentConfigInput{
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
-                    RequestParams: []components.RequestParamConfInputOpenai{
-                        components.RequestParamConfInputOpenai{
+                    RequestParams: []components.HTTPDiscoveryHeaderConfInputPrometheus{
+                        components.HTTPDiscoveryHeaderConfInputPrometheus{
                             Name: "effective_at[gt]",
                             Value: "`${Math.round(Date.now()/1000 - 3600)}`",
                         },
-                        components.RequestParamConfInputOpenai{
+                        components.HTTPDiscoveryHeaderConfInputPrometheus{
                             Name: "limit",
                             Value: "100",
                         },
@@ -2534,6 +2601,50 @@ func main() {
     }
 }
 ```
+### Example Usage: InputCreateExamplesSysdigHec
+
+<!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesSysdigHec" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestSysdigHec(
+        operations.CreateInputInputSysdigHec{
+            ID: "sysdig-hec-source",
+            Type: operations.CreateInputTypeSysdigHecSysdigHec,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            Host: "0.0.0.0",
+            Port: 8088.0,
+            HecAPI: "/services/collector",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: InputCreateExamplesSyslog
 
 <!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesSyslog" -->
@@ -3017,6 +3128,130 @@ func main() {
     }
 }
 ```
+### Example Usage: InputResponseExamplesHttpSource
+
+<!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputResponseExamplesHttpSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestCrowdstrike(
+        operations.CreateInputInputCrowdstrike{
+            ID: "<id>",
+            Type: operations.CreateInputTypeCrowdstrikeCrowdstrike,
+            QueueName: "<value>",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputResponseExamplesSplunkHecSource
+
+<!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputResponseExamplesSplunkHecSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestRawUDP(
+        operations.CreateInputInputRawUDP{
+            ID: "<id>",
+            Type: operations.CreateInputTypeRawUDPRawUDP,
+            Host: "lumbering-doubter.net",
+            Port: 7847.75,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputResponseExamplesSyslogSource
+
+<!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputResponseExamplesSyslogSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestWiz(
+        operations.CreateInputInputWiz{
+            ID: "<id>",
+            Type: operations.CreateInputTypeWizWiz,
+            Endpoint: "<value>",
+            AuthURL: "https://hungry-crest.net/",
+            ClientID: "<id>",
+            ContentConfig: []operations.CreateInputContentConfigWiz{},
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -3034,6 +3269,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -3041,9 +3277,75 @@ func main() {
 
 Get the specified Source.
 
-### Example Usage
+### Example Usage: InputResponseExamplesHttpSource
 
-<!-- UsageSnippet language="go" operationID="getInputById" method="get" path="/system/inputs/{id}" -->
+<!-- UsageSnippet language="go" operationID="getInputById" method="get" path="/system/inputs/{id}" example="InputResponseExamplesHttpSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputResponseExamplesSplunkHecSource
+
+<!-- UsageSnippet language="go" operationID="getInputById" method="get" path="/system/inputs/{id}" example="InputResponseExamplesSplunkHecSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputResponseExamplesSyslogSource
+
+<!-- UsageSnippet language="go" operationID="getInputById" method="get" path="/system/inputs/{id}" example="InputResponseExamplesSyslogSource" -->
 ```go
 package main
 
@@ -3091,12 +3393,13 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
 ## Update
 
-Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body.  This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.<br/><br/>Cribl preserves <code>criblSourceProvenance</code> when you omit it from the request body, and you cannot overwrite it through this endpoint.
+Update the specified Source.<br/><br/>Provide a complete representation of the Source that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Source.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Source might not function as expected.<br/><br/>Cribl preserves <code>criblSourceProvenance</code> when you omit it from the request body, and you cannot overwrite it through this endpoint.
 
 ### Example Usage: InputCreateExamplesAnthropicCompliance
 
@@ -4857,12 +5160,12 @@ func main() {
             ContentConfig: []components.InputOpenaiContentConfig{
                 components.InputOpenaiContentConfig{
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
-                    RequestParams: []components.RequestParamConfInputOpenai{
-                        components.RequestParamConfInputOpenai{
+                    RequestParams: []components.HTTPDiscoveryHeaderConfInputPrometheus{
+                        components.HTTPDiscoveryHeaderConfInputPrometheus{
                             Name: "effective_at[gt]",
                             Value: "`${Math.round(Date.now()/1000 - 3600)}`",
                         },
-                        components.RequestParamConfInputOpenai{
+                        components.HTTPDiscoveryHeaderConfInputPrometheus{
                             Name: "limit",
                             Value: "100",
                         },
@@ -6046,6 +6349,123 @@ func main() {
             Type: components.InputCriblmetricsTypeCriblmetrics,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputResponseExamplesHttpSource
+
+<!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputResponseExamplesHttpSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCribl(
+        components.InputCriblInput{
+            Type: components.InputCriblTypeCribl,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputResponseExamplesSplunkHecSource
+
+<!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputResponseExamplesSplunkHecSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputWiz(
+        components.InputWizInput{
+            Type: components.InputWizTypeWiz,
+            Endpoint: "<value>",
+            AuthURL: "https://grouchy-invite.info",
+            ClientID: "<id>",
+            ContentConfig: []components.InputWizContentConfig{},
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputResponseExamplesSyslogSource
+
+<!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputResponseExamplesSyslogSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputDatadogAgent(
+        components.InputDatadogAgentInput{
+            Type: components.InputDatadogAgentTypeDatadogAgent,
+            Host: "focused-invite.org",
+            Port: 4085.76,
         },
     ))
     if err != nil {
@@ -7895,12 +8315,12 @@ func main() {
             ContentConfig: []components.InputOpenaiContentConfig{
                 components.InputOpenaiContentConfig{
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
-                    RequestParams: []components.RequestParamConfInputOpenai{
-                        components.RequestParamConfInputOpenai{
+                    RequestParams: []components.HTTPDiscoveryHeaderConfInputPrometheus{
+                        components.HTTPDiscoveryHeaderConfInputPrometheus{
                             Name: "effective_at[gt]",
                             Value: "`${Math.round(Date.now()/1000 - 3600)}`",
                         },
-                        components.RequestParamConfInputOpenai{
+                        components.HTTPDiscoveryHeaderConfInputPrometheus{
                             Name: "limit",
                             Value: "100",
                         },
@@ -8542,6 +8962,49 @@ func main() {
     }
 }
 ```
+### Example Usage: UpdateInputExamplesSysdigHec
+
+<!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="UpdateInputExamplesSysdigHec" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSysdigHec(
+        components.InputSysdigHecInput{
+            ID: criblcontrolplanesdkgo.Pointer("sysdig-hec-source"),
+            Type: components.InputSysdigHecTypeSysdigHec,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            Host: "0.0.0.0",
+            Port: 8088.0,
+            HecAPI: "/services/collector",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: UpdateInputExamplesSyslog
 
 <!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="UpdateInputExamplesSyslog" -->
@@ -9032,6 +9495,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -9039,9 +9503,75 @@ func main() {
 
 Delete the specified Source.
 
-### Example Usage
+### Example Usage: InputResponseExamplesHttpSource
 
-<!-- UsageSnippet language="go" operationID="deleteInputById" method="delete" path="/system/inputs/{id}" -->
+<!-- UsageSnippet language="go" operationID="deleteInputById" method="delete" path="/system/inputs/{id}" example="InputResponseExamplesHttpSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Delete(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputResponseExamplesSplunkHecSource
+
+<!-- UsageSnippet language="go" operationID="deleteInputById" method="delete" path="/system/inputs/{id}" example="InputResponseExamplesSplunkHecSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Delete(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputResponseExamplesSyslogSource
+
+<!-- UsageSnippet language="go" operationID="deleteInputById" method="delete" path="/system/inputs/{id}" example="InputResponseExamplesSyslogSource" -->
 ```go
 package main
 
@@ -9089,5 +9619,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

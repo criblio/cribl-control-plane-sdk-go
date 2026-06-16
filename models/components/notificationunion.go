@@ -31,6 +31,7 @@ func (e *NotificationMode3) IsExact() bool {
 	return false
 }
 
+// EmailRecipient3 - Email recipient settings for the Notification target.
 type EmailRecipient3 struct {
 	// Recipients' email addresses
 	To string `json:"to"`
@@ -75,11 +76,13 @@ func (e *EmailRecipient3) GetBcc() *string {
 // #region class-body-emailrecipient3
 // #endregion class-body-emailrecipient3
 
+// NotificationConfigForSMTPTarget3 - Simple Mail Transfer Protocol (SMTP) configuration for the Notification target.
 type NotificationConfigForSMTPTarget3 struct {
 	// Email subject
 	Subject *string `json:"subject,omitzero"`
 	// Email body
-	Body           *string          `json:"body,omitzero"`
+	Body *string `json:"body,omitzero"`
+	// Email recipient settings for the Notification target.
 	EmailRecipient *EmailRecipient3 `json:"emailRecipient,omitzero"`
 }
 
@@ -119,8 +122,10 @@ func (n *NotificationConfigForSMTPTarget3) GetEmailRecipient() *EmailRecipient3 
 // #endregion class-body-notificationconfigforsmtptarget3
 
 type TargetConfig3 struct {
+	// Simple Mail Transfer Protocol (SMTP) configuration for the Notification target.
 	Conf *NotificationConfigForSMTPTarget3 `json:"conf,omitzero"`
-	ID   string                            `json:"id"`
+	// The <code>id</code> of the Notification target.
+	ID string `json:"id"`
 }
 
 func (t TargetConfig3) MarshalJSON() ([]byte, error) {
@@ -371,6 +376,7 @@ func (e *NotificationMode2) IsExact() bool {
 	return false
 }
 
+// EmailRecipient2 - Email recipient settings for the Notification target.
 type EmailRecipient2 struct {
 	// Recipients' email addresses
 	To string `json:"to"`
@@ -415,11 +421,13 @@ func (e *EmailRecipient2) GetBcc() *string {
 // #region class-body-emailrecipient2
 // #endregion class-body-emailrecipient2
 
+// NotificationConfigForSMTPTarget2 - Simple Mail Transfer Protocol (SMTP) configuration for the Notification target.
 type NotificationConfigForSMTPTarget2 struct {
 	// Email subject
 	Subject *string `json:"subject,omitzero"`
 	// Email body
-	Body           *string          `json:"body,omitzero"`
+	Body *string `json:"body,omitzero"`
+	// Email recipient settings for the Notification target.
 	EmailRecipient *EmailRecipient2 `json:"emailRecipient,omitzero"`
 }
 
@@ -459,8 +467,10 @@ func (n *NotificationConfigForSMTPTarget2) GetEmailRecipient() *EmailRecipient2 
 // #endregion class-body-notificationconfigforsmtptarget2
 
 type TargetConfig2 struct {
+	// Simple Mail Transfer Protocol (SMTP) configuration for the Notification target.
 	Conf *NotificationConfigForSMTPTarget2 `json:"conf,omitzero"`
-	ID   string                            `json:"id"`
+	// The <code>id</code> of the Notification target.
+	ID string `json:"id"`
 }
 
 func (t TargetConfig2) MarshalJSON() ([]byte, error) {
@@ -711,6 +721,7 @@ func (e *NotificationMode1) IsExact() bool {
 	return false
 }
 
+// EmailRecipient1 - Email recipient settings for the Notification target.
 type EmailRecipient1 struct {
 	// Recipients' email addresses
 	To string `json:"to"`
@@ -755,11 +766,13 @@ func (e *EmailRecipient1) GetBcc() *string {
 // #region class-body-emailrecipient1
 // #endregion class-body-emailrecipient1
 
+// NotificationConfigForSMTPTarget1 - Simple Mail Transfer Protocol (SMTP) configuration for the Notification target.
 type NotificationConfigForSMTPTarget1 struct {
 	// Email subject
 	Subject *string `json:"subject,omitzero"`
 	// Email body
-	Body           *string          `json:"body,omitzero"`
+	Body *string `json:"body,omitzero"`
+	// Email recipient settings for the Notification target.
 	EmailRecipient *EmailRecipient1 `json:"emailRecipient,omitzero"`
 }
 
@@ -799,8 +812,10 @@ func (n *NotificationConfigForSMTPTarget1) GetEmailRecipient() *EmailRecipient1 
 // #endregion class-body-notificationconfigforsmtptarget1
 
 type TargetConfig1 struct {
+	// Simple Mail Transfer Protocol (SMTP) configuration for the Notification target.
 	Conf *NotificationConfigForSMTPTarget1 `json:"conf,omitzero"`
-	ID   string                            `json:"id"`
+	// The <code>id</code> of the Notification target.
+	ID string `json:"id"`
 }
 
 func (t TargetConfig1) MarshalJSON() ([]byte, error) {

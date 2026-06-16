@@ -23,7 +23,7 @@ func (p *PqTypePqControls) UnmarshalJSON(data []byte) error {
 type PqType struct {
 	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *ModeOptionsPq `json:"mode,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	MaxBufferSizeBytes *string `json:"maxBufferSizeBytes,omitzero"`
 	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use maxBufferSizeBytes instead.
 	MaxBufferSize *float64 `json:"maxBufferSize,omitzero"`

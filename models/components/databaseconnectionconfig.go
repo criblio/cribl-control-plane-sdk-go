@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type DatabaseConnectionConfig struct {
 	AuthType DatabaseConnectionAuthType `json:"authType"`
 	// JSON configuration object for advanced SQL Server connection settings.
@@ -25,8 +29,21 @@ type DatabaseConnectionConfig struct {
 	Tags *string `json:"tags,omitzero"`
 	// Name of the stored text secret containing the connection string.
 	TextSecret *string `json:"textSecret,omitzero"`
+	// TLS client connection settings.
+	TLS *TLSClientParams `json:"tls,omitzero"`
 	// Database username for authentication. Used with Oracle connections.
 	User *string `json:"user,omitzero"`
+}
+
+func (d DatabaseConnectionConfig) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DatabaseConnectionConfig) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (d *DatabaseConnectionConfig) GetAuthType() DatabaseConnectionAuthType {
@@ -111,6 +128,13 @@ func (d *DatabaseConnectionConfig) GetTextSecret() *string {
 		return nil
 	}
 	return d.TextSecret
+}
+
+func (d *DatabaseConnectionConfig) GetTLS() *TLSClientParams {
+	if d == nil {
+		return nil
+	}
+	return d.TLS
 }
 
 func (d *DatabaseConnectionConfig) GetUser() *string {

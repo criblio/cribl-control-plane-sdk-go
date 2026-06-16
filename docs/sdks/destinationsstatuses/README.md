@@ -11,9 +11,54 @@
 
 List status information and optional metrics for all configured Destinations in the Worker Group or Edge Fleet.
 
-### Example Usage
+### Example Usage: OutputStatusResponseExamplesGreenDestination
 
-<!-- UsageSnippet language="go" operationID="getOutputStatus" method="get" path="/system/status/outputs" -->
+<!-- UsageSnippet language="go" operationID="getOutputStatus" method="get" path="/system/status/outputs" example="OutputStatusResponseExamplesGreenDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Statuses.List(ctx, nil, nil, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputStatus != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+### Example Usage: OutputStatusResponseExamplesYellowDestination
+
+<!-- UsageSnippet language="go" operationID="getOutputStatus" method="get" path="/system/status/outputs" example="OutputStatusResponseExamplesYellowDestination" -->
 ```go
 package main
 
@@ -76,6 +121,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -83,9 +129,42 @@ func main() {
 
 Get the status and optional metrics for the specified Destination.
 
-### Example Usage
+### Example Usage: OutputStatusResponseExamplesGreenDestination
 
-<!-- UsageSnippet language="go" operationID="getOutputStatusById" method="get" path="/system/status/outputs/{id}" -->
+<!-- UsageSnippet language="go" operationID="getOutputStatusById" method="get" path="/system/status/outputs/{id}" example="OutputStatusResponseExamplesGreenDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Statuses.Get(ctx, "<id>", nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputStatus != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputStatusResponseExamplesYellowDestination
+
+<!-- UsageSnippet language="go" operationID="getOutputStatusById" method="get" path="/system/status/outputs/{id}" example="OutputStatusResponseExamplesYellowDestination" -->
 ```go
 package main
 
@@ -135,5 +214,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

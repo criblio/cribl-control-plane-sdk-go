@@ -2,13 +2,23 @@
 
 package components
 
+import (
+	"errors"
+	"fmt"
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type Block struct {
+	// Unified diff hunk header.
 	Header string `json:"header"`
-	// Diff Line
-	Lines         []DiffLine `json:"lines"`
-	NewStartLine  float64    `json:"newStartLine"`
-	OldStartLine  float64    `json:"oldStartLine"`
-	OldStartLine2 *float64   `json:"oldStartLine2,omitzero"`
+	// Array of lines in a Git diff hunk.
+	Lines []GitDiffLines `json:"lines"`
+	// Starting line number in the new file for this hunk.
+	NewStartLine int64 `json:"newStartLine"`
+	// Starting line number in the original file for this hunk.
+	OldStartLine int64 `json:"oldStartLine"`
+	// Starting line number in the original file for the second parent, present in combined diffs.
+	OldStartLine2 *int64 `json:"oldStartLine2,omitzero"`
 }
 
 func (b *Block) GetHeader() string {
@@ -18,63 +28,266 @@ func (b *Block) GetHeader() string {
 	return b.Header
 }
 
-func (b *Block) GetLines() []DiffLine {
+func (b *Block) GetLines() []GitDiffLines {
 	if b == nil {
-		return []DiffLine{}
+		return []GitDiffLines{}
 	}
 	return b.Lines
 }
 
-func (b *Block) GetNewStartLine() float64 {
+func (b *Block) GetNewStartLine() int64 {
 	if b == nil {
-		return 0.0
+		return 0
 	}
 	return b.NewStartLine
 }
 
-func (b *Block) GetOldStartLine() float64 {
+func (b *Block) GetOldStartLine() int64 {
 	if b == nil {
-		return 0.0
+		return 0
 	}
 	return b.OldStartLine
 }
 
-func (b *Block) GetOldStartLine2() *float64 {
+func (b *Block) GetOldStartLine2() *int64 {
 	if b == nil {
 		return nil
 	}
 	return b.OldStartLine2
 }
 
-type DiffFiles struct {
-	AddedLines          float64        `json:"addedLines"`
-	Blocks              []Block        `json:"blocks"`
-	ChangedPercentage   *float64       `json:"changedPercentage,omitzero"`
-	ChecksumAfter       *string        `json:"checksumAfter,omitzero"`
-	ChecksumBefore      *ScalarOrArray `json:"checksumBefore,omitzero"`
-	DeletedFileMode     *string        `json:"deletedFileMode,omitzero"`
-	DeletedLines        float64        `json:"deletedLines"`
-	IsBinary            *bool          `json:"isBinary,omitzero"`
-	IsCombined          bool           `json:"isCombined"`
-	IsCopy              *bool          `json:"isCopy,omitzero"`
-	IsDeleted           *bool          `json:"isDeleted,omitzero"`
-	IsGitDiff           bool           `json:"isGitDiff"`
-	IsNew               *bool          `json:"isNew,omitzero"`
-	IsRename            *bool          `json:"isRename,omitzero"`
-	IsTooBig            *bool          `json:"isTooBig,omitzero"`
-	Language            string         `json:"language"`
-	Mode                *string        `json:"mode,omitzero"`
-	NewFileMode         *string        `json:"newFileMode,omitzero"`
-	NewMode             *string        `json:"newMode,omitzero"`
-	NewName             string         `json:"newName"`
-	OldMode             *ScalarOrArray `json:"oldMode,omitzero"`
-	OldName             string         `json:"oldName"`
-	UnchangedPercentage *float64       `json:"unchangedPercentage,omitzero"`
+type ChecksumBeforeType string
+
+const (
+	ChecksumBeforeTypeStr        ChecksumBeforeType = "str"
+	ChecksumBeforeTypeArrayOfStr ChecksumBeforeType = "arrayOfStr"
+)
+
+// ChecksumBefore - Checksum of the original file. May be an array for combined diffs.
+type ChecksumBefore struct {
+	Str        *string  `queryParam:"inline" union:"member"`
+	ArrayOfStr []string `queryParam:"inline" union:"member"`
+
+	Type ChecksumBeforeType
 }
 
-func (d *DiffFiles) GetAddedLines() float64 {
+func CreateChecksumBeforeStr(str string) ChecksumBefore {
+	typ := ChecksumBeforeTypeStr
+
+	return ChecksumBefore{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateChecksumBeforeArrayOfStr(arrayOfStr []string) ChecksumBefore {
+	typ := ChecksumBeforeTypeArrayOfStr
+
+	return ChecksumBefore{
+		ArrayOfStr: arrayOfStr,
+		Type:       typ,
+	}
+}
+
+func (u *ChecksumBefore) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ChecksumBeforeTypeStr,
+			Value: &str,
+		})
+	}
+
+	var arrayOfStr []string = []string{}
+	if err := utils.UnmarshalJSON(data, &arrayOfStr, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ChecksumBeforeTypeArrayOfStr,
+			Value: arrayOfStr,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChecksumBefore", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChecksumBefore", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(ChecksumBeforeType)
+	switch best.Type {
+	case ChecksumBeforeTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case ChecksumBeforeTypeArrayOfStr:
+		u.ArrayOfStr = best.Value.([]string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ChecksumBefore", string(data))
+}
+
+func (u ChecksumBefore) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.ArrayOfStr != nil {
+		return utils.MarshalJSON(u.ArrayOfStr, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type ChecksumBefore: all fields are null")
+}
+
+type OldModeType string
+
+const (
+	OldModeTypeStr        OldModeType = "str"
+	OldModeTypeArrayOfStr OldModeType = "arrayOfStr"
+)
+
+// OldMode - File mode of the original file. May be an array for combined diffs.
+type OldMode struct {
+	Str        *string  `queryParam:"inline" union:"member"`
+	ArrayOfStr []string `queryParam:"inline" union:"member"`
+
+	Type OldModeType
+}
+
+func CreateOldModeStr(str string) OldMode {
+	typ := OldModeTypeStr
+
+	return OldMode{
+		Str:  &str,
+		Type: typ,
+	}
+}
+
+func CreateOldModeArrayOfStr(arrayOfStr []string) OldMode {
+	typ := OldModeTypeArrayOfStr
+
+	return OldMode{
+		ArrayOfStr: arrayOfStr,
+		Type:       typ,
+	}
+}
+
+func (u *OldMode) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var str string = ""
+	if err := utils.UnmarshalJSON(data, &str, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OldModeTypeStr,
+			Value: &str,
+		})
+	}
+
+	var arrayOfStr []string = []string{}
+	if err := utils.UnmarshalJSON(data, &arrayOfStr, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  OldModeTypeArrayOfStr,
+			Value: arrayOfStr,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OldMode", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OldMode", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(OldModeType)
+	switch best.Type {
+	case OldModeTypeStr:
+		u.Str = best.Value.(*string)
+		return nil
+	case OldModeTypeArrayOfStr:
+		u.ArrayOfStr = best.Value.([]string)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OldMode", string(data))
+}
+
+func (u OldMode) MarshalJSON() ([]byte, error) {
+	if u.Str != nil {
+		return utils.MarshalJSON(u.Str, "", true)
+	}
+
+	if u.ArrayOfStr != nil {
+		return utils.MarshalJSON(u.ArrayOfStr, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type OldMode: all fields are null")
+}
+
+type DiffFiles struct {
+	// Number of lines added in this file.
+	AddedLines int64 `json:"addedLines"`
+	// Array of diff blocks (hunks) showing changed line ranges in this file.
+	Blocks []Block `json:"blocks"`
+	// Percentage of lines in the file that changed.
+	ChangedPercentage *float64 `json:"changedPercentage,omitzero"`
+	// Checksum of the new file.
+	ChecksumAfter *string `json:"checksumAfter,omitzero"`
+	// Checksum of the original file. May be an array for combined diffs.
+	ChecksumBefore *ChecksumBefore `json:"checksumBefore,omitzero"`
+	// File mode of the deleted file, present when the file was deleted.
+	DeletedFileMode *string `json:"deletedFileMode,omitzero"`
+	// Number of lines deleted in this file.
+	DeletedLines int64 `json:"deletedLines"`
+	// If <code>true</code>, this file is a binary file and the diff content is not shown. Otherwise, <code>false</code>.
+	IsBinary *bool `json:"isBinary,omitzero"`
+	// If <code>true</code>, this is a combined diff (merge commit). Otherwise, <code>false</code>.
+	IsCombined bool `json:"isCombined"`
+	// If <code>true</code>, this file was copied from another path. Otherwise, <code>false</code>.
+	IsCopy *bool `json:"isCopy,omitzero"`
+	// If <code>true</code>, this file was deleted in the commit. Otherwise, <code>false</code>.
+	IsDeleted *bool `json:"isDeleted,omitzero"`
+	// If <code>true</code>, this diff was generated by Git. Otherwise, <code>false</code>.
+	IsGitDiff bool `json:"isGitDiff"`
+	// If <code>true</code>, this file was added in the commit. Otherwise, <code>false</code>.
+	IsNew *bool `json:"isNew,omitzero"`
+	// If <code>true</code>, this file was renamed. Otherwise, <code>false</code>.
+	IsRename *bool `json:"isRename,omitzero"`
+	// If <code>true</code>, the diff was truncated because it exceeded the line limit. Otherwise, <code>false</code>.
+	IsTooBig *bool `json:"isTooBig,omitzero"`
+	// Programming language or file format detected for syntax highlighting.
+	Language string `json:"language"`
+	// Combined file mode when both old and new modes are the same.
+	Mode *string `json:"mode,omitzero"`
+	// File mode of the new file, present when the file was added.
+	NewFileMode *string `json:"newFileMode,omitzero"`
+	// File mode of the new file.
+	NewMode *string `json:"newMode,omitzero"`
+	// New file path after the change.
+	NewName string `json:"newName"`
+	// File mode of the original file. May be an array for combined diffs.
+	OldMode *OldMode `json:"oldMode,omitzero"`
+	// Original file path before the change.
+	OldName string `json:"oldName"`
+	// Percentage of lines in the file that are unchanged.
+	UnchangedPercentage *float64 `json:"unchangedPercentage,omitzero"`
+}
+
+func (d *DiffFiles) GetAddedLines() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.AddedLines
 }
@@ -100,7 +313,7 @@ func (d *DiffFiles) GetChecksumAfter() *string {
 	return d.ChecksumAfter
 }
 
-func (d *DiffFiles) GetChecksumBefore() *ScalarOrArray {
+func (d *DiffFiles) GetChecksumBefore() *ChecksumBefore {
 	if d == nil {
 		return nil
 	}
@@ -114,9 +327,9 @@ func (d *DiffFiles) GetDeletedFileMode() *string {
 	return d.DeletedFileMode
 }
 
-func (d *DiffFiles) GetDeletedLines() float64 {
+func (d *DiffFiles) GetDeletedLines() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.DeletedLines
 }
@@ -212,7 +425,7 @@ func (d *DiffFiles) GetNewName() string {
 	return d.NewName
 }
 
-func (d *DiffFiles) GetOldMode() *ScalarOrArray {
+func (d *DiffFiles) GetOldMode() *OldMode {
 	if d == nil {
 		return nil
 	}

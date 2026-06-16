@@ -3726,14 +3726,64 @@ func (e *CreateInputAuthenticationMechanism) IsExact() bool {
 	return false
 }
 
+type CreateInputCertificate struct {
+	// The certificate you registered as credentials for your app in the Azure portal
+	CertificateName string `json:"certificateName"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath string `json:"certPath"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath string `json:"privKeyPath"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitzero"`
+}
+
+func (c CreateInputCertificate) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputCertificate) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputCertificate) GetCertificateName() string {
+	if c == nil {
+		return ""
+	}
+	return c.CertificateName
+}
+
+func (c *CreateInputCertificate) GetCertPath() string {
+	if c == nil {
+		return ""
+	}
+	return c.CertPath
+}
+
+func (c *CreateInputCertificate) GetPrivKeyPath() string {
+	if c == nil {
+		return ""
+	}
+	return c.PrivKeyPath
+}
+
+func (c *CreateInputCertificate) GetPassphrase() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Passphrase
+}
+
 type CreateInputAuth struct {
 	Mechanism CreateInputAuthenticationMechanism `json:"mechanism"`
 	// Select or create a stored text secret
 	TextSecret           *string                                     `json:"textSecret,omitzero"`
 	ClientSecretAuthType *components.AuthenticationMethodOptionsAuth `json:"clientSecretAuthType,omitzero"`
 	// Select or create a stored text secret
-	ClientTextSecret *string                                                `json:"clientTextSecret,omitzero"`
-	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	ClientTextSecret *string                 `json:"clientTextSecret,omitzero"`
+	Certificate      *CreateInputCertificate `json:"certificate,omitzero"`
 	// Endpoint used to acquire authentication tokens from Azure
 	OauthEndpoint *components.MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint,omitzero"`
 	// client_id to pass in the OAuth request parameter
@@ -3791,7 +3841,7 @@ func (c *CreateInputAuth) GetClientTextSecret() *string {
 	return c.ClientTextSecret
 }
 
-func (c *CreateInputAuth) GetCertificate() *components.CertificateTypeAzureBlobAuthTypeClientCert {
+func (c *CreateInputAuth) GetCertificate() *CreateInputCertificate {
 	if c == nil {
 		return nil
 	}
@@ -6470,6 +6520,8 @@ const (
 	CreateInputDiscoveryTypeEdgePrometheusK8sPods CreateInputDiscoveryTypeEdgePrometheus = "k8s-pods"
 	// CreateInputDiscoveryTypeEdgePrometheusK8sServiceMonitor Kubernetes Service Monitor (v4.18+)
 	CreateInputDiscoveryTypeEdgePrometheusK8sServiceMonitor CreateInputDiscoveryTypeEdgePrometheus = "k8s-service-monitor"
+	// CreateInputDiscoveryTypeEdgePrometheusHTTPSd HTTP SD
+	CreateInputDiscoveryTypeEdgePrometheusHTTPSd CreateInputDiscoveryTypeEdgePrometheus = "http_sd"
 )
 
 func (e CreateInputDiscoveryTypeEdgePrometheus) ToPointer() *CreateInputDiscoveryTypeEdgePrometheus {
@@ -6480,7 +6532,7 @@ func (e CreateInputDiscoveryTypeEdgePrometheus) ToPointer() *CreateInputDiscover
 func (e *CreateInputDiscoveryTypeEdgePrometheus) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "static", "dns", "ec2", "k8s-node", "k8s-pods", "k8s-service-monitor":
+		case "static", "dns", "ec2", "k8s-node", "k8s-pods", "k8s-service-monitor", "http_sd":
 			return true
 		}
 	}
@@ -6677,6 +6729,14 @@ type CreateInputInputEdgePrometheus struct {
 	// expressions evaluate to true.
 	//
 	PodFilter []CreateInputPodFilter `json:"podFilter,omitzero"`
+	// URL to fetch target groups from (must be http or https)
+	HTTPDiscoveryURL *string `json:"httpDiscoveryUrl,omitzero"`
+	// Extra headers to send with the discovery request
+	HTTPDiscoveryHeaders []components.HTTPDiscoveryHeaderConfInputPrometheus `json:"httpDiscoveryHeaders,omitzero"`
+	// Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+	HTTPDiscoveryRejectUnauthorized *bool `json:"httpDiscoveryRejectUnauthorized,omitzero"`
+	// Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitzero"`
 	// Password for Prometheus Basic authentication
@@ -7024,6 +7084,34 @@ func (c *CreateInputInputEdgePrometheus) GetPodFilter() []CreateInputPodFilter {
 	return c.PodFilter
 }
 
+func (c *CreateInputInputEdgePrometheus) GetHTTPDiscoveryURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.HTTPDiscoveryURL
+}
+
+func (c *CreateInputInputEdgePrometheus) GetHTTPDiscoveryHeaders() []components.HTTPDiscoveryHeaderConfInputPrometheus {
+	if c == nil {
+		return nil
+	}
+	return c.HTTPDiscoveryHeaders
+}
+
+func (c *CreateInputInputEdgePrometheus) GetHTTPDiscoveryRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.HTTPDiscoveryRejectUnauthorized
+}
+
+func (c *CreateInputInputEdgePrometheus) GetMaxResponseBodySize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.MaxResponseBodySize
+}
+
 func (c *CreateInputInputEdgePrometheus) GetUsername() *string {
 	if c == nil {
 		return nil
@@ -7148,6 +7236,8 @@ const (
 	CreateInputDiscoveryTypePrometheusDNS CreateInputDiscoveryTypePrometheus = "dns"
 	// CreateInputDiscoveryTypePrometheusEc2 AWS EC2
 	CreateInputDiscoveryTypePrometheusEc2 CreateInputDiscoveryTypePrometheus = "ec2"
+	// CreateInputDiscoveryTypePrometheusHTTPSd HTTP SD
+	CreateInputDiscoveryTypePrometheusHTTPSd CreateInputDiscoveryTypePrometheus = "http_sd"
 )
 
 func (e CreateInputDiscoveryTypePrometheus) ToPointer() *CreateInputDiscoveryTypePrometheus {
@@ -7158,7 +7248,7 @@ func (e CreateInputDiscoveryTypePrometheus) ToPointer() *CreateInputDiscoveryTyp
 func (e *CreateInputDiscoveryTypePrometheus) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "static", "dns", "ec2":
+		case "static", "dns", "ec2", "http_sd":
 			return true
 		}
 	}
@@ -7271,6 +7361,14 @@ type CreateInputInputPrometheus struct {
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// URL to fetch target groups from (must be http or https)
+	HTTPDiscoveryURL *string `json:"httpDiscoveryUrl,omitzero"`
+	// Extra headers to send with the discovery request
+	HTTPDiscoveryHeaders []components.HTTPDiscoveryHeaderConfInputPrometheus `json:"httpDiscoveryHeaders,omitzero"`
+	// Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+	HTTPDiscoveryRejectUnauthorized *bool `json:"httpDiscoveryRejectUnauthorized,omitzero"`
+	// Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitzero"`
 	// Password for Prometheus Basic authentication
@@ -7626,6 +7724,34 @@ func (c *CreateInputInputPrometheus) GetDurationSeconds() *float64 {
 		return nil
 	}
 	return c.DurationSeconds
+}
+
+func (c *CreateInputInputPrometheus) GetHTTPDiscoveryURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.HTTPDiscoveryURL
+}
+
+func (c *CreateInputInputPrometheus) GetHTTPDiscoveryHeaders() []components.HTTPDiscoveryHeaderConfInputPrometheus {
+	if c == nil {
+		return nil
+	}
+	return c.HTTPDiscoveryHeaders
+}
+
+func (c *CreateInputInputPrometheus) GetHTTPDiscoveryRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.HTTPDiscoveryRejectUnauthorized
+}
+
+func (c *CreateInputInputPrometheus) GetMaxResponseBodySize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.MaxResponseBodySize
 }
 
 func (c *CreateInputInputPrometheus) GetUsername() *string {
@@ -14059,6 +14185,7 @@ const (
 	CreateInputRequestTypeServicenowTable      CreateInputRequestType = "servicenow_table"
 	CreateInputRequestTypeZscalerHec           CreateInputRequestType = "zscaler_hec"
 	CreateInputRequestTypeCloudflareHec        CreateInputRequestType = "cloudflare_hec"
+	CreateInputRequestTypeSysdigHec            CreateInputRequestType = "sysdig_hec"
 	CreateInputRequestTypeOpenaiComplianceLogs CreateInputRequestType = "openai_compliance_logs"
 	CreateInputRequestTypeAnthropicCompliance  CreateInputRequestType = "anthropic_compliance"
 	CreateInputRequestTypeOkta                 CreateInputRequestType = "okta"
@@ -14131,6 +14258,7 @@ type CreateInputRequest struct {
 	CreateInputInputServicenowTable      *CreateInputInputServicenowTable      `queryParam:"inline" union:"member"`
 	CreateInputInputZscalerHec           *CreateInputInputZscalerHec           `queryParam:"inline" union:"member"`
 	CreateInputInputCloudflareHec        *CreateInputInputCloudflareHec        `queryParam:"inline" union:"member"`
+	CreateInputInputSysdigHec            *CreateInputInputSysdigHec            `queryParam:"inline" union:"member"`
 	CreateInputInputOpenaiComplianceLogs *CreateInputInputOpenaiComplianceLogs `queryParam:"inline" union:"member"`
 	CreateInputInputAnthropicCompliance  *CreateInputInputAnthropicCompliance  `queryParam:"inline" union:"member"`
 	CreateInputInputOkta                 *CreateInputInputOkta                 `queryParam:"inline" union:"member"`
@@ -14912,6 +15040,18 @@ func CreateCreateInputRequestCloudflareHec(cloudflareHec CreateInputInputCloudfl
 	}
 }
 
+func CreateCreateInputRequestSysdigHec(sysdigHec CreateInputInputSysdigHec) CreateInputRequest {
+	typ := CreateInputRequestTypeSysdigHec
+
+	typStr := CreateInputTypeSysdigHec(typ)
+	sysdigHec.Type = typStr
+
+	return CreateInputRequest{
+		CreateInputInputSysdigHec: &sysdigHec,
+		Type:                      typ,
+	}
+}
+
 func CreateCreateInputRequestOpenaiComplianceLogs(openaiComplianceLogs CreateInputInputOpenaiComplianceLogs) CreateInputRequest {
 	typ := CreateInputRequestTypeOpenaiComplianceLogs
 
@@ -15545,6 +15685,15 @@ func (u *CreateInputRequest) UnmarshalJSON(data []byte) error {
 		u.CreateInputInputCloudflareHec = createInputInputCloudflareHec
 		u.Type = CreateInputRequestTypeCloudflareHec
 		return nil
+	case "sysdig_hec":
+		createInputInputSysdigHec := new(CreateInputInputSysdigHec)
+		if err := utils.UnmarshalJSON(data, &createInputInputSysdigHec, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == sysdig_hec) type CreateInputInputSysdigHec within CreateInputRequest: %w", string(data), err)
+		}
+
+		u.CreateInputInputSysdigHec = createInputInputSysdigHec
+		u.Type = CreateInputRequestTypeSysdigHec
+		return nil
 	case "openai_compliance_logs":
 		createInputInputOpenaiComplianceLogs := new(CreateInputInputOpenaiComplianceLogs)
 		if err := utils.UnmarshalJSON(data, &createInputInputOpenaiComplianceLogs, "", true, nil); err != nil {
@@ -15836,6 +15985,10 @@ func (u CreateInputRequest) MarshalJSON() ([]byte, error) {
 
 	if u.CreateInputInputCloudflareHec != nil {
 		return utils.MarshalJSON(u.CreateInputInputCloudflareHec, "", true)
+	}
+
+	if u.CreateInputInputSysdigHec != nil {
+		return utils.MarshalJSON(u.CreateInputInputSysdigHec, "", true)
 	}
 
 	if u.CreateInputInputOpenaiComplianceLogs != nil {

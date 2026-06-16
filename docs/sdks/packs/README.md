@@ -235,33 +235,9 @@ func main() {
     }
 }
 ```
+### Example Usage: PackInstallResponseExamplesInstalledFromURL
 
-### Parameters
-
-| Parameter                                                                          | Type                                                                               | Required                                                                           | Description                                                                        |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `ctx`                                                                              | [context.Context](https://pkg.go.dev/context#Context)                              | :heavy_check_mark:                                                                 | The context to use for the request.                                                |
-| `request`                                                                          | [components.PackRequestBodyUnion](../../models/components/packrequestbodyunion.md) | :heavy_check_mark:                                                                 | The request object to use for the request.                                         |
-| `opts`                                                                             | [][operations.Option](../../models/operations/option.md)                           | :heavy_minus_sign:                                                                 | The options for this request.                                                      |
-
-### Response
-
-**[*operations.CreatePacksResponse](../../models/operations/createpacksresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
-
-## List
-
-Get a list of all Packs.
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="getPacks" method="get" path="/packs" -->
+<!-- UsageSnippet language="go" operationID="createPacks" method="post" path="/packs" example="PackInstallResponseExamplesInstalledFromURL" -->
 ```go
 package main
 
@@ -283,7 +259,69 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.List(ctx, criblcontrolplanesdkgo.Pointer("<value>"))
+    res, err := s.Packs.Install(ctx, components.CreatePackRequestBodyUnionPackRequestBody2(
+        components.PackRequestBody2{
+            Source: "<value>",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPackInstallInfo != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                          | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `ctx`                                                                              | [context.Context](https://pkg.go.dev/context#Context)                              | :heavy_check_mark:                                                                 | The context to use for the request.                                                |
+| `request`                                                                          | [components.PackRequestBodyUnion](../../models/components/packrequestbodyunion.md) | :heavy_check_mark:                                                                 | The request object to use for the request.                                         |
+| `opts`                                                                             | [][operations.Option](../../models/operations/option.md)                           | :heavy_minus_sign:                                                                 | The options for this request.                                                      |
+
+### Response
+
+**[*operations.CreatePacksResponse](../../models/operations/createpacksresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## List
+
+Get a list of all Packs.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getPacks" method="get" path="/packs" example="PackListResponseExamplesPackList" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.List(ctx, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -309,6 +347,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -318,7 +357,7 @@ Upload a Pack file. Returns the <code>source</code> ID needed to install the Pac
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="updatePacks" method="put" path="/packs" -->
+<!-- UsageSnippet language="go" operationID="updatePacks" method="put" path="/packs" example="PackUploadResponseExamplesUploadedPack" -->
 ```go
 package main
 
@@ -372,6 +411,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -379,9 +419,42 @@ func main() {
 
 Get the specified Pack.
 
-### Example Usage
+### Example Usage: PackGetResponseExamplesEmptyPack
 
-<!-- UsageSnippet language="go" operationID="getPacksById" method="get" path="/packs/{id}" -->
+<!-- UsageSnippet language="go" operationID="getPacksById" method="get" path="/packs/{id}" example="PackGetResponseExamplesEmptyPack" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPackInfo != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PackGetResponseExamplesInstalledPack
+
+<!-- UsageSnippet language="go" operationID="getPacksById" method="get" path="/packs/{id}" example="PackGetResponseExamplesInstalledPack" -->
 ```go
 package main
 
@@ -429,6 +502,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -436,7 +510,7 @@ func main() {
 
 Upgrade the specified Pack.<br/><br/>If the Pack includes any user-modified versions of default Cribl Knowledge resources such as lookups, copy the modified files locally for safekeeping before upgrading the Pack. Copy the modified files back to the upgraded Pack after you install it with <code>POST /packs</code> to overwrite the default versions in the Pack.<br/><br/>After you upgrade the Pack, update any Routes, Pipelines, Sources, and Destinations that use the previous Pack version so that they reference the upgraded Pack.
 
-### Example Usage
+### Example Usage: PackUpgradeExamplesUpgradeFromURL
 
 <!-- UsageSnippet language="go" operationID="updatePacksById" method="patch" path="/packs/{id}" example="PackUpgradeExamplesUpgradeFromURL" -->
 ```go
@@ -471,6 +545,41 @@ func main() {
     }
 }
 ```
+### Example Usage: PackUpgradeResponseExamplesUpgraded
+
+<!-- UsageSnippet language="go" operationID="updatePacksById" method="patch" path="/packs/{id}" example="PackUpgradeResponseExamplesUpgraded" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Update(ctx, "<id>", components.PackUpgradeRequest{
+        Source: "<value>",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPackInfo != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -489,6 +598,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -498,7 +608,7 @@ Uninstall the specified Pack.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="deletePacksById" method="delete" path="/packs/{id}" -->
+<!-- UsageSnippet language="go" operationID="deletePacksById" method="delete" path="/packs/{id}" example="PackDeleteResponseExamplesUninstalled" -->
 ```go
 package main
 
@@ -546,5 +656,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

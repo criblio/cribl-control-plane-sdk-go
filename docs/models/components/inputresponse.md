@@ -395,6 +395,12 @@ inputResponse := components.CreateInputResponseZscalerHec(components.InputRespon
 inputResponse := components.CreateInputResponseCloudflareHec(components.InputResponseInputCloudflareHec{/* values here */})
 ```
 
+### InputResponseInputSysdigHec
+
+```go
+inputResponse := components.CreateInputResponseSysdigHec(components.InputResponseInputSysdigHec{/* values here */})
+```
+
 ### InputResponseInputOpenaiComplianceLogs
 
 ```go
@@ -549,6 +555,8 @@ switch inputResponse.Type {
 		// inputResponse.InputResponseInputZscalerHec is populated
 	case components.InputResponseTypeCloudflareHecValue:
 		// inputResponse.InputResponseInputCloudflareHec is populated
+	case components.InputResponseTypeSysdigHecValue:
+		// inputResponse.InputResponseInputSysdigHec is populated
 	case components.InputResponseTypeOpenaiComplianceLogsValue:
 		// inputResponse.InputResponseInputOpenaiComplianceLogs is populated
 	case components.InputResponseTypeAnthropicComplianceValue:

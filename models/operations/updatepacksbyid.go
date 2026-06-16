@@ -30,7 +30,7 @@ func (u *UpdatePacksByIDRequest) GetPackUpgradeRequest() components.PackUpgradeR
 
 type UpdatePacksByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// The updated PackInfo object in a single-item list.
+	// The upgraded Pack object in a single-item list.
 	CountedPackInfo *components.CountedPackInfo
 }
 

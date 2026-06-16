@@ -1,4 +1,6 @@
-# FilesTypeGitCommitSummary
+# GitRevertResultFiles
+
+Files affected by the revert, grouped by change type.
 
 
 ## Fields

@@ -21,7 +21,7 @@ func (g *GetPacksByIDRequest) GetID() string {
 
 type GetPacksByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// The requested PackInfo object in a single-item list.
+	// The requested Pack object in a single-item list.
 	CountedPackInfo *components.CountedPackInfo
 }
 

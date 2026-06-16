@@ -14,11 +14,11 @@
 
 ## List
 
-List the commit history.</br></br> Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
+List the commit history.<br/><br/>Analogous to <code>git log</code> for the Cribl configuration, allowing you to audit and review changes over time.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getVersion" method="get" path="/version" -->
+<!-- UsageSnippet language="go" operationID="getVersion" method="get" path="/version" example="VersionListResponseExamplesListCommitHistory" -->
 ```go
 package main
 
@@ -40,7 +40,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.List(ctx, criblcontrolplanesdkgo.Pointer[int64](893.58))
+    res, err := s.Versions.Commits.List(ctx, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -66,12 +66,13 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
 ## Create
 
-Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.</br></br> To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
+Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.<br/><br/>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
 
 ### Example Usage: VersionCommitExamplesCommitAll
 
@@ -148,33 +149,9 @@ func main() {
     }
 }
 ```
+### Example Usage: VersionCommitResponseExamplesCommitCreated
 
-### Parameters
-
-| Parameter                                                            | Type                                                                 | Required                                                             | Description                                                          |
-| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `ctx`                                                                | [context.Context](https://pkg.go.dev/context#Context)                | :heavy_check_mark:                                                   | The context to use for the request.                                  |
-| `request`                                                            | [components.GitCommitBody](../../models/components/gitcommitbody.md) | :heavy_check_mark:                                                   | The request object to use for the request.                           |
-| `opts`                                                               | [][operations.Option](../../models/operations/option.md)             | :heavy_minus_sign:                                                   | The options for this request.                                        |
-
-### Response
-
-**[*operations.CreateVersionCommitResponse](../../models/operations/createversioncommitresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
-
-## Diff
-
-Get the diff for a commit. Default is the latest commit (HEAD).
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="getVersionDiff" method="get" path="/version/diff" -->
+<!-- UsageSnippet language="go" operationID="createVersionCommit" method="post" path="/version/commit" example="VersionCommitResponseExamplesCommitCreated" -->
 ```go
 package main
 
@@ -196,7 +173,67 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.Diff(ctx, criblcontrolplanesdkgo.Pointer("<value>"), criblcontrolplanesdkgo.Pointer("example.file"), criblcontrolplanesdkgo.Pointer[int64](6362))
+    res, err := s.Versions.Commits.Create(ctx, components.GitCommitBody{
+        Message: "<value>",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedGitCommitSummary != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                            | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `ctx`                                                                | [context.Context](https://pkg.go.dev/context#Context)                | :heavy_check_mark:                                                   | The context to use for the request.                                  |
+| `request`                                                            | [components.GitCommitBody](../../models/components/gitcommitbody.md) | :heavy_check_mark:                                                   | The request object to use for the request.                           |
+| `opts`                                                               | [][operations.Option](../../models/operations/option.md)             | :heavy_minus_sign:                                                   | The options for this request.                                        |
+
+### Response
+
+**[*operations.CreateVersionCommitResponse](../../models/operations/createversioncommitresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## Diff
+
+Get the diff for a commit. Default is the latest commit (HEAD).
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getVersionDiff" method="get" path="/version/diff" example="VersionDiffResponseExamplesDiffResult" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Versions.Commits.Diff(ctx, nil, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -224,16 +261,17 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
 ## Push
 
-Push all local commits from the local repository to the remote repository.
+Push all local commits from the local repository to the remote repository.<br/><br/>Requires at least one local commit that has not been pushed. Returns an error if the remote repository cannot be reached or the push is rejected.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="createVersionPush" method="post" path="/version/push" -->
+<!-- UsageSnippet language="go" operationID="createVersionPush" method="post" path="/version/push" example="VersionPushResponseExamplesPushResult" -->
 ```go
 package main
 
@@ -280,12 +318,13 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
 ## Revert
 
-Revert a commit in the local repository.
+Revert a commit in the local repository by creating a new commit that undoes the changes introduced by the specified commit.<br/><br/>Use the <code>force</code> field to proceed even when the working directory is not clean.
 
 ### Example Usage: VersionRevertExamplesForceRevertWithMessage
 
@@ -359,33 +398,9 @@ func main() {
     }
 }
 ```
+### Example Usage: VersionRevertResponseExamplesRevertResult
 
-### Parameters
-
-| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
-| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
-| `ctx`                                                                    | [context.Context](https://pkg.go.dev/context#Context)                    | :heavy_check_mark:                                                       | The context to use for the request.                                      |
-| `request`                                                                | [components.GitRevertParams](../../models/components/gitrevertparams.md) | :heavy_check_mark:                                                       | The request object to use for the request.                               |
-| `opts`                                                                   | [][operations.Option](../../models/operations/option.md)                 | :heavy_minus_sign:                                                       | The options for this request.                                            |
-
-### Response
-
-**[*operations.CreateVersionRevertResponse](../../models/operations/createversionrevertresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
-
-## Get
-
-Get the diff and log message for a commit. Default is the latest commit (HEAD).
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="getVersionShow" method="get" path="/version/show" -->
+<!-- UsageSnippet language="go" operationID="createVersionRevert" method="post" path="/version/revert" example="VersionRevertResponseExamplesRevertResult" -->
 ```go
 package main
 
@@ -407,7 +422,67 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.Get(ctx, criblcontrolplanesdkgo.Pointer("<value>"), criblcontrolplanesdkgo.Pointer("example.file"), criblcontrolplanesdkgo.Pointer[int64](7771.94))
+    res, err := s.Versions.Commits.Revert(ctx, components.GitRevertParams{
+        Commit: "<value>",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedGitRevertResult != nil {
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `ctx`                                                                    | [context.Context](https://pkg.go.dev/context#Context)                    | :heavy_check_mark:                                                       | The context to use for the request.                                      |
+| `request`                                                                | [components.GitRevertParams](../../models/components/gitrevertparams.md) | :heavy_check_mark:                                                       | The request object to use for the request.                               |
+| `opts`                                                                   | [][operations.Option](../../models/operations/option.md)                 | :heavy_minus_sign:                                                       | The options for this request.                                            |
+
+### Response
+
+**[*operations.CreateVersionRevertResponse](../../models/operations/createversionrevertresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## Get
+
+Get the diff and log message for a commit. Default is the latest commit (HEAD).
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getVersionShow" method="get" path="/version/show" example="VersionShowResponseExamplesShowCommit" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Versions.Commits.Get(ctx, nil, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -435,16 +510,17 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
 ## Undo
 
-Discard all uncommitted (staged) configuration changes, resetting the working directory to the last committed state. Use only if you are certain that you do not need to preserve your local changes.
+Discard all uncommitted (staged) configuration changes, resetting the working directory to the last committed state. Use only if you are certain that you do not need to preserve your local changes.<br/><br/>When applied globally (no group), triggers a Cribl restart to reload the reverted configuration. Returns <code>false</code> if the working directory is already clean.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="createVersionUndo" method="post" path="/version/undo" -->
+<!-- UsageSnippet language="go" operationID="createVersionUndo" method="post" path="/version/undo" example="VersionUndoResponseExamplesUndoResult" -->
 ```go
 package main
 
@@ -491,5 +567,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

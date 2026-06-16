@@ -225,6 +225,31 @@ func (s *Datasets) List(ctx context.Context, request operations.GetCriblLakeData
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode == 500:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
@@ -250,8 +275,6 @@ func (s *Datasets) List(ctx context.Context, request operations.GetCriblLakeData
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 401:
-		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -479,6 +502,31 @@ func (s *Datasets) Create(ctx context.Context, lakeID string, criblLakeDataset c
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode == 500:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
@@ -504,8 +552,6 @@ func (s *Datasets) Create(ctx context.Context, lakeID string, criblLakeDataset c
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 401:
-		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -731,6 +777,31 @@ func (s *Datasets) Get(ctx context.Context, lakeID string, id string, includeMet
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode == 500:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
@@ -756,8 +827,6 @@ func (s *Datasets) Get(ctx context.Context, lakeID string, id string, includeMet
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 401:
-		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -986,6 +1055,31 @@ func (s *Datasets) Update(ctx context.Context, lakeID string, id string, criblLa
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode == 500:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
@@ -1011,8 +1105,6 @@ func (s *Datasets) Update(ctx context.Context, lakeID string, id string, criblLa
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 401:
-		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -1233,6 +1325,31 @@ func (s *Datasets) Delete(ctx context.Context, lakeID string, id string, opts ..
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode == 500:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
@@ -1258,8 +1375,6 @@ func (s *Datasets) Delete(ctx context.Context, lakeID string, id string, opts ..
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 401:
-		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {

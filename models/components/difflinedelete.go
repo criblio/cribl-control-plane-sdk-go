@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// DiffLineDeleteType - Line change type. Always <code>delete</code> for deleted lines.
 type DiffLineDeleteType string
 
 const (
@@ -31,10 +32,14 @@ func (e *DiffLineDeleteType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// DiffLineDelete - Deleted line in a Git diff hunk.
 type DiffLineDelete struct {
-	Type      DiffLineDeleteType `json:"type"`
-	OldNumber float64            `json:"oldNumber"`
-	Content   string             `json:"content"`
+	// Line change type. Always <code>delete</code> for deleted lines.
+	Type DiffLineDeleteType `json:"type"`
+	// Line number in the original file.
+	OldNumber int64 `json:"oldNumber"`
+	// Full content of the line, including the diff prefix character.
+	Content string `json:"content"`
 }
 
 func (d DiffLineDelete) MarshalJSON() ([]byte, error) {
@@ -55,9 +60,9 @@ func (d *DiffLineDelete) GetType() DiffLineDeleteType {
 	return d.Type
 }
 
-func (d *DiffLineDelete) GetOldNumber() float64 {
+func (d *DiffLineDelete) GetOldNumber() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.OldNumber
 }

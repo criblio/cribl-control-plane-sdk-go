@@ -288,6 +288,10 @@ func (u *UpdateInputByIDRequest) GetInputCloudflareHec() *components.InputCloudf
 	return u.GetInput().InputCloudflareHecInput
 }
 
+func (u *UpdateInputByIDRequest) GetInputSysdigHec() *components.InputSysdigHecInput {
+	return u.GetInput().InputSysdigHecInput
+}
+
 func (u *UpdateInputByIDRequest) GetInputOpenaiComplianceLogs() *components.InputOpenaiComplianceLogsInput {
 	return u.GetInput().InputOpenaiComplianceLogsInput
 }

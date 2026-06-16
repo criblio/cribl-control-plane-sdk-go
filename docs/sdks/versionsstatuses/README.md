@@ -12,7 +12,7 @@ Get the status of the current working tree of the Git repository used for Cribl 
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getVersionStatus" method="get" path="/version/status" -->
+<!-- UsageSnippet language="go" operationID="getVersionStatus" method="get" path="/version/status" example="VersionStatusResponseExamplesWorkingTreeStatus" -->
 ```go
 package main
 
@@ -59,5 +59,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

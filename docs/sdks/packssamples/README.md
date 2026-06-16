@@ -11,9 +11,75 @@
 
 Get sample event data for the specified Destination to validate the configuration or test connectivity within the specified Pack.
 
-### Example Usage
+### Example Usage: OutputResponseExamplesS3Destination
 
-<!-- UsageSnippet language="go" operationID="getOutputSystemSamplesByPackAndId" method="get" path="/p/{pack}/system/outputs/{id}/samples" -->
+<!-- UsageSnippet language="go" operationID="getOutputSystemSamplesByPackAndId" method="get" path="/p/{pack}/system/outputs/{id}/samples" example="OutputResponseExamplesS3Destination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Samples.Get(ctx, "<id>", "<value>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputSamplesResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSplunkHecDestination
+
+<!-- UsageSnippet language="go" operationID="getOutputSystemSamplesByPackAndId" method="get" path="/p/{pack}/system/outputs/{id}/samples" example="OutputResponseExamplesSplunkHecDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Samples.Get(ctx, "<id>", "<value>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputSamplesResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSyslogDestination
+
+<!-- UsageSnippet language="go" operationID="getOutputSystemSamplesByPackAndId" method="get" path="/p/{pack}/system/outputs/{id}/samples" example="OutputResponseExamplesSyslogDestination" -->
 ```go
 package main
 
@@ -62,6 +128,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -69,6 +136,138 @@ func main() {
 
 Send sample event data to the specified Destination to validate the configuration or test connectivity within the specified Pack.
 
+### Example Usage: OutputResponseExamplesS3Destination
+
+<!-- UsageSnippet language="go" operationID="createOutputSystemTestByPackAndId" method="post" path="/p/{pack}/system/outputs/{id}/test" example="OutputResponseExamplesS3Destination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Samples.Create(ctx, "<id>", "<value>", components.OutputTestRequest{
+        Events: []map[string]any{
+            map[string]any{
+                "key": "<value>",
+                "key1": "<value>",
+                "key2": "<value>",
+            },
+            map[string]any{
+
+            },
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputTestResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSplunkHecDestination
+
+<!-- UsageSnippet language="go" operationID="createOutputSystemTestByPackAndId" method="post" path="/p/{pack}/system/outputs/{id}/test" example="OutputResponseExamplesSplunkHecDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Samples.Create(ctx, "<id>", "<value>", components.OutputTestRequest{
+        Events: []map[string]any{
+            map[string]any{
+                "key": "<value>",
+                "key1": "<value>",
+                "key2": "<value>",
+            },
+            map[string]any{
+
+            },
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputTestResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSyslogDestination
+
+<!-- UsageSnippet language="go" operationID="createOutputSystemTestByPackAndId" method="post" path="/p/{pack}/system/outputs/{id}/test" example="OutputResponseExamplesSyslogDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Samples.Create(ctx, "<id>", "<value>", components.OutputTestRequest{
+        Events: []map[string]any{
+            map[string]any{
+                "key": "<value>",
+                "key1": "<value>",
+                "key2": "<value>",
+            },
+            map[string]any{
+
+            },
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputTestResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputTestExamplesMultipleEvents
 
 <!-- UsageSnippet language="go" operationID="createOutputSystemTestByPackAndId" method="post" path="/p/{pack}/system/outputs/{id}/test" example="OutputTestExamplesMultipleEvents" -->
@@ -175,5 +374,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

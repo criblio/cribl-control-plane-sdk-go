@@ -14,6 +14,7 @@ type WorkersTypeSystemSettingsConf struct {
 	V8SingleThread                       *bool    `json:"v8SingleThread,omitzero"`
 	WorkerProcessConfigUpdateConcurrency *float64 `json:"workerProcessConfigUpdateConcurrency,omitzero"`
 	WorkerProcessReloadTimeout           *float64 `json:"workerProcessReloadTimeout,omitzero"`
+	WorkerThreadPoolSize                 *float64 `json:"workerThreadPoolSize,omitzero"`
 }
 
 func (w *WorkersTypeSystemSettingsConf) GetCount() float64 {
@@ -91,4 +92,11 @@ func (w *WorkersTypeSystemSettingsConf) GetWorkerProcessReloadTimeout() *float64
 		return nil
 	}
 	return w.WorkerProcessReloadTimeout
+}
+
+func (w *WorkersTypeSystemSettingsConf) GetWorkerThreadPoolSize() *float64 {
+	if w == nil {
+		return nil
+	}
+	return w.WorkerThreadPoolSize
 }

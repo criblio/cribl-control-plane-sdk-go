@@ -3,8 +3,11 @@
 package components
 
 type GitRevertParams struct {
-	Commit  string  `json:"commit"`
-	Force   *bool   `json:"force,omitzero"`
+	// SHA-1 hash of the commit to revert.
+	Commit string `json:"commit"`
+	// If <code>true</code>, force the revert even when the working directory is not clean. Otherwise, <code>false</code>.
+	Force *bool `json:"force,omitzero"`
+	// Custom message to use for the revert commit. If omitted, a default message is generated.
 	Message *string `json:"message,omitzero"`
 }
 

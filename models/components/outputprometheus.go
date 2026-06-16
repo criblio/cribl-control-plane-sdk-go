@@ -31,6 +31,39 @@ func (e *OutputPrometheusType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputPrometheusAuthenticationType - Remote Write authentication type
+type OutputPrometheusAuthenticationType string
+
+const (
+	// OutputPrometheusAuthenticationTypeNone None
+	OutputPrometheusAuthenticationTypeNone OutputPrometheusAuthenticationType = "none"
+	// OutputPrometheusAuthenticationTypeBasic Basic
+	OutputPrometheusAuthenticationTypeBasic OutputPrometheusAuthenticationType = "basic"
+	// OutputPrometheusAuthenticationTypeCredentialsSecret Basic (credentials secret)
+	OutputPrometheusAuthenticationTypeCredentialsSecret OutputPrometheusAuthenticationType = "credentialsSecret"
+	// OutputPrometheusAuthenticationTypeToken Token
+	OutputPrometheusAuthenticationTypeToken OutputPrometheusAuthenticationType = "token"
+	// OutputPrometheusAuthenticationTypeTextSecret Token (text secret)
+	OutputPrometheusAuthenticationTypeTextSecret OutputPrometheusAuthenticationType = "textSecret"
+	// OutputPrometheusAuthenticationTypeAwsSigv4 AWS Signature v4
+	OutputPrometheusAuthenticationTypeAwsSigv4 OutputPrometheusAuthenticationType = "aws_sigv4"
+)
+
+func (e OutputPrometheusAuthenticationType) ToPointer() *OutputPrometheusAuthenticationType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputPrometheusAuthenticationType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "basic", "credentialsSecret", "token", "textSecret", "aws_sigv4":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputPrometheusPqControls struct {
 }
 
@@ -95,8 +128,8 @@ type OutputPrometheus struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Remote Write authentication type
-	AuthType    *AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	AuthType    *OutputPrometheusAuthenticationType `json:"authType,omitzero"`
+	Description *string                             `json:"description,omitzero"`
 	// How frequently metrics metadata is sent out. Value cannot be smaller than the base Flush period set above.
 	MetricsFlushPeriodSec *float64 `json:"metricsFlushPeriodSec,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -119,7 +152,7 @@ type OutputPrometheus struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                     `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputPrometheusPqControls `json:"pqControls,omitzero"`
 	Username             *string                     `json:"username,omitzero"`
@@ -130,6 +163,22 @@ type OutputPrometheus struct {
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
+	// AWS authentication method. Choose Auto to use IAM roles.
+	AwsAuthenticationMethod *AuthenticationMethodOptionsAutoSecret `json:"awsAuthenticationMethod,omitzero"`
+	// Select or create a stored secret that references your access key and secret key
+	AwsSecret *string `json:"awsSecret,omitzero"`
+	// AWS region used to sign Remote Write requests
+	Region *string `json:"region,omitzero"`
+	// ID used to sign Remote Write requests (for example, `aps` for Amazon Managed Service for Prometheus)
+	AwsService *string `json:"awsService,omitzero"`
+	// Use Assume Role credentials to access Prometheus
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
+	// Amazon Resource Name (ARN) of the role to assume
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
+	// External ID to use when assuming role
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
@@ -138,6 +187,14 @@ type OutputPrometheus struct {
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
 	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
 	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
+	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.
+	TemplateRegion *string `json:"__template_region,omitzero"`
+	// Binds 'awsService' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsService' at runtime.
+	TemplateAwsService *string `json:"__template_awsService,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 }
 
 func (o OutputPrometheus) MarshalJSON() ([]byte, error) {
@@ -319,7 +376,7 @@ func (o *OutputPrometheus) GetOnBackpressure() *BackpressureBehaviorOptions {
 	return o.OnBackpressure
 }
 
-func (o *OutputPrometheus) GetAuthType() *AuthenticationTypeOptionsPrometheusAuth {
+func (o *OutputPrometheus) GetAuthType() *OutputPrometheusAuthenticationType {
 	if o == nil {
 		return nil
 	}
@@ -459,6 +516,62 @@ func (o *OutputPrometheus) GetTextSecret() *string {
 	return o.TextSecret
 }
 
+func (o *OutputPrometheus) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsAutoSecret {
+	if o == nil {
+		return nil
+	}
+	return o.AwsAuthenticationMethod
+}
+
+func (o *OutputPrometheus) GetAwsSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsSecret
+}
+
+func (o *OutputPrometheus) GetRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Region
+}
+
+func (o *OutputPrometheus) GetAwsService() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AwsService
+}
+
+func (o *OutputPrometheus) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputPrometheus) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputPrometheus) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
+func (o *OutputPrometheus) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
 func (o *OutputPrometheus) GetTemplateStreamtags() *string {
 	if o == nil {
 		return nil
@@ -485,4 +598,32 @@ func (o *OutputPrometheus) GetTemplateOnBackpressure() *string {
 		return nil
 	}
 	return o.TemplateOnBackpressure
+}
+
+func (o *OutputPrometheus) GetTemplateRegion() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateRegion
+}
+
+func (o *OutputPrometheus) GetTemplateAwsService() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAwsService
+}
+
+func (o *OutputPrometheus) GetTemplateAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAssumeRoleArn
+}
+
+func (o *OutputPrometheus) GetTemplateAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAssumeRoleExternalID
 }

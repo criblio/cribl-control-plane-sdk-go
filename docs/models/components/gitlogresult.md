@@ -3,12 +3,12 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `AuthorEmail`      | `*string`          | :heavy_minus_sign: | N/A                |
-| `AuthorName`       | `*string`          | :heavy_minus_sign: | N/A                |
-| `Body`             | `*string`          | :heavy_minus_sign: | N/A                |
-| `Date`             | `*string`          | :heavy_minus_sign: | N/A                |
-| `Hash`             | `*string`          | :heavy_minus_sign: | N/A                |
-| `Message`          | `*string`          | :heavy_minus_sign: | N/A                |
-| `Refs`             | `*string`          | :heavy_minus_sign: | N/A                |
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `AuthorEmail`                                                        | `*string`                                                            | :heavy_minus_sign:                                                   | Email address of the commit author.                                  |
+| `AuthorName`                                                         | `*string`                                                            | :heavy_minus_sign:                                                   | Display name of the commit author.                                   |
+| `Body`                                                               | `*string`                                                            | :heavy_minus_sign:                                                   | Body of the commit message, excluding the subject line.              |
+| `Date`                                                               | `*string`                                                            | :heavy_minus_sign:                                                   | Date and time of the commit in ISO 8601 format with timezone offset. |
+| `Hash`                                                               | `*string`                                                            | :heavy_minus_sign:                                                   | Full SHA-1 hash of the commit.                                       |
+| `Message`                                                            | `*string`                                                            | :heavy_minus_sign:                                                   | First line of the commit message (the subject).                      |
+| `Refs`                                                               | `*string`                                                            | :heavy_minus_sign:                                                   | Git refs (branches, tags) pointing to this commit.                   |

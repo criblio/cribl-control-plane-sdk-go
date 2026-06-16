@@ -11,9 +11,75 @@
 
 Clear the persistent queue (PQ) for the specified Destination within the specified Pack.
 
-### Example Usage
+### Example Usage: OutputResponseExamplesS3Destination
 
-<!-- UsageSnippet language="go" operationID="deleteOutputSystemPqByPackAndId" method="delete" path="/p/{pack}/system/outputs/{id}/pq" -->
+<!-- UsageSnippet language="go" operationID="deleteOutputSystemPqByPackAndId" method="delete" path="/p/{pack}/system/outputs/{id}/pq" example="OutputResponseExamplesS3Destination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Pq.Clear(ctx, "<id>", "<value>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedString != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSplunkHecDestination
+
+<!-- UsageSnippet language="go" operationID="deleteOutputSystemPqByPackAndId" method="delete" path="/p/{pack}/system/outputs/{id}/pq" example="OutputResponseExamplesSplunkHecDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Pq.Clear(ctx, "<id>", "<value>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedString != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSyslogDestination
+
+<!-- UsageSnippet language="go" operationID="deleteOutputSystemPqByPackAndId" method="delete" path="/p/{pack}/system/outputs/{id}/pq" example="OutputResponseExamplesSyslogDestination" -->
 ```go
 package main
 
@@ -62,6 +128,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -69,9 +136,75 @@ func main() {
 
 Get information about the latest job to clear the persistent queue (PQ) for the specified Destination within the specified Pack.
 
-### Example Usage
+### Example Usage: OutputResponseExamplesS3Destination
 
-<!-- UsageSnippet language="go" operationID="getOutputSystemPqByPackAndId" method="get" path="/p/{pack}/system/outputs/{id}/pq" -->
+<!-- UsageSnippet language="go" operationID="getOutputSystemPqByPackAndId" method="get" path="/p/{pack}/system/outputs/{id}/pq" example="OutputResponseExamplesS3Destination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Pq.Get(ctx, "<id>", "<value>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedJobInfo != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSplunkHecDestination
+
+<!-- UsageSnippet language="go" operationID="getOutputSystemPqByPackAndId" method="get" path="/p/{pack}/system/outputs/{id}/pq" example="OutputResponseExamplesSplunkHecDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Pq.Get(ctx, "<id>", "<value>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedJobInfo != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSyslogDestination
+
+<!-- UsageSnippet language="go" operationID="getOutputSystemPqByPackAndId" method="get" path="/p/{pack}/system/outputs/{id}/pq" example="OutputResponseExamplesSyslogDestination" -->
 ```go
 package main
 
@@ -120,5 +253,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

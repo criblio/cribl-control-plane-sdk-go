@@ -15,7 +15,7 @@ Get a list of all Functions.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getFunctions" method="get" path="/functions" -->
+<!-- UsageSnippet language="go" operationID="getFunctions" method="get" path="/functions" example="FunctionListResponseExamplesFunctionList" -->
 ```go
 package main
 
@@ -62,6 +62,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -69,9 +70,42 @@ func main() {
 
 Get the specified Function.
 
-### Example Usage
+### Example Usage: FunctionResponseExamplesDropFunction
 
-<!-- UsageSnippet language="go" operationID="getFunctionsById" method="get" path="/functions/{id}" -->
+<!-- UsageSnippet language="go" operationID="getFunctionsById" method="get" path="/functions/{id}" example="FunctionResponseExamplesDropFunction" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Functions.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedFunctionResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: FunctionResponseExamplesEvalFunction
+
+<!-- UsageSnippet language="go" operationID="getFunctionsById" method="get" path="/functions/{id}" example="FunctionResponseExamplesEvalFunction" -->
 ```go
 package main
 
@@ -119,5 +153,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

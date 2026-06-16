@@ -62,7 +62,7 @@ type CreateOutputOutputStatsd struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                       `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsStatsd `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -1111,7 +1111,7 @@ type CreateOutputOutputCloudwatch struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                           `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsCloudwatch `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -1659,7 +1659,7 @@ type CreateOutputOutputInfluxdb struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                         `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsInfluxdb `json:"pqControls,omitzero"`
 	Username             *string                         `json:"username,omitzero"`
@@ -2183,7 +2183,7 @@ type CreateOutputOutputNewrelicEvents struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                               `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsNewrelicEvents `json:"pqControls,omitzero"`
 	// New Relic API key. Can be overridden using __newRelic_apiKey field.
@@ -2576,6 +2576,7 @@ func (e *CreateOutputTypeNewrelic) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// CreateOutputFieldName - Name of the metadata field.
 type CreateOutputFieldName string
 
 const (
@@ -2601,6 +2602,7 @@ func (e *CreateOutputFieldName) IsExact() bool {
 }
 
 type CreateOutputMetadatum struct {
+	// Name of the metadata field.
 	Name CreateOutputFieldName `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
@@ -2722,7 +2724,7 @@ type CreateOutputOutputNewrelic struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                         `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsNewrelic `json:"pqControls,omitzero"`
 	// New Relic API key. Can be overridden using __newRelic_apiKey field.
@@ -3207,7 +3209,7 @@ type CreateOutputOutputElasticCloud struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                             `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsElasticCloud `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -3771,7 +3773,7 @@ type CreateOutputOutputElastic struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                        `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsElastic `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -4325,7 +4327,7 @@ type CreateOutputOutputMsk struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                    `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsMsk `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -4916,7 +4918,7 @@ type CreateOutputOutputConfluentCloud struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                               `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsConfluentCloud `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -5385,7 +5387,7 @@ type CreateOutputOutputKafka struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                      `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsKafka `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -6251,7 +6253,7 @@ type CreateOutputOutputGooglePubsub struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                             `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsGooglePubsub `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -6699,6 +6701,8 @@ type CreateOutputOutputGoogleCloudObservability struct {
 	// How often the sender should ping the peer to keep the connection open
 	KeepAliveTime *float64                                      `json:"keepAliveTime,omitzero"`
 	TLS           *components.TLSSettingsClientSideTypeExtended `json:"tls,omitzero"`
+	// Max number of events to include in the request body. Default is 0 (unlimited).
+	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	Description    *string                                 `json:"description,omitzero"`
@@ -6724,7 +6728,7 @@ type CreateOutputOutputGoogleCloudObservability struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                                         `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsGoogleCloudObservability `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -6891,6 +6895,13 @@ func (c *CreateOutputOutputGoogleCloudObservability) GetTLS() *components.TLSSet
 		return nil
 	}
 	return c.TLS
+}
+
+func (c *CreateOutputOutputGoogleCloudObservability) GetMaxPayloadEvents() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxPayloadEvents
 }
 
 func (c *CreateOutputOutputGoogleCloudObservability) GetOnBackpressure() *components.BackpressureBehaviorOptions {
@@ -7242,7 +7253,7 @@ type CreateOutputOutputGoogleCloudLogging struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                                   `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsGoogleCloudLogging `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -7888,23 +7899,23 @@ func (e *CreateOutputTypeGoogleCloudStorage) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type CreateOutputAuthenticationMethodGoogleCloudStorage string
+type CreateOutputAwsAuthenticationMethodAuthenticationMethod string
 
 const (
-	// CreateOutputAuthenticationMethodGoogleCloudStorageAuto auto
-	CreateOutputAuthenticationMethodGoogleCloudStorageAuto CreateOutputAuthenticationMethodGoogleCloudStorage = "auto"
-	// CreateOutputAuthenticationMethodGoogleCloudStorageManual manual
-	CreateOutputAuthenticationMethodGoogleCloudStorageManual CreateOutputAuthenticationMethodGoogleCloudStorage = "manual"
-	// CreateOutputAuthenticationMethodGoogleCloudStorageSecret Secret Key pair
-	CreateOutputAuthenticationMethodGoogleCloudStorageSecret CreateOutputAuthenticationMethodGoogleCloudStorage = "secret"
+	// CreateOutputAwsAuthenticationMethodAuthenticationMethodAuto auto
+	CreateOutputAwsAuthenticationMethodAuthenticationMethodAuto CreateOutputAwsAuthenticationMethodAuthenticationMethod = "auto"
+	// CreateOutputAwsAuthenticationMethodAuthenticationMethodManual manual
+	CreateOutputAwsAuthenticationMethodAuthenticationMethodManual CreateOutputAwsAuthenticationMethodAuthenticationMethod = "manual"
+	// CreateOutputAwsAuthenticationMethodAuthenticationMethodSecret Secret Key pair
+	CreateOutputAwsAuthenticationMethodAuthenticationMethodSecret CreateOutputAwsAuthenticationMethodAuthenticationMethod = "secret"
 )
 
-func (e CreateOutputAuthenticationMethodGoogleCloudStorage) ToPointer() *CreateOutputAuthenticationMethodGoogleCloudStorage {
+func (e CreateOutputAwsAuthenticationMethodAuthenticationMethod) ToPointer() *CreateOutputAwsAuthenticationMethodAuthenticationMethod {
 	return &e
 }
 
 // IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateOutputAuthenticationMethodGoogleCloudStorage) IsExact() bool {
+func (e *CreateOutputAwsAuthenticationMethodAuthenticationMethod) IsExact() bool {
 	if e != nil {
 		switch *e {
 		case "auto", "manual", "secret":
@@ -7931,8 +7942,8 @@ type CreateOutputOutputGoogleCloudStorage struct {
 	// Region where the bucket is located
 	Region string `json:"region"`
 	// Google Cloud Storage service endpoint
-	Endpoint                string                                              `json:"endpoint"`
-	AwsAuthenticationMethod *CreateOutputAuthenticationMethodGoogleCloudStorage `json:"awsAuthenticationMethod,omitzero"`
+	Endpoint                string                                                   `json:"endpoint"`
+	AwsAuthenticationMethod *CreateOutputAwsAuthenticationMethodAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
 	// Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
@@ -8130,7 +8141,7 @@ func (c *CreateOutputOutputGoogleCloudStorage) GetEndpoint() string {
 	return c.Endpoint
 }
 
-func (c *CreateOutputOutputGoogleCloudStorage) GetAwsAuthenticationMethod() *CreateOutputAuthenticationMethodGoogleCloudStorage {
+func (c *CreateOutputOutputGoogleCloudStorage) GetAwsAuthenticationMethod() *CreateOutputAwsAuthenticationMethodAuthenticationMethod {
 	if c == nil {
 		return nil
 	}
@@ -8830,7 +8841,7 @@ type CreateOutputOutputGoogleChronicle struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                                `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsGoogleChronicle `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -9355,7 +9366,7 @@ type CreateOutputOutputAzureEventhub struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                              `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsAzureEventhub `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -9780,7 +9791,7 @@ type CreateOutputOutputHoneycomb struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                          `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsHoneycomb `json:"pqControls,omitzero"`
 	// Team API key where the dataset belongs
@@ -10228,7 +10239,7 @@ type CreateOutputOutputKinesis struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                        `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsKinesis `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -10736,7 +10747,7 @@ type CreateOutputOutputAzureLogs struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                          `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsAzureLogs `json:"pqControls,omitzero"`
 	// Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.
@@ -11525,7 +11536,7 @@ type CreateOutputOutputAzureDataExplorer struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                                  `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsAzureDataExplorer `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -14406,7 +14417,7 @@ type CreateOutputOutputSignalfx struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                         `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsSignalfx `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -14824,7 +14835,7 @@ type CreateOutputOutputWavefront struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                          `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsWavefront `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -15238,7 +15249,7 @@ type CreateOutputOutputTcpjson struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                        `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsTcpjson `json:"pqControls,omitzero"`
 	// Optional authentication token to include as part of the connection header
@@ -15680,7 +15691,7 @@ type CreateOutputOutputWizHec struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                       `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsWizHec `json:"pqControls,omitzero"`
 	// Wiz Defend Auth token
@@ -16221,7 +16232,7 @@ type CreateOutputOutputSplunkHec struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                          `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsSplunkHec `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -16841,7 +16852,7 @@ type CreateOutputOutputSplunkLb struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                         `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsSplunkLb `json:"pqControls,omitzero"`
 	// Shared secret token to use when establishing a connection to a Splunk indexer.
@@ -17299,7 +17310,7 @@ type CreateOutputOutputSplunk struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                       `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsSplunk `json:"pqControls,omitzero"`
 	// Shared secret token to use when establishing a connection to a Splunk indexer.
@@ -17928,7 +17939,7 @@ type CreateOutputOutputSyslog struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                       `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsSyslog `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -18583,7 +18594,7 @@ type CreateOutputOutputSentinel struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                         `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputPqControlsSentinel `json:"pqControls,omitzero"`
 	// URL to send events to. Can be overwritten by an event's __url field.
@@ -19330,7 +19341,7 @@ type CreateOutputOutputWebhookWebhook2 struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                               `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputOutputWebhookPqControls2 `json:"pqControls,omitzero"`
 	Username             *string                               `json:"username,omitzero"`
@@ -20144,7 +20155,7 @@ type CreateOutputOutputWebhookWebhook1 struct {
 	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                               `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *CreateOutputOutputWebhookPqControls1 `json:"pqControls,omitzero"`
 	Username             *string                               `json:"username,omitzero"`

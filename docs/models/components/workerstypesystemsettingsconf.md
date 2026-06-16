@@ -16,3 +16,4 @@
 | `V8SingleThread`                       | `*bool`                                | :heavy_minus_sign:                     | N/A                                    |
 | `WorkerProcessConfigUpdateConcurrency` | `*float64`                             | :heavy_minus_sign:                     | N/A                                    |
 | `WorkerProcessReloadTimeout`           | `*float64`                             | :heavy_minus_sign:                     | N/A                                    |
+| `WorkerThreadPoolSize`                 | `*float64`                             | :heavy_minus_sign:                     | N/A                                    |
