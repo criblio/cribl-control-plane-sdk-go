@@ -3,6 +3,7 @@
 package components
 
 type GitShowResult struct {
+	// Full commit message of the specified commit.
 	CommitMessage string      `json:"commitMessage"`
 	DiffJSON      []DiffFiles `json:"diffJson"`
 }

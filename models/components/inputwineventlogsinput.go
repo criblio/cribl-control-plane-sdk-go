@@ -114,8 +114,8 @@ type InputWinEventLogsInput struct {
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// The maximum number of bytes in an event before it is flushed to the pipelines
-	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
-	Description   *string  `json:"description,omitzero"`
+	MaxEventBytes *int64  `json:"maxEventBytes,omitzero"`
+	Description   *string `json:"description,omitzero"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
 	DisableJSONRendering *bool `json:"disableJsonRendering,omitzero"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
@@ -256,7 +256,7 @@ func (i *InputWinEventLogsInput) GetMetadata() []MetadataConfInputCollection {
 	return i.Metadata
 }
 
-func (i *InputWinEventLogsInput) GetMaxEventBytes() *float64 {
+func (i *InputWinEventLogsInput) GetMaxEventBytes() *int64 {
 	if i == nil {
 		return nil
 	}

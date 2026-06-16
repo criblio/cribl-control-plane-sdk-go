@@ -21,7 +21,7 @@ func (d *DeletePacksByIDRequest) GetID() string {
 
 type DeletePacksByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// The deleted PackUninstallInfo object in a single-item list.
+	// The uninstalled Pack object in a single-item list.
 	CountedPackUninstallInfo *components.CountedPackUninstallInfo
 }
 

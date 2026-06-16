@@ -395,6 +395,12 @@ createInputRequest := operations.CreateCreateInputRequestZscalerHec(operations.C
 createInputRequest := operations.CreateCreateInputRequestCloudflareHec(operations.CreateInputInputCloudflareHec{/* values here */})
 ```
 
+### CreateInputInputSysdigHec
+
+```go
+createInputRequest := operations.CreateCreateInputRequestSysdigHec(operations.CreateInputInputSysdigHec{/* values here */})
+```
+
 ### CreateInputInputOpenaiComplianceLogs
 
 ```go
@@ -549,6 +555,8 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputZscalerHec is populated
 	case operations.CreateInputRequestTypeCloudflareHec:
 		// createInputRequest.CreateInputInputCloudflareHec is populated
+	case operations.CreateInputRequestTypeSysdigHec:
+		// createInputRequest.CreateInputInputSysdigHec is populated
 	case operations.CreateInputRequestTypeOpenaiComplianceLogs:
 		// createInputRequest.CreateInputInputOpenaiComplianceLogs is populated
 	case operations.CreateInputRequestTypeAnthropicCompliance:

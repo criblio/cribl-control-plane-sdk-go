@@ -18,6 +18,8 @@ type Config struct {
 	LogStreamEnv *string `json:"logStreamEnv,omitzero"`
 	// Current policies revision string.
 	PolicyRev *string `json:"policyRev,omitzero"`
+	// Current teams revision string. Only used in leader <> leader universal subscription.
+	TeamsRev *string `json:"teamsRev,omitzero"`
 	// Current users revision string. Only used in leader <> leader universal subscription.
 	UsersRev *string `json:"usersRev,omitzero"`
 	// Configuration bundle version.
@@ -57,6 +59,13 @@ func (c *Config) GetPolicyRev() *string {
 		return nil
 	}
 	return c.PolicyRev
+}
+
+func (c *Config) GetTeamsRev() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TeamsRev
 }
 
 func (c *Config) GetUsersRev() *string {

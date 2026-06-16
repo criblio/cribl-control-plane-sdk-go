@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// DiffLineInsertType - Line change type. Always <code>insert</code> for inserted lines.
 type DiffLineInsertType string
 
 const (
@@ -31,10 +32,14 @@ func (e *DiffLineInsertType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// DiffLineInsert - Inserted line in a Git diff hunk.
 type DiffLineInsert struct {
-	Type      DiffLineInsertType `json:"type"`
-	NewNumber float64            `json:"newNumber"`
-	Content   string             `json:"content"`
+	// Line change type. Always <code>insert</code> for inserted lines.
+	Type DiffLineInsertType `json:"type"`
+	// Line number in the new file.
+	NewNumber int64 `json:"newNumber"`
+	// Full content of the line, including the diff prefix character.
+	Content string `json:"content"`
 }
 
 func (d DiffLineInsert) MarshalJSON() ([]byte, error) {
@@ -55,9 +60,9 @@ func (d *DiffLineInsert) GetType() DiffLineInsertType {
 	return d.Type
 }
 
-func (d *DiffLineInsert) GetNewNumber() float64 {
+func (d *DiffLineInsert) GetNewNumber() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.NewNumber
 }

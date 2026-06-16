@@ -11,9 +11,75 @@
 
 Get information about the latest job to clear the persistent queue (PQ) for the specified Source.
 
-### Example Usage
+### Example Usage: InputResponseExamplesHttpSource
 
-<!-- UsageSnippet language="go" operationID="getInputPqById" method="get" path="/system/inputs/{id}/pq" -->
+<!-- UsageSnippet language="go" operationID="getInputPqById" method="get" path="/system/inputs/{id}/pq" example="InputResponseExamplesHttpSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Pq.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedJobInfo != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputResponseExamplesSplunkHecSource
+
+<!-- UsageSnippet language="go" operationID="getInputPqById" method="get" path="/system/inputs/{id}/pq" example="InputResponseExamplesSplunkHecSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Pq.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedJobInfo != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputResponseExamplesSyslogSource
+
+<!-- UsageSnippet language="go" operationID="getInputPqById" method="get" path="/system/inputs/{id}/pq" example="InputResponseExamplesSyslogSource" -->
 ```go
 package main
 
@@ -61,6 +127,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -68,9 +135,75 @@ func main() {
 
 Clear the persistent queue (PQ) for the specified Source.
 
-### Example Usage
+### Example Usage: InputResponseExamplesHttpSource
 
-<!-- UsageSnippet language="go" operationID="deleteInputPqById" method="delete" path="/system/inputs/{id}/pq" -->
+<!-- UsageSnippet language="go" operationID="deleteInputPqById" method="delete" path="/system/inputs/{id}/pq" example="InputResponseExamplesHttpSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Pq.Clear(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedString != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputResponseExamplesSplunkHecSource
+
+<!-- UsageSnippet language="go" operationID="deleteInputPqById" method="delete" path="/system/inputs/{id}/pq" example="InputResponseExamplesSplunkHecSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Pq.Clear(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedString != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputResponseExamplesSyslogSource
+
+<!-- UsageSnippet language="go" operationID="deleteInputPqById" method="delete" path="/system/inputs/{id}/pq" example="InputResponseExamplesSyslogSource" -->
 ```go
 package main
 
@@ -118,5 +251,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

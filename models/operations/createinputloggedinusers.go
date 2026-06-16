@@ -1089,6 +1089,389 @@ func (c *CreateInputInputOpenaiComplianceLogs) GetTemplateOrganizationID() *stri
 	return c.TemplateOrganizationID
 }
 
+type CreateInputTypeSysdigHec string
+
+const (
+	CreateInputTypeSysdigHecSysdigHec CreateInputTypeSysdigHec = "sysdig_hec"
+)
+
+func (e CreateInputTypeSysdigHec) ToPointer() *CreateInputTypeSysdigHec {
+	return &e
+}
+func (e *CreateInputTypeSysdigHec) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+	switch v {
+	case "sysdig_hec":
+		*e = CreateInputTypeSysdigHec(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for CreateInputTypeSysdigHec: %v", v)
+	}
+}
+
+type CreateInputInputSysdigHec struct {
+	// Unique ID for this input
+	ID       string                   `json:"id"`
+	Type     CreateInputTypeSysdigHec `json:"type"`
+	Disabled *bool                    `json:"disabled,omitzero"`
+	// Pipeline to process data from this Source before sending it through the Routes
+	Pipeline *string `json:"pipeline,omitzero"`
+	// Select whether to send data to Routes, or directly to Destinations.
+	SendToRoutes *bool `json:"sendToRoutes,omitzero"`
+	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+	Environment *string `json:"environment,omitzero"`
+	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+	PqEnabled *bool `json:"pqEnabled,omitzero"`
+	// Tags for filtering and grouping in @{product}
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
+	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
+	Pq          *components.PqType                         `json:"pq,omitzero"`
+	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
+	Host string `json:"host"`
+	// Port to listen on
+	Port float64 `json:"port"`
+	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+	AuthTokens []components.AuthTokenConfInputCloudflareHec `json:"authTokens,omitzero"`
+	TLS        *components.TLSSettingsServerSideType        `json:"tls,omitzero"`
+	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
+	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+	MaxRequestsPerSocket *int64 `json:"maxRequestsPerSocket,omitzero"`
+	// Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
+	// Add request headers to events, in the __headers field
+	CaptureHeaders *bool `json:"captureHeaders,omitzero"`
+	// How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+	ActivityLogSampleRate *float64 `json:"activityLogSampleRate,omitzero"`
+	// How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
+	// How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+	SocketTimeout *float64 `json:"socketTimeout,omitzero"`
+	// After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+	KeepAliveTimeout *float64 `json:"keepAliveTimeout,omitzero"`
+	// Messages from matched IP addresses will be processed, unless also matched by the denylist
+	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
+	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
+	// Absolute path on which to listen for the Sysdig HTTP Event Collector API requests. This input supports the /event and /raw endpoints.
+	HecAPI string `json:"hecAPI"`
+	// Fields to add to every event. May be overridden by fields added at the token or request level.
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
+	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
+	// HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitzero"`
+	// HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
+	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
+	Description      *string `json:"description,omitzero"`
+	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
+	TemplateEnvironment *string `json:"__template_environment,omitzero"`
+	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
+	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
+	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
+	TemplateHost *string `json:"__template_host,omitzero"`
+	// Binds 'port' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'port' at runtime.
+	TemplatePort *string `json:"__template_port,omitzero"`
+	// Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
+	TemplateHecAPI *string `json:"__template_hecAPI,omitzero"`
+	// Binds 'allowedIndexes' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedIndexes' at runtime.
+	TemplateAllowedIndexes *string `json:"__template_allowedIndexes,omitzero"`
+	// Binds 'accessControlAllowOrigin' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowOrigin' at runtime.
+	TemplateAccessControlAllowOrigin *string `json:"__template_accessControlAllowOrigin,omitzero"`
+	// Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
+	TemplateAccessControlAllowHeaders *string `json:"__template_accessControlAllowHeaders,omitzero"`
+}
+
+func (c CreateInputInputSysdigHec) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputInputSysdigHec) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputInputSysdigHec) GetID() string {
+	if c == nil {
+		return ""
+	}
+	return c.ID
+}
+
+func (c *CreateInputInputSysdigHec) GetType() CreateInputTypeSysdigHec {
+	if c == nil {
+		return CreateInputTypeSysdigHec("")
+	}
+	return c.Type
+}
+
+func (c *CreateInputInputSysdigHec) GetDisabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Disabled
+}
+
+func (c *CreateInputInputSysdigHec) GetPipeline() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Pipeline
+}
+
+func (c *CreateInputInputSysdigHec) GetSendToRoutes() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.SendToRoutes
+}
+
+func (c *CreateInputInputSysdigHec) GetEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Environment
+}
+
+func (c *CreateInputInputSysdigHec) GetPqEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.PqEnabled
+}
+
+func (c *CreateInputInputSysdigHec) GetStreamtags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Streamtags
+}
+
+func (c *CreateInputInputSysdigHec) GetConnections() []components.ConnectionConfInputCollection {
+	if c == nil {
+		return nil
+	}
+	return c.Connections
+}
+
+func (c *CreateInputInputSysdigHec) GetPq() *components.PqType {
+	if c == nil {
+		return nil
+	}
+	return c.Pq
+}
+
+func (c *CreateInputInputSysdigHec) GetHost() string {
+	if c == nil {
+		return ""
+	}
+	return c.Host
+}
+
+func (c *CreateInputInputSysdigHec) GetPort() float64 {
+	if c == nil {
+		return 0.0
+	}
+	return c.Port
+}
+
+func (c *CreateInputInputSysdigHec) GetAuthTokens() []components.AuthTokenConfInputCloudflareHec {
+	if c == nil {
+		return nil
+	}
+	return c.AuthTokens
+}
+
+func (c *CreateInputInputSysdigHec) GetTLS() *components.TLSSettingsServerSideType {
+	if c == nil {
+		return nil
+	}
+	return c.TLS
+}
+
+func (c *CreateInputInputSysdigHec) GetMaxActiveReq() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxActiveReq
+}
+
+func (c *CreateInputInputSysdigHec) GetMaxRequestsPerSocket() *int64 {
+	if c == nil {
+		return nil
+	}
+	return c.MaxRequestsPerSocket
+}
+
+func (c *CreateInputInputSysdigHec) GetEnableProxyHeader() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EnableProxyHeader
+}
+
+func (c *CreateInputInputSysdigHec) GetCaptureHeaders() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.CaptureHeaders
+}
+
+func (c *CreateInputInputSysdigHec) GetActivityLogSampleRate() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.ActivityLogSampleRate
+}
+
+func (c *CreateInputInputSysdigHec) GetRequestTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.RequestTimeout
+}
+
+func (c *CreateInputInputSysdigHec) GetSocketTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.SocketTimeout
+}
+
+func (c *CreateInputInputSysdigHec) GetKeepAliveTimeout() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.KeepAliveTimeout
+}
+
+func (c *CreateInputInputSysdigHec) GetIPAllowlistRegex() *string {
+	if c == nil {
+		return nil
+	}
+	return c.IPAllowlistRegex
+}
+
+func (c *CreateInputInputSysdigHec) GetIPDenylistRegex() *string {
+	if c == nil {
+		return nil
+	}
+	return c.IPDenylistRegex
+}
+
+func (c *CreateInputInputSysdigHec) GetHecAPI() string {
+	if c == nil {
+		return ""
+	}
+	return c.HecAPI
+}
+
+func (c *CreateInputInputSysdigHec) GetMetadata() []components.MetadataConfInputCollection {
+	if c == nil {
+		return nil
+	}
+	return c.Metadata
+}
+
+func (c *CreateInputInputSysdigHec) GetAllowedIndexes() []string {
+	if c == nil {
+		return nil
+	}
+	return c.AllowedIndexes
+}
+
+func (c *CreateInputInputSysdigHec) GetAccessControlAllowOrigin() []string {
+	if c == nil {
+		return nil
+	}
+	return c.AccessControlAllowOrigin
+}
+
+func (c *CreateInputInputSysdigHec) GetAccessControlAllowHeaders() []string {
+	if c == nil {
+		return nil
+	}
+	return c.AccessControlAllowHeaders
+}
+
+func (c *CreateInputInputSysdigHec) GetEmitTokenMetrics() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.EmitTokenMetrics
+}
+
+func (c *CreateInputInputSysdigHec) GetDescription() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Description
+}
+
+func (c *CreateInputInputSysdigHec) GetTemplateEnvironment() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateEnvironment
+}
+
+func (c *CreateInputInputSysdigHec) GetTemplateStreamtags() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateStreamtags
+}
+
+func (c *CreateInputInputSysdigHec) GetTemplateHost() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateHost
+}
+
+func (c *CreateInputInputSysdigHec) GetTemplatePort() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplatePort
+}
+
+func (c *CreateInputInputSysdigHec) GetTemplateHecAPI() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateHecAPI
+}
+
+func (c *CreateInputInputSysdigHec) GetTemplateAllowedIndexes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAllowedIndexes
+}
+
+func (c *CreateInputInputSysdigHec) GetTemplateAccessControlAllowOrigin() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAccessControlAllowOrigin
+}
+
+func (c *CreateInputInputSysdigHec) GetTemplateAccessControlAllowHeaders() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAccessControlAllowHeaders
+}
+
 type CreateInputTypeCloudflareHec string
 
 const (
@@ -1110,103 +1493,6 @@ func (e *CreateInputTypeCloudflareHec) UnmarshalJSON(data []byte) error {
 	default:
 		return fmt.Errorf("invalid value for CreateInputTypeCloudflareHec: %v", v)
 	}
-}
-
-// CreateInputAuthTokenAuthenticationMethod - Select Secret to use a text secret to authenticate
-type CreateInputAuthTokenAuthenticationMethod string
-
-const (
-	CreateInputAuthTokenAuthenticationMethodSecret CreateInputAuthTokenAuthenticationMethod = "secret"
-)
-
-func (e CreateInputAuthTokenAuthenticationMethod) ToPointer() *CreateInputAuthTokenAuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *CreateInputAuthTokenAuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "secret":
-			return true
-		}
-	}
-	return false
-}
-
-type CreateInputAuthTokenCloudflareHec struct {
-	// Select Secret to use a text secret to authenticate
-	AuthType *CreateInputAuthTokenAuthenticationMethod `json:"authType,omitzero"`
-	// Select or create a stored text secret
-	TokenSecret *string `json:"tokenSecret,omitzero"`
-	// Shared secret to be provided by any client (Authorization: <token>)
-	Token       *string `json:"token,omitzero"`
-	Enabled     *bool   `json:"enabled,omitzero"`
-	Description *string `json:"description,omitzero"`
-	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
-	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
-	// Fields to add to events referencing this token
-	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-}
-
-func (c CreateInputAuthTokenCloudflareHec) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateInputAuthTokenCloudflareHec) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CreateInputAuthTokenCloudflareHec) GetAuthType() *CreateInputAuthTokenAuthenticationMethod {
-	if c == nil {
-		return nil
-	}
-	return c.AuthType
-}
-
-func (c *CreateInputAuthTokenCloudflareHec) GetTokenSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenSecret
-}
-
-func (c *CreateInputAuthTokenCloudflareHec) GetToken() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Token
-}
-
-func (c *CreateInputAuthTokenCloudflareHec) GetEnabled() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Enabled
-}
-
-func (c *CreateInputAuthTokenCloudflareHec) GetDescription() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Description
-}
-
-func (c *CreateInputAuthTokenCloudflareHec) GetAllowedIndexesAtToken() []string {
-	if c == nil {
-		return nil
-	}
-	return c.AllowedIndexesAtToken
-}
-
-func (c *CreateInputAuthTokenCloudflareHec) GetMetadata() []components.MetadataConfInputCollection {
-	if c == nil {
-		return nil
-	}
-	return c.Metadata
 }
 
 type CreateInputTLSSettingsServerSide struct {
@@ -1343,8 +1629,8 @@ type CreateInputInputCloudflareHec struct {
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []CreateInputAuthTokenCloudflareHec `json:"authTokens,omitzero"`
-	TLS        *CreateInputTLSSettingsServerSide   `json:"tls,omitzero"`
+	AuthTokens []components.AuthTokenConfInputCloudflareHec `json:"authTokens,omitzero"`
+	TLS        *CreateInputTLSSettingsServerSide            `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -1371,17 +1657,17 @@ type CreateInputInputCloudflareHec struct {
 	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
-	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
-	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
-	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
-	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
 	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitzero"`
 	// HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
 	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
-	Description      *string `json:"description,omitzero"`
+	EmitTokenMetrics *bool `json:"emitTokenMetrics,omitzero"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
+	Description         *string  `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -1495,7 +1781,7 @@ func (c *CreateInputInputCloudflareHec) GetPort() float64 {
 	return c.Port
 }
 
-func (c *CreateInputInputCloudflareHec) GetAuthTokens() []CreateInputAuthTokenCloudflareHec {
+func (c *CreateInputInputCloudflareHec) GetAuthTokens() []components.AuthTokenConfInputCloudflareHec {
 	if c == nil {
 		return nil
 	}
@@ -1600,20 +1886,6 @@ func (c *CreateInputInputCloudflareHec) GetAllowedIndexes() []string {
 	return c.AllowedIndexes
 }
 
-func (c *CreateInputInputCloudflareHec) GetBreakerRulesets() []string {
-	if c == nil {
-		return nil
-	}
-	return c.BreakerRulesets
-}
-
-func (c *CreateInputInputCloudflareHec) GetStaleChannelFlushMs() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.StaleChannelFlushMs
-}
-
 func (c *CreateInputInputCloudflareHec) GetAccessControlAllowOrigin() []string {
 	if c == nil {
 		return nil
@@ -1633,6 +1905,20 @@ func (c *CreateInputInputCloudflareHec) GetEmitTokenMetrics() *bool {
 		return nil
 	}
 	return c.EmitTokenMetrics
+}
+
+func (c *CreateInputInputCloudflareHec) GetBreakerRulesets() []string {
+	if c == nil {
+		return nil
+	}
+	return c.BreakerRulesets
+}
+
+func (c *CreateInputInputCloudflareHec) GetStaleChannelFlushMs() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.StaleChannelFlushMs
 }
 
 func (c *CreateInputInputCloudflareHec) GetDescription() *string {
@@ -1847,15 +2133,15 @@ type CreateInputInputZscalerHec struct {
 	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
-	// Whether to enable Zscaler HEC acknowledgements
-	HecAcks *bool `json:"hecAcks,omitzero"`
-	// Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+	// HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
 	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitzero"`
-	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+	// HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
 	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
-	// Enable to emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
-	Description      *string `json:"description,omitzero"`
+	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+	EmitTokenMetrics *bool `json:"emitTokenMetrics,omitzero"`
+	// Whether to enable Zscaler HEC acknowledgements
+	HecAcks     *bool   `json:"hecAcks,omitzero"`
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -1866,6 +2152,12 @@ type CreateInputInputZscalerHec struct {
 	TemplatePort *string `json:"__template_port,omitzero"`
 	// Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
 	TemplateHecAPI *string `json:"__template_hecAPI,omitzero"`
+	// Binds 'allowedIndexes' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedIndexes' at runtime.
+	TemplateAllowedIndexes *string `json:"__template_allowedIndexes,omitzero"`
+	// Binds 'accessControlAllowOrigin' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowOrigin' at runtime.
+	TemplateAccessControlAllowOrigin *string `json:"__template_accessControlAllowOrigin,omitzero"`
+	// Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
+	TemplateAccessControlAllowHeaders *string `json:"__template_accessControlAllowHeaders,omitzero"`
 }
 
 func (c CreateInputInputZscalerHec) MarshalJSON() ([]byte, error) {
@@ -2068,13 +2360,6 @@ func (c *CreateInputInputZscalerHec) GetAllowedIndexes() []string {
 	return c.AllowedIndexes
 }
 
-func (c *CreateInputInputZscalerHec) GetHecAcks() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.HecAcks
-}
-
 func (c *CreateInputInputZscalerHec) GetAccessControlAllowOrigin() []string {
 	if c == nil {
 		return nil
@@ -2094,6 +2379,13 @@ func (c *CreateInputInputZscalerHec) GetEmitTokenMetrics() *bool {
 		return nil
 	}
 	return c.EmitTokenMetrics
+}
+
+func (c *CreateInputInputZscalerHec) GetHecAcks() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.HecAcks
 }
 
 func (c *CreateInputInputZscalerHec) GetDescription() *string {
@@ -2136,6 +2428,27 @@ func (c *CreateInputInputZscalerHec) GetTemplateHecAPI() *string {
 		return nil
 	}
 	return c.TemplateHecAPI
+}
+
+func (c *CreateInputInputZscalerHec) GetTemplateAllowedIndexes() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAllowedIndexes
+}
+
+func (c *CreateInputInputZscalerHec) GetTemplateAccessControlAllowOrigin() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAccessControlAllowOrigin
+}
+
+func (c *CreateInputInputZscalerHec) GetTemplateAccessControlAllowHeaders() *string {
+	if c == nil {
+		return nil
+	}
+	return c.TemplateAccessControlAllowHeaders
 }
 
 type CreateInputTypeServicenowTable string
@@ -4010,10 +4323,10 @@ type CreateInputContentConfigInput struct {
 	StateMergeExpression *string                       `json:"stateMergeExpression,omitzero"`
 	ManageState          *CreateInputManageStateOpenai `json:"manageState,omitzero"`
 	// Query-string parameters to send with this endpoint
-	RequestParams          []components.RequestParamConfInputOpenai `json:"requestParams"`
-	PaginationType         CreateInputPaginationType                `json:"paginationType"`
-	PaginationAttribute    []string                                 `json:"paginationAttribute,omitzero"`
-	PaginationLastPageExpr *string                                  `json:"paginationLastPageExpr,omitzero"`
+	RequestParams          []components.HTTPDiscoveryHeaderConfInputPrometheus `json:"requestParams"`
+	PaginationType         CreateInputPaginationType                           `json:"paginationType"`
+	PaginationAttribute    []string                                            `json:"paginationAttribute,omitzero"`
+	PaginationLastPageExpr *string                                             `json:"paginationLastPageExpr,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Set to 0 only when unlimited pagination is required.
 	MaxPages *float64 `json:"maxPages,omitzero"`
 	// Used only for RFC 5988 link-header pagination
@@ -4080,9 +4393,9 @@ func (c *CreateInputContentConfigInput) GetManageState() *CreateInputManageState
 	return c.ManageState
 }
 
-func (c *CreateInputContentConfigInput) GetRequestParams() []components.RequestParamConfInputOpenai {
+func (c *CreateInputContentConfigInput) GetRequestParams() []components.HTTPDiscoveryHeaderConfInputPrometheus {
 	if c == nil {
-		return []components.RequestParamConfInputOpenai{}
+		return []components.HTTPDiscoveryHeaderConfInputPrometheus{}
 	}
 	return c.RequestParams
 }
@@ -5701,8 +6014,8 @@ type CreateInputInputWinEventLogs struct {
 	// Fields to add to events from this input
 	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
 	// The maximum number of bytes in an event before it is flushed to the pipelines
-	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
-	Description   *string  `json:"description,omitzero"`
+	MaxEventBytes *int64  `json:"maxEventBytes,omitzero"`
+	Description   *string `json:"description,omitzero"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
 	DisableJSONRendering *bool `json:"disableJsonRendering,omitzero"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
@@ -5843,7 +6156,7 @@ func (c *CreateInputInputWinEventLogs) GetMetadata() []components.MetadataConfIn
 	return c.Metadata
 }
 
-func (c *CreateInputInputWinEventLogs) GetMaxEventBytes() *float64 {
+func (c *CreateInputInputWinEventLogs) GetMaxEventBytes() *int64 {
 	if c == nil {
 		return nil
 	}
@@ -14790,6 +15103,10 @@ type CreateInputInputKubeLogs struct {
 	Rules []CreateInputRuleKubeLogs `json:"rules,omitzero"`
 	// For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
 	Timestamps *bool `json:"timestamps,omitzero"`
+	// Maximum bytes to buffer while reassembling a single log line. A line that exceeds this size is flushed as-is, either whole or partially. The default is 1048576 (1 MB).
+	LineBufferLimit *float64 `json:"lineBufferLimit,omitzero"`
+	// Internal flag to disable LB worker payload reassembly.
+	LBDisableAssembly *bool `json:"__LBDisableAssembly,omitzero"`
 	// Fields to add to events from this input
 	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
 	Persistence *components.DiskSpoolingType             `json:"persistence,omitzero"`
@@ -14906,6 +15223,20 @@ func (c *CreateInputInputKubeLogs) GetTimestamps() *bool {
 		return nil
 	}
 	return c.Timestamps
+}
+
+func (c *CreateInputInputKubeLogs) GetLineBufferLimit() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.LineBufferLimit
+}
+
+func (c *CreateInputInputKubeLogs) GetLBDisableAssembly() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.LBDisableAssembly
 }
 
 func (c *CreateInputInputKubeLogs) GetMetadata() []components.MetadataConfInputCollection {

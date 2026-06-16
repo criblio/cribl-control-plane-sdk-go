@@ -3,12 +3,13 @@
 package components
 
 type GitCountResult struct {
-	Count float64 `json:"count"`
+	// Number of files that changed since the specified commit.
+	Count int64 `json:"count"`
 }
 
-func (g *GitCountResult) GetCount() float64 {
+func (g *GitCountResult) GetCount() int64 {
 	if g == nil {
-		return 0.0
+		return 0
 	}
 	return g.Count
 }

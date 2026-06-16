@@ -196,7 +196,7 @@ type Policy struct {
 	// If true, this policy will be skipped during evaluation
 	Disabled *bool `json:"disabled,omitzero"`
 	// Time to wait (in minutes) to group similar alerts before sending
-	WaitToGroup *float64 `json:"waitToGroup,omitzero"`
+	WaitToGroup *int64 `json:"waitToGroup,omitzero"`
 	// Event fields to use for grouping
 	GroupByLabels []string `json:"groupByLabels,omitzero"`
 	// List of conditions. If ANY condition matches (OR), the policy applies. Each condition is a list of tags that must ALL match (AND).
@@ -206,7 +206,7 @@ type Policy struct {
 	// If true, stop evaluating further policies after this one matches
 	Final *bool `json:"final,omitzero"`
 	// Evaluation order of this policy (lower numbers evaluated first)
-	Order float64 `json:"order"`
+	Order int64 `json:"order"`
 }
 
 func (p Policy) MarshalJSON() ([]byte, error) {
@@ -234,7 +234,7 @@ func (p *Policy) GetDisabled() *bool {
 	return p.Disabled
 }
 
-func (p *Policy) GetWaitToGroup() *float64 {
+func (p *Policy) GetWaitToGroup() *int64 {
 	if p == nil {
 		return nil
 	}
@@ -269,9 +269,9 @@ func (p *Policy) GetFinal() *bool {
 	return p.Final
 }
 
-func (p *Policy) GetOrder() float64 {
+func (p *Policy) GetOrder() int64 {
 	if p == nil {
-		return 0.0
+		return 0
 	}
 	return p.Order
 }

@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// DiffLineContextType - Line change type. Always <code>context</code> for unchanged lines.
 type DiffLineContextType string
 
 const (
@@ -31,11 +32,16 @@ func (e *DiffLineContextType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// DiffLineContext - Unchanged context line in a Git diff hunk.
 type DiffLineContext struct {
-	Type      DiffLineContextType `json:"type"`
-	NewNumber float64             `json:"newNumber"`
-	OldNumber float64             `json:"oldNumber"`
-	Content   string              `json:"content"`
+	// Line change type. Always <code>context</code> for unchanged lines.
+	Type DiffLineContextType `json:"type"`
+	// Line number in the new file.
+	NewNumber int64 `json:"newNumber"`
+	// Line number in the original file.
+	OldNumber int64 `json:"oldNumber"`
+	// Full content of the line, including the diff prefix character.
+	Content string `json:"content"`
 }
 
 func (d DiffLineContext) MarshalJSON() ([]byte, error) {
@@ -56,16 +62,16 @@ func (d *DiffLineContext) GetType() DiffLineContextType {
 	return d.Type
 }
 
-func (d *DiffLineContext) GetNewNumber() float64 {
+func (d *DiffLineContext) GetNewNumber() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.NewNumber
 }
 
-func (d *DiffLineContext) GetOldNumber() float64 {
+func (d *DiffLineContext) GetOldNumber() int64 {
 	if d == nil {
-		return 0.0
+		return 0
 	}
 	return d.OldNumber
 }

@@ -13,7 +13,7 @@ Get a count of the files that changed since a commit. Default is the latest comm
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getVersionCount" method="get" path="/version/count" -->
+<!-- UsageSnippet language="go" operationID="getVersionCount" method="get" path="/version/count" example="VersionCountResponseExamplesFileCount" -->
 ```go
 package main
 
@@ -35,7 +35,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.Files.Count(ctx, criblcontrolplanesdkgo.Pointer("<value>"))
+    res, err := s.Versions.Commits.Files.Count(ctx, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -61,6 +61,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -70,7 +71,7 @@ Get the names and statuses of files that changed since a commit. Default is the 
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getVersionFiles" method="get" path="/version/files" -->
+<!-- UsageSnippet language="go" operationID="getVersionFiles" method="get" path="/version/files" example="VersionFilesResponseExamplesChangedFiles" -->
 ```go
 package main
 
@@ -92,7 +93,7 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.Files.List(ctx, criblcontrolplanesdkgo.Pointer("<value>"))
+    res, err := s.Versions.Commits.Files.List(ctx, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -118,5 +119,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

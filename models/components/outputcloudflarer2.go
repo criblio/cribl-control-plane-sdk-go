@@ -31,31 +31,6 @@ func (e *OutputCloudflareR2Type) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputCloudflareR2AuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type OutputCloudflareR2AuthenticationMethod string
-
-const (
-	// OutputCloudflareR2AuthenticationMethodAuto Auto
-	OutputCloudflareR2AuthenticationMethodAuto OutputCloudflareR2AuthenticationMethod = "auto"
-	// OutputCloudflareR2AuthenticationMethodSecret Secret Key pair
-	OutputCloudflareR2AuthenticationMethodSecret OutputCloudflareR2AuthenticationMethod = "secret"
-)
-
-func (e OutputCloudflareR2AuthenticationMethod) ToPointer() *OutputCloudflareR2AuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCloudflareR2AuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "secret":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputCloudflareR2 struct {
 	// Unique ID for this output
 	ID   *string                `json:"id,omitzero"`
@@ -69,7 +44,7 @@ type OutputCloudflareR2 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *OutputCloudflareR2AuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsAutoSecret `json:"awsAuthenticationMethod,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -246,7 +221,7 @@ func (o *OutputCloudflareR2) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputCloudflareR2) GetAwsAuthenticationMethod() *OutputCloudflareR2AuthenticationMethod {
+func (o *OutputCloudflareR2) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsAutoSecret {
 	if o == nil {
 		return nil
 	}

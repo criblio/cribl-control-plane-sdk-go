@@ -9,76 +9,76 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type DiffLineType string
+type GitDiffLinesType string
 
 const (
-	DiffLineTypeDelete  DiffLineType = "delete"
-	DiffLineTypeInsert  DiffLineType = "insert"
-	DiffLineTypeContext DiffLineType = "context"
-	DiffLineTypeUnknown DiffLineType = "UNKNOWN"
+	GitDiffLinesTypeDelete  GitDiffLinesType = "delete"
+	GitDiffLinesTypeInsert  GitDiffLinesType = "insert"
+	GitDiffLinesTypeContext GitDiffLinesType = "context"
+	GitDiffLinesTypeUnknown GitDiffLinesType = "UNKNOWN"
 )
 
-type DiffLine struct {
+type GitDiffLines struct {
 	DiffLineDelete  *DiffLineDelete  `queryParam:"inline" union:"member"`
 	DiffLineInsert  *DiffLineInsert  `queryParam:"inline" union:"member"`
 	DiffLineContext *DiffLineContext `queryParam:"inline" union:"member"`
 	UnknownRaw      json.RawMessage  `json:"-" union:"unknown"`
 
-	Type DiffLineType
+	Type GitDiffLinesType
 }
 
-func CreateDiffLineDelete(delete DiffLineDelete) DiffLine {
-	typ := DiffLineTypeDelete
+func CreateGitDiffLinesDelete(delete DiffLineDelete) GitDiffLines {
+	typ := GitDiffLinesTypeDelete
 
 	typStr := DiffLineDeleteType(typ)
 	delete.Type = typStr
 
-	return DiffLine{
+	return GitDiffLines{
 		DiffLineDelete: &delete,
 		Type:           typ,
 	}
 }
 
-func CreateDiffLineInsert(insert DiffLineInsert) DiffLine {
-	typ := DiffLineTypeInsert
+func CreateGitDiffLinesInsert(insert DiffLineInsert) GitDiffLines {
+	typ := GitDiffLinesTypeInsert
 
 	typStr := DiffLineInsertType(typ)
 	insert.Type = typStr
 
-	return DiffLine{
+	return GitDiffLines{
 		DiffLineInsert: &insert,
 		Type:           typ,
 	}
 }
 
-func CreateDiffLineContext(contextT DiffLineContext) DiffLine {
-	typ := DiffLineTypeContext
+func CreateGitDiffLinesContext(contextT DiffLineContext) GitDiffLines {
+	typ := GitDiffLinesTypeContext
 
 	typStr := DiffLineContextType(typ)
 	contextT.Type = typStr
 
-	return DiffLine{
+	return GitDiffLines{
 		DiffLineContext: &contextT,
 		Type:            typ,
 	}
 }
 
-func CreateDiffLineUnknown(raw json.RawMessage) DiffLine {
-	return DiffLine{
+func CreateGitDiffLinesUnknown(raw json.RawMessage) GitDiffLines {
+	return GitDiffLines{
 		UnknownRaw: raw,
-		Type:       DiffLineTypeUnknown,
+		Type:       GitDiffLinesTypeUnknown,
 	}
 }
 
-func (u DiffLine) GetUnknownRaw() json.RawMessage {
+func (u GitDiffLines) GetUnknownRaw() json.RawMessage {
 	return u.UnknownRaw
 }
 
-func (u DiffLine) IsUnknown() bool {
-	return u.Type == DiffLineTypeUnknown
+func (u GitDiffLines) IsUnknown() bool {
+	return u.Type == GitDiffLinesTypeUnknown
 }
 
-func (u *DiffLine) UnmarshalJSON(data []byte) error {
+func (u *GitDiffLines) UnmarshalJSON(data []byte) error {
 
 	type discriminator struct {
 		Type string `json:"type"`
@@ -87,12 +87,12 @@ func (u *DiffLine) UnmarshalJSON(data []byte) error {
 	dis := new(discriminator)
 	if err := json.Unmarshal(data, &dis); err != nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = DiffLineTypeUnknown
+		u.Type = GitDiffLinesTypeUnknown
 		return nil
 	}
 	if dis == nil {
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = DiffLineTypeUnknown
+		u.Type = GitDiffLinesTypeUnknown
 		return nil
 	}
 
@@ -100,39 +100,39 @@ func (u *DiffLine) UnmarshalJSON(data []byte) error {
 	case "delete":
 		diffLineDelete := new(DiffLineDelete)
 		if err := utils.UnmarshalJSON(data, &diffLineDelete, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == delete) type DiffLineDelete within DiffLine: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == delete) type DiffLineDelete within GitDiffLines: %w", string(data), err)
 		}
 
 		u.DiffLineDelete = diffLineDelete
-		u.Type = DiffLineTypeDelete
+		u.Type = GitDiffLinesTypeDelete
 		return nil
 	case "insert":
 		diffLineInsert := new(DiffLineInsert)
 		if err := utils.UnmarshalJSON(data, &diffLineInsert, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == insert) type DiffLineInsert within DiffLine: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == insert) type DiffLineInsert within GitDiffLines: %w", string(data), err)
 		}
 
 		u.DiffLineInsert = diffLineInsert
-		u.Type = DiffLineTypeInsert
+		u.Type = GitDiffLinesTypeInsert
 		return nil
 	case "context":
 		diffLineContext := new(DiffLineContext)
 		if err := utils.UnmarshalJSON(data, &diffLineContext, "", true, nil); err != nil {
-			return fmt.Errorf("could not unmarshal `%s` into expected (Type == context) type DiffLineContext within DiffLine: %w", string(data), err)
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == context) type DiffLineContext within GitDiffLines: %w", string(data), err)
 		}
 
 		u.DiffLineContext = diffLineContext
-		u.Type = DiffLineTypeContext
+		u.Type = GitDiffLinesTypeContext
 		return nil
 	default:
 		u.UnknownRaw = json.RawMessage(data)
-		u.Type = DiffLineTypeUnknown
+		u.Type = GitDiffLinesTypeUnknown
 		return nil
 	}
 
 }
 
-func (u DiffLine) MarshalJSON() ([]byte, error) {
+func (u GitDiffLines) MarshalJSON() ([]byte, error) {
 	if u.DiffLineDelete != nil {
 		return utils.MarshalJSON(u.DiffLineDelete, "", true)
 	}
@@ -148,5 +148,5 @@ func (u DiffLine) MarshalJSON() ([]byte, error) {
 	if u.UnknownRaw != nil {
 		return json.RawMessage(u.UnknownRaw), nil
 	}
-	return nil, errors.New("could not marshal union type DiffLine: all fields are null")
+	return nil, errors.New("could not marshal union type GitDiffLines: all fields are null")
 }

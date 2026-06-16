@@ -80,6 +80,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -292,6 +293,53 @@ func main() {
         ID: "oracle-secure-db",
         Tags: criblcontrolplanesdkgo.Pointer("secure,oracle,sensitive-data"),
         TextSecret: criblcontrolplanesdkgo.Pointer("oracle-secure-connection"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.DatabaseConnectionResponseEnvelope != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: DatabaseConnectionExamplesOracleWithMutualTLS
+
+<!-- UsageSnippet language="go" operationID="createDatabaseConnectionConfig" method="post" path="/lib/database-connections" example="DatabaseConnectionExamplesOracleWithMutualTLS" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
+        AuthType: components.DatabaseConnectionAuthTypeConnectionString,
+        ConnectionString: criblcontrolplanesdkgo.Pointer("tcps://oracle.example.com:2484/ORCL"),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[int64](15000),
+        DatabaseType: components.DatabaseConnectionTypeOracle,
+        Description: "Oracle database reached over TCPS with mutual TLS",
+        ID: "oracle-mtls-db",
+        Password: criblcontrolplanesdkgo.Pointer("Oracle_Pass456!"),
+        Tags: criblcontrolplanesdkgo.Pointer("erp,oracle,mtls,production"),
+        TLS: &components.TLSClientParams{
+            Disabled: false,
+            RejectUnauthorized: criblcontrolplanesdkgo.Pointer(true),
+        },
+        User: criblcontrolplanesdkgo.Pointer("erp_user"),
     })
     if err != nil {
         log.Fatal(err)
@@ -616,6 +664,7 @@ func main() {
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
 | apierrors.RestAPIJSONError | 400                        | application/json           |
+| apierrors.Error            | 401                        | application/json           |
 | apierrors.Error            | 500                        | application/json           |
 | apierrors.APIError         | 4XX, 5XX                   | \*/\*                      |
 
@@ -673,6 +722,7 @@ func main() {
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
+| apierrors.Error            | 401                        | application/json           |
 | apierrors.RestAPIJSONError | 404                        | application/json           |
 | apierrors.Error            | 500                        | application/json           |
 | apierrors.APIError         | 4XX, 5XX                   | \*/\*                      |
@@ -2044,6 +2094,7 @@ func main() {
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
+| apierrors.Error            | 401                        | application/json           |
 | apierrors.RestAPIJSONError | 400, 404                   | application/json           |
 | apierrors.Error            | 500                        | application/json           |
 | apierrors.APIError         | 4XX, 5XX                   | \*/\*                      |
@@ -2102,6 +2153,7 @@ func main() {
 
 | Error Type                 | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
+| apierrors.Error            | 401                        | application/json           |
 | apierrors.RestAPIJSONError | 404                        | application/json           |
 | apierrors.Error            | 500                        | application/json           |
 | apierrors.APIError         | 4XX, 5XX                   | \*/\*                      |

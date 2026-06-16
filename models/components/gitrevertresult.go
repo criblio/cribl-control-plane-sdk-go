@@ -6,10 +6,65 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// GitRevertResultFiles - Files affected by the revert, grouped by change type.
+type GitRevertResultFiles struct {
+	// Array of file paths that were created in the commit.
+	Created []string `json:"created,omitzero"`
+	// Array of file paths that were deleted in the commit.
+	Deleted []string `json:"deleted,omitzero"`
+	// Array of file paths that were modified in the commit.
+	Modified []string `json:"modified,omitzero"`
+	// Array of file rename operations, each containing the original path and the new path.
+	Renamed []GitFileRename `json:"renamed,omitzero"`
+}
+
+func (g GitRevertResultFiles) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GitRevertResultFiles) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (g *GitRevertResultFiles) GetCreated() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Created
+}
+
+func (g *GitRevertResultFiles) GetDeleted() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Deleted
+}
+
+func (g *GitRevertResultFiles) GetModified() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Modified
+}
+
+func (g *GitRevertResultFiles) GetRenamed() []GitFileRename {
+	if g == nil {
+		return nil
+	}
+	return g.Renamed
+}
+
+// Audit record for the revert operation, including the commit hash and affected files.
 type Audit struct {
-	Files *FilesTypeGitCommitSummary `json:"files,omitzero"`
-	Group *string                    `json:"group,omitzero"`
-	ID    string                     `json:"id"`
+	// Files affected by the revert, grouped by change type.
+	Files *GitRevertResultFiles `json:"files,omitzero"`
+	// Worker Group the revert was applied to, if applicable.
+	Group *string `json:"group,omitzero"`
+	// SHA-1 hash of the revert commit that was created.
+	ID string `json:"id"`
 }
 
 func (a Audit) MarshalJSON() ([]byte, error) {
@@ -23,7 +78,7 @@ func (a *Audit) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (a *Audit) GetFiles() *FilesTypeGitCommitSummary {
+func (a *Audit) GetFiles() *GitRevertResultFiles {
 	if a == nil {
 		return nil
 	}
@@ -45,8 +100,10 @@ func (a *Audit) GetID() string {
 }
 
 type GitRevertResult struct {
-	Audit    Audit `json:"audit"`
-	Reverted bool  `json:"reverted"`
+	// Audit record for the revert operation, including the commit hash and affected files.
+	Audit Audit `json:"audit"`
+	// If <code>true</code>, the revert was applied successfully. Otherwise, <code>false</code>.
+	Reverted bool `json:"reverted"`
 }
 
 func (g *GitRevertResult) GetAudit() Audit {

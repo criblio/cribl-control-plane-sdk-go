@@ -3,8 +3,11 @@
 package components
 
 type File struct {
-	Index      string `json:"index"`
-	Path       string `json:"path"`
+	// Status code for the file in the index (staging area), using Git short-format notation.
+	Index string `json:"index"`
+	// File path relative to the configuration root.
+	Path string `json:"path"`
+	// Status code for the file in the working directory, using Git short-format notation.
 	WorkingDir string `json:"working_dir"`
 }
 
@@ -30,8 +33,10 @@ func (f *File) GetWorkingDir() string {
 }
 
 type Renamed struct {
+	// Original file path before the rename.
 	From string `json:"from"`
-	To   string `json:"to"`
+	// New file path after the rename.
+	To string `json:"to"`
 }
 
 func (r *Renamed) GetFrom() string {
@@ -49,29 +54,40 @@ func (r *Renamed) GetTo() string {
 }
 
 type GitStatusResult struct {
-	Ahead      float64   `json:"ahead"`
-	Behind     float64   `json:"behind"`
-	Conflicted []string  `json:"conflicted"`
-	Created    []string  `json:"created"`
-	Current    string    `json:"current"`
-	Deleted    []string  `json:"deleted"`
-	Files      []File    `json:"files"`
-	Modified   []string  `json:"modified"`
-	NotAdded   []string  `json:"not_added"`
-	Renamed    []Renamed `json:"renamed"`
-	Staged     []string  `json:"staged"`
+	// Number of local commits that have not been pushed to the remote repository.
+	Ahead int64 `json:"ahead"`
+	// Number of commits in the remote repository that have not been pulled to the local branch.
+	Behind int64 `json:"behind"`
+	// Array of file paths that have merge conflicts.
+	Conflicted []string `json:"conflicted"`
+	// Array of file paths for newly created files that are staged for commit.
+	Created []string `json:"created"`
+	// Name of the current Git branch.
+	Current string `json:"current"`
+	// Array of file paths for deleted files that are staged for commit.
+	Deleted []string `json:"deleted"`
+	// Array of all changed files with their index and working directory status codes.
+	Files []File `json:"files"`
+	// Array of file paths for modified files that are staged for commit.
+	Modified []string `json:"modified"`
+	// Array of file paths that have been modified but are not staged for commit.
+	NotAdded []string `json:"not_added"`
+	// Array of file rename operations that are staged for commit.
+	Renamed []Renamed `json:"renamed"`
+	// Array of file paths that are staged for the next commit.
+	Staged []string `json:"staged"`
 }
 
-func (g *GitStatusResult) GetAhead() float64 {
+func (g *GitStatusResult) GetAhead() int64 {
 	if g == nil {
-		return 0.0
+		return 0
 	}
 	return g.Ahead
 }
 
-func (g *GitStatusResult) GetBehind() float64 {
+func (g *GitStatusResult) GetBehind() int64 {
 	if g == nil {
-		return 0.0
+		return 0
 	}
 	return g.Behind
 }

@@ -9,6 +9,8 @@ import (
 
 // RestAPIJSONError - JSON body returned for many REST failures that use RESTEndpoint.sendError (and similar handlers).
 type RestAPIJSONError struct {
+	// Optional structured details about the error (e.g. validation failures).
+	Details map[string]any `json:"details,omitzero"`
 	// Human-readable message or serialized validation details for the error.
 	Message string `json:"message"`
 	// Always <code>error</code> for API error responses.
