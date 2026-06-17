@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: 4ea06a856b6903144b6cd04c6ba53a7d
-  docVersion: 4.18.2-alpha.1781305375549-3e2fdd9c
-  speakeasyVersion: 1.776.0
-  generationVersion: 2.900.1
-  releaseVersion: 0.9.0-alpha.15
-  configChecksum: cf7275fd3042b318ad4c358e36dd92b0
+  docChecksum: d5d49bdfce715f0a209f5cf13c89c4d9
+  docVersion: 4.18.2-alpha.1781564965234-252f8f24
+  speakeasyVersion: 1.778.0
+  generationVersion: 2.904.2
+  releaseVersion: 0.9.0-alpha.16
+  configChecksum: 1492452db7a6a3d187a6aa43bb7351cb
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 5135e6d6-1546-47f8-bb5a-796d959c735c
-  pristine_commit_hash: 710be2fddf0ddf73c4eae4ec32054204c78fb6f8
-  pristine_tree_hash: 0a798ff1a12f15d3faf672660674868733e45aac
+  generation_id: 2112729a-a441-455b-a490-45bc1cfd6952
+  pristine_commit_hash: ba447dfca25db6d1443d3a714dffe996b70743fa
+  pristine_tree_hash: 84ef44a9902655ce99c219a4e02fb365f5536396
 features:
   go:
     additionalDependencies: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: bba69be06926f5c8962b2ff0b439a8f206dac7de
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:376af0e4e9c58ba1901e21798ecb0cc7c12671c3
-    pristine_git_object: 22f7bdd248f62819dae57b6090154c82722e6dd6
+    last_write_checksum: sha1:7967835ef3aa27cc7ba53bcd1ae36ed01af06fb1
+    pristine_git_object: 1d9328ce2c762da15473fe8494a6e4e9d8987b7d
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:3d059ca22995c03650c4cc7153fb55f73685d21e
@@ -5861,8 +5861,8 @@ trackedFiles:
     pristine_git_object: 708aaa6a0abfac509d9b9f126ecfcd67a367a596
   docs/models/components/outputgooglecloudobservability.md:
     id: 8abef5e1de99
-    last_write_checksum: sha1:4b99d720023ec65dc582c2b630c6021e685f3581
-    pristine_git_object: 67b5900ef7d66fda9094d69e34d0176f1c2a3070
+    last_write_checksum: sha1:2a7580014f7fa1d2ff48674fb21de6db212aec88
+    pristine_git_object: d21463ec8b24a85dcaa90ac9907b16b6ac23d914
   docs/models/components/outputgooglecloudobservabilityendpoint.md:
     id: c5592effea47
     last_write_checksum: sha1:eab94f07bb0c563cced5840533e7308328c5a3b0
@@ -6441,8 +6441,8 @@ trackedFiles:
     pristine_git_object: 14720bf0ced64c115b288886fa2e10e71270a49d
   docs/models/components/outputresponseoutputgooglecloudobservability.md:
     id: afafaf95a828
-    last_write_checksum: sha1:8b0e88263997ac8308efffd1e17dc937d067cc69
-    pristine_git_object: db9b29f11a158a5620355437ffd0cff425255f9d
+    last_write_checksum: sha1:aa64c66216d8cf5b10aa1d374446d723bed0db78
+    pristine_git_object: 60727c3f78a0b47c352b3b10059b1836bf23fdf0
   docs/models/components/outputresponseoutputgooglecloudstorage.md:
     id: f75567bd2177
     last_write_checksum: sha1:251d57af81e60c03bf933c2288c5d4c5366a936c
@@ -14173,8 +14173,8 @@ trackedFiles:
     pristine_git_object: 42f4f7ccf5154410cb239fa7860885558ac49207
   docs/models/operations/createoutputoutputgooglecloudobservability.md:
     id: 1f450c8874d8
-    last_write_checksum: sha1:669d3b2cf4c0cda5e6644782bd62571ecaca8fbc
-    pristine_git_object: 5e391939b9af167611c739796fb5633889f71b3e
+    last_write_checksum: sha1:4c4c4972fd3af0b303a054aeeda0bf307b188d22
+    pristine_git_object: a4304c95292aeeb0a3b893af44339284e81cfd9c
   docs/models/operations/createoutputoutputgooglecloudstorage.md:
     id: 3367fefa9fd1
     last_write_checksum: sha1:763c7e070da41ee5ee635769fb286fa790371a55
@@ -15057,8 +15057,8 @@ trackedFiles:
     pristine_git_object: 1afecabe72bbd290be159468b5e37b01451d62d2
   docs/models/operations/createoutputsystembypackoutputgooglecloudobservability.md:
     id: 201ccd816c81
-    last_write_checksum: sha1:0f9baaa2e45de9d42cc2537bec8bb5e7353f49da
-    pristine_git_object: 3ad637a761164b1d93a4dba6554f0d2c27c5c8c8
+    last_write_checksum: sha1:12eba43e1a305ef9ddb3734b0f80b01594a38d3f
+    pristine_git_object: c459706e53eb586e49a10a9e005bdfc481f3deff
   docs/models/operations/createoutputsystembypackoutputgooglecloudstorage.md:
     id: 293729d18b79
     last_write_checksum: sha1:d9e787013629fe30fcb8cce27dd84af7ba112ba0
@@ -19141,8 +19141,8 @@ trackedFiles:
     pristine_git_object: 6a354bb53b0b3ecaec32ab70323ae09d8293646f
   models/components/outputgooglecloudobservability.go:
     id: edb25d132fb3
-    last_write_checksum: sha1:61290b4f9fed58b4b857a5cdf38cf5fb8eebb4de
-    pristine_git_object: 1af09e0dd556e82fb5064c3e77e845c74e84a67a
+    last_write_checksum: sha1:a85853d6678ce6b9f6f2667df088a9f6cdc9c88b
+    pristine_git_object: 2d6ee4dc595542f671fdfe7ad30ff0f56782e5b6
   models/components/outputgooglecloudstorage.go:
     id: c2b805e76bb9
     last_write_checksum: sha1:6436ad274a39cb97b60c9282dcb6f1e5778fc25f
@@ -19233,8 +19233,8 @@ trackedFiles:
     pristine_git_object: 9eef289a4b62d8c4e05ca6d8ce23d1a3be175ea2
   models/components/outputresponseoutputwebhookurl1.go:
     id: 784adaf94ae3
-    last_write_checksum: sha1:bcadb418ed720a541ead2518ede55de5c9ec7484
-    pristine_git_object: 8f5e4eeeb7aff47e834b1997c06e08596cc20c6a
+    last_write_checksum: sha1:f8988bce2cd85986ed49a3359b28744139f2a6a3
+    pristine_git_object: 4803d05032534396df4b056a6327d604fffd4895
   models/components/outputresponsetypestatsd.go:
     id: 50b8055ac2ab
     last_write_checksum: sha1:7295acb8c5773c9ab68926b11a2b67cacf1bae8f
@@ -20181,16 +20181,16 @@ trackedFiles:
     pristine_git_object: c0b290e2bf3df6e8240a9cb9a8d49a8b73771eea
   models/operations/createoutputoutputwebhookurl1.go:
     id: 3e13daf2d8d5
-    last_write_checksum: sha1:9602bdb2c7dcbf2ed190df49dcb5e1bbeb005758
-    pristine_git_object: a43927f8c8b543791931490dfac72ed1b21345b3
+    last_write_checksum: sha1:1719ccc2d6ccd90ba4f2869614714498be316bad
+    pristine_git_object: 4c33a76bd20c2640f8a9b6bb66c361c3d9d79a04
   models/operations/createoutputresponse.go:
     id: 512acef0833a
     last_write_checksum: sha1:01bf83260e911328d12e8039d491e13a1a05a766
     pristine_git_object: 3b782939f4791361f183e3c111cd02678b276d3d
   models/operations/createoutputsystembypackoutputwebhookurl1.go:
     id: ed817ed2ae9b
-    last_write_checksum: sha1:d89cd8ddeb1453eeed7c448dfd728d1c44a55b7a
-    pristine_git_object: 3bda10c4b48286d31ff76c76e1b043106a428f28
+    last_write_checksum: sha1:b20122200629cd9e8ce3bb6380cde4aa34ea4580
+    pristine_git_object: 06783ba646332414d3215416eaeb0cfd589a111c
   models/operations/createoutputsystembypackresponse.go:
     id: 5ebdc5cb5320
     last_write_checksum: sha1:39cdda1ea841eff1d558d720506339ab3e674f41
@@ -36263,7 +36263,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input` **Changed** (Breaking ⚠️)\n  *  `response.Items[]` **Changed**\n* `CriblControlPlane.Sources.List()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Sources.Delete()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Destinations.Create()`: \n  *  `request.RequestBody.union(google_cloud_observability).MaxPayloadEvents` **Added**\n  *  `response.Items[].union(google_cloud_observability).MaxPayloadEvents` **Added**\n* `CriblControlPlane.Packs.Destinations.Get()`:  `response.Items[].union(google_cloud_observability).MaxPayloadEvents` **Added**\n* `CriblControlPlane.Packs.Destinations.Update()`: \n  *  `request.Output.union(google_cloud_observability).MaxPayloadEvents` **Added**\n  *  `response.Items[].union(google_cloud_observability).MaxPayloadEvents` **Added**\n* `CriblControlPlane.Packs.Destinations.Delete()`:  `response.Items[].union(google_cloud_observability).MaxPayloadEvents` **Added**\n* `CriblControlPlane.Packs.Sources.List()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Destinations.List()`:  `response.Items[].union(google_cloud_observability).MaxPayloadEvents` **Added**\n* `CriblControlPlane.Sources.Get()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Packs.Sources.Get()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Sources.Delete()`:  `response.Items[]` **Changed**\n* `CriblControlPlane.Destinations.List()`:  `response.Items[].union(google_cloud_observability).MaxPayloadEvents` **Added**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request.union(google_cloud_observability).MaxPayloadEvents` **Added**\n  *  `response.Items[].union(google_cloud_observability).MaxPayloadEvents` **Added**\n* `CriblControlPlane.Destinations.Get()`:  `response.Items[].union(google_cloud_observability).MaxPayloadEvents` **Added**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output.union(google_cloud_observability).MaxPayloadEvents` **Added**\n  *  `response.Items[].union(google_cloud_observability).MaxPayloadEvents` **Added**\n* `CriblControlPlane.Destinations.Delete()`:  `response.Items[].union(google_cloud_observability).MaxPayloadEvents` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
