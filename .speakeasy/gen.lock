@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: d5d49bdfce715f0a209f5cf13c89c4d9
-  docVersion: 4.18.2-alpha.1781564965234-252f8f24
-  speakeasyVersion: 1.778.0
-  generationVersion: 2.904.2
-  releaseVersion: 0.9.0-alpha.16
-  configChecksum: 1492452db7a6a3d187a6aa43bb7351cb
+  docChecksum: 0d25574c11912ef04df28a4f5e17730d
+  docVersion: 4.18.2-alpha.1781704252212-45e15fbc
+  speakeasyVersion: 1.781.0
+  generationVersion: 2.907.0
+  releaseVersion: 0.9.0-alpha.17
+  configChecksum: ea7bf3e66dc6b67b084062a7bc2e25e5
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 2112729a-a441-455b-a490-45bc1cfd6952
-  pristine_commit_hash: ba447dfca25db6d1443d3a714dffe996b70743fa
-  pristine_tree_hash: 84ef44a9902655ce99c219a4e02fb365f5536396
+  generation_id: 4e55a55e-1b1e-4f21-8ca3-7cee448ca2f3
+  pristine_commit_hash: 546342d785112647a30037a89f8e8d1339c7edbe
+  pristine_tree_hash: d6394bbbc214851c4ab3890ac5958c824cd8eec1
 features:
   go:
     additionalDependencies: 0.1.0
@@ -38,7 +38,7 @@ features:
     openEnums: 0.1.0
     pagination: 2.82.7
     responseFormat: 0.1.2
-    retries: 2.84.2
+    retries: 2.84.3
     sdkHooks: 0.3.0
     unions: 2.87.7
     uploadStreams: 0.1.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: bba69be06926f5c8962b2ff0b439a8f206dac7de
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:7967835ef3aa27cc7ba53bcd1ae36ed01af06fb1
-    pristine_git_object: 1d9328ce2c762da15473fe8494a6e4e9d8987b7d
+    last_write_checksum: sha1:3bb74439f83d0056d02f38899ddfe2b717bfcd0a
+    pristine_git_object: 396877e2acc7dc61410353010bea38fe0604250e
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:3d059ca22995c03650c4cc7153fb55f73685d21e
@@ -125,8 +125,8 @@ trackedFiles:
     pristine_git_object: f739279ef79671d7f4e4ea69f4a623760ced062e
   docs/models/apierrors/healthserverstatuserror.md:
     id: f3e3e9a583d6
-    last_write_checksum: sha1:f8297a3f1dab067fe2ff54a0473bf1f5980587d9
-    pristine_git_object: 85e64beef7cc20143ea03dea34bc967d42297838
+    last_write_checksum: sha1:86123f601867801e26d971b3a5c555bac8e2d8c0
+    pristine_git_object: f210b23fc2c6bea4c10bd264fa4dcb82c5736680
   docs/models/components/acknowledgmentsoptions.md:
     id: 2f100882dcbe
     last_write_checksum: sha1:3a305cc7163461f2461c8afca75f0c2c118516ea
@@ -135,6 +135,10 @@ trackedFiles:
     id: b5a9f3dd3e94
     last_write_checksum: sha1:91d8d311d06b951c1eb44e8633c330a22d041a9c
     pristine_git_object: a6a0d11373159cac7323d8c77c02b69b845d466c
+  docs/models/components/activehealthoverlaystatus.md:
+    id: 4b2f52a9186b
+    last_write_checksum: sha1:25775241b258f36e6ef431bebbf49f52f47eefa0
+    pristine_git_object: 476c657c2252230b1942ab0a316cfd14a051a49f
   docs/models/components/addconffunctionconfschemaaggregation.md:
     id: 6eee98be57a4
     last_write_checksum: sha1:a0b11b2a95bd56efa27417d983ceb1710373067c
@@ -3023,10 +3027,14 @@ trackedFiles:
     id: 0c63d3787f6e
     last_write_checksum: sha1:b1add6644bbce8166fef043e895440a2d76a7c58
     pristine_git_object: a8da154a11f799da4a0424f33d951341fe398b84
+  docs/models/components/healthoverlaystatus.md:
+    id: bbaf1028782d
+    last_write_checksum: sha1:675e1abe27dbbb4cdc0c838e848b30fd5e17f741
+    pristine_git_object: 2f8374da31acc43535b4b421931c00987024c9aa
   docs/models/components/healthserverstatus.md:
     id: 6223ddff5473
-    last_write_checksum: sha1:9458445aa51e479f3afefdd43351826b8744ae98
-    pristine_git_object: 418ea20d448e4fdc3cd83d1f5e5b429d507feedd
+    last_write_checksum: sha1:4543c5e21fb036fc48169a7e07963ff5c4f7174a
+    pristine_git_object: 28c68e0ce870a7a893208dd4a9f95900106f21c6
   docs/models/components/healthserverstatusstatus.md:
     id: c4962debf424
     last_write_checksum: sha1:43c0eb40c704e4979a606ff5fdd117161424b0d7
@@ -5203,6 +5211,10 @@ trackedFiles:
     id: 1ee95d4eab9d
     last_write_checksum: sha1:66f38d2ce112b3fbd4bab949f4cb0eab2637d89e
     pristine_git_object: 5560889710c341c2c20abfa669377c7bd4bb0fec
+  docs/models/components/noactivehealthoverlaystatus.md:
+    id: ffe8580e05bc
+    last_write_checksum: sha1:4793ca4175b06c5383dabed43350fe2b75adbd7c
+    pristine_git_object: 0c2728e41d48f5ee18a11925a752cecb07ddc5a8
   docs/models/components/nodeactiveupgradestatus.md:
     id: 10db11d8b628
     last_write_checksum: sha1:73a33716dc21a0ca8648afaa6ebc60e95deae71f
@@ -17129,8 +17141,8 @@ trackedFiles:
     pristine_git_object: e5ef4a9a336e812b37c1df26eea1efe8fbed6ccd
   docs/sdks/health/README.md:
     id: 5082c50d5e82
-    last_write_checksum: sha1:b6ac3c8206660999bb87053698c5561a402f261c
-    pristine_git_object: f573c52976e9ceab24c2c0683682e254c2ee1566
+    last_write_checksum: sha1:2d1acd95460a4918bf6460039c8d55ca37a18427
+    pristine_git_object: cf00ff5b20b865a3d57180782cbe4dd87aa60743
   docs/sdks/hectokens/README.md:
     id: 341daeeec3d1
     last_write_checksum: sha1:4186c23d8b2ab7716f3ae30645e6596658221e03
@@ -17345,8 +17357,8 @@ trackedFiles:
     pristine_git_object: 05e9d042569a6d6b312762fb642574d19e17d731
   models/apierrors/healthserverstatuserror.go:
     id: aecedb12c260
-    last_write_checksum: sha1:bddca4727c09e24a84ec56a412554e7c4f06078a
-    pristine_git_object: 91aecc19a7360e956bd2e68242405c142909f986
+    last_write_checksum: sha1:73ee89abf3693c74d74b7ae8e7df138db814eeac
+    pristine_git_object: 3998a3a4b77a8d14148f5c6039bf1ccce7b26428
   models/components/acknowledgmentsoptions.go:
     id: 607b60ce28e3
     last_write_checksum: sha1:0e3d0839636da73293c60b7f340e361aa76790c2
@@ -17355,6 +17367,10 @@ trackedFiles:
     id: 67b58b90fba4
     last_write_checksum: sha1:d8aecfc2f9af43d47bef83a25bee342d1aec84a2
     pristine_git_object: fb2965cbae49cc697230a4fe12ac6ad112d6821c
+  models/components/activehealthoverlaystatus.go:
+    id: 3eafee836722
+    last_write_checksum: sha1:dd4e9d94c9004dcbeb916dbed5dac96c8556a6f4
+    pristine_git_object: 58d63b028a9f745a1f7d5e52fb64568bf9c018aa
   models/components/addconffunctionconfschemaaggregation.go:
     id: 68254e4b0f89
     last_write_checksum: sha1:7ea858c2470d9a44cdd0444590392717cd3e5693
@@ -18483,10 +18499,14 @@ trackedFiles:
     id: cbaf45c6fe59
     last_write_checksum: sha1:bd1d2a86950db1631add105010fa495857d7f77c
     pristine_git_object: be6180daf4b2f23e0fa4f1b636d75753fc0e1b34
+  models/components/healthoverlaystatus.go:
+    id: 5cc6b288a8a6
+    last_write_checksum: sha1:871d325be58fbefbc6e11f8425fcef3393da082e
+    pristine_git_object: 6d7c8b2cf4307f725858eeab5c22355db0762ba0
   models/components/healthserverstatus.go:
     id: a31c73f172fa
-    last_write_checksum: sha1:c094ff950108038dfde06e0106f6583e0383ee20
-    pristine_git_object: 2c53defda27562a05db64731e5c43669240d204f
+    last_write_checksum: sha1:119ad8e9454723748b3d9ca3598e57b502cc5530
+    pristine_git_object: 6d06d08f49ce3883546cf9509f6242ff52034546
   models/components/healthstringtype.go:
     id: 64d85aa4c96e
     last_write_checksum: sha1:2da1a2f77056c48c9ab4f8efbf4f76c90f77f948
@@ -18935,6 +18955,10 @@ trackedFiles:
     id: 0ada8d7bafa2
     last_write_checksum: sha1:7492a5c0a113c6448059dfe64469e07acb36b365
     pristine_git_object: 81b5f88bac3efe00936187db1be5954c175d9855
+  models/components/noactivehealthoverlaystatus.go:
+    id: c68c65f030d1
+    last_write_checksum: sha1:14276c8fcc6191890564809008757b56845dfe5e
+    pristine_git_object: ceab5bc5ddc8e5b6a87460425b8fc15975e3391e
   models/components/nodeactiveupgradestatus.go:
     id: f6c006457abf
     last_write_checksum: sha1:b9ed652b5b1fd4e81ffe200240a3bda730ff6bf2
@@ -20701,8 +20725,8 @@ trackedFiles:
     pristine_git_object: bd37508dbdec0fa4fc13a046e2cdea70ae434479
   retry/config.go:
     id: 82d673cb0389
-    last_write_checksum: sha1:7f7d96b59a18e95bac847ae09c63bbd911ee8432
-    pristine_git_object: 5b3dc7c122d8ab08905485342d7474f8f163888d
+    last_write_checksum: sha1:102d1953fbd7e9f312c4442c71ccca2eaaeaa27d
+    pristine_git_object: 767002c7898128324d8741ce9c534bd466492169
   routes.go:
     id: 08b7908864ba
     last_write_checksum: sha1:ee022a25ab62aecfa7ab6cbb1ed8de255a5b1e0a
@@ -27150,9 +27174,9 @@ examples:
     HealthExamplesHealthyPrimary:
       responses:
         "200":
-          application/json: {"role": "primary", "startTime": 1700000000000, "status": "healthy"}
+          application/json: {"overlay": {"state": "inactive"}, "role": "primary", "startTime": 1700000000000, "status": "healthy"}
         "420":
-          application/json: {"role": "primary", "startTime": 1700000000000, "status": "healthy"}
+          application/json: {"overlay": {"state": "inactive"}, "role": "primary", "startTime": 1700000000000, "status": "healthy"}
   createSavedJob:
     CollectorExamplesRest:
       parameters:
@@ -36263,6 +36287,7 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
+releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Health.Get()`: \n  *  `response.Overlay` **Added**\n  *  `error.Overlay` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
