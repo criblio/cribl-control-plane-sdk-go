@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionChainID - Function ID
+// PipelineFunctionChainID - Identifier of the Function. Always <code>chain</code>
 type PipelineFunctionChainID string
 
 const (
@@ -58,7 +58,7 @@ func (p *PipelineFunctionChainConf) GetProcessor() string {
 type PipelineFunctionChain struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>chain</code>
 	ID PipelineFunctionChainID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

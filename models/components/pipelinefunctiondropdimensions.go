@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionDropDimensionsID - Function ID
+// PipelineFunctionDropDimensionsID - Identifier of the Function. Always <code>drop_dimensions</code>
 type PipelineFunctionDropDimensionsID string
 
 const (
@@ -76,7 +76,7 @@ func (p *PipelineFunctionDropDimensionsConf) GetFlushOnInputClose() *bool {
 type PipelineFunctionDropDimensions struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>drop_dimensions</code>
 	ID PipelineFunctionDropDimensionsID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

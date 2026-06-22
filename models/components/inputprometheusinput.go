@@ -85,9 +85,10 @@ func (e *InputPrometheusMetricsProtocol) IsExact() bool {
 
 type InputPrometheusInput struct {
 	// Unique ID for this input
-	ID       *string             `json:"id,omitzero"`
-	Type     InputPrometheusType `json:"type"`
-	Disabled *bool               `json:"disabled,omitzero"`
+	ID   *string             `json:"id,omitzero"`
+	Type InputPrometheusType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -128,8 +129,9 @@ type InputPrometheusInput struct {
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptionsSasl `json:"authType,omitzero"`
-	Description *string                          `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsSasl `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
 	TargetList []string `json:"targetList,omitzero"`
 	// DNS record type to resolve

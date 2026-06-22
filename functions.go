@@ -34,7 +34,11 @@ func newFunctions(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration,
 
 // List all Functions
 // Get a list of all Functions.
-func (s *Functions) List(ctx context.Context, opts ...operations.Option) (*operations.GetFunctionsResponse, error) {
+func (s *Functions) List(ctx context.Context, showHidden *bool, opts ...operations.Option) (*operations.GetFunctionsResponse, error) {
+	request := operations.GetFunctionsRequest{
+		ShowHidden: showHidden,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -86,6 +90,10 @@ func (s *Functions) List(ctx context.Context, opts ...operations.Option) (*opera
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err

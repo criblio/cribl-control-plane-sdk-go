@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionDynamicSamplingID - Function ID
+// PipelineFunctionDynamicSamplingID - Identifier of the Function. Always <code>dynamic_sampling</code>
 type PipelineFunctionDynamicSamplingID string
 
 const (
@@ -119,7 +119,7 @@ func (p *PipelineFunctionDynamicSamplingConf) GetMaxSampleRate() *float64 {
 type PipelineFunctionDynamicSampling struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>dynamic_sampling</code>
 	ID PipelineFunctionDynamicSamplingID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

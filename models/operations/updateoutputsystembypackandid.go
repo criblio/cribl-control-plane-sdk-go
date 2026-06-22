@@ -357,6 +357,10 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputAlibabaCloudS3() *compon
 	return u.GetOutput().OutputAlibabaCloudS3
 }
 
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputIbmCloudS3() *components.OutputIbmCloudS3 {
+	return u.GetOutput().OutputIbmCloudS3
+}
+
 type UpdateOutputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// The updated Destination object in a single-item list.

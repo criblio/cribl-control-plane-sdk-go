@@ -88,9 +88,10 @@ func (e *InputMicrosoftGraphSubscriptionPlan) IsExact() bool {
 
 type InputMicrosoftGraphInput struct {
 	// Unique ID for this input
-	ID       *string                 `json:"id,omitzero"`
-	Type     InputMicrosoftGraphType `json:"type"`
-	Disabled *bool                   `json:"disabled,omitzero"`
+	ID   *string                 `json:"id,omitzero"`
+	Type InputMicrosoftGraphType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -137,9 +138,10 @@ type InputMicrosoftGraphInput struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel    *LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
-	RetryRules  *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
-	Description *string                          `json:"description,omitzero"`
+	LogLevel   *LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
+	RetryRules *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// client_secret to pass in the OAuth request parameter.
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Directory ID (tenant identifier) in Azure Active Directory.

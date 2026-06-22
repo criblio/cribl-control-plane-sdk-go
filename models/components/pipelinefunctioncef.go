@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionCefID - Function ID
+// PipelineFunctionCefID - Identifier of the Function. Always <code>cef</code>
 type PipelineFunctionCefID string
 
 const (
@@ -35,7 +35,7 @@ func (e *PipelineFunctionCefID) UnmarshalJSON(data []byte) error {
 type PipelineFunctionCef struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>cef</code>
 	ID PipelineFunctionCefID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`
@@ -111,7 +111,7 @@ func (p *PipelineFunctionCef) GetGroupID() *string {
 type PipelineFunctionCefInput struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>cef</code>
 	ID PipelineFunctionCefID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

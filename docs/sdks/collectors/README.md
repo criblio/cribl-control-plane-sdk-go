@@ -18,7 +18,7 @@ Get a list of all Collectors.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getSavedJob" method="get" path="/lib/jobs" -->
+<!-- UsageSnippet language="go" operationID="getSavedJob" method="get" path="/lib/jobs" example="CollectorListResponseExamplesListed" -->
 ```go
 package main
 
@@ -40,7 +40,7 @@ func main() {
         }),
     )
 
-    res, err := s.Collectors.List(ctx)
+    res, err := s.Collectors.List(ctx, nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -55,7 +55,7 @@ func main() {
 | Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
 | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | `ctx`                                                                 | [context.Context](https://pkg.go.dev/context#Context)                 | :heavy_check_mark:                                                    | The context to use for the request.                                   |
-| `collectorType`                                                       | [*components.CollectorType](../../models/components/collectortype.md) | :heavy_minus_sign:                                                    | Filter by collector type                                              |
+| `collectorType`                                                       | [*components.CollectorType](../../models/components/collectortype.md) | :heavy_minus_sign:                                                    | Filter by collector type.                                             |
 | `opts`                                                                | [][operations.Option](../../models/operations/option.md)              | :heavy_minus_sign:                                                    | The options for this request.                                         |
 
 ### Response
@@ -836,6 +836,60 @@ func main() {
     }
 }
 ```
+### Example Usage: CollectorResponseExamplesRestCollector
+
+<!-- UsageSnippet language="go" operationID="createSavedJob" method="post" path="/lib/jobs" example="CollectorResponseExamplesRestCollector" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobCollection(
+        components.SavedJobCollection{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Collector: components.CreateCollectorAzureBlob(
+                components.CollectorAzureBlob{
+                    Type: components.CollectorAzureBlobTypeAzureBlob,
+                    Conf: components.CreateAzureBlobCollectorConfClientCert(
+                        components.AzureBlobAuthTypeClientCert{
+                            AuthType: components.AzureBlobAuthTypeClientCertAuthenticationMethodClientCert.ToPointer(),
+                            StorageAccountName: "<value>",
+                            TenantID: "<id>",
+                            ClientID: "<id>",
+                            Certificate: components.CertificateTypeAzureBlobAuthTypeClientCert{
+                                CertificateName: "<value>",
+                            },
+                            ContainerName: "<value>",
+                        },
+                    ),
+                },
+            ),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJobResponse != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -863,7 +917,7 @@ Get the specified Collector.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getSavedJobById" method="get" path="/lib/jobs/{id}" -->
+<!-- UsageSnippet language="go" operationID="getSavedJobById" method="get" path="/lib/jobs/{id}" example="CollectorResponseExamplesRestCollector" -->
 ```go
 package main
 
@@ -1736,6 +1790,462 @@ func main() {
     }
 }
 ```
+### Example Usage: CollectorResponseExamplesRestCollector
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="CollectorResponseExamplesRestCollector" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobExecutor(
+        components.SavedJobExecutor{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Executor: components.ExecutorTypeRunnableJobExecutor{
+                Type: "<value>",
+            },
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJobResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateCollectorExamplesAzureBlob
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesAzureBlob" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            Type: components.JobTypeOptionsRunnableJobCollectionScheduledSearch,
+            SavedQueryID: "<id>",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJobResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateCollectorExamplesCriblLake
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesCriblLake" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobCollection(
+        components.SavedJobCollection{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Collector: components.CreateCollectorSplunk(
+                components.CollectorSplunk{
+                    Type: components.CollectorSplunkTypeSplunk,
+                    Conf: components.CreateSplunkCollectorConfToken(
+                        components.SplunkAuthenticationToken{
+                            Authentication: components.SplunkAuthenticationTokenAuthenticationToken,
+                            Token: "<value>",
+                            SearchHead: "<value>",
+                            Search: "<value>",
+                            Endpoint: "<value>",
+                            OutputMode: components.OutputModeOptionsSplunkCollectorConfJSON,
+                        },
+                    ),
+                },
+            ),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJobResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateCollectorExamplesDatabase
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesDatabase" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobScheduledSearch(
+        components.SavedJobScheduledSearch{
+            Type: components.JobTypeOptionsRunnableJobCollectionScheduledSearch,
+            SavedQueryID: "<id>",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJobResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateCollectorExamplesFilesystem
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesFilesystem" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobCollection(
+        components.SavedJobCollection{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Collector: components.CreateCollectorSplunk(
+                components.CollectorSplunk{
+                    Type: components.CollectorSplunkTypeSplunk,
+                    Conf: components.CreateSplunkCollectorConfToken(
+                        components.SplunkAuthenticationToken{
+                            Authentication: components.SplunkAuthenticationTokenAuthenticationToken,
+                            Token: "<value>",
+                            SearchHead: "<value>",
+                            Search: "<value>",
+                            Endpoint: "<value>",
+                            OutputMode: components.OutputModeOptionsSplunkCollectorConfJSON,
+                        },
+                    ),
+                },
+            ),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJobResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateCollectorExamplesGoogleCloudStorage
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesGoogleCloudStorage" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobExecutor(
+        components.SavedJobExecutor{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Executor: components.ExecutorTypeRunnableJobExecutor{
+                Type: "<value>",
+            },
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJobResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateCollectorExamplesRest
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesRest" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobCollection(
+        components.SavedJobCollection{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Collector: components.CreateCollectorSplunk(
+                components.CollectorSplunk{
+                    Type: components.CollectorSplunkTypeSplunk,
+                    Conf: components.CreateSplunkCollectorConfToken(
+                        components.SplunkAuthenticationToken{
+                            Authentication: components.SplunkAuthenticationTokenAuthenticationToken,
+                            Token: "<value>",
+                            SearchHead: "<value>",
+                            Search: "<value>",
+                            Endpoint: "<value>",
+                            OutputMode: components.OutputModeOptionsSplunkCollectorConfJSON,
+                        },
+                    ),
+                },
+            ),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJobResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateCollectorExamplesS3
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobExecutor(
+        components.SavedJobExecutor{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Executor: components.ExecutorTypeRunnableJobExecutor{
+                Type: "<value>",
+            },
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJobResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateCollectorExamplesScript
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesScript" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobCollection(
+        components.SavedJobCollection{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Collector: components.CreateCollectorSplunk(
+                components.CollectorSplunk{
+                    Type: components.CollectorSplunkTypeSplunk,
+                    Conf: components.CreateSplunkCollectorConfToken(
+                        components.SplunkAuthenticationToken{
+                            Authentication: components.SplunkAuthenticationTokenAuthenticationToken,
+                            Token: "<value>",
+                            SearchHead: "<value>",
+                            Search: "<value>",
+                            Endpoint: "<value>",
+                            OutputMode: components.OutputModeOptionsSplunkCollectorConfJSON,
+                        },
+                    ),
+                },
+            ),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJobResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateCollectorExamplesSplunk
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesSplunk" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobCollection(
+        components.SavedJobCollection{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Collector: components.CreateCollectorSplunk(
+                components.CollectorSplunk{
+                    Type: components.CollectorSplunkTypeSplunk,
+                    Conf: components.CreateSplunkCollectorConfToken(
+                        components.SplunkAuthenticationToken{
+                            Authentication: components.SplunkAuthenticationTokenAuthenticationToken,
+                            Token: "<value>",
+                            SearchHead: "<value>",
+                            Search: "<value>",
+                            Endpoint: "<value>",
+                            OutputMode: components.OutputModeOptionsSplunkCollectorConfJSON,
+                        },
+                    ),
+                },
+            ),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJobResponse != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -1764,7 +2274,7 @@ Delete the specified Collector.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="deleteSavedJobById" method="delete" path="/lib/jobs/{id}" -->
+<!-- UsageSnippet language="go" operationID="deleteSavedJobById" method="delete" path="/lib/jobs/{id}" example="CollectorResponseExamplesRestCollector" -->
 ```go
 package main
 

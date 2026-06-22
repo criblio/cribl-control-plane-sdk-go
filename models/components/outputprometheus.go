@@ -128,8 +128,9 @@ type OutputPrometheus struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Remote Write authentication type
-	AuthType    *OutputPrometheusAuthenticationType `json:"authType,omitzero"`
-	Description *string                             `json:"description,omitzero"`
+	AuthType *OutputPrometheusAuthenticationType `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// How frequently metrics metadata is sent out. Value cannot be smaller than the base Flush period set above.
 	MetricsFlushPeriodSec *float64 `json:"metricsFlushPeriodSec,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.

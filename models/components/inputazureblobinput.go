@@ -33,9 +33,10 @@ func (e *InputAzureBlobType) UnmarshalJSON(data []byte) error {
 
 type InputAzureBlobInput struct {
 	// Unique ID for this input
-	ID       *string            `json:"id,omitzero"`
-	Type     InputAzureBlobType `json:"type"`
-	Disabled *bool              `json:"disabled,omitzero"`
+	ID   *string            `json:"id,omitzero"`
+	Type InputAzureBlobType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -74,7 +75,8 @@ type InputAzureBlobInput struct {
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64                     `json:"parquetChunkDownloadTimeout,omitzero"`
 	AuthType                    *AuthenticationMethodOptions `json:"authType,omitzero"`
-	Description                 *string                      `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitzero"`
 	// Select or create a stored text secret

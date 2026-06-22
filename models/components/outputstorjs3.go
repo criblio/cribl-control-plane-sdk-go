@@ -96,7 +96,8 @@ type OutputStorjS3 struct {
 	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
 	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Storj S3-compatible gateway endpoint URL (example: https://gateway.storjshare.io)
-	Endpoint    string  `json:"endpoint"`
+	Endpoint string `json:"endpoint"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`

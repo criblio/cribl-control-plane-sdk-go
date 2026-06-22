@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputPrometheusRwType - Source type identifier.
 type InputPrometheusRwType string
 
 const (
@@ -33,9 +34,11 @@ func (e *InputPrometheusRwType) UnmarshalJSON(data []byte) error {
 
 type InputPrometheusRwInput struct {
 	// Unique ID for this input
-	ID       *string               `json:"id,omitzero"`
-	Type     InputPrometheusRwType `json:"type"`
-	Disabled *bool                 `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputPrometheusRwType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -81,10 +84,11 @@ type InputPrometheusRwInput struct {
 	// Remote Write authentication type
 	AuthType *AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
-	Username    *string                       `json:"username,omitzero"`
-	Password    *string                       `json:"password,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	Password    *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials

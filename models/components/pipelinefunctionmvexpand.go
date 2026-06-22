@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionMvExpandID - Function ID
+// PipelineFunctionMvExpandID - Identifier of the Function. Always <code>mv_expand</code>
 type PipelineFunctionMvExpandID string
 
 const (
@@ -119,7 +119,7 @@ func (p *PipelineFunctionMvExpandConf) GetBagExpansionMode() *BagExpansionMode {
 type PipelineFunctionMvExpand struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>mv_expand</code>
 	ID PipelineFunctionMvExpandID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

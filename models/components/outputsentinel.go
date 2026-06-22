@@ -172,9 +172,10 @@ type OutputSentinel struct {
 	// Enter the data collection endpoint URL or the individual ID
 	EndpointURLConfiguration OutputSentinelEndpointConfiguration `json:"endpointURLConfiguration"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
-	TotalMemoryLimitKB *float64              `json:"totalMemoryLimitKB,omitzero"`
-	Description        *string               `json:"description,omitzero"`
-	Format             *OutputSentinelFormat `json:"format,omitzero"`
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
+	// Optional description for this configuration.
+	Description *string               `json:"description,omitzero"`
+	Format      *OutputSentinelFormat `json:"format,omitzero"`
 	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
 	CustomSourceExpression *string `json:"customSourceExpression,omitzero"`
 	// Whether to drop events when the source expression evaluates to null

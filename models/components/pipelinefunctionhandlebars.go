@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionHandlebarsID - Function ID
+// PipelineFunctionHandlebarsID - Identifier of the Function. Always <code>handlebars</code>
 type PipelineFunctionHandlebarsID string
 
 const (
@@ -135,7 +135,7 @@ func (p *PipelineFunctionHandlebarsConf) GetRemoveOnNull() *bool {
 type PipelineFunctionHandlebars struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>handlebars</code>
 	ID PipelineFunctionHandlebarsID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

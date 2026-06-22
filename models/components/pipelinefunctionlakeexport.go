@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionLakeExportID - Function ID
+// PipelineFunctionLakeExportID - Identifier of the Function. Always <code>lake_export</code>
 type PipelineFunctionLakeExportID string
 
 const (
@@ -103,7 +103,7 @@ func (l *LakeExportConfiguration) GetSuppressPreviews() *bool {
 type PipelineFunctionLakeExport struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>lake_export</code>
 	ID PipelineFunctionLakeExportID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

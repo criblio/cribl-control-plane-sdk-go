@@ -93,7 +93,8 @@ type OutputExabeam struct {
 	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// HMAC secret. Can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
-	Description  *string `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// How frequently, in seconds, to clean up empty directories
 	EmptyDirCleanupSec *float64 `json:"emptyDirCleanupSec,omitzero"`
 	// Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.

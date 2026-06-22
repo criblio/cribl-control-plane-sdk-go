@@ -134,9 +134,10 @@ func (i *InputSnmpSNMPv3Authentication) GetV3Users() []InputSnmpV3User {
 
 type InputSnmpInput struct {
 	// Unique ID for this input
-	ID       *string       `json:"id,omitzero"`
-	Type     InputSnmpType `json:"type"`
-	Disabled *bool         `json:"disabled,omitzero"`
+	ID   *string       `json:"id,omitzero"`
+	Type InputSnmpType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -167,8 +168,9 @@ type InputSnmpInput struct {
 	// If enabled, parses varbinds as an array of objects that include OID, value, and type
 	VarbindsWithTypes *bool `json:"varbindsWithTypes,omitzero"`
 	// If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
-	BestEffortParsing *bool   `json:"bestEffortParsing,omitzero"`
-	Description       *string `json:"description,omitzero"`
+	BestEffortParsing *bool `json:"bestEffortParsing,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

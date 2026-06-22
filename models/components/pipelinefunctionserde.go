@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionSerdeID - Function ID
+// PipelineFunctionSerdeID - Identifier of the Function. Always <code>serde</code>
 type PipelineFunctionSerdeID string
 
 const (
@@ -1444,7 +1444,7 @@ func (u PipelineFunctionSerdeConf) MarshalJSON() ([]byte, error) {
 type PipelineFunctionSerde struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>serde</code>
 	ID PipelineFunctionSerdeID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

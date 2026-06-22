@@ -116,7 +116,8 @@ type OutputS3 struct {
 	// Server-side encryption to use for uploaded objects
 	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
 	// ID or ARN of the KMS customer-managed key to use for encryption
-	KmsKeyID    *string `json:"kmsKeyId,omitzero"`
+	KmsKeyID *string `json:"kmsKeyId,omitzero"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
 	AwsAPIKey *string `json:"awsApiKey,omitzero"`

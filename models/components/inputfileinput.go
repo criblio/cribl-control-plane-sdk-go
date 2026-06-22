@@ -58,9 +58,10 @@ func (e *InputFileMode) IsExact() bool {
 
 type InputFileInput struct {
 	// Unique ID for this input
-	ID       *string       `json:"id,omitzero"`
-	Type     InputFileType `json:"type"`
-	Disabled *bool         `json:"disabled,omitzero"`
+	ID   *string       `json:"id,omitzero"`
+	Type InputFileType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -104,7 +105,8 @@ type InputFileInput struct {
 	DisableStaleChannelFlush *bool `json:"disableStaleChannelFlush,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
-	Description         *string  `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Directory path to search for files. Environment variables will be resolved (example: $CRIBL_HOME/log/).
 	Path *string `json:"path,omitzero"`
 	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.

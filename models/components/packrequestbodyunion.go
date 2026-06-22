@@ -8,19 +8,83 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// Tags2 - Categorization tags for the Pack.
+type Tags2 struct {
+	// List of data type tags for the Pack.
+	DataType []string `json:"dataType,omitzero"`
+	// List of domain tags for the Pack.
+	Domain []string `json:"domain,omitzero"`
+	// List of technology tags for the Pack.
+	Technology []string `json:"technology,omitzero"`
+	// List of stream tags for routing and filtering.
+	Streamtags []string `json:"streamtags,omitzero"`
+}
+
+func (t Tags2) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
+}
+
+func (t *Tags2) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (t *Tags2) GetDataType() []string {
+	if t == nil {
+		return nil
+	}
+	return t.DataType
+}
+
+func (t *Tags2) GetDomain() []string {
+	if t == nil {
+		return nil
+	}
+	return t.Domain
+}
+
+func (t *Tags2) GetTechnology() []string {
+	if t == nil {
+		return nil
+	}
+	return t.Technology
+}
+
+func (t *Tags2) GetStreamtags() []string {
+	if t == nil {
+		return nil
+	}
+	return t.Streamtags
+}
+
+// #region class-body-tags2
+// #endregion class-body-tags2
+
 type PackRequestBody2 struct {
-	ID                  *string `json:"id,omitzero"`
-	Spec                *string `json:"spec,omitzero"`
-	Version             *string `json:"version,omitzero"`
+	// Unique identifier for the Pack.
+	ID *string `json:"id,omitzero"`
+	// Semver range constraint to apply when resolving the Pack version to install.
+	Spec *string `json:"spec,omitzero"`
+	// Version of the Pack, following semantic versioning.
+	Version *string `json:"version,omitzero"`
+	// Minimum version of Cribl Stream required to run this Pack.
 	MinLogStreamVersion *string `json:"minLogStreamVersion,omitzero"`
-	DisplayName         *string `json:"displayName,omitzero"`
-	Author              *string `json:"author,omitzero"`
-	Description         *string `json:"description,omitzero"`
-	// The source of the pack. If not present, an empty pack will be created
-	Source               string                   `json:"source"`
-	Tags                 *TagsTypePackInstallInfo `json:"tags,omitzero"`
-	AllowCustomFunctions *bool                    `json:"allowCustomFunctions,omitzero"`
-	Force                *bool                    `json:"force,omitzero"`
+	// Human-readable display name for the Pack.
+	DisplayName *string `json:"displayName,omitzero"`
+	// Name or identifier of the Pack author.
+	Author *string `json:"author,omitzero"`
+	// Brief description of the Pack and its purpose.
+	Description *string `json:"description,omitzero"`
+	// Source of the Pack. Provide a staging source ID from <code>PUT /packs</code>, a direct URL to a <code>.crbl</code> file, or a <code>git+&lt;repo-url&gt;</code> Git repository URL. If omitted, an empty Pack is created.
+	Source string `json:"source"`
+	// Categorization tags for the Pack.
+	Tags *Tags2 `json:"tags,omitzero"`
+	// If <code>true</code> or omitted, allow the Pack to use custom JavaScript functions. If <code>false</code>, reject Packs that use custom JavaScript functions.
+	AllowCustomFunctions *bool `json:"allowCustomFunctions,omitzero"`
+	// If <code>true</code>, overwrite an existing Pack with the same ID. Otherwise, <code>false</code>.
+	Force *bool `json:"force,omitzero"`
 }
 
 func (p PackRequestBody2) MarshalJSON() ([]byte, error) {
@@ -90,7 +154,7 @@ func (p *PackRequestBody2) GetSource() string {
 	return p.Source
 }
 
-func (p *PackRequestBody2) GetTags() *TagsTypePackInstallInfo {
+func (p *PackRequestBody2) GetTags() *Tags2 {
 	if p == nil {
 		return nil
 	}
@@ -114,19 +178,83 @@ func (p *PackRequestBody2) GetForce() *bool {
 // #region class-body-packrequestbody2
 // #endregion class-body-packrequestbody2
 
+// Tags1 - Categorization tags for the Pack.
+type Tags1 struct {
+	// List of data type tags for the Pack.
+	DataType []string `json:"dataType,omitzero"`
+	// List of domain tags for the Pack.
+	Domain []string `json:"domain,omitzero"`
+	// List of technology tags for the Pack.
+	Technology []string `json:"technology,omitzero"`
+	// List of stream tags for routing and filtering.
+	Streamtags []string `json:"streamtags,omitzero"`
+}
+
+func (t Tags1) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(t, "", false)
+}
+
+func (t *Tags1) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &t, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (t *Tags1) GetDataType() []string {
+	if t == nil {
+		return nil
+	}
+	return t.DataType
+}
+
+func (t *Tags1) GetDomain() []string {
+	if t == nil {
+		return nil
+	}
+	return t.Domain
+}
+
+func (t *Tags1) GetTechnology() []string {
+	if t == nil {
+		return nil
+	}
+	return t.Technology
+}
+
+func (t *Tags1) GetStreamtags() []string {
+	if t == nil {
+		return nil
+	}
+	return t.Streamtags
+}
+
+// #region class-body-tags1
+// #endregion class-body-tags1
+
 type PackRequestBody1 struct {
-	ID                  string  `json:"id"`
-	Spec                *string `json:"spec,omitzero"`
-	Version             *string `json:"version,omitzero"`
+	// Unique identifier for the Pack.
+	ID string `json:"id"`
+	// Semver range constraint to apply when resolving the Pack version to install.
+	Spec *string `json:"spec,omitzero"`
+	// Version of the Pack, following semantic versioning.
+	Version *string `json:"version,omitzero"`
+	// Minimum version of Cribl Stream required to run this Pack.
 	MinLogStreamVersion *string `json:"minLogStreamVersion,omitzero"`
-	DisplayName         *string `json:"displayName,omitzero"`
-	Author              *string `json:"author,omitzero"`
-	Description         *string `json:"description,omitzero"`
-	// The source of the pack. If not present, an empty pack will be created
-	Source               *string                  `json:"source,omitzero"`
-	Tags                 *TagsTypePackInstallInfo `json:"tags,omitzero"`
-	AllowCustomFunctions *bool                    `json:"allowCustomFunctions,omitzero"`
-	Force                *bool                    `json:"force,omitzero"`
+	// Human-readable display name for the Pack.
+	DisplayName *string `json:"displayName,omitzero"`
+	// Name or identifier of the Pack author.
+	Author *string `json:"author,omitzero"`
+	// Brief description of the Pack and its purpose.
+	Description *string `json:"description,omitzero"`
+	// Source of the Pack. Provide a staging source ID from <code>PUT /packs</code>, a direct URL to a <code>.crbl</code> file, or a <code>git+&lt;repo-url&gt;</code> Git repository URL. If omitted, an empty Pack is created.
+	Source *string `json:"source,omitzero"`
+	// Categorization tags for the Pack.
+	Tags *Tags1 `json:"tags,omitzero"`
+	// If <code>true</code> or omitted, allow the Pack to use custom JavaScript functions. If <code>false</code>, reject Packs that use custom JavaScript functions.
+	AllowCustomFunctions *bool `json:"allowCustomFunctions,omitzero"`
+	// If <code>true</code>, overwrite an existing Pack with the same ID. Otherwise, <code>false</code>.
+	Force *bool `json:"force,omitzero"`
 }
 
 func (p PackRequestBody1) MarshalJSON() ([]byte, error) {
@@ -196,7 +324,7 @@ func (p *PackRequestBody1) GetSource() *string {
 	return p.Source
 }
 
-func (p *PackRequestBody1) GetTags() *TagsTypePackInstallInfo {
+func (p *PackRequestBody1) GetTags() *Tags1 {
 	if p == nil {
 		return nil
 	}

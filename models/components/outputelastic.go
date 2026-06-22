@@ -197,7 +197,8 @@ type OutputElastic struct {
 	RetryPartialErrors *bool `json:"retryPartialErrors,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	Description    *string                      `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// The Cloud ID or URL to an Elastic cluster to send events to. Example: http://elastic:9200/_bulk
 	URL *string `json:"url,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.

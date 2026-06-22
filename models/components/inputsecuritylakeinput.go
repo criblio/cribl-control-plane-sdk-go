@@ -33,9 +33,10 @@ func (e *InputSecurityLakeType) UnmarshalJSON(data []byte) error {
 
 type InputSecurityLakeInput struct {
 	// Unique ID for this input
-	ID       *string               `json:"id,omitzero"`
-	Type     InputSecurityLakeType `json:"type"`
-	Disabled *bool                 `json:"disabled,omitzero"`
+	ID   *string               `json:"id,omitzero"`
+	Type InputSecurityLakeType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -103,7 +104,8 @@ type InputSecurityLakeInput struct {
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `json:"pollTimeout,omitzero"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
-	Encoding    *string `json:"encoding,omitzero"`
+	Encoding *string `json:"encoding,omitzero"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key

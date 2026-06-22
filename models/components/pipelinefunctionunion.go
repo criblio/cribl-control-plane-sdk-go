@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionUnionID - Function ID
+// PipelineFunctionUnionID - Identifier of the Function. Always <code>union</code>
 type PipelineFunctionUnionID string
 
 const (
@@ -67,7 +67,7 @@ func (u *UnionConfiguration) GetStageIds() []string {
 type PipelineFunctionUnion struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>union</code>
 	ID PipelineFunctionUnionID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

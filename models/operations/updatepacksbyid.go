@@ -8,7 +8,7 @@ import (
 )
 
 type UpdatePacksByIDRequest struct {
-	// The <code>id</code> of the Pack to upgrade.
+	// The <code>id</code> of the Pack to upgrade. Use the <code>id</code> field from the list response.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// PackUpgradeRequest object.
 	PackUpgradeRequest components.PackUpgradeRequest `request:"mediaType=application/json"`

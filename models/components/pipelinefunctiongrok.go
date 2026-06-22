@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionGrokID - Function ID
+// PipelineFunctionGrokID - Identifier of the Function. Always <code>grok</code>
 type PipelineFunctionGrokID string
 
 const (
@@ -75,7 +75,7 @@ func (p *PipelineFunctionGrokConf) GetSource() *string {
 type PipelineFunctionGrok struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>grok</code>
 	ID PipelineFunctionGrokID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

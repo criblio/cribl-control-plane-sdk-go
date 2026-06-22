@@ -33,9 +33,10 @@ func (e *InputS3Type) UnmarshalJSON(data []byte) error {
 
 type InputS3Input struct {
 	// Unique ID for this input
-	ID       *string     `json:"id,omitzero"`
-	Type     InputS3Type `json:"type"`
-	Disabled *bool       `json:"disabled,omitzero"`
+	ID   *string     `json:"id,omitzero"`
+	Type InputS3Type `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -105,9 +106,10 @@ type InputS3Input struct {
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
 	Encoding *string `json:"encoding,omitzero"`
 	// Add a tag to processed S3 objects. Requires s3:GetObjectTagging and s3:PutObjectTagging AWS permissions.
-	TagAfterProcessing *bool   `json:"tagAfterProcessing,omitzero"`
-	Description        *string `json:"description,omitzero"`
-	AwsAPIKey          *string `json:"awsApiKey,omitzero"`
+	TagAfterProcessing *bool `json:"tagAfterProcessing,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.

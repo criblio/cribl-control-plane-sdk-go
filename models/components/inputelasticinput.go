@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputElasticType - Source type identifier.
 type InputElasticType string
 
 const (
@@ -214,9 +215,11 @@ func (i *InputElasticProxyMode) GetTemplateURL() *string {
 
 type InputElasticInput struct {
 	// Unique ID for this input
-	ID       *string          `json:"id,omitzero"`
-	Type     InputElasticType `json:"type"`
-	Disabled *bool            `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputElasticType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -265,11 +268,12 @@ type InputElasticInput struct {
 	// Headers to add to all events
 	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	ProxyMode   *InputElasticProxyMode        `json:"proxyMode,omitzero"`
-	Description *string                       `json:"description,omitzero"`
-	Username    *string                       `json:"username,omitzero"`
-	Password    *string                       `json:"password,omitzero"`
+	Metadata  []MetadataConfInputCollection `json:"metadata,omitzero"`
+	ProxyMode *InputElasticProxyMode        `json:"proxyMode,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	Password    *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Bearer tokens to include in the authorization header

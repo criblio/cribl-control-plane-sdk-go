@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionGeoipID - Function ID
+// PipelineFunctionGeoipID - Identifier of the Function. Always <code>geoip</code>
 type PipelineFunctionGeoipID string
 
 const (
@@ -140,7 +140,7 @@ func (p *PipelineFunctionGeoipConf) GetOutFieldMappings() *OutputFieldMappings {
 type PipelineFunctionGeoip struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>geoip</code>
 	ID PipelineFunctionGeoipID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputZscalerHecType - Source type identifier.
 type InputZscalerHecType string
 
 const (
@@ -108,9 +109,11 @@ func (i *InputZscalerHecAuthToken) GetMetadata() []MetadataConfInputCollection {
 
 type InputZscalerHecInput struct {
 	// Unique ID for this input
-	ID       *string             `json:"id,omitzero"`
-	Type     InputZscalerHecType `json:"type"`
-	Disabled *bool               `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputZscalerHecType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -164,7 +167,8 @@ type InputZscalerHecInput struct {
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
 	EmitTokenMetrics *bool `json:"emitTokenMetrics,omitzero"`
 	// Whether to enable Zscaler HEC acknowledgements
-	HecAcks     *bool   `json:"hecAcks,omitzero"`
+	HecAcks *bool `json:"hecAcks,omitzero"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`

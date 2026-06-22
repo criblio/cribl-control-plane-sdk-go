@@ -98,9 +98,10 @@ type OutputWizHec struct {
 	// Your Wiz deployment environment.
 	WizEnvironment string `json:"wiz_environment"`
 	// Your Wiz deployment data center (e.g., us1, us8, eu1). From Tenant Info → Data Center and Regions → Tenant Data Center in your Wiz console.
-	DataCenter    string  `json:"data_center"`
-	WizSourcetype string  `json:"wiz_sourcetype"`
-	Description   *string `json:"description,omitzero"`
+	DataCenter    string `json:"data_center"`
+	WizSourcetype string `json:"wiz_sourcetype"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.

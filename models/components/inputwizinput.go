@@ -184,9 +184,10 @@ func (i *InputWizContentConfig) GetMaxPages() *float64 {
 
 type InputWizInput struct {
 	// Unique ID for this input
-	ID       *string      `json:"id,omitzero"`
-	Type     InputWizType `json:"type"`
-	Disabled *bool        `json:"disabled,omitzero"`
+	ID   *string      `json:"id,omitzero"`
+	Type InputWizType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -227,8 +228,9 @@ type InputWizInput struct {
 	StaleChannelFlushMs *float64        `json:"staleChannelFlushMs,omitzero"`
 	RetryRules          *RetryRulesType `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret

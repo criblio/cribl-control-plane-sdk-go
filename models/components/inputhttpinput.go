@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputHTTPType - Source type identifier.
 type InputHTTPType string
 
 const (
@@ -33,9 +34,11 @@ func (e *InputHTTPType) UnmarshalJSON(data []byte) error {
 
 type InputHTTPInput struct {
 	// Unique ID for this input
-	ID       *string       `json:"id,omitzero"`
-	Type     InputHTTPType `json:"type"`
-	Disabled *bool         `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputHTTPType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -89,7 +92,8 @@ type InputHTTPInput struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokensExt []AuthTokensExtConfInputHTTP `json:"authTokensExt,omitzero"`
-	Description   *string                      `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

@@ -6,6 +6,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// EmptyObject - An object that must not contain any properties.
 type EmptyObject struct {
 }
 

@@ -93,9 +93,10 @@ func (i *InputOffice365MgmtContentConfig) GetEnabled() *bool {
 
 type InputOffice365MgmtInput struct {
 	// Unique ID for this input
-	ID       *string                `json:"id,omitzero"`
-	Type     InputOffice365MgmtType `json:"type"`
-	Disabled *bool                  `json:"disabled,omitzero"`
+	ID   *string                `json:"id,omitzero"`
+	Type InputOffice365MgmtType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -137,8 +138,9 @@ type InputOffice365MgmtInput struct {
 	IngestionLag *float64                         `json:"ingestionLag,omitzero"`
 	RetryRules   *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Microsoft 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret

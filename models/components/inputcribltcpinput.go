@@ -33,9 +33,10 @@ func (e *InputCriblTCPType) UnmarshalJSON(data []byte) error {
 
 type InputCriblTCPInput struct {
 	// Unique ID for this input
-	ID       *string           `json:"id,omitzero"`
-	Type     InputCriblTCPType `json:"type"`
-	Disabled *bool             `json:"disabled,omitzero"`
+	ID   *string           `json:"id,omitzero"`
+	Type InputCriblTCPType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -69,8 +70,9 @@ type InputCriblTCPInput struct {
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
-	AuthTokens  []AuthTokenConfInputCriblTCP `json:"authTokens,omitzero"`
-	Description *string                      `json:"description,omitzero"`
+	AuthTokens []AuthTokenConfInputCriblTCP `json:"authTokens,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

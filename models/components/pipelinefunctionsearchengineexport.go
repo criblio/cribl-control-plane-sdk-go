@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionSearchEngineExportID - Function ID
+// PipelineFunctionSearchEngineExportID - Identifier of the Function. Always <code>search_engine_export</code>
 type PipelineFunctionSearchEngineExportID string
 
 const (
@@ -94,7 +94,7 @@ func (s *SearchEngineExportConfiguration) GetSuppressPreviews() *bool {
 type PipelineFunctionSearchEngineExport struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>search_engine_export</code>
 	ID PipelineFunctionSearchEngineExportID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

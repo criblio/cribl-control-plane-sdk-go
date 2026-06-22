@@ -224,7 +224,8 @@ type OutputGoogleChronicle struct {
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
-	Description        *string  `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
 	ExtraLogTypes []OutputGoogleChronicleExtraLogType `json:"extraLogTypes,omitzero"`
 	// Default log type value to send to SecOps. Can be overwritten by event field __logType.

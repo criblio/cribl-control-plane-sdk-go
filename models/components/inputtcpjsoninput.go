@@ -33,9 +33,10 @@ func (e *InputTcpjsonType) UnmarshalJSON(data []byte) error {
 
 type InputTcpjsonInput struct {
 	// Unique ID for this input
-	ID       *string          `json:"id,omitzero"`
-	Type     InputTcpjsonType `json:"type"`
-	Disabled *bool            `json:"disabled,omitzero"`
+	ID   *string          `json:"id,omitzero"`
+	Type InputTcpjsonType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -71,8 +72,9 @@ type InputTcpjsonInput struct {
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
-	Description *string                                     `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret

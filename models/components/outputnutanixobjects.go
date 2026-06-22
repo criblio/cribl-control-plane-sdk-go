@@ -98,7 +98,8 @@ type OutputNutanixObjects struct {
 	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
 	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Nutanix Objects S3-compatible endpoint URL (example: https://objects.nutanix.local)
-	Endpoint    string  `json:"endpoint"`
+	Endpoint string `json:"endpoint"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`

@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionSensitiveDataScannerID - Function ID
+// PipelineFunctionSensitiveDataScannerID - Identifier of the Function. Always <code>sensitive_data_scanner</code>
 type PipelineFunctionSensitiveDataScannerID string
 
 const (
@@ -171,7 +171,7 @@ func (p *PipelineFunctionSensitiveDataScannerConf) GetBackgroundDetection() *boo
 type PipelineFunctionSensitiveDataScanner struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>sensitive_data_scanner</code>
 	ID PipelineFunctionSensitiveDataScannerID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

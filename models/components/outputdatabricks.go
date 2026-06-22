@@ -98,7 +98,8 @@ type OutputDatabricks struct {
 	// OAuth client secret for Unity Catalog authentication
 	ClientTextSecret string `json:"clientTextSecret"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it.
-	TimeoutSec  *int64  `json:"timeoutSec,omitzero"`
+	TimeoutSec *int64 `json:"timeoutSec,omitzero"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`

@@ -117,8 +117,9 @@ type OutputAzureLogs struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter workspace ID and workspace key directly, or select a stored secret
-	AuthType    *OutputAzureLogsAuthenticationMethod `json:"authType,omitzero"`
-	Description *string                              `json:"description,omitzero"`
+	AuthType *OutputAzureLogsAuthenticationMethod `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.

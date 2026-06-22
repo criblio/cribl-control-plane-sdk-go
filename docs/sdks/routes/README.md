@@ -8,7 +8,7 @@ Actions related to Routes
 
 * [List](#list) - List all Routes
 * [Get](#get) - Get a Routing table
-* [Update](#update) - Update a Route
+* [Update](#update) - Update a Routing table
 * [Append](#append) - Add a Route to the end of the Routing table
 
 ## List
@@ -194,7 +194,7 @@ func main() {
 
 ## Update
 
-Update a Route in the specified Routing table.<br/><br/>\1 This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Routing table.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Routing table might not function as expected.<br/><br/>Cribl also removes any omitted Routes when updating the Routing table.
+Update the specified Routing table.<br/><br/>Provide a complete representation of the Routing table that you want to update in the request body.<br/><br/>This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Routing table.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Routing table might not function as expected.<br/><br/>Cribl also removes any omitted Routes when updating the Routing table.
 
 ### Example Usage: RoutesResponseExamplesDefaultRoutingTable
 
@@ -479,12 +479,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                                | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `ctx`                                                                                                                    | [context.Context](https://pkg.go.dev/context#Context)                                                                    | :heavy_check_mark:                                                                                                       | The context to use for the request.                                                                                      |
-| `id`                                                                                                                     | `string`                                                                                                                 | :heavy_check_mark:                                                                                                       | The <code>id</code> of the Routing table that contains the Route to update. The supported value is <code>default</code>. |
-| `routesInput`                                                                                                            | [components.RoutesInput](../../models/components/routesinput.md)                                                         | :heavy_check_mark:                                                                                                       | RoutesInput object.                                                                                                      |
-| `opts`                                                                                                                   | [][operations.Option](../../models/operations/option.md)                                                                 | :heavy_minus_sign:                                                                                                       | The options for this request.                                                                                            |
+| Parameter                                                                                        | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                            | :heavy_check_mark:                                                                               | The context to use for the request.                                                              |
+| `id`                                                                                             | `string`                                                                                         | :heavy_check_mark:                                                                               | The <code>id</code> of the Routing table to update. The supported value is <code>default</code>. |
+| `routesInput`                                                                                    | [components.RoutesInput](../../models/components/routesinput.md)                                 | :heavy_check_mark:                                                                               | RoutesInput object.                                                                              |
+| `opts`                                                                                           | [][operations.Option](../../models/operations/option.md)                                         | :heavy_minus_sign:                                                                               | The options for this request.                                                                    |
 
 ### Response
 

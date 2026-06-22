@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionAggregationID - Function ID
+// PipelineFunctionAggregationID - Identifier of the Function. Always <code>aggregation</code>
 type PipelineFunctionAggregationID string
 
 const (
@@ -211,7 +211,7 @@ func (p *PipelineFunctionAggregationConf) GetIdleTimeLimit() *string {
 type PipelineFunctionAggregation struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>aggregation</code>
 	ID PipelineFunctionAggregationID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

@@ -192,9 +192,10 @@ func (c *CreateInputSystemByPackPersistenceSystemState) GetDestPath() *string {
 
 type CreateInputSystemByPackInputSystemState struct {
 	// Unique ID for this input
-	ID       string                                 `json:"id"`
-	Type     CreateInputSystemByPackTypeSystemState `json:"type"`
-	Disabled *bool                                  `json:"disabled,omitzero"`
+	ID   string                                 `json:"id"`
+	Type CreateInputSystemByPackTypeSystemState `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -217,8 +218,9 @@ type CreateInputSystemByPackInputSystemState struct {
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
 	DisableNativeModule *bool `json:"disableNativeModule,omitzero"`
 	// Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeLastLogModule *bool   `json:"disableNativeLastLogModule,omitzero"`
-	Description                *string `json:"description,omitzero"`
+	DisableNativeLastLogModule *bool `json:"disableNativeLastLogModule,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -1069,9 +1071,10 @@ func (c *CreateInputSystemByPackPersistenceSystemMetrics) GetDestPath() *string 
 
 type CreateInputSystemByPackInputSystemMetrics struct {
 	// Unique ID for this input
-	ID       string                                   `json:"id"`
-	Type     CreateInputSystemByPackTypeSystemMetrics `json:"type"`
-	Disabled *bool                                    `json:"disabled,omitzero"`
+	ID   string                                   `json:"id"`
+	Type CreateInputSystemByPackTypeSystemMetrics `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -1094,7 +1097,8 @@ type CreateInputSystemByPackInputSystemMetrics struct {
 	// Fields to add to events from this input
 	Metadata    []components.MetadataConfInputCollection         `json:"metadata,omitzero"`
 	Persistence *CreateInputSystemByPackPersistenceSystemMetrics `json:"persistence,omitzero"`
-	Description *string                                          `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -1277,9 +1281,10 @@ func (e *CreateInputSystemByPackTypeTcpjson) UnmarshalJSON(data []byte) error {
 
 type CreateInputSystemByPackInputTcpjson struct {
 	// Unique ID for this input
-	ID       string                             `json:"id"`
-	Type     CreateInputSystemByPackTypeTcpjson `json:"type"`
-	Disabled *bool                              `json:"disabled,omitzero"`
+	ID   string                             `json:"id"`
+	Type CreateInputSystemByPackTypeTcpjson `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -1315,8 +1320,9 @@ type CreateInputSystemByPackInputTcpjson struct {
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
-	Description *string                                                `json:"description,omitzero"`
+	AuthType *components.AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
@@ -1545,6 +1551,7 @@ func (c *CreateInputSystemByPackInputTcpjson) GetTemplatePort() *string {
 	return c.TemplatePort
 }
 
+// CreateInputSystemByPackTypeCriblLakeHTTP - Source type identifier.
 type CreateInputSystemByPackTypeCriblLakeHTTP string
 
 const (
@@ -1693,9 +1700,11 @@ func (c *CreateInputSystemByPackAuthTokensExt) GetElasticsearchMetadata() *Creat
 
 type CreateInputSystemByPackInputCriblLakeHTTP struct {
 	// Unique ID for this input
-	ID       string                                   `json:"id"`
-	Type     CreateInputSystemByPackTypeCriblLakeHTTP `json:"type"`
-	Disabled *bool                                    `json:"disabled,omitzero"`
+	ID string `json:"id"`
+	// Source type identifier.
+	Type CreateInputSystemByPackTypeCriblLakeHTTP `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -1748,7 +1757,8 @@ type CreateInputSystemByPackInputCriblLakeHTTP struct {
 	// Fields to add to events from this input
 	Metadata      []components.MetadataConfInputCollection `json:"metadata,omitzero"`
 	AuthTokensExt []CreateInputSystemByPackAuthTokensExt   `json:"authTokensExt,omitzero"`
-	Description   *string                                  `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -2058,6 +2068,7 @@ func (c *CreateInputSystemByPackInputCriblLakeHTTP) GetTemplateSplunkHecAPI() *s
 	return c.TemplateSplunkHecAPI
 }
 
+// CreateInputSystemByPackTypeCriblHTTP - Source type identifier.
 type CreateInputSystemByPackTypeCriblHTTP string
 
 const (
@@ -2083,9 +2094,11 @@ func (e *CreateInputSystemByPackTypeCriblHTTP) UnmarshalJSON(data []byte) error 
 
 type CreateInputSystemByPackInputCriblHTTP struct {
 	// Unique ID for this input
-	ID       string                               `json:"id"`
-	Type     CreateInputSystemByPackTypeCriblHTTP `json:"type"`
-	Disabled *bool                                `json:"disabled,omitzero"`
+	ID string `json:"id"`
+	// Source type identifier.
+	Type CreateInputSystemByPackTypeCriblHTTP `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -2129,8 +2142,9 @@ type CreateInputSystemByPackInputCriblHTTP struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -2394,9 +2408,10 @@ func (e *CreateInputSystemByPackTypeCriblTCP) UnmarshalJSON(data []byte) error {
 
 type CreateInputSystemByPackInputCriblTCP struct {
 	// Unique ID for this input
-	ID       string                              `json:"id"`
-	Type     CreateInputSystemByPackTypeCriblTCP `json:"type"`
-	Disabled *bool                               `json:"disabled,omitzero"`
+	ID   string                              `json:"id"`
+	Type CreateInputSystemByPackTypeCriblTCP `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -2430,8 +2445,9 @@ type CreateInputSystemByPackInputCriblTCP struct {
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
-	AuthTokens  []components.AuthTokenConfInputCriblTCP `json:"authTokens,omitzero"`
-	Description *string                                 `json:"description,omitzero"`
+	AuthTokens []components.AuthTokenConfInputCriblTCP `json:"authTokens,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -2660,9 +2676,10 @@ func (e *CreateInputSystemByPackTypeCribl) UnmarshalJSON(data []byte) error {
 
 type CreateInputSystemByPackInputCribl struct {
 	// Unique ID for this input
-	ID       string                           `json:"id"`
-	Type     CreateInputSystemByPackTypeCribl `json:"type"`
-	Disabled *bool                            `json:"disabled,omitzero"`
+	ID   string                           `json:"id"`
+	Type CreateInputSystemByPackTypeCribl `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -2678,8 +2695,9 @@ type CreateInputSystemByPackInputCribl struct {
 	Pq          *components.PqType                         `json:"pq,omitzero"`
 	Filter      *string                                    `json:"filter,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -2827,9 +2845,10 @@ func (e *CreateInputSystemByPackTypeGooglePubsub) UnmarshalJSON(data []byte) err
 
 type CreateInputSystemByPackInputGooglePubsub struct {
 	// Unique ID for this input
-	ID       string                                  `json:"id"`
-	Type     CreateInputSystemByPackTypeGooglePubsub `json:"type"`
-	Disabled *bool                                   `json:"disabled,omitzero"`
+	ID   string                                  `json:"id"`
+	Type CreateInputSystemByPackTypeGooglePubsub `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -2868,8 +2887,9 @@ type CreateInputSystemByPackInputGooglePubsub struct {
 	// Pull request timeout, in milliseconds
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
 	OrderedDelivery *bool `json:"orderedDelivery,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -3105,6 +3125,7 @@ func (c *CreateInputSystemByPackInputGooglePubsub) GetTemplateRegion() *string {
 	return c.TemplateRegion
 }
 
+// CreateInputSystemByPackTypeFirehose - Source type identifier.
 type CreateInputSystemByPackTypeFirehose string
 
 const (
@@ -3130,9 +3151,11 @@ func (e *CreateInputSystemByPackTypeFirehose) UnmarshalJSON(data []byte) error {
 
 type CreateInputSystemByPackInputFirehose struct {
 	// Unique ID for this input
-	ID       string                              `json:"id"`
-	Type     CreateInputSystemByPackTypeFirehose `json:"type"`
-	Disabled *bool                               `json:"disabled,omitzero"`
+	ID string `json:"id"`
+	// Source type identifier.
+	Type CreateInputSystemByPackTypeFirehose `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -3176,8 +3199,9 @@ type CreateInputSystemByPackInputFirehose struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -3502,8 +3526,9 @@ type CreateInputSystemByPackInputExec struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Interval between command executions in seconds.
 	Interval *float64 `json:"interval,omitzero"`
 	// Cron schedule to execute the command on.
@@ -4091,9 +4116,10 @@ func (c *CreateInputSystemByPackCheckpointing) GetBlobStore() CreateInputSystemB
 
 type CreateInputSystemByPackInputEventhubAmqp struct {
 	// Unique ID for this input
-	ID       string                                  `json:"id"`
-	Type     CreateInputSystemByPackTypeEventhubAmqp `json:"type"`
-	Disabled *bool                                   `json:"disabled,omitzero"`
+	ID   string                                  `json:"id"`
+	Type CreateInputSystemByPackTypeEventhubAmqp `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -4136,8 +4162,9 @@ type CreateInputSystemByPackInputEventhubAmqp struct {
 	// Maximum time to wait for a connection to complete
 	ConnectionTimeoutInMs *int64 `json:"connectionTimeoutInMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -4383,9 +4410,10 @@ func (e *CreateInputSystemByPackTypeEventhub) UnmarshalJSON(data []byte) error {
 
 type CreateInputSystemByPackInputEventhub struct {
 	// Unique ID for this input
-	ID       string                              `json:"id"`
-	Type     CreateInputSystemByPackTypeEventhub `json:"type"`
-	Disabled *bool                               `json:"disabled,omitzero"`
+	ID   string                              `json:"id"`
+	Type CreateInputSystemByPackTypeEventhub `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -4445,8 +4473,9 @@ type CreateInputSystemByPackInputEventhub struct {
 	// Minimize duplicate events by starting only one consumer for each topic partition
 	MinimizeDuplicates *bool `json:"minimizeDuplicates,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -4830,9 +4859,10 @@ func (e *CreateInputSystemByPackSubscriptionPlan) IsExact() bool {
 
 type CreateInputSystemByPackInputMicrosoftGraph struct {
 	// Unique ID for this input
-	ID       string                                    `json:"id"`
-	Type     CreateInputSystemByPackTypeMicrosoftGraph `json:"type"`
-	Disabled *bool                                     `json:"disabled,omitzero"`
+	ID   string                                    `json:"id"`
+	Type CreateInputSystemByPackTypeMicrosoftGraph `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -4879,9 +4909,10 @@ type CreateInputSystemByPackInputMicrosoftGraph struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel    *components.LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
-	RetryRules  *components.RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
-	Description *string                                     `json:"description,omitzero"`
+	LogLevel   *components.LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
+	RetryRules *components.RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// client_secret to pass in the OAuth request parameter.
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Directory ID (tenant identifier) in Azure Active Directory.
@@ -5274,9 +5305,10 @@ func (e *CreateInputSystemByPackAuthenticationMethodOffice365MsgTrace) IsExact()
 
 type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	// Unique ID for this input
-	ID       string                                       `json:"id"`
-	Type     CreateInputSystemByPackTypeOffice365MsgTrace `json:"type"`
-	Disabled *bool                                        `json:"disabled,omitzero"`
+	ID   string                                       `json:"id"`
+	Type CreateInputSystemByPackTypeOffice365MsgTrace `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -5321,9 +5353,10 @@ type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel    *components.LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
-	RetryRules  *components.RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
-	Description *string                                     `json:"description,omitzero"`
+	LogLevel   *components.LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
+	RetryRules *components.RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Username to run Message Trace API call.
 	Username *string `json:"username,omitzero"`
 	// Password to run Message Trace API call.
@@ -5773,9 +5806,10 @@ func (c *CreateInputSystemByPackContentConfigOffice365Service) GetEnabled() *boo
 
 type CreateInputSystemByPackInputOffice365Service struct {
 	// Unique ID for this input
-	ID       string                                      `json:"id"`
-	Type     CreateInputSystemByPackTypeOffice365Service `json:"type"`
-	Disabled *bool                                       `json:"disabled,omitzero"`
+	ID   string                                      `json:"id"`
+	Type CreateInputSystemByPackTypeOffice365Service `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -5813,8 +5847,9 @@ type CreateInputSystemByPackInputOffice365Service struct {
 	ContentConfig []CreateInputSystemByPackContentConfigOffice365Service `json:"contentConfig,omitzero"`
 	RetryRules    *components.RetryRulesTypeCodesEnableHeader            `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
-	Description *string                                             `json:"description,omitzero"`
+	AuthType *components.AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Microsoft 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
@@ -6156,9 +6191,10 @@ func (c *CreateInputSystemByPackContentConfigOffice365Mgmt) GetEnabled() *bool {
 
 type CreateInputSystemByPackInputOffice365Mgmt struct {
 	// Unique ID for this input
-	ID       string                                   `json:"id"`
-	Type     CreateInputSystemByPackTypeOffice365Mgmt `json:"type"`
-	Disabled *bool                                    `json:"disabled,omitzero"`
+	ID   string                                   `json:"id"`
+	Type CreateInputSystemByPackTypeOffice365Mgmt `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -6200,8 +6236,9 @@ type CreateInputSystemByPackInputOffice365Mgmt struct {
 	IngestionLag *float64                                    `json:"ingestionLag,omitzero"`
 	RetryRules   *components.RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
-	Description *string                                             `json:"description,omitzero"`
+	AuthType *components.AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Microsoft 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
@@ -6647,9 +6684,10 @@ func (c *CreateInputSystemByPackPodFilter) GetDescription() *string {
 
 type CreateInputSystemByPackInputEdgePrometheus struct {
 	// Unique ID for this input
-	ID       string                                    `json:"id"`
-	Type     CreateInputSystemByPackTypeEdgePrometheus `json:"type"`
-	Disabled *bool                                     `json:"disabled,omitzero"`
+	ID   string                                    `json:"id"`
+	Type CreateInputSystemByPackTypeEdgePrometheus `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -6677,9 +6715,10 @@ type CreateInputSystemByPackInputEdgePrometheus struct {
 	// Fields to add to events from this input
 	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *CreateInputSystemByPackAuthenticationMethodEdgePrometheus `json:"authType,omitzero"`
-	Description *string                                                    `json:"description,omitzero"`
-	Targets     []CreateInputSystemByPackTarget                            `json:"targets,omitzero"`
+	AuthType *CreateInputSystemByPackAuthenticationMethodEdgePrometheus `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string                         `json:"description,omitzero"`
+	Targets     []CreateInputSystemByPackTarget `json:"targets,omitzero"`
 	// DNS record type to resolve
 	RecordType *components.RecordTypeOptions `json:"recordType,omitzero"`
 	// The port number in the metrics URL for discovered targets.
@@ -7280,9 +7319,10 @@ func (e *CreateInputSystemByPackMetricsProtocol) IsExact() bool {
 
 type CreateInputSystemByPackInputPrometheus struct {
 	// Unique ID for this input
-	ID       string                                `json:"id"`
-	Type     CreateInputSystemByPackTypePrometheus `json:"type"`
-	Disabled *bool                                 `json:"disabled,omitzero"`
+	ID   string                                `json:"id"`
+	Type CreateInputSystemByPackTypePrometheus `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -7323,8 +7363,9 @@ type CreateInputSystemByPackInputPrometheus struct {
 	// Fields to add to events from this input
 	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *components.AuthenticationMethodOptionsSasl `json:"authType,omitzero"`
-	Description *string                                     `json:"description,omitzero"`
+	AuthType *components.AuthenticationMethodOptionsSasl `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
 	TargetList []string `json:"targetList,omitzero"`
 	// DNS record type to resolve
@@ -7880,6 +7921,7 @@ func (c *CreateInputSystemByPackInputPrometheus) GetTemplatePassword() *string {
 	return c.TemplatePassword
 }
 
+// CreateInputSystemByPackTypePrometheusRw - Source type identifier.
 type CreateInputSystemByPackTypePrometheusRw string
 
 const (
@@ -7905,9 +7947,11 @@ func (e *CreateInputSystemByPackTypePrometheusRw) UnmarshalJSON(data []byte) err
 
 type CreateInputSystemByPackInputPrometheusRw struct {
 	// Unique ID for this input
-	ID       string                                  `json:"id"`
-	Type     CreateInputSystemByPackTypePrometheusRw `json:"type"`
-	Disabled *bool                                   `json:"disabled,omitzero"`
+	ID string `json:"id"`
+	// Source type identifier.
+	Type CreateInputSystemByPackTypePrometheusRw `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -7953,10 +7997,11 @@ type CreateInputSystemByPackInputPrometheusRw struct {
 	// Remote Write authentication type
 	AuthType *components.AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
-	Username    *string                                  `json:"username,omitzero"`
-	Password    *string                                  `json:"password,omitzero"`
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	Password    *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -8261,6 +8306,7 @@ func (c *CreateInputSystemByPackInputPrometheusRw) GetTemplateUsername() *string
 	return c.TemplateUsername
 }
 
+// CreateInputSystemByPackTypeLoki - Source type identifier.
 type CreateInputSystemByPackTypeLoki string
 
 const (
@@ -8286,9 +8332,11 @@ func (e *CreateInputSystemByPackTypeLoki) UnmarshalJSON(data []byte) error {
 
 type CreateInputSystemByPackInputLoki struct {
 	// Unique ID for this input
-	ID       string                          `json:"id"`
-	Type     CreateInputSystemByPackTypeLoki `json:"type"`
-	Disabled *bool                           `json:"disabled,omitzero"`
+	ID string `json:"id"`
+	// Source type identifier.
+	Type CreateInputSystemByPackTypeLoki `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -8334,10 +8382,11 @@ type CreateInputSystemByPackInputLoki struct {
 	// Loki logs authentication type
 	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
-	Username    *string                                  `json:"username,omitzero"`
-	Password    *string                                  `json:"password,omitzero"`
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	Password    *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -8633,6 +8682,7 @@ func (c *CreateInputSystemByPackInputLoki) GetTemplateLokiAPI() *string {
 	return c.TemplateLokiAPI
 }
 
+// CreateInputSystemByPackInputGrafanaType2 - Source type identifier.
 type CreateInputSystemByPackInputGrafanaType2 string
 
 const (
@@ -8796,9 +8846,11 @@ func (c *CreateInputSystemByPackLokiAuth2) GetTextSecret() *string {
 
 type CreateInputSystemByPackInputGrafanaGrafana2 struct {
 	// Unique ID for this input
-	ID       string                                   `json:"id"`
-	Type     CreateInputSystemByPackInputGrafanaType2 `json:"type"`
-	Disabled *bool                                    `json:"disabled,omitzero"`
+	ID string `json:"id"`
+	// Source type identifier.
+	Type CreateInputSystemByPackInputGrafanaType2 `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -8846,8 +8898,9 @@ type CreateInputSystemByPackInputGrafanaGrafana2 struct {
 	PrometheusAuth *CreateInputSystemByPackPrometheusAuth2 `json:"prometheusAuth,omitzero"`
 	LokiAuth       *CreateInputSystemByPackLokiAuth2       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -9128,6 +9181,7 @@ func (c *CreateInputSystemByPackInputGrafanaGrafana2) GetTemplateLokiAPI() *stri
 // #region class-body-createinputsystembypackinputgrafanagrafana2
 // #endregion class-body-createinputsystembypackinputgrafanagrafana2
 
+// CreateInputSystemByPackInputGrafanaType1 - Source type identifier.
 type CreateInputSystemByPackInputGrafanaType1 string
 
 const (
@@ -9291,9 +9345,11 @@ func (c *CreateInputSystemByPackLokiAuth1) GetTextSecret() *string {
 
 type CreateInputSystemByPackInputGrafanaGrafana1 struct {
 	// Unique ID for this input
-	ID       string                                   `json:"id"`
-	Type     CreateInputSystemByPackInputGrafanaType1 `json:"type"`
-	Disabled *bool                                    `json:"disabled,omitzero"`
+	ID string `json:"id"`
+	// Source type identifier.
+	Type CreateInputSystemByPackInputGrafanaType1 `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -9341,8 +9397,9 @@ type CreateInputSystemByPackInputGrafanaGrafana1 struct {
 	PrometheusAuth *CreateInputSystemByPackPrometheusAuth1 `json:"prometheusAuth,omitzero"`
 	LokiAuth       *CreateInputSystemByPackLokiAuth1       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -9737,9 +9794,10 @@ func (e *CreateInputSystemByPackTypeConfluentCloud) UnmarshalJSON(data []byte) e
 
 type CreateInputSystemByPackInputConfluentCloud struct {
 	// Unique ID for this input
-	ID       string                                    `json:"id"`
-	Type     CreateInputSystemByPackTypeConfluentCloud `json:"type"`
-	Disabled *bool                                     `json:"disabled,omitzero"`
+	ID   string                                    `json:"id"`
+	Type CreateInputSystemByPackTypeConfluentCloud `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -9802,8 +9860,9 @@ type CreateInputSystemByPackInputConfluentCloud struct {
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -10107,6 +10166,7 @@ func (c *CreateInputSystemByPackInputConfluentCloud) GetTemplateGroupID() *strin
 	return c.TemplateGroupID
 }
 
+// CreateInputSystemByPackTypeElastic - Source type identifier.
 type CreateInputSystemByPackTypeElastic string
 
 const (
@@ -10313,9 +10373,11 @@ func (c *CreateInputSystemByPackProxyModeElastic) GetTemplateURL() *string {
 
 type CreateInputSystemByPackInputElastic struct {
 	// Unique ID for this input
-	ID       string                             `json:"id"`
-	Type     CreateInputSystemByPackTypeElastic `json:"type"`
-	Disabled *bool                              `json:"disabled,omitzero"`
+	ID string `json:"id"`
+	// Source type identifier.
+	Type CreateInputSystemByPackTypeElastic `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -10364,11 +10426,12 @@ type CreateInputSystemByPackInputElastic struct {
 	// Headers to add to all events
 	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-	ProxyMode   *CreateInputSystemByPackProxyModeElastic `json:"proxyMode,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
-	Username    *string                                  `json:"username,omitzero"`
-	Password    *string                                  `json:"password,omitzero"`
+	Metadata  []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	ProxyMode *CreateInputSystemByPackProxyModeElastic `json:"proxyMode,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	Password    *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Bearer tokens to include in the authorization header
@@ -10719,9 +10782,10 @@ func (e *CreateInputSystemByPackTypeAzureBlob) UnmarshalJSON(data []byte) error 
 
 type CreateInputSystemByPackInputAzureBlob struct {
 	// Unique ID for this input
-	ID       string                               `json:"id"`
-	Type     CreateInputSystemByPackTypeAzureBlob `json:"type"`
-	Disabled *bool                                `json:"disabled,omitzero"`
+	ID   string                               `json:"id"`
+	Type CreateInputSystemByPackTypeAzureBlob `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -10760,7 +10824,8 @@ type CreateInputSystemByPackInputAzureBlob struct {
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64                                `json:"parquetChunkDownloadTimeout,omitzero"`
 	AuthType                    *components.AuthenticationMethodOptions `json:"authType,omitzero"`
-	Description                 *string                                 `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitzero"`
 	// Select or create a stored text secret
@@ -11094,6 +11159,7 @@ func (c *CreateInputSystemByPackInputAzureBlob) GetTemplateAzureCloud() *string 
 	return c.TemplateAzureCloud
 }
 
+// CreateInputSystemByPackTypeSplunkHec - Source type identifier.
 type CreateInputSystemByPackTypeSplunkHec string
 
 const (
@@ -11123,8 +11189,9 @@ type CreateInputSystemByPackAuthTokenSplunkHec struct {
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
 	// Shared secret to be provided by any client (Authorization: <token>)
-	Token   string `json:"token"`
-	Enabled *bool  `json:"enabled,omitzero"`
+	Token string `json:"token"`
+	// If true, the token is active and can be used for authentication.
+	Enabled *bool `json:"enabled,omitzero"`
 	// Optional token description
 	Description *string `json:"description,omitzero"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
@@ -11195,9 +11262,11 @@ func (c *CreateInputSystemByPackAuthTokenSplunkHec) GetMetadata() []components.M
 
 type CreateInputSystemByPackInputSplunkHec struct {
 	// Unique ID for this input
-	ID       string                               `json:"id"`
-	Type     CreateInputSystemByPackTypeSplunkHec `json:"type"`
-	Disabled *bool                                `json:"disabled,omitzero"`
+	ID string `json:"id"`
+	// Source type identifier.
+	Type CreateInputSystemByPackTypeSplunkHec `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -11261,8 +11330,9 @@ type CreateInputSystemByPackInputSplunkHec struct {
 	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
 	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
-	Description      *string `json:"description,omitzero"`
+	EmitTokenMetrics *bool `json:"emitTokenMetrics,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -11723,9 +11793,10 @@ func (e *CreateInputSystemByPackAuthenticationTypeSplunkSearch) IsExact() bool {
 
 type CreateInputSystemByPackInputSplunkSearch struct {
 	// Unique ID for this input
-	ID       string                                  `json:"id"`
-	Type     CreateInputSystemByPackTypeSplunkSearch `json:"type"`
-	Disabled *bool                                   `json:"disabled,omitzero"`
+	ID   string                                  `json:"id"`
+	Type CreateInputSystemByPackTypeSplunkSearch `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -11785,10 +11856,11 @@ type CreateInputSystemByPackInputSplunkSearch struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Splunk Search authentication type
-	AuthType    CreateInputSystemByPackAuthenticationTypeSplunkSearch `json:"authType"`
-	Description *string                                               `json:"description,omitzero"`
-	Username    *string                                               `json:"username,omitzero"`
-	Password    *string                                               `json:"password,omitzero"`
+	AuthType CreateInputSystemByPackAuthenticationTypeSplunkSearch `json:"authType"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	Password    *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -12268,9 +12340,10 @@ func (e *CreateInputSystemByPackCompression) IsExact() bool {
 
 type CreateInputSystemByPackInputSplunk struct {
 	// Unique ID for this input
-	ID       string                            `json:"id"`
-	Type     CreateInputSystemByPackTypeSplunk `json:"type"`
-	Disabled *bool                             `json:"disabled,omitzero"`
+	ID   string                            `json:"id"`
+	Type CreateInputSystemByPackTypeSplunk `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -12311,7 +12384,8 @@ type CreateInputSystemByPackInputSplunk struct {
 	AuthTokens []CreateInputSystemByPackAuthTokenSplunk `json:"authTokens,omitzero"`
 	// The highest S2S protocol version to advertise during handshake
 	MaxS2Sversion *CreateInputSystemByPackMaxS2SVersion `json:"maxS2Sversion,omitzero"`
-	Description   *string                               `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
 	UseFwdTimezone *bool `json:"useFwdTimezone,omitzero"`
 	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
@@ -12590,6 +12664,7 @@ func (c *CreateInputSystemByPackInputSplunk) GetTemplateCompress() *string {
 	return c.TemplateCompress
 }
 
+// CreateInputSystemByPackTypeHTTP - Source type identifier.
 type CreateInputSystemByPackTypeHTTP string
 
 const (
@@ -12615,9 +12690,11 @@ func (e *CreateInputSystemByPackTypeHTTP) UnmarshalJSON(data []byte) error {
 
 type CreateInputSystemByPackInputHTTP struct {
 	// Unique ID for this input
-	ID       string                          `json:"id"`
-	Type     CreateInputSystemByPackTypeHTTP `json:"type"`
-	Disabled *bool                           `json:"disabled,omitzero"`
+	ID string `json:"id"`
+	// Source type identifier.
+	Type CreateInputSystemByPackTypeHTTP `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -12671,7 +12748,8 @@ type CreateInputSystemByPackInputHTTP struct {
 	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokensExt []components.AuthTokensExtConfInputHTTP `json:"authTokensExt,omitzero"`
-	Description   *string                                 `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -13006,9 +13084,10 @@ func (e *CreateInputSystemByPackTypeMsk) UnmarshalJSON(data []byte) error {
 
 type CreateInputSystemByPackInputMsk struct {
 	// Unique ID for this input
-	ID       string                         `json:"id"`
-	Type     CreateInputSystemByPackTypeMsk `json:"type"`
-	Disabled *bool                          `json:"disabled,omitzero"`
+	ID   string                         `json:"id"`
+	Type CreateInputSystemByPackTypeMsk `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -13089,8 +13168,9 @@ type CreateInputSystemByPackInputMsk struct {
 	MaxBytes *float64 `json:"maxBytes,omitzero"`
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
-	Description     *string  `json:"description,omitzero"`
-	AwsAPIKey       *string  `json:"awsApiKey,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -13552,9 +13632,10 @@ func (e *CreateInputSystemByPackTypeKafka) UnmarshalJSON(data []byte) error {
 
 type CreateInputSystemByPackInputKafka struct {
 	// Unique ID for this input
-	ID       string                           `json:"id"`
-	Type     CreateInputSystemByPackTypeKafka `json:"type"`
-	Disabled *bool                            `json:"disabled,omitzero"`
+	ID   string                           `json:"id"`
+	Type CreateInputSystemByPackTypeKafka `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -13617,8 +13698,9 @@ type CreateInputSystemByPackInputKafka struct {
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -13947,9 +14029,10 @@ func (e *CreateInputSystemByPackTypeCollection) UnmarshalJSON(data []byte) error
 
 type CreateInputSystemByPackInputCollection struct {
 	// Unique ID for this input
-	ID       string                                `json:"id"`
-	Type     CreateInputSystemByPackTypeCollection `json:"type"`
-	Disabled *bool                                 `json:"disabled,omitzero"`
+	ID   string                                `json:"id"`
+	Type CreateInputSystemByPackTypeCollection `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process results
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.

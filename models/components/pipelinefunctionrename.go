@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionRenameID - Function ID
+// PipelineFunctionRenameID - Identifier of the Function. Always <code>rename</code>
 type PipelineFunctionRenameID string
 
 const (
@@ -35,7 +35,7 @@ func (e *PipelineFunctionRenameID) UnmarshalJSON(data []byte) error {
 type PipelineFunctionRename struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>rename</code>
 	ID PipelineFunctionRenameID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

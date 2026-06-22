@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionJSONUnrollID - Function ID
+// PipelineFunctionJSONUnrollID - Identifier of the Function. Always <code>json_unroll</code>
 type PipelineFunctionJSONUnrollID string
 
 const (
@@ -67,7 +67,7 @@ func (p *PipelineFunctionJSONUnrollConf) GetName() *string {
 type PipelineFunctionJSONUnroll struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>json_unroll</code>
 	ID PipelineFunctionJSONUnrollID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

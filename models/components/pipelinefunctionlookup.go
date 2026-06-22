@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionLookupID - Function ID
+// PipelineFunctionLookupID - Identifier of the Function. Always <code>lookup</code>
 type PipelineFunctionLookupID string
 
 const (
@@ -254,7 +254,7 @@ func (p *PipelineFunctionLookupConf) GetIgnoreCase() *bool {
 type PipelineFunctionLookup struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>lookup</code>
 	ID PipelineFunctionLookupID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`
