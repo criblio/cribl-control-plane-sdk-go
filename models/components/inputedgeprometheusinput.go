@@ -174,9 +174,10 @@ func (i *InputEdgePrometheusPodFilter) GetDescription() *string {
 
 type InputEdgePrometheusInput struct {
 	// Unique ID for this input
-	ID       *string                 `json:"id,omitzero"`
-	Type     InputEdgePrometheusType `json:"type"`
-	Disabled *bool                   `json:"disabled,omitzero"`
+	ID   *string                 `json:"id,omitzero"`
+	Type InputEdgePrometheusType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -204,9 +205,10 @@ type InputEdgePrometheusInput struct {
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *InputEdgePrometheusAuthenticationMethod `json:"authType,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
-	Targets     []InputEdgePrometheusTarget              `json:"targets,omitzero"`
+	AuthType *InputEdgePrometheusAuthenticationMethod `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string                     `json:"description,omitzero"`
+	Targets     []InputEdgePrometheusTarget `json:"targets,omitzero"`
 	// DNS record type to resolve
 	RecordType *RecordTypeOptions `json:"recordType,omitzero"`
 	// The port number in the metrics URL for discovered targets.

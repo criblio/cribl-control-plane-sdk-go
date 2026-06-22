@@ -30,7 +30,7 @@ func (u *UpdateSavedJobByIDRequest) GetSavedJob() components.SavedJob {
 
 type UpdateSavedJobByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// The updated SavedJobResponse object in a single-item list.
+	// The updated Collector in a response envelope with <code>count</code> and <code>items</code>.
 	CountedSavedJobResponse *components.CountedSavedJobResponse
 }
 

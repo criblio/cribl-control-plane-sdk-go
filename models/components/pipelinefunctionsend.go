@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionSendID - Function ID
+// PipelineFunctionSendID - Identifier of the Function. Always <code>send</code>
 type PipelineFunctionSendID string
 
 const (
@@ -153,7 +153,7 @@ func (s *SendConfiguration) GetMode() *PipelineFunctionSendMode {
 type PipelineFunctionSend struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>send</code>
 	ID PipelineFunctionSendID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

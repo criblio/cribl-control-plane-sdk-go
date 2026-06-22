@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionEventBreakerID - Function ID
+// PipelineFunctionEventBreakerID - Identifier of the Function. Always <code>event_breaker</code>
 type PipelineFunctionEventBreakerID string
 
 const (
@@ -1349,7 +1349,7 @@ func (u PipelineFunctionEventBreakerConf) MarshalJSON() ([]byte, error) {
 type PipelineFunctionEventBreaker struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>event_breaker</code>
 	ID PipelineFunctionEventBreakerID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

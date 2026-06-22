@@ -41,7 +41,13 @@ func main() {
         log.Fatal(err)
     }
     if res.HealthServerStatus != nil {
-        // handle response
+        switch res.HealthServerStatus.Overlay.Type {
+            case components.HealthOverlayStatusTypeActiveHealthOverlayStatus:
+                // res.HealthServerStatus.Overlay.ActiveHealthOverlayStatus is populated
+            case components.HealthOverlayStatusTypeNoActiveHealthOverlayStatus:
+                // res.HealthServerStatus.Overlay.NoActiveHealthOverlayStatus is populated
+        }
+
     }
 }
 ```

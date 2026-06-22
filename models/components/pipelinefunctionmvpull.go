@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionMvPullID - Function ID
+// PipelineFunctionMvPullID - Identifier of the Function. Always <code>mv_pull</code>
 type PipelineFunctionMvPullID string
 
 const (
@@ -94,7 +94,7 @@ func (p *PipelineFunctionMvPullConf) GetDeleteOriginal() *bool {
 type PipelineFunctionMvPull struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>mv_pull</code>
 	ID PipelineFunctionMvPullID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

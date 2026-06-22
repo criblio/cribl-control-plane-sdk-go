@@ -163,8 +163,9 @@ type OutputInfluxdb struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// InfluxDB authentication type
-	AuthType    *OutputInfluxdbAuthenticationType `json:"authType,omitzero"`
-	Description *string                           `json:"description,omitzero"`
+	AuthType *OutputInfluxdbAuthenticationType `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Database to write to.
 	Database *string `json:"database,omitzero"`
 	// Bucket to write to.

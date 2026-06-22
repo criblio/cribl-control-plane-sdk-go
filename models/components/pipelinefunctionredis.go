@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionRedisID - Function ID
+// PipelineFunctionRedisID - Identifier of the Function. Always <code>redis</code>
 type PipelineFunctionRedisID string
 
 const (
@@ -2145,7 +2145,7 @@ func (u PipelineFunctionRedisConf) MarshalJSON() ([]byte, error) {
 type PipelineFunctionRedis struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>redis</code>
 	ID PipelineFunctionRedisID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

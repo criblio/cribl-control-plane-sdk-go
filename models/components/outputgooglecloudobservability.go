@@ -173,11 +173,12 @@ type OutputGoogleCloudObservability struct {
 	// How often the sender should ping the peer to keep the connection open
 	KeepAliveTime *float64                           `json:"keepAliveTime,omitzero"`
 	TLS           *TLSSettingsClientSideTypeExtended `json:"tls,omitzero"`
-	// Max number of events to include in the request body. Default is 0 (unlimited).
+	// Max number of events to include in the request body. Default is 0 (unlimited). Use to keep outgoing data points within GCO request limits. For metrics, combine with the OTLP Metrics function batchSize.
 	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	Description    *string                      `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Select or create a stored text secret
 	Secret *string `json:"secret,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.

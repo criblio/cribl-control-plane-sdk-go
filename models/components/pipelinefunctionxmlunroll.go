@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionXMLUnrollID - Function ID
+// PipelineFunctionXMLUnrollID - Identifier of the Function. Always <code>xml_unroll</code>
 type PipelineFunctionXMLUnrollID string
 
 const (
@@ -85,7 +85,7 @@ func (p *PipelineFunctionXMLUnrollConf) GetPretty() *bool {
 type PipelineFunctionXMLUnroll struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>xml_unroll</code>
 	ID PipelineFunctionXMLUnrollID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

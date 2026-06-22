@@ -8,7 +8,7 @@ import (
 )
 
 type GetPacksRequest struct {
-	// Comma-separated list of additional properties to include in the response. When set, the response includes a count of the specified properties in the Pack. Available values are <code>inputs</code> and <code>outputs</code>.
+	// Comma-separated list of additional properties to include in the response. When set, the response includes a count of each specified property in each Pack. Supported values: <code>inputs</code>, <code>outputs</code>, <code>collectors</code>.
 	With *string `queryParam:"style=form,explode=true,name=with"`
 }
 

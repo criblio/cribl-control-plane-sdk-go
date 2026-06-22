@@ -94,7 +94,8 @@ type OutputHumioHec struct {
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	Description    *string                      `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// CrowdStrike Falcon LogScale authentication token
 	Token *string `json:"token,omitzero"`
 	// Select or create a stored text secret

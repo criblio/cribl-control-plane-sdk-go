@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionWindowID - Function ID
+// PipelineFunctionWindowID - Identifier of the Function. Always <code>window</code>
 type PipelineFunctionWindowID string
 
 const (
@@ -85,7 +85,7 @@ func (p *PipelineFunctionWindowConf) GetHeadEventCount() *float64 {
 type PipelineFunctionWindow struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>window</code>
 	ID PipelineFunctionWindowID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

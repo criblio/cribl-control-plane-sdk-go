@@ -33,9 +33,10 @@ func (e *InputS3InventoryType) UnmarshalJSON(data []byte) error {
 
 type InputS3InventoryInput struct {
 	// Unique ID for this input
-	ID       *string              `json:"id,omitzero"`
-	Type     InputS3InventoryType `json:"type"`
-	Disabled *bool                `json:"disabled,omitzero"`
+	ID   *string              `json:"id,omitzero"`
+	Type InputS3InventoryType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -107,9 +108,10 @@ type InputS3InventoryInput struct {
 	// Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
 	MaxManifestSizeKB *int64 `json:"maxManifestSizeKB,omitzero"`
 	// If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
-	ValidateInventoryFiles *bool   `json:"validateInventoryFiles,omitzero"`
-	Description            *string `json:"description,omitzero"`
-	AwsAPIKey              *string `json:"awsApiKey,omitzero"`
+	ValidateInventoryFiles *bool `json:"validateInventoryFiles,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret          *string                    `json:"awsSecret,omitzero"`
 	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitzero"`

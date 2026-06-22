@@ -8,7 +8,7 @@ import (
 )
 
 type GetPacksByIDRequest struct {
-	// The <code>id</code> of the Pack to get.
+	// The <code>id</code> of the Pack to get. Use the <code>id</code> field from the list response.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 

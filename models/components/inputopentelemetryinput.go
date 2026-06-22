@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputOpenTelemetryType - Source type identifier.
 type InputOpenTelemetryType string
 
 const (
@@ -232,9 +233,11 @@ func (i *InputOpenTelemetryAuthMethodsExt) GetCredentialsSecret() *string {
 
 type InputOpenTelemetryInput struct {
 	// Unique ID for this input
-	ID       *string                `json:"id,omitzero"`
-	Type     InputOpenTelemetryType `json:"type"`
-	Disabled *bool                  `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputOpenTelemetryType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -285,9 +288,10 @@ type InputOpenTelemetryInput struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
-	Description  *string  `json:"description,omitzero"`
-	Username     *string  `json:"username,omitzero"`
-	Password     *string  `json:"password,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	Password    *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials

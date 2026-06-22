@@ -272,9 +272,10 @@ func (i *InputOpenaiContentConfig) GetEndpointMetadata() []MetadataConfInputColl
 
 type InputOpenaiInput struct {
 	// Unique ID for this input
-	ID       *string         `json:"id,omitzero"`
-	Type     InputOpenaiType `json:"type"`
-	Disabled *bool           `json:"disabled,omitzero"`
+	ID   *string         `json:"id,omitzero"`
+	Type InputOpenaiType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -307,9 +308,10 @@ type InputOpenaiInput struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	RetryRules  *RetryRulesType               `json:"retryRules,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata   []MetadataConfInputCollection `json:"metadata,omitzero"`
+	RetryRules *RetryRulesType               `json:"retryRules,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

@@ -485,6 +485,12 @@ createOutputRequest := operations.CreateCreateOutputRequestScalityS3(operations.
 createOutputRequest := operations.CreateCreateOutputRequestAlibabaCloudS3(operations.CreateOutputOutputAlibabaCloudS3{/* values here */})
 ```
 
+### CreateOutputOutputIbmCloudS3
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestIbmCloudS3(operations.CreateOutputOutputIbmCloudS3{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -651,5 +657,7 @@ switch createOutputRequest.Type {
 		// createOutputRequest.CreateOutputOutputScalityS3 is populated
 	case operations.CreateOutputRequestTypeAlibabaCloudS3:
 		// createOutputRequest.CreateOutputOutputAlibabaCloudS3 is populated
+	case operations.CreateOutputRequestTypeIbmCloudS3:
+		// createOutputRequest.CreateOutputOutputIbmCloudS3 is populated
 }
 ```

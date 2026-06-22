@@ -94,8 +94,9 @@ type OutputRouter struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Event routing rules
-	Rules       []OutputRouterRule `json:"rules"`
-	Description *string            `json:"description,omitzero"`
+	Rules []OutputRouterRule `json:"rules"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }

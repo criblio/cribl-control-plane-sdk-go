@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionLocalSearchRulesetRunnerID - Function ID
+// PipelineFunctionLocalSearchRulesetRunnerID - Identifier of the Function. Always <code>local_search_ruleset_runner</code>
 type PipelineFunctionLocalSearchRulesetRunnerID string
 
 const (
@@ -35,7 +35,7 @@ func (e *PipelineFunctionLocalSearchRulesetRunnerID) UnmarshalJSON(data []byte) 
 type PipelineFunctionLocalSearchRulesetRunner struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>local_search_ruleset_runner</code>
 	ID PipelineFunctionLocalSearchRulesetRunnerID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

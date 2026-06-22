@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionOtlpTracesID - Function ID
+// PipelineFunctionOtlpTracesID - Identifier of the Function. Always <code>otlp_traces</code>
 type PipelineFunctionOtlpTracesID string
 
 const (
@@ -35,7 +35,7 @@ func (e *PipelineFunctionOtlpTracesID) UnmarshalJSON(data []byte) error {
 type PipelineFunctionOtlpTraces struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>otlp_traces</code>
 	ID PipelineFunctionOtlpTracesID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

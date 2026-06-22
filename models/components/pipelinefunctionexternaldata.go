@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionExternaldataID - Function ID
+// PipelineFunctionExternaldataID - Identifier of the Function. Always <code>externaldata</code>
 type PipelineFunctionExternaldataID string
 
 const (
@@ -35,7 +35,7 @@ func (e *PipelineFunctionExternaldataID) UnmarshalJSON(data []byte) error {
 type PipelineFunctionExternaldata struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>externaldata</code>
 	ID PipelineFunctionExternaldataID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

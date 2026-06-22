@@ -6,6 +6,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// PqTypePqControls - Management controls for the persistent queue.
 type PqTypePqControls struct {
 }
 
@@ -36,8 +37,9 @@ type PqType struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
 	Path *string `json:"path,omitzero"`
 	// Codec to use to compress the persisted data
-	Compress   *CompressionOptionsPq `json:"compress,omitzero"`
-	PqControls *PqTypePqControls     `json:"pqControls,omitzero"`
+	Compress *CompressionOptionsPq `json:"compress,omitzero"`
+	// Management controls for the persistent queue.
+	PqControls *PqTypePqControls `json:"pqControls,omitzero"`
 }
 
 func (p PqType) MarshalJSON() ([]byte, error) {

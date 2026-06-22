@@ -33,9 +33,10 @@ func (e *InputCollectionType) UnmarshalJSON(data []byte) error {
 
 type InputCollectionInput struct {
 	// Unique ID for this input
-	ID       *string             `json:"id,omitzero"`
-	Type     InputCollectionType `json:"type"`
-	Disabled *bool               `json:"disabled,omitzero"`
+	ID   *string             `json:"id,omitzero"`
+	Type InputCollectionType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process results
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.

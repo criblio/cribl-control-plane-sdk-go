@@ -9,6 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputGrafanaType2 - Source type identifier.
 type InputGrafanaType2 string
 
 const (
@@ -172,9 +173,11 @@ func (l *LokiAuth2) GetTextSecret() *string {
 
 type InputGrafanaGrafanaInput2 struct {
 	// Unique ID for this input
-	ID       *string           `json:"id,omitzero"`
-	Type     InputGrafanaType2 `json:"type"`
-	Disabled *bool             `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputGrafanaType2 `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -222,8 +225,9 @@ type InputGrafanaGrafanaInput2 struct {
 	PrometheusAuth *PrometheusAuth2 `json:"prometheusAuth,omitzero"`
 	LokiAuth       *LokiAuth2       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -504,6 +508,7 @@ func (i *InputGrafanaGrafanaInput2) GetTemplateLokiAPI() *string {
 // #region class-body-inputgrafanagrafanainput2
 // #endregion class-body-inputgrafanagrafanainput2
 
+// InputGrafanaType1 - Source type identifier.
 type InputGrafanaType1 string
 
 const (
@@ -667,9 +672,11 @@ func (l *LokiAuth1) GetTextSecret() *string {
 
 type InputGrafanaGrafanaInput1 struct {
 	// Unique ID for this input
-	ID       *string           `json:"id,omitzero"`
-	Type     InputGrafanaType1 `json:"type"`
-	Disabled *bool             `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputGrafanaType1 `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -717,8 +724,9 @@ type InputGrafanaGrafanaInput1 struct {
 	PrometheusAuth *PrometheusAuth1 `json:"prometheusAuth,omitzero"`
 	LokiAuth       *LokiAuth1       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

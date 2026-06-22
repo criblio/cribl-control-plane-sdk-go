@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionDistinctID - Function ID
+// PipelineFunctionDistinctID - Identifier of the Function. Always <code>distinct</code>
 type PipelineFunctionDistinctID string
 
 const (
@@ -94,7 +94,7 @@ func (d *DistinctConfiguration) GetSuppressPreviews() *bool {
 type PipelineFunctionDistinct struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>distinct</code>
 	ID PipelineFunctionDistinctID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

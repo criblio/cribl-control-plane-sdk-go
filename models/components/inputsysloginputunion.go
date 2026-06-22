@@ -34,9 +34,10 @@ func (e *InputSyslogType2) UnmarshalJSON(data []byte) error {
 
 type InputSyslogSyslogInput2 struct {
 	// Unique ID for this input
-	ID       *string          `json:"id,omitzero"`
-	Type     InputSyslogType2 `json:"type"`
-	Disabled *bool            `json:"disabled,omitzero"`
+	ID   *string          `json:"id,omitzero"`
+	Type InputSyslogType2 `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -90,8 +91,9 @@ type InputSyslogSyslogInput2 struct {
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitzero"`
-	Description         *string `json:"description,omitzero"`
+	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -420,9 +422,10 @@ func (e *InputSyslogType1) UnmarshalJSON(data []byte) error {
 
 type InputSyslogSyslogInput1 struct {
 	// Unique ID for this input
-	ID       *string          `json:"id,omitzero"`
-	Type     InputSyslogType1 `json:"type"`
-	Disabled *bool            `json:"disabled,omitzero"`
+	ID   *string          `json:"id,omitzero"`
+	Type InputSyslogType1 `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -476,8 +479,9 @@ type InputSyslogSyslogInput1 struct {
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitzero"`
-	Description         *string `json:"description,omitzero"`
+	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.

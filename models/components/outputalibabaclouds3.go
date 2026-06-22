@@ -31,6 +31,31 @@ func (e *OutputAlibabaCloudS3Type) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputAlibabaCloudS3AuthenticationMethod - Authentication method.
+type OutputAlibabaCloudS3AuthenticationMethod string
+
+const (
+	// OutputAlibabaCloudS3AuthenticationMethodAuto Auto
+	OutputAlibabaCloudS3AuthenticationMethodAuto OutputAlibabaCloudS3AuthenticationMethod = "auto"
+	// OutputAlibabaCloudS3AuthenticationMethodSecret Secret
+	OutputAlibabaCloudS3AuthenticationMethodSecret OutputAlibabaCloudS3AuthenticationMethod = "secret"
+)
+
+func (e OutputAlibabaCloudS3AuthenticationMethod) ToPointer() *OutputAlibabaCloudS3AuthenticationMethod {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *OutputAlibabaCloudS3AuthenticationMethod) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "secret":
+			return true
+		}
+	}
+	return false
+}
+
 type OutputAlibabaCloudS3 struct {
 	// Unique ID for this output
 	ID   *string                  `json:"id,omitzero"`
@@ -44,7 +69,7 @@ type OutputAlibabaCloudS3 struct {
 	// Tags for filtering and grouping in @{product}
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Authentication method.
-	AwsAuthenticationMethod *AuthenticationMethodOptionsSecret `json:"awsAuthenticationMethod,omitzero"`
+	AwsAuthenticationMethod *OutputAlibabaCloudS3AuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -98,7 +123,8 @@ type OutputAlibabaCloudS3 struct {
 	// Object ACL to assign to uploaded objects
 	ObjectACL *ObjectACLOptions `json:"objectACL,omitzero"`
 	// Alibaba OSS S3-compatible endpoint URL. Examples: public `https://s3.oss-{region}.aliyuncs.com`, internal `https://s3.oss-{region}-internal.aliyuncs.com`
-	Endpoint    string  `json:"endpoint"`
+	Endpoint string `json:"endpoint"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
@@ -215,7 +241,7 @@ func (o *OutputAlibabaCloudS3) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputAlibabaCloudS3) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsSecret {
+func (o *OutputAlibabaCloudS3) GetAwsAuthenticationMethod() *OutputAlibabaCloudS3AuthenticationMethod {
 	if o == nil {
 		return nil
 	}

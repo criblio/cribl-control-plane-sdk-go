@@ -116,9 +116,10 @@ func (e *InputSplunkCompression) IsExact() bool {
 
 type InputSplunkInput struct {
 	// Unique ID for this input
-	ID       *string         `json:"id,omitzero"`
-	Type     InputSplunkType `json:"type"`
-	Disabled *bool           `json:"disabled,omitzero"`
+	ID   *string         `json:"id,omitzero"`
+	Type InputSplunkType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -159,7 +160,8 @@ type InputSplunkInput struct {
 	AuthTokens []InputSplunkAuthToken `json:"authTokens,omitzero"`
 	// The highest S2S protocol version to advertise during handshake
 	MaxS2Sversion *InputSplunkMaxS2SVersion `json:"maxS2Sversion,omitzero"`
-	Description   *string                   `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
 	UseFwdTimezone *bool `json:"useFwdTimezone,omitzero"`
 	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.

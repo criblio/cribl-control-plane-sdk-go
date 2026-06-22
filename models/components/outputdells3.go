@@ -100,7 +100,8 @@ type OutputDellS3 struct {
 	// Object ACL to assign to uploaded objects
 	ObjectACL *ObjectACLOptions `json:"objectACL,omitzero"`
 	// Dell PowerScale OneFS S3-compatible endpoint URL (example: https://powerscale.example.com:9021)
-	Endpoint    string  `json:"endpoint"`
+	Endpoint string `json:"endpoint"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`

@@ -7,6 +7,18 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type GetFunctionsRequest struct {
+	// If <code>true</code>, include hidden Functions in the response. Otherwise, hidden Functions are excluded.
+	ShowHidden *bool `queryParam:"style=form,explode=true,name=showHidden"`
+}
+
+func (g *GetFunctionsRequest) GetShowHidden() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.ShowHidden
+}
+
 type GetFunctionsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// List of Function objects.

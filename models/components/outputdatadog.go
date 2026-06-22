@@ -211,8 +211,9 @@ type OutputDatadog struct {
 	AuthType *AuthenticationMethodOptionsAPI `json:"authType,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
-	Description        *string  `json:"description,omitzero"`
-	CustomURL          *string  `json:"customUrl,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	CustomURL   *string `json:"customUrl,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.

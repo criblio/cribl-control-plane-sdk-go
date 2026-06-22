@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputCriblLakeHTTPType - Source type identifier.
 type InputCriblLakeHTTPType string
 
 const (
@@ -156,9 +157,11 @@ func (i *InputCriblLakeHTTPAuthTokensExt) GetElasticsearchMetadata() *InputCribl
 
 type InputCriblLakeHTTPInput struct {
 	// Unique ID for this input
-	ID       *string                `json:"id,omitzero"`
-	Type     InputCriblLakeHTTPType `json:"type"`
-	Disabled *bool                  `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputCriblLakeHTTPType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -211,7 +214,8 @@ type InputCriblLakeHTTPInput struct {
 	// Fields to add to events from this input
 	Metadata      []MetadataConfInputCollection     `json:"metadata,omitzero"`
 	AuthTokensExt []InputCriblLakeHTTPAuthTokensExt `json:"authTokensExt,omitzero"`
-	Description   *string                           `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

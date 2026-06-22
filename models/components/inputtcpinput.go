@@ -33,9 +33,10 @@ func (e *InputTCPType) UnmarshalJSON(data []byte) error {
 
 type InputTCPInput struct {
 	// Unique ID for this input
-	ID       *string      `json:"id,omitzero"`
-	Type     InputTCPType `json:"type"`
-	Disabled *bool        `json:"disabled,omitzero"`
+	ID   *string      `json:"id,omitzero"`
+	Type InputTCPType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -75,7 +76,8 @@ type InputTCPInput struct {
 	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
 	EnableHeader *bool           `json:"enableHeader,omitzero"`
 	Preprocess   *PreprocessType `json:"preprocess,omitzero"`
-	Description  *string         `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate

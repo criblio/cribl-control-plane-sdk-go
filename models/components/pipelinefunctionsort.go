@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionSortID - Function ID
+// PipelineFunctionSortID - Identifier of the Function. Always <code>sort</code>
 type PipelineFunctionSortID string
 
 const (
@@ -94,7 +94,7 @@ func (s *SortConfiguration) GetSuppressPreviews() *bool {
 type PipelineFunctionSort struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>sort</code>
 	ID PipelineFunctionSortID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

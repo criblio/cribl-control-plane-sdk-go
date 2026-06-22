@@ -9,7 +9,7 @@ import (
 
 type CreateSavedJobResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// The created SavedJobResponse object in a single-item list.
+	// The created Collector in a response envelope with <code>count</code> and <code>items</code>.
 	CountedSavedJobResponse *components.CountedSavedJobResponse
 }
 

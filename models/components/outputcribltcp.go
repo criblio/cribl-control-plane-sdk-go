@@ -78,7 +78,8 @@ type OutputCriblTCP struct {
 	ExcludeFields []string `json:"excludeFields,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	Description    *string                      `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// The hostname of the receiver
 	Host *string `json:"host,omitzero"`
 	// The port to connect to on the provided host

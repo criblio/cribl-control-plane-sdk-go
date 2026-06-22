@@ -3,7 +3,9 @@
 package components
 
 type PackUninstallInfo struct {
-	ID     string `json:"id"`
+	// Unique identifier for the Pack.
+	ID string `json:"id"`
+	// Source from which the Pack was originally installed.
 	Source string `json:"source"`
 }
 

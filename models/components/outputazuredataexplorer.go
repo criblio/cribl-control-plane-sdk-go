@@ -309,8 +309,9 @@ type OutputAzureDataExplorer struct {
 	// Scope to pass in the OAuth request parameter
 	Scope string `json:"scope"`
 	// The type of OAuth 2.0 client credentials grant flow to use
-	OauthType   OutputAzureDataExplorerAuthenticationMethod `json:"oauthType"`
-	Description *string                                     `json:"description,omitzero"`
+	OauthType OutputAzureDataExplorerAuthenticationMethod `json:"oauthType"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// The client secret that you generated for your app in the Azure portal
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret

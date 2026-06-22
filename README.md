@@ -370,7 +370,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [List](docs/sdks/packsroutes/README.md#list) - List all Routes within a Pack
 * [Get](docs/sdks/packsroutes/README.md#get) - Get a Routing table within a Pack
-* [Update](docs/sdks/packsroutes/README.md#update) - Update a Route within a Pack
+* [Update](docs/sdks/packsroutes/README.md#update) - Update a Routing table within a Pack
 * [Append](docs/sdks/packsroutes/README.md#append) - Add a Route to the end of the Routing table within a Pack
 
 #### [Packs.Sources](docs/sdks/packssources/README.md)
@@ -408,7 +408,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [List](docs/sdks/routes/README.md#list) - List all Routes
 * [Get](docs/sdks/routes/README.md#get) - Get a Routing table
-* [Update](docs/sdks/routes/README.md#update) - Update a Route
+* [Update](docs/sdks/routes/README.md#update) - Update a Routing table
 * [Append](docs/sdks/routes/README.md#append) - Add a Route to the end of the Routing table
 
 ### [Sources](docs/sdks/sources/README.md)

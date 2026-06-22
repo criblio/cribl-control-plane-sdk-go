@@ -58,9 +58,10 @@ func (e *InputSqsQueueType) IsExact() bool {
 
 type InputSqsInput struct {
 	// Unique ID for this input
-	ID       *string      `json:"id,omitzero"`
-	Type     InputSqsType `json:"type"`
-	Disabled *bool        `json:"disabled,omitzero"`
+	ID   *string      `json:"id,omitzero"`
+	Type InputSqsType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -109,8 +110,9 @@ type InputSqsInput struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `json:"pollTimeout,omitzero"`
-	Description *string  `json:"description,omitzero"`
-	AwsAPIKey   *string  `json:"awsApiKey,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.

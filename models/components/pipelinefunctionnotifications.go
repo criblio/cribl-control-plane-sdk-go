@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionNotificationsID - Function ID
+// PipelineFunctionNotificationsID - Identifier of the Function. Always <code>notifications</code>
 type PipelineFunctionNotificationsID string
 
 const (
@@ -76,7 +76,7 @@ func (p *PipelineFunctionNotificationsConf) GetDeduplicate() bool {
 type PipelineFunctionNotifications struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>notifications</code>
 	ID PipelineFunctionNotificationsID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

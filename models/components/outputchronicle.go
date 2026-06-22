@@ -169,7 +169,8 @@ type OutputChronicle struct {
 	// Custom labels to be added to every event
 	CustomLabels []OutputChronicleCustomLabel `json:"customLabels,omitzero"`
 	// Chronicle API service endpoint. If empty, defaults to the Region-specific endpoint. Otherwise, it must point to a Chronicle API-compatible endpoint. (Example: https://custom-endpoint.googleapis.com)
-	Endpoint    *string `json:"endpoint,omitzero"`
+	Endpoint *string `json:"endpoint,omitzero"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`

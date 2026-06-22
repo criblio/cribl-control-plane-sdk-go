@@ -104,7 +104,8 @@ type OutputCriblLake struct {
 	DynamicDataset                *bool                  `json:"dynamicDataset,omitzero"`
 	MaxClosingFilesToBackpressure *float64               `json:"maxClosingFilesToBackpressure,omitzero"`
 	MaxConcurrentFileParts        *float64               `json:"maxConcurrentFileParts,omitzero"`
-	Description                   *string                `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination

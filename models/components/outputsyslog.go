@@ -251,8 +251,9 @@ type OutputSyslog struct {
 	// Prefix messages with the byte count of the message. If disabled, no prefix will be set, and the message will be appended with a \n.
 	OctetCountFraming *bool `json:"octetCountFraming,omitzero"`
 	// Use to troubleshoot issues with sending data
-	LogFailedRequests *bool   `json:"logFailedRequests,omitzero"`
-	Description       *string `json:"description,omitzero"`
+	LogFailedRequests *bool `json:"logFailedRequests,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs.  If this setting is disabled, consider enabling round-robin DNS.
 	LoadBalanced *bool `json:"loadBalanced,omitzero"`
 	// The hostname of the receiver

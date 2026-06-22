@@ -34,9 +34,10 @@ func (e *InputResponseTypeOkta) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputOkta struct {
 	// Unique ID for this input
-	ID       *string               `json:"id,omitzero"`
-	Type     InputResponseTypeOkta `json:"type"`
-	Disabled *bool                 `json:"disabled,omitzero"`
+	ID   *string               `json:"id,omitzero"`
+	Type InputResponseTypeOkta `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -77,9 +78,10 @@ type InputResponseInputOkta struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	RetryRules  *RetryRulesType               `json:"retryRules,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata   []MetadataConfInputCollection `json:"metadata,omitzero"`
+	RetryRules *RetryRulesType               `json:"retryRules,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -468,9 +470,10 @@ func (c *ContentConfigAnthropicCompliance) GetJobTimeout() *string {
 
 type InputResponseInputAnthropicCompliance struct {
 	// Unique ID for this input
-	ID       *string                              `json:"id,omitzero"`
-	Type     InputResponseTypeAnthropicCompliance `json:"type"`
-	Disabled *bool                                `json:"disabled,omitzero"`
+	ID   *string                              `json:"id,omitzero"`
+	Type InputResponseTypeAnthropicCompliance `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -501,9 +504,10 @@ type InputResponseInputAnthropicCompliance struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	RetryRules  *RetryRulesType               `json:"retryRules,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata   []MetadataConfInputCollection `json:"metadata,omitzero"`
+	RetryRules *RetryRulesType               `json:"retryRules,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -770,9 +774,10 @@ func (m *ManageStateOpenaiComplianceLogs) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputOpenaiComplianceLogs struct {
 	// Unique ID for this input
-	ID       *string                               `json:"id,omitzero"`
-	Type     InputResponseTypeOpenaiComplianceLogs `json:"type"`
-	Disabled *bool                                 `json:"disabled,omitzero"`
+	ID   *string                               `json:"id,omitzero"`
+	Type InputResponseTypeOpenaiComplianceLogs `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -822,7 +827,8 @@ type InputResponseInputOpenaiComplianceLogs struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64        `json:"staleChannelFlushMs,omitzero"`
 	RetryRules          *RetryRulesType `json:"retryRules,omitzero"`
-	Description         *string         `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// The ID of the ChatGPT workspace to collect logs from (UUID format)
 	WorkspaceID *string `json:"workspaceId,omitzero"`
 	// One or more compliance log categories to collect
@@ -1169,6 +1175,7 @@ func (i *InputResponseInputOpenaiComplianceLogs) GetStatus() *StatusType {
 	return i.Status
 }
 
+// InputResponseTypeSysdigHec - Source type identifier.
 type InputResponseTypeSysdigHec string
 
 const (
@@ -1194,9 +1201,11 @@ func (e *InputResponseTypeSysdigHec) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputSysdigHec struct {
 	// Unique ID for this input
-	ID       *string                    `json:"id,omitzero"`
-	Type     InputResponseTypeSysdigHec `json:"type"`
-	Disabled *bool                      `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseTypeSysdigHec `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -1250,8 +1259,9 @@ type InputResponseInputSysdigHec struct {
 	// HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
 	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
-	Description      *string `json:"description,omitzero"`
+	EmitTokenMetrics *bool `json:"emitTokenMetrics,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -1579,6 +1589,7 @@ func (i *InputResponseInputSysdigHec) GetStatus() *StatusType {
 	return i.Status
 }
 
+// InputResponseTypeCloudflareHec - Source type identifier.
 type InputResponseTypeCloudflareHec string
 
 const (
@@ -1715,9 +1726,11 @@ func (i *InputResponseTLSSettingsServerSide) GetMaxVersion() *MaximumTLSVersionO
 
 type InputResponseInputCloudflareHec struct {
 	// Unique ID for this input
-	ID       *string                        `json:"id,omitzero"`
-	Type     InputResponseTypeCloudflareHec `json:"type"`
-	Disabled *bool                          `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseTypeCloudflareHec `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -1776,7 +1789,8 @@ type InputResponseInputCloudflareHec struct {
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
-	Description         *string  `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -2118,6 +2132,7 @@ func (i *InputResponseInputCloudflareHec) GetStatus() *StatusType {
 	return i.Status
 }
 
+// InputResponseTypeZscalerHec - Source type identifier.
 type InputResponseTypeZscalerHec string
 
 const (
@@ -2218,9 +2233,11 @@ func (a *AuthTokenZscalerHec) GetMetadata() []MetadataConfInputCollection {
 
 type InputResponseInputZscalerHec struct {
 	// Unique ID for this input
-	ID       *string                     `json:"id,omitzero"`
-	Type     InputResponseTypeZscalerHec `json:"type"`
-	Disabled *bool                       `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseTypeZscalerHec `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -2276,7 +2293,8 @@ type InputResponseInputZscalerHec struct {
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
 	EmitTokenMetrics *bool `json:"emitTokenMetrics,omitzero"`
 	// Whether to enable Zscaler HEC acknowledgements
-	HecAcks     *bool   `json:"hecAcks,omitzero"`
+	HecAcks *bool `json:"hecAcks,omitzero"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
@@ -2728,9 +2746,10 @@ func (m *ManageStateServicenowTable) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputServicenowTable struct {
 	// Unique ID for this input
-	ID       *string                          `json:"id,omitzero"`
-	Type     InputResponseTypeServicenowTable `json:"type"`
-	Disabled *bool                            `json:"disabled,omitzero"`
+	ID   *string                          `json:"id,omitzero"`
+	Type InputResponseTypeServicenowTable `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -2791,9 +2810,10 @@ type InputResponseInputServicenowTable struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	RetryRules  *RetryRulesType               `json:"retryRules,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata   []MetadataConfInputCollection `json:"metadata,omitzero"`
+	RetryRules *RetryRulesType               `json:"retryRules,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// ServiceNow OAuth grant type used for token requests
@@ -3271,9 +3291,10 @@ func (e *InputResponseTypeSecurityLake) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputSecurityLake struct {
 	// Unique ID for this input
-	ID       *string                       `json:"id,omitzero"`
-	Type     InputResponseTypeSecurityLake `json:"type"`
-	Disabled *bool                         `json:"disabled,omitzero"`
+	ID   *string                       `json:"id,omitzero"`
+	Type InputResponseTypeSecurityLake `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -3343,7 +3364,8 @@ type InputResponseInputSecurityLake struct {
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `json:"pollTimeout,omitzero"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
-	Encoding    *string `json:"encoding,omitzero"`
+	Encoding *string `json:"encoding,omitzero"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
@@ -3821,9 +3843,10 @@ func (e *InputResponseTypeNetflow) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputNetflow struct {
 	// Unique ID for this input
-	ID       *string                  `json:"id,omitzero"`
-	Type     InputResponseTypeNetflow `json:"type"`
-	Disabled *bool                    `json:"disabled,omitzero"`
+	ID   *string                  `json:"id,omitzero"`
+	Type InputResponseTypeNetflow `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -3860,8 +3883,9 @@ type InputResponseInputNetflow struct {
 	// Accept messages in IPFIX format.
 	IpfixEnabled *bool `json:"ipfixEnabled,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -4090,6 +4114,7 @@ func (i *InputResponseInputNetflow) GetStatus() *StatusType {
 	return i.Status
 }
 
+// InputResponseTypeWizWebhook - Source type identifier.
 type InputResponseTypeWizWebhook string
 
 const (
@@ -4115,9 +4140,11 @@ func (e *InputResponseTypeWizWebhook) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputWizWebhook struct {
 	// Unique ID for this input
-	ID       *string                     `json:"id,omitzero"`
-	Type     InputResponseTypeWizWebhook `json:"type"`
-	Disabled *bool                       `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseTypeWizWebhook `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -4174,7 +4201,8 @@ type InputResponseInputWizWebhook struct {
 	AllowedMethods []string `json:"allowedMethods,omitzero"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokensExt []AuthTokensExtConfInputHTTP `json:"authTokensExt,omitzero"`
-	Description   *string                      `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -4788,9 +4816,10 @@ func (c *ContentConfigOpenai) GetEndpointMetadata() []MetadataConfInputCollectio
 
 type InputResponseInputOpenai struct {
 	// Unique ID for this input
-	ID       *string                 `json:"id,omitzero"`
-	Type     InputResponseTypeOpenai `json:"type"`
-	Disabled *bool                   `json:"disabled,omitzero"`
+	ID   *string                 `json:"id,omitzero"`
+	Type InputResponseTypeOpenai `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -4825,9 +4854,10 @@ type InputResponseInputOpenai struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	RetryRules  *RetryRulesType               `json:"retryRules,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata   []MetadataConfInputCollection `json:"metadata,omitzero"`
+	RetryRules *RetryRulesType               `json:"retryRules,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -5239,9 +5269,10 @@ func (c *ContentConfigWiz) GetMaxPages() *float64 {
 
 type InputResponseInputWiz struct {
 	// Unique ID for this input
-	ID       *string              `json:"id,omitzero"`
-	Type     InputResponseTypeWiz `json:"type"`
-	Disabled *bool                `json:"disabled,omitzero"`
+	ID   *string              `json:"id,omitzero"`
+	Type InputResponseTypeWiz `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -5284,8 +5315,9 @@ type InputResponseInputWiz struct {
 	StaleChannelFlushMs *float64        `json:"staleChannelFlushMs,omitzero"`
 	RetryRules          *RetryRulesType `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// The client secret of the Wiz application
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
@@ -5626,9 +5658,10 @@ func (i *InputResponseInputJournalFilesRule) GetDescription() *string {
 
 type InputResponseInputJournalFiles struct {
 	// Unique ID for this input
-	ID       *string                            `json:"id,omitzero"`
-	Type     InputResponseInputJournalFilesType `json:"type"`
-	Disabled *bool                              `json:"disabled,omitzero"`
+	ID   *string                            `json:"id,omitzero"`
+	Type InputResponseInputJournalFilesType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -5658,8 +5691,9 @@ type InputResponseInputJournalFiles struct {
 	MaxAgeDur                 *string `json:"maxAgeDur,omitzero"`
 	SuppressMissingPathErrors *bool   `json:"suppressMissingPathErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -5874,9 +5908,10 @@ func (e *InputResponseTypeRawUDP) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputRawUDP struct {
 	// Unique ID for this input
-	ID       *string                 `json:"id,omitzero"`
-	Type     InputResponseTypeRawUDP `json:"type"`
-	Disabled *bool                   `json:"disabled,omitzero"`
+	ID   *string                 `json:"id,omitzero"`
+	Type InputResponseTypeRawUDP `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -5907,8 +5942,9 @@ type InputResponseInputRawUDP struct {
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -6166,9 +6202,10 @@ func (e *ReadModeAppleUnifiedLogs) IsExact() bool {
 
 type InputResponseInputAppleUnifiedLogs struct {
 	// Unique ID for this input
-	ID       *string                           `json:"id,omitzero"`
-	Type     InputResponseTypeAppleUnifiedLogs `json:"type"`
-	Disabled *bool                             `json:"disabled,omitzero"`
+	ID   *string                           `json:"id,omitzero"`
+	Type InputResponseTypeAppleUnifiedLogs `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -6189,8 +6226,9 @@ type InputResponseInputAppleUnifiedLogs struct {
 	// Read all log entries (historical and upcoming), or only upcoming, from the last entry
 	ReadMode *ReadModeAppleUnifiedLogs `json:"readMode,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -6420,9 +6458,10 @@ func (e *InputResponseEventFormat) IsExact() bool {
 
 type InputResponseInputWinEventLogs struct {
 	// Unique ID for this input
-	ID       *string                       `json:"id,omitzero"`
-	Type     InputResponseTypeWinEventLogs `json:"type"`
-	Disabled *bool                         `json:"disabled,omitzero"`
+	ID   *string                       `json:"id,omitzero"`
+	Type InputResponseTypeWinEventLogs `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -6453,8 +6492,9 @@ type InputResponseInputWinEventLogs struct {
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// The maximum number of bytes in an event before it is flushed to the pipelines
-	MaxEventBytes *int64  `json:"maxEventBytes,omitzero"`
-	Description   *string `json:"description,omitzero"`
+	MaxEventBytes *int64 `json:"maxEventBytes,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
 	DisableJSONRendering *bool `json:"disableJsonRendering,omitzero"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
@@ -7055,9 +7095,10 @@ func (i *InputResponseSubscription) GetXMLQuery() *string {
 
 type InputResponseInputWef struct {
 	// Unique ID for this input
-	ID       *string              `json:"id,omitzero"`
-	Type     InputResponseTypeWef `json:"type"`
-	Disabled *bool                `json:"disabled,omitzero"`
+	ID   *string              `json:"id,omitzero"`
+	Type InputResponseTypeWef `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -7109,8 +7150,9 @@ type InputResponseInputWef struct {
 	// Subscriptions to events on forwarding endpoints
 	Subscriptions []InputResponseSubscription `json:"subscriptions"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
 	LogFingerprintMismatch *bool `json:"logFingerprintMismatch,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -7677,9 +7719,10 @@ func (u InputResponseUNIXSocketPermissions) MarshalJSON() ([]byte, error) {
 
 type InputResponseInputAppscope struct {
 	// Unique ID for this input
-	ID       *string                   `json:"id,omitzero"`
-	Type     InputResponseTypeAppscope `json:"type"`
-	Disabled *bool                     `json:"disabled,omitzero"`
+	ID   *string                   `json:"id,omitzero"`
+	Type InputResponseTypeAppscope `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -7718,8 +7761,9 @@ type InputResponseInputAppscope struct {
 	Filter         *FilterAppscope      `json:"filter,omitzero"`
 	Persistence    *PersistenceAppscope `json:"persistence,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
-	Description *string                                     `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `json:"host,omitzero"`
 	// Port to listen on
@@ -8049,9 +8093,10 @@ func (e *InputResponseTypeTCP) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputTCP struct {
 	// Unique ID for this input
-	ID       *string              `json:"id,omitzero"`
-	Type     InputResponseTypeTCP `json:"type"`
-	Disabled *bool                `json:"disabled,omitzero"`
+	ID   *string              `json:"id,omitzero"`
+	Type InputResponseTypeTCP `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -8093,7 +8138,8 @@ type InputResponseInputTCP struct {
 	// Client will pass the header record with every new connection. The header can contain an authToken, and an object with a list of fields and values to add to every event. These fields can be used to simplify Event Breaker selection, routing, etc. Header has this format, and must be followed by a newline: { "authToken" : "myToken", "fields": { "field1": "value1", "field2": "value2" } }
 	EnableHeader *bool           `json:"enableHeader,omitzero"`
 	Preprocess   *PreprocessType `json:"preprocess,omitzero"`
-	Description  *string         `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
@@ -8420,9 +8466,10 @@ func (e *InputResponseInputFileMode) IsExact() bool {
 
 type InputResponseInputFile struct {
 	// Unique ID for this input
-	ID       *string                    `json:"id,omitzero"`
-	Type     InputResponseInputFileType `json:"type"`
-	Disabled *bool                      `json:"disabled,omitzero"`
+	ID   *string                    `json:"id,omitzero"`
+	Type InputResponseInputFileType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -8468,7 +8515,8 @@ type InputResponseInputFile struct {
 	DisableStaleChannelFlush *bool `json:"disableStaleChannelFlush,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
-	Description         *string  `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Directory path to search for files. Environment variables will be resolved (example: $CRIBL_HOME/log/).
 	Path *string `json:"path,omitzero"`
 	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
@@ -8794,9 +8842,10 @@ func (e *InputResponseInputSyslogType2) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputSyslogSyslog2 struct {
 	// Unique ID for this input
-	ID       *string                       `json:"id,omitzero"`
-	Type     InputResponseInputSyslogType2 `json:"type"`
-	Disabled *bool                         `json:"disabled,omitzero"`
+	ID   *string                       `json:"id,omitzero"`
+	Type InputResponseInputSyslogType2 `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -8852,8 +8901,9 @@ type InputResponseInputSyslogSyslog2 struct {
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitzero"`
-	Description         *string `json:"description,omitzero"`
+	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -9207,9 +9257,10 @@ func (e *InputResponseInputSyslogType1) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputSyslogSyslog1 struct {
 	// Unique ID for this input
-	ID       *string                       `json:"id,omitzero"`
-	Type     InputResponseInputSyslogType1 `json:"type"`
-	Disabled *bool                         `json:"disabled,omitzero"`
+	ID   *string                       `json:"id,omitzero"`
+	Type InputResponseInputSyslogType1 `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -9265,8 +9316,9 @@ type InputResponseInputSyslogSyslog1 struct {
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitzero"`
-	Description         *string `json:"description,omitzero"`
+	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// When enabled, parses PROXY protocol headers during the TLS handshake. Disable if compatibility issues arise.
 	EnableEnhancedProxyHeaderParsing *bool `json:"enableEnhancedProxyHeaderParsing,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -9734,9 +9786,10 @@ func (e *InputResponseQueueType) IsExact() bool {
 
 type InputResponseInputSqs struct {
 	// Unique ID for this input
-	ID       *string              `json:"id,omitzero"`
-	Type     InputResponseTypeSqs `json:"type"`
-	Disabled *bool                `json:"disabled,omitzero"`
+	ID   *string              `json:"id,omitzero"`
+	Type InputResponseTypeSqs `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -9787,8 +9840,9 @@ type InputResponseInputSqs struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `json:"pollTimeout,omitzero"`
-	Description *string  `json:"description,omitzero"`
-	AwsAPIKey   *string  `json:"awsApiKey,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
@@ -10179,9 +10233,10 @@ func (e *InputResponseTypeModelDrivenTelemetry) UnmarshalJSON(data []byte) error
 
 type InputResponseInputModelDrivenTelemetry struct {
 	// Unique ID for this input
-	ID       *string                               `json:"id,omitzero"`
-	Type     InputResponseTypeModelDrivenTelemetry `json:"type"`
-	Disabled *bool                                 `json:"disabled,omitzero"`
+	ID   *string                               `json:"id,omitzero"`
+	Type InputResponseTypeModelDrivenTelemetry `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -10208,7 +10263,8 @@ type InputResponseInputModelDrivenTelemetry struct {
 	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
 	ShutdownTimeoutMs *float64 `json:"shutdownTimeoutMs,omitzero"`
-	Description       *string  `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -10402,6 +10458,7 @@ func (i *InputResponseInputModelDrivenTelemetry) GetStatus() *StatusType {
 	return i.Status
 }
 
+// InputResponseTypeOpenTelemetry - Source type identifier.
 type InputResponseTypeOpenTelemetry string
 
 const (
@@ -10626,9 +10683,11 @@ func (i *InputResponseAuthMethodsExt) GetCredentialsSecret() *string {
 
 type InputResponseInputOpenTelemetry struct {
 	// Unique ID for this input
-	ID       *string                        `json:"id,omitzero"`
-	Type     InputResponseTypeOpenTelemetry `json:"type"`
-	Disabled *bool                          `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseTypeOpenTelemetry `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -10681,9 +10740,10 @@ type InputResponseInputOpenTelemetry struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
-	Description  *string  `json:"description,omitzero"`
-	Username     *string  `json:"username,omitzero"`
-	Password     *string  `json:"password,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	Password    *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -11162,9 +11222,10 @@ func (i *InputResponseSNMPv3Authentication) GetV3Users() []InputResponseV3User {
 
 type InputResponseInputSnmp struct {
 	// Unique ID for this input
-	ID       *string               `json:"id,omitzero"`
-	Type     InputResponseTypeSnmp `json:"type"`
-	Disabled *bool                 `json:"disabled,omitzero"`
+	ID   *string               `json:"id,omitzero"`
+	Type InputResponseTypeSnmp `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -11197,8 +11258,9 @@ type InputResponseInputSnmp struct {
 	// If enabled, parses varbinds as an array of objects that include OID, value, and type
 	VarbindsWithTypes *bool `json:"varbindsWithTypes,omitzero"`
 	// If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
-	BestEffortParsing *bool   `json:"bestEffortParsing,omitzero"`
-	Description       *string `json:"description,omitzero"`
+	BestEffortParsing *bool `json:"bestEffortParsing,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -11438,9 +11500,10 @@ func (e *InputResponseTypeS3Inventory) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputS3Inventory struct {
 	// Unique ID for this input
-	ID       *string                      `json:"id,omitzero"`
-	Type     InputResponseTypeS3Inventory `json:"type"`
-	Disabled *bool                        `json:"disabled,omitzero"`
+	ID   *string                      `json:"id,omitzero"`
+	Type InputResponseTypeS3Inventory `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -11514,9 +11577,10 @@ type InputResponseInputS3Inventory struct {
 	// Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
 	MaxManifestSizeKB *int64 `json:"maxManifestSizeKB,omitzero"`
 	// If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
-	ValidateInventoryFiles *bool   `json:"validateInventoryFiles,omitzero"`
-	Description            *string `json:"description,omitzero"`
-	AwsAPIKey              *string `json:"awsApiKey,omitzero"`
+	ValidateInventoryFiles *bool `json:"validateInventoryFiles,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret          *string                    `json:"awsSecret,omitzero"`
 	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitzero"`
@@ -12009,9 +12073,10 @@ func (e *InputResponseTypeS3) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputS3 struct {
 	// Unique ID for this input
-	ID       *string             `json:"id,omitzero"`
-	Type     InputResponseTypeS3 `json:"type"`
-	Disabled *bool               `json:"disabled,omitzero"`
+	ID   *string             `json:"id,omitzero"`
+	Type InputResponseTypeS3 `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -12083,9 +12148,10 @@ type InputResponseInputS3 struct {
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
 	Encoding *string `json:"encoding,omitzero"`
 	// Add a tag to processed S3 objects. Requires s3:GetObjectTagging and s3:PutObjectTagging AWS permissions.
-	TagAfterProcessing *bool   `json:"tagAfterProcessing,omitzero"`
-	Description        *string `json:"description,omitzero"`
-	AwsAPIKey          *string `json:"awsApiKey,omitzero"`
+	TagAfterProcessing *bool `json:"tagAfterProcessing,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
@@ -12563,9 +12629,10 @@ func (e *InputResponseTypeMetrics) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputMetrics struct {
 	// Unique ID for this input
-	ID       *string                  `json:"id,omitzero"`
-	Type     InputResponseTypeMetrics `json:"type"`
-	Disabled *bool                    `json:"disabled,omitzero"`
+	ID   *string                  `json:"id,omitzero"`
+	Type InputResponseTypeMetrics `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -12598,7 +12665,8 @@ type InputResponseInputMetrics struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
-	Description        *string  `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -12847,9 +12915,10 @@ func (e *InputResponseTypeCriblmetrics) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputCriblmetrics struct {
 	// Unique ID for this input
-	ID       *string                       `json:"id,omitzero"`
-	Type     InputResponseTypeCriblmetrics `json:"type"`
-	Disabled *bool                         `json:"disabled,omitzero"`
+	ID   *string                       `json:"id,omitzero"`
+	Type InputResponseTypeCriblmetrics `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -12870,8 +12939,9 @@ type InputResponseInputCriblmetrics struct {
 	// Include granular metrics. Disabling this will drop the following metrics events: `cribl.logstream.host.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.index.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.source.(in_bytes,in_events,out_bytes,out_events)`, `cribl.logstream.sourcetype.(in_bytes,in_events,out_bytes,out_events)`.
 	FullFidelity *bool `json:"fullFidelity,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -13130,9 +13200,10 @@ func (e *InputResponseShardLoadBalancing) IsExact() bool {
 
 type InputResponseInputKinesis struct {
 	// Unique ID for this input
-	ID       *string                  `json:"id,omitzero"`
-	Type     InputResponseTypeKinesis `json:"type"`
-	Disabled *bool                    `json:"disabled,omitzero"`
+	ID   *string                  `json:"id,omitzero"`
+	Type InputResponseTypeKinesis `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -13188,9 +13259,10 @@ type InputResponseInputKinesis struct {
 	// When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
 	AvoidDuplicates *bool `json:"avoidDuplicates,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
-	AwsAPIKey   *string                       `json:"awsApiKey,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -13568,6 +13640,7 @@ func (i *InputResponseInputKinesis) GetStatus() *StatusType {
 	return i.Status
 }
 
+// InputResponseTypeHTTPRaw - Source type identifier.
 type InputResponseTypeHTTPRaw string
 
 const (
@@ -13593,9 +13666,11 @@ func (e *InputResponseTypeHTTPRaw) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputHTTPRaw struct {
 	// Unique ID for this input
-	ID       *string                  `json:"id,omitzero"`
-	Type     InputResponseTypeHTTPRaw `json:"type"`
-	Disabled *bool                    `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseTypeHTTPRaw `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -13652,7 +13727,8 @@ type InputResponseInputHTTPRaw struct {
 	AllowedMethods []string `json:"allowedMethods,omitzero"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokensExt []AuthTokensExtConfInputHTTP `json:"authTokensExt,omitzero"`
-	Description   *string                      `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -14025,9 +14101,10 @@ func (i *InputResponseSample) GetEventsPerSec() float64 {
 
 type InputResponseInputDatagen struct {
 	// Unique ID for this input
-	ID       *string                  `json:"id,omitzero"`
-	Type     InputResponseTypeDatagen `json:"type"`
-	Disabled *bool                    `json:"disabled,omitzero"`
+	ID   *string                  `json:"id,omitzero"`
+	Type InputResponseTypeDatagen `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -14045,8 +14122,9 @@ type InputResponseInputDatagen struct {
 	Pq          *PqType                         `json:"pq,omitzero"`
 	Samples     []InputResponseSample           `json:"samples"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -14194,6 +14272,7 @@ func (i *InputResponseInputDatagen) GetStatus() *StatusType {
 	return i.Status
 }
 
+// InputResponseTypeDatadogAgent - Source type identifier.
 type InputResponseTypeDatadogAgent string
 
 const (
@@ -14251,9 +14330,11 @@ func (p *ProxyModeDatadogAgent) GetRejectUnauthorized() *bool {
 
 type InputResponseInputDatadogAgent struct {
 	// Unique ID for this input
-	ID       *string                       `json:"id,omitzero"`
-	Type     InputResponseTypeDatadogAgent `json:"type"`
-	Disabled *bool                         `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseTypeDatadogAgent `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -14299,9 +14380,10 @@ type InputResponseInputDatadogAgent struct {
 	// Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
 	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	ProxyMode   *ProxyModeDatadogAgent        `json:"proxyMode,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata  []MetadataConfInputCollection `json:"metadata,omitzero"`
+	ProxyMode *ProxyModeDatadogAgent        `json:"proxyMode,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -14597,9 +14679,10 @@ func (e *InputResponseTypeCrowdstrike) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputCrowdstrike struct {
 	// Unique ID for this input
-	ID       *string                      `json:"id,omitzero"`
-	Type     InputResponseTypeCrowdstrike `json:"type"`
-	Disabled *bool                        `json:"disabled,omitzero"`
+	ID   *string                      `json:"id,omitzero"`
+	Type InputResponseTypeCrowdstrike `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -14665,7 +14748,8 @@ type InputResponseInputCrowdstrike struct {
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `json:"pollTimeout,omitzero"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
-	Encoding    *string `json:"encoding,omitzero"`
+	Encoding *string `json:"encoding,omitzero"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
@@ -15649,9 +15733,10 @@ func (p *PersistenceWindowsMetrics) GetDestPath() *string {
 
 type InputResponseInputWindowsMetrics struct {
 	// Unique ID for this input
-	ID       *string                         `json:"id,omitzero"`
-	Type     InputResponseTypeWindowsMetrics `json:"type"`
-	Disabled *bool                           `json:"disabled,omitzero"`
+	ID   *string                         `json:"id,omitzero"`
+	Type InputResponseTypeWindowsMetrics `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -15676,8 +15761,9 @@ type InputResponseInputWindowsMetrics struct {
 	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
 	Persistence *PersistenceWindowsMetrics    `json:"persistence,omitzero"`
 	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
-	DisableNativeModule *bool   `json:"disableNativeModule,omitzero"`
-	Description         *string `json:"description,omitzero"`
+	DisableNativeModule *bool `json:"disableNativeModule,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -15885,9 +15971,10 @@ func (e *InputResponseTypeKubeEvents) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputKubeEvents struct {
 	// Unique ID for this input
-	ID       *string                     `json:"id,omitzero"`
-	Type     InputResponseTypeKubeEvents `json:"type"`
-	Disabled *bool                       `json:"disabled,omitzero"`
+	ID   *string                     `json:"id,omitzero"`
+	Type InputResponseTypeKubeEvents `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -15906,8 +15993,9 @@ type InputResponseInputKubeEvents struct {
 	// Filtering on event fields
 	Rules []RuleConfInputKubeMetrics `json:"rules,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -16112,9 +16200,10 @@ func (r *RuleKubeLogs) GetDescription() *string {
 
 type InputResponseInputKubeLogs struct {
 	// Unique ID for this input
-	ID       *string                   `json:"id,omitzero"`
-	Type     InputResponseTypeKubeLogs `json:"type"`
-	Disabled *bool                     `json:"disabled,omitzero"`
+	ID   *string                   `json:"id,omitzero"`
+	Type InputResponseTypeKubeLogs `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -16148,8 +16237,9 @@ type InputResponseInputKubeLogs struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitzero"`
-	Description         *string `json:"description,omitzero"`
+	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -16445,9 +16535,10 @@ func (p *PersistenceKubeMetrics) GetDestPath() *string {
 
 type InputResponseInputKubeMetrics struct {
 	// Unique ID for this input
-	ID       *string                      `json:"id,omitzero"`
-	Type     InputResponseTypeKubeMetrics `json:"type"`
-	Disabled *bool                        `json:"disabled,omitzero"`
+	ID   *string                      `json:"id,omitzero"`
+	Type InputResponseTypeKubeMetrics `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -16474,7 +16565,8 @@ type InputResponseInputKubeMetrics struct {
 	// Fields to add to events from this input
 	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
 	Persistence *PersistenceKubeMetrics       `json:"persistence,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

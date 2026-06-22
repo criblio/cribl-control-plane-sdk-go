@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionCommentID - Function ID
+// PipelineFunctionCommentID - Identifier of the Function. Always <code>comment</code>
 type PipelineFunctionCommentID string
 
 const (
@@ -35,7 +35,7 @@ func (e *PipelineFunctionCommentID) UnmarshalJSON(data []byte) error {
 type PipelineFunctionComment struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>comment</code>
 	ID PipelineFunctionCommentID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

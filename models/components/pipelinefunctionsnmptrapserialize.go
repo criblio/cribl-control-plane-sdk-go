@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionSnmpTrapSerializeID - Function ID
+// PipelineFunctionSnmpTrapSerializeID - Identifier of the Function. Always <code>snmp_trap_serialize</code>
 type PipelineFunctionSnmpTrapSerializeID string
 
 const (
@@ -35,7 +35,7 @@ func (e *PipelineFunctionSnmpTrapSerializeID) UnmarshalJSON(data []byte) error {
 type PipelineFunctionSnmpTrapSerialize struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>snmp_trap_serialize</code>
 	ID PipelineFunctionSnmpTrapSerializeID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

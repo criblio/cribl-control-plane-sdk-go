@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionAutoTimestampID - Function ID
+// PipelineFunctionAutoTimestampID - Identifier of the Function. Always <code>auto_timestamp</code>
 type PipelineFunctionAutoTimestampID string
 
 const (
@@ -35,7 +35,7 @@ func (e *PipelineFunctionAutoTimestampID) UnmarshalJSON(data []byte) error {
 type PipelineFunctionAutoTimestamp struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>auto_timestamp</code>
 	ID PipelineFunctionAutoTimestampID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

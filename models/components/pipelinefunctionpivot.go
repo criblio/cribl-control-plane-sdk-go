@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionPivotID - Function ID
+// PipelineFunctionPivotID - Identifier of the Function. Always <code>pivot</code>
 type PipelineFunctionPivotID string
 
 const (
@@ -76,7 +76,7 @@ func (s *SimplePivotConfiguration) GetQualifierFields() []string {
 type PipelineFunctionPivot struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>pivot</code>
 	ID PipelineFunctionPivotID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

@@ -96,7 +96,8 @@ type OutputAlphasocS3 struct {
 	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
 	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// AlphaSOC S3-compatible endpoint URL (example: https://s3.alphasoc.net)
-	Endpoint    *string `json:"endpoint,omitzero"`
+	Endpoint *string `json:"endpoint,omitzero"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`

@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionRegexExtractID - Function ID
+// PipelineFunctionRegexExtractID - Identifier of the Function. Always <code>regex_extract</code>
 type PipelineFunctionRegexExtractID string
 
 const (
@@ -102,7 +102,7 @@ func (p *PipelineFunctionRegexExtractConf) GetOverwrite() *bool {
 type PipelineFunctionRegexExtract struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>regex_extract</code>
 	ID PipelineFunctionRegexExtractID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

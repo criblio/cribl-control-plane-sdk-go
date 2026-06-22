@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionFlattenID - Function ID
+// PipelineFunctionFlattenID - Identifier of the Function. Always <code>flatten</code>
 type PipelineFunctionFlattenID string
 
 const (
@@ -35,7 +35,7 @@ func (e *PipelineFunctionFlattenID) UnmarshalJSON(data []byte) error {
 type PipelineFunctionFlatten struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>flatten</code>
 	ID PipelineFunctionFlattenID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

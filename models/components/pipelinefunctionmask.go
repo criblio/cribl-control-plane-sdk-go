@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionMaskID - Function ID
+// PipelineFunctionMaskID - Identifier of the Function. Always <code>mask</code>
 type PipelineFunctionMaskID string
 
 const (
@@ -125,7 +125,7 @@ func (p *PipelineFunctionMaskConf) GetFlags() []AddConfFunctionConfSchemaAggrega
 type PipelineFunctionMask struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>mask</code>
 	ID PipelineFunctionMaskID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`

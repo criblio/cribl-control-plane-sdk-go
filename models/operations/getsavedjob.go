@@ -8,7 +8,7 @@ import (
 )
 
 type GetSavedJobRequest struct {
-	// Filter by collector type
+	// Filter by collector type.
 	CollectorType *components.CollectorType `queryParam:"style=form,explode=true,name=collectorType"`
 }
 
@@ -21,7 +21,7 @@ func (g *GetSavedJobRequest) GetCollectorType() *components.CollectorType {
 
 type GetSavedJobResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of SavedJobResponse objects.
+	// The list of Collectors in a response envelope with <code>count</code> and <code>items</code>.
 	CountedSavedJobResponse *components.CountedSavedJobResponse
 }
 

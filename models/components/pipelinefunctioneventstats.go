@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionEventstatsID - Function ID
+// PipelineFunctionEventstatsID - Identifier of the Function. Always <code>eventstats</code>
 type PipelineFunctionEventstatsID string
 
 const (
@@ -85,7 +85,7 @@ func (e *EventstatsConfiguration) GetFlushOnInputClose() *bool {
 type PipelineFunctionEventstats struct {
 	// Filter that selects data to be fed through this Function
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>eventstats</code>
 	ID PipelineFunctionEventstatsID `json:"id"`
 	// Simple description of this step
 	Description *string `json:"description,omitzero"`
