@@ -70,10 +70,18 @@ type SerdeTypeGrok struct {
 	SrcField *string `json:"srcField,omitzero"`
 	// Name of the field to add fields to. Extract mode only.
 	DstField *string `json:"dstField,omitzero"`
+	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
+	Keep []string `json:"keep,omitzero"`
+	// List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
+	Remove []string `json:"remove,omitzero"`
+	// Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
+	FieldFilterExpr *string `json:"fieldFilterExpr,omitzero"`
 	// A list of characters that may be present in a key name, even though they are normally separator or control characters
 	AllowedKeyChars []string `json:"allowedKeyChars,omitzero"`
 	// A list of characters that may be present in a value, even though they are normally separator or control characters
 	AllowedValueChars []string `json:"allowedValueChars,omitzero"`
+	// The fields to be extracted, listed in order. Will auto-generate if empty.
+	Fields []string `json:"fields,omitzero"`
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
 	Regex     *string                       `json:"regex,omitzero"`
 	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
@@ -138,6 +146,27 @@ func (s *SerdeTypeGrok) GetDstField() *string {
 	return s.DstField
 }
 
+func (s *SerdeTypeGrok) GetKeep() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Keep
+}
+
+func (s *SerdeTypeGrok) GetRemove() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Remove
+}
+
+func (s *SerdeTypeGrok) GetFieldFilterExpr() *string {
+	if s == nil {
+		return nil
+	}
+	return s.FieldFilterExpr
+}
+
 func (s *SerdeTypeGrok) GetAllowedKeyChars() []string {
 	if s == nil {
 		return nil
@@ -150,6 +179,13 @@ func (s *SerdeTypeGrok) GetAllowedValueChars() []string {
 		return nil
 	}
 	return s.AllowedValueChars
+}
+
+func (s *SerdeTypeGrok) GetFields() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
 }
 
 func (s *SerdeTypeGrok) GetRegex() *string {
@@ -230,10 +266,18 @@ type SerdeTypeRegex struct {
 	SrcField *string `json:"srcField,omitzero"`
 	// Name of the field to add fields to. Extract mode only.
 	DstField *string `json:"dstField,omitzero"`
+	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
+	Keep []string `json:"keep,omitzero"`
+	// List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
+	Remove []string `json:"remove,omitzero"`
+	// Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
+	FieldFilterExpr *string `json:"fieldFilterExpr,omitzero"`
 	// A list of characters that may be present in a key name, even though they are normally separator or control characters
 	AllowedKeyChars []string `json:"allowedKeyChars,omitzero"`
 	// A list of characters that may be present in a value, even though they are normally separator or control characters
 	AllowedValueChars []string `json:"allowedValueChars,omitzero"`
+	// The fields to be extracted, listed in order. Will auto-generate if empty.
+	Fields []string `json:"fields,omitzero"`
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
 	Pattern     *string                        `json:"pattern,omitzero"`
 	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
@@ -313,6 +357,27 @@ func (s *SerdeTypeRegex) GetDstField() *string {
 	return s.DstField
 }
 
+func (s *SerdeTypeRegex) GetKeep() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Keep
+}
+
+func (s *SerdeTypeRegex) GetRemove() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Remove
+}
+
+func (s *SerdeTypeRegex) GetFieldFilterExpr() *string {
+	if s == nil {
+		return nil
+	}
+	return s.FieldFilterExpr
+}
+
 func (s *SerdeTypeRegex) GetAllowedKeyChars() []string {
 	if s == nil {
 		return nil
@@ -325,6 +390,13 @@ func (s *SerdeTypeRegex) GetAllowedValueChars() []string {
 		return nil
 	}
 	return s.AllowedValueChars
+}
+
+func (s *SerdeTypeRegex) GetFields() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
 }
 
 func (s *SerdeTypeRegex) GetPattern() *string {
@@ -385,6 +457,8 @@ type SerdeTypeJSON struct {
 	AllowedKeyChars []string `json:"allowedKeyChars,omitzero"`
 	// A list of characters that may be present in a value, even though they are normally separator or control characters
 	AllowedValueChars []string `json:"allowedValueChars,omitzero"`
+	// The fields to be extracted, listed in order. Will auto-generate if empty.
+	Fields []string `json:"fields,omitzero"`
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
 	Regex     *string                       `json:"regex,omitzero"`
 	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
@@ -471,6 +545,13 @@ func (s *SerdeTypeJSON) GetAllowedValueChars() []string {
 		return nil
 	}
 	return s.AllowedValueChars
+}
+
+func (s *SerdeTypeJSON) GetFields() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
 }
 
 func (s *SerdeTypeJSON) GetRegex() *string {
@@ -984,6 +1065,8 @@ type SerdeTypeKvp struct {
 	SrcField *string `json:"srcField,omitzero"`
 	// Name of the field to add fields to. Extract mode only.
 	DstField *string `json:"dstField,omitzero"`
+	// The fields to be extracted, listed in order. Will auto-generate if empty.
+	Fields []string `json:"fields,omitzero"`
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
 	Regex     *string                       `json:"regex,omitzero"`
 	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
@@ -1077,6 +1160,13 @@ func (s *SerdeTypeKvp) GetDstField() *string {
 		return nil
 	}
 	return s.DstField
+}
+
+func (s *SerdeTypeKvp) GetFields() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
 }
 
 func (s *SerdeTypeKvp) GetRegex() *string {

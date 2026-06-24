@@ -12,7 +12,8 @@ type GroupCreateRequest struct {
 	Description *string `json:"description,omitzero"`
 	// Estimated ingest rate for a Cribl.Cloud Worker Group, in GB/sec.
 	EstimatedIngestRate *EstimatedIngestRateOptionsConfigGroup `json:"estimatedIngestRate,omitzero"`
-	ID                  string                                 `json:"id"`
+	// Unique identifier.
+	ID string `json:"id"`
 	// The <code>id</code> of the parent Edge Fleet. If provided, this Fleet inherits configuration from the specified parent Fleet. Applies only to Edge Fleets.
 	Inherits *string `json:"inherits,omitzero"`
 	// Indicates whether this is an Edge Fleet. Deprecated. Use to identify Edge Fleets.

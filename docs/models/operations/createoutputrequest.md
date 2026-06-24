@@ -143,6 +143,12 @@ createOutputRequest := operations.CreateCreateOutputRequestGoogleCloudStorage(op
 createOutputRequest := operations.CreateCreateOutputRequestGoogleCloudLogging(operations.CreateOutputOutputGoogleCloudLogging{/* values here */})
 ```
 
+### CreateOutputOutputGoogleCloudObservability
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestGoogleCloudObservability(operations.CreateOutputOutputGoogleCloudObservability{/* values here */})
+```
+
 ### CreateOutputOutputGooglePubsub
 
 ```go
@@ -525,6 +531,8 @@ switch createOutputRequest.Type {
 		// createOutputRequest.CreateOutputOutputGoogleCloudStorage is populated
 	case operations.CreateOutputRequestTypeGoogleCloudLogging:
 		// createOutputRequest.CreateOutputOutputGoogleCloudLogging is populated
+	case operations.CreateOutputRequestTypeGoogleCloudObservability:
+		// createOutputRequest.CreateOutputOutputGoogleCloudObservability is populated
 	case operations.CreateOutputRequestTypeGooglePubsub:
 		// createOutputRequest.CreateOutputOutputGooglePubsub is populated
 	case operations.CreateOutputRequestTypeExabeam:
