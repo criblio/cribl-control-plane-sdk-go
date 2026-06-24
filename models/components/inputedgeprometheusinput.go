@@ -47,6 +47,8 @@ const (
 	InputEdgePrometheusDiscoveryTypeK8sPods InputEdgePrometheusDiscoveryType = "k8s-pods"
 	// InputEdgePrometheusDiscoveryTypeK8sServiceMonitor Kubernetes Service Monitor (v4.18+)
 	InputEdgePrometheusDiscoveryTypeK8sServiceMonitor InputEdgePrometheusDiscoveryType = "k8s-service-monitor"
+	// InputEdgePrometheusDiscoveryTypeHTTPSd HTTP SD
+	InputEdgePrometheusDiscoveryTypeHTTPSd InputEdgePrometheusDiscoveryType = "http_sd"
 )
 
 func (e InputEdgePrometheusDiscoveryType) ToPointer() *InputEdgePrometheusDiscoveryType {
@@ -57,7 +59,7 @@ func (e InputEdgePrometheusDiscoveryType) ToPointer() *InputEdgePrometheusDiscov
 func (e *InputEdgePrometheusDiscoveryType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "static", "dns", "ec2", "k8s-node", "k8s-pods", "k8s-service-monitor":
+		case "static", "dns", "ec2", "k8s-node", "k8s-pods", "k8s-service-monitor", "http_sd":
 			return true
 		}
 	}
@@ -249,11 +251,19 @@ type InputEdgePrometheusInput struct {
 	ScrapePortExpr *string `json:"scrapePortExpr,omitzero"`
 	// Path to use when collecting metrics from discovered targets
 	ScrapePathExpr *string `json:"scrapePathExpr,omitzero"`
-	//   Add rules to decide which pods to discover for metrics.
-	//   Pods are searched if no rules are given or of all the rules'
-	//   expressions evaluate to true.
+	// Add rules to decide which pods to discover for metrics.
+	// Pods are searched if no rules are given or of all the rules'
+	// expressions evaluate to true.
 	//
 	PodFilter []InputEdgePrometheusPodFilter `json:"podFilter,omitzero"`
+	// URL to fetch target groups from (must be http or https)
+	HTTPDiscoveryURL *string `json:"httpDiscoveryUrl,omitzero"`
+	// Extra headers to send with the discovery request
+	HTTPDiscoveryHeaders []HTTPDiscoveryHeaderConfInputPrometheus `json:"httpDiscoveryHeaders,omitzero"`
+	// Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+	HTTPDiscoveryRejectUnauthorized *bool `json:"httpDiscoveryRejectUnauthorized,omitzero"`
+	// Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitzero"`
 	// Password for Prometheus Basic authentication
@@ -599,6 +609,34 @@ func (i *InputEdgePrometheusInput) GetPodFilter() []InputEdgePrometheusPodFilter
 		return nil
 	}
 	return i.PodFilter
+}
+
+func (i *InputEdgePrometheusInput) GetHTTPDiscoveryURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryURL
+}
+
+func (i *InputEdgePrometheusInput) GetHTTPDiscoveryHeaders() []HTTPDiscoveryHeaderConfInputPrometheus {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryHeaders
+}
+
+func (i *InputEdgePrometheusInput) GetHTTPDiscoveryRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryRejectUnauthorized
+}
+
+func (i *InputEdgePrometheusInput) GetMaxResponseBodySize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxResponseBodySize
 }
 
 func (i *InputEdgePrometheusInput) GetUsername() *string {

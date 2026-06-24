@@ -41,6 +41,8 @@ const (
 	InputPrometheusDiscoveryTypeDNS InputPrometheusDiscoveryType = "dns"
 	// InputPrometheusDiscoveryTypeEc2 AWS EC2
 	InputPrometheusDiscoveryTypeEc2 InputPrometheusDiscoveryType = "ec2"
+	// InputPrometheusDiscoveryTypeHTTPSd HTTP SD
+	InputPrometheusDiscoveryTypeHTTPSd InputPrometheusDiscoveryType = "http_sd"
 )
 
 func (e InputPrometheusDiscoveryType) ToPointer() *InputPrometheusDiscoveryType {
@@ -51,7 +53,7 @@ func (e InputPrometheusDiscoveryType) ToPointer() *InputPrometheusDiscoveryType 
 func (e *InputPrometheusDiscoveryType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "static", "dns", "ec2":
+		case "static", "dns", "ec2", "http_sd":
 			return true
 		}
 	}
@@ -164,6 +166,14 @@ type InputPrometheusInput struct {
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// URL to fetch target groups from (must be http or https)
+	HTTPDiscoveryURL *string `json:"httpDiscoveryUrl,omitzero"`
+	// Extra headers to send with the discovery request
+	HTTPDiscoveryHeaders []HTTPDiscoveryHeaderConfInputPrometheus `json:"httpDiscoveryHeaders,omitzero"`
+	// Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+	HTTPDiscoveryRejectUnauthorized *bool `json:"httpDiscoveryRejectUnauthorized,omitzero"`
+	// Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitzero"`
 	// Password for Prometheus Basic authentication
@@ -519,6 +529,34 @@ func (i *InputPrometheusInput) GetDurationSeconds() *float64 {
 		return nil
 	}
 	return i.DurationSeconds
+}
+
+func (i *InputPrometheusInput) GetHTTPDiscoveryURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryURL
+}
+
+func (i *InputPrometheusInput) GetHTTPDiscoveryHeaders() []HTTPDiscoveryHeaderConfInputPrometheus {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryHeaders
+}
+
+func (i *InputPrometheusInput) GetHTTPDiscoveryRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryRejectUnauthorized
+}
+
+func (i *InputPrometheusInput) GetMaxResponseBodySize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxResponseBodySize
 }
 
 func (i *InputPrometheusInput) GetUsername() *string {

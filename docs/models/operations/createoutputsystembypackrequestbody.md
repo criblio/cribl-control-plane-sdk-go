@@ -143,6 +143,12 @@ createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPack
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyGoogleCloudLogging(operations.CreateOutputSystemByPackOutputGoogleCloudLogging{/* values here */})
 ```
 
+### CreateOutputSystemByPackOutputGoogleCloudObservability
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyGoogleCloudObservability(operations.CreateOutputSystemByPackOutputGoogleCloudObservability{/* values here */})
+```
+
 ### CreateOutputSystemByPackOutputGooglePubsub
 
 ```go
@@ -525,6 +531,8 @@ switch createOutputSystemByPackRequestBody.Type {
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputGoogleCloudStorage is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeGoogleCloudLogging:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputGoogleCloudLogging is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeGoogleCloudObservability:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputGoogleCloudObservability is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeGooglePubsub:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputGooglePubsub is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeExabeam:

@@ -16,7 +16,7 @@ type KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth struct {
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// Maximum number of times to try fetching schemas from the Schema Registry
 	MaxRetries *float64 `json:"maxRetries,omitzero"`
-	// Credentials to use when authenticating with the schema registry using basic HTTP authentication
+	// Credentials to use when authenticating with the schema registry
 	Auth *AuthType                                `json:"auth,omitzero"`
 	TLS  *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// Used when __keySchemaIdOut is not present, to transform key values, leave blank if key transformation is not required by default.

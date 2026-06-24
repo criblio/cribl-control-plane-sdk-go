@@ -18,8 +18,9 @@ custom := components.FormatOptionsCriblLakeDataset("custom_value")
 
 ## Values
 
-| Name                                   | Value                                  |
-| -------------------------------------- | -------------------------------------- |
-| `FormatOptionsCriblLakeDatasetDdss`    | ddss                                   |
-| `FormatOptionsCriblLakeDatasetJSON`    | json                                   |
-| `FormatOptionsCriblLakeDatasetParquet` | parquet                                |
+| Name                                    | Value                                   |
+| --------------------------------------- | --------------------------------------- |
+| `FormatOptionsCriblLakeDatasetDdss`     | ddss                                    |
+| `FormatOptionsCriblLakeDatasetJSON`     | json                                    |
+| `FormatOptionsCriblLakeDatasetNetskope` | netskope                                |
+| `FormatOptionsCriblLakeDatasetParquet`  | parquet                                 |

@@ -31,7 +31,7 @@ func newCribl(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hoo
 	}
 }
 
-// List - Get Cribl system settings
+// List - Get system settings
 // Get Cribl system settings.
 func (s *Cribl) List(ctx context.Context, opts ...operations.Option) (*operations.GetSystemSettingsConfResponse, error) {
 	o := operations.Options{}

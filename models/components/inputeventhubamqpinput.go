@@ -55,14 +55,64 @@ func (e *InputEventhubAmqpAuthenticationMechanism) IsExact() bool {
 	return false
 }
 
+type InputEventhubAmqpCertificate struct {
+	// The certificate you registered as credentials for your app in the Azure portal
+	CertificateName string `json:"certificateName"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath string `json:"certPath"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath string `json:"privKeyPath"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitzero"`
+}
+
+func (i InputEventhubAmqpCertificate) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputEventhubAmqpCertificate) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputEventhubAmqpCertificate) GetCertificateName() string {
+	if i == nil {
+		return ""
+	}
+	return i.CertificateName
+}
+
+func (i *InputEventhubAmqpCertificate) GetCertPath() string {
+	if i == nil {
+		return ""
+	}
+	return i.CertPath
+}
+
+func (i *InputEventhubAmqpCertificate) GetPrivKeyPath() string {
+	if i == nil {
+		return ""
+	}
+	return i.PrivKeyPath
+}
+
+func (i *InputEventhubAmqpCertificate) GetPassphrase() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Passphrase
+}
+
 type InputEventhubAmqpAuth struct {
 	Mechanism InputEventhubAmqpAuthenticationMechanism `json:"mechanism"`
 	// Select or create a stored text secret
 	TextSecret           *string                          `json:"textSecret,omitzero"`
 	ClientSecretAuthType *AuthenticationMethodOptionsAuth `json:"clientSecretAuthType,omitzero"`
 	// Select or create a stored text secret
-	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
-	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	ClientTextSecret *string                       `json:"clientTextSecret,omitzero"`
+	Certificate      *InputEventhubAmqpCertificate `json:"certificate,omitzero"`
 	// Endpoint used to acquire authentication tokens from Azure
 	OauthEndpoint *MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint,omitzero"`
 	// client_id to pass in the OAuth request parameter
@@ -120,7 +170,7 @@ func (i *InputEventhubAmqpAuth) GetClientTextSecret() *string {
 	return i.ClientTextSecret
 }
 
-func (i *InputEventhubAmqpAuth) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+func (i *InputEventhubAmqpAuth) GetCertificate() *InputEventhubAmqpCertificate {
 	if i == nil {
 		return nil
 	}

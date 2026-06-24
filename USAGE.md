@@ -7,7 +7,6 @@ import (
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"log"
-	"os"
 )
 
 func main() {
@@ -15,24 +14,16 @@ func main() {
 
 	s := criblcontrolplanesdkgo.New(
 		"https://api.example.com",
-		criblcontrolplanesdkgo.WithSecurity(components.Security{
-			BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
-		}),
 	)
 
-	res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
-		AuthType:          "connectionString",
-		ConnectionString:  criblcontrolplanesdkgo.Pointer("mysql://admin:password123@mysql.example.com:3306/production?ssl=true"),
-		ConnectionTimeout: criblcontrolplanesdkgo.Pointer[float64](10000.0),
-		DatabaseType:      components.DatabaseConnectionTypeMysql,
-		Description:       "Production MySQL database for customer data",
-		ID:                "mysql-prod-db",
-		Tags:              criblcontrolplanesdkgo.Pointer("production,mysql,customer-data"),
+	res, err := s.Auth.Tokens.Get(ctx, components.LoginInfo{
+		Password: "6j50J9421x29IhO",
+		Username: "Lilly_Weissnat",
 	})
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.CountedDatabaseConnectionConfig != nil {
+	if res.AuthToken != nil {
 		// handle response
 	}
 }
