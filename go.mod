@@ -1,6 +1,6 @@
 module github.com/criblio/cribl-control-plane-sdk-go
 
-go 1.22
+go 1.25.10
 
 require (
 	github.com/spyzhov/ajson v0.8.0

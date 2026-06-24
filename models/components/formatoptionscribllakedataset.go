@@ -6,9 +6,10 @@ package components
 type FormatOptionsCriblLakeDataset string
 
 const (
-	FormatOptionsCriblLakeDatasetDdss    FormatOptionsCriblLakeDataset = "ddss"
-	FormatOptionsCriblLakeDatasetJSON    FormatOptionsCriblLakeDataset = "json"
-	FormatOptionsCriblLakeDatasetParquet FormatOptionsCriblLakeDataset = "parquet"
+	FormatOptionsCriblLakeDatasetDdss     FormatOptionsCriblLakeDataset = "ddss"
+	FormatOptionsCriblLakeDatasetJSON     FormatOptionsCriblLakeDataset = "json"
+	FormatOptionsCriblLakeDatasetNetskope FormatOptionsCriblLakeDataset = "netskope"
+	FormatOptionsCriblLakeDatasetParquet  FormatOptionsCriblLakeDataset = "parquet"
 )
 
 func (e FormatOptionsCriblLakeDataset) ToPointer() *FormatOptionsCriblLakeDataset {
@@ -19,7 +20,7 @@ func (e FormatOptionsCriblLakeDataset) ToPointer() *FormatOptionsCriblLakeDatase
 func (e *FormatOptionsCriblLakeDataset) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "ddss", "json", "parquet":
+		case "ddss", "json", "netskope", "parquet":
 			return true
 		}
 	}

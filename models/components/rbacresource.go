@@ -13,6 +13,7 @@ const (
 	RbacResourceMacros            RbacResource = "macros"
 	RbacResourceNotebooks         RbacResource = "notebooks"
 	RbacResourceNotebookTemplates RbacResource = "notebook-templates"
+	RbacResourceApps              RbacResource = "apps"
 )
 
 func (e RbacResource) ToPointer() *RbacResource {
@@ -23,7 +24,7 @@ func (e RbacResource) ToPointer() *RbacResource {
 func (e *RbacResource) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "groups", "datasets", "dataset-providers", "projects", "dashboards", "macros", "notebooks", "notebook-templates":
+		case "groups", "datasets", "dataset-providers", "projects", "dashboards", "macros", "notebooks", "notebook-templates", "apps":
 			return true
 		}
 	}
