@@ -26,3 +26,4 @@ custom := components.InputEdgePrometheusDiscoveryType("custom_value")
 | `InputEdgePrometheusDiscoveryTypeK8sNode`           | k8s-node                                            |
 | `InputEdgePrometheusDiscoveryTypeK8sPods`           | k8s-pods                                            |
 | `InputEdgePrometheusDiscoveryTypeK8sServiceMonitor` | k8s-service-monitor                                 |
+| `InputEdgePrometheusDiscoveryTypeHTTPSd`            | http_sd                                             |

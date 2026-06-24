@@ -341,6 +341,10 @@ type RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to retrieve per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start discovery from the first page.
@@ -425,6 +429,20 @@ func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink) GetLimit
 		return nil
 	}
 	return r.Limit
+}
+
+func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
 }
 
 func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink) GetPageField() *string {
@@ -572,6 +590,10 @@ type RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to retrieve per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start discovery from the first page.
@@ -663,6 +685,20 @@ func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader) GetLimit() *
 		return nil
 	}
 	return r.Limit
+}
+
+func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
 }
 
 func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader) GetPageField() *string {
@@ -810,6 +846,10 @@ type RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to retrieve per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start discovery from the first page.
@@ -903,6 +943,20 @@ func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody) GetLimit() *fl
 	return r.Limit
 }
 
+func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
+}
+
 func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody) GetPageField() *string {
 	if r == nil {
 		return nil
@@ -940,6 +994,8 @@ func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody) GetTotalPageFi
 
 type RestDiscoveryDiscoverTypeHTTPPaginationTypeNone struct {
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
+	// Maximum number of pages to retrieve for the discover task. Defaults to 50 pages. Set to 0 to retrieve all pages.
+	MaxPages *float64 `json:"maxPages,omitzero"`
 	// JavaScript expression used to determine when the last page has been reached. The values tested by this expression must be in the Response attributes section.
 	LastPageExpr *string `json:"lastPageExpr,omitzero"`
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
@@ -954,6 +1010,10 @@ type RestDiscoveryDiscoverTypeHTTPPaginationTypeNone struct {
 	LimitField *string `json:"limitField,omitzero"`
 	// Maximum number of records to retrieve per request
 	Limit *float64 `json:"limit,omitzero"`
+	// Name of the attribute in the response that contains the total number of records for the query
+	TotalRecordField *string `json:"totalRecordField,omitzero"`
+	// Enable to indicate that the first page in the requested data is at index 0. Disabled by default, which indicates index 1.
+	ZeroIndexed *bool `json:"zeroIndexed,omitzero"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField *string `json:"pageField,omitzero"`
 	// Page number from which to start request. Defaults to undefined, which will start discovery from the first page.
@@ -982,6 +1042,13 @@ func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone) GetType() PaginationOp
 		return PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination("")
 	}
 	return r.Type
+}
+
+func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone) GetMaxPages() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.MaxPages
 }
 
 func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone) GetLastPageExpr() *string {
@@ -1031,6 +1098,20 @@ func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone) GetLimit() *float64 {
 		return nil
 	}
 	return r.Limit
+}
+
+func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone) GetTotalRecordField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TotalRecordField
+}
+
+func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone) GetZeroIndexed() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.ZeroIndexed
 }
 
 func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeNone) GetPageField() *string {

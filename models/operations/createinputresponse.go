@@ -3726,14 +3726,64 @@ func (e *CreateInputAuthenticationMechanism) IsExact() bool {
 	return false
 }
 
+type CreateInputCertificate struct {
+	// The certificate you registered as credentials for your app in the Azure portal
+	CertificateName string `json:"certificateName"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath string `json:"certPath"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath string `json:"privKeyPath"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitzero"`
+}
+
+func (c CreateInputCertificate) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputCertificate) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputCertificate) GetCertificateName() string {
+	if c == nil {
+		return ""
+	}
+	return c.CertificateName
+}
+
+func (c *CreateInputCertificate) GetCertPath() string {
+	if c == nil {
+		return ""
+	}
+	return c.CertPath
+}
+
+func (c *CreateInputCertificate) GetPrivKeyPath() string {
+	if c == nil {
+		return ""
+	}
+	return c.PrivKeyPath
+}
+
+func (c *CreateInputCertificate) GetPassphrase() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Passphrase
+}
+
 type CreateInputAuth struct {
 	Mechanism CreateInputAuthenticationMechanism `json:"mechanism"`
 	// Select or create a stored text secret
 	TextSecret           *string                                     `json:"textSecret,omitzero"`
 	ClientSecretAuthType *components.AuthenticationMethodOptionsAuth `json:"clientSecretAuthType,omitzero"`
 	// Select or create a stored text secret
-	ClientTextSecret *string                                                `json:"clientTextSecret,omitzero"`
-	Certificate      *components.CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	ClientTextSecret *string                 `json:"clientTextSecret,omitzero"`
+	Certificate      *CreateInputCertificate `json:"certificate,omitzero"`
 	// Endpoint used to acquire authentication tokens from Azure
 	OauthEndpoint *components.MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint,omitzero"`
 	// client_id to pass in the OAuth request parameter
@@ -3791,7 +3841,7 @@ func (c *CreateInputAuth) GetClientTextSecret() *string {
 	return c.ClientTextSecret
 }
 
-func (c *CreateInputAuth) GetCertificate() *components.CertificateTypeAzureBlobAuthTypeClientCert {
+func (c *CreateInputAuth) GetCertificate() *CreateInputCertificate {
 	if c == nil {
 		return nil
 	}
@@ -4376,18 +4426,11 @@ type CreateInputInputEventhub struct {
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
 	Sasl *components.AuthenticationTypeUse     `json:"sasl,omitzero"`
 	TLS  *components.TLSSettingsClientSideType `json:"tls,omitzero"`
-	//       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
-	//       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
-	//       Value must be lower than rebalanceTimeout.
-	//       See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+	// Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities. If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance. Value must be lower than rebalanceTimeout. See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
 	SessionTimeout *float64 `json:"sessionTimeout,omitzero"`
-	//       Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins.
-	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
-	//       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+	// Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
 	RebalanceTimeout *float64 `json:"rebalanceTimeout,omitzero"`
-	//       Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
-	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
-	//       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+	// Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities. Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value. See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
 	HeartbeatInterval *float64 `json:"heartbeatInterval,omitzero"`
 	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
 	AutoCommitInterval *float64 `json:"autoCommitInterval,omitzero"`
@@ -6477,6 +6520,8 @@ const (
 	CreateInputDiscoveryTypeEdgePrometheusK8sPods CreateInputDiscoveryTypeEdgePrometheus = "k8s-pods"
 	// CreateInputDiscoveryTypeEdgePrometheusK8sServiceMonitor Kubernetes Service Monitor (v4.18+)
 	CreateInputDiscoveryTypeEdgePrometheusK8sServiceMonitor CreateInputDiscoveryTypeEdgePrometheus = "k8s-service-monitor"
+	// CreateInputDiscoveryTypeEdgePrometheusHTTPSd HTTP SD
+	CreateInputDiscoveryTypeEdgePrometheusHTTPSd CreateInputDiscoveryTypeEdgePrometheus = "http_sd"
 )
 
 func (e CreateInputDiscoveryTypeEdgePrometheus) ToPointer() *CreateInputDiscoveryTypeEdgePrometheus {
@@ -6487,7 +6532,7 @@ func (e CreateInputDiscoveryTypeEdgePrometheus) ToPointer() *CreateInputDiscover
 func (e *CreateInputDiscoveryTypeEdgePrometheus) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "static", "dns", "ec2", "k8s-node", "k8s-pods", "k8s-service-monitor":
+		case "static", "dns", "ec2", "k8s-node", "k8s-pods", "k8s-service-monitor", "http_sd":
 			return true
 		}
 	}
@@ -6679,11 +6724,19 @@ type CreateInputInputEdgePrometheus struct {
 	ScrapePortExpr *string `json:"scrapePortExpr,omitzero"`
 	// Path to use when collecting metrics from discovered targets
 	ScrapePathExpr *string `json:"scrapePathExpr,omitzero"`
-	//   Add rules to decide which pods to discover for metrics.
-	//   Pods are searched if no rules are given or of all the rules'
-	//   expressions evaluate to true.
+	// Add rules to decide which pods to discover for metrics.
+	// Pods are searched if no rules are given or of all the rules'
+	// expressions evaluate to true.
 	//
 	PodFilter []CreateInputPodFilter `json:"podFilter,omitzero"`
+	// URL to fetch target groups from (must be http or https)
+	HTTPDiscoveryURL *string `json:"httpDiscoveryUrl,omitzero"`
+	// Extra headers to send with the discovery request
+	HTTPDiscoveryHeaders []components.HTTPDiscoveryHeaderConfInputPrometheus `json:"httpDiscoveryHeaders,omitzero"`
+	// Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+	HTTPDiscoveryRejectUnauthorized *bool `json:"httpDiscoveryRejectUnauthorized,omitzero"`
+	// Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitzero"`
 	// Password for Prometheus Basic authentication
@@ -7031,6 +7084,34 @@ func (c *CreateInputInputEdgePrometheus) GetPodFilter() []CreateInputPodFilter {
 	return c.PodFilter
 }
 
+func (c *CreateInputInputEdgePrometheus) GetHTTPDiscoveryURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.HTTPDiscoveryURL
+}
+
+func (c *CreateInputInputEdgePrometheus) GetHTTPDiscoveryHeaders() []components.HTTPDiscoveryHeaderConfInputPrometheus {
+	if c == nil {
+		return nil
+	}
+	return c.HTTPDiscoveryHeaders
+}
+
+func (c *CreateInputInputEdgePrometheus) GetHTTPDiscoveryRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.HTTPDiscoveryRejectUnauthorized
+}
+
+func (c *CreateInputInputEdgePrometheus) GetMaxResponseBodySize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.MaxResponseBodySize
+}
+
 func (c *CreateInputInputEdgePrometheus) GetUsername() *string {
 	if c == nil {
 		return nil
@@ -7155,6 +7236,8 @@ const (
 	CreateInputDiscoveryTypePrometheusDNS CreateInputDiscoveryTypePrometheus = "dns"
 	// CreateInputDiscoveryTypePrometheusEc2 AWS EC2
 	CreateInputDiscoveryTypePrometheusEc2 CreateInputDiscoveryTypePrometheus = "ec2"
+	// CreateInputDiscoveryTypePrometheusHTTPSd HTTP SD
+	CreateInputDiscoveryTypePrometheusHTTPSd CreateInputDiscoveryTypePrometheus = "http_sd"
 )
 
 func (e CreateInputDiscoveryTypePrometheus) ToPointer() *CreateInputDiscoveryTypePrometheus {
@@ -7165,7 +7248,7 @@ func (e CreateInputDiscoveryTypePrometheus) ToPointer() *CreateInputDiscoveryTyp
 func (e *CreateInputDiscoveryTypePrometheus) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "static", "dns", "ec2":
+		case "static", "dns", "ec2", "http_sd":
 			return true
 		}
 	}
@@ -7278,6 +7361,14 @@ type CreateInputInputPrometheus struct {
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// URL to fetch target groups from (must be http or https)
+	HTTPDiscoveryURL *string `json:"httpDiscoveryUrl,omitzero"`
+	// Extra headers to send with the discovery request
+	HTTPDiscoveryHeaders []components.HTTPDiscoveryHeaderConfInputPrometheus `json:"httpDiscoveryHeaders,omitzero"`
+	// Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+	HTTPDiscoveryRejectUnauthorized *bool `json:"httpDiscoveryRejectUnauthorized,omitzero"`
+	// Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitzero"`
 	// Password for Prometheus Basic authentication
@@ -7633,6 +7724,34 @@ func (c *CreateInputInputPrometheus) GetDurationSeconds() *float64 {
 		return nil
 	}
 	return c.DurationSeconds
+}
+
+func (c *CreateInputInputPrometheus) GetHTTPDiscoveryURL() *string {
+	if c == nil {
+		return nil
+	}
+	return c.HTTPDiscoveryURL
+}
+
+func (c *CreateInputInputPrometheus) GetHTTPDiscoveryHeaders() []components.HTTPDiscoveryHeaderConfInputPrometheus {
+	if c == nil {
+		return nil
+	}
+	return c.HTTPDiscoveryHeaders
+}
+
+func (c *CreateInputInputPrometheus) GetHTTPDiscoveryRejectUnauthorized() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.HTTPDiscoveryRejectUnauthorized
+}
+
+func (c *CreateInputInputPrometheus) GetMaxResponseBodySize() *string {
+	if c == nil {
+		return nil
+	}
+	return c.MaxResponseBodySize
 }
 
 func (c *CreateInputInputPrometheus) GetUsername() *string {
@@ -9668,13 +9787,9 @@ type CreateInputInputConfluentCloud struct {
 	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
 	SessionTimeout *float64 `json:"sessionTimeout,omitzero"`
-	//       Maximum allowed time for each worker to join the group after a rebalance begins.
-	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
-	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+	// Maximum allowed time for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
 	RebalanceTimeout *float64 `json:"rebalanceTimeout,omitzero"`
-	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
-	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
-	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+	// Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities. Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value. See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
 	HeartbeatInterval *float64 `json:"heartbeatInterval,omitzero"`
 	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
 	AutoCommitInterval *float64 `json:"autoCommitInterval,omitzero"`
@@ -12921,13 +13036,9 @@ type CreateInputInputMsk struct {
 	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
 	SessionTimeout *float64 `json:"sessionTimeout,omitzero"`
-	//       Maximum allowed time for each worker to join the group after a rebalance begins.
-	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
-	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+	// Maximum allowed time for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
 	RebalanceTimeout *float64 `json:"rebalanceTimeout,omitzero"`
-	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
-	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
-	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+	// Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities. Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value. See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
 	HeartbeatInterval *float64 `json:"heartbeatInterval,omitzero"`
 	// Fields to add to events from this input
 	Metadata            []components.MetadataConfInputCollection          `json:"metadata,omitzero"`
@@ -13491,13 +13602,9 @@ type CreateInputInputKafka struct {
 	//       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.
 	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_session.timeout.ms) for details.
 	SessionTimeout *float64 `json:"sessionTimeout,omitzero"`
-	//       Maximum allowed time for each worker to join the group after a rebalance begins.
-	//       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
-	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
+	// Maximum allowed time for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Kafka's documentation](https://kafka.apache.org/documentation/#connectconfigs_rebalance.timeout.ms) for details.
 	RebalanceTimeout *float64 `json:"rebalanceTimeout,omitzero"`
-	//       Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
-	//       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
-	//       See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
+	// Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities. Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value. See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
 	HeartbeatInterval *float64 `json:"heartbeatInterval,omitzero"`
 	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
 	AutoCommitInterval *float64 `json:"autoCommitInterval,omitzero"`

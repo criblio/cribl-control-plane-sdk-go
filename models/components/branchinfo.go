@@ -3,6 +3,7 @@
 package components
 
 type BranchInfo struct {
+	// Unique identifier.
 	ID string `json:"id"`
 }
 

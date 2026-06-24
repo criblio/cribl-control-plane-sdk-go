@@ -4,11 +4,11 @@
 
 ### Available Operations
 
-* [Create](#create) - Capture live incoming data
+* [Create](#create) - Capture live data
 
 ## Create
 
-Initiate a live data capture from Cribl Workers.Returns a stream of captured events in NDJSON format that match the parameters specified in the request body.
+Initiate a live data capture from Cribl Workers. Returns a stream of captured events in NDJSON format that match the parameters specified in the request body.
 
 ### Example Usage: CaptureExamplesComplexFilter
 

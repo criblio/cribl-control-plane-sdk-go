@@ -1219,6 +1219,8 @@ type AuthTokenCloudflareHec struct {
 	AuthType *AuthenticationMethodCloudflareHec `json:"authType,omitzero"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
+	// Shared secret to be provided by any client (Authorization: <token>)
+	Token       *string `json:"token,omitzero"`
 	Enabled     *bool   `json:"enabled,omitzero"`
 	Description *string `json:"description,omitzero"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
@@ -1250,6 +1252,13 @@ func (a *AuthTokenCloudflareHec) GetTokenSecret() *string {
 		return nil
 	}
 	return a.TokenSecret
+}
+
+func (a *AuthTokenCloudflareHec) GetToken() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Token
 }
 
 func (a *AuthTokenCloudflareHec) GetEnabled() *bool {
@@ -4248,10 +4257,10 @@ type ContentConfigOpenai struct {
 	StateMergeExpression *string            `json:"stateMergeExpression,omitzero"`
 	ManageState          *ManageStateOpenai `json:"manageState,omitzero"`
 	// Query-string parameters to send with this endpoint
-	RequestParams          []RequestParamConfInputOpenai `json:"requestParams"`
-	PaginationType         InputResponsePaginationType   `json:"paginationType"`
-	PaginationAttribute    []string                      `json:"paginationAttribute,omitzero"`
-	PaginationLastPageExpr *string                       `json:"paginationLastPageExpr,omitzero"`
+	RequestParams          []HTTPDiscoveryHeaderConfInputPrometheus `json:"requestParams"`
+	PaginationType         InputResponsePaginationType              `json:"paginationType"`
+	PaginationAttribute    []string                                 `json:"paginationAttribute,omitzero"`
+	PaginationLastPageExpr *string                                  `json:"paginationLastPageExpr,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Set to 0 only when unlimited pagination is required.
 	MaxPages *float64 `json:"maxPages,omitzero"`
 	// Used only for RFC 5988 link-header pagination
@@ -4346,9 +4355,9 @@ func (c *ContentConfigOpenai) GetManageState() *ManageStateOpenai {
 	return c.ManageState
 }
 
-func (c *ContentConfigOpenai) GetRequestParams() []RequestParamConfInputOpenai {
+func (c *ContentConfigOpenai) GetRequestParams() []HTTPDiscoveryHeaderConfInputPrometheus {
 	if c == nil {
-		return []RequestParamConfInputOpenai{}
+		return []HTTPDiscoveryHeaderConfInputPrometheus{}
 	}
 	return c.RequestParams
 }
@@ -5303,7 +5312,7 @@ type InputResponseInputJournalFiles struct {
 	Journals []string `json:"journals"`
 	// Add rules to decide which journal objects to allow. Events are generated if no rules are given or if all the rules' expressions evaluate to true.
 	Rules []InputResponseInputJournalFilesRule `json:"rules,omitzero"`
-	// Skip log messages that are not part of the current boot session.
+	// Skip log messages that are not part of the current boot session
 	CurrentBoot *bool `json:"currentBoot,omitzero"`
 	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
 	MaxAgeDur                 *string `json:"maxAgeDur,omitzero"`
@@ -5835,7 +5844,7 @@ type InputResponseInputAppleUnifiedLogs struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
 	Pq          *PqType                         `json:"pq,omitzero"`
-	// String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Predicate format reference](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Predicates/AdditionalChapters/Introduction.html) for more information.
+	// String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Common Log Types and Predicates](https://docs.cribl.io/edge/sources-apple-unified-logs/#examples) for more information.
 	Predicate string `json:"predicate"`
 	// Read all log entries (historical and upcoming), or only upcoming, from the last entry
 	ReadMode *ReadModeAppleUnifiedLogs `json:"readMode,omitzero"`
@@ -15787,6 +15796,10 @@ type InputResponseInputKubeLogs struct {
 	Rules []RuleKubeLogs `json:"rules,omitzero"`
 	// For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
 	Timestamps *bool `json:"timestamps,omitzero"`
+	// Maximum bytes to buffer while reassembling a single log line. A line that exceeds this size is flushed as-is, either whole or partially. The default is 1048576 (1 MB).
+	LineBufferLimit *float64 `json:"lineBufferLimit,omitzero"`
+	// Internal flag to disable LB worker payload reassembly.
+	LBDisableAssembly *bool `json:"__LBDisableAssembly,omitzero"`
 	// Fields to add to events from this input
 	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
 	Persistence *DiskSpoolingType             `json:"persistence,omitzero"`
@@ -15914,6 +15927,20 @@ func (i *InputResponseInputKubeLogs) GetTimestamps() *bool {
 		return nil
 	}
 	return i.Timestamps
+}
+
+func (i *InputResponseInputKubeLogs) GetLineBufferLimit() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.LineBufferLimit
+}
+
+func (i *InputResponseInputKubeLogs) GetLBDisableAssembly() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.LBDisableAssembly
 }
 
 func (i *InputResponseInputKubeLogs) GetMetadata() []MetadataConfInputCollection {

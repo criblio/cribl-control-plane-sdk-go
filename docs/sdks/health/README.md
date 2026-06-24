@@ -10,7 +10,7 @@ Actions related to REST server health
 
 ## Get
 
-Get the current health status of the server (Leader or Worker Node).  In Distributed deployments, requests routed to a Worker or Edge node using the [host context](https://docs.cribl.io/cribl-as-code/api#base-url-group-fleet-host) require a Bearer token for [authentication](https://docs.cribl.io/cribl-as-code/api-auth/).
+Get the current health status of the server (Leader or Worker Node). In Distributed deployments, requests routed to a Worker or Edge node using the [host context](https://docs.cribl.io/cribl-as-code/api#base-url-group-fleet-host) require a Bearer token for [authentication](https://docs.cribl.io/cribl-as-code/api-auth/).
 
 ### Example Usage
 
@@ -41,7 +41,13 @@ func main() {
         log.Fatal(err)
     }
     if res.HealthServerStatus != nil {
-        // handle response
+        switch res.HealthServerStatus.Overlay.Type {
+            case components.HealthOverlayStatusTypeActiveHealthOverlayStatus:
+                // res.HealthServerStatus.Overlay.ActiveHealthOverlayStatus is populated
+            case components.HealthOverlayStatusTypeNoActiveHealthOverlayStatus:
+                // res.HealthServerStatus.Overlay.NoActiveHealthOverlayStatus is populated
+        }
+
     }
 }
 ```

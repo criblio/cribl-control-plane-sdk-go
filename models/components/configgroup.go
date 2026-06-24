@@ -59,8 +59,9 @@ type ConfigGroup struct {
 	// Estimated ingest rate for a Cribl.Cloud Worker Group, in GB/sec.
 	EstimatedIngestRate *EstimatedIngestRateOptionsConfigGroup `json:"estimatedIngestRate,omitzero"`
 	// Git status of the Worker Group, Outpost Group, or Edge Fleet configuration. Automatically populated and returned in responses.
-	Git *Git   `json:"git,omitzero"`
-	ID  string `json:"id"`
+	Git *Git `json:"git,omitzero"`
+	// Unique identifier.
+	ID string `json:"id"`
 	// Number of Workers or Nodes running a Cribl version that is incompatible with the current upgrade target.<br/><br/> **Warning**: Do not change the value of <code>incompatibleWorkerCount</code> in the body of PATCH requests. The PATCH request body must include the value as it appears in the <code>GET /products/{product}/groups/{id}</code> response.
 	IncompatibleWorkerCount *int64 `json:"incompatibleWorkerCount,omitzero"`
 	// The <code>id</code> of the parent Edge Fleet. If provided, this Fleet inherits configuration from the specified parent Fleet. Applies only to Edge Fleets.
