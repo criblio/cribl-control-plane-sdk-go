@@ -41,7 +41,7 @@ type OutputS3 struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
@@ -116,7 +116,8 @@ type OutputS3 struct {
 	// Server-side encryption to use for uploaded objects
 	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
 	// ID or ARN of the KMS customer-managed key to use for encryption
-	KmsKeyID    *string `json:"kmsKeyId,omitzero"`
+	KmsKeyID *string `json:"kmsKeyId,omitzero"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
 	AwsAPIKey *string `json:"awsApiKey,omitzero"`

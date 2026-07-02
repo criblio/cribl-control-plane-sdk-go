@@ -21,7 +21,7 @@ func (d *DeleteInputByIDRequest) GetID() string {
 
 type DeleteInputByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// the deleted Source object
+	// The deleted Source object in a single-item list.
 	CountedInputResponse *components.CountedInputResponse
 }
 

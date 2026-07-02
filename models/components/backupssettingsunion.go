@@ -9,8 +9,10 @@ import (
 )
 
 type BackupsSettings struct {
+	// How long to retain backups. Value is a duration string such as <code>24h</code>.
 	BackupPersistence string `json:"backupPersistence"`
-	BackupsDirectory  string `json:"backupsDirectory"`
+	// Filesystem path where configuration backups are stored.
+	BackupsDirectory string `json:"backupsDirectory"`
 }
 
 func (b BackupsSettings) MarshalJSON() ([]byte, error) {

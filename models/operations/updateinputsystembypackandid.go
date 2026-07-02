@@ -297,6 +297,14 @@ func (u *UpdateInputSystemByPackAndIDRequest) GetInputCloudflareHec() *component
 	return u.GetInput().InputCloudflareHecInput
 }
 
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputSysdigHec() *components.InputSysdigHecInput {
+	return u.GetInput().InputSysdigHecInput
+}
+
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputUpwindHec() *components.InputUpwindHecInput {
+	return u.GetInput().InputUpwindHecInput
+}
+
 func (u *UpdateInputSystemByPackAndIDRequest) GetInputOpenaiComplianceLogs() *components.InputOpenaiComplianceLogsInput {
 	return u.GetInput().InputOpenaiComplianceLogsInput
 }
@@ -311,7 +319,7 @@ func (u *UpdateInputSystemByPackAndIDRequest) GetInputOkta() *components.InputOk
 
 type UpdateInputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// the updated Source object
+	// The updated Source object in a single-item list.
 	CountedInputResponse *components.CountedInputResponse
 }
 

@@ -41,7 +41,7 @@ type OutputMinio struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
@@ -107,7 +107,8 @@ type OutputMinio struct {
 	StorageClass *StorageClassOptionsReducedredundancyStandard `json:"storageClass,omitzero"`
 	// Server-side encryption to use for uploaded objects
 	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptionsAes256 `json:"serverSideEncryption,omitzero"`
-	Description          *string                                              `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
 	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key

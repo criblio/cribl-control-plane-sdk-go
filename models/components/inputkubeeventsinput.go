@@ -33,9 +33,10 @@ func (e *InputKubeEventsType) UnmarshalJSON(data []byte) error {
 
 type InputKubeEventsInput struct {
 	// Unique ID for this input
-	ID       *string             `json:"id,omitzero"`
-	Type     InputKubeEventsType `json:"type"`
-	Disabled *bool               `json:"disabled,omitzero"`
+	ID   *string             `json:"id,omitzero"`
+	Type InputKubeEventsType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -44,7 +45,7 @@ type InputKubeEventsInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -52,8 +53,9 @@ type InputKubeEventsInput struct {
 	// Filtering on event fields
 	Rules []RuleConfInputKubeMetrics `json:"rules,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

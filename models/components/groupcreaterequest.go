@@ -8,6 +8,8 @@ import (
 
 type GroupCreateRequest struct {
 	Cloud *ConfigGroupCloud `json:"cloud,omitzero"`
+	// Keeps Collector jobs running if the Leader Node fails. Applies only to Stream Worker Groups. Always <code>true</code> for Cribl.Cloud groups; defaults to <code>false</code> for on-prem groups. to Stream Worker Groups. Always <code>true</code> for Cribl.Cloud groups; defaults to <code>false</code> for on-prem groups.
+	CollectorsHaEnabled *bool `json:"collectorsHaEnabled,omitzero"`
 	// Brief description of the Worker Group, Outpost Group, or Edge Fleet.
 	Description *string `json:"description,omitzero"`
 	// Estimated ingest rate for a Cribl.Cloud Worker Group, in GB/sec.
@@ -64,6 +66,13 @@ func (g *GroupCreateRequest) GetCloud() *ConfigGroupCloud {
 		return nil
 	}
 	return g.Cloud
+}
+
+func (g *GroupCreateRequest) GetCollectorsHaEnabled() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.CollectorsHaEnabled
 }
 
 func (g *GroupCreateRequest) GetDescription() *string {

@@ -1,0 +1,9 @@
+# GetProductsGroupsACLTeamsByProductAndIDResponse
+
+
+## Fields
+
+| Field                                                                                               | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `HTTPMeta`                                                                                          | [components.HTTPMetadata](../../models/components/httpmetadata.md)                                  | :heavy_check_mark:                                                                                  | N/A                                                                                                 |
+| `CountedTeamAccessControlList`                                                                      | [*components.CountedTeamAccessControlList](../../models/components/countedteamaccesscontrollist.md) | :heavy_minus_sign:                                                                                  | The requested TeamAccessControlList object in a single-item list.                                   |

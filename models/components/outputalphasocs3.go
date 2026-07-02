@@ -41,7 +41,7 @@ type OutputAlphasocS3 struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Authentication method.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsSecret `json:"awsAuthenticationMethod,omitzero"`
@@ -96,7 +96,8 @@ type OutputAlphasocS3 struct {
 	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
 	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// AlphaSOC S3-compatible endpoint URL (example: https://s3.alphasoc.net)
-	Endpoint    *string `json:"endpoint,omitzero"`
+	Endpoint *string `json:"endpoint,omitzero"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`

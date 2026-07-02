@@ -59,7 +59,7 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The endpoint to send logs to, such as https://logs-prod-us-central1.grafana.net
 	LokiURL *string `json:"lokiUrl,omitzero"`
@@ -70,7 +70,7 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels []RequestParamConfInputOpenai `json:"labels,omitzero"`
+	Labels []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"labels,omitzero"`
 	// JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
 	MetricRenameExpr *string             `json:"metricRenameExpr,omitzero"`
 	PrometheusAuth   *PrometheusAuthType `json:"prometheusAuth,omitzero"`
@@ -104,7 +104,8 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	Description    *string                      `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Compress the payload body before sending. Applies only to JSON payloads; the Protobuf variant for both Prometheus and Loki are snappy-compressed by default.
 	Compress *bool `json:"compress,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -127,7 +128,7 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                        `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputGrafanaCloudPqControls2 `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -223,7 +224,7 @@ func (o *OutputGrafanaCloudGrafanaCloud2) GetMessageFormat() *MessageFormatOptio
 	return o.MessageFormat
 }
 
-func (o *OutputGrafanaCloudGrafanaCloud2) GetLabels() []RequestParamConfInputOpenai {
+func (o *OutputGrafanaCloudGrafanaCloud2) GetLabels() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
 	if o == nil {
 		return nil
 	}
@@ -535,7 +536,7 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The endpoint to send logs to, such as https://logs-prod-us-central1.grafana.net
 	LokiURL string `json:"lokiUrl"`
@@ -546,7 +547,7 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels []RequestParamConfInputOpenai `json:"labels,omitzero"`
+	Labels []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"labels,omitzero"`
 	// JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
 	MetricRenameExpr *string             `json:"metricRenameExpr,omitzero"`
 	PrometheusAuth   *PrometheusAuthType `json:"prometheusAuth,omitzero"`
@@ -580,7 +581,8 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	Description    *string                      `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Compress the payload body before sending. Applies only to JSON payloads; the Protobuf variant for both Prometheus and Loki are snappy-compressed by default.
 	Compress *bool `json:"compress,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -603,7 +605,7 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                        `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputGrafanaCloudPqControls1 `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -699,7 +701,7 @@ func (o *OutputGrafanaCloudGrafanaCloud1) GetMessageFormat() *MessageFormatOptio
 	return o.MessageFormat
 }
 
-func (o *OutputGrafanaCloudGrafanaCloud1) GetLabels() []RequestParamConfInputOpenai {
+func (o *OutputGrafanaCloudGrafanaCloud1) GetLabels() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
 	if o == nil {
 		return nil
 	}

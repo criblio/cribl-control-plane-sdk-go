@@ -264,9 +264,10 @@ func (u InputAppscopeUNIXSocketPermissions) MarshalJSON() ([]byte, error) {
 
 type InputAppscopeInput struct {
 	// Unique ID for this input
-	ID       *string           `json:"id,omitzero"`
-	Type     InputAppscopeType `json:"type"`
-	Disabled *bool             `json:"disabled,omitzero"`
+	ID   *string           `json:"id,omitzero"`
+	Type InputAppscopeType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -275,7 +276,7 @@ type InputAppscopeInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -303,8 +304,9 @@ type InputAppscopeInput struct {
 	Filter         *InputAppscopeFilter      `json:"filter,omitzero"`
 	Persistence    *InputAppscopePersistence `json:"persistence,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
-	Description *string                                     `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `json:"host,omitzero"`
 	// Port to listen on

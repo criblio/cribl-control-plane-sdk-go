@@ -41,7 +41,7 @@ type OutputCloudianS3 struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Cloudian HyperStore S3-compatible endpoint URL (example: https://s3.hyperstore.example.com)
 	Endpoint string `json:"endpoint"`
@@ -106,7 +106,8 @@ type OutputCloudianS3 struct {
 	// Server-side encryption to use for uploaded objects
 	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptions `json:"serverSideEncryption,omitzero"`
 	// ID or ARN of the KMS customer-managed key to use for encryption
-	KmsKeyID    *string `json:"kmsKeyId,omitzero"`
+	KmsKeyID *string `json:"kmsKeyId,omitzero"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`

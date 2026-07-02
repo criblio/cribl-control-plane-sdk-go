@@ -55,7 +55,7 @@ type OutputLoki struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The endpoint to send logs to
 	URL string `json:"url"`
@@ -64,7 +64,7 @@ type OutputLoki struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels   []RequestParamConfInputOpenai                                  `json:"labels,omitzero"`
+	Labels   []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret  `json:"labels,omitzero"`
 	AuthType *AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret `json:"authType,omitzero"`
 	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
 	Concurrency *float64 `json:"concurrency,omitzero"`
@@ -99,7 +99,8 @@ type OutputLoki struct {
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
-	Description        *string  `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Compress the payload body before sending
 	Compress *bool `json:"compress,omitzero"`
 	// Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
@@ -132,7 +133,7 @@ type OutputLoki struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string               `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputLokiPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -217,7 +218,7 @@ func (o *OutputLoki) GetMessageFormat() *MessageFormatOptions {
 	return o.MessageFormat
 }
 
-func (o *OutputLoki) GetLabels() []RequestParamConfInputOpenai {
+func (o *OutputLoki) GetLabels() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
 	if o == nil {
 		return nil
 	}

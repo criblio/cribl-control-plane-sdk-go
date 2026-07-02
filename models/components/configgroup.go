@@ -50,6 +50,8 @@ func (g *Git) GetLog() []Commit {
 
 type ConfigGroup struct {
 	Cloud *ConfigGroupCloud `json:"cloud,omitzero"`
+	// Keeps Collector jobs running if the Leader Node fails. Applies only to Stream Worker Groups. Always <code>true</code> for Cribl.Cloud groups; defaults to <code>false</code> for on-prem groups. to Stream Worker Groups. Always <code>true</code> for Cribl.Cloud groups; defaults to <code>false</code> for on-prem groups.
+	CollectorsHaEnabled *bool `json:"collectorsHaEnabled,omitzero"`
 	// Commit hash of the deployed configuration version for the Worker Group, Outpost Group, or Edge Fleet. Automatically populated and returned in responses.<br/><br/> **Warning**: Do not change the value of <code>configVersion</code> in the body of PATCH requests. The PATCH request body must include the value as it appears in the <code>GET /products/{product}/groups/{id}</code> response.
 	ConfigVersion *string `json:"configVersion,omitzero"`
 	// Number of Workers or Nodes that are currently deploying the latest configuration version.<br/><br/> **Warning**: Do not change the value of <code>deployingWorkerCount</code> in the body of PATCH requests. The PATCH request body must include the value as it appears in the <code>GET /products/{product}/groups/{id}</code> response.
@@ -116,6 +118,13 @@ func (c *ConfigGroup) GetCloud() *ConfigGroupCloud {
 		return nil
 	}
 	return c.Cloud
+}
+
+func (c *ConfigGroup) GetCollectorsHaEnabled() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.CollectorsHaEnabled
 }
 
 func (c *ConfigGroup) GetConfigVersion() *string {

@@ -41,7 +41,7 @@ type OutputDatabricks struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Optional path to prepend to files before uploading.
 	DestPath *string `json:"destPath,omitzero"`
@@ -98,7 +98,8 @@ type OutputDatabricks struct {
 	// OAuth client secret for Unity Catalog authentication
 	ClientTextSecret string `json:"clientTextSecret"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it.
-	TimeoutSec  *int64  `json:"timeoutSec,omitzero"`
+	TimeoutSec *int64 `json:"timeoutSec,omitzero"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`

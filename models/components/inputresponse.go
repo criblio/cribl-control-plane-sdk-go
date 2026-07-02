@@ -9,6 +9,98 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputResponseFirewall - Creates events for Firewall rules entries
+type InputResponseFirewall struct {
+	Enable *bool `json:"enable,omitzero"`
+}
+
+func (i InputResponseFirewall) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputResponseFirewall) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputResponseFirewall) GetEnable() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enable
+}
+
+// InputResponseServices - Creates events from the list of services
+type InputResponseServices struct {
+	Enable *bool `json:"enable,omitzero"`
+}
+
+func (i InputResponseServices) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputResponseServices) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputResponseServices) GetEnable() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enable
+}
+
+// InputResponseListeningPorts - Creates events from list of listening ports
+type InputResponseListeningPorts struct {
+	Enable *bool `json:"enable,omitzero"`
+}
+
+func (i InputResponseListeningPorts) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputResponseListeningPorts) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputResponseListeningPorts) GetEnable() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enable
+}
+
+// InputResponseLoggedInUsers - Creates events from list of logged-in users
+type InputResponseLoggedInUsers struct {
+	Enable *bool `json:"enable,omitzero"`
+}
+
+func (i InputResponseLoggedInUsers) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputResponseLoggedInUsers) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputResponseLoggedInUsers) GetEnable() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enable
+}
+
 type InputResponseCollectors struct {
 	// Creates events based on entries collected from the hosts file
 	Hostsfile *InputResponseHostsFile `json:"hostsfile,omitzero"`
@@ -191,9 +283,10 @@ func (p *PersistenceSystemState) GetDestPath() *string {
 
 type InputResponseInputSystemState struct {
 	// Unique ID for this input
-	ID       *string                      `json:"id,omitzero"`
-	Type     InputResponseTypeSystemState `json:"type"`
-	Disabled *bool                        `json:"disabled,omitzero"`
+	ID   *string                      `json:"id,omitzero"`
+	Type InputResponseTypeSystemState `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -202,7 +295,7 @@ type InputResponseInputSystemState struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -218,8 +311,9 @@ type InputResponseInputSystemState struct {
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
 	DisableNativeModule *bool `json:"disableNativeModule,omitzero"`
 	// Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeLastLogModule *bool   `json:"disableNativeLastLogModule,omitzero"`
-	Description                *string `json:"description,omitzero"`
+	DisableNativeLastLogModule *bool `json:"disableNativeLastLogModule,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -1095,9 +1189,10 @@ func (p *PersistenceSystemMetrics) GetDestPath() *string {
 
 type InputResponseInputSystemMetrics struct {
 	// Unique ID for this input
-	ID       *string                        `json:"id,omitzero"`
-	Type     InputResponseTypeSystemMetrics `json:"type"`
-	Disabled *bool                          `json:"disabled,omitzero"`
+	ID   *string                        `json:"id,omitzero"`
+	Type InputResponseTypeSystemMetrics `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -1106,7 +1201,7 @@ type InputResponseInputSystemMetrics struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -1122,7 +1217,8 @@ type InputResponseInputSystemMetrics struct {
 	// Fields to add to events from this input
 	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
 	Persistence *PersistenceSystemMetrics     `json:"persistence,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -1330,9 +1426,10 @@ func (e *InputResponseTypeTcpjson) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputTcpjson struct {
 	// Unique ID for this input
-	ID       *string                  `json:"id,omitzero"`
-	Type     InputResponseTypeTcpjson `json:"type"`
-	Disabled *bool                    `json:"disabled,omitzero"`
+	ID   *string                  `json:"id,omitzero"`
+	Type InputResponseTypeTcpjson `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -1341,7 +1438,7 @@ type InputResponseInputTcpjson struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -1370,8 +1467,9 @@ type InputResponseInputTcpjson struct {
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
-	Description *string                                     `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
@@ -1625,6 +1723,7 @@ func (i *InputResponseInputTcpjson) GetStatus() *StatusType {
 	return i.Status
 }
 
+// InputResponseTypeCriblLakeHTTP - Source type identifier.
 type InputResponseTypeCriblLakeHTTP string
 
 const (
@@ -1773,9 +1872,11 @@ func (i *InputResponseAuthTokensExt) GetElasticsearchMetadata() *InputResponseEl
 
 type InputResponseInputCriblLakeHTTP struct {
 	// Unique ID for this input
-	ID       *string                        `json:"id,omitzero"`
-	Type     InputResponseTypeCriblLakeHTTP `json:"type"`
-	Disabled *bool                          `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseTypeCriblLakeHTTP `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -1784,7 +1885,7 @@ type InputResponseInputCriblLakeHTTP struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -1830,7 +1931,8 @@ type InputResponseInputCriblLakeHTTP struct {
 	// Fields to add to events from this input
 	Metadata      []MetadataConfInputCollection `json:"metadata,omitzero"`
 	AuthTokensExt []InputResponseAuthTokensExt  `json:"authTokensExt,omitzero"`
-	Description   *string                       `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -2165,6 +2267,7 @@ func (i *InputResponseInputCriblLakeHTTP) GetStatus() *StatusType {
 	return i.Status
 }
 
+// InputResponseTypeCriblHTTP - Source type identifier.
 type InputResponseTypeCriblHTTP string
 
 const (
@@ -2190,9 +2293,11 @@ func (e *InputResponseTypeCriblHTTP) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputCriblHTTP struct {
 	// Unique ID for this input
-	ID       *string                    `json:"id,omitzero"`
-	Type     InputResponseTypeCriblHTTP `json:"type"`
-	Disabled *bool                      `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseTypeCriblHTTP `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -2201,7 +2306,7 @@ type InputResponseInputCriblHTTP struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -2238,8 +2343,9 @@ type InputResponseInputCriblHTTP struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -2528,9 +2634,10 @@ func (e *InputResponseTypeCriblTCP) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputCriblTCP struct {
 	// Unique ID for this input
-	ID       *string                   `json:"id,omitzero"`
-	Type     InputResponseTypeCriblTCP `json:"type"`
-	Disabled *bool                     `json:"disabled,omitzero"`
+	ID   *string                   `json:"id,omitzero"`
+	Type InputResponseTypeCriblTCP `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -2539,7 +2646,7 @@ type InputResponseInputCriblTCP struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -2566,8 +2673,9 @@ type InputResponseInputCriblTCP struct {
 	// Load balance traffic across all Worker Processes
 	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl TCP destinations in connected environments.
-	AuthTokens  []AuthTokenConfInputCriblTCP `json:"authTokens,omitzero"`
-	Description *string                      `json:"description,omitzero"`
+	AuthTokens []AuthTokenConfInputCriblTCP `json:"authTokens,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -2821,9 +2929,10 @@ func (e *InputResponseTypeCribl) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputCribl struct {
 	// Unique ID for this input
-	ID       *string                `json:"id,omitzero"`
-	Type     InputResponseTypeCribl `json:"type"`
-	Disabled *bool                  `json:"disabled,omitzero"`
+	ID   *string                `json:"id,omitzero"`
+	Type InputResponseTypeCribl `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -2832,7 +2941,7 @@ type InputResponseInputCribl struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -2841,8 +2950,9 @@ type InputResponseInputCribl struct {
 	Pq          *PqType                         `json:"pq,omitzero"`
 	Filter      *string                         `json:"filter,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -3015,9 +3125,10 @@ func (e *InputResponseTypeGooglePubsub) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputGooglePubsub struct {
 	// Unique ID for this input
-	ID       *string                       `json:"id,omitzero"`
-	Type     InputResponseTypeGooglePubsub `json:"type"`
-	Disabled *bool                         `json:"disabled,omitzero"`
+	ID   *string                       `json:"id,omitzero"`
+	Type InputResponseTypeGooglePubsub `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -3026,7 +3137,7 @@ type InputResponseInputGooglePubsub struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -3058,8 +3169,9 @@ type InputResponseInputGooglePubsub struct {
 	// Pull request timeout, in milliseconds
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Receive events in the order they were added to the queue. The process sending events must have ordering enabled.
 	OrderedDelivery *bool `json:"orderedDelivery,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -3320,6 +3432,7 @@ func (i *InputResponseInputGooglePubsub) GetStatus() *StatusType {
 	return i.Status
 }
 
+// InputResponseTypeFirehose - Source type identifier.
 type InputResponseTypeFirehose string
 
 const (
@@ -3345,9 +3458,11 @@ func (e *InputResponseTypeFirehose) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputFirehose struct {
 	// Unique ID for this input
-	ID       *string                   `json:"id,omitzero"`
-	Type     InputResponseTypeFirehose `json:"type"`
-	Disabled *bool                     `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseTypeFirehose `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -3356,7 +3471,7 @@ type InputResponseInputFirehose struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -3393,8 +3508,9 @@ type InputResponseInputFirehose struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -3726,7 +3842,7 @@ type InputResponseInputExec struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -3746,8 +3862,9 @@ type InputResponseInputExec struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Interval between command executions in seconds.
 	Interval *float64 `json:"interval,omitzero"`
 	// Cron schedule to execute the command on.
@@ -3995,14 +4112,64 @@ func (e *InputResponseAuthenticationMechanism) IsExact() bool {
 	return false
 }
 
+type InputResponseCertificate struct {
+	// The certificate you registered as credentials for your app in the Azure portal
+	CertificateName string `json:"certificateName"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath string `json:"certPath"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath string `json:"privKeyPath"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitzero"`
+}
+
+func (i InputResponseCertificate) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputResponseCertificate) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputResponseCertificate) GetCertificateName() string {
+	if i == nil {
+		return ""
+	}
+	return i.CertificateName
+}
+
+func (i *InputResponseCertificate) GetCertPath() string {
+	if i == nil {
+		return ""
+	}
+	return i.CertPath
+}
+
+func (i *InputResponseCertificate) GetPrivKeyPath() string {
+	if i == nil {
+		return ""
+	}
+	return i.PrivKeyPath
+}
+
+func (i *InputResponseCertificate) GetPassphrase() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Passphrase
+}
+
 type InputResponseAuth struct {
 	Mechanism InputResponseAuthenticationMechanism `json:"mechanism"`
 	// Select or create a stored text secret
 	TextSecret           *string                          `json:"textSecret,omitzero"`
 	ClientSecretAuthType *AuthenticationMethodOptionsAuth `json:"clientSecretAuthType,omitzero"`
 	// Select or create a stored text secret
-	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
-	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	ClientTextSecret *string                   `json:"clientTextSecret,omitzero"`
+	Certificate      *InputResponseCertificate `json:"certificate,omitzero"`
 	// Endpoint used to acquire authentication tokens from Azure
 	OauthEndpoint *MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint,omitzero"`
 	// client_id to pass in the OAuth request parameter
@@ -4060,7 +4227,7 @@ func (i *InputResponseAuth) GetClientTextSecret() *string {
 	return i.ClientTextSecret
 }
 
-func (i *InputResponseAuth) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+func (i *InputResponseAuth) GetCertificate() *InputResponseCertificate {
 	if i == nil {
 		return nil
 	}
@@ -4310,9 +4477,10 @@ func (i *InputResponseCheckpointing) GetBlobStore() InputResponseAzureBlobStorag
 
 type InputResponseInputEventhubAmqp struct {
 	// Unique ID for this input
-	ID       *string                       `json:"id,omitzero"`
-	Type     InputResponseTypeEventhubAmqp `json:"type"`
-	Disabled *bool                         `json:"disabled,omitzero"`
+	ID   *string                       `json:"id,omitzero"`
+	Type InputResponseTypeEventhubAmqp `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -4321,7 +4489,7 @@ type InputResponseInputEventhubAmqp struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -4357,8 +4525,9 @@ type InputResponseInputEventhubAmqp struct {
 	// Maximum time to wait for a connection to complete
 	ConnectionTimeoutInMs *int64 `json:"connectionTimeoutInMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -4629,9 +4798,10 @@ func (e *InputResponseTypeEventhub) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputEventhub struct {
 	// Unique ID for this input
-	ID       *string                   `json:"id,omitzero"`
-	Type     InputResponseTypeEventhub `json:"type"`
-	Disabled *bool                     `json:"disabled,omitzero"`
+	ID   *string                   `json:"id,omitzero"`
+	Type InputResponseTypeEventhub `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -4640,7 +4810,7 @@ type InputResponseInputEventhub struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -4693,8 +4863,9 @@ type InputResponseInputEventhub struct {
 	// Minimize duplicate events by starting only one consumer for each topic partition
 	MinimizeDuplicates *bool `json:"minimizeDuplicates,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -5103,9 +5274,10 @@ func (e *InputResponseSubscriptionPlan) IsExact() bool {
 
 type InputResponseInputMicrosoftGraph struct {
 	// Unique ID for this input
-	ID       *string                         `json:"id,omitzero"`
-	Type     InputResponseTypeMicrosoftGraph `json:"type"`
-	Disabled *bool                           `json:"disabled,omitzero"`
+	ID   *string                         `json:"id,omitzero"`
+	Type InputResponseTypeMicrosoftGraph `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -5114,7 +5286,7 @@ type InputResponseInputMicrosoftGraph struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -5154,9 +5326,10 @@ type InputResponseInputMicrosoftGraph struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel    *LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
-	RetryRules  *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
-	Description *string                          `json:"description,omitzero"`
+	LogLevel   *LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
+	RetryRules *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// client_secret to pass in the OAuth request parameter.
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Directory ID (tenant identifier) in Azure Active Directory.
@@ -5574,9 +5747,10 @@ func (e *AuthenticationMethodOffice365MsgTrace) IsExact() bool {
 
 type InputResponseInputOffice365MsgTrace struct {
 	// Unique ID for this input
-	ID       *string                            `json:"id,omitzero"`
-	Type     InputResponseTypeOffice365MsgTrace `json:"type"`
-	Disabled *bool                              `json:"disabled,omitzero"`
+	ID   *string                            `json:"id,omitzero"`
+	Type InputResponseTypeOffice365MsgTrace `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -5585,7 +5759,7 @@ type InputResponseInputOffice365MsgTrace struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -5623,9 +5797,10 @@ type InputResponseInputOffice365MsgTrace struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel    *LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
-	RetryRules  *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
-	Description *string                          `json:"description,omitzero"`
+	LogLevel   *LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
+	RetryRules *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Username to run Message Trace API call.
 	Username *string `json:"username,omitzero"`
 	// Password to run Message Trace API call.
@@ -6100,9 +6275,10 @@ func (c *ContentConfigOffice365Service) GetEnabled() *bool {
 
 type InputResponseInputOffice365Service struct {
 	// Unique ID for this input
-	ID       *string                           `json:"id,omitzero"`
-	Type     InputResponseTypeOffice365Service `json:"type"`
-	Disabled *bool                             `json:"disabled,omitzero"`
+	ID   *string                           `json:"id,omitzero"`
+	Type InputResponseTypeOffice365Service `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -6111,7 +6287,7 @@ type InputResponseInputOffice365Service struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -6142,8 +6318,9 @@ type InputResponseInputOffice365Service struct {
 	ContentConfig []ContentConfigOffice365Service  `json:"contentConfig,omitzero"`
 	RetryRules    *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Microsoft 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
@@ -6510,9 +6687,10 @@ func (c *ContentConfigOffice365Mgmt) GetEnabled() *bool {
 
 type InputResponseInputOffice365Mgmt struct {
 	// Unique ID for this input
-	ID       *string                        `json:"id,omitzero"`
-	Type     InputResponseTypeOffice365Mgmt `json:"type"`
-	Disabled *bool                          `json:"disabled,omitzero"`
+	ID   *string                        `json:"id,omitzero"`
+	Type InputResponseTypeOffice365Mgmt `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -6521,7 +6699,7 @@ type InputResponseInputOffice365Mgmt struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -6556,8 +6734,9 @@ type InputResponseInputOffice365Mgmt struct {
 	IngestionLag *float64                         `json:"ingestionLag,omitzero"`
 	RetryRules   *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Microsoft 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret
@@ -6901,6 +7080,8 @@ const (
 	DiscoveryTypeEdgePrometheusK8sPods DiscoveryTypeEdgePrometheus = "k8s-pods"
 	// DiscoveryTypeEdgePrometheusK8sServiceMonitor Kubernetes Service Monitor (v4.18+)
 	DiscoveryTypeEdgePrometheusK8sServiceMonitor DiscoveryTypeEdgePrometheus = "k8s-service-monitor"
+	// DiscoveryTypeEdgePrometheusHTTPSd HTTP SD
+	DiscoveryTypeEdgePrometheusHTTPSd DiscoveryTypeEdgePrometheus = "http_sd"
 )
 
 func (e DiscoveryTypeEdgePrometheus) ToPointer() *DiscoveryTypeEdgePrometheus {
@@ -6911,7 +7092,7 @@ func (e DiscoveryTypeEdgePrometheus) ToPointer() *DiscoveryTypeEdgePrometheus {
 func (e *DiscoveryTypeEdgePrometheus) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "static", "dns", "ec2", "k8s-node", "k8s-pods", "k8s-service-monitor":
+		case "static", "dns", "ec2", "k8s-node", "k8s-pods", "k8s-service-monitor", "http_sd":
 			return true
 		}
 	}
@@ -7026,9 +7207,10 @@ func (i *InputResponsePodFilter) GetDescription() *string {
 
 type InputResponseInputEdgePrometheus struct {
 	// Unique ID for this input
-	ID       *string                         `json:"id,omitzero"`
-	Type     InputResponseTypeEdgePrometheus `json:"type"`
-	Disabled *bool                           `json:"disabled,omitzero"`
+	ID   *string                         `json:"id,omitzero"`
+	Type InputResponseTypeEdgePrometheus `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -7037,7 +7219,7 @@ type InputResponseInputEdgePrometheus struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -7058,9 +7240,10 @@ type InputResponseInputEdgePrometheus struct {
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *AuthenticationMethodEdgePrometheus `json:"authType,omitzero"`
-	Description *string                             `json:"description,omitzero"`
-	Targets     []InputResponseTarget               `json:"targets,omitzero"`
+	AuthType *AuthenticationMethodEdgePrometheus `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string               `json:"description,omitzero"`
+	Targets     []InputResponseTarget `json:"targets,omitzero"`
 	// DNS record type to resolve
 	RecordType *RecordTypeOptions `json:"recordType,omitzero"`
 	// The port number in the metrics URL for discovered targets.
@@ -7110,6 +7293,14 @@ type InputResponseInputEdgePrometheus struct {
 	// expressions evaluate to true.
 	//
 	PodFilter []InputResponsePodFilter `json:"podFilter,omitzero"`
+	// URL to fetch target groups from (must be http or https)
+	HTTPDiscoveryURL *string `json:"httpDiscoveryUrl,omitzero"`
+	// Extra headers to send with the discovery request
+	HTTPDiscoveryHeaders []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"httpDiscoveryHeaders,omitzero"`
+	// Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+	HTTPDiscoveryRejectUnauthorized *bool `json:"httpDiscoveryRejectUnauthorized,omitzero"`
+	// Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitzero"`
 	// Password for Prometheus Basic authentication
@@ -7468,6 +7659,34 @@ func (i *InputResponseInputEdgePrometheus) GetPodFilter() []InputResponsePodFilt
 	return i.PodFilter
 }
 
+func (i *InputResponseInputEdgePrometheus) GetHTTPDiscoveryURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryURL
+}
+
+func (i *InputResponseInputEdgePrometheus) GetHTTPDiscoveryHeaders() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryHeaders
+}
+
+func (i *InputResponseInputEdgePrometheus) GetHTTPDiscoveryRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryRejectUnauthorized
+}
+
+func (i *InputResponseInputEdgePrometheus) GetMaxResponseBodySize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxResponseBodySize
+}
+
 func (i *InputResponseInputEdgePrometheus) GetUsername() *string {
 	if i == nil {
 		return nil
@@ -7606,6 +7825,8 @@ const (
 	DiscoveryTypePrometheusDNS DiscoveryTypePrometheus = "dns"
 	// DiscoveryTypePrometheusEc2 AWS EC2
 	DiscoveryTypePrometheusEc2 DiscoveryTypePrometheus = "ec2"
+	// DiscoveryTypePrometheusHTTPSd HTTP SD
+	DiscoveryTypePrometheusHTTPSd DiscoveryTypePrometheus = "http_sd"
 )
 
 func (e DiscoveryTypePrometheus) ToPointer() *DiscoveryTypePrometheus {
@@ -7616,7 +7837,7 @@ func (e DiscoveryTypePrometheus) ToPointer() *DiscoveryTypePrometheus {
 func (e *DiscoveryTypePrometheus) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "static", "dns", "ec2":
+		case "static", "dns", "ec2", "http_sd":
 			return true
 		}
 	}
@@ -7648,9 +7869,10 @@ func (e *InputResponseMetricsProtocol) IsExact() bool {
 
 type InputResponseInputPrometheus struct {
 	// Unique ID for this input
-	ID       *string                     `json:"id,omitzero"`
-	Type     InputResponseTypePrometheus `json:"type"`
-	Disabled *bool                       `json:"disabled,omitzero"`
+	ID   *string                     `json:"id,omitzero"`
+	Type InputResponseTypePrometheus `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -7659,7 +7881,7 @@ type InputResponseInputPrometheus struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -7693,8 +7915,9 @@ type InputResponseInputPrometheus struct {
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptionsSasl `json:"authType,omitzero"`
-	Description *string                          `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsSasl `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
 	TargetList []string `json:"targetList,omitzero"`
 	// DNS record type to resolve
@@ -7731,6 +7954,14 @@ type InputResponseInputPrometheus struct {
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// URL to fetch target groups from (must be http or https)
+	HTTPDiscoveryURL *string `json:"httpDiscoveryUrl,omitzero"`
+	// Extra headers to send with the discovery request
+	HTTPDiscoveryHeaders []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"httpDiscoveryHeaders,omitzero"`
+	// Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+	HTTPDiscoveryRejectUnauthorized *bool `json:"httpDiscoveryRejectUnauthorized,omitzero"`
+	// Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitzero"`
 	// Password for Prometheus Basic authentication
@@ -8099,6 +8330,34 @@ func (i *InputResponseInputPrometheus) GetDurationSeconds() *float64 {
 	return i.DurationSeconds
 }
 
+func (i *InputResponseInputPrometheus) GetHTTPDiscoveryURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryURL
+}
+
+func (i *InputResponseInputPrometheus) GetHTTPDiscoveryHeaders() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryHeaders
+}
+
+func (i *InputResponseInputPrometheus) GetHTTPDiscoveryRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryRejectUnauthorized
+}
+
+func (i *InputResponseInputPrometheus) GetMaxResponseBodySize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxResponseBodySize
+}
+
 func (i *InputResponseInputPrometheus) GetUsername() *string {
 	if i == nil {
 		return nil
@@ -8239,6 +8498,7 @@ func (i *InputResponseInputPrometheus) GetStatus() *StatusType {
 	return i.Status
 }
 
+// InputResponseTypePrometheusRw - Source type identifier.
 type InputResponseTypePrometheusRw string
 
 const (
@@ -8264,9 +8524,11 @@ func (e *InputResponseTypePrometheusRw) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputPrometheusRw struct {
 	// Unique ID for this input
-	ID       *string                       `json:"id,omitzero"`
-	Type     InputResponseTypePrometheusRw `json:"type"`
-	Disabled *bool                         `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseTypePrometheusRw `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -8275,7 +8537,7 @@ type InputResponseInputPrometheusRw struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -8314,10 +8576,11 @@ type InputResponseInputPrometheusRw struct {
 	// Remote Write authentication type
 	AuthType *AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
-	Username    *string                       `json:"username,omitzero"`
-	Password    *string                       `json:"password,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	Password    *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -8647,6 +8910,7 @@ func (i *InputResponseInputPrometheusRw) GetStatus() *StatusType {
 	return i.Status
 }
 
+// InputResponseTypeLoki - Source type identifier.
 type InputResponseTypeLoki string
 
 const (
@@ -8672,9 +8936,11 @@ func (e *InputResponseTypeLoki) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputLoki struct {
 	// Unique ID for this input
-	ID       *string               `json:"id,omitzero"`
-	Type     InputResponseTypeLoki `json:"type"`
-	Disabled *bool                 `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseTypeLoki `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -8683,7 +8949,7 @@ type InputResponseInputLoki struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -8722,10 +8988,11 @@ type InputResponseInputLoki struct {
 	// Loki logs authentication type
 	AuthType *AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
-	Username    *string                       `json:"username,omitzero"`
-	Password    *string                       `json:"password,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	Password    *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -9046,6 +9313,7 @@ func (i *InputResponseInputLoki) GetStatus() *StatusType {
 	return i.Status
 }
 
+// InputResponseInputGrafanaType2 - Source type identifier.
 type InputResponseInputGrafanaType2 string
 
 const (
@@ -9209,9 +9477,11 @@ func (i *InputResponseLokiAuth2) GetTextSecret() *string {
 
 type InputResponseInputGrafanaGrafana2 struct {
 	// Unique ID for this input
-	ID       *string                        `json:"id,omitzero"`
-	Type     InputResponseInputGrafanaType2 `json:"type"`
-	Disabled *bool                          `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseInputGrafanaType2 `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -9220,7 +9490,7 @@ type InputResponseInputGrafanaGrafana2 struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -9261,8 +9531,9 @@ type InputResponseInputGrafanaGrafana2 struct {
 	PrometheusAuth *InputResponsePrometheusAuth2 `json:"prometheusAuth,omitzero"`
 	LokiAuth       *InputResponseLokiAuth2       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -9568,6 +9839,7 @@ func (i *InputResponseInputGrafanaGrafana2) GetStatus() *StatusType {
 // #region class-body-inputresponseinputgrafanagrafana2
 // #endregion class-body-inputresponseinputgrafanagrafana2
 
+// InputResponseInputGrafanaType1 - Source type identifier.
 type InputResponseInputGrafanaType1 string
 
 const (
@@ -9731,9 +10003,11 @@ func (i *InputResponseLokiAuth1) GetTextSecret() *string {
 
 type InputResponseInputGrafanaGrafana1 struct {
 	// Unique ID for this input
-	ID       *string                        `json:"id,omitzero"`
-	Type     InputResponseInputGrafanaType1 `json:"type"`
-	Disabled *bool                          `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseInputGrafanaType1 `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -9742,7 +10016,7 @@ type InputResponseInputGrafanaGrafana1 struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -9783,8 +10057,9 @@ type InputResponseInputGrafanaGrafana1 struct {
 	PrometheusAuth *InputResponsePrometheusAuth1 `json:"prometheusAuth,omitzero"`
 	LokiAuth       *InputResponseLokiAuth1       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -10204,9 +10479,10 @@ func (e *InputResponseTypeConfluentCloud) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputConfluentCloud struct {
 	// Unique ID for this input
-	ID       *string                         `json:"id,omitzero"`
-	Type     InputResponseTypeConfluentCloud `json:"type"`
-	Disabled *bool                           `json:"disabled,omitzero"`
+	ID   *string                         `json:"id,omitzero"`
+	Type InputResponseTypeConfluentCloud `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -10215,7 +10491,7 @@ type InputResponseInputConfluentCloud struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -10271,8 +10547,9 @@ type InputResponseInputConfluentCloud struct {
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -10601,6 +10878,7 @@ func (i *InputResponseInputConfluentCloud) GetStatus() *StatusType {
 	return i.Status
 }
 
+// InputResponseTypeElastic - Source type identifier.
 type InputResponseTypeElastic string
 
 const (
@@ -10807,9 +11085,11 @@ func (p *ProxyModeElastic) GetTemplateURL() *string {
 
 type InputResponseInputElastic struct {
 	// Unique ID for this input
-	ID       *string                  `json:"id,omitzero"`
-	Type     InputResponseTypeElastic `json:"type"`
-	Disabled *bool                    `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseTypeElastic `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -10818,7 +11098,7 @@ type InputResponseInputElastic struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -10860,11 +11140,12 @@ type InputResponseInputElastic struct {
 	// Headers to add to all events
 	ExtraHTTPHeaders []ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	ProxyMode   *ProxyModeElastic             `json:"proxyMode,omitzero"`
-	Description *string                       `json:"description,omitzero"`
-	Username    *string                       `json:"username,omitzero"`
-	Password    *string                       `json:"password,omitzero"`
+	Metadata  []MetadataConfInputCollection `json:"metadata,omitzero"`
+	ProxyMode *ProxyModeElastic             `json:"proxyMode,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	Password    *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Bearer tokens to include in the authorization header
@@ -11240,9 +11521,10 @@ func (e *InputResponseTypeAzureBlob) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputAzureBlob struct {
 	// Unique ID for this input
-	ID       *string                    `json:"id,omitzero"`
-	Type     InputResponseTypeAzureBlob `json:"type"`
-	Disabled *bool                      `json:"disabled,omitzero"`
+	ID   *string                    `json:"id,omitzero"`
+	Type InputResponseTypeAzureBlob `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -11251,7 +11533,7 @@ type InputResponseInputAzureBlob struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -11283,7 +11565,8 @@ type InputResponseInputAzureBlob struct {
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
 	ParquetChunkDownloadTimeout *float64                     `json:"parquetChunkDownloadTimeout,omitzero"`
 	AuthType                    *AuthenticationMethodOptions `json:"authType,omitzero"`
-	Description                 *string                      `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
 	ConnectionString *string `json:"connectionString,omitzero"`
 	// Select or create a stored text secret
@@ -11642,6 +11925,7 @@ func (i *InputResponseInputAzureBlob) GetStatus() *StatusType {
 	return i.Status
 }
 
+// InputResponseTypeSplunkHec - Source type identifier.
 type InputResponseTypeSplunkHec string
 
 const (
@@ -11671,8 +11955,9 @@ type AuthTokenSplunkHec struct {
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
 	// Shared secret to be provided by any client (Authorization: <token>)
-	Token   string `json:"token"`
-	Enabled *bool  `json:"enabled,omitzero"`
+	Token string `json:"token"`
+	// If true, the token is active and can be used for authentication.
+	Enabled *bool `json:"enabled,omitzero"`
 	// Optional token description
 	Description *string `json:"description,omitzero"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
@@ -11743,9 +12028,11 @@ func (a *AuthTokenSplunkHec) GetMetadata() []MetadataConfInputCollection {
 
 type InputResponseInputSplunkHec struct {
 	// Unique ID for this input
-	ID       *string                    `json:"id,omitzero"`
-	Type     InputResponseTypeSplunkHec `json:"type"`
-	Disabled *bool                      `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseTypeSplunkHec `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -11754,7 +12041,7 @@ type InputResponseInputSplunkHec struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -11811,8 +12098,9 @@ type InputResponseInputSplunkHec struct {
 	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
 	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
-	Description      *string `json:"description,omitzero"`
+	EmitTokenMetrics *bool `json:"emitTokenMetrics,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -12298,9 +12586,10 @@ func (e *AuthenticationTypeSplunkSearch) IsExact() bool {
 
 type InputResponseInputSplunkSearch struct {
 	// Unique ID for this input
-	ID       *string                       `json:"id,omitzero"`
-	Type     InputResponseTypeSplunkSearch `json:"type"`
-	Disabled *bool                         `json:"disabled,omitzero"`
+	ID   *string                       `json:"id,omitzero"`
+	Type InputResponseTypeSplunkSearch `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -12309,7 +12598,7 @@ type InputResponseInputSplunkSearch struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -12362,10 +12651,11 @@ type InputResponseInputSplunkSearch struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Splunk Search authentication type
-	AuthType    AuthenticationTypeSplunkSearch `json:"authType"`
-	Description *string                        `json:"description,omitzero"`
-	Username    *string                        `json:"username,omitzero"`
-	Password    *string                        `json:"password,omitzero"`
+	AuthType AuthenticationTypeSplunkSearch `json:"authType"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	Password    *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -12870,9 +13160,10 @@ func (e *InputResponseCompression) IsExact() bool {
 
 type InputResponseInputSplunk struct {
 	// Unique ID for this input
-	ID       *string                 `json:"id,omitzero"`
-	Type     InputResponseTypeSplunk `json:"type"`
-	Disabled *bool                   `json:"disabled,omitzero"`
+	ID   *string                 `json:"id,omitzero"`
+	Type InputResponseTypeSplunk `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -12881,7 +13172,7 @@ type InputResponseInputSplunk struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -12915,7 +13206,8 @@ type InputResponseInputSplunk struct {
 	AuthTokens []AuthTokenSplunk `json:"authTokens,omitzero"`
 	// The highest S2S protocol version to advertise during handshake
 	MaxS2Sversion *InputResponseMaxS2SVersion `json:"maxS2Sversion,omitzero"`
-	Description   *string                     `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Event Breakers will determine events' time zone from UF-provided metadata, when TZ can't be inferred from the raw event
 	UseFwdTimezone *bool `json:"useFwdTimezone,omitzero"`
 	// Drop Splunk control fields such as `crcSalt` and `_savedPort`. If disabled, control fields are stored in the internal field `__ctrlFields`.
@@ -13219,6 +13511,7 @@ func (i *InputResponseInputSplunk) GetStatus() *StatusType {
 	return i.Status
 }
 
+// InputResponseTypeHTTP - Source type identifier.
 type InputResponseTypeHTTP string
 
 const (
@@ -13244,9 +13537,11 @@ func (e *InputResponseTypeHTTP) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputHTTP struct {
 	// Unique ID for this input
-	ID       *string               `json:"id,omitzero"`
-	Type     InputResponseTypeHTTP `json:"type"`
-	Disabled *bool                 `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputResponseTypeHTTP `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -13255,7 +13550,7 @@ type InputResponseInputHTTP struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -13302,7 +13597,8 @@ type InputResponseInputHTTP struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokensExt []AuthTokensExtConfInputHTTP `json:"authTokensExt,omitzero"`
-	Description   *string                      `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -13662,9 +13958,10 @@ func (e *InputResponseTypeMsk) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputMsk struct {
 	// Unique ID for this input
-	ID       *string              `json:"id,omitzero"`
-	Type     InputResponseTypeMsk `json:"type"`
-	Disabled *bool                `json:"disabled,omitzero"`
+	ID   *string              `json:"id,omitzero"`
+	Type InputResponseTypeMsk `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -13673,7 +13970,7 @@ type InputResponseInputMsk struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -13747,8 +14044,9 @@ type InputResponseInputMsk struct {
 	MaxBytes *float64 `json:"maxBytes,omitzero"`
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
-	Description     *string  `json:"description,omitzero"`
-	AwsAPIKey       *string  `json:"awsApiKey,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -14235,9 +14533,10 @@ func (e *InputResponseTypeKafka) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputKafka struct {
 	// Unique ID for this input
-	ID       *string                `json:"id,omitzero"`
-	Type     InputResponseTypeKafka `json:"type"`
-	Disabled *bool                  `json:"disabled,omitzero"`
+	ID   *string                `json:"id,omitzero"`
+	Type InputResponseTypeKafka `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -14246,7 +14545,7 @@ type InputResponseInputKafka struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -14302,8 +14601,9 @@ type InputResponseInputKafka struct {
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -14657,9 +14957,10 @@ func (e *InputResponseTypeCollection) UnmarshalJSON(data []byte) error {
 
 type InputResponseInputCollection struct {
 	// Unique ID for this input
-	ID       *string                     `json:"id,omitzero"`
-	Type     InputResponseTypeCollection `json:"type"`
-	Disabled *bool                       `json:"disabled,omitzero"`
+	ID   *string                     `json:"id,omitzero"`
+	Type InputResponseTypeCollection `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process results
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.
@@ -14668,7 +14969,7 @@ type InputResponseInputCollection struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -14922,6 +15223,8 @@ const (
 	InputResponseTypeServicenowTableValue      InputResponseType = "servicenow_table"
 	InputResponseTypeZscalerHecValue           InputResponseType = "zscaler_hec"
 	InputResponseTypeCloudflareHecValue        InputResponseType = "cloudflare_hec"
+	InputResponseTypeSysdigHecValue            InputResponseType = "sysdig_hec"
+	InputResponseTypeUpwindHecValue            InputResponseType = "upwind_hec"
 	InputResponseTypeOpenaiComplianceLogsValue InputResponseType = "openai_compliance_logs"
 	InputResponseTypeAnthropicComplianceValue  InputResponseType = "anthropic_compliance"
 	InputResponseTypeOktaValue                 InputResponseType = "okta"
@@ -14995,6 +15298,8 @@ type InputResponse struct {
 	InputResponseInputServicenowTable      *InputResponseInputServicenowTable      `queryParam:"inline" union:"member"`
 	InputResponseInputZscalerHec           *InputResponseInputZscalerHec           `queryParam:"inline" union:"member"`
 	InputResponseInputCloudflareHec        *InputResponseInputCloudflareHec        `queryParam:"inline" union:"member"`
+	InputResponseInputSysdigHec            *InputResponseInputSysdigHec            `queryParam:"inline" union:"member"`
+	InputResponseInputUpwindHec            *InputResponseInputUpwindHec            `queryParam:"inline" union:"member"`
 	InputResponseInputOpenaiComplianceLogs *InputResponseInputOpenaiComplianceLogs `queryParam:"inline" union:"member"`
 	InputResponseInputAnthropicCompliance  *InputResponseInputAnthropicCompliance  `queryParam:"inline" union:"member"`
 	InputResponseInputOkta                 *InputResponseInputOkta                 `queryParam:"inline" union:"member"`
@@ -15777,6 +16082,30 @@ func CreateInputResponseCloudflareHec(cloudflareHec InputResponseInputCloudflare
 	}
 }
 
+func CreateInputResponseSysdigHec(sysdigHec InputResponseInputSysdigHec) InputResponse {
+	typ := InputResponseTypeSysdigHecValue
+
+	typStr := InputResponseTypeSysdigHec(typ)
+	sysdigHec.Type = typStr
+
+	return InputResponse{
+		InputResponseInputSysdigHec: &sysdigHec,
+		Type:                        typ,
+	}
+}
+
+func CreateInputResponseUpwindHec(upwindHec InputResponseInputUpwindHec) InputResponse {
+	typ := InputResponseTypeUpwindHecValue
+
+	typStr := InputResponseTypeUpwindHec(typ)
+	upwindHec.Type = typStr
+
+	return InputResponse{
+		InputResponseInputUpwindHec: &upwindHec,
+		Type:                        typ,
+	}
+}
+
 func CreateInputResponseOpenaiComplianceLogs(openaiComplianceLogs InputResponseInputOpenaiComplianceLogs) InputResponse {
 	typ := InputResponseTypeOpenaiComplianceLogsValue
 
@@ -16432,6 +16761,24 @@ func (u *InputResponse) UnmarshalJSON(data []byte) error {
 		u.InputResponseInputCloudflareHec = inputResponseInputCloudflareHec
 		u.Type = InputResponseTypeCloudflareHecValue
 		return nil
+	case "sysdig_hec":
+		inputResponseInputSysdigHec := new(InputResponseInputSysdigHec)
+		if err := utils.UnmarshalJSON(data, &inputResponseInputSysdigHec, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == sysdig_hec) type InputResponseInputSysdigHec within InputResponse: %w", string(data), err)
+		}
+
+		u.InputResponseInputSysdigHec = inputResponseInputSysdigHec
+		u.Type = InputResponseTypeSysdigHecValue
+		return nil
+	case "upwind_hec":
+		inputResponseInputUpwindHec := new(InputResponseInputUpwindHec)
+		if err := utils.UnmarshalJSON(data, &inputResponseInputUpwindHec, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == upwind_hec) type InputResponseInputUpwindHec within InputResponse: %w", string(data), err)
+		}
+
+		u.InputResponseInputUpwindHec = inputResponseInputUpwindHec
+		u.Type = InputResponseTypeUpwindHecValue
+		return nil
 	case "openai_compliance_logs":
 		inputResponseInputOpenaiComplianceLogs := new(InputResponseInputOpenaiComplianceLogs)
 		if err := utils.UnmarshalJSON(data, &inputResponseInputOpenaiComplianceLogs, "", true, nil); err != nil {
@@ -16726,6 +17073,14 @@ func (u InputResponse) MarshalJSON() ([]byte, error) {
 
 	if u.InputResponseInputCloudflareHec != nil {
 		return utils.MarshalJSON(u.InputResponseInputCloudflareHec, "", true)
+	}
+
+	if u.InputResponseInputSysdigHec != nil {
+		return utils.MarshalJSON(u.InputResponseInputSysdigHec, "", true)
+	}
+
+	if u.InputResponseInputUpwindHec != nil {
+		return utils.MarshalJSON(u.InputResponseInputUpwindHec, "", true)
 	}
 
 	if u.InputResponseInputOpenaiComplianceLogs != nil {

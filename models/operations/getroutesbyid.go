@@ -21,7 +21,7 @@ func (g *GetRoutesByIDRequest) GetID() string {
 
 type GetRoutesByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Routes objects
+	// The requested Routing table object in a single-item list.
 	CountedRoutes *components.CountedRoutes
 }
 

@@ -3,6 +3,8 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
@@ -46,23 +48,102 @@ func (g *GetInputStatusRequest) GetLimit() *int64 {
 	return g.Limit
 }
 
+type GetInputStatusResponseBodyType string
+
+const (
+	GetInputStatusResponseBodyTypeCountedInputStatus   GetInputStatusResponseBodyType = "CountedInputStatus"
+	GetInputStatusResponseBodyTypePaginatedInputStatus GetInputStatusResponseBodyType = "PaginatedInputStatus"
+)
+
+// GetInputStatusResponseBody - List of Source status objects.
+type GetInputStatusResponseBody struct {
+	CountedInputStatus   *components.CountedInputStatus   `queryParam:"inline" union:"member"`
+	PaginatedInputStatus *components.PaginatedInputStatus `queryParam:"inline" union:"member"`
+
+	Type GetInputStatusResponseBodyType
+}
+
+func CreateGetInputStatusResponseBodyCountedInputStatus(countedInputStatus components.CountedInputStatus) GetInputStatusResponseBody {
+	typ := GetInputStatusResponseBodyTypeCountedInputStatus
+
+	return GetInputStatusResponseBody{
+		CountedInputStatus: &countedInputStatus,
+		Type:               typ,
+	}
+}
+
+func CreateGetInputStatusResponseBodyPaginatedInputStatus(paginatedInputStatus components.PaginatedInputStatus) GetInputStatusResponseBody {
+	typ := GetInputStatusResponseBodyTypePaginatedInputStatus
+
+	return GetInputStatusResponseBody{
+		PaginatedInputStatus: &paginatedInputStatus,
+		Type:                 typ,
+	}
+}
+
+func (u *GetInputStatusResponseBody) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var countedInputStatus components.CountedInputStatus = components.CountedInputStatus{}
+	if err := utils.UnmarshalJSON(data, &countedInputStatus, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetInputStatusResponseBodyTypeCountedInputStatus,
+			Value: &countedInputStatus,
+		})
+	}
+
+	var paginatedInputStatus components.PaginatedInputStatus = components.PaginatedInputStatus{}
+	if err := utils.UnmarshalJSON(data, &paginatedInputStatus, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetInputStatusResponseBodyTypePaginatedInputStatus,
+			Value: &paginatedInputStatus,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetInputStatusResponseBody", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetInputStatusResponseBody", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(GetInputStatusResponseBodyType)
+	switch best.Type {
+	case GetInputStatusResponseBodyTypeCountedInputStatus:
+		u.CountedInputStatus = best.Value.(*components.CountedInputStatus)
+		return nil
+	case GetInputStatusResponseBodyTypePaginatedInputStatus:
+		u.PaginatedInputStatus = best.Value.(*components.PaginatedInputStatus)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetInputStatusResponseBody", string(data))
+}
+
+func (u GetInputStatusResponseBody) MarshalJSON() ([]byte, error) {
+	if u.CountedInputStatus != nil {
+		return utils.MarshalJSON(u.CountedInputStatus, "", true)
+	}
+
+	if u.PaginatedInputStatus != nil {
+		return utils.MarshalJSON(u.PaginatedInputStatus, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type GetInputStatusResponseBody: all fields are null")
+}
+
 type GetInputStatusResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source status objects
-	CountedInputStatus *components.CountedInputStatus
+	// List of Source status objects.
+	OneOf *GetInputStatusResponseBody
 
 	Next func() (*GetInputStatusResponse, error)
-}
-
-func (g GetInputStatusResponse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(g, "", false)
-}
-
-func (g *GetInputStatusResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (g *GetInputStatusResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -72,9 +153,9 @@ func (g *GetInputStatusResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetInputStatusResponse) GetCountedInputStatus() *components.CountedInputStatus {
+func (g *GetInputStatusResponse) GetOneOf() *GetInputStatusResponseBody {
 	if g == nil {
 		return nil
 	}
-	return g.CountedInputStatus
+	return g.OneOf
 }

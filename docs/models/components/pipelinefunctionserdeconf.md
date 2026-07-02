@@ -1,5 +1,7 @@
 # PipelineFunctionSerdeConf
 
+Configuration specific to the Pipeline Function.
+
 
 ## Supported Types
 
@@ -33,6 +35,12 @@ pipelineFunctionSerdeConf := components.CreatePipelineFunctionSerdeConfJSON(comp
 pipelineFunctionSerdeConf := components.CreatePipelineFunctionSerdeConfRegex(components.SerdeTypeRegex{/* values here */})
 ```
 
+### SerdeTypeAuto
+
+```go
+pipelineFunctionSerdeConf := components.CreatePipelineFunctionSerdeConfAuto(components.SerdeTypeAuto{/* values here */})
+```
+
 ### SerdeTypeGrok
 
 ```go
@@ -55,6 +63,8 @@ switch pipelineFunctionSerdeConf.Type {
 		// pipelineFunctionSerdeConf.SerdeTypeJSON is populated
 	case components.PipelineFunctionSerdeConfTypeRegex:
 		// pipelineFunctionSerdeConf.SerdeTypeRegex is populated
+	case components.PipelineFunctionSerdeConfTypeAuto:
+		// pipelineFunctionSerdeConf.SerdeTypeAuto is populated
 	case components.PipelineFunctionSerdeConfTypeGrok:
 		// pipelineFunctionSerdeConf.SerdeTypeGrok is populated
 	default:

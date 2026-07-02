@@ -3,6 +3,8 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
@@ -10,6 +12,10 @@ import (
 type GetVersionRequest struct {
 	// Maximum number of commits to return in the response for this request.
 	Count *int64 `queryParam:"style=form,explode=true,name=count"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (g *GetVersionRequest) GetCount() *int64 {
@@ -19,21 +25,116 @@ func (g *GetVersionRequest) GetCount() *int64 {
 	return g.Count
 }
 
+func (g *GetVersionRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetVersionRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
+type GetVersionResponseBodyType string
+
+const (
+	GetVersionResponseBodyTypeCountedGitLogResult   GetVersionResponseBodyType = "CountedGitLogResult"
+	GetVersionResponseBodyTypePaginatedGitLogResult GetVersionResponseBodyType = "PaginatedGitLogResult"
+)
+
+// GetVersionResponseBody - List of GitLogResult objects.
+type GetVersionResponseBody struct {
+	CountedGitLogResult   *components.CountedGitLogResult   `queryParam:"inline" union:"member"`
+	PaginatedGitLogResult *components.PaginatedGitLogResult `queryParam:"inline" union:"member"`
+
+	Type GetVersionResponseBodyType
+}
+
+func CreateGetVersionResponseBodyCountedGitLogResult(countedGitLogResult components.CountedGitLogResult) GetVersionResponseBody {
+	typ := GetVersionResponseBodyTypeCountedGitLogResult
+
+	return GetVersionResponseBody{
+		CountedGitLogResult: &countedGitLogResult,
+		Type:                typ,
+	}
+}
+
+func CreateGetVersionResponseBodyPaginatedGitLogResult(paginatedGitLogResult components.PaginatedGitLogResult) GetVersionResponseBody {
+	typ := GetVersionResponseBodyTypePaginatedGitLogResult
+
+	return GetVersionResponseBody{
+		PaginatedGitLogResult: &paginatedGitLogResult,
+		Type:                  typ,
+	}
+}
+
+func (u *GetVersionResponseBody) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var countedGitLogResult components.CountedGitLogResult = components.CountedGitLogResult{}
+	if err := utils.UnmarshalJSON(data, &countedGitLogResult, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetVersionResponseBodyTypeCountedGitLogResult,
+			Value: &countedGitLogResult,
+		})
+	}
+
+	var paginatedGitLogResult components.PaginatedGitLogResult = components.PaginatedGitLogResult{}
+	if err := utils.UnmarshalJSON(data, &paginatedGitLogResult, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetVersionResponseBodyTypePaginatedGitLogResult,
+			Value: &paginatedGitLogResult,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetVersionResponseBody", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetVersionResponseBody", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(GetVersionResponseBodyType)
+	switch best.Type {
+	case GetVersionResponseBodyTypeCountedGitLogResult:
+		u.CountedGitLogResult = best.Value.(*components.CountedGitLogResult)
+		return nil
+	case GetVersionResponseBodyTypePaginatedGitLogResult:
+		u.PaginatedGitLogResult = best.Value.(*components.PaginatedGitLogResult)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetVersionResponseBody", string(data))
+}
+
+func (u GetVersionResponseBody) MarshalJSON() ([]byte, error) {
+	if u.CountedGitLogResult != nil {
+		return utils.MarshalJSON(u.CountedGitLogResult, "", true)
+	}
+
+	if u.PaginatedGitLogResult != nil {
+		return utils.MarshalJSON(u.PaginatedGitLogResult, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type GetVersionResponseBody: all fields are null")
+}
+
 type GetVersionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// List of GitLogResult objects.
-	CountedGitLogResult *components.CountedGitLogResult
-}
+	OneOf *GetVersionResponseBody
 
-func (g GetVersionResponse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(g, "", false)
-}
-
-func (g *GetVersionResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	Next func() (*GetVersionResponse, error)
 }
 
 func (g *GetVersionResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -43,9 +144,9 @@ func (g *GetVersionResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetVersionResponse) GetCountedGitLogResult() *components.CountedGitLogResult {
+func (g *GetVersionResponse) GetOneOf() *GetVersionResponseBody {
 	if g == nil {
 		return nil
 	}
-	return g.CountedGitLogResult
+	return g.OneOf
 }

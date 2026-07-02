@@ -21,7 +21,7 @@ func (g *GetVersionFilesRequest) GetCommit() *string {
 
 type GetVersionFilesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of GitFilesResponse objects.
+	// The requested GitFilesResponse object in a single-item list.
 	CountedGitFilesResponse *components.CountedGitFilesResponse
 }
 

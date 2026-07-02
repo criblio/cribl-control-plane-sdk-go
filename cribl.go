@@ -32,7 +32,7 @@ func newCribl(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hoo
 }
 
 // List - Get system settings
-// Get Cribl system settings.
+// Get the current Cribl system settings.
 func (s *Cribl) List(ctx context.Context, opts ...operations.Option) (*operations.GetSystemSettingsConfResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -222,6 +222,31 @@ func (s *Cribl) List(ctx context.Context, opts ...operations.Option) (*operation
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode == 500:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
@@ -247,8 +272,6 @@ func (s *Cribl) List(ctx context.Context, opts ...operations.Option) (*operation
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 401:
-		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -274,7 +297,7 @@ func (s *Cribl) List(ctx context.Context, opts ...operations.Option) (*operation
 }
 
 // Update system settings
-// Update Cribl system settings.
+// Update the specified Cribl system settings.<br/><br/>Provide a complete representation of the system settings that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the system settings.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated system settings might not function as expected.
 func (s *Cribl) Update(ctx context.Context, request components.SystemSettingsConf, opts ...operations.Option) (*operations.UpdateSystemSettingsConfResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -471,6 +494,31 @@ func (s *Cribl) Update(ctx context.Context, request components.SystemSettingsCon
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode == 500:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
@@ -496,7 +544,9 @@ func (s *Cribl) Update(ctx context.Context, request components.SystemSettingsCon
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 401:
+	case httpRes.StatusCode == 400:
+		fallthrough
+	case httpRes.StatusCode == 403:
 		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)

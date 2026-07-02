@@ -2,7 +2,9 @@
 
 package components
 
+// SocketsTypeSystemSettingsConf - Unix domain socket configuration.
 type SocketsTypeSystemSettingsConf struct {
+	// Filesystem directory path where Unix domain socket files are created.
 	Directory *string `json:"directory,omitzero"`
 }
 

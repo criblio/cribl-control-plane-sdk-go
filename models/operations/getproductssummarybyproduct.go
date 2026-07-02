@@ -3,6 +3,8 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
@@ -10,6 +12,10 @@ import (
 type GetProductsSummaryByProductRequest struct {
 	// Name of the Cribl product to get the summary for.
 	Product components.ProductsBase `pathParam:"style=simple,explode=false,name=product"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (g *GetProductsSummaryByProductRequest) GetProduct() components.ProductsBase {
@@ -19,21 +25,116 @@ func (g *GetProductsSummaryByProductRequest) GetProduct() components.ProductsBas
 	return g.Product
 }
 
+func (g *GetProductsSummaryByProductRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetProductsSummaryByProductRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
+type GetProductsSummaryByProductResponseBodyType string
+
+const (
+	GetProductsSummaryByProductResponseBodyTypeCountedDistributedSummary   GetProductsSummaryByProductResponseBodyType = "CountedDistributedSummary"
+	GetProductsSummaryByProductResponseBodyTypePaginatedDistributedSummary GetProductsSummaryByProductResponseBodyType = "PaginatedDistributedSummary"
+)
+
+// GetProductsSummaryByProductResponseBody - List of DistributedSummary objects.
+type GetProductsSummaryByProductResponseBody struct {
+	CountedDistributedSummary   *components.CountedDistributedSummary   `queryParam:"inline" union:"member"`
+	PaginatedDistributedSummary *components.PaginatedDistributedSummary `queryParam:"inline" union:"member"`
+
+	Type GetProductsSummaryByProductResponseBodyType
+}
+
+func CreateGetProductsSummaryByProductResponseBodyCountedDistributedSummary(countedDistributedSummary components.CountedDistributedSummary) GetProductsSummaryByProductResponseBody {
+	typ := GetProductsSummaryByProductResponseBodyTypeCountedDistributedSummary
+
+	return GetProductsSummaryByProductResponseBody{
+		CountedDistributedSummary: &countedDistributedSummary,
+		Type:                      typ,
+	}
+}
+
+func CreateGetProductsSummaryByProductResponseBodyPaginatedDistributedSummary(paginatedDistributedSummary components.PaginatedDistributedSummary) GetProductsSummaryByProductResponseBody {
+	typ := GetProductsSummaryByProductResponseBodyTypePaginatedDistributedSummary
+
+	return GetProductsSummaryByProductResponseBody{
+		PaginatedDistributedSummary: &paginatedDistributedSummary,
+		Type:                        typ,
+	}
+}
+
+func (u *GetProductsSummaryByProductResponseBody) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var countedDistributedSummary components.CountedDistributedSummary = components.CountedDistributedSummary{}
+	if err := utils.UnmarshalJSON(data, &countedDistributedSummary, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetProductsSummaryByProductResponseBodyTypeCountedDistributedSummary,
+			Value: &countedDistributedSummary,
+		})
+	}
+
+	var paginatedDistributedSummary components.PaginatedDistributedSummary = components.PaginatedDistributedSummary{}
+	if err := utils.UnmarshalJSON(data, &paginatedDistributedSummary, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetProductsSummaryByProductResponseBodyTypePaginatedDistributedSummary,
+			Value: &paginatedDistributedSummary,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetProductsSummaryByProductResponseBody", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetProductsSummaryByProductResponseBody", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(GetProductsSummaryByProductResponseBodyType)
+	switch best.Type {
+	case GetProductsSummaryByProductResponseBodyTypeCountedDistributedSummary:
+		u.CountedDistributedSummary = best.Value.(*components.CountedDistributedSummary)
+		return nil
+	case GetProductsSummaryByProductResponseBodyTypePaginatedDistributedSummary:
+		u.PaginatedDistributedSummary = best.Value.(*components.PaginatedDistributedSummary)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetProductsSummaryByProductResponseBody", string(data))
+}
+
+func (u GetProductsSummaryByProductResponseBody) MarshalJSON() ([]byte, error) {
+	if u.CountedDistributedSummary != nil {
+		return utils.MarshalJSON(u.CountedDistributedSummary, "", true)
+	}
+
+	if u.PaginatedDistributedSummary != nil {
+		return utils.MarshalJSON(u.PaginatedDistributedSummary, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type GetProductsSummaryByProductResponseBody: all fields are null")
+}
+
 type GetProductsSummaryByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// List of DistributedSummary objects.
-	CountedDistributedSummary *components.CountedDistributedSummary
-}
+	OneOf *GetProductsSummaryByProductResponseBody
 
-func (g GetProductsSummaryByProductResponse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(g, "", false)
-}
-
-func (g *GetProductsSummaryByProductResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	Next func() (*GetProductsSummaryByProductResponse, error)
 }
 
 func (g *GetProductsSummaryByProductResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -43,9 +144,9 @@ func (g *GetProductsSummaryByProductResponse) GetHTTPMeta() components.HTTPMetad
 	return g.HTTPMeta
 }
 
-func (g *GetProductsSummaryByProductResponse) GetCountedDistributedSummary() *components.CountedDistributedSummary {
+func (g *GetProductsSummaryByProductResponse) GetOneOf() *GetProductsSummaryByProductResponseBody {
 	if g == nil {
 		return nil
 	}
-	return g.CountedDistributedSummary
+	return g.OneOf
 }

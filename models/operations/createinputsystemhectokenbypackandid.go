@@ -39,7 +39,7 @@ func (c *CreateInputSystemHecTokenByPackAndIDRequest) GetAddHecTokenRequest() co
 
 type CreateInputSystemHecTokenByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// the updated Splunk HEC Source with the new HEC token
+	// The updated Splunk HEC Source with the new HEC token.
 	CountedInputSplunkHec *components.CountedInputSplunkHec
 }
 

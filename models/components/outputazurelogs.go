@@ -78,7 +78,7 @@ type OutputAzureLogs struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The Log Type of events sent to this LogAnalytics workspace. Defaults to `Cribl`. Use only letters, numbers, and `_` characters, and can't exceed 100 characters. Can be overwritten by event field __logType.
 	LogType string `json:"logType"`
@@ -117,8 +117,9 @@ type OutputAzureLogs struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter workspace ID and workspace key directly, or select a stored secret
-	AuthType    *OutputAzureLogsAuthenticationMethod `json:"authType,omitzero"`
-	Description *string                              `json:"description,omitzero"`
+	AuthType *OutputAzureLogsAuthenticationMethod `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -139,7 +140,7 @@ type OutputAzureLogs struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                    `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputAzureLogsPqControls `json:"pqControls,omitzero"`
 	// Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.

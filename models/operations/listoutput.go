@@ -3,6 +3,8 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
@@ -10,6 +12,10 @@ import (
 type ListOutputRequest struct {
 	// Type of Destination to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
 	Type *components.DestinationType `queryParam:"style=form,explode=true,name=type"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (l *ListOutputRequest) GetType() *components.DestinationType {
@@ -19,21 +25,116 @@ func (l *ListOutputRequest) GetType() *components.DestinationType {
 	return l.Type
 }
 
+func (l *ListOutputRequest) GetOffset() *int64 {
+	if l == nil {
+		return nil
+	}
+	return l.Offset
+}
+
+func (l *ListOutputRequest) GetLimit() *int64 {
+	if l == nil {
+		return nil
+	}
+	return l.Limit
+}
+
+type ListOutputResponseBodyType string
+
+const (
+	ListOutputResponseBodyTypeCountedOutputResponse   ListOutputResponseBodyType = "CountedOutputResponse"
+	ListOutputResponseBodyTypePaginatedOutputResponse ListOutputResponseBodyType = "PaginatedOutputResponse"
+)
+
+// ListOutputResponseBody - List of Destination objects.
+type ListOutputResponseBody struct {
+	CountedOutputResponse   *components.CountedOutputResponse   `queryParam:"inline" union:"member"`
+	PaginatedOutputResponse *components.PaginatedOutputResponse `queryParam:"inline" union:"member"`
+
+	Type ListOutputResponseBodyType
+}
+
+func CreateListOutputResponseBodyCountedOutputResponse(countedOutputResponse components.CountedOutputResponse) ListOutputResponseBody {
+	typ := ListOutputResponseBodyTypeCountedOutputResponse
+
+	return ListOutputResponseBody{
+		CountedOutputResponse: &countedOutputResponse,
+		Type:                  typ,
+	}
+}
+
+func CreateListOutputResponseBodyPaginatedOutputResponse(paginatedOutputResponse components.PaginatedOutputResponse) ListOutputResponseBody {
+	typ := ListOutputResponseBodyTypePaginatedOutputResponse
+
+	return ListOutputResponseBody{
+		PaginatedOutputResponse: &paginatedOutputResponse,
+		Type:                    typ,
+	}
+}
+
+func (u *ListOutputResponseBody) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var countedOutputResponse components.CountedOutputResponse = components.CountedOutputResponse{}
+	if err := utils.UnmarshalJSON(data, &countedOutputResponse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ListOutputResponseBodyTypeCountedOutputResponse,
+			Value: &countedOutputResponse,
+		})
+	}
+
+	var paginatedOutputResponse components.PaginatedOutputResponse = components.PaginatedOutputResponse{}
+	if err := utils.UnmarshalJSON(data, &paginatedOutputResponse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ListOutputResponseBodyTypePaginatedOutputResponse,
+			Value: &paginatedOutputResponse,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ListOutputResponseBody", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ListOutputResponseBody", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(ListOutputResponseBodyType)
+	switch best.Type {
+	case ListOutputResponseBodyTypeCountedOutputResponse:
+		u.CountedOutputResponse = best.Value.(*components.CountedOutputResponse)
+		return nil
+	case ListOutputResponseBodyTypePaginatedOutputResponse:
+		u.PaginatedOutputResponse = best.Value.(*components.PaginatedOutputResponse)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ListOutputResponseBody", string(data))
+}
+
+func (u ListOutputResponseBody) MarshalJSON() ([]byte, error) {
+	if u.CountedOutputResponse != nil {
+		return utils.MarshalJSON(u.CountedOutputResponse, "", true)
+	}
+
+	if u.PaginatedOutputResponse != nil {
+		return utils.MarshalJSON(u.PaginatedOutputResponse, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type ListOutputResponseBody: all fields are null")
+}
+
 type ListOutputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination objects
-	CountedOutputResponse *components.CountedOutputResponse
-}
+	// List of Destination objects.
+	OneOf *ListOutputResponseBody
 
-func (l ListOutputResponse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *ListOutputResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	Next func() (*ListOutputResponse, error)
 }
 
 func (l *ListOutputResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -43,9 +144,9 @@ func (l *ListOutputResponse) GetHTTPMeta() components.HTTPMetadata {
 	return l.HTTPMeta
 }
 
-func (l *ListOutputResponse) GetCountedOutputResponse() *components.CountedOutputResponse {
+func (l *ListOutputResponse) GetOneOf() *ListOutputResponseBody {
 	if l == nil {
 		return nil
 	}
-	return l.CountedOutputResponse
+	return l.OneOf
 }

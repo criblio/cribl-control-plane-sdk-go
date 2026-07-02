@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type DatasetMetadataRunInfo struct {
 	// Timestamp (in Unix time) for the earliest event that was observed during the scan (seconds).
 	EarliestScannedTime *int64 `json:"earliestScannedTime,omitzero"`
@@ -11,6 +15,17 @@ type DatasetMetadataRunInfo struct {
 	LatestScannedTime *int64 `json:"latestScannedTime,omitzero"`
 	// Number of objects on the acceleration manifest after the scan completed.
 	ObjectCount *int64 `json:"objectCount,omitzero"`
+}
+
+func (d DatasetMetadataRunInfo) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DatasetMetadataRunInfo) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (d *DatasetMetadataRunInfo) GetEarliestScannedTime() *int64 {

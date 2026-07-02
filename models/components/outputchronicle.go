@@ -116,7 +116,7 @@ type OutputChronicle struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags           []string                             `json:"streamtags,omitzero"`
 	APIVersion           *string                              `json:"apiVersion,omitzero"`
 	AuthenticationMethod *OutputChronicleAuthenticationMethod `json:"authenticationMethod,omitzero"`
@@ -169,7 +169,8 @@ type OutputChronicle struct {
 	// Custom labels to be added to every event
 	CustomLabels []OutputChronicleCustomLabel `json:"customLabels,omitzero"`
 	// Chronicle API service endpoint. If empty, defaults to the Region-specific endpoint. Otherwise, it must point to a Chronicle API-compatible endpoint. (Example: https://custom-endpoint.googleapis.com)
-	Endpoint    *string `json:"endpoint,omitzero"`
+	Endpoint *string `json:"endpoint,omitzero"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
@@ -195,7 +196,7 @@ type OutputChronicle struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                    `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputChroniclePqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

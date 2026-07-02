@@ -19,7 +19,7 @@ Get a list of all Worker Groups, Outpost Groups, or Edge Fleets for the specifie
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="listConfigGroupByProduct" method="get" path="/products/{product}/groups" -->
+<!-- UsageSnippet language="go" operationID="getProductsGroupsByProduct" method="get" path="/products/{product}/groups" -->
 ```go
 package main
 
@@ -41,12 +41,24 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.List(ctx, components.ProductsCoreEdge, criblcontrolplanesdkgo.Pointer("<value>"))
+    res, err := s.Groups.List(ctx, components.ProductsCoreStream, criblcontrolplanesdkgo.Pointer("<value>"), nil, nil)
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedConfigGroup != nil {
-        // handle response
+    if res.OneOf != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -58,16 +70,19 @@ func main() {
 | `ctx`                                                                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                                                                            | :heavy_check_mark:                                                                                                                                                               | The context to use for the request.                                                                                                                                              |
 | `product`                                                                                                                                                                        | [components.ProductsCore](../../models/components/productscore.md)                                                                                                               | :heavy_check_mark:                                                                                                                                                               | Name of the Cribl product to get the Worker Groups, Outpost Groups, or Edge Fleets for.                                                                                          |
 | `fields`                                                                                                                                                                         | `*string`                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                               | Comma-separated list of additional properties to include in the response. Available values are <code>git.commit</code>, <code>git.localChanges</code>, and <code>git.log</code>. |
+| `offset`                                                                                                                                                                         | `*int64`                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                               | Pagination offset                                                                                                                                                                |
+| `limit`                                                                                                                                                                          | `*int64`                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                               | Maximum number of items to return                                                                                                                                                |
 | `opts`                                                                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                                                                         | :heavy_minus_sign:                                                                                                                                                               | The options for this request.                                                                                                                                                    |
 
 ### Response
 
-**[*operations.ListConfigGroupByProductResponse](../../models/operations/listconfiggroupbyproductresponse.md), error**
+**[*operations.GetProductsGroupsByProductResponse](../../models/operations/getproductsgroupsbyproductresponse.md), error**
 
 ### Errors
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -77,7 +92,7 @@ Create a new Worker Group, Outpost Group, or Edge Fleet for the specified Cribl 
 
 ### Example Usage: CreateGroupExamplesCloneWg
 
-<!-- UsageSnippet language="go" operationID="createConfigGroupByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesCloneWg" -->
+<!-- UsageSnippet language="go" operationID="createProductsGroupsByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesCloneWg" -->
 ```go
 package main
 
@@ -99,7 +114,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.Create(ctx, components.ProductsCoreEdge, components.GroupCreateRequest{
+    res, err := s.Groups.Create(ctx, components.ProductsCoreStream, components.GroupCreateRequest{
         Description: criblcontrolplanesdkgo.Pointer("Worker Group cloned from goatOnPremIanWg with identical configuration"),
         ID: "goatOnPremDollyWg",
         Name: criblcontrolplanesdkgo.Pointer("goatonpremdollywg"),
@@ -118,7 +133,7 @@ func main() {
 ```
 ### Example Usage: CreateGroupExamplesCloudWg
 
-<!-- UsageSnippet language="go" operationID="createConfigGroupByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesCloudWg" -->
+<!-- UsageSnippet language="go" operationID="createProductsGroupsByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesCloudWg" -->
 ```go
 package main
 
@@ -163,7 +178,7 @@ func main() {
 ```
 ### Example Usage: CreateGroupExamplesEdgeFleet
 
-<!-- UsageSnippet language="go" operationID="createConfigGroupByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesEdgeFleet" -->
+<!-- UsageSnippet language="go" operationID="createProductsGroupsByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesEdgeFleet" -->
 ```go
 package main
 
@@ -185,7 +200,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.Create(ctx, components.ProductsCoreEdge, components.GroupCreateRequest{
+    res, err := s.Groups.Create(ctx, components.ProductsCoreOutpost, components.GroupCreateRequest{
         Description: criblcontrolplanesdkgo.Pointer("Create a new Edge Fleet"),
         ID: "goatIanEdgeFleet",
         Name: criblcontrolplanesdkgo.Pointer("goatianedgefleet"),
@@ -203,7 +218,7 @@ func main() {
 ```
 ### Example Usage: CreateGroupExamplesOnPremWg
 
-<!-- UsageSnippet language="go" operationID="createConfigGroupByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesOnPremWg" -->
+<!-- UsageSnippet language="go" operationID="createProductsGroupsByProduct" method="post" path="/products/{product}/groups" example="CreateGroupExamplesOnPremWg" -->
 ```go
 package main
 
@@ -225,7 +240,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.Create(ctx, components.ProductsCoreEdge, components.GroupCreateRequest{
+    res, err := s.Groups.Create(ctx, components.ProductsCoreStream, components.GroupCreateRequest{
         Description: criblcontrolplanesdkgo.Pointer("Worker group in customer-managed deployment"),
         ID: "goatOnPremIanWg",
         Name: criblcontrolplanesdkgo.Pointer("goatonpremianwg"),
@@ -253,12 +268,13 @@ func main() {
 
 ### Response
 
-**[*operations.CreateConfigGroupByProductResponse](../../models/operations/createconfiggroupbyproductresponse.md), error**
+**[*operations.CreateProductsGroupsByProductResponse](../../models/operations/createproductsgroupsbyproductresponse.md), error**
 
 ### Errors
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -268,7 +284,7 @@ Get the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getConfigGroupByProductAndId" method="get" path="/products/{product}/groups/{id}" -->
+<!-- UsageSnippet language="go" operationID="getProductsGroupsByProductAndId" method="get" path="/products/{product}/groups/{id}" -->
 ```go
 package main
 
@@ -290,7 +306,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.Get(ctx, components.ProductsCoreEdge, "<id>", criblcontrolplanesdkgo.Pointer("<value>"))
+    res, err := s.Groups.Get(ctx, components.ProductsCoreEdge, "<id>", nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -312,12 +328,13 @@ func main() {
 
 ### Response
 
-**[*operations.GetConfigGroupByProductAndIDResponse](../../models/operations/getconfiggroupbyproductandidresponse.md), error**
+**[*operations.GetProductsGroupsByProductAndIDResponse](../../models/operations/getproductsgroupsbyproductandidresponse.md), error**
 
 ### Errors
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -327,7 +344,7 @@ Update the specified Worker Group, Outpost Group, or Edge Fleet.<br/><br/>Provid
 
 ### Example Usage: UpdateGroupExamplesScaleCloudWorkerGroup
 
-<!-- UsageSnippet language="go" operationID="updateConfigGroupByProductAndId" method="patch" path="/products/{product}/groups/{id}" example="UpdateGroupExamplesScaleCloudWorkerGroup" -->
+<!-- UsageSnippet language="go" operationID="updateProductsGroupsByProductAndId" method="patch" path="/products/{product}/groups/{id}" example="UpdateGroupExamplesScaleCloudWorkerGroup" -->
 ```go
 package main
 
@@ -349,7 +366,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.Update(ctx, components.ProductsCoreEdge, "<id>", components.ConfigGroup{
+    res, err := s.Groups.Update(ctx, components.ProductsCoreStream, "<id>", components.ConfigGroup{
         Cloud: &components.ConfigGroupCloud{
             Provider: components.CloudProviderAws.ToPointer(),
             Region: "us-west-2",
@@ -378,7 +395,7 @@ func main() {
 ```
 ### Example Usage: UpdateGroupExamplesUpdateOnPremWorkerGroup
 
-<!-- UsageSnippet language="go" operationID="updateConfigGroupByProductAndId" method="patch" path="/products/{product}/groups/{id}" example="UpdateGroupExamplesUpdateOnPremWorkerGroup" -->
+<!-- UsageSnippet language="go" operationID="updateProductsGroupsByProductAndId" method="patch" path="/products/{product}/groups/{id}" example="UpdateGroupExamplesUpdateOnPremWorkerGroup" -->
 ```go
 package main
 
@@ -434,12 +451,13 @@ func main() {
 
 ### Response
 
-**[*operations.UpdateConfigGroupByProductAndIDResponse](../../models/operations/updateconfiggroupbyproductandidresponse.md), error**
+**[*operations.UpdateProductsGroupsByProductAndIDResponse](../../models/operations/updateproductsgroupsbyproductandidresponse.md), error**
 
 ### Errors
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -449,7 +467,7 @@ Delete the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="deleteConfigGroupByProductAndId" method="delete" path="/products/{product}/groups/{id}" -->
+<!-- UsageSnippet language="go" operationID="deleteProductsGroupsByProductAndId" method="delete" path="/products/{product}/groups/{id}" -->
 ```go
 package main
 
@@ -492,12 +510,13 @@ func main() {
 
 ### Response
 
-**[*operations.DeleteConfigGroupByProductAndIDResponse](../../models/operations/deleteconfiggroupbyproductandidresponse.md), error**
+**[*operations.DeleteProductsGroupsByProductAndIDResponse](../../models/operations/deleteproductsgroupsbyproductandidresponse.md), error**
 
 ### Errors
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -507,7 +526,7 @@ Deploy commits to the specified Worker Group, Outpost Group, or Edge Fleet.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="updateConfigGroupDeployByProductAndId" method="patch" path="/products/{product}/groups/{id}/deploy" -->
+<!-- UsageSnippet language="go" operationID="updateProductsGroupsDeployByProductAndId" method="patch" path="/products/{product}/groups/{id}/deploy" -->
 ```go
 package main
 
@@ -529,7 +548,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.Deploy(ctx, components.ProductsCoreStream, "<id>", components.DeployRequest{
+    res, err := s.Groups.Deploy(ctx, components.ProductsCoreEdge, "<id>", components.DeployRequest{
         Version: "<value>",
     })
     if err != nil {
@@ -553,11 +572,12 @@ func main() {
 
 ### Response
 
-**[*operations.UpdateConfigGroupDeployByProductAndIDResponse](../../models/operations/updateconfiggroupdeploybyproductandidresponse.md), error**
+**[*operations.UpdateProductsGroupsDeployByProductAndIDResponse](../../models/operations/updateproductsgroupsdeploybyproductandidresponse.md), error**
 
 ### Errors
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

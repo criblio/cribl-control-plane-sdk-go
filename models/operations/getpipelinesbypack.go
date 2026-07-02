@@ -3,13 +3,33 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetPipelinesByPackRequest struct {
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
+}
+
+func (g *GetPipelinesByPackRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetPipelinesByPackRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
 }
 
 func (g *GetPipelinesByPackRequest) GetPack() string {
@@ -19,21 +39,102 @@ func (g *GetPipelinesByPackRequest) GetPack() string {
 	return g.Pack
 }
 
+type GetPipelinesByPackResponseBodyType string
+
+const (
+	GetPipelinesByPackResponseBodyTypeCountedPipeline   GetPipelinesByPackResponseBodyType = "CountedPipeline"
+	GetPipelinesByPackResponseBodyTypePaginatedPipeline GetPipelinesByPackResponseBodyType = "PaginatedPipeline"
+)
+
+// GetPipelinesByPackResponseBody - List of Pipeline objects.
+type GetPipelinesByPackResponseBody struct {
+	CountedPipeline   *components.CountedPipeline   `queryParam:"inline" union:"member"`
+	PaginatedPipeline *components.PaginatedPipeline `queryParam:"inline" union:"member"`
+
+	Type GetPipelinesByPackResponseBodyType
+}
+
+func CreateGetPipelinesByPackResponseBodyCountedPipeline(countedPipeline components.CountedPipeline) GetPipelinesByPackResponseBody {
+	typ := GetPipelinesByPackResponseBodyTypeCountedPipeline
+
+	return GetPipelinesByPackResponseBody{
+		CountedPipeline: &countedPipeline,
+		Type:            typ,
+	}
+}
+
+func CreateGetPipelinesByPackResponseBodyPaginatedPipeline(paginatedPipeline components.PaginatedPipeline) GetPipelinesByPackResponseBody {
+	typ := GetPipelinesByPackResponseBodyTypePaginatedPipeline
+
+	return GetPipelinesByPackResponseBody{
+		PaginatedPipeline: &paginatedPipeline,
+		Type:              typ,
+	}
+}
+
+func (u *GetPipelinesByPackResponseBody) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var countedPipeline components.CountedPipeline = components.CountedPipeline{}
+	if err := utils.UnmarshalJSON(data, &countedPipeline, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetPipelinesByPackResponseBodyTypeCountedPipeline,
+			Value: &countedPipeline,
+		})
+	}
+
+	var paginatedPipeline components.PaginatedPipeline = components.PaginatedPipeline{}
+	if err := utils.UnmarshalJSON(data, &paginatedPipeline, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetPipelinesByPackResponseBodyTypePaginatedPipeline,
+			Value: &paginatedPipeline,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetPipelinesByPackResponseBody", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetPipelinesByPackResponseBody", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(GetPipelinesByPackResponseBodyType)
+	switch best.Type {
+	case GetPipelinesByPackResponseBodyTypeCountedPipeline:
+		u.CountedPipeline = best.Value.(*components.CountedPipeline)
+		return nil
+	case GetPipelinesByPackResponseBodyTypePaginatedPipeline:
+		u.PaginatedPipeline = best.Value.(*components.PaginatedPipeline)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetPipelinesByPackResponseBody", string(data))
+}
+
+func (u GetPipelinesByPackResponseBody) MarshalJSON() ([]byte, error) {
+	if u.CountedPipeline != nil {
+		return utils.MarshalJSON(u.CountedPipeline, "", true)
+	}
+
+	if u.PaginatedPipeline != nil {
+		return utils.MarshalJSON(u.PaginatedPipeline, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type GetPipelinesByPackResponseBody: all fields are null")
+}
+
 type GetPipelinesByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Pipeline objects
-	CountedPipeline *components.CountedPipeline
-}
+	// List of Pipeline objects.
+	OneOf *GetPipelinesByPackResponseBody
 
-func (g GetPipelinesByPackResponse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(g, "", false)
-}
-
-func (g *GetPipelinesByPackResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	Next func() (*GetPipelinesByPackResponse, error)
 }
 
 func (g *GetPipelinesByPackResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -43,9 +144,9 @@ func (g *GetPipelinesByPackResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetPipelinesByPackResponse) GetCountedPipeline() *components.CountedPipeline {
+func (g *GetPipelinesByPackResponse) GetOneOf() *GetPipelinesByPackResponseBody {
 	if g == nil {
 		return nil
 	}
-	return g.CountedPipeline
+	return g.OneOf
 }

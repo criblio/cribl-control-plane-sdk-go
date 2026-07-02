@@ -55,14 +55,64 @@ func (e *InputEventhubAmqpAuthenticationMechanism) IsExact() bool {
 	return false
 }
 
+type InputEventhubAmqpCertificate struct {
+	// The certificate you registered as credentials for your app in the Azure portal
+	CertificateName string `json:"certificateName"`
+	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+	CertPath string `json:"certPath"`
+	// Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+	PrivKeyPath string `json:"privKeyPath"`
+	// Passphrase to use to decrypt private key
+	Passphrase *string `json:"passphrase,omitzero"`
+}
+
+func (i InputEventhubAmqpCertificate) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputEventhubAmqpCertificate) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputEventhubAmqpCertificate) GetCertificateName() string {
+	if i == nil {
+		return ""
+	}
+	return i.CertificateName
+}
+
+func (i *InputEventhubAmqpCertificate) GetCertPath() string {
+	if i == nil {
+		return ""
+	}
+	return i.CertPath
+}
+
+func (i *InputEventhubAmqpCertificate) GetPrivKeyPath() string {
+	if i == nil {
+		return ""
+	}
+	return i.PrivKeyPath
+}
+
+func (i *InputEventhubAmqpCertificate) GetPassphrase() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Passphrase
+}
+
 type InputEventhubAmqpAuth struct {
 	Mechanism InputEventhubAmqpAuthenticationMechanism `json:"mechanism"`
 	// Select or create a stored text secret
 	TextSecret           *string                          `json:"textSecret,omitzero"`
 	ClientSecretAuthType *AuthenticationMethodOptionsAuth `json:"clientSecretAuthType,omitzero"`
 	// Select or create a stored text secret
-	ClientTextSecret *string                                     `json:"clientTextSecret,omitzero"`
-	Certificate      *CertificateTypeAzureBlobAuthTypeClientCert `json:"certificate,omitzero"`
+	ClientTextSecret *string                       `json:"clientTextSecret,omitzero"`
+	Certificate      *InputEventhubAmqpCertificate `json:"certificate,omitzero"`
 	// Endpoint used to acquire authentication tokens from Azure
 	OauthEndpoint *MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint,omitzero"`
 	// client_id to pass in the OAuth request parameter
@@ -120,7 +170,7 @@ func (i *InputEventhubAmqpAuth) GetClientTextSecret() *string {
 	return i.ClientTextSecret
 }
 
-func (i *InputEventhubAmqpAuth) GetCertificate() *CertificateTypeAzureBlobAuthTypeClientCert {
+func (i *InputEventhubAmqpAuth) GetCertificate() *InputEventhubAmqpCertificate {
 	if i == nil {
 		return nil
 	}
@@ -370,9 +420,10 @@ func (i *InputEventhubAmqpCheckpointing) GetBlobStore() InputEventhubAmqpAzureBl
 
 type InputEventhubAmqpInput struct {
 	// Unique ID for this input
-	ID       *string               `json:"id,omitzero"`
-	Type     InputEventhubAmqpType `json:"type"`
-	Disabled *bool                 `json:"disabled,omitzero"`
+	ID   *string               `json:"id,omitzero"`
+	Type InputEventhubAmqpType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -381,7 +432,7 @@ type InputEventhubAmqpInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -415,8 +466,9 @@ type InputEventhubAmqpInput struct {
 	// Maximum time to wait for a connection to complete
 	ConnectionTimeoutInMs *int64 `json:"connectionTimeoutInMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

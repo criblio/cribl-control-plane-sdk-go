@@ -2,11 +2,26 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type LakeDatasetMetrics struct {
 	// Total current logical size of the Dataset, in bytes.
 	CurrentSizeBytes float64 `json:"currentSizeBytes"`
-	// Timestamp (ISO 8601) when the metrics snapshot was generated.
+	// Timestamp (in Unix time) when the metrics snapshot was generated, as a YYYY-MM-DD calendar date.
 	MetricsDate string `json:"metricsDate"`
+}
+
+func (l LakeDatasetMetrics) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(l, "", false)
+}
+
+func (l *LakeDatasetMetrics) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (l *LakeDatasetMetrics) GetCurrentSizeBytes() float64 {

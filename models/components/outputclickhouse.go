@@ -31,97 +31,6 @@ func (e *OutputClickHouseType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputClickHouseFormat - Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
-type OutputClickHouseFormat string
-
-const (
-	// OutputClickHouseFormatJSONCompactEachRowWithNames JSONCompactEachRowWithNames
-	OutputClickHouseFormatJSONCompactEachRowWithNames OutputClickHouseFormat = "json-compact-each-row-with-names"
-	// OutputClickHouseFormatJSONEachRow JSONEachRow
-	OutputClickHouseFormatJSONEachRow OutputClickHouseFormat = "json-each-row"
-)
-
-func (e OutputClickHouseFormat) ToPointer() *OutputClickHouseFormat {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputClickHouseFormat) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "json-compact-each-row-with-names", "json-each-row":
-			return true
-		}
-	}
-	return false
-}
-
-// OutputClickHouseMappingType - How event fields are mapped to ClickHouse columns
-type OutputClickHouseMappingType string
-
-const (
-	// OutputClickHouseMappingTypeAutomatic Automatic
-	OutputClickHouseMappingTypeAutomatic OutputClickHouseMappingType = "automatic"
-	// OutputClickHouseMappingTypeCustom Custom
-	OutputClickHouseMappingTypeCustom OutputClickHouseMappingType = "custom"
-)
-
-func (e OutputClickHouseMappingType) ToPointer() *OutputClickHouseMappingType {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputClickHouseMappingType) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "automatic", "custom":
-			return true
-		}
-	}
-	return false
-}
-
-type OutputClickHouseColumnMapping struct {
-	// Name of the column in ClickHouse that will store field value
-	ColumnName string `json:"columnName"`
-	// Type of the column in the ClickHouse database
-	ColumnType *string `json:"columnType,omitzero"`
-	// JavaScript expression to compute value to be inserted into ClickHouse table
-	ColumnValueExpression string `json:"columnValueExpression"`
-}
-
-func (o OutputClickHouseColumnMapping) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *OutputClickHouseColumnMapping) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *OutputClickHouseColumnMapping) GetColumnName() string {
-	if o == nil {
-		return ""
-	}
-	return o.ColumnName
-}
-
-func (o *OutputClickHouseColumnMapping) GetColumnType() *string {
-	if o == nil {
-		return nil
-	}
-	return o.ColumnType
-}
-
-func (o *OutputClickHouseColumnMapping) GetColumnValueExpression() string {
-	if o == nil {
-		return ""
-	}
-	return o.ColumnValueExpression
-}
-
 type OutputClickHousePqControls struct {
 }
 
@@ -146,7 +55,7 @@ type OutputClickHouse struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// URL of the ClickHouse instance. Example: http://localhost:8123/
 	URL      string                     `json:"url"`
@@ -155,9 +64,9 @@ type OutputClickHouse struct {
 	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
 	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
-	Format *OutputClickHouseFormat `json:"format,omitzero"`
+	Format *FormatOptions `json:"format,omitzero"`
 	// How event fields are mapped to ClickHouse columns
-	MappingType *OutputClickHouseMappingType `json:"mappingType,omitzero"`
+	MappingType *MappingTypeOptions `json:"mappingType,omitzero"`
 	// Collect data into batches for later processing on the ClickHouse server. Disable to write to a ClickHouse table immediately. Cribl sends the configured value with every insert (<code>async_insert=1</code> or <code>async_insert=0</code>) so behavior is consistent across ClickHouse versions, including 26.3 LTS and later, where async inserts are enabled by default on the server.
 	AsyncInserts *bool                                            `json:"asyncInserts,omitzero"`
 	TLS          *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
@@ -190,13 +99,16 @@ type OutputClickHouse struct {
 	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// Optional ClickHouse workload name to append as a SETTINGS clause on INSERT queries. Used for workload scheduling classification.
+	Workload *string `json:"workload,omitzero"`
 	// Log the most recent event that fails to match the table schema
 	DumpFormatErrorsToDisk *bool `json:"dumpFormatErrorsToDisk,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	Description    *string                      `json:"description,omitzero"`
-	Username       *string                      `json:"username,omitzero"`
-	Password       *string                      `json:"password,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	Password    *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Username for certificate authentication
@@ -206,8 +118,8 @@ type OutputClickHouse struct {
 	// Fields to exclude from sending to ClickHouse
 	ExcludeMappingFields []string `json:"excludeMappingFields,omitzero"`
 	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
-	DescribeTable  *string                         `json:"describeTable,omitzero"`
-	ColumnMappings []OutputClickHouseColumnMapping `json:"columnMappings,omitzero"`
+	DescribeTable  *string                             `json:"describeTable,omitzero"`
+	ColumnMappings []ColumnMappingConfOutputClickHouse `json:"columnMappings,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -228,7 +140,7 @@ type OutputClickHouse struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                     `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputClickHousePqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -326,14 +238,14 @@ func (o *OutputClickHouse) GetTableName() string {
 	return o.TableName
 }
 
-func (o *OutputClickHouse) GetFormat() *OutputClickHouseFormat {
+func (o *OutputClickHouse) GetFormat() *FormatOptions {
 	if o == nil {
 		return nil
 	}
 	return o.Format
 }
 
-func (o *OutputClickHouse) GetMappingType() *OutputClickHouseMappingType {
+func (o *OutputClickHouse) GetMappingType() *MappingTypeOptions {
 	if o == nil {
 		return nil
 	}
@@ -452,6 +364,13 @@ func (o *OutputClickHouse) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
+func (o *OutputClickHouse) GetWorkload() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Workload
+}
+
 func (o *OutputClickHouse) GetDumpFormatErrorsToDisk() *bool {
 	if o == nil {
 		return nil
@@ -522,7 +441,7 @@ func (o *OutputClickHouse) GetDescribeTable() *string {
 	return o.DescribeTable
 }
 
-func (o *OutputClickHouse) GetColumnMappings() []OutputClickHouseColumnMapping {
+func (o *OutputClickHouse) GetColumnMappings() []ColumnMappingConfOutputClickHouse {
 	if o == nil {
 		return nil
 	}

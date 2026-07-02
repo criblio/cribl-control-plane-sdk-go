@@ -6,9 +6,14 @@ package components
 type StorageClassOptionsCriblLakeDataset string
 
 const (
+	StorageClassOptionsCriblLakeDatasetArchive            StorageClassOptionsCriblLakeDataset = "Archive"
+	StorageClassOptionsCriblLakeDatasetCold               StorageClassOptionsCriblLakeDataset = "Cold"
+	StorageClassOptionsCriblLakeDatasetCool               StorageClassOptionsCriblLakeDataset = "Cool"
 	StorageClassOptionsCriblLakeDatasetDeepArchive        StorageClassOptionsCriblLakeDataset = "DEEP_ARCHIVE"
 	StorageClassOptionsCriblLakeDatasetGlacier            StorageClassOptionsCriblLakeDataset = "GLACIER"
 	StorageClassOptionsCriblLakeDatasetGlacierIr          StorageClassOptionsCriblLakeDataset = "GLACIER_IR"
+	StorageClassOptionsCriblLakeDatasetHot                StorageClassOptionsCriblLakeDataset = "Hot"
+	StorageClassOptionsCriblLakeDatasetInferred           StorageClassOptionsCriblLakeDataset = "Inferred"
 	StorageClassOptionsCriblLakeDatasetIntelligentTiering StorageClassOptionsCriblLakeDataset = "INTELLIGENT_TIERING"
 	StorageClassOptionsCriblLakeDatasetOnezoneIa          StorageClassOptionsCriblLakeDataset = "ONEZONE_IA"
 	StorageClassOptionsCriblLakeDatasetStandard           StorageClassOptionsCriblLakeDataset = "STANDARD"
@@ -23,7 +28,7 @@ func (e StorageClassOptionsCriblLakeDataset) ToPointer() *StorageClassOptionsCri
 func (e *StorageClassOptionsCriblLakeDataset) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "DEEP_ARCHIVE", "GLACIER", "GLACIER_IR", "INTELLIGENT_TIERING", "ONEZONE_IA", "STANDARD", "STANDARD_IA":
+		case "Archive", "Cold", "Cool", "DEEP_ARCHIVE", "GLACIER", "GLACIER_IR", "Hot", "Inferred", "INTELLIGENT_TIERING", "ONEZONE_IA", "STANDARD", "STANDARD_IA":
 			return true
 		}
 	}

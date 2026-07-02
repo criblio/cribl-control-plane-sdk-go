@@ -41,7 +41,7 @@ type OutputSecurityLake struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
@@ -131,8 +131,9 @@ type OutputSecurityLake struct {
 	// One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
 	EnableWritePageIndex *bool `json:"enableWritePageIndex,omitzero"`
 	// Parquet tools can use the checksum of a Parquet page to verify data integrity
-	EnablePageChecksum *bool   `json:"enablePageChecksum,omitzero"`
-	Description        *string `json:"description,omitzero"`
+	EnablePageChecksum *bool `json:"enablePageChecksum,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
 	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key

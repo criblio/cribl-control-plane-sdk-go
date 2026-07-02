@@ -3,6 +3,8 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
@@ -10,6 +12,10 @@ import (
 type GetOutputSystemByPackRequest struct {
 	// Type of Destination to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
 	Type *components.DestinationType `queryParam:"style=form,explode=true,name=type"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
@@ -21,6 +27,20 @@ func (g *GetOutputSystemByPackRequest) GetType() *components.DestinationType {
 	return g.Type
 }
 
+func (g *GetOutputSystemByPackRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetOutputSystemByPackRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
 func (g *GetOutputSystemByPackRequest) GetPack() string {
 	if g == nil {
 		return ""
@@ -28,21 +48,102 @@ func (g *GetOutputSystemByPackRequest) GetPack() string {
 	return g.Pack
 }
 
+type GetOutputSystemByPackResponseBodyType string
+
+const (
+	GetOutputSystemByPackResponseBodyTypeCountedOutputResponse   GetOutputSystemByPackResponseBodyType = "CountedOutputResponse"
+	GetOutputSystemByPackResponseBodyTypePaginatedOutputResponse GetOutputSystemByPackResponseBodyType = "PaginatedOutputResponse"
+)
+
+// GetOutputSystemByPackResponseBody - List of Destination objects.
+type GetOutputSystemByPackResponseBody struct {
+	CountedOutputResponse   *components.CountedOutputResponse   `queryParam:"inline" union:"member"`
+	PaginatedOutputResponse *components.PaginatedOutputResponse `queryParam:"inline" union:"member"`
+
+	Type GetOutputSystemByPackResponseBodyType
+}
+
+func CreateGetOutputSystemByPackResponseBodyCountedOutputResponse(countedOutputResponse components.CountedOutputResponse) GetOutputSystemByPackResponseBody {
+	typ := GetOutputSystemByPackResponseBodyTypeCountedOutputResponse
+
+	return GetOutputSystemByPackResponseBody{
+		CountedOutputResponse: &countedOutputResponse,
+		Type:                  typ,
+	}
+}
+
+func CreateGetOutputSystemByPackResponseBodyPaginatedOutputResponse(paginatedOutputResponse components.PaginatedOutputResponse) GetOutputSystemByPackResponseBody {
+	typ := GetOutputSystemByPackResponseBodyTypePaginatedOutputResponse
+
+	return GetOutputSystemByPackResponseBody{
+		PaginatedOutputResponse: &paginatedOutputResponse,
+		Type:                    typ,
+	}
+}
+
+func (u *GetOutputSystemByPackResponseBody) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var countedOutputResponse components.CountedOutputResponse = components.CountedOutputResponse{}
+	if err := utils.UnmarshalJSON(data, &countedOutputResponse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetOutputSystemByPackResponseBodyTypeCountedOutputResponse,
+			Value: &countedOutputResponse,
+		})
+	}
+
+	var paginatedOutputResponse components.PaginatedOutputResponse = components.PaginatedOutputResponse{}
+	if err := utils.UnmarshalJSON(data, &paginatedOutputResponse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetOutputSystemByPackResponseBodyTypePaginatedOutputResponse,
+			Value: &paginatedOutputResponse,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetOutputSystemByPackResponseBody", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetOutputSystemByPackResponseBody", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(GetOutputSystemByPackResponseBodyType)
+	switch best.Type {
+	case GetOutputSystemByPackResponseBodyTypeCountedOutputResponse:
+		u.CountedOutputResponse = best.Value.(*components.CountedOutputResponse)
+		return nil
+	case GetOutputSystemByPackResponseBodyTypePaginatedOutputResponse:
+		u.PaginatedOutputResponse = best.Value.(*components.PaginatedOutputResponse)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetOutputSystemByPackResponseBody", string(data))
+}
+
+func (u GetOutputSystemByPackResponseBody) MarshalJSON() ([]byte, error) {
+	if u.CountedOutputResponse != nil {
+		return utils.MarshalJSON(u.CountedOutputResponse, "", true)
+	}
+
+	if u.PaginatedOutputResponse != nil {
+		return utils.MarshalJSON(u.PaginatedOutputResponse, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type GetOutputSystemByPackResponseBody: all fields are null")
+}
+
 type GetOutputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination objects
-	CountedOutputResponse *components.CountedOutputResponse
-}
+	// List of Destination objects.
+	OneOf *GetOutputSystemByPackResponseBody
 
-func (g GetOutputSystemByPackResponse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(g, "", false)
-}
-
-func (g *GetOutputSystemByPackResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	Next func() (*GetOutputSystemByPackResponse, error)
 }
 
 func (g *GetOutputSystemByPackResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -52,9 +153,9 @@ func (g *GetOutputSystemByPackResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetOutputSystemByPackResponse) GetCountedOutputResponse() *components.CountedOutputResponse {
+func (g *GetOutputSystemByPackResponse) GetOneOf() *GetOutputSystemByPackResponseBody {
 	if g == nil {
 		return nil
 	}
-	return g.CountedOutputResponse
+	return g.OneOf
 }

@@ -47,6 +47,8 @@ const (
 	InputEdgePrometheusDiscoveryTypeK8sPods InputEdgePrometheusDiscoveryType = "k8s-pods"
 	// InputEdgePrometheusDiscoveryTypeK8sServiceMonitor Kubernetes Service Monitor (v4.18+)
 	InputEdgePrometheusDiscoveryTypeK8sServiceMonitor InputEdgePrometheusDiscoveryType = "k8s-service-monitor"
+	// InputEdgePrometheusDiscoveryTypeHTTPSd HTTP SD
+	InputEdgePrometheusDiscoveryTypeHTTPSd InputEdgePrometheusDiscoveryType = "http_sd"
 )
 
 func (e InputEdgePrometheusDiscoveryType) ToPointer() *InputEdgePrometheusDiscoveryType {
@@ -57,7 +59,7 @@ func (e InputEdgePrometheusDiscoveryType) ToPointer() *InputEdgePrometheusDiscov
 func (e *InputEdgePrometheusDiscoveryType) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "static", "dns", "ec2", "k8s-node", "k8s-pods", "k8s-service-monitor":
+		case "static", "dns", "ec2", "k8s-node", "k8s-pods", "k8s-service-monitor", "http_sd":
 			return true
 		}
 	}
@@ -172,9 +174,10 @@ func (i *InputEdgePrometheusPodFilter) GetDescription() *string {
 
 type InputEdgePrometheusInput struct {
 	// Unique ID for this input
-	ID       *string                 `json:"id,omitzero"`
-	Type     InputEdgePrometheusType `json:"type"`
-	Disabled *bool                   `json:"disabled,omitzero"`
+	ID   *string                 `json:"id,omitzero"`
+	Type InputEdgePrometheusType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -183,7 +186,7 @@ type InputEdgePrometheusInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -202,9 +205,10 @@ type InputEdgePrometheusInput struct {
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *InputEdgePrometheusAuthenticationMethod `json:"authType,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
-	Targets     []InputEdgePrometheusTarget              `json:"targets,omitzero"`
+	AuthType *InputEdgePrometheusAuthenticationMethod `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string                     `json:"description,omitzero"`
+	Targets     []InputEdgePrometheusTarget `json:"targets,omitzero"`
 	// DNS record type to resolve
 	RecordType *RecordTypeOptions `json:"recordType,omitzero"`
 	// The port number in the metrics URL for discovered targets.
@@ -254,6 +258,14 @@ type InputEdgePrometheusInput struct {
 	// expressions evaluate to true.
 	//
 	PodFilter []InputEdgePrometheusPodFilter `json:"podFilter,omitzero"`
+	// URL to fetch target groups from (must be http or https)
+	HTTPDiscoveryURL *string `json:"httpDiscoveryUrl,omitzero"`
+	// Extra headers to send with the discovery request
+	HTTPDiscoveryHeaders []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"httpDiscoveryHeaders,omitzero"`
+	// Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
+	HTTPDiscoveryRejectUnauthorized *bool `json:"httpDiscoveryRejectUnauthorized,omitzero"`
+	// Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
+	MaxResponseBodySize *string `json:"maxResponseBodySize,omitzero"`
 	// Username for Prometheus Basic authentication
 	Username *string `json:"username,omitzero"`
 	// Password for Prometheus Basic authentication
@@ -599,6 +611,34 @@ func (i *InputEdgePrometheusInput) GetPodFilter() []InputEdgePrometheusPodFilter
 		return nil
 	}
 	return i.PodFilter
+}
+
+func (i *InputEdgePrometheusInput) GetHTTPDiscoveryURL() *string {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryURL
+}
+
+func (i *InputEdgePrometheusInput) GetHTTPDiscoveryHeaders() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryHeaders
+}
+
+func (i *InputEdgePrometheusInput) GetHTTPDiscoveryRejectUnauthorized() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.HTTPDiscoveryRejectUnauthorized
+}
+
+func (i *InputEdgePrometheusInput) GetMaxResponseBodySize() *string {
+	if i == nil {
+		return nil
+	}
+	return i.MaxResponseBodySize
 }
 
 func (i *InputEdgePrometheusInput) GetUsername() *string {

@@ -32,7 +32,7 @@ func (e *ScanMode) IsExact() bool {
 type DatasetMetadata struct {
 	// Rolling time window that defines how far back acceleration scans.
 	Earliest string `json:"earliest"`
-	// If <code>true</code>, the system automatically backfills and refreshes Dataset metadata.
+	// If <code>true</code>, the system automatically backfills and refreshes Dataset metadata. Otherwise, <code>false</code>.
 	EnableAcceleration bool `json:"enableAcceleration"`
 	// Fields for which acceleration gathers statistics. Required when scan mode is <code>detailed</code>.
 	FieldList     []string                `json:"fieldList"`

@@ -55,7 +55,7 @@ type OutputSplunk struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The hostname of the receiver
 	Host string `json:"host"`
@@ -81,8 +81,9 @@ type OutputSplunk struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
-	Description *string                                     `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
 	MaxFailedHealthChecks *float64 `json:"maxFailedHealthChecks,omitzero"`
 	// Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
@@ -107,7 +108,7 @@ type OutputSplunk struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                 `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputSplunkPqControls `json:"pqControls,omitzero"`
 	// Shared secret token to use when establishing a connection to a Splunk indexer.

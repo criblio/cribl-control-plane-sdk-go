@@ -65,9 +65,10 @@ func (i *InputKubeLogsRule) GetDescription() *string {
 
 type InputKubeLogsInput struct {
 	// Unique ID for this input
-	ID       *string           `json:"id,omitzero"`
-	Type     InputKubeLogsType `json:"type"`
-	Disabled *bool             `json:"disabled,omitzero"`
+	ID   *string           `json:"id,omitzero"`
+	Type InputKubeLogsType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -76,7 +77,7 @@ type InputKubeLogsInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -87,6 +88,10 @@ type InputKubeLogsInput struct {
 	Rules []InputKubeLogsRule `json:"rules,omitzero"`
 	// For use when containers do not emit a timestamp, prefix each line of output with a timestamp. If you enable this setting, you can use the Kubernetes Logs Event Breaker and the kubernetes_logs Pre-processing Pipeline to remove them from the events after the timestamps are extracted.
 	Timestamps *bool `json:"timestamps,omitzero"`
+	// Maximum bytes to buffer while reassembling a single log line. A line that exceeds this size is flushed as-is, either whole or partially. The default is 1048576 (1 MB).
+	LineBufferLimit *float64 `json:"lineBufferLimit,omitzero"`
+	// Internal flag to disable LB worker payload reassembly.
+	LBDisableAssembly *bool `json:"__LBDisableAssembly,omitzero"`
 	// Fields to add to events from this input
 	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
 	Persistence *DiskSpoolingType             `json:"persistence,omitzero"`
@@ -95,8 +100,9 @@ type InputKubeLogsInput struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitzero"`
-	Description         *string `json:"description,omitzero"`
+	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -203,6 +209,20 @@ func (i *InputKubeLogsInput) GetTimestamps() *bool {
 		return nil
 	}
 	return i.Timestamps
+}
+
+func (i *InputKubeLogsInput) GetLineBufferLimit() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.LineBufferLimit
+}
+
+func (i *InputKubeLogsInput) GetLBDisableAssembly() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.LBDisableAssembly
 }
 
 func (i *InputKubeLogsInput) GetMetadata() []MetadataConfInputCollection {

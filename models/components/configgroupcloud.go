@@ -2,10 +2,25 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type ConfigGroupCloud struct {
 	Provider *CloudProvider `json:"provider"`
 	// Cloud region where the Worker Group is deployed.
 	Region string `json:"region"`
+}
+
+func (c ConfigGroupCloud) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ConfigGroupCloud) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *ConfigGroupCloud) GetProvider() *CloudProvider {

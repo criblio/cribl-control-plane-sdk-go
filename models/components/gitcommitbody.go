@@ -7,9 +7,12 @@ import (
 )
 
 type GitCommitBody struct {
-	Effective *bool    `json:"effective,omitzero"`
-	Files     []string `json:"files,omitzero"`
-	Message   string   `json:"message"`
+	// If <code>true</code>, apply the commit to the group's effective configuration. Otherwise, <code>false</code>.
+	Effective *bool `json:"effective,omitzero"`
+	// Array of file paths to include in the commit, relative to the configuration root. If omitted, all pending changes are committed.
+	Files []string `json:"files,omitzero"`
+	// Commit message to use for the new Git commit.
+	Message string `json:"message"`
 }
 
 func (g GitCommitBody) MarshalJSON() ([]byte, error) {

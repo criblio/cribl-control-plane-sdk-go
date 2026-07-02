@@ -96,15 +96,11 @@ type OutputSplunkHec struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool `json:"loadBalanced,omitzero"`
-	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
-	NextQueue *string `json:"nextQueue,omitzero"`
-	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
-	TCPRouting *string                                          `json:"tcpRouting,omitzero"`
-	TLS        *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
+	LoadBalanced *bool                                            `json:"loadBalanced,omitzero"`
+	TLS          *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -136,9 +132,14 @@ type OutputSplunkHec struct {
 	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
+	NextQueue *string `json:"nextQueue,omitzero"`
+	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
+	TCPRouting *string `json:"tcpRouting,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	Description    *string                      `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// URL to a Splunk HEC endpoint to send events to, e.g., http://localhost:8088/services/collector/event
 	URL *string `json:"url,omitzero"`
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
@@ -174,7 +175,7 @@ type OutputSplunkHec struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                    `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputSplunkHecPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -245,20 +246,6 @@ func (o *OutputSplunkHec) GetLoadBalanced() *bool {
 		return nil
 	}
 	return o.LoadBalanced
-}
-
-func (o *OutputSplunkHec) GetNextQueue() *string {
-	if o == nil {
-		return nil
-	}
-	return o.NextQueue
-}
-
-func (o *OutputSplunkHec) GetTCPRouting() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TCPRouting
 }
 
 func (o *OutputSplunkHec) GetTLS() *TLSSettingsClientSideTypeCaPathCertPathExtended {
@@ -371,6 +358,20 @@ func (o *OutputSplunkHec) GetResponseHonorRetryAfterHeader() *bool {
 		return nil
 	}
 	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSplunkHec) GetNextQueue() *string {
+	if o == nil {
+		return nil
+	}
+	return o.NextQueue
+}
+
+func (o *OutputSplunkHec) GetTCPRouting() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TCPRouting
 }
 
 func (o *OutputSplunkHec) GetOnBackpressure() *BackpressureBehaviorOptions {

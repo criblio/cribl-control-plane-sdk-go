@@ -3,25 +3,138 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type GetFunctionsRequest struct {
+	// If <code>true</code>, include hidden Functions in the response. Otherwise, hidden Functions are excluded.
+	ShowHidden *bool `queryParam:"style=form,explode=true,name=showHidden"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
+}
+
+func (g *GetFunctionsRequest) GetShowHidden() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.ShowHidden
+}
+
+func (g *GetFunctionsRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetFunctionsRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
+type GetFunctionsResponseBodyType string
+
+const (
+	GetFunctionsResponseBodyTypeCountedFunctionResponse   GetFunctionsResponseBodyType = "CountedFunctionResponse"
+	GetFunctionsResponseBodyTypePaginatedFunctionResponse GetFunctionsResponseBodyType = "PaginatedFunctionResponse"
+)
+
+// GetFunctionsResponseBody - List of Function objects.
+type GetFunctionsResponseBody struct {
+	CountedFunctionResponse   *components.CountedFunctionResponse   `queryParam:"inline" union:"member"`
+	PaginatedFunctionResponse *components.PaginatedFunctionResponse `queryParam:"inline" union:"member"`
+
+	Type GetFunctionsResponseBodyType
+}
+
+func CreateGetFunctionsResponseBodyCountedFunctionResponse(countedFunctionResponse components.CountedFunctionResponse) GetFunctionsResponseBody {
+	typ := GetFunctionsResponseBodyTypeCountedFunctionResponse
+
+	return GetFunctionsResponseBody{
+		CountedFunctionResponse: &countedFunctionResponse,
+		Type:                    typ,
+	}
+}
+
+func CreateGetFunctionsResponseBodyPaginatedFunctionResponse(paginatedFunctionResponse components.PaginatedFunctionResponse) GetFunctionsResponseBody {
+	typ := GetFunctionsResponseBodyTypePaginatedFunctionResponse
+
+	return GetFunctionsResponseBody{
+		PaginatedFunctionResponse: &paginatedFunctionResponse,
+		Type:                      typ,
+	}
+}
+
+func (u *GetFunctionsResponseBody) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var countedFunctionResponse components.CountedFunctionResponse = components.CountedFunctionResponse{}
+	if err := utils.UnmarshalJSON(data, &countedFunctionResponse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetFunctionsResponseBodyTypeCountedFunctionResponse,
+			Value: &countedFunctionResponse,
+		})
+	}
+
+	var paginatedFunctionResponse components.PaginatedFunctionResponse = components.PaginatedFunctionResponse{}
+	if err := utils.UnmarshalJSON(data, &paginatedFunctionResponse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetFunctionsResponseBodyTypePaginatedFunctionResponse,
+			Value: &paginatedFunctionResponse,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetFunctionsResponseBody", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetFunctionsResponseBody", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(GetFunctionsResponseBodyType)
+	switch best.Type {
+	case GetFunctionsResponseBodyTypeCountedFunctionResponse:
+		u.CountedFunctionResponse = best.Value.(*components.CountedFunctionResponse)
+		return nil
+	case GetFunctionsResponseBodyTypePaginatedFunctionResponse:
+		u.PaginatedFunctionResponse = best.Value.(*components.PaginatedFunctionResponse)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetFunctionsResponseBody", string(data))
+}
+
+func (u GetFunctionsResponseBody) MarshalJSON() ([]byte, error) {
+	if u.CountedFunctionResponse != nil {
+		return utils.MarshalJSON(u.CountedFunctionResponse, "", true)
+	}
+
+	if u.PaginatedFunctionResponse != nil {
+		return utils.MarshalJSON(u.PaginatedFunctionResponse, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type GetFunctionsResponseBody: all fields are null")
+}
+
 type GetFunctionsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Function objects
-	CountedFunctionResponse *components.CountedFunctionResponse
-}
+	// List of Function objects.
+	OneOf *GetFunctionsResponseBody
 
-func (g GetFunctionsResponse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(g, "", false)
-}
-
-func (g *GetFunctionsResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	Next func() (*GetFunctionsResponse, error)
 }
 
 func (g *GetFunctionsResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -31,9 +144,9 @@ func (g *GetFunctionsResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetFunctionsResponse) GetCountedFunctionResponse() *components.CountedFunctionResponse {
+func (g *GetFunctionsResponse) GetOneOf() *GetFunctionsResponseBody {
 	if g == nil {
 		return nil
 	}
-	return g.CountedFunctionResponse
+	return g.OneOf
 }

@@ -3,6 +3,8 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
@@ -10,6 +12,10 @@ import (
 type GetInputSystemByPackRequest struct {
 	// Type of Source to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
 	Type []string `queryParam:"style=form,explode=true,name=type"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
@@ -32,6 +38,20 @@ func (g *GetInputSystemByPackRequest) GetType() []string {
 	return g.Type
 }
 
+func (g *GetInputSystemByPackRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetInputSystemByPackRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
 func (g *GetInputSystemByPackRequest) GetPack() string {
 	if g == nil {
 		return ""
@@ -39,21 +59,102 @@ func (g *GetInputSystemByPackRequest) GetPack() string {
 	return g.Pack
 }
 
+type GetInputSystemByPackResponseBodyType string
+
+const (
+	GetInputSystemByPackResponseBodyTypeCountedInputResponse   GetInputSystemByPackResponseBodyType = "CountedInputResponse"
+	GetInputSystemByPackResponseBodyTypePaginatedInputResponse GetInputSystemByPackResponseBodyType = "PaginatedInputResponse"
+)
+
+// GetInputSystemByPackResponseBody - List of Source objects.
+type GetInputSystemByPackResponseBody struct {
+	CountedInputResponse   *components.CountedInputResponse   `queryParam:"inline" union:"member"`
+	PaginatedInputResponse *components.PaginatedInputResponse `queryParam:"inline" union:"member"`
+
+	Type GetInputSystemByPackResponseBodyType
+}
+
+func CreateGetInputSystemByPackResponseBodyCountedInputResponse(countedInputResponse components.CountedInputResponse) GetInputSystemByPackResponseBody {
+	typ := GetInputSystemByPackResponseBodyTypeCountedInputResponse
+
+	return GetInputSystemByPackResponseBody{
+		CountedInputResponse: &countedInputResponse,
+		Type:                 typ,
+	}
+}
+
+func CreateGetInputSystemByPackResponseBodyPaginatedInputResponse(paginatedInputResponse components.PaginatedInputResponse) GetInputSystemByPackResponseBody {
+	typ := GetInputSystemByPackResponseBodyTypePaginatedInputResponse
+
+	return GetInputSystemByPackResponseBody{
+		PaginatedInputResponse: &paginatedInputResponse,
+		Type:                   typ,
+	}
+}
+
+func (u *GetInputSystemByPackResponseBody) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var countedInputResponse components.CountedInputResponse = components.CountedInputResponse{}
+	if err := utils.UnmarshalJSON(data, &countedInputResponse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetInputSystemByPackResponseBodyTypeCountedInputResponse,
+			Value: &countedInputResponse,
+		})
+	}
+
+	var paginatedInputResponse components.PaginatedInputResponse = components.PaginatedInputResponse{}
+	if err := utils.UnmarshalJSON(data, &paginatedInputResponse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetInputSystemByPackResponseBodyTypePaginatedInputResponse,
+			Value: &paginatedInputResponse,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetInputSystemByPackResponseBody", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetInputSystemByPackResponseBody", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(GetInputSystemByPackResponseBodyType)
+	switch best.Type {
+	case GetInputSystemByPackResponseBodyTypeCountedInputResponse:
+		u.CountedInputResponse = best.Value.(*components.CountedInputResponse)
+		return nil
+	case GetInputSystemByPackResponseBodyTypePaginatedInputResponse:
+		u.PaginatedInputResponse = best.Value.(*components.PaginatedInputResponse)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetInputSystemByPackResponseBody", string(data))
+}
+
+func (u GetInputSystemByPackResponseBody) MarshalJSON() ([]byte, error) {
+	if u.CountedInputResponse != nil {
+		return utils.MarshalJSON(u.CountedInputResponse, "", true)
+	}
+
+	if u.PaginatedInputResponse != nil {
+		return utils.MarshalJSON(u.PaginatedInputResponse, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type GetInputSystemByPackResponseBody: all fields are null")
+}
+
 type GetInputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source objects
-	CountedInputResponse *components.CountedInputResponse
-}
+	// List of Source objects.
+	OneOf *GetInputSystemByPackResponseBody
 
-func (g GetInputSystemByPackResponse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(g, "", false)
-}
-
-func (g *GetInputSystemByPackResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	Next func() (*GetInputSystemByPackResponse, error)
 }
 
 func (g *GetInputSystemByPackResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -63,9 +164,9 @@ func (g *GetInputSystemByPackResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetInputSystemByPackResponse) GetCountedInputResponse() *components.CountedInputResponse {
+func (g *GetInputSystemByPackResponse) GetOneOf() *GetInputSystemByPackResponseBody {
 	if g == nil {
 		return nil
 	}
-	return g.CountedInputResponse
+	return g.OneOf
 }

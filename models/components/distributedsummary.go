@@ -6,6 +6,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// DistributedSummaryGroups - Resource counts for Worker Groups or Edge Fleets in the deployment summary.
 type DistributedSummaryGroups struct {
 	// Total number of Worker Groups or Edge Fleets.
 	Count int64 `json:"count"`
@@ -21,6 +22,17 @@ type DistributedSummaryGroups struct {
 	Routes int64 `json:"routes"`
 	// Total number of Sources.
 	Sources int64 `json:"sources"`
+}
+
+func (d DistributedSummaryGroups) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DistributedSummaryGroups) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (d *DistributedSummaryGroups) GetCount() int64 {
@@ -72,7 +84,8 @@ func (d *DistributedSummaryGroups) GetSources() int64 {
 	return d.Sources
 }
 
-type DistributedSummaryWorkers struct {
+// Workers - Worker or Edge Node counts and health statistics in the deployment summary.
+type Workers struct {
 	// Total number of Worker or Edge Nodes that are connected with <code>healthy</code> status.
 	Alive int64 `json:"alive"`
 	// Total number of unique configuration versions across all Worker or Edge Nodes.
@@ -89,59 +102,72 @@ type DistributedSummaryWorkers struct {
 	Unhealthy int64 `json:"unhealthy"`
 }
 
-func (d *DistributedSummaryWorkers) GetAlive() int64 {
-	if d == nil {
-		return 0
-	}
-	return d.Alive
+func (w Workers) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(w, "", false)
 }
 
-func (d *DistributedSummaryWorkers) GetConfVersions() int64 {
-	if d == nil {
-		return 0
+func (w *Workers) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &w, "", false, nil); err != nil {
+		return err
 	}
-	return d.ConfVersions
+	return nil
 }
 
-func (d *DistributedSummaryWorkers) GetCount() int64 {
-	if d == nil {
+func (w *Workers) GetAlive() int64 {
+	if w == nil {
 		return 0
 	}
-	return d.Count
+	return w.Alive
 }
 
-func (d *DistributedSummaryWorkers) GetDisconnectedCount() int64 {
-	if d == nil {
+func (w *Workers) GetConfVersions() int64 {
+	if w == nil {
 		return 0
 	}
-	return d.DisconnectedCount
+	return w.ConfVersions
 }
 
-func (d *DistributedSummaryWorkers) GetGroups() int64 {
-	if d == nil {
+func (w *Workers) GetCount() int64 {
+	if w == nil {
 		return 0
 	}
-	return d.Groups
+	return w.Count
 }
 
-func (d *DistributedSummaryWorkers) GetSoftwareVersions() int64 {
-	if d == nil {
+func (w *Workers) GetDisconnectedCount() int64 {
+	if w == nil {
 		return 0
 	}
-	return d.SoftwareVersions
+	return w.DisconnectedCount
 }
 
-func (d *DistributedSummaryWorkers) GetUnhealthy() int64 {
-	if d == nil {
+func (w *Workers) GetGroups() int64 {
+	if w == nil {
 		return 0
 	}
-	return d.Unhealthy
+	return w.Groups
+}
+
+func (w *Workers) GetSoftwareVersions() int64 {
+	if w == nil {
+		return 0
+	}
+	return w.SoftwareVersions
+}
+
+func (w *Workers) GetUnhealthy() int64 {
+	if w == nil {
+		return 0
+	}
+	return w.Unhealthy
 }
 
 // DistributedSummary - Summary of the deployment for the specified Cribl product (Stream or Edge).
 type DistributedSummary struct {
-	Groups  DistributedSummaryGroups   `json:"groups"`
-	Workers *DistributedSummaryWorkers `json:"workers,omitzero"`
+	// Resource counts for Worker Groups or Edge Fleets in the deployment summary.
+	Groups DistributedSummaryGroups `json:"groups"`
+	// Worker or Edge Node counts and health statistics in the deployment summary.
+	Workers *Workers `json:"workers,omitzero"`
 }
 
 func (d DistributedSummary) MarshalJSON() ([]byte, error) {
@@ -162,7 +188,7 @@ func (d *DistributedSummary) GetGroups() DistributedSummaryGroups {
 	return d.Groups
 }
 
-func (d *DistributedSummary) GetWorkers() *DistributedSummaryWorkers {
+func (d *DistributedSummary) GetWorkers() *Workers {
 	if d == nil {
 		return nil
 	}

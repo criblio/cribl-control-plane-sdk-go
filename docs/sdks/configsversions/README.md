@@ -12,7 +12,7 @@ Get the configuration version for the specified Worker Group, Outpost Group, or 
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getConfigGroupConfigVersionByProductAndId" method="get" path="/products/{product}/groups/{id}/configVersion" -->
+<!-- UsageSnippet language="go" operationID="getProductsGroupsConfigVersionByProductAndId" method="get" path="/products/{product}/groups/{id}/configVersion" -->
 ```go
 package main
 
@@ -55,11 +55,12 @@ func main() {
 
 ### Response
 
-**[*operations.GetConfigGroupConfigVersionByProductAndIDResponse](../../models/operations/getconfiggroupconfigversionbyproductandidresponse.md), error**
+**[*operations.GetProductsGroupsConfigVersionByProductAndIDResponse](../../models/operations/getproductsgroupsconfigversionbyproductandidresponse.md), error**
 
 ### Errors
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

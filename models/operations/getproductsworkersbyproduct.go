@@ -3,6 +3,8 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
@@ -73,23 +75,102 @@ func (g *GetProductsWorkersByProductRequest) GetOffset() *int64 {
 	return g.Offset
 }
 
+type GetProductsWorkersByProductResponseBodyType string
+
+const (
+	GetProductsWorkersByProductResponseBodyTypeCountedMasterWorkerEntry   GetProductsWorkersByProductResponseBodyType = "CountedMasterWorkerEntry"
+	GetProductsWorkersByProductResponseBodyTypePaginatedMasterWorkerEntry GetProductsWorkersByProductResponseBodyType = "PaginatedMasterWorkerEntry"
+)
+
+// GetProductsWorkersByProductResponseBody - List of MasterWorkerEntry objects.
+type GetProductsWorkersByProductResponseBody struct {
+	CountedMasterWorkerEntry   *components.CountedMasterWorkerEntry   `queryParam:"inline" union:"member"`
+	PaginatedMasterWorkerEntry *components.PaginatedMasterWorkerEntry `queryParam:"inline" union:"member"`
+
+	Type GetProductsWorkersByProductResponseBodyType
+}
+
+func CreateGetProductsWorkersByProductResponseBodyCountedMasterWorkerEntry(countedMasterWorkerEntry components.CountedMasterWorkerEntry) GetProductsWorkersByProductResponseBody {
+	typ := GetProductsWorkersByProductResponseBodyTypeCountedMasterWorkerEntry
+
+	return GetProductsWorkersByProductResponseBody{
+		CountedMasterWorkerEntry: &countedMasterWorkerEntry,
+		Type:                     typ,
+	}
+}
+
+func CreateGetProductsWorkersByProductResponseBodyPaginatedMasterWorkerEntry(paginatedMasterWorkerEntry components.PaginatedMasterWorkerEntry) GetProductsWorkersByProductResponseBody {
+	typ := GetProductsWorkersByProductResponseBodyTypePaginatedMasterWorkerEntry
+
+	return GetProductsWorkersByProductResponseBody{
+		PaginatedMasterWorkerEntry: &paginatedMasterWorkerEntry,
+		Type:                       typ,
+	}
+}
+
+func (u *GetProductsWorkersByProductResponseBody) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var countedMasterWorkerEntry components.CountedMasterWorkerEntry = components.CountedMasterWorkerEntry{}
+	if err := utils.UnmarshalJSON(data, &countedMasterWorkerEntry, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetProductsWorkersByProductResponseBodyTypeCountedMasterWorkerEntry,
+			Value: &countedMasterWorkerEntry,
+		})
+	}
+
+	var paginatedMasterWorkerEntry components.PaginatedMasterWorkerEntry = components.PaginatedMasterWorkerEntry{}
+	if err := utils.UnmarshalJSON(data, &paginatedMasterWorkerEntry, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetProductsWorkersByProductResponseBodyTypePaginatedMasterWorkerEntry,
+			Value: &paginatedMasterWorkerEntry,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetProductsWorkersByProductResponseBody", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetProductsWorkersByProductResponseBody", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(GetProductsWorkersByProductResponseBodyType)
+	switch best.Type {
+	case GetProductsWorkersByProductResponseBodyTypeCountedMasterWorkerEntry:
+		u.CountedMasterWorkerEntry = best.Value.(*components.CountedMasterWorkerEntry)
+		return nil
+	case GetProductsWorkersByProductResponseBodyTypePaginatedMasterWorkerEntry:
+		u.PaginatedMasterWorkerEntry = best.Value.(*components.PaginatedMasterWorkerEntry)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetProductsWorkersByProductResponseBody", string(data))
+}
+
+func (u GetProductsWorkersByProductResponseBody) MarshalJSON() ([]byte, error) {
+	if u.CountedMasterWorkerEntry != nil {
+		return utils.MarshalJSON(u.CountedMasterWorkerEntry, "", true)
+	}
+
+	if u.PaginatedMasterWorkerEntry != nil {
+		return utils.MarshalJSON(u.PaginatedMasterWorkerEntry, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type GetProductsWorkersByProductResponseBody: all fields are null")
+}
+
 type GetProductsWorkersByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// List of MasterWorkerEntry objects.
-	CountedMasterWorkerEntry *components.CountedMasterWorkerEntry
+	OneOf *GetProductsWorkersByProductResponseBody
 
 	Next func() (*GetProductsWorkersByProductResponse, error)
-}
-
-func (g GetProductsWorkersByProductResponse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(g, "", false)
-}
-
-func (g *GetProductsWorkersByProductResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (g *GetProductsWorkersByProductResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -99,9 +180,9 @@ func (g *GetProductsWorkersByProductResponse) GetHTTPMeta() components.HTTPMetad
 	return g.HTTPMeta
 }
 
-func (g *GetProductsWorkersByProductResponse) GetCountedMasterWorkerEntry() *components.CountedMasterWorkerEntry {
+func (g *GetProductsWorkersByProductResponse) GetOneOf() *GetProductsWorkersByProductResponseBody {
 	if g == nil {
 		return nil
 	}
-	return g.CountedMasterWorkerEntry
+	return g.OneOf
 }

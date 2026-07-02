@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionAutoTimestampID - Function ID
+// PipelineFunctionAutoTimestampID - Identifier of the Function. Always <code>auto_timestamp</code>
 type PipelineFunctionAutoTimestampID string
 
 const (
@@ -33,18 +33,18 @@ func (e *PipelineFunctionAutoTimestampID) UnmarshalJSON(data []byte) error {
 }
 
 type PipelineFunctionAutoTimestamp struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>auto_timestamp</code>
 	ID PipelineFunctionAutoTimestampID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
 	Final *bool                           `json:"final,omitzero"`
 	Conf  FunctionConfSchemaAutoTimestamp `json:"conf"`
-	// Group ID
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

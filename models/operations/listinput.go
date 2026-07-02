@@ -3,6 +3,8 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
@@ -10,6 +12,10 @@ import (
 type ListInputRequest struct {
 	// Type of Source to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
 	Type []string `queryParam:"style=form,explode=true,name=type"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (l ListInputRequest) MarshalJSON() ([]byte, error) {
@@ -30,21 +36,116 @@ func (l *ListInputRequest) GetType() []string {
 	return l.Type
 }
 
+func (l *ListInputRequest) GetOffset() *int64 {
+	if l == nil {
+		return nil
+	}
+	return l.Offset
+}
+
+func (l *ListInputRequest) GetLimit() *int64 {
+	if l == nil {
+		return nil
+	}
+	return l.Limit
+}
+
+type ListInputResponseBodyType string
+
+const (
+	ListInputResponseBodyTypeCountedInputResponse   ListInputResponseBodyType = "CountedInputResponse"
+	ListInputResponseBodyTypePaginatedInputResponse ListInputResponseBodyType = "PaginatedInputResponse"
+)
+
+// ListInputResponseBody - List of Source objects.
+type ListInputResponseBody struct {
+	CountedInputResponse   *components.CountedInputResponse   `queryParam:"inline" union:"member"`
+	PaginatedInputResponse *components.PaginatedInputResponse `queryParam:"inline" union:"member"`
+
+	Type ListInputResponseBodyType
+}
+
+func CreateListInputResponseBodyCountedInputResponse(countedInputResponse components.CountedInputResponse) ListInputResponseBody {
+	typ := ListInputResponseBodyTypeCountedInputResponse
+
+	return ListInputResponseBody{
+		CountedInputResponse: &countedInputResponse,
+		Type:                 typ,
+	}
+}
+
+func CreateListInputResponseBodyPaginatedInputResponse(paginatedInputResponse components.PaginatedInputResponse) ListInputResponseBody {
+	typ := ListInputResponseBodyTypePaginatedInputResponse
+
+	return ListInputResponseBody{
+		PaginatedInputResponse: &paginatedInputResponse,
+		Type:                   typ,
+	}
+}
+
+func (u *ListInputResponseBody) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var countedInputResponse components.CountedInputResponse = components.CountedInputResponse{}
+	if err := utils.UnmarshalJSON(data, &countedInputResponse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ListInputResponseBodyTypeCountedInputResponse,
+			Value: &countedInputResponse,
+		})
+	}
+
+	var paginatedInputResponse components.PaginatedInputResponse = components.PaginatedInputResponse{}
+	if err := utils.UnmarshalJSON(data, &paginatedInputResponse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  ListInputResponseBodyTypePaginatedInputResponse,
+			Value: &paginatedInputResponse,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ListInputResponseBody", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for ListInputResponseBody", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(ListInputResponseBodyType)
+	switch best.Type {
+	case ListInputResponseBodyTypeCountedInputResponse:
+		u.CountedInputResponse = best.Value.(*components.CountedInputResponse)
+		return nil
+	case ListInputResponseBodyTypePaginatedInputResponse:
+		u.PaginatedInputResponse = best.Value.(*components.PaginatedInputResponse)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for ListInputResponseBody", string(data))
+}
+
+func (u ListInputResponseBody) MarshalJSON() ([]byte, error) {
+	if u.CountedInputResponse != nil {
+		return utils.MarshalJSON(u.CountedInputResponse, "", true)
+	}
+
+	if u.PaginatedInputResponse != nil {
+		return utils.MarshalJSON(u.PaginatedInputResponse, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type ListInputResponseBody: all fields are null")
+}
+
 type ListInputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source objects
-	CountedInputResponse *components.CountedInputResponse
-}
+	// List of Source objects.
+	OneOf *ListInputResponseBody
 
-func (l ListInputResponse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(l, "", false)
-}
-
-func (l *ListInputResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &l, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	Next func() (*ListInputResponse, error)
 }
 
 func (l *ListInputResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -54,9 +155,9 @@ func (l *ListInputResponse) GetHTTPMeta() components.HTTPMetadata {
 	return l.HTTPMeta
 }
 
-func (l *ListInputResponse) GetCountedInputResponse() *components.CountedInputResponse {
+func (l *ListInputResponse) GetOneOf() *ListInputResponseBody {
 	if l == nil {
 		return nil
 	}
-	return l.CountedInputResponse
+	return l.OneOf
 }

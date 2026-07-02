@@ -151,9 +151,10 @@ func (e *InputSplunkSearchAuthenticationType) IsExact() bool {
 
 type InputSplunkSearchInput struct {
 	// Unique ID for this input
-	ID       *string               `json:"id,omitzero"`
-	Type     InputSplunkSearchType `json:"type"`
-	Disabled *bool                 `json:"disabled,omitzero"`
+	ID   *string               `json:"id,omitzero"`
+	Type InputSplunkSearchType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -162,7 +163,7 @@ type InputSplunkSearchInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -213,10 +214,11 @@ type InputSplunkSearchInput struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Splunk Search authentication type
-	AuthType    InputSplunkSearchAuthenticationType `json:"authType"`
-	Description *string                             `json:"description,omitzero"`
-	Username    *string                             `json:"username,omitzero"`
-	Password    *string                             `json:"password,omitzero"`
+	AuthType InputSplunkSearchAuthenticationType `json:"authType"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	Password    *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials

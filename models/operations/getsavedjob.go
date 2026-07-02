@@ -3,13 +3,19 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetSavedJobRequest struct {
-	// Filter by collector type
+	// Filter by collector type.
 	CollectorType *components.CollectorType `queryParam:"style=form,explode=true,name=collectorType"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (g *GetSavedJobRequest) GetCollectorType() *components.CollectorType {
@@ -19,21 +25,116 @@ func (g *GetSavedJobRequest) GetCollectorType() *components.CollectorType {
 	return g.CollectorType
 }
 
+func (g *GetSavedJobRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetSavedJobRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
+type GetSavedJobResponseBodyType string
+
+const (
+	GetSavedJobResponseBodyTypeCountedSavedJobResponse   GetSavedJobResponseBodyType = "CountedSavedJobResponse"
+	GetSavedJobResponseBodyTypePaginatedSavedJobResponse GetSavedJobResponseBodyType = "PaginatedSavedJobResponse"
+)
+
+// GetSavedJobResponseBody - The list of Collectors in a response envelope with <code>count</code> and <code>items</code>.
+type GetSavedJobResponseBody struct {
+	CountedSavedJobResponse   *components.CountedSavedJobResponse   `queryParam:"inline" union:"member"`
+	PaginatedSavedJobResponse *components.PaginatedSavedJobResponse `queryParam:"inline" union:"member"`
+
+	Type GetSavedJobResponseBodyType
+}
+
+func CreateGetSavedJobResponseBodyCountedSavedJobResponse(countedSavedJobResponse components.CountedSavedJobResponse) GetSavedJobResponseBody {
+	typ := GetSavedJobResponseBodyTypeCountedSavedJobResponse
+
+	return GetSavedJobResponseBody{
+		CountedSavedJobResponse: &countedSavedJobResponse,
+		Type:                    typ,
+	}
+}
+
+func CreateGetSavedJobResponseBodyPaginatedSavedJobResponse(paginatedSavedJobResponse components.PaginatedSavedJobResponse) GetSavedJobResponseBody {
+	typ := GetSavedJobResponseBodyTypePaginatedSavedJobResponse
+
+	return GetSavedJobResponseBody{
+		PaginatedSavedJobResponse: &paginatedSavedJobResponse,
+		Type:                      typ,
+	}
+}
+
+func (u *GetSavedJobResponseBody) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var countedSavedJobResponse components.CountedSavedJobResponse = components.CountedSavedJobResponse{}
+	if err := utils.UnmarshalJSON(data, &countedSavedJobResponse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetSavedJobResponseBodyTypeCountedSavedJobResponse,
+			Value: &countedSavedJobResponse,
+		})
+	}
+
+	var paginatedSavedJobResponse components.PaginatedSavedJobResponse = components.PaginatedSavedJobResponse{}
+	if err := utils.UnmarshalJSON(data, &paginatedSavedJobResponse, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetSavedJobResponseBodyTypePaginatedSavedJobResponse,
+			Value: &paginatedSavedJobResponse,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetSavedJobResponseBody", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetSavedJobResponseBody", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(GetSavedJobResponseBodyType)
+	switch best.Type {
+	case GetSavedJobResponseBodyTypeCountedSavedJobResponse:
+		u.CountedSavedJobResponse = best.Value.(*components.CountedSavedJobResponse)
+		return nil
+	case GetSavedJobResponseBodyTypePaginatedSavedJobResponse:
+		u.PaginatedSavedJobResponse = best.Value.(*components.PaginatedSavedJobResponse)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetSavedJobResponseBody", string(data))
+}
+
+func (u GetSavedJobResponseBody) MarshalJSON() ([]byte, error) {
+	if u.CountedSavedJobResponse != nil {
+		return utils.MarshalJSON(u.CountedSavedJobResponse, "", true)
+	}
+
+	if u.PaginatedSavedJobResponse != nil {
+		return utils.MarshalJSON(u.PaginatedSavedJobResponse, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type GetSavedJobResponseBody: all fields are null")
+}
+
 type GetSavedJobResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of SavedJobResponse objects.
-	CountedSavedJobResponse *components.CountedSavedJobResponse
-}
+	// The list of Collectors in a response envelope with <code>count</code> and <code>items</code>.
+	OneOf *GetSavedJobResponseBody
 
-func (g GetSavedJobResponse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(g, "", false)
-}
-
-func (g *GetSavedJobResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	Next func() (*GetSavedJobResponse, error)
 }
 
 func (g *GetSavedJobResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -43,9 +144,9 @@ func (g *GetSavedJobResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetSavedJobResponse) GetCountedSavedJobResponse() *components.CountedSavedJobResponse {
+func (g *GetSavedJobResponse) GetOneOf() *GetSavedJobResponseBody {
 	if g == nil {
 		return nil
 	}
-	return g.CountedSavedJobResponse
+	return g.OneOf
 }

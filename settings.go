@@ -35,7 +35,7 @@ func newSettings(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, 
 }
 
 // Restart the Cribl server
-// Restart the Cribl server. Useful for applying configuration changes that require a full process restart, such as changes to system-level settings that cannot be applied by reloading.
+// Restart the Cribl server.<br/><br/>This operation requires <code>system.restart</code> to be set to <code>api</code> in <code>cribl.yml</code>. If this setting is not configured, the request returns a <code>403</code> error.<br/><br/>Restarting the server causes a brief period of downtime while the process stops and restarts. All in-flight events are drained before the process exits. Use <code>POST /system/settings/reload</code> to apply configuration changes without a full restart.
 func (s *Settings) Restart(ctx context.Context, opts ...operations.Option) (*operations.CreateSystemSettingsRestartResponse, error) {
 	o := operations.Options{}
 	supportedOptions := []string{
@@ -225,6 +225,31 @@ func (s *Settings) Restart(ctx context.Context, opts ...operations.Option) (*ope
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode == 500:
 		switch {
 		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
@@ -250,7 +275,7 @@ func (s *Settings) Restart(ctx context.Context, opts ...operations.Option) (*ope
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 401:
+	case httpRes.StatusCode == 403:
 		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)

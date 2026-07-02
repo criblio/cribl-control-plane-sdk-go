@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 // HBLeaderInfo - Connection parameters for the Leader Node, as reported in a Worker heartbeat.
 type HBLeaderInfo struct {
 	// Leader hostname or IP address.
@@ -12,6 +16,17 @@ type HBLeaderInfo struct {
 	Servername *string `json:"servername,omitzero"`
 	// If <code>true</code>, TLS is enabled for the Leader connection.
 	TLS *bool `json:"tls,omitzero"`
+}
+
+func (h HBLeaderInfo) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(h, "", false)
+}
+
+func (h *HBLeaderInfo) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (h *HBLeaderInfo) GetHost() string {

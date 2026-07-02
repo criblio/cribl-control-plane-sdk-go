@@ -16,9 +16,9 @@ Actions related to Destinations
 
 Get a list of all Destinations.
 
-### Example Usage
+### Example Usage: OutputResponseExamplesS3Destination
 
-<!-- UsageSnippet language="go" operationID="listOutput" method="get" path="/system/outputs" -->
+<!-- UsageSnippet language="go" operationID="listOutput" method="get" path="/system/outputs" example="OutputResponseExamplesS3Destination" -->
 ```go
 package main
 
@@ -40,12 +40,114 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.List(ctx, nil)
+    res, err := s.Destinations.List(ctx, nil, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutputResponse != nil {
-        // handle response
+    if res.OneOf != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSplunkHecDestination
+
+<!-- UsageSnippet language="go" operationID="listOutput" method="get" path="/system/outputs" example="OutputResponseExamplesSplunkHecDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.List(ctx, nil, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.OneOf != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSyslogDestination
+
+<!-- UsageSnippet language="go" operationID="listOutput" method="get" path="/system/outputs" example="OutputResponseExamplesSyslogDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.List(ctx, nil, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.OneOf != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -56,6 +158,8 @@ func main() {
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                                                            | :heavy_check_mark:                                                                                                                                               | The context to use for the request.                                                                                                                              |
 | `type_`                                                                                                                                                          | [*components.DestinationType](../../models/components/destinationtype.md)                                                                                        | :heavy_minus_sign:                                                                                                                                               | Type of Destination to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported. |
+| `offset`                                                                                                                                                         | `*int64`                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                               | Pagination offset                                                                                                                                                |
+| `limit`                                                                                                                                                          | `*int64`                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                               | Maximum number of items to return                                                                                                                                |
 | `opts`                                                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                                                         | :heavy_minus_sign:                                                                                                                                               | The options for this request.                                                                                                                                    |
 
 ### Response
@@ -66,6 +170,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -105,6 +210,48 @@ func main() {
             Bucket: "events",
             StagePath: "/tmp/staging",
             Endpoint: criblcontrolplanesdkgo.Pointer("https://s3.alphasoc.net"),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesAmazonManagedPrometheus
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesAmazonManagedPrometheus" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestAmazonManagedPrometheus(
+        operations.CreateOutputOutputAmazonManagedPrometheus{
+            ID: "amazon-managed-prometheus-output",
+            Type: operations.CreateOutputTypeAmazonManagedPrometheusAmazonManagedPrometheus,
+            URL: "https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-example/api/v1/remote_write",
+            AwsAuthenticationMethod: components.AuthenticationMethodOptionsAutoSecretAuto,
+            Region: "us-east-1",
         },
     ))
     if err != nil {
@@ -793,6 +940,48 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputCreateExamplesCustomerMetricsStorage
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesCustomerMetricsStorage" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestCustomerMetricsStorage(
+        operations.CreateOutputOutputCustomerMetricsStorage{
+            ID: "customer-metrics-storage-output",
+            Type: operations.CreateOutputTypeCustomerMetricsStorageCustomerMetricsStorage,
+            URL: "http://localhost:8123/",
+            Database: "default",
+            TableName: "mytable",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputCreateExamplesDatabricks
 
 <!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesDatabricks" -->
@@ -1030,7 +1219,7 @@ func main() {
             Type: operations.CreateOutputTypeDynatraceHTTPDynatraceHTTP,
             AuthType: operations.CreateOutputAuthenticationTypeDynatraceHTTPToken.ToPointer(),
             Format: operations.CreateOutputFormatDynatraceHTTPJSONArray,
-            Endpoint: operations.CreateOutputEndpointCloud,
+            Endpoint: operations.CreateOutputEndpointDynatraceHTTPCloud,
             TelemetryType: operations.CreateOutputTelemetryTypeLogs,
             Token: criblcontrolplanesdkgo.Pointer("your-api-key"),
         },
@@ -1252,6 +1441,49 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputCreateExamplesGoogleBigQuery
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesGoogleBigQuery" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestGoogleBigquery(
+        operations.CreateOutputOutputGoogleBigquery{
+            ID: "google-bigquery-output",
+            Type: operations.CreateOutputTypeGoogleBigqueryGoogleBigquery,
+            ProjectID: "my-project",
+            DatasetID: "my-dataset",
+            TableID: "my-table",
+            GoogleAuthMethod: operations.CreateOutputGoogleAuthenticationMethodGoogleBigqueryAuto,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputCreateExamplesGoogleChronicle
 
 <!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesGoogleChronicle" -->
@@ -1326,6 +1558,46 @@ func main() {
             LogLocationType: operations.CreateOutputLogLocationTypeProject,
             LogNameExpression: "my-log",
             LogLocationExpression: "my-project",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesGoogleCloudObservability
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesGoogleCloudObservability" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestGoogleCloudObservability(
+        operations.CreateOutputOutputGoogleCloudObservability{
+            ID: "google-cloud-observability-output",
+            Type: operations.CreateOutputTypeGoogleCloudObservabilityGoogleCloudObservability,
+            GoogleAuthMethod: operations.CreateOutputGoogleAuthenticationMethodGoogleCloudObservabilityAuto,
         },
     ))
     if err != nil {
@@ -3304,6 +3576,48 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputCreateExamplesibmCloudS3
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesibmCloudS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestIbmCloudS3(
+        operations.CreateOutputOutputIbmCloudS3{
+            ID: "ibm-cloud-s3-output",
+            Type: operations.CreateOutputTypeIbmCloudS3IbmCloudS3,
+            Endpoint: "https://s3.us-south.cloud-object-storage.appdomain.cloud",
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputCreateExamplesscalityS3
 
 <!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesscalityS3" -->
@@ -3346,6 +3660,133 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputResponseExamplesS3Destination
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputResponseExamplesS3Destination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestGoogleChronicle(
+        operations.CreateOutputOutputGoogleChronicle{
+            ID: "<id>",
+            Type: operations.CreateOutputTypeGoogleChronicleGoogleChronicle,
+            LogFormatType: operations.CreateOutputSendEventsAsUdm,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSplunkHecDestination
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputResponseExamplesSplunkHecDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestMinio(
+        operations.CreateOutputOutputMinio{
+            ID: "<id>",
+            Type: operations.CreateOutputTypeMinioMinio,
+            Bucket: "<value>",
+            StagePath: "<value>",
+            Endpoint: "<value>",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSyslogDestination
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputResponseExamplesSyslogDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSecurityLake(
+        operations.CreateOutputOutputSecurityLake{
+            ID: "<id>",
+            Type: operations.CreateOutputTypeSecurityLakeSecurityLake,
+            AssumeRoleArn: "<value>",
+            Bucket: "<value>",
+            Region: "<value>",
+            StagePath: "<value>",
+            AccountID: "<id>",
+            CustomSource: "<value>",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -3363,6 +3804,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -3370,9 +3812,75 @@ func main() {
 
 Get the specified Destination.
 
-### Example Usage
+### Example Usage: OutputResponseExamplesS3Destination
 
-<!-- UsageSnippet language="go" operationID="getOutputById" method="get" path="/system/outputs/{id}" -->
+<!-- UsageSnippet language="go" operationID="getOutputById" method="get" path="/system/outputs/{id}" example="OutputResponseExamplesS3Destination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSplunkHecDestination
+
+<!-- UsageSnippet language="go" operationID="getOutputById" method="get" path="/system/outputs/{id}" example="OutputResponseExamplesSplunkHecDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSyslogDestination
+
+<!-- UsageSnippet language="go" operationID="getOutputById" method="get" path="/system/outputs/{id}" example="OutputResponseExamplesSyslogDestination" -->
 ```go
 package main
 
@@ -3420,6 +3928,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -6663,6 +7172,119 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputResponseExamplesS3Destination
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputResponseExamplesS3Destination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputDataset(
+        components.OutputDataset{
+            Type: components.OutputDatasetTypeDataset,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSplunkHecDestination
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputResponseExamplesSplunkHecDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputAzureBlob(
+        components.OutputAzureBlob{
+            Type: components.OutputAzureBlobTypeAzureBlob,
+            ContainerName: "<value>",
+            StagePath: "<value>",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSyslogDestination
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputResponseExamplesSyslogDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSplunkHec(
+        components.OutputSplunkHec{
+            Type: components.OutputSplunkHecTypeSplunkHec,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: UpdateOutputExamplesAlphasocS3
 
 <!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesAlphasocS3" -->
@@ -6694,6 +7316,47 @@ func main() {
             Bucket: "events",
             StagePath: "/tmp/staging",
             Endpoint: criblcontrolplanesdkgo.Pointer("https://s3.alphasoc.net"),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateOutputExamplesAmazonManagedPrometheus
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesAmazonManagedPrometheus" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputAmazonManagedPrometheus(
+        components.OutputAmazonManagedPrometheus{
+            ID: criblcontrolplanesdkgo.Pointer("amazon-managed-prometheus-output"),
+            Type: components.OutputAmazonManagedPrometheusTypeAmazonManagedPrometheus,
+            URL: "https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-example/api/v1/remote_write",
+            AwsAuthenticationMethod: components.AuthenticationMethodOptionsAutoSecretAuto,
+            Region: "us-east-1",
         },
     ))
     if err != nil {
@@ -7368,6 +8031,47 @@ func main() {
     }
 }
 ```
+### Example Usage: UpdateOutputExamplesCustomerMetricsStorage
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesCustomerMetricsStorage" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputCustomerMetricsStorage(
+        components.OutputCustomerMetricsStorage{
+            ID: criblcontrolplanesdkgo.Pointer("customer-metrics-storage-output"),
+            Type: components.OutputCustomerMetricsStorageTypeCustomerMetricsStorage,
+            URL: "http://localhost:8123/",
+            Database: "default",
+            TableName: "mytable",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: UpdateOutputExamplesDatabricks
 
 <!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesDatabricks" -->
@@ -7855,6 +8559,48 @@ func main() {
     }
 }
 ```
+### Example Usage: UpdateOutputExamplesGoogleBigQuery
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesGoogleBigQuery" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputGoogleBigquery(
+        components.OutputGoogleBigquery{
+            ID: criblcontrolplanesdkgo.Pointer("google-bigquery-output"),
+            Type: components.OutputGoogleBigqueryTypeGoogleBigquery,
+            ProjectID: "my-project",
+            DatasetID: "my-dataset",
+            TableID: "my-table",
+            GoogleAuthMethod: components.OutputGoogleBigqueryGoogleAuthenticationMethodAuto,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: UpdateOutputExamplesGoogleChronicle
 
 <!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesGoogleChronicle" -->
@@ -7927,6 +8673,45 @@ func main() {
             LogLocationType: components.OutputGoogleCloudLoggingLogLocationTypeProject,
             LogNameExpression: "my-log",
             LogLocationExpression: "my-project",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateOutputExamplesGoogleCloudObservability
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesGoogleCloudObservability" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputGoogleCloudObservability(
+        components.OutputGoogleCloudObservability{
+            ID: criblcontrolplanesdkgo.Pointer("google-cloud-observability-output"),
+            Type: components.OutputGoogleCloudObservabilityTypeGoogleCloudObservability,
+            GoogleAuthMethod: components.OutputGoogleCloudObservabilityGoogleAuthenticationMethodAuto,
         },
     ))
     if err != nil {
@@ -9858,6 +10643,47 @@ func main() {
     }
 }
 ```
+### Example Usage: UpdateOutputExamplesibmCloudS3
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesibmCloudS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputIbmCloudS3(
+        components.OutputIbmCloudS3{
+            ID: criblcontrolplanesdkgo.Pointer("ibm-cloud-s3-output"),
+            Type: components.OutputIbmCloudS3TypeIbmCloudS3,
+            Endpoint: "https://s3.us-south.cloud-object-storage.appdomain.cloud",
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: UpdateOutputExamplesscalityS3
 
 <!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesscalityS3" -->
@@ -9917,6 +10743,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -9924,9 +10751,75 @@ func main() {
 
 Delete the specified Destination.
 
-### Example Usage
+### Example Usage: OutputResponseExamplesS3Destination
 
-<!-- UsageSnippet language="go" operationID="deleteOutputById" method="delete" path="/system/outputs/{id}" -->
+<!-- UsageSnippet language="go" operationID="deleteOutputById" method="delete" path="/system/outputs/{id}" example="OutputResponseExamplesS3Destination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Delete(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSplunkHecDestination
+
+<!-- UsageSnippet language="go" operationID="deleteOutputById" method="delete" path="/system/outputs/{id}" example="OutputResponseExamplesSplunkHecDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Delete(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSyslogDestination
+
+<!-- UsageSnippet language="go" operationID="deleteOutputById" method="delete" path="/system/outputs/{id}" example="OutputResponseExamplesSyslogDestination" -->
 ```go
 package main
 
@@ -9974,5 +10867,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

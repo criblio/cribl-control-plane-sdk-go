@@ -3,13 +3,19 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetPacksRequest struct {
-	// Comma-separated list of additional properties to include in the response. When set, the response includes a count of the specified properties in the Pack. Available values are <code>inputs</code> and <code>outputs</code>.
+	// Comma-separated list of additional properties to include in the response. When set, the response includes a count of each specified property in each Pack. Supported values: <code>inputs</code>, <code>outputs</code>, <code>collectors</code>.
 	With *string `queryParam:"style=form,explode=true,name=with"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (g *GetPacksRequest) GetWith() *string {
@@ -19,21 +25,116 @@ func (g *GetPacksRequest) GetWith() *string {
 	return g.With
 }
 
+func (g *GetPacksRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetPacksRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
+type GetPacksResponseBodyType string
+
+const (
+	GetPacksResponseBodyTypeCountedPackInfo   GetPacksResponseBodyType = "CountedPackInfo"
+	GetPacksResponseBodyTypePaginatedPackInfo GetPacksResponseBodyType = "PaginatedPackInfo"
+)
+
+// GetPacksResponseBody - List of Pack objects.
+type GetPacksResponseBody struct {
+	CountedPackInfo   *components.CountedPackInfo   `queryParam:"inline" union:"member"`
+	PaginatedPackInfo *components.PaginatedPackInfo `queryParam:"inline" union:"member"`
+
+	Type GetPacksResponseBodyType
+}
+
+func CreateGetPacksResponseBodyCountedPackInfo(countedPackInfo components.CountedPackInfo) GetPacksResponseBody {
+	typ := GetPacksResponseBodyTypeCountedPackInfo
+
+	return GetPacksResponseBody{
+		CountedPackInfo: &countedPackInfo,
+		Type:            typ,
+	}
+}
+
+func CreateGetPacksResponseBodyPaginatedPackInfo(paginatedPackInfo components.PaginatedPackInfo) GetPacksResponseBody {
+	typ := GetPacksResponseBodyTypePaginatedPackInfo
+
+	return GetPacksResponseBody{
+		PaginatedPackInfo: &paginatedPackInfo,
+		Type:              typ,
+	}
+}
+
+func (u *GetPacksResponseBody) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var countedPackInfo components.CountedPackInfo = components.CountedPackInfo{}
+	if err := utils.UnmarshalJSON(data, &countedPackInfo, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetPacksResponseBodyTypeCountedPackInfo,
+			Value: &countedPackInfo,
+		})
+	}
+
+	var paginatedPackInfo components.PaginatedPackInfo = components.PaginatedPackInfo{}
+	if err := utils.UnmarshalJSON(data, &paginatedPackInfo, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetPacksResponseBodyTypePaginatedPackInfo,
+			Value: &paginatedPackInfo,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetPacksResponseBody", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetPacksResponseBody", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(GetPacksResponseBodyType)
+	switch best.Type {
+	case GetPacksResponseBodyTypeCountedPackInfo:
+		u.CountedPackInfo = best.Value.(*components.CountedPackInfo)
+		return nil
+	case GetPacksResponseBodyTypePaginatedPackInfo:
+		u.PaginatedPackInfo = best.Value.(*components.PaginatedPackInfo)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetPacksResponseBody", string(data))
+}
+
+func (u GetPacksResponseBody) MarshalJSON() ([]byte, error) {
+	if u.CountedPackInfo != nil {
+		return utils.MarshalJSON(u.CountedPackInfo, "", true)
+	}
+
+	if u.PaginatedPackInfo != nil {
+		return utils.MarshalJSON(u.PaginatedPackInfo, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type GetPacksResponseBody: all fields are null")
+}
+
 type GetPacksResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of PackInfo objects.
-	CountedPackInfo *components.CountedPackInfo
-}
+	// List of Pack objects.
+	OneOf *GetPacksResponseBody
 
-func (g GetPacksResponse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(g, "", false)
-}
-
-func (g *GetPacksResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	Next func() (*GetPacksResponse, error)
 }
 
 func (g *GetPacksResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -43,9 +144,9 @@ func (g *GetPacksResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetPacksResponse) GetCountedPackInfo() *components.CountedPackInfo {
+func (g *GetPacksResponse) GetOneOf() *GetPacksResponseBody {
 	if g == nil {
 		return nil
 	}
-	return g.CountedPackInfo
+	return g.OneOf
 }

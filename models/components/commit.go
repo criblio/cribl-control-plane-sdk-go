@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type Commit struct {
 	// Email address of the commit author.
 	AuthorEmail *string `json:"author_email,omitzero"`
@@ -15,6 +19,17 @@ type Commit struct {
 	Message string `json:"message"`
 	// Abbreviated commit hash.
 	Short string `json:"short"`
+}
+
+func (c Commit) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *Commit) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *Commit) GetAuthorEmail() *string {

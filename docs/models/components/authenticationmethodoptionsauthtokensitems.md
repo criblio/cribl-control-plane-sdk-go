@@ -18,7 +18,7 @@ custom := components.AuthenticationMethodOptionsAuthTokensItems("custom_value")
 
 ## Values
 
-| Name                                               | Value                                              |
-| -------------------------------------------------- | -------------------------------------------------- |
-| `AuthenticationMethodOptionsAuthTokensItemsManual` | manual                                             |
-| `AuthenticationMethodOptionsAuthTokensItemsSecret` | secret                                             |
+| Name                                                    | Value                                                   |
+| ------------------------------------------------------- | ------------------------------------------------------- |
+| `AuthenticationMethodOptionsAuthTokensItemsManual`      | manual                                                  |
+| `AuthenticationMethodOptionsAuthTokensItemsSecretValue` | secret                                                  |

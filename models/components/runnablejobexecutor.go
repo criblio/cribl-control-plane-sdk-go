@@ -73,7 +73,7 @@ type RunnableJobExecutor struct {
 	Environment *string `json:"environment,omitzero"`
 	// Configuration for a scheduled job
 	Schedule *ScheduleTypeRunnableJobCollection `json:"schedule,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string                        `json:"streamtags,omitzero"`
 	Executor   ExecutorTypeRunnableJobExecutor `json:"executor"`
 	Run        RunnableJobExecutorRun          `json:"run"`

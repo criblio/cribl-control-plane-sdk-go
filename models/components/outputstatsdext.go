@@ -55,7 +55,7 @@ type OutputStatsdExt struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Protocol to use when communicating with the destination.
 	Protocol DestinationProtocolOptions `json:"protocol"`
@@ -69,7 +69,8 @@ type OutputStatsdExt struct {
 	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
 	// How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every batch sent will incur a DNS lookup.
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
-	Description         *string  `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
 	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
@@ -98,7 +99,7 @@ type OutputStatsdExt struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                    `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputStatsdExtPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

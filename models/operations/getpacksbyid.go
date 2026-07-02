@@ -8,7 +8,7 @@ import (
 )
 
 type GetPacksByIDRequest struct {
-	// The <code>id</code> of the Pack to get.
+	// The <code>id</code> of the Pack to get. Use the <code>id</code> field from the list response.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
@@ -21,7 +21,7 @@ func (g *GetPacksByIDRequest) GetID() string {
 
 type GetPacksByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of PackInfo objects.
+	// The requested Pack object in a single-item list.
 	CountedPackInfo *components.CountedPackInfo
 }
 

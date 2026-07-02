@@ -3,6 +3,8 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
@@ -38,6 +40,8 @@ type GetCriblLakeDatasetByLakeIDRequest struct {
 	Format *GetCriblLakeDatasetByLakeIDFormat `queryParam:"style=form,explode=true,name=format"`
 	// Exclude DDSS format datasets from the response.
 	ExcludeDDSS *bool `queryParam:"style=form,explode=true,name=excludeDDSS"`
+	// Exclude Netskope format datasets from the response.
+	ExcludeNetskope *bool `queryParam:"style=form,explode=true,name=excludeNetskope"`
 	// Exclude deleted datasets from the response.
 	ExcludeDeleted *bool `queryParam:"style=form,explode=true,name=excludeDeleted"`
 	// Exclude internal datasets (those with IDs starting with <code>cribl_</code>) from the response.
@@ -46,6 +50,10 @@ type GetCriblLakeDatasetByLakeIDRequest struct {
 	ExcludeBYOS *bool `queryParam:"style=form,explode=true,name=excludeBYOS"`
 	// Set to <code>true</code> to include storage metrics for each Lake Dataset. Otherwise, <code>false</code> (default). Requires a Cribl Lake metrics license.
 	IncludeMetrics *bool `queryParam:"style=form,explode=true,name=includeMetrics"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (g *GetCriblLakeDatasetByLakeIDRequest) GetLakeID() string {
@@ -76,6 +84,13 @@ func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeDDSS() *bool {
 	return g.ExcludeDDSS
 }
 
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeNetskope() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.ExcludeNetskope
+}
+
 func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeDeleted() *bool {
 	if g == nil {
 		return nil
@@ -104,21 +119,116 @@ func (g *GetCriblLakeDatasetByLakeIDRequest) GetIncludeMetrics() *bool {
 	return g.IncludeMetrics
 }
 
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
+type GetCriblLakeDatasetByLakeIDResponseBodyType string
+
+const (
+	GetCriblLakeDatasetByLakeIDResponseBodyTypeCountedCriblLakeDataset   GetCriblLakeDatasetByLakeIDResponseBodyType = "CountedCriblLakeDataset"
+	GetCriblLakeDatasetByLakeIDResponseBodyTypePaginatedCriblLakeDataset GetCriblLakeDatasetByLakeIDResponseBodyType = "PaginatedCriblLakeDataset"
+)
+
+// GetCriblLakeDatasetByLakeIDResponseBody - List of CriblLakeDataset objects.
+type GetCriblLakeDatasetByLakeIDResponseBody struct {
+	CountedCriblLakeDataset   *components.CountedCriblLakeDataset   `queryParam:"inline" union:"member"`
+	PaginatedCriblLakeDataset *components.PaginatedCriblLakeDataset `queryParam:"inline" union:"member"`
+
+	Type GetCriblLakeDatasetByLakeIDResponseBodyType
+}
+
+func CreateGetCriblLakeDatasetByLakeIDResponseBodyCountedCriblLakeDataset(countedCriblLakeDataset components.CountedCriblLakeDataset) GetCriblLakeDatasetByLakeIDResponseBody {
+	typ := GetCriblLakeDatasetByLakeIDResponseBodyTypeCountedCriblLakeDataset
+
+	return GetCriblLakeDatasetByLakeIDResponseBody{
+		CountedCriblLakeDataset: &countedCriblLakeDataset,
+		Type:                    typ,
+	}
+}
+
+func CreateGetCriblLakeDatasetByLakeIDResponseBodyPaginatedCriblLakeDataset(paginatedCriblLakeDataset components.PaginatedCriblLakeDataset) GetCriblLakeDatasetByLakeIDResponseBody {
+	typ := GetCriblLakeDatasetByLakeIDResponseBodyTypePaginatedCriblLakeDataset
+
+	return GetCriblLakeDatasetByLakeIDResponseBody{
+		PaginatedCriblLakeDataset: &paginatedCriblLakeDataset,
+		Type:                      typ,
+	}
+}
+
+func (u *GetCriblLakeDatasetByLakeIDResponseBody) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var countedCriblLakeDataset components.CountedCriblLakeDataset = components.CountedCriblLakeDataset{}
+	if err := utils.UnmarshalJSON(data, &countedCriblLakeDataset, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetCriblLakeDatasetByLakeIDResponseBodyTypeCountedCriblLakeDataset,
+			Value: &countedCriblLakeDataset,
+		})
+	}
+
+	var paginatedCriblLakeDataset components.PaginatedCriblLakeDataset = components.PaginatedCriblLakeDataset{}
+	if err := utils.UnmarshalJSON(data, &paginatedCriblLakeDataset, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetCriblLakeDatasetByLakeIDResponseBodyTypePaginatedCriblLakeDataset,
+			Value: &paginatedCriblLakeDataset,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetCriblLakeDatasetByLakeIDResponseBody", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetCriblLakeDatasetByLakeIDResponseBody", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(GetCriblLakeDatasetByLakeIDResponseBodyType)
+	switch best.Type {
+	case GetCriblLakeDatasetByLakeIDResponseBodyTypeCountedCriblLakeDataset:
+		u.CountedCriblLakeDataset = best.Value.(*components.CountedCriblLakeDataset)
+		return nil
+	case GetCriblLakeDatasetByLakeIDResponseBodyTypePaginatedCriblLakeDataset:
+		u.PaginatedCriblLakeDataset = best.Value.(*components.PaginatedCriblLakeDataset)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetCriblLakeDatasetByLakeIDResponseBody", string(data))
+}
+
+func (u GetCriblLakeDatasetByLakeIDResponseBody) MarshalJSON() ([]byte, error) {
+	if u.CountedCriblLakeDataset != nil {
+		return utils.MarshalJSON(u.CountedCriblLakeDataset, "", true)
+	}
+
+	if u.PaginatedCriblLakeDataset != nil {
+		return utils.MarshalJSON(u.PaginatedCriblLakeDataset, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type GetCriblLakeDatasetByLakeIDResponseBody: all fields are null")
+}
+
 type GetCriblLakeDatasetByLakeIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// List of CriblLakeDataset objects.
-	CountedCriblLakeDataset *components.CountedCriblLakeDataset
-}
+	OneOf *GetCriblLakeDatasetByLakeIDResponseBody
 
-func (g GetCriblLakeDatasetByLakeIDResponse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(g, "", false)
-}
-
-func (g *GetCriblLakeDatasetByLakeIDResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
-		return err
-	}
-	return nil
+	Next func() (*GetCriblLakeDatasetByLakeIDResponse, error)
 }
 
 func (g *GetCriblLakeDatasetByLakeIDResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -128,9 +238,9 @@ func (g *GetCriblLakeDatasetByLakeIDResponse) GetHTTPMeta() components.HTTPMetad
 	return g.HTTPMeta
 }
 
-func (g *GetCriblLakeDatasetByLakeIDResponse) GetCountedCriblLakeDataset() *components.CountedCriblLakeDataset {
+func (g *GetCriblLakeDatasetByLakeIDResponse) GetOneOf() *GetCriblLakeDatasetByLakeIDResponseBody {
 	if g == nil {
 		return nil
 	}
-	return g.CountedCriblLakeDataset
+	return g.OneOf
 }

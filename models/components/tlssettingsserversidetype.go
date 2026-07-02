@@ -7,6 +7,7 @@ import (
 )
 
 type TLSSettingsServerSideType struct {
+	// If true, TLS is disabled on this connection.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
 	RequestCert *bool `json:"requestCert,omitzero"`

@@ -2,9 +2,26 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type OwnerTypeHeartbeatMetadataKube struct {
+	// Kubernetes owner resource kind.
 	Kind string `json:"kind"`
+	// Kubernetes owner resource name.
 	Name string `json:"name"`
+}
+
+func (o OwnerTypeHeartbeatMetadataKube) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OwnerTypeHeartbeatMetadataKube) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *OwnerTypeHeartbeatMetadataKube) GetKind() string {

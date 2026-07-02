@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionDynamicSamplingID - Function ID
+// PipelineFunctionDynamicSamplingID - Identifier of the Function. Always <code>dynamic_sampling</code>
 type PipelineFunctionDynamicSamplingID string
 
 const (
@@ -57,6 +57,7 @@ func (e *SampleMode) IsExact() bool {
 	return false
 }
 
+// PipelineFunctionDynamicSamplingConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionDynamicSamplingConf struct {
 	// Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
 	Mode SampleMode `json:"mode"`
@@ -117,18 +118,19 @@ func (p *PipelineFunctionDynamicSamplingConf) GetMaxSampleRate() *float64 {
 }
 
 type PipelineFunctionDynamicSampling struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>dynamic_sampling</code>
 	ID PipelineFunctionDynamicSamplingID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                               `json:"final,omitzero"`
-	Conf  PipelineFunctionDynamicSamplingConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionDynamicSamplingConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

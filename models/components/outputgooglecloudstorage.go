@@ -67,7 +67,7 @@ type OutputGoogleCloudStorage struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
 	Bucket string `json:"bucket"`
@@ -124,7 +124,8 @@ type OutputGoogleCloudStorage struct {
 	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
 	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
 	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
-	Description          *string                 `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination

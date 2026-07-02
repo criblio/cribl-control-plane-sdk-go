@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 // InputStatus - Status of the Source, aggregated across all Worker Processes.
 type InputStatus struct {
 	// Unique identifier of the Source or Destination.
@@ -9,6 +13,17 @@ type InputStatus struct {
 	Status AggregatedInputOutputStatusBody `json:"status"`
 	// Type of the Source or Destination.
 	Type *string `json:"type,omitzero"`
+}
+
+func (i InputStatus) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputStatus) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (i *InputStatus) GetID() string {

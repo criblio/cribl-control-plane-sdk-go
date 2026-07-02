@@ -2,11 +2,30 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type HostOsTypeHeartbeatMetadata struct {
+	// Network addresses reported by the host operating system.
 	Addresses []string `json:"addresses"`
-	Enabled   bool     `json:"enabled"`
-	ID        string   `json:"id"`
-	Version   string   `json:"version"`
+	// If <code>true</code>, the host operating system metadata collector is enabled on the node. Otherwise, <code>false</code>.
+	Enabled bool `json:"enabled"`
+	// Host operating system distribution name.
+	ID string `json:"id"`
+	// Host operating system version.
+	Version string `json:"version"`
+}
+
+func (h HostOsTypeHeartbeatMetadata) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(h, "", false)
+}
+
+func (h *HostOsTypeHeartbeatMetadata) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (h *HostOsTypeHeartbeatMetadata) GetAddresses() []string {

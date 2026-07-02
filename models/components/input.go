@@ -77,6 +77,8 @@ const (
 	InputTypeServicenowTable      InputType = "servicenow_table"
 	InputTypeZscalerHec           InputType = "zscaler_hec"
 	InputTypeCloudflareHec        InputType = "cloudflare_hec"
+	InputTypeSysdigHec            InputType = "sysdig_hec"
+	InputTypeUpwindHec            InputType = "upwind_hec"
 	InputTypeOpenaiComplianceLogs InputType = "openai_compliance_logs"
 	InputTypeAnthropicCompliance  InputType = "anthropic_compliance"
 	InputTypeOkta                 InputType = "okta"
@@ -148,6 +150,8 @@ type Input struct {
 	InputServicenowTableInput      *InputServicenowTableInput      `queryParam:"inline" union:"member"`
 	InputZscalerHecInput           *InputZscalerHecInput           `queryParam:"inline" union:"member"`
 	InputCloudflareHecInput        *InputCloudflareHecInput        `queryParam:"inline" union:"member"`
+	InputSysdigHecInput            *InputSysdigHecInput            `queryParam:"inline" union:"member"`
+	InputUpwindHecInput            *InputUpwindHecInput            `queryParam:"inline" union:"member"`
 	InputOpenaiComplianceLogsInput *InputOpenaiComplianceLogsInput `queryParam:"inline" union:"member"`
 	InputAnthropicComplianceInput  *InputAnthropicComplianceInput  `queryParam:"inline" union:"member"`
 	InputOktaInput                 *InputOktaInput                 `queryParam:"inline" union:"member"`
@@ -929,6 +933,30 @@ func CreateInputCloudflareHec(cloudflareHec InputCloudflareHecInput) Input {
 	}
 }
 
+func CreateInputSysdigHec(sysdigHec InputSysdigHecInput) Input {
+	typ := InputTypeSysdigHec
+
+	typStr := InputSysdigHecType(typ)
+	sysdigHec.Type = typStr
+
+	return Input{
+		InputSysdigHecInput: &sysdigHec,
+		Type:                typ,
+	}
+}
+
+func CreateInputUpwindHec(upwindHec InputUpwindHecInput) Input {
+	typ := InputTypeUpwindHec
+
+	typStr := InputUpwindHecType(typ)
+	upwindHec.Type = typStr
+
+	return Input{
+		InputUpwindHecInput: &upwindHec,
+		Type:                typ,
+	}
+}
+
 func CreateInputOpenaiComplianceLogs(openaiComplianceLogs InputOpenaiComplianceLogsInput) Input {
 	typ := InputTypeOpenaiComplianceLogs
 
@@ -1562,6 +1590,24 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		u.InputCloudflareHecInput = inputCloudflareHecInput
 		u.Type = InputTypeCloudflareHec
 		return nil
+	case "sysdig_hec":
+		inputSysdigHecInput := new(InputSysdigHecInput)
+		if err := utils.UnmarshalJSON(data, &inputSysdigHecInput, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == sysdig_hec) type InputSysdigHecInput within Input: %w", string(data), err)
+		}
+
+		u.InputSysdigHecInput = inputSysdigHecInput
+		u.Type = InputTypeSysdigHec
+		return nil
+	case "upwind_hec":
+		inputUpwindHecInput := new(InputUpwindHecInput)
+		if err := utils.UnmarshalJSON(data, &inputUpwindHecInput, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == upwind_hec) type InputUpwindHecInput within Input: %w", string(data), err)
+		}
+
+		u.InputUpwindHecInput = inputUpwindHecInput
+		u.Type = InputTypeUpwindHec
+		return nil
 	case "openai_compliance_logs":
 		inputOpenaiComplianceLogsInput := new(InputOpenaiComplianceLogsInput)
 		if err := utils.UnmarshalJSON(data, &inputOpenaiComplianceLogsInput, "", true, nil); err != nil {
@@ -1853,6 +1899,14 @@ func (u Input) MarshalJSON() ([]byte, error) {
 
 	if u.InputCloudflareHecInput != nil {
 		return utils.MarshalJSON(u.InputCloudflareHecInput, "", true)
+	}
+
+	if u.InputSysdigHecInput != nil {
+		return utils.MarshalJSON(u.InputSysdigHecInput, "", true)
+	}
+
+	if u.InputUpwindHecInput != nil {
+		return utils.MarshalJSON(u.InputUpwindHecInput, "", true)
 	}
 
 	if u.InputOpenaiComplianceLogsInput != nil {

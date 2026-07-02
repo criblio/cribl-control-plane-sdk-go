@@ -7,23 +7,38 @@ import (
 )
 
 type PackInfo struct {
-	Author       *string           `json:"author,omitzero"`
-	Collectors   *float64          `json:"collectors,omitzero"`
+	// Name or identifier of the Pack author.
+	Author *string `json:"author,omitzero"`
+	// Number of Collectors (saved jobs) configured within the Pack.
+	Collectors *float64 `json:"collectors,omitzero"`
+	// Map of Pack dependency identifiers to their version constraints.
 	Dependencies map[string]string `json:"dependencies,omitzero"`
-	Description  *string           `json:"description,omitzero"`
-	DisplayName  *string           `json:"displayName,omitzero"`
-	Exports      []string          `json:"exports,omitzero"`
+	// Brief description of the Pack and its purpose.
+	Description *string `json:"description,omitzero"`
+	// Human-readable display name for the Pack.
+	DisplayName *string `json:"displayName,omitzero"`
+	// List of entity IDs exported by this Pack and available for use outside the Pack context.
+	Exports []string `json:"exports,omitzero"`
 	// Unique identifier.
-	ID                  string                   `json:"id"`
-	Inputs              *float64                 `json:"inputs,omitzero"`
-	IsDisabled          *bool                    `json:"isDisabled,omitzero"`
-	MinLogStreamVersion *string                  `json:"minLogStreamVersion,omitzero"`
-	Outputs             *float64                 `json:"outputs,omitzero"`
-	Settings            map[string]any           `json:"settings,omitzero"`
-	Source              string                   `json:"source"`
-	Spec                *string                  `json:"spec,omitzero"`
-	Tags                *TagsTypePackInstallInfo `json:"tags,omitzero"`
-	Version             *string                  `json:"version,omitzero"`
+	ID string `json:"id"`
+	// Number of Sources configured within the Pack.
+	Inputs *float64 `json:"inputs,omitzero"`
+	// If <code>true</code>, the Pack is disabled. Otherwise, <code>false</code>.
+	IsDisabled *bool `json:"isDisabled,omitzero"`
+	// Minimum version of Cribl Stream required to run this Pack.
+	MinLogStreamVersion *string `json:"minLogStreamVersion,omitzero"`
+	// Number of Destinations configured within the Pack.
+	Outputs *float64 `json:"outputs,omitzero"`
+	// Pack-specific settings object. Contents vary by Pack.
+	Settings map[string]any `json:"settings,omitzero"`
+	// Source of the Pack — a file path, URL, or Git URL from which the Pack was installed.
+	Source string `json:"source"`
+	// Semver range constraint that was applied when the Pack was installed.
+	Spec *string `json:"spec,omitzero"`
+	// Categorization tags for the Pack.
+	Tags *TagsTypePackInstallInfo `json:"tags,omitzero"`
+	// Version of the Pack, following semantic versioning.
+	Version *string `json:"version,omitzero"`
 }
 
 func (p PackInfo) MarshalJSON() ([]byte, error) {

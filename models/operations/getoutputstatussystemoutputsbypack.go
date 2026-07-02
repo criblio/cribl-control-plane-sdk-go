@@ -3,6 +3,8 @@
 package operations
 
 import (
+	"errors"
+	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
@@ -55,23 +57,102 @@ func (g *GetOutputStatusSystemOutputsByPackRequest) GetPack() string {
 	return g.Pack
 }
 
+type GetOutputStatusSystemOutputsByPackResponseBodyType string
+
+const (
+	GetOutputStatusSystemOutputsByPackResponseBodyTypeCountedOutputStatus   GetOutputStatusSystemOutputsByPackResponseBodyType = "CountedOutputStatus"
+	GetOutputStatusSystemOutputsByPackResponseBodyTypePaginatedOutputStatus GetOutputStatusSystemOutputsByPackResponseBodyType = "PaginatedOutputStatus"
+)
+
+// GetOutputStatusSystemOutputsByPackResponseBody - List of Destination status objects.
+type GetOutputStatusSystemOutputsByPackResponseBody struct {
+	CountedOutputStatus   *components.CountedOutputStatus   `queryParam:"inline" union:"member"`
+	PaginatedOutputStatus *components.PaginatedOutputStatus `queryParam:"inline" union:"member"`
+
+	Type GetOutputStatusSystemOutputsByPackResponseBodyType
+}
+
+func CreateGetOutputStatusSystemOutputsByPackResponseBodyCountedOutputStatus(countedOutputStatus components.CountedOutputStatus) GetOutputStatusSystemOutputsByPackResponseBody {
+	typ := GetOutputStatusSystemOutputsByPackResponseBodyTypeCountedOutputStatus
+
+	return GetOutputStatusSystemOutputsByPackResponseBody{
+		CountedOutputStatus: &countedOutputStatus,
+		Type:                typ,
+	}
+}
+
+func CreateGetOutputStatusSystemOutputsByPackResponseBodyPaginatedOutputStatus(paginatedOutputStatus components.PaginatedOutputStatus) GetOutputStatusSystemOutputsByPackResponseBody {
+	typ := GetOutputStatusSystemOutputsByPackResponseBodyTypePaginatedOutputStatus
+
+	return GetOutputStatusSystemOutputsByPackResponseBody{
+		PaginatedOutputStatus: &paginatedOutputStatus,
+		Type:                  typ,
+	}
+}
+
+func (u *GetOutputStatusSystemOutputsByPackResponseBody) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var countedOutputStatus components.CountedOutputStatus = components.CountedOutputStatus{}
+	if err := utils.UnmarshalJSON(data, &countedOutputStatus, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetOutputStatusSystemOutputsByPackResponseBodyTypeCountedOutputStatus,
+			Value: &countedOutputStatus,
+		})
+	}
+
+	var paginatedOutputStatus components.PaginatedOutputStatus = components.PaginatedOutputStatus{}
+	if err := utils.UnmarshalJSON(data, &paginatedOutputStatus, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  GetOutputStatusSystemOutputsByPackResponseBodyTypePaginatedOutputStatus,
+			Value: &paginatedOutputStatus,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetOutputStatusSystemOutputsByPackResponseBody", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestUnionCandidate(candidates, data)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetOutputStatusSystemOutputsByPackResponseBody", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(GetOutputStatusSystemOutputsByPackResponseBodyType)
+	switch best.Type {
+	case GetOutputStatusSystemOutputsByPackResponseBodyTypeCountedOutputStatus:
+		u.CountedOutputStatus = best.Value.(*components.CountedOutputStatus)
+		return nil
+	case GetOutputStatusSystemOutputsByPackResponseBodyTypePaginatedOutputStatus:
+		u.PaginatedOutputStatus = best.Value.(*components.PaginatedOutputStatus)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for GetOutputStatusSystemOutputsByPackResponseBody", string(data))
+}
+
+func (u GetOutputStatusSystemOutputsByPackResponseBody) MarshalJSON() ([]byte, error) {
+	if u.CountedOutputStatus != nil {
+		return utils.MarshalJSON(u.CountedOutputStatus, "", true)
+	}
+
+	if u.PaginatedOutputStatus != nil {
+		return utils.MarshalJSON(u.PaginatedOutputStatus, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type GetOutputStatusSystemOutputsByPackResponseBody: all fields are null")
+}
+
 type GetOutputStatusSystemOutputsByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination status objects
-	CountedOutputStatus *components.CountedOutputStatus
+	// List of Destination status objects.
+	OneOf *GetOutputStatusSystemOutputsByPackResponseBody
 
 	Next func() (*GetOutputStatusSystemOutputsByPackResponse, error)
-}
-
-func (g GetOutputStatusSystemOutputsByPackResponse) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(g, "", false)
-}
-
-func (g *GetOutputStatusSystemOutputsByPackResponse) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
-		return err
-	}
-	return nil
 }
 
 func (g *GetOutputStatusSystemOutputsByPackResponse) GetHTTPMeta() components.HTTPMetadata {
@@ -81,9 +162,9 @@ func (g *GetOutputStatusSystemOutputsByPackResponse) GetHTTPMeta() components.HT
 	return g.HTTPMeta
 }
 
-func (g *GetOutputStatusSystemOutputsByPackResponse) GetCountedOutputStatus() *components.CountedOutputStatus {
+func (g *GetOutputStatusSystemOutputsByPackResponse) GetOneOf() *GetOutputStatusSystemOutputsByPackResponseBody {
 	if g == nil {
 		return nil
 	}
-	return g.CountedOutputStatus
+	return g.OneOf
 }

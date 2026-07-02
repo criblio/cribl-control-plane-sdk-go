@@ -263,8 +263,8 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [DatabaseConnections](docs/sdks/databaseconnections/README.md)
 
-* [List](docs/sdks/databaseconnections/README.md#list) - List Database Connections
-* [Create](docs/sdks/databaseconnections/README.md#create) - Create Database Connection
+* [List](docs/sdks/databaseconnections/README.md#list) - List all Database Connections
+* [Create](docs/sdks/databaseconnections/README.md#create) - Create a Database Connection
 * [Get](docs/sdks/databaseconnections/README.md#get) - Get a Database Connection
 * [Update](docs/sdks/databaseconnections/README.md#update) - Update a Database Connection
 * [Delete](docs/sdks/databaseconnections/README.md#delete) - Delete a Database Connection
@@ -339,7 +339,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 
-* [Get](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a specific product.
+* [Get](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a Cribl product
 
 ### [Packs](docs/sdks/packs/README.md)
 
@@ -385,7 +385,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [List](docs/sdks/packsroutes/README.md#list) - List all Routes within a Pack
 * [Get](docs/sdks/packsroutes/README.md#get) - Get a Routing table within a Pack
-* [Update](docs/sdks/packsroutes/README.md#update) - Update a Route within a Pack
+* [Update](docs/sdks/packsroutes/README.md#update) - Update a Routing table within a Pack
 * [Append](docs/sdks/packsroutes/README.md#append) - Add a Route to the end of the Routing table within a Pack
 
 #### [Packs.Sources](docs/sdks/packssources/README.md)
@@ -423,7 +423,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [List](docs/sdks/routes/README.md#list) - List all Routes
 * [Get](docs/sdks/routes/README.md#get) - Get a Routing table
-* [Update](docs/sdks/routes/README.md#update) - Update a Route
+* [Update](docs/sdks/routes/README.md#update) - Update a Routing table
 * [Append](docs/sdks/routes/README.md#append) - Add a Route to the end of the Routing table
 
 ### [Sources](docs/sdks/sources/README.md)
@@ -763,7 +763,6 @@ import (
 	"context"
 	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"log"
 	"os"
 )
@@ -778,15 +777,11 @@ func main() {
 		}),
 	)
 
-	res, err := s.Packs.Sources.Statuses.List(ctx, operations.GetInputStatusSystemInputsByPackRequest{
-		Metrics: criblcontrolplanesdkgo.Pointer(true),
-		Type:    criblcontrolplanesdkgo.Pointer(false),
-		Pack:    "<value>",
-	})
+	res, err := s.Functions.List(ctx, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.CountedInputStatus != nil {
+	if res.OneOf != nil {
 		for {
 			// handle items
 

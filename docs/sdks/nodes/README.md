@@ -15,7 +15,7 @@ Get a count of all Worker, Edge, or Outpost Nodes for the specified Cribl produc
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getProductsSummaryWorkersByProduct" method="get" path="/products/{product}/summary/workers" -->
+<!-- UsageSnippet language="go" operationID="getProductsSummaryWorkersByProduct" method="get" path="/products/{product}/summary/workers" example="ProductWorkersCountResponseExamplesCountedWorkerNodes" -->
 ```go
 package main
 
@@ -37,7 +37,7 @@ func main() {
         }),
     )
 
-    res, err := s.Nodes.Count(ctx, components.ProductsCoreEdge, criblcontrolplanesdkgo.Pointer("<value>"))
+    res, err := s.Nodes.Count(ctx, components.ProductsCoreOutpost, criblcontrolplanesdkgo.Pointer("group==\"default\""))
     if err != nil {
         log.Fatal(err)
     }
@@ -49,12 +49,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
-| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `ctx`                                                                             | [context.Context](https://pkg.go.dev/context#Context)                             | :heavy_check_mark:                                                                | The context to use for the request.                                               |
-| `product`                                                                         | [components.ProductsCore](../../models/components/productscore.md)                | :heavy_check_mark:                                                                | Name of the Cribl product to get the count of Worker, Edge, or Outpost Nodes for. |
-| `filterExp`                                                                       | `*string`                                                                         | :heavy_minus_sign:                                                                | Filter expression to evaluate against Nodes for inclusion in the response.        |
-| `opts`                                                                            | [][operations.Option](../../models/operations/option.md)                          | :heavy_minus_sign:                                                                | The options for this request.                                                     |
+| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       | Example                                                                           |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `ctx`                                                                             | [context.Context](https://pkg.go.dev/context#Context)                             | :heavy_check_mark:                                                                | The context to use for the request.                                               |                                                                                   |
+| `product`                                                                         | [components.ProductsCore](../../models/components/productscore.md)                | :heavy_check_mark:                                                                | Name of the Cribl product to get the count of Worker, Edge, or Outpost Nodes for. |                                                                                   |
+| `filterExp`                                                                       | `*string`                                                                         | :heavy_minus_sign:                                                                | Filter expression to evaluate against Nodes for inclusion in the response.        | group=="default"                                                                  |
+| `opts`                                                                            | [][operations.Option](../../models/operations/option.md)                          | :heavy_minus_sign:                                                                | The options for this request.                                                     |                                                                                   |
 
 ### Response
 
@@ -64,6 +64,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -73,7 +74,7 @@ Get detailed metadata for Worker, Edge, or Outpost Nodes for the specified Cribl
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getProductsWorkersByProduct" method="get" path="/products/{product}/workers" -->
+<!-- UsageSnippet language="go" operationID="getProductsWorkersByProduct" method="get" path="/products/{product}/workers" example="WorkersListResponseExamplesWorkerNode" -->
 ```go
 package main
 
@@ -98,17 +99,13 @@ func main() {
 
     res, err := s.Nodes.List(ctx, operations.GetProductsWorkersByProductRequest{
         Product: components.ProductsCoreStream,
-        FilterExp: criblcontrolplanesdkgo.Pointer("<value>"),
-        SortExp: criblcontrolplanesdkgo.Pointer("<value>"),
-        Filter: criblcontrolplanesdkgo.Pointer("<value>"),
-        Sort: criblcontrolplanesdkgo.Pointer("<value>"),
-        Limit: criblcontrolplanesdkgo.Pointer[int64](881129),
-        Offset: criblcontrolplanesdkgo.Pointer[int64](990978),
+        FilterExp: criblcontrolplanesdkgo.Pointer("group==\"default\""),
+        Filter: criblcontrolplanesdkgo.Pointer("%7B%22field%22%3A%22group%22%2C%22op%22%3A%22is%22%2C%22value%22%3A%22default%22%7D"),
     })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedMasterWorkerEntry != nil {
+    if res.OneOf != nil {
         for {
             // handle items
 
@@ -142,6 +139,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -200,6 +198,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -264,5 +263,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

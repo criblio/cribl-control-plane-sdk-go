@@ -106,12 +106,8 @@ type OutputSentinelOneAiSiem struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
-	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
-	Region OutputSentinelOneAiSiemRegion `json:"region"`
-	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
-	Endpoint OutputSentinelOneAISIEMAISIEMEndpointPath `json:"endpoint"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -141,9 +137,14 @@ type OutputSentinelOneAiSiem struct {
 	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+	Region OutputSentinelOneAiSiemRegion `json:"region"`
+	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+	Endpoint OutputSentinelOneAISIEMAISIEMEndpointPath `json:"endpoint"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	Description    *string                      `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// In the SentinelOne Console select Policy & Settings then select the Singularity AI SIEM section, API Keys will be at the bottom. Under Log Access Keys select a Write token and copy it here
 	Token *string `json:"token,omitzero"`
 	// Select or create a stored text secret
@@ -198,7 +199,7 @@ type OutputSentinelOneAiSiem struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                            `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputSentinelOneAiSiemPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -260,20 +261,6 @@ func (o *OutputSentinelOneAiSiem) GetStreamtags() []string {
 		return nil
 	}
 	return o.Streamtags
-}
-
-func (o *OutputSentinelOneAiSiem) GetRegion() OutputSentinelOneAiSiemRegion {
-	if o == nil {
-		return OutputSentinelOneAiSiemRegion("")
-	}
-	return o.Region
-}
-
-func (o *OutputSentinelOneAiSiem) GetEndpoint() OutputSentinelOneAISIEMAISIEMEndpointPath {
-	if o == nil {
-		return OutputSentinelOneAISIEMAISIEMEndpointPath("")
-	}
-	return o.Endpoint
 }
 
 func (o *OutputSentinelOneAiSiem) GetConcurrency() *float64 {
@@ -372,6 +359,20 @@ func (o *OutputSentinelOneAiSiem) GetResponseHonorRetryAfterHeader() *bool {
 		return nil
 	}
 	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelOneAiSiem) GetRegion() OutputSentinelOneAiSiemRegion {
+	if o == nil {
+		return OutputSentinelOneAiSiemRegion("")
+	}
+	return o.Region
+}
+
+func (o *OutputSentinelOneAiSiem) GetEndpoint() OutputSentinelOneAISIEMAISIEMEndpointPath {
+	if o == nil {
+		return OutputSentinelOneAISIEMAISIEMEndpointPath("")
+	}
+	return o.Endpoint
 }
 
 func (o *OutputSentinelOneAiSiem) GetOnBackpressure() *BackpressureBehaviorOptions {

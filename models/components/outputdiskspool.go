@@ -41,7 +41,7 @@ type OutputDiskSpool struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Time period for grouping spooled events. Default is 10m.
 	TimeWindow *string `json:"timeWindow,omitzero"`
@@ -53,7 +53,8 @@ type OutputDiskSpool struct {
 	Compress *CompressionOptionsPersistence `json:"compress,omitzero"`
 	// JavaScript expression defining how files are partitioned and organized within the time-buckets. If blank, the event's __partition property is used and otherwise, events go directly into the time-bucket directory.
 	PartitionExpr *string `json:"partitionExpr,omitzero"`
-	Description   *string `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }

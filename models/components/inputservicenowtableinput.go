@@ -124,9 +124,10 @@ func (i *InputServicenowTableManageState) UnmarshalJSON(data []byte) error {
 
 type InputServicenowTableInput struct {
 	// Unique ID for this input
-	ID       *string                  `json:"id,omitzero"`
-	Type     InputServicenowTableType `json:"type"`
-	Disabled *bool                    `json:"disabled,omitzero"`
+	ID   *string                  `json:"id,omitzero"`
+	Type InputServicenowTableType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -135,7 +136,7 @@ type InputServicenowTableInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -185,9 +186,10 @@ type InputServicenowTableInput struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	RetryRules  *RetryRulesType               `json:"retryRules,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata   []MetadataConfInputCollection `json:"metadata,omitzero"`
+	RetryRules *RetryRulesType               `json:"retryRules,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// ServiceNow OAuth grant type used for token requests

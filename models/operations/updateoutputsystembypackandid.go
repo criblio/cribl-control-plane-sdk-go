@@ -117,6 +117,10 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputAzureEventhub() *compone
 	return u.GetOutput().OutputAzureEventhub
 }
 
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputGoogleBigquery() *components.OutputGoogleBigquery {
+	return u.GetOutput().OutputGoogleBigquery
+}
+
 func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputGoogleChronicle() *components.OutputGoogleChronicle {
 	return u.GetOutput().OutputGoogleChronicle
 }
@@ -127,6 +131,10 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputGoogleCloudStorage() *co
 
 func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputGoogleCloudLogging() *components.OutputGoogleCloudLogging {
 	return u.GetOutput().OutputGoogleCloudLogging
+}
+
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputGoogleCloudObservability() *components.OutputGoogleCloudObservability {
+	return u.GetOutput().OutputGoogleCloudObservability
 }
 
 func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputGooglePubsub() *components.OutputGooglePubsub {
@@ -221,6 +229,10 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputLoki() *components.Outpu
 	return u.GetOutput().OutputLoki
 }
 
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputAmazonManagedPrometheus() *components.OutputAmazonManagedPrometheus {
+	return u.GetOutput().OutputAmazonManagedPrometheus
+}
+
 func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputPrometheus() *components.OutputPrometheus {
 	return u.GetOutput().OutputPrometheus
 }
@@ -279,6 +291,10 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputDiskSpool() *components.
 
 func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputClickHouse() *components.OutputClickHouse {
 	return u.GetOutput().OutputClickHouse
+}
+
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputCustomerMetricsStorage() *components.OutputCustomerMetricsStorage {
+	return u.GetOutput().OutputCustomerMetricsStorage
 }
 
 func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputLocalSearchStorage() *components.OutputLocalSearchStorage {
@@ -349,9 +365,13 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputAlibabaCloudS3() *compon
 	return u.GetOutput().OutputAlibabaCloudS3
 }
 
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputIbmCloudS3() *components.OutputIbmCloudS3 {
+	return u.GetOutput().OutputIbmCloudS3
+}
+
 type UpdateOutputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// the updated Destination object
+	// The updated Destination object in a single-item list.
 	CountedOutputResponse *components.CountedOutputResponse
 }
 

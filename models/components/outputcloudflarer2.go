@@ -31,31 +31,6 @@ func (e *OutputCloudflareR2Type) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputCloudflareR2AuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type OutputCloudflareR2AuthenticationMethod string
-
-const (
-	// OutputCloudflareR2AuthenticationMethodAuto Auto
-	OutputCloudflareR2AuthenticationMethodAuto OutputCloudflareR2AuthenticationMethod = "auto"
-	// OutputCloudflareR2AuthenticationMethodSecret Secret Key pair
-	OutputCloudflareR2AuthenticationMethodSecret OutputCloudflareR2AuthenticationMethod = "secret"
-)
-
-func (e OutputCloudflareR2AuthenticationMethod) ToPointer() *OutputCloudflareR2AuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCloudflareR2AuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "secret":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputCloudflareR2 struct {
 	// Unique ID for this output
 	ID   *string                `json:"id,omitzero"`
@@ -66,10 +41,10 @@ type OutputCloudflareR2 struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *OutputCloudflareR2AuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsAutoSecret `json:"awsAuthenticationMethod,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -128,7 +103,8 @@ type OutputCloudflareR2 struct {
 	StorageClass *StorageClassOptionsReducedredundancyStandard `json:"storageClass,omitzero"`
 	// Server-side encryption to use for uploaded objects
 	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptionsAes256 `json:"serverSideEncryption,omitzero"`
-	Description          *string                                              `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
@@ -246,7 +222,7 @@ func (o *OutputCloudflareR2) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputCloudflareR2) GetAwsAuthenticationMethod() *OutputCloudflareR2AuthenticationMethod {
+func (o *OutputCloudflareR2) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsAutoSecret {
 	if o == nil {
 		return nil
 	}

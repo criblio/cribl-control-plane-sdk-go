@@ -23,7 +23,7 @@ type SavedJobCollection struct {
 	Environment *string `json:"environment,omitzero"`
 	// Configuration for a scheduled job
 	Schedule *ScheduleTypeSavedJobResponseCollection `json:"schedule,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// If enabled, tasks are created and run by the same Worker Node
 	WorkerAffinity *bool `json:"workerAffinity,omitzero"`

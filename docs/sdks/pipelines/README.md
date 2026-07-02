@@ -16,9 +16,9 @@ Actions related to Pipelines
 
 Get a list of all Pipelines.
 
-### Example Usage
+### Example Usage: PipelineResponseExamplesEmptyPipeline
 
-<!-- UsageSnippet language="go" operationID="getPipelines" method="get" path="/pipelines" -->
+<!-- UsageSnippet language="go" operationID="getPipelines" method="get" path="/pipelines" example="PipelineResponseExamplesEmptyPipeline" -->
 ```go
 package main
 
@@ -40,12 +40,69 @@ func main() {
         }),
     )
 
-    res, err := s.Pipelines.List(ctx)
+    res, err := s.Pipelines.List(ctx, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedPipeline != nil {
-        // handle response
+    if res.OneOf != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="go" operationID="getPipelines" method="get" path="/pipelines" example="PipelineResponseExamplesEvalPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.List(ctx, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.OneOf != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -55,6 +112,8 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Pagination offset                                        |
+| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of items to return                        |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
@@ -65,6 +124,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -1582,7 +1642,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -1653,7 +1713,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -1715,7 +1775,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -1772,7 +1832,8 @@ func main() {
                         ID: components.PipelineFunctionSerdeIDSerde,
                         Conf: components.CreatePipelineFunctionSerdeConfKvp(
                             components.SerdeTypeKvp{
-                                Type: components.TypeOptionsKvp,
+                                Type: components.SerdeTypeKvpTypeKvp,
+                                SrcField: criblcontrolplanesdkgo.Pointer("_raw"),
                                 Keep: []string{
                                     "a",
                                     "b",
@@ -1783,7 +1844,6 @@ func main() {
                                 },
                                 CleanFields: criblcontrolplanesdkgo.Pointer(false),
                                 Mode: components.SerdeTypeKvpOperationModeExtract,
-                                SrcField: criblcontrolplanesdkgo.Pointer("_raw"),
                             },
                         ),
                     },
@@ -2590,6 +2650,96 @@ func main() {
     }
 }
 ```
+### Example Usage: PipelineResponseExamplesEmptyPipeline
+
+<!-- UsageSnippet language="go" operationID="createPipelines" method="post" path="/pipelines" example="PipelineResponseExamplesEmptyPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.Create(ctx, components.PipelineInput{
+        ID: "<id>",
+        Conf: components.ConfInput{
+            Functions: []components.PipelineFunctionConfInput{
+                components.CreatePipelineFunctionConfInputLimit(
+                    components.PipelineFunctionLimit{
+                        ID: components.PipelineFunctionLimitIDLimit,
+                        Conf: components.FunctionConfSchemaLimit{},
+                    },
+                ),
+            },
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="go" operationID="createPipelines" method="post" path="/pipelines" example="PipelineResponseExamplesEvalPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.Create(ctx, components.PipelineInput{
+        ID: "<id>",
+        Conf: components.ConfInput{
+            Functions: []components.PipelineFunctionConfInput{
+                components.CreatePipelineFunctionConfInputLimit(
+                    components.PipelineFunctionLimit{
+                        ID: components.PipelineFunctionLimitIDLimit,
+                        Conf: components.FunctionConfSchemaLimit{},
+                    },
+                ),
+            },
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -2607,6 +2757,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -2614,9 +2765,42 @@ func main() {
 
 Delete the specified Pipeline.
 
-### Example Usage
+### Example Usage: PipelineResponseExamplesEmptyPipeline
 
-<!-- UsageSnippet language="go" operationID="deletePipelinesById" method="delete" path="/pipelines/{id}" -->
+<!-- UsageSnippet language="go" operationID="deletePipelinesById" method="delete" path="/pipelines/{id}" example="PipelineResponseExamplesEmptyPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.Delete(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="go" operationID="deletePipelinesById" method="delete" path="/pipelines/{id}" example="PipelineResponseExamplesEvalPipeline" -->
 ```go
 package main
 
@@ -2664,6 +2848,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -2671,9 +2856,42 @@ func main() {
 
 Get the specified Pipeline.
 
-### Example Usage
+### Example Usage: PipelineResponseExamplesEmptyPipeline
 
-<!-- UsageSnippet language="go" operationID="getPipelinesById" method="get" path="/pipelines/{id}" -->
+<!-- UsageSnippet language="go" operationID="getPipelinesById" method="get" path="/pipelines/{id}" example="PipelineResponseExamplesEmptyPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="go" operationID="getPipelinesById" method="get" path="/pipelines/{id}" example="PipelineResponseExamplesEvalPipeline" -->
 ```go
 package main
 
@@ -2721,12 +2939,13 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
 ## Update
 
-Update the specified Pipeline.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
+Update the specified Pipeline.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body.<br/><br/>This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request.<br/><br/>If the configuration is incorrect, the updated Pipeline might not function as expected.
 
 ### Example Usage: PipelineExamplesAggregateMetrics
 
@@ -4238,7 +4457,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -4309,7 +4528,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -4371,7 +4590,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -4428,7 +4647,8 @@ func main() {
                         ID: components.PipelineFunctionSerdeIDSerde,
                         Conf: components.CreatePipelineFunctionSerdeConfKvp(
                             components.SerdeTypeKvp{
-                                Type: components.TypeOptionsKvp,
+                                Type: components.SerdeTypeKvpTypeKvp,
+                                SrcField: criblcontrolplanesdkgo.Pointer("_raw"),
                                 Keep: []string{
                                     "a",
                                     "b",
@@ -4439,7 +4659,6 @@ func main() {
                                 },
                                 CleanFields: criblcontrolplanesdkgo.Pointer(false),
                                 Mode: components.SerdeTypeKvpOperationModeExtract,
-                                SrcField: criblcontrolplanesdkgo.Pointer("_raw"),
                             },
                         ),
                     },
@@ -5235,6 +5454,110 @@ func main() {
             },
             Groups: map[string]components.PipelineGroups{
 
+            },
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEmptyPipeline
+
+<!-- UsageSnippet language="go" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineResponseExamplesEmptyPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.Update(ctx, "<id>", components.PipelineInput{
+        ID: "<id>",
+        Conf: components.ConfInput{
+            Functions: []components.PipelineFunctionConfInput{
+                components.CreatePipelineFunctionConfInputMask(
+                    components.PipelineFunctionMask{
+                        ID: components.PipelineFunctionMaskIDMask,
+                        Conf: components.PipelineFunctionMaskConf{
+                            Rules: []components.PipelineFunctionMaskRule{
+                                components.PipelineFunctionMaskRule{
+                                    MatchRegex: "<value>",
+                                    ReplaceExpr: "<value>",
+                                },
+                            },
+                        },
+                    },
+                ),
+            },
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PipelineResponseExamplesEvalPipeline
+
+<!-- UsageSnippet language="go" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="PipelineResponseExamplesEvalPipeline" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.Update(ctx, "<id>", components.PipelineInput{
+        ID: "<id>",
+        Conf: components.ConfInput{
+            Functions: []components.PipelineFunctionConfInput{
+                components.CreatePipelineFunctionConfInputMask(
+                    components.PipelineFunctionMask{
+                        ID: components.PipelineFunctionMaskIDMask,
+                        Conf: components.PipelineFunctionMaskConf{
+                            Rules: []components.PipelineFunctionMaskRule{
+                                components.PipelineFunctionMaskRule{
+                                    MatchRegex: "<value>",
+                                    ReplaceExpr: "<value>",
+                                },
+                            },
+                        },
+                    },
+                ),
             },
         },
     })
@@ -6756,7 +7079,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -6827,7 +7150,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -6889,7 +7212,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -6946,7 +7269,8 @@ func main() {
                         ID: components.PipelineFunctionSerdeIDSerde,
                         Conf: components.CreatePipelineFunctionSerdeConfKvp(
                             components.SerdeTypeKvp{
-                                Type: components.TypeOptionsKvp,
+                                Type: components.SerdeTypeKvpTypeKvp,
+                                SrcField: criblcontrolplanesdkgo.Pointer("_raw"),
                                 Keep: []string{
                                     "a",
                                     "b",
@@ -6957,7 +7281,6 @@ func main() {
                                 },
                                 CleanFields: criblcontrolplanesdkgo.Pointer(false),
                                 Mode: components.SerdeTypeKvpOperationModeExtract,
-                                SrcField: criblcontrolplanesdkgo.Pointer("_raw"),
                             },
                         ),
                     },
@@ -7782,5 +8105,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

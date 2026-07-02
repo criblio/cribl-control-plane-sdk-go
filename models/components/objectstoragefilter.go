@@ -2,12 +2,29 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type ObjectStorageFilter struct {
 	DataPathFormat *PathFilterDataFormat `json:"dataPathFormat,omitzero"`
 	// Datatype identifier that maps filtered objects to a data type definition.
 	DataTypeID string `json:"dataTypeId"`
 	// Glob pattern for selecting files within the storage path.
 	Filter string `json:"filter"`
+	// When true, instructs the C++ reader to unwrap the outer JSON envelope before applying the user datatype to the nested _raw field. Set for Cribl Lake NDJSON filters only.
+	PreprocessOuterJSON *bool `json:"preprocessOuterJson,omitzero"`
+}
+
+func (o ObjectStorageFilter) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *ObjectStorageFilter) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *ObjectStorageFilter) GetDataPathFormat() *PathFilterDataFormat {
@@ -29,4 +46,11 @@ func (o *ObjectStorageFilter) GetFilter() string {
 		return ""
 	}
 	return o.Filter
+}
+
+func (o *ObjectStorageFilter) GetPreprocessOuterJSON() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.PreprocessOuterJSON
 }

@@ -3,10 +3,14 @@
 package components
 
 type PackUpgradeRequest struct {
-	AllowCustomFunctions *bool   `json:"allowCustomFunctions,omitzero"`
-	Minor                *string `json:"minor,omitzero"`
-	Source               string  `json:"source"`
-	Spec                 *string `json:"spec,omitzero"`
+	// If <code>true</code> or omitted, allow the Pack to use custom JavaScript functions. If <code>false</code>, reject Packs that use custom JavaScript functions.
+	AllowCustomFunctions *bool `json:"allowCustomFunctions,omitzero"`
+	// If <code>true</code>, allow the upgrade to install a minor (non-breaking) version. Otherwise, <code>false</code>.
+	Minor *bool `json:"minor,omitzero"`
+	// Source of the upgraded Pack. Use the <code>source</code> value returned by <code>PUT /packs</code> for an uploaded file, or provide a direct URL to a <code>.crbl</code> file or a <code>git+&lt;repo-url&gt;</code> Git repository URL.
+	Source string `json:"source"`
+	// Semver range constraint to apply when resolving the Pack version to install.
+	Spec *string `json:"spec,omitzero"`
 }
 
 func (p *PackUpgradeRequest) GetAllowCustomFunctions() *bool {
@@ -16,7 +20,7 @@ func (p *PackUpgradeRequest) GetAllowCustomFunctions() *bool {
 	return p.AllowCustomFunctions
 }
 
-func (p *PackUpgradeRequest) GetMinor() *string {
+func (p *PackUpgradeRequest) GetMinor() *bool {
 	if p == nil {
 		return nil
 	}

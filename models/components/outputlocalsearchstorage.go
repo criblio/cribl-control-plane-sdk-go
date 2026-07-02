@@ -232,7 +232,7 @@ type OutputLocalSearchStorage struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// URL of the database instance. Example: http://localhost:8123/
 	URL      string                     `json:"url"`
@@ -276,14 +276,17 @@ type OutputLocalSearchStorage struct {
 	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// Optional ClickHouse workload name to append as a SETTINGS clause on INSERT queries. Used for workload scheduling classification.
+	Workload *string `json:"workload,omitzero"`
 	// Log the most recent event that fails to match the table schema
 	DumpFormatErrorsToDisk *bool `json:"dumpFormatErrorsToDisk,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure   *BackpressureBehaviorOptions              `json:"onBackpressure,omitzero"`
 	StatsDestination *OutputLocalSearchStorageStatsDestination `json:"statsDestination,omitzero"`
-	Description      *string                                   `json:"description,omitzero"`
-	Username         *string                                   `json:"username,omitzero"`
-	Password         *string                                   `json:"password,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	Username    *string `json:"username,omitzero"`
+	Password    *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Username for certificate authentication
@@ -315,7 +318,7 @@ type OutputLocalSearchStorage struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                             `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputLocalSearchStoragePqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -537,6 +540,13 @@ func (o *OutputLocalSearchStorage) GetResponseHonorRetryAfterHeader() *bool {
 		return nil
 	}
 	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputLocalSearchStorage) GetWorkload() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Workload
 }
 
 func (o *OutputLocalSearchStorage) GetDumpFormatErrorsToDisk() *bool {

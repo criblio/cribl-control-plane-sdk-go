@@ -2,6 +2,10 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type ConfigGroupLookupsLookup struct {
 	// Version of the lookup file currently deployed on the Worker or Node.
 	DeployedVersion *string `json:"deployedVersion,omitzero"`
@@ -9,6 +13,17 @@ type ConfigGroupLookupsLookup struct {
 	File string `json:"file"`
 	// Version of the lookup file currently staged for deployment.
 	Version *string `json:"version,omitzero"`
+}
+
+func (c ConfigGroupLookupsLookup) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ConfigGroupLookupsLookup) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *ConfigGroupLookupsLookup) GetDeployedVersion() *string {
@@ -37,6 +52,17 @@ type ConfigGroupLookups struct {
 	Context string `json:"context"`
 	// List of lookup files deployed to this context.
 	Lookups []ConfigGroupLookupsLookup `json:"lookups"`
+}
+
+func (c ConfigGroupLookups) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *ConfigGroupLookups) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (c *ConfigGroupLookups) GetContext() string {

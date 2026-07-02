@@ -33,9 +33,10 @@ func (e *InputSecurityLakeType) UnmarshalJSON(data []byte) error {
 
 type InputSecurityLakeInput struct {
 	// Unique ID for this input
-	ID       *string               `json:"id,omitzero"`
-	Type     InputSecurityLakeType `json:"type"`
-	Disabled *bool                 `json:"disabled,omitzero"`
+	ID   *string               `json:"id,omitzero"`
+	Type InputSecurityLakeType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -44,7 +45,7 @@ type InputSecurityLakeInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -91,7 +92,11 @@ type InputSecurityLakeInput struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool           `json:"enableSQSAssumeRole,omitzero"`
+	EnableSQSAssumeRole *bool `json:"enableSQSAssumeRole,omitzero"`
+	// Use the same credential settings for S3 and SQS
+	SharedCredentials *bool `json:"sharedCredentials,omitzero"`
+	// Use the same settings for S3 and SQS
+	SharedAssumeRoleArn *bool           `json:"sharedAssumeRoleArn,omitzero"`
 	Preprocess          *PreprocessType `json:"preprocess,omitzero"`
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
@@ -103,11 +108,23 @@ type InputSecurityLakeInput struct {
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `json:"pollTimeout,omitzero"`
 	// Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
-	Encoding    *string `json:"encoding,omitzero"`
+	Encoding *string `json:"encoding,omitzero"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret          *string                    `json:"awsSecret,omitzero"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Amazon Resource Name (ARN) of the role to assume
+	SQSAssumeRoleArn *string `json:"SQSAssumeRoleArn,omitzero"`
+	// External ID to use when assuming role
+	SQSAssumeRoleExternalID *string `json:"SQSAssumeRoleExternalId,omitzero"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	SQSDurationSeconds *float64 `json:"SQSDurationSeconds,omitzero"`
+	// Choose Auto to use IAM roles
+	SQSAwsAuthenticationMethod *SqsAuthenticationMethodOptions `json:"SQSAwsAuthenticationMethod,omitzero"`
+	// Select or create a stored secret that references your access key and secret key
+	SQSAwsSecret       *string                    `json:"SQSAwsSecret,omitzero"`
+	SQSAwsSecretKey    *string                    `json:"SQSAwsSecretKey,omitzero"`
 	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitzero"`
 	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
 	ProcessedTagKey *string `json:"processedTagKey,omitzero"`
@@ -133,6 +150,12 @@ type InputSecurityLakeInput struct {
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
+	// Binds 'SQSAssumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'SQSAssumeRoleArn' at runtime.
+	TemplateSQSAssumeRoleArn *string `json:"__template_SQSAssumeRoleArn,omitzero"`
+	// Binds 'SQSAssumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'SQSAssumeRoleExternalId' at runtime.
+	TemplateSQSAssumeRoleExternalID *string `json:"__template_SQSAssumeRoleExternalId,omitzero"`
+	// Binds 'SQSAwsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'SQSAwsSecretKey' at runtime.
+	TemplateSQSAwsSecretKey *string `json:"__template_SQSAwsSecretKey,omitzero"`
 }
 
 func (i InputSecurityLakeInput) MarshalJSON() ([]byte, error) {
@@ -370,6 +393,20 @@ func (i *InputSecurityLakeInput) GetEnableSQSAssumeRole() *bool {
 	return i.EnableSQSAssumeRole
 }
 
+func (i *InputSecurityLakeInput) GetSharedCredentials() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SharedCredentials
+}
+
+func (i *InputSecurityLakeInput) GetSharedAssumeRoleArn() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SharedAssumeRoleArn
+}
+
 func (i *InputSecurityLakeInput) GetPreprocess() *PreprocessType {
 	if i == nil {
 		return nil
@@ -438,6 +475,48 @@ func (i *InputSecurityLakeInput) GetAwsSecret() *string {
 		return nil
 	}
 	return i.AwsSecret
+}
+
+func (i *InputSecurityLakeInput) GetSQSAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SQSAssumeRoleArn
+}
+
+func (i *InputSecurityLakeInput) GetSQSAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SQSAssumeRoleExternalID
+}
+
+func (i *InputSecurityLakeInput) GetSQSDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SQSDurationSeconds
+}
+
+func (i *InputSecurityLakeInput) GetSQSAwsAuthenticationMethod() *SqsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SQSAwsAuthenticationMethod
+}
+
+func (i *InputSecurityLakeInput) GetSQSAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SQSAwsSecret
+}
+
+func (i *InputSecurityLakeInput) GetSQSAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SQSAwsSecretKey
 }
 
 func (i *InputSecurityLakeInput) GetTagAfterProcessing() *TagAfterProcessingOptions {
@@ -529,4 +608,25 @@ func (i *InputSecurityLakeInput) GetTemplateAwsAPIKey() *string {
 		return nil
 	}
 	return i.TemplateAwsAPIKey
+}
+
+func (i *InputSecurityLakeInput) GetTemplateSQSAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateSQSAssumeRoleArn
+}
+
+func (i *InputSecurityLakeInput) GetTemplateSQSAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateSQSAssumeRoleExternalID
+}
+
+func (i *InputSecurityLakeInput) GetTemplateSQSAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateSQSAwsSecretKey
 }

@@ -466,9 +466,10 @@ func (i *InputSystemStatePersistence) GetDestPath() *string {
 
 type InputSystemStateInput struct {
 	// Unique ID for this input
-	ID       *string              `json:"id,omitzero"`
-	Type     InputSystemStateType `json:"type"`
-	Disabled *bool                `json:"disabled,omitzero"`
+	ID   *string              `json:"id,omitzero"`
+	Type InputSystemStateType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -477,7 +478,7 @@ type InputSystemStateInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -491,8 +492,9 @@ type InputSystemStateInput struct {
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
 	DisableNativeModule *bool `json:"disableNativeModule,omitzero"`
 	// Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeLastLogModule *bool   `json:"disableNativeLastLogModule,omitzero"`
-	Description                *string `json:"description,omitzero"`
+	DisableNativeLastLogModule *bool `json:"disableNativeLastLogModule,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

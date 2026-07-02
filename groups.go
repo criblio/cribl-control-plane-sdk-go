@@ -13,6 +13,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
+	"github.com/spyzhov/ajson"
 	"net/http"
 )
 
@@ -38,10 +39,12 @@ func newGroups(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, ho
 
 // List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
 // Get a list of all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product.
-func (s *Groups) List(ctx context.Context, product components.ProductsCore, fields *string, opts ...operations.Option) (*operations.ListConfigGroupByProductResponse, error) {
-	request := operations.ListConfigGroupByProductRequest{
+func (s *Groups) List(ctx context.Context, product components.ProductsCore, fields *string, offset *int64, limit *int64, opts ...operations.Option) (*operations.GetProductsGroupsByProductResponse, error) {
+	request := operations.GetProductsGroupsByProductRequest{
 		Product: product,
 		Fields:  fields,
+		Offset:  offset,
+		Limit:   limit,
 	}
 
 	o := operations.Options{}
@@ -73,7 +76,7 @@ func (s *Groups) List(ctx context.Context, product components.ProductsCore, fiel
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "listConfigGroupByProduct",
+		OperationID:      "getProductsGroupsByProduct",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -205,11 +208,59 @@ func (s *Groups) List(ctx context.Context, product components.ProductsCore, fiel
 		}
 	}
 
-	res := &operations.ListConfigGroupByProductResponse{
+	res := &operations.GetProductsGroupsByProductResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
 		},
+	}
+	res.Next = func() (*operations.GetProductsGroupsByProductResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offset != nil {
+			oS = int(*offset)
+		}
+		r, err := ajson.Eval(b, "$.items")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if limit != nil {
+			l = int(*limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+
+		return s.List(
+			ctx,
+			product,
+			fields,
+			&nOS,
+			limit,
+			opts...,
+		)
 	}
 
 	switch {
@@ -222,13 +273,38 @@ func (s *Groups) List(ctx context.Context, product components.ProductsCore, fiel
 					return nil, err
 				}
 
-				var out components.CountedConfigGroup
+				var out operations.GetProductsGroupsByProductResponseBody
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedConfigGroup = &out
+				res.OneOf = &out
 			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -261,8 +337,6 @@ func (s *Groups) List(ctx context.Context, product components.ProductsCore, fiel
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 401:
-		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -289,8 +363,8 @@ func (s *Groups) List(ctx context.Context, product components.ProductsCore, fiel
 
 // Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
 // Create a new Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
-func (s *Groups) Create(ctx context.Context, product components.ProductsCore, groupCreateRequest components.GroupCreateRequest, opts ...operations.Option) (*operations.CreateConfigGroupByProductResponse, error) {
-	request := operations.CreateConfigGroupByProductRequest{
+func (s *Groups) Create(ctx context.Context, product components.ProductsCore, groupCreateRequest components.GroupCreateRequest, opts ...operations.Option) (*operations.CreateProductsGroupsByProductResponse, error) {
+	request := operations.CreateProductsGroupsByProductRequest{
 		Product:            product,
 		GroupCreateRequest: groupCreateRequest,
 	}
@@ -324,7 +398,7 @@ func (s *Groups) Create(ctx context.Context, product components.ProductsCore, gr
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "createConfigGroupByProduct",
+		OperationID:      "createProductsGroupsByProduct",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -459,7 +533,7 @@ func (s *Groups) Create(ctx context.Context, product components.ProductsCore, gr
 		}
 	}
 
-	res := &operations.CreateConfigGroupByProductResponse{
+	res := &operations.CreateProductsGroupsByProductResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -483,6 +557,31 @@ func (s *Groups) Create(ctx context.Context, product components.ProductsCore, gr
 
 				res.CountedConfigGroup = &out
 			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -515,7 +614,9 @@ func (s *Groups) Create(ctx context.Context, product components.ProductsCore, gr
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 401:
+	case httpRes.StatusCode == 400:
+		fallthrough
+	case httpRes.StatusCode == 409:
 		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -543,8 +644,8 @@ func (s *Groups) Create(ctx context.Context, product components.ProductsCore, gr
 
 // Get a Worker Group, Outpost Group, or Edge Fleet
 // Get the specified Worker Group, Outpost Group, or Edge Fleet.
-func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id string, fields *string, opts ...operations.Option) (*operations.GetConfigGroupByProductAndIDResponse, error) {
-	request := operations.GetConfigGroupByProductAndIDRequest{
+func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id string, fields *string, opts ...operations.Option) (*operations.GetProductsGroupsByProductAndIDResponse, error) {
+	request := operations.GetProductsGroupsByProductAndIDRequest{
 		Product: product,
 		ID:      id,
 		Fields:  fields,
@@ -579,7 +680,7 @@ func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id st
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getConfigGroupByProductAndId",
+		OperationID:      "getProductsGroupsByProductAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -711,7 +812,7 @@ func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id st
 		}
 	}
 
-	res := &operations.GetConfigGroupByProductAndIDResponse{
+	res := &operations.GetProductsGroupsByProductAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -735,6 +836,31 @@ func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id st
 
 				res.CountedConfigGroup = &out
 			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -767,8 +893,6 @@ func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id st
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 401:
-		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -795,8 +919,8 @@ func (s *Groups) Get(ctx context.Context, product components.ProductsCore, id st
 
 // Update a Worker Group, Outpost Group, or Edge Fleet
 // Update the specified Worker Group, Outpost Group, or Edge Fleet.<br/><br/>Provide a complete representation of the Group or Fleet that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Group or Fleet.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Group or Fleet might not function as expected.<br/><br/>**Warning**: Do not change the values for the following parameters in the body of PATCH requests. The request body must include the values as they appear in the <code>GET /products/{product}/groups/{id}</code> response.<br/> - <code>configVersion</code><br/> - <code>deployingWorkerCount</code><br/> - <code>incompatibleWorkerCount</code><br/> - <code>workerCount</code><br/> - <code>lookupDeployments</code>.
-func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id string, configGroup components.ConfigGroup, opts ...operations.Option) (*operations.UpdateConfigGroupByProductAndIDResponse, error) {
-	request := operations.UpdateConfigGroupByProductAndIDRequest{
+func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id string, configGroup components.ConfigGroup, opts ...operations.Option) (*operations.UpdateProductsGroupsByProductAndIDResponse, error) {
+	request := operations.UpdateProductsGroupsByProductAndIDRequest{
 		Product:     product,
 		ID:          id,
 		ConfigGroup: configGroup,
@@ -831,7 +955,7 @@ func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "updateConfigGroupByProductAndId",
+		OperationID:      "updateProductsGroupsByProductAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -966,7 +1090,7 @@ func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id
 		}
 	}
 
-	res := &operations.UpdateConfigGroupByProductAndIDResponse{
+	res := &operations.UpdateProductsGroupsByProductAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -990,6 +1114,31 @@ func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id
 
 				res.CountedConfigGroup = &out
 			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1022,7 +1171,7 @@ func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 401:
+	case httpRes.StatusCode == 400:
 		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1050,8 +1199,8 @@ func (s *Groups) Update(ctx context.Context, product components.ProductsCore, id
 
 // Delete a Worker Group, Outpost Group, or Edge Fleet
 // Delete the specified Worker Group, Outpost Group, or Edge Fleet.
-func (s *Groups) Delete(ctx context.Context, product components.ProductsCore, id string, opts ...operations.Option) (*operations.DeleteConfigGroupByProductAndIDResponse, error) {
-	request := operations.DeleteConfigGroupByProductAndIDRequest{
+func (s *Groups) Delete(ctx context.Context, product components.ProductsCore, id string, opts ...operations.Option) (*operations.DeleteProductsGroupsByProductAndIDResponse, error) {
+	request := operations.DeleteProductsGroupsByProductAndIDRequest{
 		Product: product,
 		ID:      id,
 	}
@@ -1085,7 +1234,7 @@ func (s *Groups) Delete(ctx context.Context, product components.ProductsCore, id
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "deleteConfigGroupByProductAndId",
+		OperationID:      "deleteProductsGroupsByProductAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -1213,7 +1362,7 @@ func (s *Groups) Delete(ctx context.Context, product components.ProductsCore, id
 		}
 	}
 
-	res := &operations.DeleteConfigGroupByProductAndIDResponse{
+	res := &operations.DeleteProductsGroupsByProductAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -1237,6 +1386,31 @@ func (s *Groups) Delete(ctx context.Context, product components.ProductsCore, id
 
 				res.CountedConfigGroup = &out
 			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1269,8 +1443,6 @@ func (s *Groups) Delete(ctx context.Context, product components.ProductsCore, id
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 401:
-		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
@@ -1297,8 +1469,8 @@ func (s *Groups) Delete(ctx context.Context, product components.ProductsCore, id
 
 // Deploy commits to a Worker Group, Outpost Group, or Edge Fleet
 // Deploy commits to the specified Worker Group, Outpost Group, or Edge Fleet.
-func (s *Groups) Deploy(ctx context.Context, product components.ProductsCore, id string, deployRequest components.DeployRequest, opts ...operations.Option) (*operations.UpdateConfigGroupDeployByProductAndIDResponse, error) {
-	request := operations.UpdateConfigGroupDeployByProductAndIDRequest{
+func (s *Groups) Deploy(ctx context.Context, product components.ProductsCore, id string, deployRequest components.DeployRequest, opts ...operations.Option) (*operations.UpdateProductsGroupsDeployByProductAndIDResponse, error) {
+	request := operations.UpdateProductsGroupsDeployByProductAndIDRequest{
 		Product:       product,
 		ID:            id,
 		DeployRequest: deployRequest,
@@ -1333,7 +1505,7 @@ func (s *Groups) Deploy(ctx context.Context, product components.ProductsCore, id
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "updateConfigGroupDeployByProductAndId",
+		OperationID:      "updateProductsGroupsDeployByProductAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -1468,7 +1640,7 @@ func (s *Groups) Deploy(ctx context.Context, product components.ProductsCore, id
 		}
 	}
 
-	res := &operations.UpdateConfigGroupDeployByProductAndIDResponse{
+	res := &operations.UpdateProductsGroupsDeployByProductAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -1492,6 +1664,31 @@ func (s *Groups) Deploy(ctx context.Context, product components.ProductsCore, id
 
 				res.CountedConfigGroup = &out
 			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -1524,8 +1721,6 @@ func (s *Groups) Deploy(ctx context.Context, product components.ProductsCore, id
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 401:
-		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {

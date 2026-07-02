@@ -83,9 +83,10 @@ func (e *InputWinEventLogsEventFormat) IsExact() bool {
 
 type InputWinEventLogsInput struct {
 	// Unique ID for this input
-	ID       *string               `json:"id,omitzero"`
-	Type     InputWinEventLogsType `json:"type"`
-	Disabled *bool                 `json:"disabled,omitzero"`
+	ID   *string               `json:"id,omitzero"`
+	Type InputWinEventLogsType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -94,7 +95,7 @@ type InputWinEventLogsInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -114,8 +115,9 @@ type InputWinEventLogsInput struct {
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// The maximum number of bytes in an event before it is flushed to the pipelines
-	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
-	Description   *string  `json:"description,omitzero"`
+	MaxEventBytes *int64 `json:"maxEventBytes,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
 	DisableJSONRendering *bool `json:"disableJsonRendering,omitzero"`
 	// Enable/disable the rendering of localized event message strings (Applicable for 4.8.0 nodes and newer that use the Native API)
@@ -256,7 +258,7 @@ func (i *InputWinEventLogsInput) GetMetadata() []MetadataConfInputCollection {
 	return i.Metadata
 }
 
-func (i *InputWinEventLogsInput) GetMaxEventBytes() *float64 {
+func (i *InputWinEventLogsInput) GetMaxEventBytes() *int64 {
 	if i == nil {
 		return nil
 	}

@@ -71,9 +71,10 @@ func (i *InputOpenaiComplianceLogsManageState) UnmarshalJSON(data []byte) error 
 
 type InputOpenaiComplianceLogsInput struct {
 	// Unique ID for this input
-	ID       *string                       `json:"id,omitzero"`
-	Type     InputOpenaiComplianceLogsType `json:"type"`
-	Disabled *bool                         `json:"disabled,omitzero"`
+	ID   *string                       `json:"id,omitzero"`
+	Type InputOpenaiComplianceLogsType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -82,7 +83,7 @@ type InputOpenaiComplianceLogsInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -121,7 +122,8 @@ type InputOpenaiComplianceLogsInput struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64        `json:"staleChannelFlushMs,omitzero"`
 	RetryRules          *RetryRulesType `json:"retryRules,omitzero"`
-	Description         *string         `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// The ID of the ChatGPT workspace to collect logs from (UUID format)
 	WorkspaceID *string `json:"workspaceId,omitzero"`
 	// One or more compliance log categories to collect

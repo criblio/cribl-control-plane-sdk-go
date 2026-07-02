@@ -2,10 +2,28 @@
 
 package components
 
+import (
+	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type OutpostNodeInfo struct {
+	// Name of the Outpost Group that contains the Outpost Node.
 	Groupname *string `json:"groupname,omitzero"`
-	GUID      string  `json:"guid"`
-	Host      string  `json:"host"`
+	// Unique identifier for the Outpost Node.
+	GUID string `json:"guid"`
+	// Hostname or IP address for the Outpost Node.
+	Host string `json:"host"`
+}
+
+func (o OutpostNodeInfo) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OutpostNodeInfo) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *OutpostNodeInfo) GetGroupname() *string {

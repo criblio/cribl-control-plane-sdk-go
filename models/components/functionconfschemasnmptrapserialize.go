@@ -350,6 +350,7 @@ const (
 	V3UserTypeUnknown V3UserType = "UNKNOWN"
 )
 
+// V3User - SNMPv3 user configuration, including authentication and privacy protocol settings.
 type V3User struct {
 	SnmpTrapSerializeV3UserAuthProtocolNone    *SnmpTrapSerializeV3UserAuthProtocolNone    `queryParam:"inline" union:"member"`
 	SnmpTrapSerializeV3UserAuthProtocolNotNone *SnmpTrapSerializeV3UserAuthProtocolNotNone `queryParam:"inline" union:"member"`
@@ -548,8 +549,9 @@ type FunctionConfSchemaSnmpTrapSerialize struct {
 	// Prevent event serialization if any required fields are missing. When disabled, @{product} will attempt to serialize the event even if required fields are missing, which could cause unexpected behavior at the downstream receiver.
 	Strict *bool `json:"strict,omitzero"`
 	// When disabled, `snmpSerializeErrors` will be set on the event, and the `__snmpRaw` field will be removed to prevent @{product} from sending the event from the SNMP Trap Destination
-	DropFailedEvents *bool   `json:"dropFailedEvents,omitzero"`
-	V3User           *V3User `json:"v3User,omitzero"`
+	DropFailedEvents *bool `json:"dropFailedEvents,omitzero"`
+	// SNMPv3 user configuration, including authentication and privacy protocol settings.
+	V3User *V3User `json:"v3User,omitzero"`
 }
 
 func (f FunctionConfSchemaSnmpTrapSerialize) MarshalJSON() ([]byte, error) {
