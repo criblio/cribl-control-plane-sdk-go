@@ -13,6 +13,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
+	"github.com/spyzhov/ajson"
 	"net/http"
 )
 
@@ -39,10 +40,12 @@ func newPacksDestinations(rootSDK *CriblControlPlane, sdkConfig config.SDKConfig
 
 // List all Destinations within a Pack
 // Get a list of all Destinations within the specified Pack.
-func (s *PacksDestinations) List(ctx context.Context, pack string, type_ *components.DestinationType, opts ...operations.Option) (*operations.GetOutputSystemByPackResponse, error) {
+func (s *PacksDestinations) List(ctx context.Context, pack string, type_ *components.DestinationType, offset *int64, limit *int64, opts ...operations.Option) (*operations.GetOutputSystemByPackResponse, error) {
 	request := operations.GetOutputSystemByPackRequest{
-		Type: type_,
-		Pack: pack,
+		Type:   type_,
+		Offset: offset,
+		Limit:  limit,
+		Pack:   pack,
 	}
 
 	o := operations.Options{}
@@ -212,6 +215,54 @@ func (s *PacksDestinations) List(ctx context.Context, pack string, type_ *compon
 			Response: httpRes,
 		},
 	}
+	res.Next = func() (*operations.GetOutputSystemByPackResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offset != nil {
+			oS = int(*offset)
+		}
+		r, err := ajson.Eval(b, "$.items")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if limit != nil {
+			l = int(*limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+
+		return s.List(
+			ctx,
+			pack,
+			type_,
+			&nOS,
+			limit,
+			opts...,
+		)
+	}
 
 	switch {
 	case httpRes.StatusCode == 200:
@@ -223,12 +274,12 @@ func (s *PacksDestinations) List(ctx context.Context, pack string, type_ *compon
 					return nil, err
 				}
 
-				var out components.CountedOutputResponse
+				var out components.PaginatedOutputResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedOutputResponse = &out
+				res.PaginatedOutputResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

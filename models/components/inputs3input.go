@@ -45,7 +45,7 @@ type InputS3Input struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -92,7 +92,11 @@ type InputS3Input struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool           `json:"enableSQSAssumeRole,omitzero"`
+	EnableSQSAssumeRole *bool `json:"enableSQSAssumeRole,omitzero"`
+	// Use the same credential settings for S3 and SQS
+	SharedCredentials *bool `json:"sharedCredentials,omitzero"`
+	// Use the same settings for S3 and SQS
+	SharedAssumeRoleArn *bool           `json:"sharedAssumeRoleArn,omitzero"`
 	Preprocess          *PreprocessType `json:"preprocess,omitzero"`
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
@@ -112,6 +116,17 @@ type InputS3Input struct {
 	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Amazon Resource Name (ARN) of the role to assume
+	SQSAssumeRoleArn *string `json:"SQSAssumeRoleArn,omitzero"`
+	// External ID to use when assuming role
+	SQSAssumeRoleExternalID *string `json:"SQSAssumeRoleExternalId,omitzero"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	SQSDurationSeconds *float64 `json:"SQSDurationSeconds,omitzero"`
+	// Choose Auto to use IAM roles
+	SQSAwsAuthenticationMethod *SqsAuthenticationMethodOptions `json:"SQSAwsAuthenticationMethod,omitzero"`
+	// Select or create a stored secret that references your access key and secret key
+	SQSAwsSecret    *string `json:"SQSAwsSecret,omitzero"`
+	SQSAwsSecretKey *string `json:"SQSAwsSecretKey,omitzero"`
 	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
 	ProcessedTagKey *string `json:"processedTagKey,omitzero"`
 	// The value for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
@@ -136,6 +151,12 @@ type InputS3Input struct {
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
+	// Binds 'SQSAssumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'SQSAssumeRoleArn' at runtime.
+	TemplateSQSAssumeRoleArn *string `json:"__template_SQSAssumeRoleArn,omitzero"`
+	// Binds 'SQSAssumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'SQSAssumeRoleExternalId' at runtime.
+	TemplateSQSAssumeRoleExternalID *string `json:"__template_SQSAssumeRoleExternalId,omitzero"`
+	// Binds 'SQSAwsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'SQSAwsSecretKey' at runtime.
+	TemplateSQSAwsSecretKey *string `json:"__template_SQSAwsSecretKey,omitzero"`
 }
 
 func (i InputS3Input) MarshalJSON() ([]byte, error) {
@@ -373,6 +394,20 @@ func (i *InputS3Input) GetEnableSQSAssumeRole() *bool {
 	return i.EnableSQSAssumeRole
 }
 
+func (i *InputS3Input) GetSharedCredentials() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SharedCredentials
+}
+
+func (i *InputS3Input) GetSharedAssumeRoleArn() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SharedAssumeRoleArn
+}
+
 func (i *InputS3Input) GetPreprocess() *PreprocessType {
 	if i == nil {
 		return nil
@@ -448,6 +483,48 @@ func (i *InputS3Input) GetAwsSecret() *string {
 		return nil
 	}
 	return i.AwsSecret
+}
+
+func (i *InputS3Input) GetSQSAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SQSAssumeRoleArn
+}
+
+func (i *InputS3Input) GetSQSAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SQSAssumeRoleExternalID
+}
+
+func (i *InputS3Input) GetSQSDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SQSDurationSeconds
+}
+
+func (i *InputS3Input) GetSQSAwsAuthenticationMethod() *SqsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SQSAwsAuthenticationMethod
+}
+
+func (i *InputS3Input) GetSQSAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SQSAwsSecret
+}
+
+func (i *InputS3Input) GetSQSAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SQSAwsSecretKey
 }
 
 func (i *InputS3Input) GetProcessedTagKey() *string {
@@ -532,6 +609,27 @@ func (i *InputS3Input) GetTemplateAwsAPIKey() *string {
 		return nil
 	}
 	return i.TemplateAwsAPIKey
+}
+
+func (i *InputS3Input) GetTemplateSQSAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateSQSAssumeRoleArn
+}
+
+func (i *InputS3Input) GetTemplateSQSAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateSQSAssumeRoleExternalID
+}
+
+func (i *InputS3Input) GetTemplateSQSAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateSQSAwsSecretKey
 }
 
 // #region class-body-inputs3input

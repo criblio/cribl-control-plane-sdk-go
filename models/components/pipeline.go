@@ -7,9 +7,12 @@ import (
 )
 
 type PipelineGroups struct {
-	Name        string  `json:"name"`
+	// Name of the group.
+	Name string `json:"name"`
+	// Brief description of the group.
 	Description *string `json:"description,omitzero"`
-	Disabled    *bool   `json:"disabled,omitzero"`
+	// If <code>true</code>, disable all items in the group. Otherwise, <code>false</code>.
+	Disabled *bool `json:"disabled,omitzero"`
 }
 
 func (p *PipelineGroups) GetName() string {
@@ -41,9 +44,9 @@ type PipelineConf struct {
 	Output *string `json:"output,omitzero"`
 	// Brief description of the Pipeline.
 	Description *string `json:"description,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
-	// List of Functions to pass data through
+	// List of Functions to pass data through the Pipeline.
 	Functions []PipelineFunctionConf `json:"functions,omitzero"`
 	// Named groups of Pipeline functions for organizational display in the UI.
 	Groups map[string]PipelineGroups `json:"groups,omitzero"`
@@ -140,9 +143,9 @@ type ConfInput struct {
 	Output *string `json:"output,omitzero"`
 	// Brief description of the Pipeline.
 	Description *string `json:"description,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
-	// List of Functions to pass data through
+	// List of Functions to pass data through the Pipeline.
 	Functions []PipelineFunctionConfInput `json:"functions,omitzero"`
 	// Named groups of Pipeline functions for organizational display in the UI.
 	Groups map[string]PipelineGroups `json:"groups,omitzero"`

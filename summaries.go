@@ -13,6 +13,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
+	"github.com/spyzhov/ajson"
 	"net/http"
 )
 
@@ -30,11 +31,13 @@ func newSummaries(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration,
 	}
 }
 
-// Get a summary of the deployment for a specific product.
-// Get a summary of the deployment for the specified Cribl product (Stream or Edge).<br/><br/>The summary includes a count of Worker Groups or Edge Fleets and resources  such as Pipelines, Routes, Sources, and Destinations. For Distributed deployments,  it also includes a count and statistics for Worker or Edge Nodes.
-func (s *Summaries) Get(ctx context.Context, product components.ProductsBase, opts ...operations.Option) (*operations.GetProductsSummaryByProductResponse, error) {
+// Get a summary of the deployment for a Cribl product
+// Get a summary of the deployment for the specified Cribl product (Stream or Edge).<br/><br/>The summary includes a count of Worker Groups or Edge Fleets and resources such as Pipelines, Routes, Sources, and Destinations. For Distributed deployments, the summary also includes a count and statistics for Worker or Edge Nodes.
+func (s *Summaries) Get(ctx context.Context, product components.ProductsBase, offset *int64, limit *int64, opts ...operations.Option) (*operations.GetProductsSummaryByProductResponse, error) {
 	request := operations.GetProductsSummaryByProductRequest{
 		Product: product,
+		Offset:  offset,
+		Limit:   limit,
 	}
 
 	o := operations.Options{}
@@ -88,6 +91,10 @@ func (s *Summaries) Get(ctx context.Context, product components.ProductsBase, op
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -200,6 +207,53 @@ func (s *Summaries) Get(ctx context.Context, product components.ProductsBase, op
 			Response: httpRes,
 		},
 	}
+	res.Next = func() (*operations.GetProductsSummaryByProductResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offset != nil {
+			oS = int(*offset)
+		}
+		r, err := ajson.Eval(b, "$.items")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if limit != nil {
+			l = int(*limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+
+		return s.Get(
+			ctx,
+			product,
+			&nOS,
+			limit,
+			opts...,
+		)
+	}
 
 	switch {
 	case httpRes.StatusCode == 200:
@@ -211,12 +265,12 @@ func (s *Summaries) Get(ctx context.Context, product components.ProductsBase, op
 					return nil, err
 				}
 
-				var out components.CountedDistributedSummary
+				var out components.PaginatedDistributedSummary
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedDistributedSummary = &out
+				res.PaginatedDistributedSummary = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

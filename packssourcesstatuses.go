@@ -258,12 +258,12 @@ func (s *PacksSourcesStatuses) List(ctx context.Context, request operations.GetI
 					return nil, err
 				}
 
-				var out components.CountedInputStatus
+				var out components.PaginatedInputStatus
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedInputStatus = &out
+				res.PaginatedInputStatus = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

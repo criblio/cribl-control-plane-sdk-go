@@ -284,8 +284,8 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Groups](docs/sdks/groups/README.md)
 
-* [List](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
-* [Create](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+* [List](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets
+* [Create](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet
 * [Get](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
 * [Update](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
 * [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
@@ -324,7 +324,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 
-* [Get](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a specific product.
+* [Get](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a Cribl product
 
 ### [Packs](docs/sdks/packs/README.md)
 
@@ -762,11 +762,11 @@ func main() {
 		}),
 	)
 
-	res, err := s.DatabaseConnections.List(ctx, nil, nil, nil)
+	res, err := s.Functions.List(ctx, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.DatabaseConnectionResponseEnvelope != nil {
+	if res.PaginatedFunctionResponse != nil {
 		for {
 			// handle items
 

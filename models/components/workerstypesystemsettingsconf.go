@@ -2,24 +2,37 @@
 
 package components
 
+// WorkersTypeSystemSettingsConf - Worker Process configuration.
 type WorkersTypeSystemSettingsConf struct {
-	Count                                float64  `json:"count"`
-	EnableHeapSnapshots                  *bool    `json:"enableHeapSnapshots,omitzero"`
-	LoadThrottlePerc                     *float64 `json:"loadThrottlePerc,omitzero"`
-	Memory                               float64  `json:"memory"`
-	Minimum                              float64  `json:"minimum"`
-	RestartUnresponsiveProcesses         *bool    `json:"restartUnresponsiveProcesses,omitzero"`
-	StartupMaxConns                      *float64 `json:"startupMaxConns,omitzero"`
-	StartupThrottleTimeout               *float64 `json:"startupThrottleTimeout,omitzero"`
-	V8SingleThread                       *bool    `json:"v8SingleThread,omitzero"`
-	WorkerProcessConfigUpdateConcurrency *float64 `json:"workerProcessConfigUpdateConcurrency,omitzero"`
-	WorkerProcessReloadTimeout           *float64 `json:"workerProcessReloadTimeout,omitzero"`
-	WorkerThreadPoolSize                 *float64 `json:"workerThreadPoolSize,omitzero"`
+	// Number of Worker Processes to spawn. Set to <code>0</code> to use the number of available CPU cores.
+	Count int64 `json:"count"`
+	// If <code>true</code>, enable V8 heap snapshot generation on out-of-memory errors. Otherwise, <code>false</code>.
+	EnableHeapSnapshots *bool `json:"enableHeapSnapshots,omitzero"`
+	// CPU load percentage threshold above which new connections are throttled.
+	LoadThrottlePerc *int64 `json:"loadThrottlePerc,omitzero"`
+	// Maximum memory (in MB) per Worker Process. Set to <code>0</code> for no limit.
+	Memory int64 `json:"memory"`
+	// Minimum number of Worker Processes to keep running.
+	Minimum int64 `json:"minimum"`
+	// If <code>true</code>, automatically restart Worker Processes that become unresponsive. Otherwise, <code>false</code>.
+	RestartUnresponsiveProcesses *bool `json:"restartUnresponsiveProcesses,omitzero"`
+	// Maximum number of connections to accept during Worker Process startup before throttling begins.
+	StartupMaxConns *int64 `json:"startupMaxConns,omitzero"`
+	// Timeout in milliseconds to wait for Worker Processes to reach idle before ending the startup throttle period.
+	StartupThrottleTimeout *int64 `json:"startupThrottleTimeout,omitzero"`
+	// If <code>true</code>, run all worker threads in a single V8 isolate. Otherwise, <code>false</code>.
+	V8SingleThread *bool `json:"v8SingleThread,omitzero"`
+	// Maximum number of Worker Processes that can reload configuration concurrently.
+	WorkerProcessConfigUpdateConcurrency *int64 `json:"workerProcessConfigUpdateConcurrency,omitzero"`
+	// Timeout in milliseconds to wait for a Worker Process to reload configuration before treating the reload as failed.
+	WorkerProcessReloadTimeout *int64 `json:"workerProcessReloadTimeout,omitzero"`
+	// Size of the Worker thread pool used for CPU-bound tasks.
+	WorkerThreadPoolSize *int64 `json:"workerThreadPoolSize,omitzero"`
 }
 
-func (w *WorkersTypeSystemSettingsConf) GetCount() float64 {
+func (w *WorkersTypeSystemSettingsConf) GetCount() int64 {
 	if w == nil {
-		return 0.0
+		return 0
 	}
 	return w.Count
 }
@@ -31,23 +44,23 @@ func (w *WorkersTypeSystemSettingsConf) GetEnableHeapSnapshots() *bool {
 	return w.EnableHeapSnapshots
 }
 
-func (w *WorkersTypeSystemSettingsConf) GetLoadThrottlePerc() *float64 {
+func (w *WorkersTypeSystemSettingsConf) GetLoadThrottlePerc() *int64 {
 	if w == nil {
 		return nil
 	}
 	return w.LoadThrottlePerc
 }
 
-func (w *WorkersTypeSystemSettingsConf) GetMemory() float64 {
+func (w *WorkersTypeSystemSettingsConf) GetMemory() int64 {
 	if w == nil {
-		return 0.0
+		return 0
 	}
 	return w.Memory
 }
 
-func (w *WorkersTypeSystemSettingsConf) GetMinimum() float64 {
+func (w *WorkersTypeSystemSettingsConf) GetMinimum() int64 {
 	if w == nil {
-		return 0.0
+		return 0
 	}
 	return w.Minimum
 }
@@ -59,14 +72,14 @@ func (w *WorkersTypeSystemSettingsConf) GetRestartUnresponsiveProcesses() *bool 
 	return w.RestartUnresponsiveProcesses
 }
 
-func (w *WorkersTypeSystemSettingsConf) GetStartupMaxConns() *float64 {
+func (w *WorkersTypeSystemSettingsConf) GetStartupMaxConns() *int64 {
 	if w == nil {
 		return nil
 	}
 	return w.StartupMaxConns
 }
 
-func (w *WorkersTypeSystemSettingsConf) GetStartupThrottleTimeout() *float64 {
+func (w *WorkersTypeSystemSettingsConf) GetStartupThrottleTimeout() *int64 {
 	if w == nil {
 		return nil
 	}
@@ -80,21 +93,21 @@ func (w *WorkersTypeSystemSettingsConf) GetV8SingleThread() *bool {
 	return w.V8SingleThread
 }
 
-func (w *WorkersTypeSystemSettingsConf) GetWorkerProcessConfigUpdateConcurrency() *float64 {
+func (w *WorkersTypeSystemSettingsConf) GetWorkerProcessConfigUpdateConcurrency() *int64 {
 	if w == nil {
 		return nil
 	}
 	return w.WorkerProcessConfigUpdateConcurrency
 }
 
-func (w *WorkersTypeSystemSettingsConf) GetWorkerProcessReloadTimeout() *float64 {
+func (w *WorkersTypeSystemSettingsConf) GetWorkerProcessReloadTimeout() *int64 {
 	if w == nil {
 		return nil
 	}
 	return w.WorkerProcessReloadTimeout
 }
 
-func (w *WorkersTypeSystemSettingsConf) GetWorkerThreadPoolSize() *float64 {
+func (w *WorkersTypeSystemSettingsConf) GetWorkerThreadPoolSize() *int64 {
 	if w == nil {
 		return nil
 	}

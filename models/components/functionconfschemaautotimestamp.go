@@ -82,7 +82,8 @@ type FunctionConfSchemaAutoTimestamp struct {
 	DefaultTime *DefaultTime `json:"defaultTime,omitzero"`
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to the Default time.
 	LatestDateAllowed *string `json:"latestDateAllowed,omitzero"`
-	Spacer            *string `json:"spacer,omitzero"`
+	// UI layout spacer; no effect on event processing.
+	Spacer *string `json:"spacer,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to the Default time.
 	EarliestDateAllowed *string `json:"earliestDateAllowed,omitzero"`
 	// Add regex/strptime pairs to extract additional timestamp formats

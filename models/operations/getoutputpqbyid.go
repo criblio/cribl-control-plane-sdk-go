@@ -21,7 +21,7 @@ func (g *GetOutputPqByIDRequest) GetID() string {
 
 type GetOutputPqByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// information about the latest PQ clear job for the Destination
+	// Information about the latest job to clear the PQ for the Destination.
 	CountedJobInfo *components.CountedJobInfo
 }
 

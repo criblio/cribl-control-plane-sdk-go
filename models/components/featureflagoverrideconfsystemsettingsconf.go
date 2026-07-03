@@ -3,8 +3,10 @@
 package components
 
 type FeatureFlagOverrideConfSystemSettingsConf struct {
-	Disabled bool   `json:"disabled"`
-	FlagID   string `json:"flagId"`
+	// If <code>true</code>, the feature flag is disabled. Otherwise, <code>false</code>.
+	Disabled bool `json:"disabled"`
+	// Unique identifier of the feature flag to override.
+	FlagID string `json:"flagId"`
 }
 
 func (f *FeatureFlagOverrideConfSystemSettingsConf) GetDisabled() bool {

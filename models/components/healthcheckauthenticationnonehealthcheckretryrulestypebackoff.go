@@ -1484,11 +1484,21 @@ type HealthCheckAuthenticationOauthSecret struct {
 	AuthRequestParams []AuthRequestParamConfHealthCheckAuthenticationOauth `json:"authRequestParams,omitzero"`
 	// Optional authentication request headers.
 	AuthRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"authRequestHeaders,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauth `json:"refreshRequestParams,omitzero"`
 	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
 	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 	// Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
-	TemplateTokenRespAttribute *string                                        `json:"__template_tokenRespAttribute,omitzero"`
-	Discovery                  *HealthCheckAuthenticationOauthSecretDiscovery `json:"discovery,omitzero"`
+	TemplateTokenRespAttribute *string `json:"__template_tokenRespAttribute,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string                                        `json:"__template_refreshUrl,omitzero"`
+	Discovery          *HealthCheckAuthenticationOauthSecretDiscovery `json:"discovery,omitzero"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
@@ -1590,6 +1600,34 @@ func (h *HealthCheckAuthenticationOauthSecret) GetAuthRequestHeaders() []AuthReq
 	return h.AuthRequestHeaders
 }
 
+func (h *HealthCheckAuthenticationOauthSecret) GetRefreshTokenField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshTokenField
+}
+
+func (h *HealthCheckAuthenticationOauthSecret) GetRotateRefreshToken() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.RotateRefreshToken
+}
+
+func (h *HealthCheckAuthenticationOauthSecret) GetRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshURL
+}
+
+func (h *HealthCheckAuthenticationOauthSecret) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauth {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshRequestParams
+}
+
 func (h *HealthCheckAuthenticationOauthSecret) GetTemplateLoginURL() *string {
 	if h == nil {
 		return nil
@@ -1602,6 +1640,13 @@ func (h *HealthCheckAuthenticationOauthSecret) GetTemplateTokenRespAttribute() *
 		return nil
 	}
 	return h.TemplateTokenRespAttribute
+}
+
+func (h *HealthCheckAuthenticationOauthSecret) GetTemplateRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateRefreshURL
 }
 
 func (h *HealthCheckAuthenticationOauthSecret) GetDiscovery() *HealthCheckAuthenticationOauthSecretDiscovery {
@@ -3254,11 +3299,21 @@ type HealthCheckAuthenticationOauth struct {
 	AuthRequestParams []AuthRequestParamConfHealthCheckAuthenticationOauth `json:"authRequestParams,omitzero"`
 	// Optional authentication request headers.
 	AuthRequestHeaders []AuthRequestHeaderConfHealthCheckAuthenticationLogin `json:"authRequestHeaders,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauth `json:"refreshRequestParams,omitzero"`
 	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
 	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 	// Binds 'tokenRespAttribute' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'tokenRespAttribute' at runtime.
-	TemplateTokenRespAttribute *string                                  `json:"__template_tokenRespAttribute,omitzero"`
-	Discovery                  *HealthCheckAuthenticationOauthDiscovery `json:"discovery,omitzero"`
+	TemplateTokenRespAttribute *string `json:"__template_tokenRespAttribute,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string                                  `json:"__template_refreshUrl,omitzero"`
+	Discovery          *HealthCheckAuthenticationOauthDiscovery `json:"discovery,omitzero"`
 	// Expression to derive URL to use for the health check operation (can be a constant).
 	CollectURL string `json:"collectUrl"`
 	// Health check HTTP method.
@@ -3360,6 +3415,34 @@ func (h *HealthCheckAuthenticationOauth) GetAuthRequestHeaders() []AuthRequestHe
 	return h.AuthRequestHeaders
 }
 
+func (h *HealthCheckAuthenticationOauth) GetRefreshTokenField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshTokenField
+}
+
+func (h *HealthCheckAuthenticationOauth) GetRotateRefreshToken() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.RotateRefreshToken
+}
+
+func (h *HealthCheckAuthenticationOauth) GetRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshURL
+}
+
+func (h *HealthCheckAuthenticationOauth) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauth {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshRequestParams
+}
+
 func (h *HealthCheckAuthenticationOauth) GetTemplateLoginURL() *string {
 	if h == nil {
 		return nil
@@ -3372,6 +3455,13 @@ func (h *HealthCheckAuthenticationOauth) GetTemplateTokenRespAttribute() *string
 		return nil
 	}
 	return h.TemplateTokenRespAttribute
+}
+
+func (h *HealthCheckAuthenticationOauth) GetTemplateRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateRefreshURL
 }
 
 func (h *HealthCheckAuthenticationOauth) GetDiscovery() *HealthCheckAuthenticationOauthDiscovery {
@@ -5057,6 +5147,16 @@ type HealthCheckAuthenticationLoginSecret struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
 	AuthRequestParams []AuthRequestParamConfHealthCheckAuthenticationOauth `json:"authRequestParams,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauth `json:"refreshRequestParams,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
@@ -5303,6 +5403,41 @@ func (h *HealthCheckAuthenticationLoginSecret) GetAuthRequestParams() []AuthRequ
 		return nil
 	}
 	return h.AuthRequestParams
+}
+
+func (h *HealthCheckAuthenticationLoginSecret) GetRefreshTokenField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshTokenField
+}
+
+func (h *HealthCheckAuthenticationLoginSecret) GetRotateRefreshToken() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.RotateRefreshToken
+}
+
+func (h *HealthCheckAuthenticationLoginSecret) GetRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshURL
+}
+
+func (h *HealthCheckAuthenticationLoginSecret) GetTemplateRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateRefreshURL
+}
+
+func (h *HealthCheckAuthenticationLoginSecret) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauth {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshRequestParams
 }
 
 func (h *HealthCheckAuthenticationLoginSecret) GetTextSecret() *string {
@@ -6827,6 +6962,16 @@ type HealthCheckAuthenticationLogin struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
 	AuthRequestParams []AuthRequestParamConfHealthCheckAuthenticationOauth `json:"authRequestParams,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauth `json:"refreshRequestParams,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
@@ -7073,6 +7218,41 @@ func (h *HealthCheckAuthenticationLogin) GetAuthRequestParams() []AuthRequestPar
 		return nil
 	}
 	return h.AuthRequestParams
+}
+
+func (h *HealthCheckAuthenticationLogin) GetRefreshTokenField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshTokenField
+}
+
+func (h *HealthCheckAuthenticationLogin) GetRotateRefreshToken() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.RotateRefreshToken
+}
+
+func (h *HealthCheckAuthenticationLogin) GetRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshURL
+}
+
+func (h *HealthCheckAuthenticationLogin) GetTemplateRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateRefreshURL
+}
+
+func (h *HealthCheckAuthenticationLogin) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauth {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshRequestParams
 }
 
 func (h *HealthCheckAuthenticationLogin) GetTextSecret() *string {
@@ -8597,6 +8777,16 @@ type HealthCheckAuthenticationBasicSecret struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
 	AuthRequestParams []AuthRequestParamConfHealthCheckAuthenticationOauth `json:"authRequestParams,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauth `json:"refreshRequestParams,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
@@ -8843,6 +9033,41 @@ func (h *HealthCheckAuthenticationBasicSecret) GetAuthRequestParams() []AuthRequ
 		return nil
 	}
 	return h.AuthRequestParams
+}
+
+func (h *HealthCheckAuthenticationBasicSecret) GetRefreshTokenField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshTokenField
+}
+
+func (h *HealthCheckAuthenticationBasicSecret) GetRotateRefreshToken() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.RotateRefreshToken
+}
+
+func (h *HealthCheckAuthenticationBasicSecret) GetRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshURL
+}
+
+func (h *HealthCheckAuthenticationBasicSecret) GetTemplateRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateRefreshURL
+}
+
+func (h *HealthCheckAuthenticationBasicSecret) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauth {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshRequestParams
 }
 
 func (h *HealthCheckAuthenticationBasicSecret) GetTextSecret() *string {
@@ -10367,6 +10592,16 @@ type HealthCheckAuthenticationBasic struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
 	AuthRequestParams []AuthRequestParamConfHealthCheckAuthenticationOauth `json:"authRequestParams,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauth `json:"refreshRequestParams,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
@@ -10613,6 +10848,41 @@ func (h *HealthCheckAuthenticationBasic) GetAuthRequestParams() []AuthRequestPar
 		return nil
 	}
 	return h.AuthRequestParams
+}
+
+func (h *HealthCheckAuthenticationBasic) GetRefreshTokenField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshTokenField
+}
+
+func (h *HealthCheckAuthenticationBasic) GetRotateRefreshToken() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.RotateRefreshToken
+}
+
+func (h *HealthCheckAuthenticationBasic) GetRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshURL
+}
+
+func (h *HealthCheckAuthenticationBasic) GetTemplateRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateRefreshURL
+}
+
+func (h *HealthCheckAuthenticationBasic) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauth {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshRequestParams
 }
 
 func (h *HealthCheckAuthenticationBasic) GetTextSecret() *string {

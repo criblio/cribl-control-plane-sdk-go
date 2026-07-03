@@ -3,11 +3,12 @@
 package components
 
 type NodeUpgradeStatus struct {
-	Active    *NodeActiveUpgradeStatus  `json:"active,omitzero"`
-	Failed    *NodeFailedUpgradeStatus  `json:"failed,omitzero"`
-	Skipped   *NodeSkippedUpgradeStatus `json:"skipped,omitzero"`
-	State     NodeUpgradeState          `json:"state"`
-	Timestamp float64                   `json:"timestamp"`
+	Active  *NodeActiveUpgradeStatus  `json:"active,omitzero"`
+	Failed  *NodeFailedUpgradeStatus  `json:"failed,omitzero"`
+	Skipped *NodeSkippedUpgradeStatus `json:"skipped,omitzero"`
+	State   NodeUpgradeState          `json:"state"`
+	// Timestamp (in Unix time) when the node entered the upgrade state, in milliseconds.
+	Timestamp int64 `json:"timestamp"`
 }
 
 func (n *NodeUpgradeStatus) GetActive() *NodeActiveUpgradeStatus {
@@ -38,9 +39,9 @@ func (n *NodeUpgradeStatus) GetState() NodeUpgradeState {
 	return n.State
 }
 
-func (n *NodeUpgradeStatus) GetTimestamp() float64 {
+func (n *NodeUpgradeStatus) GetTimestamp() int64 {
 	if n == nil {
-		return 0.0
+		return 0
 	}
 	return n.Timestamp
 }

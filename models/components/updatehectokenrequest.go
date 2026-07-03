@@ -14,7 +14,7 @@ type UpdateHecTokenRequest struct {
 	// If <code>true</code>, the HEC token is enabled. Otherwise, <code>false</code>.
 	Enabled *bool `json:"enabled,omitzero"`
 	// Array of key-value pairs to associate with the HEC token for tagging, categorization, or providing additional context. Each item in the array is an object with a <code>name</code> and a <code>value</code>.
-	Metadata []EventBreakerRuleFields `json:"metadata,omitzero"`
+	Metadata []MetadataConfAddHecTokenRequest `json:"metadata,omitzero"`
 }
 
 func (u UpdateHecTokenRequest) MarshalJSON() ([]byte, error) {
@@ -49,7 +49,7 @@ func (u *UpdateHecTokenRequest) GetEnabled() *bool {
 	return u.Enabled
 }
 
-func (u *UpdateHecTokenRequest) GetMetadata() []EventBreakerRuleFields {
+func (u *UpdateHecTokenRequest) GetMetadata() []MetadataConfAddHecTokenRequest {
 	if u == nil {
 		return nil
 	}

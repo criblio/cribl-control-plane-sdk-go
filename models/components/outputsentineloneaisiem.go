@@ -106,12 +106,8 @@ type OutputSentinelOneAiSiem struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
-	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
-	Region OutputSentinelOneAiSiemRegion `json:"region"`
-	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
-	Endpoint OutputSentinelOneAISIEMAISIEMEndpointPath `json:"endpoint"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -141,6 +137,10 @@ type OutputSentinelOneAiSiem struct {
 	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// The SentinelOne region to send events to. In most cases you can find the region by either looking at your SentinelOne URL or knowing what geographic region your SentinelOne instance is contained in.
+	Region OutputSentinelOneAiSiemRegion `json:"region"`
+	// Endpoint to send events to. Use /services/collector/event for structured JSON payloads with standard HEC top-level fields. Use /services/collector/raw for unstructured log lines (plain text).
+	Endpoint OutputSentinelOneAISIEMAISIEMEndpointPath `json:"endpoint"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Optional description for this configuration.
@@ -263,20 +263,6 @@ func (o *OutputSentinelOneAiSiem) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputSentinelOneAiSiem) GetRegion() OutputSentinelOneAiSiemRegion {
-	if o == nil {
-		return OutputSentinelOneAiSiemRegion("")
-	}
-	return o.Region
-}
-
-func (o *OutputSentinelOneAiSiem) GetEndpoint() OutputSentinelOneAISIEMAISIEMEndpointPath {
-	if o == nil {
-		return OutputSentinelOneAISIEMAISIEMEndpointPath("")
-	}
-	return o.Endpoint
-}
-
 func (o *OutputSentinelOneAiSiem) GetConcurrency() *float64 {
 	if o == nil {
 		return nil
@@ -373,6 +359,20 @@ func (o *OutputSentinelOneAiSiem) GetResponseHonorRetryAfterHeader() *bool {
 		return nil
 	}
 	return o.ResponseHonorRetryAfterHeader
+}
+
+func (o *OutputSentinelOneAiSiem) GetRegion() OutputSentinelOneAiSiemRegion {
+	if o == nil {
+		return OutputSentinelOneAiSiemRegion("")
+	}
+	return o.Region
+}
+
+func (o *OutputSentinelOneAiSiem) GetEndpoint() OutputSentinelOneAISIEMAISIEMEndpointPath {
+	if o == nil {
+		return OutputSentinelOneAISIEMAISIEMEndpointPath("")
+	}
+	return o.Endpoint
 }
 
 func (o *OutputSentinelOneAiSiem) GetOnBackpressure() *BackpressureBehaviorOptions {

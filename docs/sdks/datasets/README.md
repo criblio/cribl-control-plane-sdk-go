@@ -50,8 +50,20 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedCriblLakeDataset != nil {
-        // handle response
+    if res.PaginatedCriblLakeDataset != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```

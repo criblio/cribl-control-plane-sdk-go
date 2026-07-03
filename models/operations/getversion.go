@@ -10,6 +10,10 @@ import (
 type GetVersionRequest struct {
 	// Maximum number of commits to return in the response for this request.
 	Count *int64 `queryParam:"style=form,explode=true,name=count"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (g *GetVersionRequest) GetCount() *int64 {
@@ -19,10 +23,26 @@ func (g *GetVersionRequest) GetCount() *int64 {
 	return g.Count
 }
 
+func (g *GetVersionRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetVersionRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
 type GetVersionResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// List of GitLogResult objects.
-	CountedGitLogResult *components.CountedGitLogResult
+	PaginatedGitLogResult *components.PaginatedGitLogResult
+
+	Next func() (*GetVersionResponse, error)
 }
 
 func (g GetVersionResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +63,9 @@ func (g *GetVersionResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetVersionResponse) GetCountedGitLogResult() *components.CountedGitLogResult {
+func (g *GetVersionResponse) GetPaginatedGitLogResult() *components.PaginatedGitLogResult {
 	if g == nil {
 		return nil
 	}
-	return g.CountedGitLogResult
+	return g.PaginatedGitLogResult
 }

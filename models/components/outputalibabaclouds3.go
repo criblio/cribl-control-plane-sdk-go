@@ -66,7 +66,7 @@ type OutputAlibabaCloudS3 struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Authentication method.
 	AwsAuthenticationMethod *OutputAlibabaCloudS3AuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
@@ -124,6 +124,14 @@ type OutputAlibabaCloudS3 struct {
 	ObjectACL *ObjectACLOptions `json:"objectACL,omitzero"`
 	// Alibaba OSS S3-compatible endpoint URL. Examples: public `https://s3.oss-{region}.aliyuncs.com`, internal `https://s3.oss-{region}-internal.aliyuncs.com`
 	Endpoint string `json:"endpoint"`
+	// Use Assume Role credentials to access Alibaba OSS
+	EnableAssumeRole *bool `json:"enableAssumeRole,omitzero"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// ARN of the RAM role to assume. Format: acs:ram::<account-id>:role/<role-name>. Example: acs:ram::123456789:role/OSSAccessRole
+	AssumeRoleArn *string `json:"assumeRoleArn,omitzero"`
+	// External ID for the assumed role (optional, for security when configured in the role trust policy)
+	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
@@ -182,6 +190,10 @@ type OutputAlibabaCloudS3 struct {
 	TemplateObjectACL *string `json:"__template_objectACL,omitzero"`
 	// Binds 'endpoint' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'endpoint' at runtime.
 	TemplateEndpoint *string `json:"__template_endpoint,omitzero"`
+	// Binds 'assumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleArn' at runtime.
+	TemplateAssumeRoleArn *string `json:"__template_assumeRoleArn,omitzero"`
+	// Binds 'assumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'assumeRoleExternalId' at runtime.
+	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 	// Binds 'compress' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'compress' at runtime.
 	TemplateCompress *string `json:"__template_compress,omitzero"`
 	// Binds 'parquetSchema' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'parquetSchema' at runtime.
@@ -444,6 +456,34 @@ func (o *OutputAlibabaCloudS3) GetEndpoint() string {
 	return o.Endpoint
 }
 
+func (o *OutputAlibabaCloudS3) GetEnableAssumeRole() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.EnableAssumeRole
+}
+
+func (o *OutputAlibabaCloudS3) GetDurationSeconds() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.DurationSeconds
+}
+
+func (o *OutputAlibabaCloudS3) GetAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleArn
+}
+
+func (o *OutputAlibabaCloudS3) GetAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.AssumeRoleExternalID
+}
+
 func (o *OutputAlibabaCloudS3) GetDescription() *string {
 	if o == nil {
 		return nil
@@ -645,6 +685,20 @@ func (o *OutputAlibabaCloudS3) GetTemplateEndpoint() *string {
 		return nil
 	}
 	return o.TemplateEndpoint
+}
+
+func (o *OutputAlibabaCloudS3) GetTemplateAssumeRoleArn() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAssumeRoleArn
+}
+
+func (o *OutputAlibabaCloudS3) GetTemplateAssumeRoleExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateAssumeRoleExternalID
 }
 
 func (o *OutputAlibabaCloudS3) GetTemplateCompress() *string {

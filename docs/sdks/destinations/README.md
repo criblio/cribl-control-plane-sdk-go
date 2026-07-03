@@ -40,12 +40,24 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.List(ctx, nil)
+    res, err := s.Destinations.List(ctx, nil, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutputResponse != nil {
-        // handle response
+    if res.PaginatedOutputResponse != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -73,12 +85,24 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.List(ctx, nil)
+    res, err := s.Destinations.List(ctx, nil, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutputResponse != nil {
-        // handle response
+    if res.PaginatedOutputResponse != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -106,12 +130,24 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.List(ctx, nil)
+    res, err := s.Destinations.List(ctx, nil, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutputResponse != nil {
-        // handle response
+    if res.PaginatedOutputResponse != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -122,6 +158,8 @@ func main() {
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                                                            | :heavy_check_mark:                                                                                                                                               | The context to use for the request.                                                                                                                              |
 | `type_`                                                                                                                                                          | [*components.DestinationType](../../models/components/destinationtype.md)                                                                                        | :heavy_minus_sign:                                                                                                                                               | Type of Destination to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported. |
+| `offset`                                                                                                                                                         | `*int64`                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                               | Pagination offset                                                                                                                                                |
+| `limit`                                                                                                                                                          | `*int64`                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                               | Maximum number of items to return                                                                                                                                |
 | `opts`                                                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                                                         | :heavy_minus_sign:                                                                                                                                               | The options for this request.                                                                                                                                    |
 
 ### Response
@@ -172,6 +210,48 @@ func main() {
             Bucket: "events",
             StagePath: "/tmp/staging",
             Endpoint: criblcontrolplanesdkgo.Pointer("https://s3.alphasoc.net"),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesAmazonManagedPrometheus
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesAmazonManagedPrometheus" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestAmazonManagedPrometheus(
+        operations.CreateOutputOutputAmazonManagedPrometheus{
+            ID: "amazon-managed-prometheus-output",
+            Type: operations.CreateOutputTypeAmazonManagedPrometheusAmazonManagedPrometheus,
+            URL: "https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-example/api/v1/remote_write",
+            AwsAuthenticationMethod: components.AuthenticationMethodOptionsAutoSecretAuto,
+            Region: "us-east-1",
         },
     ))
     if err != nil {
@@ -1361,6 +1441,49 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputCreateExamplesGoogleBigQuery
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesGoogleBigQuery" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestGoogleBigquery(
+        operations.CreateOutputOutputGoogleBigquery{
+            ID: "google-bigquery-output",
+            Type: operations.CreateOutputTypeGoogleBigqueryGoogleBigquery,
+            ProjectID: "my-project",
+            DatasetID: "my-dataset",
+            TableID: "my-table",
+            GoogleAuthMethod: operations.CreateOutputGoogleAuthenticationMethodGoogleBigqueryAuto,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputCreateExamplesGoogleChronicle
 
 <!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesGoogleChronicle" -->
@@ -1474,7 +1597,7 @@ func main() {
         operations.CreateOutputOutputGoogleCloudObservability{
             ID: "google-cloud-observability-output",
             Type: operations.CreateOutputTypeGoogleCloudObservabilityGoogleCloudObservability,
-            GoogleAuthMethod: operations.CreateOutputGoogleAuthenticationMethodAuto,
+            GoogleAuthMethod: operations.CreateOutputGoogleAuthenticationMethodGoogleCloudObservabilityAuto,
         },
     ))
     if err != nil {
@@ -7245,6 +7368,47 @@ func main() {
     }
 }
 ```
+### Example Usage: UpdateOutputExamplesAmazonManagedPrometheus
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesAmazonManagedPrometheus" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputAmazonManagedPrometheus(
+        components.OutputAmazonManagedPrometheus{
+            ID: criblcontrolplanesdkgo.Pointer("amazon-managed-prometheus-output"),
+            Type: components.OutputAmazonManagedPrometheusTypeAmazonManagedPrometheus,
+            URL: "https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-example/api/v1/remote_write",
+            AwsAuthenticationMethod: components.AuthenticationMethodOptionsAutoSecretAuto,
+            Region: "us-east-1",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: UpdateOutputExamplesAzureBlob
 
 <!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesAzureBlob" -->
@@ -8427,6 +8591,48 @@ func main() {
             ID: criblcontrolplanesdkgo.Pointer("filesystem-output"),
             Type: components.OutputFilesystemTypeFilesystem,
             DestPath: "/var/log/output",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateOutputExamplesGoogleBigQuery
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesGoogleBigQuery" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputGoogleBigquery(
+        components.OutputGoogleBigquery{
+            ID: criblcontrolplanesdkgo.Pointer("google-bigquery-output"),
+            Type: components.OutputGoogleBigqueryTypeGoogleBigquery,
+            ProjectID: "my-project",
+            DatasetID: "my-dataset",
+            TableID: "my-table",
+            GoogleAuthMethod: components.OutputGoogleBigqueryGoogleAuthenticationMethodAuto,
         },
     ))
     if err != nil {

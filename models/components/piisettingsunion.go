@@ -9,6 +9,7 @@ import (
 )
 
 type PiiSettings struct {
+	// If <code>true</code>, enable PII detection for events processed by the Cribl instance. Otherwise, <code>false</code>.
 	EnablePiiDetection bool `json:"enablePiiDetection"`
 }
 

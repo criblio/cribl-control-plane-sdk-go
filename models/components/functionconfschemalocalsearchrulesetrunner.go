@@ -6,6 +6,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// RulesetType - Type of ruleset to apply: dataset or datatype.
 type RulesetType string
 
 const (
@@ -28,14 +29,15 @@ func (e *RulesetType) IsExact() bool {
 	return false
 }
 
-type FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets struct {
+// FullRuleset - Full ruleset definition, used with live data capture for draft or unsaved rulesets.
+type FullRuleset struct {
 }
 
-func (f FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets) MarshalJSON() ([]byte, error) {
+func (f FullRuleset) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(f, "", false)
 }
 
-func (f *FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets) UnmarshalJSON(data []byte) error {
+func (f *FullRuleset) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
 		return err
 	}
@@ -43,9 +45,12 @@ func (f *FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets) Un
 }
 
 type FunctionConfSchemaLocalSearchRulesetRunner struct {
-	RulesetType *RulesetType                                                         `json:"rulesetType,omitzero"`
-	RulesetID   *string                                                              `json:"rulesetId,omitzero"`
-	Ruleset     *FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets `json:"ruleset,omitzero"`
+	// Type of ruleset to apply: dataset or datatype.
+	RulesetType *RulesetType `json:"rulesetType,omitzero"`
+	// ID of the ruleset to apply.
+	RulesetID *string `json:"rulesetId,omitzero"`
+	// Full ruleset definition, used with live data capture for draft or unsaved rulesets.
+	Ruleset *FullRuleset `json:"ruleset,omitzero"`
 	// Only for use with live data capture. Mark events that were dropped by dataset rules and still include them for capture
 	MarkAndIncludeDroppedEvents *bool `json:"markAndIncludeDroppedEvents,omitzero"`
 }
@@ -75,7 +80,7 @@ func (f *FunctionConfSchemaLocalSearchRulesetRunner) GetRulesetID() *string {
 	return f.RulesetID
 }
 
-func (f *FunctionConfSchemaLocalSearchRulesetRunner) GetRuleset() *FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets {
+func (f *FunctionConfSchemaLocalSearchRulesetRunner) GetRuleset() *FullRuleset {
 	if f == nil {
 		return nil
 	}

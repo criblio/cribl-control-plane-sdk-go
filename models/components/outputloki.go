@@ -55,7 +55,7 @@ type OutputLoki struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The endpoint to send logs to
 	URL string `json:"url"`
@@ -64,7 +64,7 @@ type OutputLoki struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels   []HTTPDiscoveryHeaderConfInputPrometheus                       `json:"labels,omitzero"`
+	Labels   []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret  `json:"labels,omitzero"`
 	AuthType *AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret `json:"authType,omitzero"`
 	// Maximum number of ongoing requests before blocking. Warning: Setting this value > 1 can cause Loki to complain about entries being delivered out of order.
 	Concurrency *float64 `json:"concurrency,omitzero"`
@@ -218,7 +218,7 @@ func (o *OutputLoki) GetMessageFormat() *MessageFormatOptions {
 	return o.MessageFormat
 }
 
-func (o *OutputLoki) GetLabels() []HTTPDiscoveryHeaderConfInputPrometheus {
+func (o *OutputLoki) GetLabels() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
 	if o == nil {
 		return nil
 	}

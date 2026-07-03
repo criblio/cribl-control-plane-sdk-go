@@ -31,6 +31,32 @@ func (e *InputAnthropicComplianceType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputAnthropicComplianceEndpointName string
+
+const (
+	InputAnthropicComplianceEndpointNameActivities    InputAnthropicComplianceEndpointName = "activities"
+	InputAnthropicComplianceEndpointNameChats         InputAnthropicComplianceEndpointName = "chats"
+	InputAnthropicComplianceEndpointNameProjects      InputAnthropicComplianceEndpointName = "projects"
+	InputAnthropicComplianceEndpointNameChatMessages  InputAnthropicComplianceEndpointName = "chat_messages"
+	InputAnthropicComplianceEndpointNameGroups        InputAnthropicComplianceEndpointName = "groups"
+	InputAnthropicComplianceEndpointNameOrganizations InputAnthropicComplianceEndpointName = "organizations"
+)
+
+func (e InputAnthropicComplianceEndpointName) ToPointer() *InputAnthropicComplianceEndpointName {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputAnthropicComplianceEndpointName) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "activities", "chats", "projects", "chat_messages", "groups", "organizations":
+			return true
+		}
+	}
+	return false
+}
+
 type InputAnthropicComplianceManageState struct {
 }
 
@@ -46,9 +72,9 @@ func (i *InputAnthropicComplianceManageState) UnmarshalJSON(data []byte) error {
 }
 
 type InputAnthropicComplianceContentConfig struct {
-	ContentType        string  `json:"contentType"`
-	ContentDescription *string `json:"contentDescription,omitzero"`
-	Enabled            *bool   `json:"enabled,omitzero"`
+	ContentType        InputAnthropicComplianceEndpointName `json:"contentType"`
+	ContentDescription *string                              `json:"contentDescription,omitzero"`
+	Enabled            *bool                                `json:"enabled,omitzero"`
 	// Track collection progress between consecutive scheduled executions
 	StateTracking *bool `json:"stateTracking,omitzero"`
 	// JavaScript expression that defines how to update the state from an event
@@ -56,12 +82,12 @@ type InputAnthropicComplianceContentConfig struct {
 	// JavaScript expression that defines which state to keep when merging task state
 	StateMergeExpression *string                              `json:"stateMergeExpression,omitzero"`
 	ManageState          *InputAnthropicComplianceManageState `json:"manageState,omitzero"`
+	// Earliest time for data collection, relative to now
+	Earliest *string `json:"earliest,omitzero"`
+	// Latest time for data collection, relative to now
+	Latest *string `json:"latest,omitzero"`
 	// Schedule on which to run this collection job
 	CronSchedule string `json:"cronSchedule"`
-	// Earliest time for data collection, relative to now
-	Earliest string `json:"earliest"`
-	// Latest time for data collection, relative to now
-	Latest string `json:"latest"`
 	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
 	JobTimeout *string `json:"jobTimeout,omitzero"`
 }
@@ -77,9 +103,9 @@ func (i *InputAnthropicComplianceContentConfig) UnmarshalJSON(data []byte) error
 	return nil
 }
 
-func (i *InputAnthropicComplianceContentConfig) GetContentType() string {
+func (i *InputAnthropicComplianceContentConfig) GetContentType() InputAnthropicComplianceEndpointName {
 	if i == nil {
-		return ""
+		return InputAnthropicComplianceEndpointName("")
 	}
 	return i.ContentType
 }
@@ -126,25 +152,25 @@ func (i *InputAnthropicComplianceContentConfig) GetManageState() *InputAnthropic
 	return i.ManageState
 }
 
+func (i *InputAnthropicComplianceContentConfig) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputAnthropicComplianceContentConfig) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
 func (i *InputAnthropicComplianceContentConfig) GetCronSchedule() string {
 	if i == nil {
 		return ""
 	}
 	return i.CronSchedule
-}
-
-func (i *InputAnthropicComplianceContentConfig) GetEarliest() string {
-	if i == nil {
-		return ""
-	}
-	return i.Earliest
-}
-
-func (i *InputAnthropicComplianceContentConfig) GetLatest() string {
-	if i == nil {
-		return ""
-	}
-	return i.Latest
 }
 
 func (i *InputAnthropicComplianceContentConfig) GetJobTimeout() *string {
@@ -168,7 +194,7 @@ type InputAnthropicComplianceInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`

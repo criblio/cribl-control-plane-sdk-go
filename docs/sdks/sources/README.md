@@ -40,12 +40,24 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.List(ctx, nil)
+    res, err := s.Sources.List(ctx, nil, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInputResponse != nil {
-        // handle response
+    if res.PaginatedInputResponse != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -73,12 +85,24 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.List(ctx, nil)
+    res, err := s.Sources.List(ctx, nil, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInputResponse != nil {
-        // handle response
+    if res.PaginatedInputResponse != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -106,12 +130,24 @@ func main() {
         }),
     )
 
-    res, err := s.Sources.List(ctx, nil)
+    res, err := s.Sources.List(ctx, nil, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInputResponse != nil {
-        // handle response
+    if res.PaginatedInputResponse != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -122,6 +158,8 @@ func main() {
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                                                       | [context.Context](https://pkg.go.dev/context#Context)                                                                                                       | :heavy_check_mark:                                                                                                                                          | The context to use for the request.                                                                                                                         |
 | `type_`                                                                                                                                                     | []`string`                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                          | Type of Source to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported. |
+| `offset`                                                                                                                                                    | `*int64`                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                          | Pagination offset                                                                                                                                           |
+| `limit`                                                                                                                                                     | `*int64`                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                          | Maximum number of items to return                                                                                                                           |
 | `opts`                                                                                                                                                      | [][operations.Option](../../models/operations/option.md)                                                                                                    | :heavy_minus_sign:                                                                                                                                          | The options for this request.                                                                                                                               |
 
 ### Response
@@ -174,15 +212,15 @@ func main() {
             TextSecret: "anthropic-api-key-secret",
             ContentConfig: []operations.CreateInputContentConfigAnthropicCompliance{
                 operations.CreateInputContentConfigAnthropicCompliance{
-                    ContentType: "activities",
+                    ContentType: operations.CreateInputEndpointNameActivities,
                     ContentDescription: criblcontrolplanesdkgo.Pointer("Compliance Activities"),
                     Enabled: criblcontrolplanesdkgo.Pointer(true),
                     StateTracking: criblcontrolplanesdkgo.Pointer(true),
                     StateUpdateExpression: criblcontrolplanesdkgo.Pointer("__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}"),
                     StateMergeExpression: criblcontrolplanesdkgo.Pointer("prevState.latestTime > newState.latestTime ? prevState : newState"),
+                    Earliest: criblcontrolplanesdkgo.Pointer("-7d@d"),
+                    Latest: criblcontrolplanesdkgo.Pointer("now"),
                     CronSchedule: "*/5 * * * *",
-                    Earliest: "-7d@d",
-                    Latest: "now",
                     JobTimeout: criblcontrolplanesdkgo.Pointer("300"),
                 },
             },
@@ -1940,12 +1978,12 @@ func main() {
             ContentConfig: []operations.CreateInputContentConfigInput{
                 operations.CreateInputContentConfigInput{
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
-                    RequestParams: []components.HTTPDiscoveryHeaderConfInputPrometheus{
-                        components.HTTPDiscoveryHeaderConfInputPrometheus{
+                    RequestParams: []components.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret{
+                        components.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret{
                             Name: "effective_at[gt]",
                             Value: "`${Math.round(Date.now()/1000 - 3600)}`",
                         },
-                        components.HTTPDiscoveryHeaderConfInputPrometheus{
+                        components.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret{
                             Name: "limit",
                             Value: "100",
                         },
@@ -2858,6 +2896,50 @@ func main() {
     }
 }
 ```
+### Example Usage: InputCreateExamplesUpwindHec
+
+<!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesUpwindHec" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestUpwindHec(
+        operations.CreateInputInputUpwindHec{
+            ID: "upwind-hec-source",
+            Type: operations.CreateInputTypeUpwindHecUpwindHec,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            Host: "0.0.0.0",
+            Port: 8088.0,
+            HecAPI: "/services/collector",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: InputCreateExamplesWef
 
 <!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesWef" -->
@@ -3434,15 +3516,15 @@ func main() {
             TextSecret: "anthropic-api-key-secret",
             ContentConfig: []components.InputAnthropicComplianceContentConfig{
                 components.InputAnthropicComplianceContentConfig{
-                    ContentType: "activities",
+                    ContentType: components.InputAnthropicComplianceEndpointNameActivities,
                     ContentDescription: criblcontrolplanesdkgo.Pointer("Compliance Activities"),
                     Enabled: criblcontrolplanesdkgo.Pointer(true),
                     StateTracking: criblcontrolplanesdkgo.Pointer(true),
                     StateUpdateExpression: criblcontrolplanesdkgo.Pointer("__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}"),
                     StateMergeExpression: criblcontrolplanesdkgo.Pointer("prevState.latestTime > newState.latestTime ? prevState : newState"),
+                    Earliest: criblcontrolplanesdkgo.Pointer("-7d@d"),
+                    Latest: criblcontrolplanesdkgo.Pointer("now"),
                     CronSchedule: "*/5 * * * *",
-                    Earliest: "-7d@d",
-                    Latest: "now",
                     JobTimeout: criblcontrolplanesdkgo.Pointer("300"),
                 },
             },
@@ -5160,12 +5242,12 @@ func main() {
             ContentConfig: []components.InputOpenaiContentConfig{
                 components.InputOpenaiContentConfig{
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
-                    RequestParams: []components.HTTPDiscoveryHeaderConfInputPrometheus{
-                        components.HTTPDiscoveryHeaderConfInputPrometheus{
+                    RequestParams: []components.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret{
+                        components.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret{
                             Name: "effective_at[gt]",
                             Value: "`${Math.round(Date.now()/1000 - 3600)}`",
                         },
-                        components.HTTPDiscoveryHeaderConfInputPrometheus{
+                        components.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret{
                             Name: "limit",
                             Value: "100",
                         },
@@ -6509,15 +6591,15 @@ func main() {
             TextSecret: "anthropic-api-key-secret",
             ContentConfig: []components.InputAnthropicComplianceContentConfig{
                 components.InputAnthropicComplianceContentConfig{
-                    ContentType: "activities",
+                    ContentType: components.InputAnthropicComplianceEndpointNameActivities,
                     ContentDescription: criblcontrolplanesdkgo.Pointer("Compliance Activities"),
                     Enabled: criblcontrolplanesdkgo.Pointer(true),
                     StateTracking: criblcontrolplanesdkgo.Pointer(true),
                     StateUpdateExpression: criblcontrolplanesdkgo.Pointer("__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}"),
                     StateMergeExpression: criblcontrolplanesdkgo.Pointer("prevState.latestTime > newState.latestTime ? prevState : newState"),
+                    Earliest: criblcontrolplanesdkgo.Pointer("-7d@d"),
+                    Latest: criblcontrolplanesdkgo.Pointer("now"),
                     CronSchedule: "*/5 * * * *",
-                    Earliest: "-7d@d",
-                    Latest: "now",
                     JobTimeout: criblcontrolplanesdkgo.Pointer("300"),
                 },
             },
@@ -8315,12 +8397,12 @@ func main() {
             ContentConfig: []components.InputOpenaiContentConfig{
                 components.InputOpenaiContentConfig{
                     Disabled: criblcontrolplanesdkgo.Pointer(false),
-                    RequestParams: []components.HTTPDiscoveryHeaderConfInputPrometheus{
-                        components.HTTPDiscoveryHeaderConfInputPrometheus{
+                    RequestParams: []components.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret{
+                        components.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret{
                             Name: "effective_at[gt]",
                             Value: "`${Math.round(Date.now()/1000 - 3600)}`",
                         },
-                        components.HTTPDiscoveryHeaderConfInputPrometheus{
+                        components.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret{
                             Name: "limit",
                             Value: "100",
                         },
@@ -9203,6 +9285,49 @@ func main() {
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
             Port: 10090.0,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateInputExamplesUpwindHec
+
+<!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="UpdateInputExamplesUpwindHec" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputUpwindHec(
+        components.InputUpwindHecInput{
+            ID: criblcontrolplanesdkgo.Pointer("upwind-hec-source"),
+            Type: components.InputUpwindHecTypeUpwindHec,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            Host: "0.0.0.0",
+            Port: 8088.0,
+            HecAPI: "/services/collector",
         },
     ))
     if err != nil {

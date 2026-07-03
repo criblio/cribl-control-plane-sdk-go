@@ -7,6 +7,7 @@ import (
 )
 
 type FunctionConfSchemaGenStats struct {
+	// List of field names from which to generate statistics.
 	Fields []string `json:"fields,omitzero"`
 }
 

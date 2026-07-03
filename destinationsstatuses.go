@@ -268,12 +268,12 @@ func (s *DestinationsStatuses) List(ctx context.Context, metrics *bool, type_ *b
 					return nil, err
 				}
 
-				var out components.CountedOutputStatus
+				var out components.PaginatedOutputStatus
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedOutputStatus = &out
+				res.PaginatedOutputStatus = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

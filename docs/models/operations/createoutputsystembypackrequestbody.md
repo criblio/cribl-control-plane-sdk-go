@@ -125,6 +125,12 @@ createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPack
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyAzureEventhub(operations.CreateOutputSystemByPackOutputAzureEventhub{/* values here */})
 ```
 
+### CreateOutputSystemByPackOutputGoogleBigquery
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyGoogleBigquery(operations.CreateOutputSystemByPackOutputGoogleBigquery{/* values here */})
+```
+
 ### CreateOutputSystemByPackOutputGoogleChronicle
 
 ```go
@@ -285,6 +291,12 @@ createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPack
 
 ```go
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyLoki(operations.CreateOutputSystemByPackOutputLoki{/* values here */})
+```
+
+### CreateOutputSystemByPackOutputAmazonManagedPrometheus
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyAmazonManagedPrometheus(operations.CreateOutputSystemByPackOutputAmazonManagedPrometheus{/* values here */})
 ```
 
 ### CreateOutputSystemByPackOutputPrometheus
@@ -537,6 +549,8 @@ switch createOutputSystemByPackRequestBody.Type {
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputHoneycomb is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeAzureEventhub:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputAzureEventhub is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeGoogleBigquery:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputGoogleBigquery is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeGoogleChronicle:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputGoogleChronicle is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeGoogleCloudStorage:
@@ -591,6 +605,8 @@ switch createOutputSystemByPackRequestBody.Type {
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputGrafanaCloudUnion is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeLoki:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputLoki is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeAmazonManagedPrometheus:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputAmazonManagedPrometheus is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypePrometheus:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputPrometheus is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeRing:

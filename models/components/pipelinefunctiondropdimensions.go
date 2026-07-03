@@ -32,6 +32,7 @@ func (e *PipelineFunctionDropDimensionsID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PipelineFunctionDropDimensionsConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionDropDimensionsConf struct {
 	// The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
 	TimeWindow string `json:"timeWindow"`
@@ -74,18 +75,19 @@ func (p *PipelineFunctionDropDimensionsConf) GetFlushOnInputClose() *bool {
 }
 
 type PipelineFunctionDropDimensions struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
 	// Identifier of the Function. Always <code>drop_dimensions</code>
 	ID PipelineFunctionDropDimensionsID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                              `json:"final,omitzero"`
-	Conf  PipelineFunctionDropDimensionsConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionDropDimensionsConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

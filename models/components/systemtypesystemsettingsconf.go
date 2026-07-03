@@ -2,9 +2,12 @@
 
 package components
 
+// SystemTypeSystemSettingsConf - System-level operational settings for the Cribl instance.
 type SystemTypeSystemSettingsConf struct {
-	Intercom bool                                   `json:"intercom"`
-	Upgrade  UpgradeOptionsSystemSettingsConfSystem `json:"upgrade"`
+	// If <code>true</code>, enable Intercom integration for in-product messaging. Otherwise, <code>false</code>.
+	Intercom bool `json:"intercom"`
+	// Upgrade permission policy: <code>api</code> to allow upgrades from the UI or API or <code>false</code> to disable.
+	Upgrade UpgradeOptionsSystemSettingsConfSystem `json:"upgrade"`
 }
 
 func (s *SystemTypeSystemSettingsConf) GetIntercom() bool {

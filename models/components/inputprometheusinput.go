@@ -97,7 +97,7 @@ type InputPrometheusInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -171,7 +171,7 @@ type InputPrometheusInput struct {
 	// URL to fetch target groups from (must be http or https)
 	HTTPDiscoveryURL *string `json:"httpDiscoveryUrl,omitzero"`
 	// Extra headers to send with the discovery request
-	HTTPDiscoveryHeaders []HTTPDiscoveryHeaderConfInputPrometheus `json:"httpDiscoveryHeaders,omitzero"`
+	HTTPDiscoveryHeaders []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"httpDiscoveryHeaders,omitzero"`
 	// Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
 	HTTPDiscoveryRejectUnauthorized *bool `json:"httpDiscoveryRejectUnauthorized,omitzero"`
 	// Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
@@ -540,7 +540,7 @@ func (i *InputPrometheusInput) GetHTTPDiscoveryURL() *string {
 	return i.HTTPDiscoveryURL
 }
 
-func (i *InputPrometheusInput) GetHTTPDiscoveryHeaders() []HTTPDiscoveryHeaderConfInputPrometheus {
+func (i *InputPrometheusInput) GetHTTPDiscoveryHeaders() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
 	if i == nil {
 		return nil
 	}

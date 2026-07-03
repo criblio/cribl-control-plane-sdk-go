@@ -49,7 +49,7 @@ func (g *GetInputStatusRequest) GetLimit() *int64 {
 type GetInputStatusResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// List of Source status objects.
-	CountedInputStatus *components.CountedInputStatus
+	PaginatedInputStatus *components.PaginatedInputStatus
 
 	Next func() (*GetInputStatusResponse, error)
 }
@@ -72,9 +72,9 @@ func (g *GetInputStatusResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetInputStatusResponse) GetCountedInputStatus() *components.CountedInputStatus {
+func (g *GetInputStatusResponse) GetPaginatedInputStatus() *components.PaginatedInputStatus {
 	if g == nil {
 		return nil
 	}
-	return g.CountedInputStatus
+	return g.PaginatedInputStatus
 }

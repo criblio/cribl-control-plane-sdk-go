@@ -321,12 +321,24 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.List(ctx, nil)
+    res, err := s.Packs.List(ctx, nil, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedPackInfo != nil {
-        // handle response
+    if res.PaginatedPackInfo != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -337,6 +349,8 @@ func main() {
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `ctx`                                                                                                                                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                               | The context to use for the request.                                                                                                                                                                                                              |
 | `with`                                                                                                                                                                                                                                           | `*string`                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                               | Comma-separated list of additional properties to include in the response. When set, the response includes a count of each specified property in each Pack. Supported values: <code>inputs</code>, <code>outputs</code>, <code>collectors</code>. |
+| `offset`                                                                                                                                                                                                                                         | `*int64`                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                               | Pagination offset                                                                                                                                                                                                                                |
+| `limit`                                                                                                                                                                                                                                          | `*int64`                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                               | Maximum number of items to return                                                                                                                                                                                                                |
 | `opts`                                                                                                                                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                               | The options for this request.                                                                                                                                                                                                                    |
 
 ### Response

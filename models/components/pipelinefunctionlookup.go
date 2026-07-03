@@ -156,6 +156,7 @@ func (o *OutField) GetDefaultValue() *string {
 	return o.DefaultValue
 }
 
+// PipelineFunctionLookupConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionLookupConf struct {
 	// Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
 	File string `json:"file"`
@@ -252,18 +253,19 @@ func (p *PipelineFunctionLookupConf) GetIgnoreCase() *bool {
 }
 
 type PipelineFunctionLookup struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
 	// Identifier of the Function. Always <code>lookup</code>
 	ID PipelineFunctionLookupID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                      `json:"final,omitzero"`
-	Conf  PipelineFunctionLookupConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionLookupConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

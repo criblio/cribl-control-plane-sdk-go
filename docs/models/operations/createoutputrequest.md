@@ -125,6 +125,12 @@ createOutputRequest := operations.CreateCreateOutputRequestHoneycomb(operations.
 createOutputRequest := operations.CreateCreateOutputRequestAzureEventhub(operations.CreateOutputOutputAzureEventhub{/* values here */})
 ```
 
+### CreateOutputOutputGoogleBigquery
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestGoogleBigquery(operations.CreateOutputOutputGoogleBigquery{/* values here */})
+```
+
 ### CreateOutputOutputGoogleChronicle
 
 ```go
@@ -285,6 +291,12 @@ createOutputRequest := operations.CreateCreateOutputRequestGrafanaCloud(operatio
 
 ```go
 createOutputRequest := operations.CreateCreateOutputRequestLoki(operations.CreateOutputOutputLoki{/* values here */})
+```
+
+### CreateOutputOutputAmazonManagedPrometheus
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestAmazonManagedPrometheus(operations.CreateOutputOutputAmazonManagedPrometheus{/* values here */})
 ```
 
 ### CreateOutputOutputPrometheus
@@ -537,6 +549,8 @@ switch createOutputRequest.Type {
 		// createOutputRequest.CreateOutputOutputHoneycomb is populated
 	case operations.CreateOutputRequestTypeAzureEventhub:
 		// createOutputRequest.CreateOutputOutputAzureEventhub is populated
+	case operations.CreateOutputRequestTypeGoogleBigquery:
+		// createOutputRequest.CreateOutputOutputGoogleBigquery is populated
 	case operations.CreateOutputRequestTypeGoogleChronicle:
 		// createOutputRequest.CreateOutputOutputGoogleChronicle is populated
 	case operations.CreateOutputRequestTypeGoogleCloudStorage:
@@ -591,6 +605,8 @@ switch createOutputRequest.Type {
 		// createOutputRequest.CreateOutputOutputGrafanaCloudUnion is populated
 	case operations.CreateOutputRequestTypeLoki:
 		// createOutputRequest.CreateOutputOutputLoki is populated
+	case operations.CreateOutputRequestTypeAmazonManagedPrometheus:
+		// createOutputRequest.CreateOutputOutputAmazonManagedPrometheus is populated
 	case operations.CreateOutputRequestTypePrometheus:
 		// createOutputRequest.CreateOutputOutputPrometheus is populated
 	case operations.CreateOutputRequestTypeRing:

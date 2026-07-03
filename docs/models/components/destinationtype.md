@@ -59,10 +59,12 @@ custom := components.DestinationType("custom_value")
 | `DestinationTypeDatadog`                  | datadog                                   |
 | `DestinationTypeWebhook`                  | webhook                                   |
 | `DestinationTypePrometheus`               | prometheus                                |
+| `DestinationTypeAmazonManagedPrometheus`  | amazon_managed_prometheus                 |
 | `DestinationTypeGooglePubsub`             | google_pubsub                             |
 | `DestinationTypeGoogleChronicle`          | google_chronicle                          |
 | `DestinationTypeChronicle`                | chronicle                                 |
 | `DestinationTypeGoogleCloudObservability` | google_cloud_observability                |
+| `DestinationTypeGoogleBigquery`           | google_bigquery                           |
 | `DestinationTypeGrafanaCloud`             | grafana_cloud                             |
 | `DestinationTypeLoki`                     | loki                                      |
 | `DestinationTypeOpenTelemetry`            | open_telemetry                            |

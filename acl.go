@@ -35,8 +35,8 @@ func newACL(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks
 
 // Get the Access Control List for a Worker Group, Outpost Group, or Edge Fleet
 // Get the Access Control List (ACL) for the specified Worker Group, Outpost Group, or Edge Fleet.
-func (s *ACL) Get(ctx context.Context, product components.ProductsCore, id string, type_ *components.RbacResource, opts ...operations.Option) (*operations.GetConfigGroupACLByProductAndIDResponse, error) {
-	request := operations.GetConfigGroupACLByProductAndIDRequest{
+func (s *ACL) Get(ctx context.Context, product components.ProductsCore, id string, type_ *components.RbacResource, opts ...operations.Option) (*operations.GetProductsGroupsACLByProductAndIDResponse, error) {
+	request := operations.GetProductsGroupsACLByProductAndIDRequest{
 		Product: product,
 		ID:      id,
 		Type:    type_,
@@ -71,7 +71,7 @@ func (s *ACL) Get(ctx context.Context, product components.ProductsCore, id strin
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getConfigGroupAclByProductAndId",
+		OperationID:      "getProductsGroupsAclByProductAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -203,7 +203,7 @@ func (s *ACL) Get(ctx context.Context, product components.ProductsCore, id strin
 		}
 	}
 
-	res := &operations.GetConfigGroupACLByProductAndIDResponse{
+	res := &operations.GetProductsGroupsACLByProductAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,

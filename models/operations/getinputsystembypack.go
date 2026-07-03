@@ -10,6 +10,10 @@ import (
 type GetInputSystemByPackRequest struct {
 	// Type of Source to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
 	Type []string `queryParam:"style=form,explode=true,name=type"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
@@ -32,6 +36,20 @@ func (g *GetInputSystemByPackRequest) GetType() []string {
 	return g.Type
 }
 
+func (g *GetInputSystemByPackRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetInputSystemByPackRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
 func (g *GetInputSystemByPackRequest) GetPack() string {
 	if g == nil {
 		return ""
@@ -42,7 +60,9 @@ func (g *GetInputSystemByPackRequest) GetPack() string {
 type GetInputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// List of Source objects.
-	CountedInputResponse *components.CountedInputResponse
+	PaginatedInputResponse *components.PaginatedInputResponse
+
+	Next func() (*GetInputSystemByPackResponse, error)
 }
 
 func (g GetInputSystemByPackResponse) MarshalJSON() ([]byte, error) {
@@ -63,9 +83,9 @@ func (g *GetInputSystemByPackResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetInputSystemByPackResponse) GetCountedInputResponse() *components.CountedInputResponse {
+func (g *GetInputSystemByPackResponse) GetPaginatedInputResponse() *components.PaginatedInputResponse {
 	if g == nil {
 		return nil
 	}
-	return g.CountedInputResponse
+	return g.PaginatedInputResponse
 }

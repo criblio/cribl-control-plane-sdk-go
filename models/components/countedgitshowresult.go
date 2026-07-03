@@ -2,38 +2,23 @@
 
 package components
 
-import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-)
-
 type CountedGitShowResult struct {
 	// number of items present in the items array
-	Count *int64 `json:"count,omitzero"`
+	Count int64 `json:"count"`
 	// List of items in this response.
-	Items []GitShowResult `json:"items,omitzero"`
+	Items []GitShowResult `json:"items"`
 }
 
-func (c CountedGitShowResult) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CountedGitShowResult) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CountedGitShowResult) GetCount() *int64 {
+func (c *CountedGitShowResult) GetCount() int64 {
 	if c == nil {
-		return nil
+		return 0
 	}
 	return c.Count
 }
 
 func (c *CountedGitShowResult) GetItems() []GitShowResult {
 	if c == nil {
-		return nil
+		return []GitShowResult{}
 	}
 	return c.Items
 }

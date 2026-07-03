@@ -40,12 +40,24 @@ func main() {
         }),
     )
 
-    res, err := s.Versions.Commits.List(ctx, nil)
+    res, err := s.Versions.Commits.List(ctx, nil, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedGitLogResult != nil {
-        // handle response
+    if res.PaginatedGitLogResult != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -56,6 +68,8 @@ func main() {
 | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | `ctx`                                                                 | [context.Context](https://pkg.go.dev/context#Context)                 | :heavy_check_mark:                                                    | The context to use for the request.                                   |
 | `count`                                                               | `*int64`                                                              | :heavy_minus_sign:                                                    | Maximum number of commits to return in the response for this request. |
+| `offset`                                                              | `*int64`                                                              | :heavy_minus_sign:                                                    | Pagination offset                                                     |
+| `limit`                                                               | `*int64`                                                              | :heavy_minus_sign:                                                    | Maximum number of items to return                                     |
 | `opts`                                                                | [][operations.Option](../../models/operations/option.md)              | :heavy_minus_sign:                                                    | The options for this request.                                         |
 
 ### Response

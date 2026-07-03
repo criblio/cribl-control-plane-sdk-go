@@ -6,6 +6,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// MasterWorkerEntryType - RPC message type reported by the node.
 type MasterWorkerEntryType string
 
 const (
@@ -29,34 +30,36 @@ func (e *MasterWorkerEntryType) IsExact() bool {
 	return false
 }
 
-type MasterWorkerEntryWorkers struct {
-	Count float64 `json:"count"`
-}
-
-func (m *MasterWorkerEntryWorkers) GetCount() float64 {
-	if m == nil {
-		return 0.0
-	}
-	return m.Count
-}
-
 type MasterWorkerEntry struct {
-	ConnectionProtocol  *ConnectionProtocol       `json:"connectionProtocol,omitzero"`
-	Deployable          *bool                     `json:"deployable,omitzero"`
-	Disconnected        *bool                     `json:"disconnected,omitzero"`
-	FirstMsgTime        float64                   `json:"firstMsgTime"`
-	Group               string                    `json:"group"`
-	ID                  string                    `json:"id"`
-	Info                NodeProvidedInfo          `json:"info"`
-	LastMetrics         map[string]any            `json:"lastMetrics,omitzero"`
-	LastMsgTime         float64                   `json:"lastMsgTime"`
-	Metadata            *HeartbeatMetadata        `json:"metadata,omitzero"`
-	NodeUpgradeStatus   *NodeUpgradeStatus        `json:"nodeUpgradeStatus,omitzero"`
-	ProvisioningTokenID *string                   `json:"provisioningTokenId,omitzero"`
-	Status              *string                   `json:"status,omitzero"`
-	Type                *MasterWorkerEntryType    `json:"type,omitzero"`
-	WorkerProcesses     float64                   `json:"workerProcesses"`
-	Workers             *MasterWorkerEntryWorkers `json:"workers,omitzero"`
+	ConnectionProtocol *ConnectionProtocol `json:"connectionProtocol,omitzero"`
+	// If <code>true</code>, the node can receive configuration deployments. Otherwise, <code>false</code>.
+	Deployable *bool `json:"deployable,omitzero"`
+	// If <code>true</code>, the node is disconnected from the Leader. Otherwise, <code>false</code>.
+	Disconnected *bool `json:"disconnected,omitzero"`
+	// Timestamp (in Unix time) when the Leader first received a message from the node.
+	FirstMsgTime int64 `json:"firstMsgTime"`
+	// The <code>id</code> of the Worker Group, Edge Fleet, or Outpost Group that contains the node.
+	Group string `json:"group"`
+	// Unique identifier for the node.
+	ID   string           `json:"id"`
+	Info NodeProvidedInfo `json:"info"`
+	// Latest total, input, and destination metrics cached for UI display.
+	LastMetrics map[string]any `json:"lastMetrics,omitzero"`
+	// Timestamp (in Unix time) when the Leader last received a message from the node.
+	LastMsgTime       int64              `json:"lastMsgTime"`
+	Metadata          *HeartbeatMetadata `json:"metadata,omitzero"`
+	NodeUpgradeStatus *NodeUpgradeStatus `json:"nodeUpgradeStatus,omitzero"`
+	// Configured ephemeral offline duration, in milliseconds.
+	OfflineDurationMs *int64 `json:"offlineDurationMs,omitzero"`
+	// The <code>id</code> of the provisioning token used to authenticate the node, if used.
+	ProvisioningTokenID *string `json:"provisioningTokenId,omitzero"`
+	// Health status reported for the node.
+	Status *string `json:"status,omitzero"`
+	// RPC message type reported by the node.
+	Type *MasterWorkerEntryType `json:"type,omitzero"`
+	// Number of Worker Processes running on the node.
+	WorkerProcesses int64                  `json:"workerProcesses"`
+	Workers         *MasterWorkerProcesses `json:"workers,omitzero"`
 }
 
 func (m MasterWorkerEntry) MarshalJSON() ([]byte, error) {
@@ -91,9 +94,9 @@ func (m *MasterWorkerEntry) GetDisconnected() *bool {
 	return m.Disconnected
 }
 
-func (m *MasterWorkerEntry) GetFirstMsgTime() float64 {
+func (m *MasterWorkerEntry) GetFirstMsgTime() int64 {
 	if m == nil {
-		return 0.0
+		return 0
 	}
 	return m.FirstMsgTime
 }
@@ -126,9 +129,9 @@ func (m *MasterWorkerEntry) GetLastMetrics() map[string]any {
 	return m.LastMetrics
 }
 
-func (m *MasterWorkerEntry) GetLastMsgTime() float64 {
+func (m *MasterWorkerEntry) GetLastMsgTime() int64 {
 	if m == nil {
-		return 0.0
+		return 0
 	}
 	return m.LastMsgTime
 }
@@ -145,6 +148,13 @@ func (m *MasterWorkerEntry) GetNodeUpgradeStatus() *NodeUpgradeStatus {
 		return nil
 	}
 	return m.NodeUpgradeStatus
+}
+
+func (m *MasterWorkerEntry) GetOfflineDurationMs() *int64 {
+	if m == nil {
+		return nil
+	}
+	return m.OfflineDurationMs
 }
 
 func (m *MasterWorkerEntry) GetProvisioningTokenID() *string {
@@ -168,14 +178,14 @@ func (m *MasterWorkerEntry) GetType() *MasterWorkerEntryType {
 	return m.Type
 }
 
-func (m *MasterWorkerEntry) GetWorkerProcesses() float64 {
+func (m *MasterWorkerEntry) GetWorkerProcesses() int64 {
 	if m == nil {
-		return 0.0
+		return 0
 	}
 	return m.WorkerProcesses
 }
 
-func (m *MasterWorkerEntry) GetWorkers() *MasterWorkerEntryWorkers {
+func (m *MasterWorkerEntry) GetWorkers() *MasterWorkerProcesses {
 	if m == nil {
 		return nil
 	}

@@ -42,7 +42,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInputStatus != nil {
+    if res.PaginatedInputStatus != nil {
         for {
             // handle items
 
@@ -90,7 +90,7 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInputStatus != nil {
+    if res.PaginatedInputStatus != nil {
         for {
             // handle items
 

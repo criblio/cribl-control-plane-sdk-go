@@ -40,12 +40,24 @@ func main() {
         }),
     )
 
-    res, err := s.Pipelines.List(ctx)
+    res, err := s.Pipelines.List(ctx, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedPipeline != nil {
-        // handle response
+    if res.PaginatedPipeline != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -73,12 +85,24 @@ func main() {
         }),
     )
 
-    res, err := s.Pipelines.List(ctx)
+    res, err := s.Pipelines.List(ctx, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedPipeline != nil {
-        // handle response
+    if res.PaginatedPipeline != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -88,6 +112,8 @@ func main() {
 | Parameter                                                | Type                                                     | Required                                                 | Description                                              |
 | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
 | `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
+| `offset`                                                 | `*int64`                                                 | :heavy_minus_sign:                                       | Pagination offset                                        |
+| `limit`                                                  | `*int64`                                                 | :heavy_minus_sign:                                       | Maximum number of items to return                        |
 | `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
 
 ### Response
@@ -1616,7 +1642,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -1687,7 +1713,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -1749,7 +1775,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -1806,7 +1832,8 @@ func main() {
                         ID: components.PipelineFunctionSerdeIDSerde,
                         Conf: components.CreatePipelineFunctionSerdeConfKvp(
                             components.SerdeTypeKvp{
-                                Type: components.TypeOptionsKvp,
+                                Type: components.SerdeTypeKvpTypeKvp,
+                                SrcField: criblcontrolplanesdkgo.Pointer("_raw"),
                                 Keep: []string{
                                     "a",
                                     "b",
@@ -1817,7 +1844,6 @@ func main() {
                                 },
                                 CleanFields: criblcontrolplanesdkgo.Pointer(false),
                                 Mode: components.SerdeTypeKvpOperationModeExtract,
-                                SrcField: criblcontrolplanesdkgo.Pointer("_raw"),
                             },
                         ),
                     },
@@ -2650,7 +2676,16 @@ func main() {
 
     res, err := s.Pipelines.Create(ctx, components.PipelineInput{
         ID: "<id>",
-        Conf: components.ConfInput{},
+        Conf: components.ConfInput{
+            Functions: []components.PipelineFunctionConfInput{
+                components.CreatePipelineFunctionConfInputCef(
+                    components.PipelineFunctionCefInput{
+                        ID: components.PipelineFunctionCefIDCef,
+                        Conf: components.FunctionConfSchemaCefInput{},
+                    },
+                ),
+            },
+        },
     })
     if err != nil {
         log.Fatal(err)
@@ -2686,7 +2721,16 @@ func main() {
 
     res, err := s.Pipelines.Create(ctx, components.PipelineInput{
         ID: "<id>",
-        Conf: components.ConfInput{},
+        Conf: components.ConfInput{
+            Functions: []components.PipelineFunctionConfInput{
+                components.CreatePipelineFunctionConfInputCef(
+                    components.PipelineFunctionCefInput{
+                        ID: components.PipelineFunctionCefIDCef,
+                        Conf: components.FunctionConfSchemaCefInput{},
+                    },
+                ),
+            },
+        },
     })
     if err != nil {
         log.Fatal(err)
@@ -2901,7 +2945,7 @@ func main() {
 
 ## Update
 
-Update the specified Pipeline.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
+Update the specified Pipeline.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body.<br/><br/>This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request.<br/><br/>If the configuration is incorrect, the updated Pipeline might not function as expected.
 
 ### Example Usage: PipelineExamplesAggregateMetrics
 
@@ -4413,7 +4457,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -4484,7 +4528,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -4546,7 +4590,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -4603,7 +4647,8 @@ func main() {
                         ID: components.PipelineFunctionSerdeIDSerde,
                         Conf: components.CreatePipelineFunctionSerdeConfKvp(
                             components.SerdeTypeKvp{
-                                Type: components.TypeOptionsKvp,
+                                Type: components.SerdeTypeKvpTypeKvp,
+                                SrcField: criblcontrolplanesdkgo.Pointer("_raw"),
                                 Keep: []string{
                                     "a",
                                     "b",
@@ -4614,7 +4659,6 @@ func main() {
                                 },
                                 CleanFields: criblcontrolplanesdkgo.Pointer(false),
                                 Mode: components.SerdeTypeKvpOperationModeExtract,
-                                SrcField: criblcontrolplanesdkgo.Pointer("_raw"),
                             },
                         ),
                     },
@@ -5447,7 +5491,16 @@ func main() {
 
     res, err := s.Pipelines.Update(ctx, "<id>", components.PipelineInput{
         ID: "<id>",
-        Conf: components.ConfInput{},
+        Conf: components.ConfInput{
+            Functions: []components.PipelineFunctionConfInput{
+                components.CreatePipelineFunctionConfInputSnmpTrapSerialize(
+                    components.PipelineFunctionSnmpTrapSerialize{
+                        ID: components.PipelineFunctionSnmpTrapSerializeIDSnmpTrapSerialize,
+                        Conf: components.FunctionConfSchemaSnmpTrapSerialize{},
+                    },
+                ),
+            },
+        },
     })
     if err != nil {
         log.Fatal(err)
@@ -5483,7 +5536,16 @@ func main() {
 
     res, err := s.Pipelines.Update(ctx, "<id>", components.PipelineInput{
         ID: "<id>",
-        Conf: components.ConfInput{},
+        Conf: components.ConfInput{
+            Functions: []components.PipelineFunctionConfInput{
+                components.CreatePipelineFunctionConfInputSnmpTrapSerialize(
+                    components.PipelineFunctionSnmpTrapSerialize{
+                        ID: components.PipelineFunctionSnmpTrapSerializeIDSnmpTrapSerialize,
+                        Conf: components.FunctionConfSchemaSnmpTrapSerialize{},
+                    },
+                ),
+            },
+        },
     })
     if err != nil {
         log.Fatal(err)
@@ -7003,7 +7065,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -7074,7 +7136,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -7136,7 +7198,7 @@ func main() {
                             SendBatchSize: criblcontrolplanesdkgo.Pointer[float64](8192.0),
                             Timeout: criblcontrolplanesdkgo.Pointer[float64](200.0),
                             SendBatchMaxSize: criblcontrolplanesdkgo.Pointer[float64](0.0),
-                            MetadataKeys: []any{},
+                            MetadataKeys: []string{},
                             MetadataCardinalityLimit: criblcontrolplanesdkgo.Pointer[float64](1000.0),
                         },
                     },
@@ -7193,7 +7255,8 @@ func main() {
                         ID: components.PipelineFunctionSerdeIDSerde,
                         Conf: components.CreatePipelineFunctionSerdeConfKvp(
                             components.SerdeTypeKvp{
-                                Type: components.TypeOptionsKvp,
+                                Type: components.SerdeTypeKvpTypeKvp,
+                                SrcField: criblcontrolplanesdkgo.Pointer("_raw"),
                                 Keep: []string{
                                     "a",
                                     "b",
@@ -7204,7 +7267,6 @@ func main() {
                                 },
                                 CleanFields: criblcontrolplanesdkgo.Pointer(false),
                                 Mode: components.SerdeTypeKvpOperationModeExtract,
-                                SrcField: criblcontrolplanesdkgo.Pointer("_raw"),
                             },
                         ),
                     },
