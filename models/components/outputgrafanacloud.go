@@ -59,7 +59,7 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The endpoint to send logs to, such as https://logs-prod-us-central1.grafana.net
 	LokiURL *string `json:"lokiUrl,omitzero"`
@@ -70,7 +70,7 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels []HTTPDiscoveryHeaderConfInputPrometheus `json:"labels,omitzero"`
+	Labels []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"labels,omitzero"`
 	// JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
 	MetricRenameExpr *string             `json:"metricRenameExpr,omitzero"`
 	PrometheusAuth   *PrometheusAuthType `json:"prometheusAuth,omitzero"`
@@ -224,7 +224,7 @@ func (o *OutputGrafanaCloudGrafanaCloud2) GetMessageFormat() *MessageFormatOptio
 	return o.MessageFormat
 }
 
-func (o *OutputGrafanaCloudGrafanaCloud2) GetLabels() []HTTPDiscoveryHeaderConfInputPrometheus {
+func (o *OutputGrafanaCloudGrafanaCloud2) GetLabels() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
 	if o == nil {
 		return nil
 	}
@@ -536,7 +536,7 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The endpoint to send logs to, such as https://logs-prod-us-central1.grafana.net
 	LokiURL string `json:"lokiUrl"`
@@ -547,7 +547,7 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	// Format to use when sending logs to Loki (Protobuf or JSON)
 	MessageFormat *MessageFormatOptions `json:"messageFormat,omitzero"`
 	// List of labels to send with logs. Labels define Loki streams, so use static labels to avoid proliferating label value combinations and streams. Can be merged and/or overridden by the event's __labels field. Example: '__labels: {host: "cribl.io", level: "error"}'
-	Labels []HTTPDiscoveryHeaderConfInputPrometheus `json:"labels,omitzero"`
+	Labels []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"labels,omitzero"`
 	// JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.
 	MetricRenameExpr *string             `json:"metricRenameExpr,omitzero"`
 	PrometheusAuth   *PrometheusAuthType `json:"prometheusAuth,omitzero"`
@@ -701,7 +701,7 @@ func (o *OutputGrafanaCloudGrafanaCloud1) GetMessageFormat() *MessageFormatOptio
 	return o.MessageFormat
 }
 
-func (o *OutputGrafanaCloudGrafanaCloud1) GetLabels() []HTTPDiscoveryHeaderConfInputPrometheus {
+func (o *OutputGrafanaCloudGrafanaCloud1) GetLabels() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
 	if o == nil {
 		return nil
 	}

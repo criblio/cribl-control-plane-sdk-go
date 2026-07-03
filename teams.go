@@ -32,8 +32,8 @@ func newTeams(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hoo
 
 // Get the Access Control List for teams with permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
 // Get the Access Control List (ACL) for teams that have permissions on a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product.
-func (s *Teams) Get(ctx context.Context, product components.ProductsCore, id string, type_ *components.RbacResource, opts ...operations.Option) (*operations.GetConfigGroupACLTeamsByProductAndIDResponse, error) {
-	request := operations.GetConfigGroupACLTeamsByProductAndIDRequest{
+func (s *Teams) Get(ctx context.Context, product components.ProductsCore, id string, type_ *components.RbacResource, opts ...operations.Option) (*operations.GetProductsGroupsACLTeamsByProductAndIDResponse, error) {
+	request := operations.GetProductsGroupsACLTeamsByProductAndIDRequest{
 		Product: product,
 		ID:      id,
 		Type:    type_,
@@ -68,7 +68,7 @@ func (s *Teams) Get(ctx context.Context, product components.ProductsCore, id str
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getConfigGroupAclTeamsByProductAndId",
+		OperationID:      "getProductsGroupsAclTeamsByProductAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -200,7 +200,7 @@ func (s *Teams) Get(ctx context.Context, product components.ProductsCore, id str
 		}
 	}
 
-	res := &operations.GetConfigGroupACLTeamsByProductAndIDResponse{
+	res := &operations.GetProductsGroupsACLTeamsByProductAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,

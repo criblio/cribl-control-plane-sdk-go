@@ -10,6 +10,10 @@ import (
 type ListInputRequest struct {
 	// Type of Source to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
 	Type []string `queryParam:"style=form,explode=true,name=type"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (l ListInputRequest) MarshalJSON() ([]byte, error) {
@@ -30,10 +34,26 @@ func (l *ListInputRequest) GetType() []string {
 	return l.Type
 }
 
+func (l *ListInputRequest) GetOffset() *int64 {
+	if l == nil {
+		return nil
+	}
+	return l.Offset
+}
+
+func (l *ListInputRequest) GetLimit() *int64 {
+	if l == nil {
+		return nil
+	}
+	return l.Limit
+}
+
 type ListInputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// List of Source objects.
-	CountedInputResponse *components.CountedInputResponse
+	PaginatedInputResponse *components.PaginatedInputResponse
+
+	Next func() (*ListInputResponse, error)
 }
 
 func (l ListInputResponse) MarshalJSON() ([]byte, error) {
@@ -54,9 +74,9 @@ func (l *ListInputResponse) GetHTTPMeta() components.HTTPMetadata {
 	return l.HTTPMeta
 }
 
-func (l *ListInputResponse) GetCountedInputResponse() *components.CountedInputResponse {
+func (l *ListInputResponse) GetPaginatedInputResponse() *components.PaginatedInputResponse {
 	if l == nil {
 		return nil
 	}
-	return l.CountedInputResponse
+	return l.PaginatedInputResponse
 }

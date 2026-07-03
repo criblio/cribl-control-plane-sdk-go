@@ -32,6 +32,7 @@ func (e *PipelineFunctionSearchEngineExportID) UnmarshalJSON(data []byte) error 
 	}
 }
 
+// SearchEngineExportConfiguration - Configuration specific to the Pipeline Function.
 type SearchEngineExportConfiguration struct {
 	// Id of the search job this function is running on.
 	SearchJobID string `json:"searchJobId"`
@@ -92,18 +93,19 @@ func (s *SearchEngineExportConfiguration) GetSuppressPreviews() *bool {
 }
 
 type PipelineFunctionSearchEngineExport struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
 	// Identifier of the Function. Always <code>search_engine_export</code>
 	ID PipelineFunctionSearchEngineExportID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                           `json:"final,omitzero"`
-	Conf  SearchEngineExportConfiguration `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf SearchEngineExportConfiguration `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

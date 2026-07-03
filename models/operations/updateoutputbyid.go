@@ -108,6 +108,10 @@ func (u *UpdateOutputByIDRequest) GetOutputAzureEventhub() *components.OutputAzu
 	return u.GetOutput().OutputAzureEventhub
 }
 
+func (u *UpdateOutputByIDRequest) GetOutputGoogleBigquery() *components.OutputGoogleBigquery {
+	return u.GetOutput().OutputGoogleBigquery
+}
+
 func (u *UpdateOutputByIDRequest) GetOutputGoogleChronicle() *components.OutputGoogleChronicle {
 	return u.GetOutput().OutputGoogleChronicle
 }
@@ -214,6 +218,10 @@ func (u *UpdateOutputByIDRequest) GetOutputGrafanaCloud() *components.OutputGraf
 
 func (u *UpdateOutputByIDRequest) GetOutputLoki() *components.OutputLoki {
 	return u.GetOutput().OutputLoki
+}
+
+func (u *UpdateOutputByIDRequest) GetOutputAmazonManagedPrometheus() *components.OutputAmazonManagedPrometheus {
+	return u.GetOutput().OutputAmazonManagedPrometheus
 }
 
 func (u *UpdateOutputByIDRequest) GetOutputPrometheus() *components.OutputPrometheus {

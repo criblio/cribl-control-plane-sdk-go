@@ -23,7 +23,7 @@ type RunnableJobScheduledSearch struct {
 	Environment *string `json:"environment,omitzero"`
 	// Configuration for a scheduled job
 	Schedule *ScheduleTypeRunnableJobCollection `json:"schedule,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Identifies which search query to run
 	SavedQueryID string `json:"savedQueryId"`

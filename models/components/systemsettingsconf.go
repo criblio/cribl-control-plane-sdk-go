@@ -7,22 +7,31 @@ import (
 )
 
 type SystemSettingsConf struct {
-	API                  APITypeSystemSettingsConf         `json:"api"`
-	Apps                 *AppsTypeSystemSettingsConf       `json:"apps,omitzero"`
-	Backups              BackupsSettingsUnion              `json:"backups"`
-	CustomLogo           *CustomLogoTypeSystemSettingsConf `json:"customLogo,omitzero"`
-	Pii                  PiiSettingsUnion                  `json:"pii"`
-	Proxy                ProxyTypeSystemSettingsConf       `json:"proxy"`
-	Rollback             RollbackSettingsUnion             `json:"rollback"`
-	Shutdown             ShutdownTypeSystemSettingsConf    `json:"shutdown"`
-	Sni                  SniSettingsUnion                  `json:"sni"`
-	Sockets              *SocketsTypeSystemSettingsConf    `json:"sockets,omitzero"`
-	Support              *SupportTypeSystemSettingsConf    `json:"support,omitzero"`
-	System               SystemTypeSystemSettingsConf      `json:"system"`
-	TLS                  TLSSettingsUnion                  `json:"tls"`
-	UpgradeGroupSettings UpgradeGroupSettings              `json:"upgradeGroupSettings"`
-	UpgradeSettings      UpgradeSettings                   `json:"upgradeSettings"`
-	Workers              WorkersTypeSystemSettingsConf     `json:"workers"`
+	// API server configuration for the Cribl instance.
+	API APITypeSystemSettingsConf `json:"api"`
+	// App configuration.
+	Apps    *AppsTypeSystemSettingsConf `json:"apps,omitzero"`
+	Backups BackupsSettingsUnion        `json:"backups"`
+	// Custom logo configuration for the Cribl UI login page and navigation bar.
+	CustomLogo *CustomLogoTypeSystemSettingsConf `json:"customLogo,omitzero"`
+	Pii        PiiSettingsUnion                  `json:"pii"`
+	// HTTP proxy configuration for outbound connections.
+	Proxy    ProxyTypeSystemSettingsConf `json:"proxy"`
+	Rollback RollbackSettingsUnion       `json:"rollback"`
+	// Graceful shutdown configuration.
+	Shutdown ShutdownTypeSystemSettingsConf `json:"shutdown"`
+	Sni      SniSettingsUnion               `json:"sni"`
+	// Unix domain socket configuration.
+	Sockets *SocketsTypeSystemSettingsConf `json:"sockets,omitzero"`
+	// Support and diagnostics settings.
+	Support *SupportTypeSystemSettingsConf `json:"support,omitzero"`
+	// System-level operational settings for the Cribl instance.
+	System               SystemTypeSystemSettingsConf `json:"system"`
+	TLS                  TLSSettingsUnion             `json:"tls"`
+	UpgradeGroupSettings UpgradeGroupSettings         `json:"upgradeGroupSettings"`
+	UpgradeSettings      UpgradeSettings              `json:"upgradeSettings"`
+	// Worker Process configuration.
+	Workers WorkersTypeSystemSettingsConf `json:"workers"`
 }
 
 func (s SystemSettingsConf) MarshalJSON() ([]byte, error) {

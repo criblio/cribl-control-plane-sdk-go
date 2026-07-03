@@ -32,10 +32,51 @@ func (e *InputDatadogAgentType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type InputDatadogAgentSamplingRule struct {
+	// Datadog service name
+	Service string `json:"service"`
+	// Datadog environment name (example: prod, staging)
+	Environment string `json:"environment"`
+	// Sampling rate for this service/environment combination (0.0–1.0)
+	Rate float64 `json:"rate"`
+}
+
+func (i InputDatadogAgentSamplingRule) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputDatadogAgentSamplingRule) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputDatadogAgentSamplingRule) GetService() string {
+	if i == nil {
+		return ""
+	}
+	return i.Service
+}
+
+func (i *InputDatadogAgentSamplingRule) GetEnvironment() string {
+	if i == nil {
+		return ""
+	}
+	return i.Environment
+}
+
+func (i *InputDatadogAgentSamplingRule) GetRate() float64 {
+	if i == nil {
+		return 0.0
+	}
+	return i.Rate
+}
+
 type InputDatadogAgentProxyMode struct {
-	// Toggle to Yes to send key validation requests from Datadog Agent to the Datadog API. If toggled to No (the default), Stream handles key validation requests by always responding that the key is valid.
+	// Forward key validation requests from the Datadog Agent to the Datadog API. If disabled, Stream handles key validation requests locally by always responding that the key is valid.
 	Enabled bool `json:"enabled"`
-	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
+	// Whether to reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
 }
 
@@ -79,7 +120,7 @@ type InputDatadogAgentInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -111,8 +152,12 @@ type InputDatadogAgentInput struct {
 	IPAllowlistRegex *string `json:"ipAllowlistRegex,omitzero"`
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
-	// Toggle to Yes to extract each incoming metric to multiple events, one per data point. This works well when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave toggled to No (the default).
+	// Extract each incoming metric to multiple events, one per data point. Recommended when sending metrics to a statsd-type output. If sending metrics to DatadogHQ or any destination that accepts arbitrary JSON, leave disabled.
 	ExtractMetrics *bool `json:"extractMetrics,omitzero"`
+	// The rate_by_service hint sent to connected tracers as the catch-all sampling rate. Applies to any service/environment not explicitly listed in Per-Service Sampling Rules. 1.0 = keep all traces (default); 0.0 = suggest dropping all.
+	SamplingRate *float64 `json:"samplingRate,omitzero"`
+	// Per-service sampling rate hints. Each row maps to a "service:<s>,env:<e>" key in the rate_by_service response sent to tracers.
+	SamplingRules []InputDatadogAgentSamplingRule `json:"samplingRules,omitzero"`
 	// Fields to add to events from this input
 	Metadata  []MetadataConfInputCollection `json:"metadata,omitzero"`
 	ProxyMode *InputDatadogAgentProxyMode   `json:"proxyMode,omitzero"`
@@ -312,6 +357,20 @@ func (i *InputDatadogAgentInput) GetExtractMetrics() *bool {
 		return nil
 	}
 	return i.ExtractMetrics
+}
+
+func (i *InputDatadogAgentInput) GetSamplingRate() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SamplingRate
+}
+
+func (i *InputDatadogAgentInput) GetSamplingRules() []InputDatadogAgentSamplingRule {
+	if i == nil {
+		return nil
+	}
+	return i.SamplingRules
 }
 
 func (i *InputDatadogAgentInput) GetMetadata() []MetadataConfInputCollection {

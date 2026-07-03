@@ -8,142 +8,137 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type Os struct {
-	Addresses []string `json:"addresses"`
-}
-
-func (o Os) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(o, "", false)
-}
-
-func (o *Os) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (o *Os) GetAddresses() []string {
-	if o == nil {
-		return []string{}
-	}
-	return o.Addresses
-}
-
-type OsUnionType string
+type OsType string
 
 const (
-	OsUnionTypeHostOsTypeHeartbeatMetadata OsUnionType = "HostOsTypeHeartbeatMetadata"
-	OsUnionTypeOs                          OsUnionType = "os"
+	OsTypeNodeOsInfo              OsType = "NodeOsInfo"
+	OsTypeOsTypeHeartbeatMetadata OsType = "OsTypeHeartbeatMetadata"
 )
 
-type OsUnion struct {
-	HostOsTypeHeartbeatMetadata *HostOsTypeHeartbeatMetadata `queryParam:"inline" union:"member"`
-	Os                          *Os                          `queryParam:"inline" union:"member"`
+// Os - Operating system metadata collected from the node.
+type Os struct {
+	NodeOsInfo              *NodeOsInfo              `queryParam:"inline" union:"member"`
+	OsTypeHeartbeatMetadata *OsTypeHeartbeatMetadata `queryParam:"inline" union:"member"`
 
-	Type OsUnionType
+	Type OsType
 }
 
-func CreateOsUnionHostOsTypeHeartbeatMetadata(hostOsTypeHeartbeatMetadata HostOsTypeHeartbeatMetadata) OsUnion {
-	typ := OsUnionTypeHostOsTypeHeartbeatMetadata
+func CreateOsNodeOsInfo(nodeOsInfo NodeOsInfo) Os {
+	typ := OsTypeNodeOsInfo
 
-	return OsUnion{
-		HostOsTypeHeartbeatMetadata: &hostOsTypeHeartbeatMetadata,
-		Type:                        typ,
+	return Os{
+		NodeOsInfo: &nodeOsInfo,
+		Type:       typ,
 	}
 }
 
-func CreateOsUnionOs(os Os) OsUnion {
-	typ := OsUnionTypeOs
+func CreateOsOsTypeHeartbeatMetadata(osTypeHeartbeatMetadata OsTypeHeartbeatMetadata) Os {
+	typ := OsTypeOsTypeHeartbeatMetadata
 
-	return OsUnion{
-		Os:   &os,
-		Type: typ,
+	return Os{
+		OsTypeHeartbeatMetadata: &osTypeHeartbeatMetadata,
+		Type:                    typ,
 	}
 }
 
-func (u *OsUnion) UnmarshalJSON(data []byte) error {
+func (u *Os) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
 	// Collect all valid candidates
-	var hostOsTypeHeartbeatMetadata HostOsTypeHeartbeatMetadata = HostOsTypeHeartbeatMetadata{}
-	if err := utils.UnmarshalJSON(data, &hostOsTypeHeartbeatMetadata, "", true, nil); err == nil {
+	var nodeOsInfo NodeOsInfo = NodeOsInfo{}
+	if err := utils.UnmarshalJSON(data, &nodeOsInfo, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OsUnionTypeHostOsTypeHeartbeatMetadata,
-			Value: &hostOsTypeHeartbeatMetadata,
+			Type:  OsTypeNodeOsInfo,
+			Value: &nodeOsInfo,
 		})
 	}
 
-	var os Os = Os{}
-	if err := utils.UnmarshalJSON(data, &os, "", true, nil); err == nil {
+	var osTypeHeartbeatMetadata OsTypeHeartbeatMetadata = OsTypeHeartbeatMetadata{}
+	if err := utils.UnmarshalJSON(data, &osTypeHeartbeatMetadata, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  OsUnionTypeOs,
-			Value: &os,
+			Type:  OsTypeOsTypeHeartbeatMetadata,
+			Value: &osTypeHeartbeatMetadata,
 		})
 	}
 
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OsUnion", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Os", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestUnionCandidate(candidates, data)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for OsUnion", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for Os", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(OsUnionType)
+	u.Type = best.Type.(OsType)
 	switch best.Type {
-	case OsUnionTypeHostOsTypeHeartbeatMetadata:
-		u.HostOsTypeHeartbeatMetadata = best.Value.(*HostOsTypeHeartbeatMetadata)
+	case OsTypeNodeOsInfo:
+		u.NodeOsInfo = best.Value.(*NodeOsInfo)
 		return nil
-	case OsUnionTypeOs:
-		u.Os = best.Value.(*Os)
+	case OsTypeOsTypeHeartbeatMetadata:
+		u.OsTypeHeartbeatMetadata = best.Value.(*OsTypeHeartbeatMetadata)
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for OsUnion", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for Os", string(data))
 }
 
-func (u OsUnion) MarshalJSON() ([]byte, error) {
-	if u.HostOsTypeHeartbeatMetadata != nil {
-		return utils.MarshalJSON(u.HostOsTypeHeartbeatMetadata, "", true)
+func (u Os) MarshalJSON() ([]byte, error) {
+	if u.NodeOsInfo != nil {
+		return utils.MarshalJSON(u.NodeOsInfo, "", true)
 	}
 
-	if u.Os != nil {
-		return utils.MarshalJSON(u.Os, "", true)
+	if u.OsTypeHeartbeatMetadata != nil {
+		return utils.MarshalJSON(u.OsTypeHeartbeatMetadata, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type OsUnion: all fields are null")
+	return nil, errors.New("could not marshal union type Os: all fields are null")
 }
 
 type NodeProvidedInfo struct {
-	APIPort        *float64                     `json:"apiPort,omitzero"`
-	APIScheme      *APIScheme                   `json:"apiScheme,omitzero"`
-	Architecture   string                       `json:"architecture"`
-	Aws            *AwsTypeHeartbeatMetadata    `json:"aws,omitzero"`
-	Azure          *AzureTypeHeartbeatMetadata  `json:"azure,omitzero"`
-	ConnIP         *string                      `json:"conn_ip,omitzero"`
-	Cpus           float64                      `json:"cpus"`
-	Cribl          HBCriblInfo                  `json:"cribl"`
-	Env            map[string]string            `json:"env"`
-	FreeDiskSpace  *float64                     `json:"freeDiskSpace,omitzero"`
-	HostOs         *HostOsTypeHeartbeatMetadata `json:"hostOs,omitzero"`
-	Hostname       string                       `json:"hostname"`
-	IsCaptain      *bool                        `json:"isCaptain,omitzero"`
-	IsSaasWorker   *bool                        `json:"isSaasWorker,omitzero"`
-	Kube           *KubeTypeHeartbeatMetadata   `json:"kube,omitzero"`
-	LocalTime      *float64                     `json:"localTime,omitzero"`
-	Metadata       *HeartbeatMetadata           `json:"metadata,omitzero"`
-	Node           string                       `json:"node"`
-	Os             *OsUnion                     `json:"os,omitzero"`
-	Outpost        *OutpostNodeInfo             `json:"outpost,omitzero"`
-	Platform       string                       `json:"platform"`
-	Release        string                       `json:"release"`
-	TotalDiskSpace *float64                     `json:"totalDiskSpace,omitzero"`
-	Totalmem       float64                      `json:"totalmem"`
+	// API port exposed by the node.
+	APIPort   *int64     `json:"apiPort,omitzero"`
+	APIScheme *APIScheme `json:"apiScheme,omitzero"`
+	// CPU architecture.
+	Architecture string                      `json:"architecture"`
+	Aws          *AwsTypeHeartbeatMetadata   `json:"aws,omitzero"`
+	Azure        *AzureTypeHeartbeatMetadata `json:"azure,omitzero"`
+	// Remote <code>ip:port</code> for the worker socket.
+	ConnIP *string `json:"conn_ip,omitzero"`
+	// Number of CPU cores available on the node.
+	Cpus  int64       `json:"cpus"`
+	Cribl HBCriblInfo `json:"cribl"`
+	// Environment variables reported by the node.
+	Env map[string]string `json:"env"`
+	// Free disk space on the node, in bytes.
+	FreeDiskSpace *int64                       `json:"freeDiskSpace,omitzero"`
+	HostOs        *HostOsTypeHeartbeatMetadata `json:"hostOs,omitzero"`
+	// Hostname reported by the node.
+	Hostname string `json:"hostname"`
+	// If <code>true</code>, the node considers itself the elected captain for its group. Otherwise, <code>false</code>.
+	IsCaptain *bool `json:"isCaptain,omitzero"`
+	// If <code>true</code>, the node runs in Cribl.Cloud. Otherwise, <code>false</code>.
+	IsSaasWorker *bool                      `json:"isSaasWorker,omitzero"`
+	Kube         *KubeTypeHeartbeatMetadata `json:"kube,omitzero"`
+	// Local timestamp (in Unix time) on the node, in milliseconds.
+	LocalTime *int64             `json:"localTime,omitzero"`
+	Metadata  *HeartbeatMetadata `json:"metadata,omitzero"`
+	// Node.js runtime version running on the node.
+	Node string `json:"node"`
+	// Operating system metadata collected from the node.
+	Os      *Os              `json:"os,omitzero"`
+	Outpost *OutpostNodeInfo `json:"outpost,omitzero"`
+	// Operating system platform.
+	Platform string `json:"platform"`
+	// Operating system kernel release.
+	Release string `json:"release"`
+	// Total disk space on the node, in bytes.
+	TotalDiskSpace *int64 `json:"totalDiskSpace,omitzero"`
+	// Total memory on the node, in bytes.
+	Totalmem int64 `json:"totalmem"`
 }
 
 func (n NodeProvidedInfo) MarshalJSON() ([]byte, error) {
@@ -157,7 +152,7 @@ func (n *NodeProvidedInfo) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (n *NodeProvidedInfo) GetAPIPort() *float64 {
+func (n *NodeProvidedInfo) GetAPIPort() *int64 {
 	if n == nil {
 		return nil
 	}
@@ -199,9 +194,9 @@ func (n *NodeProvidedInfo) GetConnIP() *string {
 	return n.ConnIP
 }
 
-func (n *NodeProvidedInfo) GetCpus() float64 {
+func (n *NodeProvidedInfo) GetCpus() int64 {
 	if n == nil {
-		return 0.0
+		return 0
 	}
 	return n.Cpus
 }
@@ -220,7 +215,7 @@ func (n *NodeProvidedInfo) GetEnv() map[string]string {
 	return n.Env
 }
 
-func (n *NodeProvidedInfo) GetFreeDiskSpace() *float64 {
+func (n *NodeProvidedInfo) GetFreeDiskSpace() *int64 {
 	if n == nil {
 		return nil
 	}
@@ -262,7 +257,7 @@ func (n *NodeProvidedInfo) GetKube() *KubeTypeHeartbeatMetadata {
 	return n.Kube
 }
 
-func (n *NodeProvidedInfo) GetLocalTime() *float64 {
+func (n *NodeProvidedInfo) GetLocalTime() *int64 {
 	if n == nil {
 		return nil
 	}
@@ -283,7 +278,7 @@ func (n *NodeProvidedInfo) GetNode() string {
 	return n.Node
 }
 
-func (n *NodeProvidedInfo) GetOs() *OsUnion {
+func (n *NodeProvidedInfo) GetOs() *Os {
 	if n == nil {
 		return nil
 	}
@@ -311,16 +306,16 @@ func (n *NodeProvidedInfo) GetRelease() string {
 	return n.Release
 }
 
-func (n *NodeProvidedInfo) GetTotalDiskSpace() *float64 {
+func (n *NodeProvidedInfo) GetTotalDiskSpace() *int64 {
 	if n == nil {
 		return nil
 	}
 	return n.TotalDiskSpace
 }
 
-func (n *NodeProvidedInfo) GetTotalmem() float64 {
+func (n *NodeProvidedInfo) GetTotalmem() int64 {
 	if n == nil {
-		return 0.0
+		return 0
 	}
 	return n.Totalmem
 }

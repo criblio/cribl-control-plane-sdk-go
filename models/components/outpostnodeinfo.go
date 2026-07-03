@@ -3,9 +3,12 @@
 package components
 
 type OutpostNodeInfo struct {
+	// Name of the Outpost Group that contains the Outpost Node.
 	Groupname *string `json:"groupname,omitzero"`
-	GUID      string  `json:"guid"`
-	Host      string  `json:"host"`
+	// Unique identifier for the Outpost Node.
+	GUID string `json:"guid"`
+	// Hostname or IP address for the Outpost Node.
+	Host string `json:"host"`
 }
 
 func (o *OutpostNodeInfo) GetGroupname() *string {

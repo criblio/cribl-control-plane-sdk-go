@@ -55,7 +55,7 @@ type OutputGraphite struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Protocol to use when communicating with the destination.
 	Protocol DestinationProtocolOptions `json:"protocol"`

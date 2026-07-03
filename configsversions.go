@@ -32,8 +32,8 @@ func newConfigsVersions(rootSDK *CriblControlPlane, sdkConfig config.SDKConfigur
 
 // Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
 // Get the configuration version for the specified Worker Group, Outpost Group, or Edge Fleet.
-func (s *ConfigsVersions) Get(ctx context.Context, product components.ProductsCore, id string, opts ...operations.Option) (*operations.GetConfigGroupConfigVersionByProductAndIDResponse, error) {
-	request := operations.GetConfigGroupConfigVersionByProductAndIDRequest{
+func (s *ConfigsVersions) Get(ctx context.Context, product components.ProductsCore, id string, opts ...operations.Option) (*operations.GetProductsGroupsConfigVersionByProductAndIDResponse, error) {
+	request := operations.GetProductsGroupsConfigVersionByProductAndIDRequest{
 		Product: product,
 		ID:      id,
 	}
@@ -67,7 +67,7 @@ func (s *ConfigsVersions) Get(ctx context.Context, product components.ProductsCo
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getConfigGroupConfigVersionByProductAndId",
+		OperationID:      "getProductsGroupsConfigVersionByProductAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -195,7 +195,7 @@ func (s *ConfigsVersions) Get(ctx context.Context, product components.ProductsCo
 		}
 	}
 
-	res := &operations.GetConfigGroupConfigVersionByProductAndIDResponse{
+	res := &operations.GetProductsGroupsConfigVersionByProductAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,

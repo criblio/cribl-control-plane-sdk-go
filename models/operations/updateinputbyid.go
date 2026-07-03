@@ -292,6 +292,10 @@ func (u *UpdateInputByIDRequest) GetInputSysdigHec() *components.InputSysdigHecI
 	return u.GetInput().InputSysdigHecInput
 }
 
+func (u *UpdateInputByIDRequest) GetInputUpwindHec() *components.InputUpwindHecInput {
+	return u.GetInput().InputUpwindHecInput
+}
+
 func (u *UpdateInputByIDRequest) GetInputOpenaiComplianceLogs() *components.InputOpenaiComplianceLogsInput {
 	return u.GetInput().InputOpenaiComplianceLogsInput
 }

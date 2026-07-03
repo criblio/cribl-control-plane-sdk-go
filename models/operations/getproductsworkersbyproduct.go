@@ -76,7 +76,7 @@ func (g *GetProductsWorkersByProductRequest) GetOffset() *int64 {
 type GetProductsWorkersByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// List of MasterWorkerEntry objects.
-	CountedMasterWorkerEntry *components.CountedMasterWorkerEntry
+	PaginatedMasterWorkerEntry *components.PaginatedMasterWorkerEntry
 
 	Next func() (*GetProductsWorkersByProductResponse, error)
 }
@@ -99,9 +99,9 @@ func (g *GetProductsWorkersByProductResponse) GetHTTPMeta() components.HTTPMetad
 	return g.HTTPMeta
 }
 
-func (g *GetProductsWorkersByProductResponse) GetCountedMasterWorkerEntry() *components.CountedMasterWorkerEntry {
+func (g *GetProductsWorkersByProductResponse) GetPaginatedMasterWorkerEntry() *components.PaginatedMasterWorkerEntry {
 	if g == nil {
 		return nil
 	}
-	return g.CountedMasterWorkerEntry
+	return g.PaginatedMasterWorkerEntry
 }

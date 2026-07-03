@@ -125,7 +125,7 @@ type OutputSentinel struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Disable to close the connection immediately after sending the outgoing request
 	KeepAlive *bool `json:"keepAlive,omitzero"`
@@ -165,6 +165,14 @@ type OutputSentinel struct {
 	LoginURL string `json:"loginUrl"`
 	// Secret parameter value to pass in request body
 	Secret string `json:"secret"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, @{product} will use the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// @{product} will update the stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, @{product} sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"refreshRequestParams,omitzero"`
 	// JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
 	ClientID string `json:"client_id"`
 	// Scope to pass in the OAuth request
@@ -233,6 +241,8 @@ type OutputSentinel struct {
 	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
 	TemplateSecret *string `json:"__template_secret,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
 	// Binds 'client_id' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'client_id' at runtime.
 	TemplateClientID *string `json:"__template_client_id,omitzero"`
 	// Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
@@ -431,6 +441,34 @@ func (o *OutputSentinel) GetSecret() string {
 		return ""
 	}
 	return o.Secret
+}
+
+func (o *OutputSentinel) GetRefreshTokenField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshTokenField
+}
+
+func (o *OutputSentinel) GetRotateRefreshToken() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RotateRefreshToken
+}
+
+func (o *OutputSentinel) GetRefreshURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshURL
+}
+
+func (o *OutputSentinel) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshRequestParams
 }
 
 func (o *OutputSentinel) GetClientID() string {
@@ -676,6 +714,13 @@ func (o *OutputSentinel) GetTemplateSecret() *string {
 		return nil
 	}
 	return o.TemplateSecret
+}
+
+func (o *OutputSentinel) GetTemplateRefreshURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateRefreshURL
 }
 
 func (o *OutputSentinel) GetTemplateClientID() *string {

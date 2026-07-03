@@ -32,6 +32,7 @@ func (e *PipelineFunctionDistinctID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// DistinctConfiguration - Configuration specific to the Pipeline Function.
 type DistinctConfiguration struct {
 	// Defines the properties that are concatenated to produce distinct key
 	GroupBy []string `json:"groupBy"`
@@ -92,18 +93,19 @@ func (d *DistinctConfiguration) GetSuppressPreviews() *bool {
 }
 
 type PipelineFunctionDistinct struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
 	// Identifier of the Function. Always <code>distinct</code>
 	ID PipelineFunctionDistinctID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                 `json:"final,omitzero"`
-	Conf  DistinctConfiguration `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf DistinctConfiguration `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

@@ -123,6 +123,12 @@ output := components.CreateOutputHoneycomb(components.OutputHoneycomb{/* values 
 output := components.CreateOutputAzureEventhub(components.OutputAzureEventhub{/* values here */})
 ```
 
+### OutputGoogleBigquery
+
+```go
+output := components.CreateOutputGoogleBigquery(components.OutputGoogleBigquery{/* values here */})
+```
+
 ### OutputGoogleChronicle
 
 ```go
@@ -283,6 +289,12 @@ output := components.CreateOutputGrafanaCloud(components.OutputGrafanaCloud{/* v
 
 ```go
 output := components.CreateOutputLoki(components.OutputLoki{/* values here */})
+```
+
+### OutputAmazonManagedPrometheus
+
+```go
+output := components.CreateOutputAmazonManagedPrometheus(components.OutputAmazonManagedPrometheus{/* values here */})
 ```
 
 ### OutputPrometheus
@@ -535,6 +547,8 @@ switch output.Type {
 		// output.OutputHoneycomb is populated
 	case components.OutputTypeAzureEventhub:
 		// output.OutputAzureEventhub is populated
+	case components.OutputTypeGoogleBigquery:
+		// output.OutputGoogleBigquery is populated
 	case components.OutputTypeGoogleChronicle:
 		// output.OutputGoogleChronicle is populated
 	case components.OutputTypeGoogleCloudStorage:
@@ -589,6 +603,8 @@ switch output.Type {
 		// output.OutputGrafanaCloud is populated
 	case components.OutputTypeLoki:
 		// output.OutputLoki is populated
+	case components.OutputTypeAmazonManagedPrometheus:
+		// output.OutputAmazonManagedPrometheus is populated
 	case components.OutputTypePrometheus:
 		// output.OutputPrometheus is populated
 	case components.OutputTypeRing:

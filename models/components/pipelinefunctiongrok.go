@@ -32,9 +32,11 @@ func (e *PipelineFunctionGrokID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PipelineFunctionGrokConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionGrokConf struct {
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     string                         `json:"pattern"`
+	Pattern string `json:"pattern"`
+	// Additional Grok patterns to apply to the source field.
 	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
 	// Field on which to perform Grok extractions
 	Source *string `json:"source,omitzero"`
@@ -73,18 +75,19 @@ func (p *PipelineFunctionGrokConf) GetSource() *string {
 }
 
 type PipelineFunctionGrok struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
 	// Identifier of the Function. Always <code>grok</code>
 	ID PipelineFunctionGrokID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                    `json:"final,omitzero"`
-	Conf  PipelineFunctionGrokConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionGrokConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

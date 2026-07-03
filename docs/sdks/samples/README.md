@@ -110,6 +110,39 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputSamplesResponseExamplesSampleEvents
+
+<!-- UsageSnippet language="go" operationID="getOutputSamplesById" method="get" path="/system/outputs/{id}/samples" example="OutputSamplesResponseExamplesSampleEvents" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Samples.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputSamplesResponse != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -339,6 +372,76 @@ func main() {
                 "sourcetype": "manual",
             },
         },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputTestResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputTestResponseExamplesFailedTest
+
+<!-- UsageSnippet language="go" operationID="createOutputTestById" method="post" path="/system/outputs/{id}/test" example="OutputTestResponseExamplesFailedTest" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Samples.Create(ctx, "<id>", components.OutputTestRequest{
+        Events: []map[string]any{},
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputTestResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputTestResponseExamplesSuccessfulTest
+
+<!-- UsageSnippet language="go" operationID="createOutputTestById" method="post" path="/system/outputs/{id}/test" example="OutputTestResponseExamplesSuccessfulTest" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Samples.Create(ctx, "<id>", components.OutputTestRequest{
+        Events: []map[string]any{},
     })
     if err != nil {
         log.Fatal(err)

@@ -10,6 +10,10 @@ import (
 type GetFunctionsRequest struct {
 	// If <code>true</code>, include hidden Functions in the response. Otherwise, hidden Functions are excluded.
 	ShowHidden *bool `queryParam:"style=form,explode=true,name=showHidden"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (g *GetFunctionsRequest) GetShowHidden() *bool {
@@ -19,10 +23,26 @@ func (g *GetFunctionsRequest) GetShowHidden() *bool {
 	return g.ShowHidden
 }
 
+func (g *GetFunctionsRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetFunctionsRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
 type GetFunctionsResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// List of Function objects.
-	CountedFunctionResponse *components.CountedFunctionResponse
+	PaginatedFunctionResponse *components.PaginatedFunctionResponse
+
+	Next func() (*GetFunctionsResponse, error)
 }
 
 func (g GetFunctionsResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +63,9 @@ func (g *GetFunctionsResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetFunctionsResponse) GetCountedFunctionResponse() *components.CountedFunctionResponse {
+func (g *GetFunctionsResponse) GetPaginatedFunctionResponse() *components.PaginatedFunctionResponse {
 	if g == nil {
 		return nil
 	}
-	return g.CountedFunctionResponse
+	return g.PaginatedFunctionResponse
 }

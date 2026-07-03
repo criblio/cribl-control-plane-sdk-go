@@ -3,10 +3,14 @@
 package components
 
 type UpgradeGroupSettings struct {
-	IsRolling  *bool    `json:"isRolling,omitzero"`
-	Quantity   *float64 `json:"quantity,omitzero"`
-	RetryCount *float64 `json:"retryCount,omitzero"`
-	RetryDelay *float64 `json:"retryDelay,omitzero"`
+	// If <code>true</code>, perform a rolling upgrade that updates nodes incrementally. If <code>false</code>, upgrade all nodes simultaneously.
+	IsRolling *bool `json:"isRolling,omitzero"`
+	// Percentage of nodes to upgrade at a time during a rolling upgrade.
+	Quantity *int64 `json:"quantity,omitzero"`
+	// Number of times to retry upgrading a node before marking it as failed.
+	RetryCount *int64 `json:"retryCount,omitzero"`
+	// Delay in milliseconds between upgrade retries when a node fails to upgrade.
+	RetryDelay *int64 `json:"retryDelay,omitzero"`
 }
 
 func (u *UpgradeGroupSettings) GetIsRolling() *bool {
@@ -16,21 +20,21 @@ func (u *UpgradeGroupSettings) GetIsRolling() *bool {
 	return u.IsRolling
 }
 
-func (u *UpgradeGroupSettings) GetQuantity() *float64 {
+func (u *UpgradeGroupSettings) GetQuantity() *int64 {
 	if u == nil {
 		return nil
 	}
 	return u.Quantity
 }
 
-func (u *UpgradeGroupSettings) GetRetryCount() *float64 {
+func (u *UpgradeGroupSettings) GetRetryCount() *int64 {
 	if u == nil {
 		return nil
 	}
 	return u.RetryCount
 }
 
-func (u *UpgradeGroupSettings) GetRetryDelay() *float64 {
+func (u *UpgradeGroupSettings) GetRetryDelay() *int64 {
 	if u == nil {
 		return nil
 	}

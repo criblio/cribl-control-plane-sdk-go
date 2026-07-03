@@ -13,6 +13,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
+	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
 )
@@ -34,7 +35,12 @@ func newPipelines(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration,
 
 // List all Pipelines
 // Get a list of all Pipelines.
-func (s *Pipelines) List(ctx context.Context, opts ...operations.Option) (*operations.GetPipelinesResponse, error) {
+func (s *Pipelines) List(ctx context.Context, offset *int64, limit *int64, opts ...operations.Option) (*operations.GetPipelinesResponse, error) {
+	request := operations.GetPipelinesRequest{
+		Offset: offset,
+		Limit:  limit,
+	}
+
 	o := operations.Options{}
 	supportedOptions := []string{
 		operations.SupportedOptionRetries,
@@ -86,6 +92,10 @@ func (s *Pipelines) List(ctx context.Context, opts ...operations.Option) (*opera
 	}
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
+
+	if err := utils.PopulateQueryParams(ctx, req, request, nil, nil); err != nil {
+		return nil, fmt.Errorf("error populating query params: %w", err)
+	}
 
 	if err := utils.PopulateSecurity(ctx, req, s.sdkConfiguration.Security); err != nil {
 		return nil, err
@@ -198,6 +208,52 @@ func (s *Pipelines) List(ctx context.Context, opts ...operations.Option) (*opera
 			Response: httpRes,
 		},
 	}
+	res.Next = func() (*operations.GetPipelinesResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offset != nil {
+			oS = int(*offset)
+		}
+		r, err := ajson.Eval(b, "$.items")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if limit != nil {
+			l = int(*limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+
+		return s.List(
+			ctx,
+			&nOS,
+			limit,
+			opts...,
+		)
+	}
 
 	switch {
 	case httpRes.StatusCode == 200:
@@ -209,12 +265,12 @@ func (s *Pipelines) List(ctx context.Context, opts ...operations.Option) (*opera
 					return nil, err
 				}
 
-				var out components.CountedPipeline
+				var out components.PaginatedPipeline
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedPipeline = &out
+				res.PaginatedPipeline = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
@@ -1110,7 +1166,7 @@ func (s *Pipelines) Get(ctx context.Context, id string, opts ...operations.Optio
 }
 
 // Update a Pipeline
-// Update the specified Pipeline.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Pipeline might not function as expected.
+// Update the specified Pipeline.<br/><br/>Provide a complete representation of the Pipeline that you want to update in the request body.<br/><br/>This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Pipeline.<br/><br/>Confirm that the configuration in your request body is correct before sending the request.<br/><br/>If the configuration is incorrect, the updated Pipeline might not function as expected.
 func (s *Pipelines) Update(ctx context.Context, id string, pipeline components.PipelineInput, opts ...operations.Option) (*operations.UpdatePipelinesByIDResponse, error) {
 	request := operations.UpdatePipelinesByIDRequest{
 		ID:       id,

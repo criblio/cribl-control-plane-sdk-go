@@ -9,11 +9,11 @@
 
 ## List
 
-Get Cribl system settings.
+Get the current Cribl system settings.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getSystemSettingsConf" method="get" path="/system/settings/conf" -->
+<!-- UsageSnippet language="go" operationID="getSystemSettingsConf" method="get" path="/system/settings/conf" example="GetSystemSettingsConfExamplesDefault" -->
 ```go
 package main
 
@@ -66,9 +66,9 @@ func main() {
 
 ## Update
 
-Update Cribl system settings.
+Update the specified Cribl system settings.<br/><br/>Provide a complete representation of the system settings that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the system settings.<br/><br/>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated system settings might not function as expected.
 
-### Example Usage
+### Example Usage: UpdateSystemSettingsExamplesUpdateApiSettings
 
 <!-- UsageSnippet language="go" operationID="updateSystemSettingsConf" method="patch" path="/system/settings/conf" example="UpdateSystemSettingsExamplesUpdateApiSettings" -->
 ```go
@@ -96,7 +96,7 @@ func main() {
         API: components.APITypeSystemSettingsConf{
             Disabled: false,
             Host: "0.0.0.0",
-            Port: 9000.0,
+            Port: 9000,
             Ssl: &components.SslTypeSystemSettingsConfAPI{
                 CertPath: "/opt/cribl/local/cribl/auth/cribl.crt",
                 Disabled: false,
@@ -124,7 +124,7 @@ func main() {
             },
         ),
         Shutdown: components.ShutdownTypeSystemSettingsConf{
-            DrainTimeout: 10000.0,
+            DrainTimeout: 10000,
         },
         Sni: components.CreateSniSettingsUnionSniSettings(
             components.SniSettings{
@@ -146,15 +146,86 @@ func main() {
         ),
         UpgradeGroupSettings: components.UpgradeGroupSettings{
             IsRolling: criblcontrolplanesdkgo.Pointer(true),
-            Quantity: criblcontrolplanesdkgo.Pointer[float64](100.0),
-            RetryCount: criblcontrolplanesdkgo.Pointer[float64](5.0),
-            RetryDelay: criblcontrolplanesdkgo.Pointer[float64](1000.0),
+            Quantity: criblcontrolplanesdkgo.Pointer[int64](100),
+            RetryCount: criblcontrolplanesdkgo.Pointer[int64](5),
+            RetryDelay: criblcontrolplanesdkgo.Pointer[int64](1000),
         },
         UpgradeSettings: components.UpgradeSettings{},
         Workers: components.WorkersTypeSystemSettingsConf{
-            Count: 0.0,
-            Memory: 0.0,
-            Minimum: 1.0,
+            Count: 0,
+            Memory: 0,
+            Minimum: 1,
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSystemSettingsConf != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateSystemSettingsResponseExamplesUpdateApiSettings
+
+<!-- UsageSnippet language="go" operationID="updateSystemSettingsConf" method="patch" path="/system/settings/conf" example="UpdateSystemSettingsResponseExamplesUpdateApiSettings" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.System.Settings.Cribl.Update(ctx, components.SystemSettingsConf{
+        API: components.APITypeSystemSettingsConf{
+            Disabled: true,
+            Host: "fine-carboxyl.info",
+            Port: 680079,
+        },
+        Backups: components.CreateBackupsSettingsUnionEmptyObject(
+            components.EmptyObject{},
+        ),
+        Pii: components.CreatePiiSettingsUnionEmptyObject(
+            components.EmptyObject{},
+        ),
+        Proxy: components.ProxyTypeSystemSettingsConf{
+            UseEnvVars: false,
+        },
+        Rollback: components.CreateRollbackSettingsUnionEmptyObject(
+            components.EmptyObject{},
+        ),
+        Shutdown: components.ShutdownTypeSystemSettingsConf{
+            DrainTimeout: 840513,
+        },
+        Sni: components.CreateSniSettingsUnionEmptyObject(
+            components.EmptyObject{},
+        ),
+        System: components.SystemTypeSystemSettingsConf{
+            Intercom: true,
+            Upgrade: components.UpgradeOptionsSystemSettingsConfSystemAPI,
+        },
+        TLS: components.CreateTLSSettingsUnionEmptyObject(
+            components.EmptyObject{},
+        ),
+        UpgradeGroupSettings: components.UpgradeGroupSettings{},
+        UpgradeSettings: components.UpgradeSettings{},
+        Workers: components.WorkersTypeSystemSettingsConf{
+            Count: 142072,
+            Memory: 242438,
+            Minimum: 498585,
         },
     })
     if err != nil {

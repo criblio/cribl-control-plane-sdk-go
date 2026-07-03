@@ -13,6 +13,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
 	"github.com/criblio/cribl-control-plane-sdk-go/retry"
+	"github.com/spyzhov/ajson"
 	"net/http"
 	"net/url"
 )
@@ -34,9 +35,11 @@ func newCollectors(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration
 
 // List all Collectors
 // Get a list of all Collectors.
-func (s *Collectors) List(ctx context.Context, collectorType *components.CollectorType, opts ...operations.Option) (*operations.GetSavedJobResponse, error) {
+func (s *Collectors) List(ctx context.Context, collectorType *components.CollectorType, offset *int64, limit *int64, opts ...operations.Option) (*operations.GetSavedJobResponse, error) {
 	request := operations.GetSavedJobRequest{
 		CollectorType: collectorType,
+		Offset:        offset,
+		Limit:         limit,
 	}
 
 	o := operations.Options{}
@@ -206,6 +209,53 @@ func (s *Collectors) List(ctx context.Context, collectorType *components.Collect
 			Response: httpRes,
 		},
 	}
+	res.Next = func() (*operations.GetSavedJobResponse, error) {
+		rawBody, err := utils.ConsumeRawBody(httpRes)
+		if err != nil {
+			return nil, err
+		}
+
+		b, err := ajson.Unmarshal(rawBody)
+		if err != nil {
+			return nil, err
+		}
+
+		oS := 0
+		if offset != nil {
+			oS = int(*offset)
+		}
+		r, err := ajson.Eval(b, "$.items")
+		if err != nil {
+			return nil, err
+		}
+		if !r.IsArray() {
+			return nil, nil
+		}
+		arr, err := r.GetArray()
+		if err != nil {
+			return nil, err
+		}
+		if len(arr) == 0 {
+			return nil, nil
+		}
+
+		l := 0
+		if limit != nil {
+			l = int(*limit)
+		}
+		if len(arr) < l {
+			return nil, nil
+		}
+		nOS := int64(oS + len(arr))
+
+		return s.List(
+			ctx,
+			collectorType,
+			&nOS,
+			limit,
+			opts...,
+		)
+	}
 
 	switch {
 	case httpRes.StatusCode == 200:
@@ -217,12 +267,12 @@ func (s *Collectors) List(ctx context.Context, collectorType *components.Collect
 					return nil, err
 				}
 
-				var out components.CountedSavedJobResponse
+				var out components.PaginatedSavedJobResponse
 				if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
 					return nil, err
 				}
 
-				res.CountedSavedJobResponse = &out
+				res.PaginatedSavedJobResponse = &out
 			}
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)

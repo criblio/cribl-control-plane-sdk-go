@@ -110,6 +110,39 @@ func main() {
     }
 }
 ```
+### Example Usage: PQStatusResponseExamplesCompletedJob
+
+<!-- UsageSnippet language="go" operationID="getInputPqById" method="get" path="/system/inputs/{id}/pq" example="PQStatusResponseExamplesCompletedJob" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Pq.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedJobInfo != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -135,6 +168,39 @@ func main() {
 
 Clear the persistent queue (PQ) for the specified Source.
 
+### Example Usage: ClearPQResponseExamplesClearPQJob
+
+<!-- UsageSnippet language="go" operationID="deleteInputPqById" method="delete" path="/system/inputs/{id}/pq" example="ClearPQResponseExamplesClearPQJob" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Pq.Clear(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedString != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: InputResponseExamplesHttpSource
 
 <!-- UsageSnippet language="go" operationID="deleteInputPqById" method="delete" path="/system/inputs/{id}/pq" example="InputResponseExamplesHttpSource" -->

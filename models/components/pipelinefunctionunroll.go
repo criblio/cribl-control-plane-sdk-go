@@ -32,6 +32,7 @@ func (e *PipelineFunctionUnrollID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PipelineFunctionUnrollConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionUnrollConf struct {
 	// Field in which to find/calculate the array to unroll. Example: _raw, _raw.split(/\n/)
 	SrcExpr string `json:"srcExpr"`
@@ -65,18 +66,19 @@ func (p *PipelineFunctionUnrollConf) GetDstField() string {
 }
 
 type PipelineFunctionUnroll struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
 	// Identifier of the Function. Always <code>unroll</code>
 	ID PipelineFunctionUnrollID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                      `json:"final,omitzero"`
-	Conf  PipelineFunctionUnrollConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionUnrollConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

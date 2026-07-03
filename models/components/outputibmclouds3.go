@@ -41,7 +41,7 @@ type OutputIbmCloudS3 struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// IBM Cloud Object Storage S3-compatible endpoint URL (example: https://s3.us-south.cloud-object-storage.appdomain.cloud)
 	Endpoint string `json:"endpoint"`

@@ -6,12 +6,38 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// Health status of the persistent queue.
+type Health string
+
+const (
+	HealthGreen   Health = "Green"
+	HealthRed     Health = "Red"
+	HealthUnknown Health = "Unknown"
+	HealthYellow  Health = "Yellow"
+)
+
+func (e Health) ToPointer() *Health {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *Health) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "Green", "Red", "Unknown", "Yellow":
+			return true
+		}
+	}
+	return false
+}
+
 type AggregatedPQStatus struct {
-	Error        *StatusError     `json:"error,omitzero"`
-	Health       HealthStringType `json:"health"`
-	HealthCounts HealthCountType  `json:"healthCounts"`
+	Error *StatusError `json:"error,omitzero"`
+	// Health status of the persistent queue.
+	Health       Health          `json:"health"`
+	HealthCounts HealthCountType `json:"healthCounts"`
 	// Timestamp (in Unix time) when the persistent queue status was last updated.
-	Timestamp float64 `json:"timestamp"`
+	Timestamp int64 `json:"timestamp"`
 }
 
 func (a AggregatedPQStatus) MarshalJSON() ([]byte, error) {
@@ -32,9 +58,9 @@ func (a *AggregatedPQStatus) GetError() *StatusError {
 	return a.Error
 }
 
-func (a *AggregatedPQStatus) GetHealth() HealthStringType {
+func (a *AggregatedPQStatus) GetHealth() Health {
 	if a == nil {
-		return HealthStringType("")
+		return Health("")
 	}
 	return a.Health
 }
@@ -46,9 +72,9 @@ func (a *AggregatedPQStatus) GetHealthCounts() HealthCountType {
 	return a.HealthCounts
 }
 
-func (a *AggregatedPQStatus) GetTimestamp() float64 {
+func (a *AggregatedPQStatus) GetTimestamp() int64 {
 	if a == nil {
-		return 0.0
+		return 0
 	}
 	return a.Timestamp
 }

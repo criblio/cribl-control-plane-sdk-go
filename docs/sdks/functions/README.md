@@ -37,12 +37,24 @@ func main() {
         }),
     )
 
-    res, err := s.Functions.List(ctx, nil)
+    res, err := s.Functions.List(ctx, nil, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedFunctionResponse != nil {
-        // handle response
+    if res.PaginatedFunctionResponse != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -53,6 +65,8 @@ func main() {
 | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                     | [context.Context](https://pkg.go.dev/context#Context)                                                     | :heavy_check_mark:                                                                                        | The context to use for the request.                                                                       |
 | `showHidden`                                                                                              | `*bool`                                                                                                   | :heavy_minus_sign:                                                                                        | If <code>true</code>, include hidden Functions in the response. Otherwise, hidden Functions are excluded. |
+| `offset`                                                                                                  | `*int64`                                                                                                  | :heavy_minus_sign:                                                                                        | Pagination offset                                                                                         |
+| `limit`                                                                                                   | `*int64`                                                                                                  | :heavy_minus_sign:                                                                                        | Maximum number of items to return                                                                         |
 | `opts`                                                                                                    | [][operations.Option](../../models/operations/option.md)                                                  | :heavy_minus_sign:                                                                                        | The options for this request.                                                                             |
 
 ### Response

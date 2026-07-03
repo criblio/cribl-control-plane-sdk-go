@@ -399,6 +399,12 @@ input := components.CreateInputCloudflareHec(components.InputCloudflareHecInput{
 input := components.CreateInputSysdigHec(components.InputSysdigHecInput{/* values here */})
 ```
 
+### InputUpwindHecInput
+
+```go
+input := components.CreateInputUpwindHec(components.InputUpwindHecInput{/* values here */})
+```
+
 ### InputOpenaiComplianceLogsInput
 
 ```go
@@ -555,6 +561,8 @@ switch input.Type {
 		// input.InputCloudflareHecInput is populated
 	case components.InputTypeSysdigHec:
 		// input.InputSysdigHecInput is populated
+	case components.InputTypeUpwindHec:
+		// input.InputUpwindHecInput is populated
 	case components.InputTypeOpenaiComplianceLogs:
 		// input.InputOpenaiComplianceLogsInput is populated
 	case components.InputTypeAnthropicCompliance:

@@ -10,6 +10,98 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+// CreateInputSystemByPackFirewall - Creates events for Firewall rules entries
+type CreateInputSystemByPackFirewall struct {
+	Enable *bool `json:"enable,omitzero"`
+}
+
+func (c CreateInputSystemByPackFirewall) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackFirewall) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackFirewall) GetEnable() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enable
+}
+
+// CreateInputSystemByPackServices - Creates events from the list of services
+type CreateInputSystemByPackServices struct {
+	Enable *bool `json:"enable,omitzero"`
+}
+
+func (c CreateInputSystemByPackServices) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackServices) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackServices) GetEnable() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enable
+}
+
+// CreateInputSystemByPackListeningPorts - Creates events from list of listening ports
+type CreateInputSystemByPackListeningPorts struct {
+	Enable *bool `json:"enable,omitzero"`
+}
+
+func (c CreateInputSystemByPackListeningPorts) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackListeningPorts) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackListeningPorts) GetEnable() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enable
+}
+
+// CreateInputSystemByPackLoggedInUsers - Creates events from list of logged-in users
+type CreateInputSystemByPackLoggedInUsers struct {
+	Enable *bool `json:"enable,omitzero"`
+}
+
+func (c CreateInputSystemByPackLoggedInUsers) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputSystemByPackLoggedInUsers) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputSystemByPackLoggedInUsers) GetEnable() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enable
+}
+
 type CreateInputSystemByPackCollectors struct {
 	// Creates events based on entries collected from the hosts file
 	Hostsfile *CreateInputSystemByPackHostsFile `json:"hostsfile,omitzero"`
@@ -204,7 +296,7 @@ type CreateInputSystemByPackInputSystemState struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -1083,7 +1175,7 @@ type CreateInputSystemByPackInputSystemMetrics struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -1293,7 +1385,7 @@ type CreateInputSystemByPackInputTcpjson struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -1713,7 +1805,7 @@ type CreateInputSystemByPackInputCriblLakeHTTP struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -2107,7 +2199,7 @@ type CreateInputSystemByPackInputCriblHTTP struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -2420,7 +2512,7 @@ type CreateInputSystemByPackInputCriblTCP struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -2688,7 +2780,7 @@ type CreateInputSystemByPackInputCribl struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -2857,7 +2949,7 @@ type CreateInputSystemByPackInputGooglePubsub struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -3164,7 +3256,7 @@ type CreateInputSystemByPackInputFirehose struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -3508,7 +3600,7 @@ type CreateInputSystemByPackInputExec struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -4128,7 +4220,7 @@ type CreateInputSystemByPackInputEventhubAmqp struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -4422,7 +4514,7 @@ type CreateInputSystemByPackInputEventhub struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -4871,7 +4963,7 @@ type CreateInputSystemByPackInputMicrosoftGraph struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -5317,7 +5409,7 @@ type CreateInputSystemByPackInputOffice365MsgTrace struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -5818,7 +5910,7 @@ type CreateInputSystemByPackInputOffice365Service struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -6203,7 +6295,7 @@ type CreateInputSystemByPackInputOffice365Mgmt struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -6696,7 +6788,7 @@ type CreateInputSystemByPackInputEdgePrometheus struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -6771,7 +6863,7 @@ type CreateInputSystemByPackInputEdgePrometheus struct {
 	// URL to fetch target groups from (must be http or https)
 	HTTPDiscoveryURL *string `json:"httpDiscoveryUrl,omitzero"`
 	// Extra headers to send with the discovery request
-	HTTPDiscoveryHeaders []components.HTTPDiscoveryHeaderConfInputPrometheus `json:"httpDiscoveryHeaders,omitzero"`
+	HTTPDiscoveryHeaders []components.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"httpDiscoveryHeaders,omitzero"`
 	// Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
 	HTTPDiscoveryRejectUnauthorized *bool `json:"httpDiscoveryRejectUnauthorized,omitzero"`
 	// Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
@@ -7130,7 +7222,7 @@ func (c *CreateInputSystemByPackInputEdgePrometheus) GetHTTPDiscoveryURL() *stri
 	return c.HTTPDiscoveryURL
 }
 
-func (c *CreateInputSystemByPackInputEdgePrometheus) GetHTTPDiscoveryHeaders() []components.HTTPDiscoveryHeaderConfInputPrometheus {
+func (c *CreateInputSystemByPackInputEdgePrometheus) GetHTTPDiscoveryHeaders() []components.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
 	if c == nil {
 		return nil
 	}
@@ -7331,7 +7423,7 @@ type CreateInputSystemByPackInputPrometheus struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -7405,7 +7497,7 @@ type CreateInputSystemByPackInputPrometheus struct {
 	// URL to fetch target groups from (must be http or https)
 	HTTPDiscoveryURL *string `json:"httpDiscoveryUrl,omitzero"`
 	// Extra headers to send with the discovery request
-	HTTPDiscoveryHeaders []components.HTTPDiscoveryHeaderConfInputPrometheus `json:"httpDiscoveryHeaders,omitzero"`
+	HTTPDiscoveryHeaders []components.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"httpDiscoveryHeaders,omitzero"`
 	// Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
 	HTTPDiscoveryRejectUnauthorized *bool `json:"httpDiscoveryRejectUnauthorized,omitzero"`
 	// Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
@@ -7774,7 +7866,7 @@ func (c *CreateInputSystemByPackInputPrometheus) GetHTTPDiscoveryURL() *string {
 	return c.HTTPDiscoveryURL
 }
 
-func (c *CreateInputSystemByPackInputPrometheus) GetHTTPDiscoveryHeaders() []components.HTTPDiscoveryHeaderConfInputPrometheus {
+func (c *CreateInputSystemByPackInputPrometheus) GetHTTPDiscoveryHeaders() []components.RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
 	if c == nil {
 		return nil
 	}
@@ -7960,7 +8052,7 @@ type CreateInputSystemByPackInputPrometheusRw struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -8345,7 +8437,7 @@ type CreateInputSystemByPackInputLoki struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -8859,7 +8951,7 @@ type CreateInputSystemByPackInputGrafanaGrafana2 struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -9358,7 +9450,7 @@ type CreateInputSystemByPackInputGrafanaGrafana1 struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -9806,7 +9898,7 @@ type CreateInputSystemByPackInputConfluentCloud struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -10386,7 +10478,7 @@ type CreateInputSystemByPackInputElastic struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -10794,7 +10886,7 @@ type CreateInputSystemByPackInputAzureBlob struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -11275,7 +11367,7 @@ type CreateInputSystemByPackInputSplunkHec struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -11805,7 +11897,7 @@ type CreateInputSystemByPackInputSplunkSearch struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -12352,7 +12444,7 @@ type CreateInputSystemByPackInputSplunk struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -12703,7 +12795,7 @@ type CreateInputSystemByPackInputHTTP struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -13096,7 +13188,7 @@ type CreateInputSystemByPackInputMsk struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -13644,7 +13736,7 @@ type CreateInputSystemByPackInputKafka struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -14041,7 +14133,7 @@ type CreateInputSystemByPackInputCollection struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -14269,6 +14361,7 @@ const (
 	CreateInputSystemByPackRequestBodyTypeZscalerHec           CreateInputSystemByPackRequestBodyType = "zscaler_hec"
 	CreateInputSystemByPackRequestBodyTypeCloudflareHec        CreateInputSystemByPackRequestBodyType = "cloudflare_hec"
 	CreateInputSystemByPackRequestBodyTypeSysdigHec            CreateInputSystemByPackRequestBodyType = "sysdig_hec"
+	CreateInputSystemByPackRequestBodyTypeUpwindHec            CreateInputSystemByPackRequestBodyType = "upwind_hec"
 	CreateInputSystemByPackRequestBodyTypeOpenaiComplianceLogs CreateInputSystemByPackRequestBodyType = "openai_compliance_logs"
 	CreateInputSystemByPackRequestBodyTypeAnthropicCompliance  CreateInputSystemByPackRequestBodyType = "anthropic_compliance"
 	CreateInputSystemByPackRequestBodyTypeOkta                 CreateInputSystemByPackRequestBodyType = "okta"
@@ -14342,6 +14435,7 @@ type CreateInputSystemByPackRequestBody struct {
 	CreateInputSystemByPackInputZscalerHec           *CreateInputSystemByPackInputZscalerHec           `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputCloudflareHec        *CreateInputSystemByPackInputCloudflareHec        `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputSysdigHec            *CreateInputSystemByPackInputSysdigHec            `queryParam:"inline" union:"member"`
+	CreateInputSystemByPackInputUpwindHec            *CreateInputSystemByPackInputUpwindHec            `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputOpenaiComplianceLogs *CreateInputSystemByPackInputOpenaiComplianceLogs `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputAnthropicCompliance  *CreateInputSystemByPackInputAnthropicCompliance  `queryParam:"inline" union:"member"`
 	CreateInputSystemByPackInputOkta                 *CreateInputSystemByPackInputOkta                 `queryParam:"inline" union:"member"`
@@ -15135,6 +15229,18 @@ func CreateCreateInputSystemByPackRequestBodySysdigHec(sysdigHec CreateInputSyst
 	}
 }
 
+func CreateCreateInputSystemByPackRequestBodyUpwindHec(upwindHec CreateInputSystemByPackInputUpwindHec) CreateInputSystemByPackRequestBody {
+	typ := CreateInputSystemByPackRequestBodyTypeUpwindHec
+
+	typStr := CreateInputSystemByPackTypeUpwindHec(typ)
+	upwindHec.Type = typStr
+
+	return CreateInputSystemByPackRequestBody{
+		CreateInputSystemByPackInputUpwindHec: &upwindHec,
+		Type:                                  typ,
+	}
+}
+
 func CreateCreateInputSystemByPackRequestBodyOpenaiComplianceLogs(openaiComplianceLogs CreateInputSystemByPackInputOpenaiComplianceLogs) CreateInputSystemByPackRequestBody {
 	typ := CreateInputSystemByPackRequestBodyTypeOpenaiComplianceLogs
 
@@ -15777,6 +15883,15 @@ func (u *CreateInputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 		u.CreateInputSystemByPackInputSysdigHec = createInputSystemByPackInputSysdigHec
 		u.Type = CreateInputSystemByPackRequestBodyTypeSysdigHec
 		return nil
+	case "upwind_hec":
+		createInputSystemByPackInputUpwindHec := new(CreateInputSystemByPackInputUpwindHec)
+		if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputUpwindHec, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == upwind_hec) type CreateInputSystemByPackInputUpwindHec within CreateInputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateInputSystemByPackInputUpwindHec = createInputSystemByPackInputUpwindHec
+		u.Type = CreateInputSystemByPackRequestBodyTypeUpwindHec
+		return nil
 	case "openai_compliance_logs":
 		createInputSystemByPackInputOpenaiComplianceLogs := new(CreateInputSystemByPackInputOpenaiComplianceLogs)
 		if err := utils.UnmarshalJSON(data, &createInputSystemByPackInputOpenaiComplianceLogs, "", true, nil); err != nil {
@@ -16072,6 +16187,10 @@ func (u CreateInputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 
 	if u.CreateInputSystemByPackInputSysdigHec != nil {
 		return utils.MarshalJSON(u.CreateInputSystemByPackInputSysdigHec, "", true)
+	}
+
+	if u.CreateInputSystemByPackInputUpwindHec != nil {
+		return utils.MarshalJSON(u.CreateInputSystemByPackInputUpwindHec, "", true)
 	}
 
 	if u.CreateInputSystemByPackInputOpenaiComplianceLogs != nil {
@@ -16372,6 +16491,10 @@ func (c *CreateInputSystemByPackRequest) GetRequestBodyCloudflareHec() *CreateIn
 
 func (c *CreateInputSystemByPackRequest) GetRequestBodySysdigHec() *CreateInputSystemByPackInputSysdigHec {
 	return c.GetRequestBody().CreateInputSystemByPackInputSysdigHec
+}
+
+func (c *CreateInputSystemByPackRequest) GetRequestBodyUpwindHec() *CreateInputSystemByPackInputUpwindHec {
+	return c.GetRequestBody().CreateInputSystemByPackInputUpwindHec
 }
 
 func (c *CreateInputSystemByPackRequest) GetRequestBodyOpenaiComplianceLogs() *CreateInputSystemByPackInputOpenaiComplianceLogs {

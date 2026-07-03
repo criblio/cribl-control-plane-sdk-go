@@ -125,6 +125,12 @@ outputResponse := components.CreateOutputResponseHoneycomb(components.OutputResp
 outputResponse := components.CreateOutputResponseAzureEventhub(components.OutputResponseOutputAzureEventhub{/* values here */})
 ```
 
+### OutputResponseOutputGoogleBigquery
+
+```go
+outputResponse := components.CreateOutputResponseGoogleBigquery(components.OutputResponseOutputGoogleBigquery{/* values here */})
+```
+
 ### OutputResponseOutputGoogleChronicle
 
 ```go
@@ -285,6 +291,12 @@ outputResponse := components.CreateOutputResponseGrafanaCloud(components.OutputR
 
 ```go
 outputResponse := components.CreateOutputResponseLoki(components.OutputResponseOutputLoki{/* values here */})
+```
+
+### OutputResponseOutputAmazonManagedPrometheus
+
+```go
+outputResponse := components.CreateOutputResponseAmazonManagedPrometheus(components.OutputResponseOutputAmazonManagedPrometheus{/* values here */})
 ```
 
 ### OutputResponseOutputPrometheus
@@ -537,6 +549,8 @@ switch outputResponse.Type {
 		// outputResponse.OutputResponseOutputHoneycomb is populated
 	case components.OutputResponseTypeAzureEventhubValue:
 		// outputResponse.OutputResponseOutputAzureEventhub is populated
+	case components.OutputResponseTypeGoogleBigqueryValue:
+		// outputResponse.OutputResponseOutputGoogleBigquery is populated
 	case components.OutputResponseTypeGoogleChronicleValue:
 		// outputResponse.OutputResponseOutputGoogleChronicle is populated
 	case components.OutputResponseTypeGoogleCloudStorageValue:
@@ -591,6 +605,8 @@ switch outputResponse.Type {
 		// outputResponse.OutputResponseOutputGrafanaCloudUnion is populated
 	case components.OutputResponseTypeLokiValue:
 		// outputResponse.OutputResponseOutputLoki is populated
+	case components.OutputResponseTypeAmazonManagedPrometheusValue:
+		// outputResponse.OutputResponseOutputAmazonManagedPrometheus is populated
 	case components.OutputResponseTypePrometheusValue:
 		// outputResponse.OutputResponseOutputPrometheus is populated
 	case components.OutputResponseTypeRingValue:

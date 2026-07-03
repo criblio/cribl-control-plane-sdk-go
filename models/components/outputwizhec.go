@@ -55,12 +55,8 @@ type OutputWizHec struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitzero"`
-	// In the Splunk app, define which Splunk processing queue to send the events after HEC processing.
-	NextQueue *string `json:"nextQueue,omitzero"`
-	// In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
-	TCPRouting *string                                          `json:"tcpRouting,omitzero"`
+	// Metadata tags used for categorization and filtering.
+	Streamtags []string                                         `json:"streamtags,omitzero"`
 	TLS        *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
@@ -91,8 +87,6 @@ type OutputWizHec struct {
 	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// The unique identifier for the specific Cribl connector defined in your Wiz Settings. This is used to cross-validate the bearer token and ensure traffic is originating from the authorized integration.
 	WizConnectorID string `json:"wiz_connector_id"`
 	// Your Wiz deployment environment.
@@ -100,8 +94,14 @@ type OutputWizHec struct {
 	// Your Wiz deployment data center (e.g., us1, us8, eu1). From Tenant Info → Data Center and Regions → Tenant Data Center in your Wiz console.
 	DataCenter    string `json:"data_center"`
 	WizSourcetype string `json:"wiz_sourcetype"`
+	// How to handle events when all receivers are exerting backpressure
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
+	// Wiz Defend Auth token
+	Token *string `json:"token,omitzero"`
+	// Select or create a stored text secret
+	TextSecret *string `json:"textSecret,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -125,22 +125,18 @@ type OutputWizHec struct {
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	PqMaxBufferSizeBytes *string                 `json:"pqMaxBufferSizeBytes,omitzero"`
 	PqControls           *OutputWizHecPqControls `json:"pqControls,omitzero"`
-	// Wiz Defend Auth token
-	Token *string `json:"token,omitzero"`
-	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
 	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
-	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 	// Binds 'wiz_environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_environment' at runtime.
 	TemplateWizEnvironment *string `json:"__template_wiz_environment,omitzero"`
 	// Binds 'data_center' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'data_center' at runtime.
 	TemplateDataCenter *string `json:"__template_data_center,omitzero"`
 	// Binds 'wiz_sourcetype' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'wiz_sourcetype' at runtime.
 	TemplateWizSourcetype *string `json:"__template_wiz_sourcetype,omitzero"`
+	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
+	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
 }
 
 func (o OutputWizHec) MarshalJSON() ([]byte, error) {
@@ -194,20 +190,6 @@ func (o *OutputWizHec) GetStreamtags() []string {
 		return nil
 	}
 	return o.Streamtags
-}
-
-func (o *OutputWizHec) GetNextQueue() *string {
-	if o == nil {
-		return nil
-	}
-	return o.NextQueue
-}
-
-func (o *OutputWizHec) GetTCPRouting() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TCPRouting
 }
 
 func (o *OutputWizHec) GetTLS() *TLSSettingsClientSideTypeCaPathCertPathExtended {
@@ -315,13 +297,6 @@ func (o *OutputWizHec) GetResponseHonorRetryAfterHeader() *bool {
 	return o.ResponseHonorRetryAfterHeader
 }
 
-func (o *OutputWizHec) GetOnBackpressure() *BackpressureBehaviorOptions {
-	if o == nil {
-		return nil
-	}
-	return o.OnBackpressure
-}
-
 func (o *OutputWizHec) GetWizConnectorID() string {
 	if o == nil {
 		return ""
@@ -350,11 +325,32 @@ func (o *OutputWizHec) GetWizSourcetype() string {
 	return o.WizSourcetype
 }
 
+func (o *OutputWizHec) GetOnBackpressure() *BackpressureBehaviorOptions {
+	if o == nil {
+		return nil
+	}
+	return o.OnBackpressure
+}
+
 func (o *OutputWizHec) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
+}
+
+func (o *OutputWizHec) GetToken() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Token
+}
+
+func (o *OutputWizHec) GetTextSecret() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TextSecret
 }
 
 func (o *OutputWizHec) GetPqStrictOrdering() *bool {
@@ -441,20 +437,6 @@ func (o *OutputWizHec) GetPqControls() *OutputWizHecPqControls {
 	return o.PqControls
 }
 
-func (o *OutputWizHec) GetToken() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Token
-}
-
-func (o *OutputWizHec) GetTextSecret() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TextSecret
-}
-
 func (o *OutputWizHec) GetTemplateStreamtags() *string {
 	if o == nil {
 		return nil
@@ -467,13 +449,6 @@ func (o *OutputWizHec) GetTemplateFailedRequestLoggingMode() *string {
 		return nil
 	}
 	return o.TemplateFailedRequestLoggingMode
-}
-
-func (o *OutputWizHec) GetTemplateOnBackpressure() *string {
-	if o == nil {
-		return nil
-	}
-	return o.TemplateOnBackpressure
 }
 
 func (o *OutputWizHec) GetTemplateWizEnvironment() *string {
@@ -495,4 +470,11 @@ func (o *OutputWizHec) GetTemplateWizSourcetype() *string {
 		return nil
 	}
 	return o.TemplateWizSourcetype
+}
+
+func (o *OutputWizHec) GetTemplateOnBackpressure() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateOnBackpressure
 }

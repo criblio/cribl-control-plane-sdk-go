@@ -6,22 +6,38 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// APITypeSystemSettingsConf - API server configuration for the Cribl instance.
 type APITypeSystemSettingsConf struct {
-	BaseURL            *string                       `json:"baseUrl,omitzero"`
-	DisableAPICache    *bool                         `json:"disableApiCache,omitzero"`
-	Disabled           bool                          `json:"disabled"`
-	Headers            map[string]string             `json:"headers,omitzero"`
-	Host               string                        `json:"host"`
-	IdleSessionTTL     *float64                      `json:"idleSessionTTL,omitzero"`
-	ListenOnPort       *bool                         `json:"listenOnPort,omitzero"`
-	LoginRateLimit     *string                       `json:"loginRateLimit,omitzero"`
-	Port               float64                       `json:"port"`
-	Protocol           *string                       `json:"protocol,omitzero"`
-	Scripts            *bool                         `json:"scripts,omitzero"`
-	SensitiveFields    []string                      `json:"sensitiveFields,omitzero"`
-	Ssl                *SslTypeSystemSettingsConfAPI `json:"ssl,omitzero"`
-	SsoRateLimit       *string                       `json:"ssoRateLimit,omitzero"`
-	WorkerRemoteAccess *bool                         `json:"workerRemoteAccess,omitzero"`
+	// Base URL for the API server. Used when the server is behind a reverse proxy.
+	BaseURL *string `json:"baseUrl,omitzero"`
+	// If <code>true</code>, disable the API response cache. Otherwise, <code>false</code>.
+	DisableAPICache *bool `json:"disableApiCache,omitzero"`
+	// If <code>true</code>, the API server is disabled. Otherwise, <code>false</code>.
+	Disabled bool `json:"disabled"`
+	// Custom HTTP response headers to include in every API response.
+	Headers map[string]string `json:"headers,omitzero"`
+	// Hostname or IP address the API server listens on.
+	Host string `json:"host"`
+	// Idle session timeout in seconds. Sessions are invalidated after the specified seconds of inactivity.
+	IdleSessionTTL *int64 `json:"idleSessionTTL,omitzero"`
+	// If <code>true</code>, bind to the configured port as the server listen port. Otherwise, <code>false</code>.
+	ListenOnPort *bool `json:"listenOnPort,omitzero"`
+	// Rate limit for login attempts. Value is a string such as <code>100/min</code>.
+	LoginRateLimit *string `json:"loginRateLimit,omitzero"`
+	// Port number the API server listens on.
+	Port int64 `json:"port"`
+	// API protocol: <code>http</code> or <code>https</code>.
+	Protocol *string `json:"protocol,omitzero"`
+	// If <code>true</code>, enable JavaScript scripting support in the API. Otherwise, <code>false</code>.
+	Scripts *bool `json:"scripts,omitzero"`
+	// List of field names whose values are redacted in API responses and logs.
+	SensitiveFields []string `json:"sensitiveFields,omitzero"`
+	// TLS configuration for the API server.
+	Ssl *SslTypeSystemSettingsConfAPI `json:"ssl,omitzero"`
+	// Rate limit for SSO authentication attempts. Value is a string such as <code>100/min</code>.
+	SsoRateLimit *string `json:"ssoRateLimit,omitzero"`
+	// If <code>true</code>, enable remote access (teleporting) to Worker Processes via the API. Otherwise, <code>false</code>.
+	WorkerRemoteAccess *bool `json:"workerRemoteAccess,omitzero"`
 }
 
 func (a APITypeSystemSettingsConf) MarshalJSON() ([]byte, error) {
@@ -70,7 +86,7 @@ func (a *APITypeSystemSettingsConf) GetHost() string {
 	return a.Host
 }
 
-func (a *APITypeSystemSettingsConf) GetIdleSessionTTL() *float64 {
+func (a *APITypeSystemSettingsConf) GetIdleSessionTTL() *int64 {
 	if a == nil {
 		return nil
 	}
@@ -91,9 +107,9 @@ func (a *APITypeSystemSettingsConf) GetLoginRateLimit() *string {
 	return a.LoginRateLimit
 }
 
-func (a *APITypeSystemSettingsConf) GetPort() float64 {
+func (a *APITypeSystemSettingsConf) GetPort() int64 {
 	if a == nil {
-		return 0.0
+		return 0
 	}
 	return a.Port
 }

@@ -32,6 +32,7 @@ const (
 	OutputTypeKinesis                  OutputType = "kinesis"
 	OutputTypeHoneycomb                OutputType = "honeycomb"
 	OutputTypeAzureEventhub            OutputType = "azure_eventhub"
+	OutputTypeGoogleBigquery           OutputType = "google_bigquery"
 	OutputTypeGoogleChronicle          OutputType = "google_chronicle"
 	OutputTypeGoogleCloudStorage       OutputType = "google_cloud_storage"
 	OutputTypeGoogleCloudLogging       OutputType = "google_cloud_logging"
@@ -59,6 +60,7 @@ const (
 	OutputTypeDatadog                  OutputType = "datadog"
 	OutputTypeGrafanaCloud             OutputType = "grafana_cloud"
 	OutputTypeLoki                     OutputType = "loki"
+	OutputTypeAmazonManagedPrometheus  OutputType = "amazon_managed_prometheus"
 	OutputTypePrometheus               OutputType = "prometheus"
 	OutputTypeRing                     OutputType = "ring"
 	OutputTypeOpenTelemetry            OutputType = "open_telemetry"
@@ -116,6 +118,7 @@ type Output struct {
 	OutputKinesis                  *OutputKinesis                  `queryParam:"inline" union:"member"`
 	OutputHoneycomb                *OutputHoneycomb                `queryParam:"inline" union:"member"`
 	OutputAzureEventhub            *OutputAzureEventhub            `queryParam:"inline" union:"member"`
+	OutputGoogleBigquery           *OutputGoogleBigquery           `queryParam:"inline" union:"member"`
 	OutputGoogleChronicle          *OutputGoogleChronicle          `queryParam:"inline" union:"member"`
 	OutputGoogleCloudStorage       *OutputGoogleCloudStorage       `queryParam:"inline" union:"member"`
 	OutputGoogleCloudLogging       *OutputGoogleCloudLogging       `queryParam:"inline" union:"member"`
@@ -143,6 +146,7 @@ type Output struct {
 	OutputDatadog                  *OutputDatadog                  `queryParam:"inline" union:"member"`
 	OutputGrafanaCloud             *OutputGrafanaCloud             `queryParam:"inline" union:"member"`
 	OutputLoki                     *OutputLoki                     `queryParam:"inline" union:"member"`
+	OutputAmazonManagedPrometheus  *OutputAmazonManagedPrometheus  `queryParam:"inline" union:"member"`
 	OutputPrometheus               *OutputPrometheus               `queryParam:"inline" union:"member"`
 	OutputRing                     *OutputRing                     `queryParam:"inline" union:"member"`
 	OutputOpenTelemetry            *OutputOpenTelemetry            `queryParam:"inline" union:"member"`
@@ -415,6 +419,18 @@ func CreateOutputAzureEventhub(azureEventhub OutputAzureEventhub) Output {
 	return Output{
 		OutputAzureEventhub: &azureEventhub,
 		Type:                typ,
+	}
+}
+
+func CreateOutputGoogleBigquery(googleBigquery OutputGoogleBigquery) Output {
+	typ := OutputTypeGoogleBigquery
+
+	typStr := OutputGoogleBigqueryType(typ)
+	googleBigquery.Type = typStr
+
+	return Output{
+		OutputGoogleBigquery: &googleBigquery,
+		Type:                 typ,
 	}
 }
 
@@ -736,6 +752,18 @@ func CreateOutputLoki(loki OutputLoki) Output {
 	return Output{
 		OutputLoki: &loki,
 		Type:       typ,
+	}
+}
+
+func CreateOutputAmazonManagedPrometheus(amazonManagedPrometheus OutputAmazonManagedPrometheus) Output {
+	typ := OutputTypeAmazonManagedPrometheus
+
+	typStr := OutputAmazonManagedPrometheusType(typ)
+	amazonManagedPrometheus.Type = typStr
+
+	return Output{
+		OutputAmazonManagedPrometheus: &amazonManagedPrometheus,
+		Type:                          typ,
 	}
 }
 
@@ -1339,6 +1367,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputAzureEventhub = outputAzureEventhub
 		u.Type = OutputTypeAzureEventhub
 		return nil
+	case "google_bigquery":
+		outputGoogleBigquery := new(OutputGoogleBigquery)
+		if err := utils.UnmarshalJSON(data, &outputGoogleBigquery, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == google_bigquery) type OutputGoogleBigquery within Output: %w", string(data), err)
+		}
+
+		u.OutputGoogleBigquery = outputGoogleBigquery
+		u.Type = OutputTypeGoogleBigquery
+		return nil
 	case "google_chronicle":
 		outputGoogleChronicle := new(OutputGoogleChronicle)
 		if err := utils.UnmarshalJSON(data, &outputGoogleChronicle, "", true, nil); err != nil {
@@ -1581,6 +1618,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 
 		u.OutputLoki = outputLoki
 		u.Type = OutputTypeLoki
+		return nil
+	case "amazon_managed_prometheus":
+		outputAmazonManagedPrometheus := new(OutputAmazonManagedPrometheus)
+		if err := utils.UnmarshalJSON(data, &outputAmazonManagedPrometheus, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == amazon_managed_prometheus) type OutputAmazonManagedPrometheus within Output: %w", string(data), err)
+		}
+
+		u.OutputAmazonManagedPrometheus = outputAmazonManagedPrometheus
+		u.Type = OutputTypeAmazonManagedPrometheus
 		return nil
 	case "prometheus":
 		outputPrometheus := new(OutputPrometheus)
@@ -1974,6 +2020,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.OutputAzureEventhub, "", true)
 	}
 
+	if u.OutputGoogleBigquery != nil {
+		return utils.MarshalJSON(u.OutputGoogleBigquery, "", true)
+	}
+
 	if u.OutputGoogleChronicle != nil {
 		return utils.MarshalJSON(u.OutputGoogleChronicle, "", true)
 	}
@@ -2080,6 +2130,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputLoki != nil {
 		return utils.MarshalJSON(u.OutputLoki, "", true)
+	}
+
+	if u.OutputAmazonManagedPrometheus != nil {
+		return utils.MarshalJSON(u.OutputAmazonManagedPrometheus, "", true)
 	}
 
 	if u.OutputPrometheus != nil {

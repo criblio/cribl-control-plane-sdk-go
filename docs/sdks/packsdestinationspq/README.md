@@ -11,6 +11,39 @@
 
 Clear the persistent queue (PQ) for the specified Destination within the specified Pack.
 
+### Example Usage: OutputClearPQResponseExamplesClearPQJobId
+
+<!-- UsageSnippet language="go" operationID="deleteOutputSystemPqByPackAndId" method="delete" path="/p/{pack}/system/outputs/{id}/pq" example="OutputClearPQResponseExamplesClearPQJobId" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Pq.Clear(ctx, "<id>", "<value>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedString != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputResponseExamplesS3Destination
 
 <!-- UsageSnippet language="go" operationID="deleteOutputSystemPqByPackAndId" method="delete" path="/p/{pack}/system/outputs/{id}/pq" example="OutputResponseExamplesS3Destination" -->

@@ -3606,6 +3606,16 @@ type RestAuthenticationHmac struct {
 	TemplateClientSecretParamValue *string `json:"__template_clientSecretParamValue,omitzero"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
 	AuthRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"authRequestParams,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauth `json:"refreshRequestParams,omitzero"`
 	// Select or create a text secret that contains the client secret's value
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Scopes to use during authentication. See [Google's docs](https://developers.google.com/identity/protocols/oauth2/scopes) for more information.
@@ -3974,6 +3984,41 @@ func (r *RestAuthenticationHmac) GetAuthRequestParams() []CollectRequestParamCon
 		return nil
 	}
 	return r.AuthRequestParams
+}
+
+func (r *RestAuthenticationHmac) GetRefreshTokenField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.RefreshTokenField
+}
+
+func (r *RestAuthenticationHmac) GetRotateRefreshToken() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.RotateRefreshToken
+}
+
+func (r *RestAuthenticationHmac) GetRefreshURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.RefreshURL
+}
+
+func (r *RestAuthenticationHmac) GetTemplateRefreshURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateRefreshURL
+}
+
+func (r *RestAuthenticationHmac) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauth {
+	if r == nil {
+		return nil
+	}
+	return r.RefreshRequestParams
 }
 
 func (r *RestAuthenticationHmac) GetTextSecret() *string {
@@ -7628,6 +7673,16 @@ type RestAuthenticationGoogleOauthSecret struct {
 	TemplateClientSecretParamValue *string `json:"__template_clientSecretParamValue,omitzero"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
 	AuthRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"authRequestParams,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauth `json:"refreshRequestParams,omitzero"`
 	// Contents of Google Cloud service account credentials (JSON keys) file. To upload a file, click the upload icon in this field's upper right.
 	ServiceAccountCredentials *string `json:"serviceAccountCredentials,omitzero"`
 	// Binds 'serviceAccountCredentials' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'serviceAccountCredentials' at runtime.
@@ -8011,6 +8066,41 @@ func (r *RestAuthenticationGoogleOauthSecret) GetAuthRequestParams() []CollectRe
 		return nil
 	}
 	return r.AuthRequestParams
+}
+
+func (r *RestAuthenticationGoogleOauthSecret) GetRefreshTokenField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.RefreshTokenField
+}
+
+func (r *RestAuthenticationGoogleOauthSecret) GetRotateRefreshToken() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.RotateRefreshToken
+}
+
+func (r *RestAuthenticationGoogleOauthSecret) GetRefreshURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.RefreshURL
+}
+
+func (r *RestAuthenticationGoogleOauthSecret) GetTemplateRefreshURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateRefreshURL
+}
+
+func (r *RestAuthenticationGoogleOauthSecret) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauth {
+	if r == nil {
+		return nil
+	}
+	return r.RefreshRequestParams
 }
 
 func (r *RestAuthenticationGoogleOauthSecret) GetServiceAccountCredentials() *string {
@@ -11646,6 +11736,16 @@ type RestAuthenticationGoogleOauth struct {
 	TemplateClientSecretParamValue *string `json:"__template_clientSecretParamValue,omitzero"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
 	AuthRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"authRequestParams,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauth `json:"refreshRequestParams,omitzero"`
 	// Select or create a text secret that contains the client secret's value
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Select or create an HMAC Function to use with authentication
@@ -12034,6 +12134,41 @@ func (r *RestAuthenticationGoogleOauth) GetAuthRequestParams() []CollectRequestP
 		return nil
 	}
 	return r.AuthRequestParams
+}
+
+func (r *RestAuthenticationGoogleOauth) GetRefreshTokenField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.RefreshTokenField
+}
+
+func (r *RestAuthenticationGoogleOauth) GetRotateRefreshToken() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.RotateRefreshToken
+}
+
+func (r *RestAuthenticationGoogleOauth) GetRefreshURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.RefreshURL
+}
+
+func (r *RestAuthenticationGoogleOauth) GetTemplateRefreshURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateRefreshURL
+}
+
+func (r *RestAuthenticationGoogleOauth) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauth {
+	if r == nil {
+		return nil
+	}
+	return r.RefreshRequestParams
 }
 
 func (r *RestAuthenticationGoogleOauth) GetTextSecret() *string {
@@ -15608,7 +15743,17 @@ type RestAuthenticationOauthSecret struct {
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
 	AuthRequestParams  []CollectRequestParamConfRestCollectMethodGet `json:"authRequestParams,omitzero"`
 	AuthRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"authRequestHeaders,omitzero"`
-	Discovery          *RestAuthenticationOauthSecretDiscovery       `json:"discovery,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauth `json:"refreshRequestParams,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string                                 `json:"__template_refreshUrl,omitzero"`
+	Discovery          *RestAuthenticationOauthSecretDiscovery `json:"discovery,omitzero"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
 	CollectURL            string                                        `json:"collectUrl"`
 	CollectMethod         RestAuthenticationOauthSecretCollectMethod    `json:"collectMethod"`
@@ -15742,6 +15887,41 @@ func (r *RestAuthenticationOauthSecret) GetAuthRequestHeaders() []CollectRequest
 		return nil
 	}
 	return r.AuthRequestHeaders
+}
+
+func (r *RestAuthenticationOauthSecret) GetRefreshTokenField() *string {
+	if r == nil {
+		return nil
+	}
+	return r.RefreshTokenField
+}
+
+func (r *RestAuthenticationOauthSecret) GetRotateRefreshToken() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.RotateRefreshToken
+}
+
+func (r *RestAuthenticationOauthSecret) GetRefreshURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.RefreshURL
+}
+
+func (r *RestAuthenticationOauthSecret) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauth {
+	if r == nil {
+		return nil
+	}
+	return r.RefreshRequestParams
+}
+
+func (r *RestAuthenticationOauthSecret) GetTemplateRefreshURL() *string {
+	if r == nil {
+		return nil
+	}
+	return r.TemplateRefreshURL
 }
 
 func (r *RestAuthenticationOauthSecret) GetDiscovery() *RestAuthenticationOauthSecretDiscovery {

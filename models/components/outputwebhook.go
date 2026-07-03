@@ -165,7 +165,7 @@ type OutputWebhookWebhook2 struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The method to use when sending events
 	Method *MethodOptions `json:"method,omitzero"`
@@ -276,6 +276,14 @@ type OutputWebhookWebhook2 struct {
 	OauthParams []OauthParamConfInputServicenowTable `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []OauthHeaderConfInputServicenowTable `json:"oauthHeaders,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, @{product} will use the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// @{product} will update the stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, @{product} sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"refreshRequestParams,omitzero"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL *string `json:"url,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
@@ -295,6 +303,8 @@ type OutputWebhookWebhook2 struct {
 	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
 	TemplateSecret *string `json:"__template_secret,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
@@ -744,6 +754,34 @@ func (o *OutputWebhookWebhook2) GetOauthHeaders() []OauthHeaderConfInputServicen
 	return o.OauthHeaders
 }
 
+func (o *OutputWebhookWebhook2) GetRefreshTokenField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshTokenField
+}
+
+func (o *OutputWebhookWebhook2) GetRotateRefreshToken() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RotateRefreshToken
+}
+
+func (o *OutputWebhookWebhook2) GetRefreshURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshURL
+}
+
+func (o *OutputWebhookWebhook2) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshRequestParams
+}
+
 func (o *OutputWebhookWebhook2) GetURL() *string {
 	if o == nil {
 		return nil
@@ -812,6 +850,13 @@ func (o *OutputWebhookWebhook2) GetTemplateSecret() *string {
 		return nil
 	}
 	return o.TemplateSecret
+}
+
+func (o *OutputWebhookWebhook2) GetTemplateRefreshURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateRefreshURL
 }
 
 func (o *OutputWebhookWebhook2) GetTemplateURL() *string {
@@ -980,7 +1025,7 @@ type OutputWebhookWebhook1 struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The method to use when sending events
 	Method *MethodOptions `json:"method,omitzero"`
@@ -1091,6 +1136,14 @@ type OutputWebhookWebhook1 struct {
 	OauthParams []OauthParamConfInputServicenowTable `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []OauthHeaderConfInputServicenowTable `json:"oauthHeaders,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, @{product} will use the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// @{product} will update the stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, @{product} sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"refreshRequestParams,omitzero"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL string `json:"url"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
@@ -1110,6 +1163,8 @@ type OutputWebhookWebhook1 struct {
 	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
 	TemplateSecret *string `json:"__template_secret,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
@@ -1559,6 +1614,34 @@ func (o *OutputWebhookWebhook1) GetOauthHeaders() []OauthHeaderConfInputServicen
 	return o.OauthHeaders
 }
 
+func (o *OutputWebhookWebhook1) GetRefreshTokenField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshTokenField
+}
+
+func (o *OutputWebhookWebhook1) GetRotateRefreshToken() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RotateRefreshToken
+}
+
+func (o *OutputWebhookWebhook1) GetRefreshURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshURL
+}
+
+func (o *OutputWebhookWebhook1) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshRequestParams
+}
+
 func (o *OutputWebhookWebhook1) GetURL() string {
 	if o == nil {
 		return ""
@@ -1627,6 +1710,13 @@ func (o *OutputWebhookWebhook1) GetTemplateSecret() *string {
 		return nil
 	}
 	return o.TemplateSecret
+}
+
+func (o *OutputWebhookWebhook1) GetTemplateRefreshURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateRefreshURL
 }
 
 func (o *OutputWebhookWebhook1) GetTemplateURL() *string {

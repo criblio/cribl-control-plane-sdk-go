@@ -130,8 +130,9 @@ type HBCriblInfo struct {
 	// Objects that map Lookup files to deployment versions.
 	LookupVersions map[string]map[string]string `json:"lookupVersions,omitzero"`
 	// Connection parameters for the Leader Node, as reported in a Worker heartbeat.
-	Master    *HBLeaderInfo `json:"master,omitzero"`
-	OverlayID *string       `json:"overlayId,omitzero"`
+	Master *HBLeaderInfo `json:"master,omitzero"`
+	// Currently active overlay identifier on the node. Omitted if no overlay is active.
+	OverlayID *string `json:"overlayId,omitzero"`
 	// The process ID.
 	Pid *int64 `json:"pid,omitzero"`
 	// If <code>true</code>, SOCKS proxy connectivity is enabled for the node.
