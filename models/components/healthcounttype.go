@@ -4,39 +4,39 @@ package components
 
 type HealthCountType struct {
 	// Number of Worker Processes reporting a healthy (Green) status.
-	Green int64 `json:"Green"`
+	Green *int64 `json:"Green,omitzero"`
 	// Number of Worker Processes reporting a critical (Red) status.
-	Red int64 `json:"Red"`
+	Red *int64 `json:"Red,omitzero"`
 	// Number of Worker Processes reporting an unknown health status.
-	Unknown int64 `json:"Unknown"`
+	Unknown *int64 `json:"Unknown,omitzero"`
 	// Number of Worker Processes reporting a degraded (Yellow) status.
-	Yellow int64 `json:"Yellow"`
+	Yellow *int64 `json:"Yellow,omitzero"`
 }
 
-func (h *HealthCountType) GetGreen() int64 {
+func (h *HealthCountType) GetGreen() *int64 {
 	if h == nil {
-		return 0
+		return nil
 	}
 	return h.Green
 }
 
-func (h *HealthCountType) GetRed() int64 {
+func (h *HealthCountType) GetRed() *int64 {
 	if h == nil {
-		return 0
+		return nil
 	}
 	return h.Red
 }
 
-func (h *HealthCountType) GetUnknown() int64 {
+func (h *HealthCountType) GetUnknown() *int64 {
 	if h == nil {
-		return 0
+		return nil
 	}
 	return h.Unknown
 }
 
-func (h *HealthCountType) GetYellow() int64 {
+func (h *HealthCountType) GetYellow() *int64 {
 	if h == nil {
-		return 0
+		return nil
 	}
 	return h.Yellow
 }
