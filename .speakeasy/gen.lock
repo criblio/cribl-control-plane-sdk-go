@@ -3,22 +3,22 @@ id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
   docChecksum: 0d25574c11912ef04df28a4f5e17730d
   docVersion: 4.18.2-alpha.1781704252212-45e15fbc
-  speakeasyVersion: 1.781.0
-  generationVersion: 2.907.0
-  releaseVersion: 0.9.0-alpha.17
-  configChecksum: ea7bf3e66dc6b67b084062a7bc2e25e5
+  speakeasyVersion: 1.789.0
+  generationVersion: 2.916.2
+  releaseVersion: 0.10.0-alpha.1
+  configChecksum: 80b38d70fc7bcf79f6fb87e20cb64a24
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 4e55a55e-1b1e-4f21-8ca3-7cee448ca2f3
-  pristine_commit_hash: 546342d785112647a30037a89f8e8d1339c7edbe
-  pristine_tree_hash: d6394bbbc214851c4ab3890ac5958c824cd8eec1
+  generation_id: 93a9a238-2050-4da3-9905-48b4a09abb38
+  pristine_commit_hash: bab4c8f0838f9fa93934269314cd04e0d2a96156
+  pristine_tree_hash: f0340bf0f9300ecbde1834aa8770c4504ad52a71
 features:
   go:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.14
-    core: 3.13.46
+    core: 3.13.47
     defaultEnabledRetries: 0.2.0
     deprecations: 2.81.3
     devContainers: 2.90.0
@@ -97,8 +97,8 @@ trackedFiles:
     pristine_git_object: bba69be06926f5c8962b2ff0b439a8f206dac7de
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:3bb74439f83d0056d02f38899ddfe2b717bfcd0a
-    pristine_git_object: 396877e2acc7dc61410353010bea38fe0604250e
+    last_write_checksum: sha1:13ef197e12cd691eb458e44447c053bd2b12e9aa
+    pristine_git_object: 5917db93a78b9559d7636caa993f82f67f3bcb72
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:3d059ca22995c03650c4cc7153fb55f73685d21e
@@ -36287,7 +36287,6 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Health.Get()`: \n  *  `response.Overlay` **Added**\n  *  `error.Overlay` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
