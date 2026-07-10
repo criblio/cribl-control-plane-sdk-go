@@ -1,5 +1,7 @@
 # CreateOutputSystemByPackAuthenticationMethodGoogleChronicle
 
+Authentication method
+
 ## Example Usage
 
 ```go

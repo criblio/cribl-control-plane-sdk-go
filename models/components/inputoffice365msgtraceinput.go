@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputOffice365MsgTraceType - Connector type identifier.
 type InputOffice365MsgTraceType string
 
 const (
@@ -59,7 +60,8 @@ func (e *InputOffice365MsgTraceAuthenticationMethod) IsExact() bool {
 
 type InputOffice365MsgTraceInput struct {
 	// Unique ID for this input
-	ID   *string                    `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputOffice365MsgTraceType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`

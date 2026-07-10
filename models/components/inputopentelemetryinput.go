@@ -113,6 +113,7 @@ func (e *InputOpenTelemetryAuthenticationType) IsExact() bool {
 	return false
 }
 
+// InputOpenTelemetryAuthMethodsExtAuthenticationType - Authentication type
 type InputOpenTelemetryAuthMethodsExtAuthenticationType string
 
 const (
@@ -142,17 +143,22 @@ func (e *InputOpenTelemetryAuthMethodsExtAuthenticationType) IsExact() bool {
 }
 
 type InputOpenTelemetryAuthMethodsExt struct {
+	// Authentication type
 	AuthType InputOpenTelemetryAuthMethodsExtAuthenticationType `json:"authType"`
 	// Bearer token for Authorization header
-	Token       *string `json:"token,omitzero"`
+	Token *string `json:"token,omitzero"`
+	// Description
 	Description *string `json:"description,omitzero"`
 	// Fields to add to events referencing this auth method
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Enabled  *bool                         `json:"enabled,omitzero"`
+	// Enable
+	Enabled *bool `json:"enabled,omitzero"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 }
@@ -254,8 +260,9 @@ type InputOpenTelemetryInput struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -290,8 +297,10 @@ type InputOpenTelemetryInput struct {
 	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials

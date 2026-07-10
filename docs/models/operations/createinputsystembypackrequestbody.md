@@ -377,6 +377,12 @@ createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRe
 createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodySecurityLake(operations.CreateInputSystemByPackInputSecurityLake{/* values here */})
 ```
 
+### CreateInputSystemByPackInputBedrockS3
+
+```go
+createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyBedrockS3(operations.CreateInputSystemByPackInputBedrockS3{/* values here */})
+```
+
 ### CreateInputSystemByPackInputServicenowTable
 
 ```go
@@ -555,6 +561,8 @@ switch createInputSystemByPackRequestBody.Type {
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputNetflow is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeSecurityLake:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputSecurityLake is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeBedrockS3:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputBedrockS3 is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeServicenowTable:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputServicenowTable is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeZscalerHec:

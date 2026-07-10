@@ -8,8 +8,9 @@ import (
 
 type FunctionConfSchemaOtlpTraces struct {
 	// Drop events that are not OTLP trace spans.
-	DropNonTraceEvents *bool               `json:"dropNonTraceEvents,omitzero"`
-	OtlpVersion        *OtlpVersionOptions `json:"otlpVersion,omitzero"`
+	DropNonTraceEvents *bool `json:"dropNonTraceEvents,omitzero"`
+	// OTLP version
+	OtlpVersion *OtlpVersionOptions `json:"otlpVersion,omitzero"`
 	// Batch OTLP traces by shared top-level `resource` attributes
 	BatchOTLPTraces *bool `json:"batchOTLPTraces,omitzero"`
 	// Number of spans after which a batch will be sent, regardless of the timeout

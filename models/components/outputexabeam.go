@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputExabeamType - Connector type identifier.
 type OutputExabeamType string
 
 const (
@@ -33,7 +34,8 @@ func (e *OutputExabeamType) UnmarshalJSON(data []byte) error {
 
 type OutputExabeam struct {
 	// Unique ID for this output
-	ID   *string           `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputExabeamType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -76,7 +78,8 @@ type OutputExabeam struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	RetrySettings          *RetrySettingsType          `json:"retrySettings,omitzero"`
-	Orphans                *OrphanFileRecoveryType     `json:"orphans,omitzero"`
+	// Orphan file recovery
+	Orphans *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
 	MaxFileSizeMB *float64 `json:"maxFileSizeMB,omitzero"`
 	// Enter an encoded string containing Exabeam configurations
@@ -87,7 +90,8 @@ type OutputExabeam struct {
 	// Constant or JavaScript expression to create an Exabeam site name. Values that aren't successfully evaluated will be treated as string constants.
 	SiteName *string `json:"siteName,omitzero"`
 	// Exabeam site ID. If left blank, @{product} will use the value of the Exabeam site name.
-	SiteID         *string `json:"siteId,omitzero"`
+	SiteID *string `json:"siteId,omitzero"`
+	// Timezone offset
 	TimezoneOffset *string `json:"timezoneOffset,omitzero"`
 	// HMAC access key. Can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
 	AwsAPIKey *string `json:"awsApiKey,omitzero"`

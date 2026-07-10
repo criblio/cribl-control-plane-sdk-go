@@ -1,5 +1,7 @@
 # AuthenticationMethodGoogleChronicle
 
+Authentication method
+
 ## Example Usage
 
 ```go

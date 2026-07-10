@@ -2,6 +2,7 @@
 
 package components
 
+// MinimumTLSVersionOptionsTLS - Minimum TLS version
 type MinimumTLSVersionOptionsTLS string
 
 const (

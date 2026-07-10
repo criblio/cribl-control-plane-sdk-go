@@ -3,38 +3,14 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputTcpjsonType string
-
-const (
-	InputTcpjsonTypeTcpjson InputTcpjsonType = "tcpjson"
-)
-
-func (e InputTcpjsonType) ToPointer() *InputTcpjsonType {
-	return &e
-}
-func (e *InputTcpjsonType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "tcpjson":
-		*e = InputTcpjsonType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputTcpjsonType: %v", v)
-	}
-}
-
 type InputTcpjsonInput struct {
 	// Unique ID for this input
-	ID   *string          `json:"id,omitzero"`
-	Type InputTcpjsonType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsTcpjson `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -53,8 +29,9 @@ type InputTcpjsonInput struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Regex matching IP addresses that are allowed to establish a connection
 	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -107,9 +84,9 @@ func (i *InputTcpjsonInput) GetID() *string {
 	return i.ID
 }
 
-func (i *InputTcpjsonInput) GetType() InputTcpjsonType {
+func (i *InputTcpjsonInput) GetType() TypeOptionsTcpjson {
 	if i == nil {
-		return InputTcpjsonType("")
+		return TypeOptionsTcpjson("")
 	}
 	return i.Type
 }

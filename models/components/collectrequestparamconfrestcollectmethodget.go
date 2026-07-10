@@ -7,6 +7,7 @@ import (
 )
 
 type CollectRequestParamConfRestCollectMethodGet struct {
+	// Name
 	Name string `json:"name"`
 	// JavaScript expression to compute parameter value, usually enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values that aren't successfully evaluated as JavaScript expressions will be treated as string constants.
 	Value string `json:"value"`

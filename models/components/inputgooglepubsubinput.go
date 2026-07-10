@@ -3,38 +3,14 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputGooglePubsubType string
-
-const (
-	InputGooglePubsubTypeGooglePubsub InputGooglePubsubType = "google_pubsub"
-)
-
-func (e InputGooglePubsubType) ToPointer() *InputGooglePubsubType {
-	return &e
-}
-func (e *InputGooglePubsubType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "google_pubsub":
-		*e = InputGooglePubsubType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputGooglePubsubType: %v", v)
-	}
-}
-
 type InputGooglePubsubInput struct {
 	// Unique ID for this input
-	ID   *string               `json:"id,omitzero"`
-	Type InputGooglePubsubType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsGooglepubsub `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -110,9 +86,9 @@ func (i *InputGooglePubsubInput) GetID() *string {
 	return i.ID
 }
 
-func (i *InputGooglePubsubInput) GetType() InputGooglePubsubType {
+func (i *InputGooglePubsubInput) GetType() TypeOptionsGooglepubsub {
 	if i == nil {
-		return InputGooglePubsubType("")
+		return TypeOptionsGooglepubsub("")
 	}
 	return i.Type
 }

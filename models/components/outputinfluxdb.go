@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputInfluxdbType - Connector type identifier.
 type OutputInfluxdbType string
 
 const (
@@ -95,6 +96,7 @@ func (e *OutputInfluxdbAuthenticationType) IsExact() bool {
 	return false
 }
 
+// OutputInfluxdbPqControls - Persistent queue controls.
 type OutputInfluxdbPqControls struct {
 }
 
@@ -111,7 +113,8 @@ func (o *OutputInfluxdbPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputInfluxdb struct {
 	// Unique ID for this output
-	ID   *string            `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputInfluxdbType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -193,10 +196,13 @@ type OutputInfluxdb struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                   `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputInfluxdbPqControls `json:"pqControls,omitzero"`
-	Username             *string                   `json:"username,omitzero"`
-	Password             *string                   `json:"password,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputInfluxdbPqControls `json:"pqControls,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials

@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputEdgePrometheusType - Connector type identifier.
 type InputEdgePrometheusType string
 
 const (
@@ -174,7 +175,8 @@ func (i *InputEdgePrometheusPodFilter) GetDescription() *string {
 
 type InputEdgePrometheusInput struct {
 	// Unique ID for this input
-	ID   *string                 `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputEdgePrometheusType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -200,15 +202,17 @@ type InputEdgePrometheusInput struct {
 	// How often in seconds to scrape targets for metrics.
 	Interval float64 `json:"interval"`
 	// Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
-	Timeout     *float64          `json:"timeout,omitzero"`
+	Timeout *float64 `json:"timeout,omitzero"`
+	// Disk Spooling
 	Persistence *DiskSpoolingType `json:"persistence,omitzero"`
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
 	AuthType *InputEdgePrometheusAuthenticationMethod `json:"authType,omitzero"`
 	// Optional description for this configuration.
-	Description *string                     `json:"description,omitzero"`
-	Targets     []InputEdgePrometheusTarget `json:"targets,omitzero"`
+	Description *string `json:"description,omitzero"`
+	// Targets
+	Targets []InputEdgePrometheusTarget `json:"targets,omitzero"`
 	// DNS record type to resolve
 	RecordType *RecordTypeOptions `json:"recordType,omitzero"`
 	// The port number in the metrics URL for discovered targets.
@@ -221,14 +225,16 @@ type InputEdgePrometheusInput struct {
 	ScrapePath *string `json:"scrapePath,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	AwsAPIKey               *string                                     `json:"awsApiKey,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
 	UsePublicIP *bool `json:"usePublicIp,omitzero"`
 	// Filter to apply when searching for EC2 instances
 	SearchFilter []SearchFilterConfInputPrometheus `json:"searchFilter,omitzero"`
-	AwsSecretKey *string                           `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Region where the EC2 is located
 	Region *string `json:"region,omitzero"`
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.

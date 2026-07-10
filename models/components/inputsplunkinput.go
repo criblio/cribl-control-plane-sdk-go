@@ -3,37 +3,13 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputSplunkType string
-
-const (
-	InputSplunkTypeSplunk InputSplunkType = "splunk"
-)
-
-func (e InputSplunkType) ToPointer() *InputSplunkType {
-	return &e
-}
-func (e *InputSplunkType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "splunk":
-		*e = InputSplunkType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSplunkType: %v", v)
-	}
-}
-
 type InputSplunkAuthToken struct {
 	// Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
-	Token       string  `json:"token"`
+	Token string `json:"token"`
+	// Description
 	Description *string `json:"description,omitzero"`
 }
 
@@ -116,8 +92,9 @@ func (e *InputSplunkCompression) IsExact() bool {
 
 type InputSplunkInput struct {
 	// Unique ID for this input
-	ID   *string         `json:"id,omitzero"`
-	Type InputSplunkType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsSplunk `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -136,8 +113,9 @@ type InputSplunkInput struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Regex matching IP addresses that are allowed to establish a connection
 	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -202,9 +180,9 @@ func (i *InputSplunkInput) GetID() *string {
 	return i.ID
 }
 
-func (i *InputSplunkInput) GetType() InputSplunkType {
+func (i *InputSplunkInput) GetType() TypeOptionsSplunk {
 	if i == nil {
-		return InputSplunkType("")
+		return TypeOptionsSplunk("")
 	}
 	return i.Type
 }

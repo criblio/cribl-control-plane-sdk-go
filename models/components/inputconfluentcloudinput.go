@@ -3,38 +3,14 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputConfluentCloudType string
-
-const (
-	InputConfluentCloudTypeConfluentCloud InputConfluentCloudType = "confluent_cloud"
-)
-
-func (e InputConfluentCloudType) ToPointer() *InputConfluentCloudType {
-	return &e
-}
-func (e *InputConfluentCloudType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "confluent_cloud":
-		*e = InputConfluentCloudType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputConfluentCloudType: %v", v)
-	}
-}
-
 type InputConfluentCloudInput struct {
 	// Unique ID for this input
-	ID   *string                 `json:"id,omitzero"`
-	Type InputConfluentCloudType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsConfluentcloud `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -51,14 +27,16 @@ type InputConfluentCloudInput struct {
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
 	Pq          *PqType                         `json:"pq,omitzero"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
-	Brokers []string                                 `json:"brokers"`
-	TLS     *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	Brokers []string `json:"brokers"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
 	Topics []string `json:"topics"`
 	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
 	GroupID *string `json:"groupId,omitzero"`
 	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
-	FromBeginning       *bool                                  `json:"fromBeginning,omitzero"`
+	FromBeginning *bool `json:"fromBeginning,omitzero"`
+	// Kafka Schema Registry Authentication
 	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
@@ -132,9 +110,9 @@ func (i *InputConfluentCloudInput) GetID() *string {
 	return i.ID
 }
 
-func (i *InputConfluentCloudInput) GetType() InputConfluentCloudType {
+func (i *InputConfluentCloudInput) GetType() TypeOptionsConfluentcloud {
 	if i == nil {
-		return InputConfluentCloudType("")
+		return TypeOptionsConfluentcloud("")
 	}
 	return i.Type
 }

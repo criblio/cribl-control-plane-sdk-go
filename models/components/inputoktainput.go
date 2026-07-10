@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputOktaType - Connector type identifier.
 type InputOktaType string
 
 const (
@@ -33,7 +34,8 @@ func (e *InputOktaType) UnmarshalJSON(data []byte) error {
 
 type InputOktaInput struct {
 	// Unique ID for this input
-	ID   *string       `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputOktaType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`

@@ -1,5 +1,7 @@
 # PqControlsInfluxdb
 
+Persistent queue controls.
+
 
 ## Fields
 

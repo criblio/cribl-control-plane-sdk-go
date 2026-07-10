@@ -32,6 +32,7 @@ func (e *InputElasticType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// InputElasticAuthenticationType - Authentication type
 type InputElasticAuthenticationType string
 
 const (
@@ -116,8 +117,10 @@ type InputElasticProxyMode struct {
 	Enabled bool `json:"enabled"`
 	// Enter credentials directly, or select a stored secret
 	AuthType *InputElasticAuthenticationMethod `json:"authType,omitzero"`
-	Username *string                           `json:"username,omitzero"`
-	Password *string                           `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
@@ -236,8 +239,9 @@ type InputElasticInput struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -261,8 +265,9 @@ type InputElasticInput struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
-	ElasticAPI string                          `json:"elasticAPI"`
-	AuthType   *InputElasticAuthenticationType `json:"authType,omitzero"`
+	ElasticAPI string `json:"elasticAPI"`
+	// Authentication type
+	AuthType *InputElasticAuthenticationType `json:"authType,omitzero"`
 	// The API version to use for communicating with the server
 	APIVersion *InputElasticAPIVersion `json:"apiVersion,omitzero"`
 	// Headers to add to all events
@@ -272,8 +277,10 @@ type InputElasticInput struct {
 	ProxyMode *InputElasticProxyMode        `json:"proxyMode,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Bearer tokens to include in the authorization header

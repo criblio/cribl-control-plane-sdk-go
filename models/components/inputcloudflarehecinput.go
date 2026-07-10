@@ -32,6 +32,7 @@ func (e *InputCloudflareHecType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// InputCloudflareHecTLSSettingsServerSide - TLS settings (server side)
 type InputCloudflareHecTLSSettingsServerSide struct {
 	// Enable or disable TLS. Defaults to enabled for Cloudflare sources.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -50,8 +51,10 @@ type InputCloudflareHecTLSSettingsServerSide struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS. Defaults to the built-in Cribl certificate when TLS is enabled.
 	CertPath *string `json:"certPath,omitzero"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                      `json:"caPath,omitzero"`
+	CaPath *string `json:"caPath,omitzero"`
+	// Minimum TLS version
 	MinVersion *MinimumTLSVersionOptionsTLS `json:"minVersion,omitzero"`
+	// Maximum TLS version
 	MaxVersion *MaximumTLSVersionOptionsTLS `json:"maxVersion,omitzero"`
 }
 
@@ -168,8 +171,9 @@ type InputCloudflareHecInput struct {
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []AuthTokenConfInputCloudflareHec        `json:"authTokens,omitzero"`
-	TLS        *InputCloudflareHecTLSSettingsServerSide `json:"tls,omitzero"`
+	AuthTokens []AuthTokenConfInputCloudflareHec `json:"authTokens,omitzero"`
+	// TLS settings (server side)
+	TLS *InputCloudflareHecTLSSettingsServerSide `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).

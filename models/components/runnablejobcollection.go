@@ -32,6 +32,7 @@ func (e *RunnableJobCollectionMode) IsExact() bool {
 	return false
 }
 
+// TimeRange - Time range
 type TimeRange string
 
 const (
@@ -234,6 +235,7 @@ func (u RunnableJobCollectionLatest) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type RunnableJobCollectionLatest: all fields are null")
 }
 
+// WhereToCapture - Where to capture
 type WhereToCapture int64
 
 const (
@@ -262,12 +264,14 @@ func (e *WhereToCapture) IsExact() bool {
 	return false
 }
 
+// CaptureSettings - Capture Settings
 type CaptureSettings struct {
 	// Amount of time to keep capture open, in seconds
 	Duration *float64 `json:"duration,omitzero"`
 	// Maximum number of events to capture
-	MaxEvents *float64        `json:"maxEvents,omitzero"`
-	Level     *WhereToCapture `json:"level,omitzero"`
+	MaxEvents *float64 `json:"maxEvents,omitzero"`
+	// Where to capture
+	Level *WhereToCapture `json:"level,omitzero"`
 }
 
 func (c CaptureSettings) MarshalJSON() ([]byte, error) {
@@ -312,8 +316,9 @@ type RunnableJobCollectionRun struct {
 	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
 	JobTimeout *string `json:"jobTimeout,omitzero"`
 	// Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
-	Mode          RunnableJobCollectionMode `json:"mode"`
-	TimeRangeType *TimeRange                `json:"timeRangeType,omitzero"`
+	Mode RunnableJobCollectionMode `json:"mode"`
+	// Time range
+	TimeRangeType *TimeRange `json:"timeRangeType,omitzero"`
 	// Earliest time to collect data for the selected timezone
 	Earliest *RunnableJobCollectionEarliest `json:"earliest,omitzero"`
 	// Latest time to collect data for the selected timezone
@@ -332,8 +337,9 @@ type RunnableJobCollectionRun struct {
 	//         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
 	MaxTaskSize *string `json:"maxTaskSize,omitzero"`
 	// Send discover results to Routes
-	DiscoverToRoutes *bool            `json:"discoverToRoutes,omitzero"`
-	Capture          *CaptureSettings `json:"capture,omitzero"`
+	DiscoverToRoutes *bool `json:"discoverToRoutes,omitzero"`
+	// Capture Settings
+	Capture *CaptureSettings `json:"capture,omitzero"`
 }
 
 func (r RunnableJobCollectionRun) MarshalJSON() ([]byte, error) {
@@ -454,9 +460,11 @@ func (r *RunnableJobCollectionRun) GetCapture() *CaptureSettings {
 
 type RunnableJobCollection struct {
 	// Unique ID for this Job
-	ID          *string                              `json:"id,omitzero"`
-	Description *string                              `json:"description,omitzero"`
-	Type        *JobTypeOptionsRunnableJobCollection `json:"type,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Description
+	Description *string `json:"description,omitzero"`
+	// Job type
+	Type *JobTypeOptionsRunnableJobCollection `json:"type,omitzero"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
 	TTL *string `json:"ttl,omitzero"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
@@ -474,9 +482,9 @@ type RunnableJobCollection struct {
 	// If enabled, tasks are created and run by the same Worker Node
 	WorkerAffinity *bool `json:"workerAffinity,omitzero"`
 	// Collector configuration
-	Collector Collector                                                         `json:"collector"`
-	Input     *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
-	Run       RunnableJobCollectionRun                                          `json:"run"`
+	Collector Collector                       `json:"collector"`
+	Input     *InputTypeRunnableJobCollection `json:"input,omitzero"`
+	Run       RunnableJobCollectionRun        `json:"run"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
@@ -616,7 +624,7 @@ func (r *RunnableJobCollection) GetCollectorSplunk() *CollectorSplunk {
 	return r.GetCollector().CollectorSplunk
 }
 
-func (r *RunnableJobCollection) GetInput() *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint {
+func (r *RunnableJobCollection) GetInput() *InputTypeRunnableJobCollection {
 	if r == nil {
 		return nil
 	}

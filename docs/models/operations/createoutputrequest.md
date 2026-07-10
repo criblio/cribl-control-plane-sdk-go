@@ -443,6 +443,12 @@ createOutputRequest := operations.CreateCreateOutputRequestChronicle(operations.
 createOutputRequest := operations.CreateCreateOutputRequestDatabricks(operations.CreateOutputOutputDatabricks{/* values here */})
 ```
 
+### CreateOutputOutputSnowflakeStreaming
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestSnowflakeStreaming(operations.CreateOutputOutputSnowflakeStreaming{/* values here */})
+```
+
 ### CreateOutputOutputMicrosoftFabric
 
 ```go
@@ -655,6 +661,8 @@ switch createOutputRequest.Type {
 		// createOutputRequest.CreateOutputOutputChronicle is populated
 	case operations.CreateOutputRequestTypeDatabricks:
 		// createOutputRequest.CreateOutputOutputDatabricks is populated
+	case operations.CreateOutputRequestTypeSnowflakeStreaming:
+		// createOutputRequest.CreateOutputOutputSnowflakeStreaming is populated
 	case operations.CreateOutputRequestTypeMicrosoftFabric:
 		// createOutputRequest.CreateOutputOutputMicrosoftFabric is populated
 	case operations.CreateOutputRequestTypeCloudflareR2:

@@ -3,33 +3,8 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type OutputKinesisType string
-
-const (
-	OutputKinesisTypeKinesis OutputKinesisType = "kinesis"
-)
-
-func (e OutputKinesisType) ToPointer() *OutputKinesisType {
-	return &e
-}
-func (e *OutputKinesisType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "kinesis":
-		*e = OutputKinesisType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputKinesisType: %v", v)
-	}
-}
 
 // OutputKinesisCompression - Compression type to use for records
 type OutputKinesisCompression string
@@ -56,6 +31,7 @@ func (e *OutputKinesisCompression) IsExact() bool {
 	return false
 }
 
+// OutputKinesisPqControls - Persistent queue controls.
 type OutputKinesisPqControls struct {
 }
 
@@ -72,8 +48,9 @@ func (o *OutputKinesisPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputKinesis struct {
 	// Unique ID for this output
-	ID   *string           `json:"id,omitzero"`
-	Type OutputKinesisType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsKinesis `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -86,7 +63,8 @@ type OutputKinesis struct {
 	StreamName string `json:"streamName"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
@@ -119,7 +97,8 @@ type OutputKinesis struct {
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Maximum number of records to send in a single request
@@ -145,8 +124,9 @@ type OutputKinesis struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                  `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputKinesisPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputKinesisPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'streamName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamName' at runtime.
@@ -185,9 +165,9 @@ func (o *OutputKinesis) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputKinesis) GetType() OutputKinesisType {
+func (o *OutputKinesis) GetType() TypeOptionsKinesis {
 	if o == nil {
-		return OutputKinesisType("")
+		return TypeOptionsKinesis("")
 	}
 	return o.Type
 }

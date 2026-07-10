@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputSnsType - Connector type identifier.
 type OutputSnsType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputSnsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputSnsPqControls - Persistent queue controls.
 type OutputSnsPqControls struct {
 }
 
@@ -47,7 +49,8 @@ func (o *OutputSnsPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputSns struct {
 	// Unique ID for this output
-	ID   *string       `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputSnsType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -65,7 +68,8 @@ type OutputSns struct {
 	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Region where the SNS is located
 	Region *string `json:"region,omitzero"`
 	// SNS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SNS-compatible endpoint.
@@ -86,7 +90,8 @@ type OutputSns struct {
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -110,8 +115,9 @@ type OutputSns struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string              `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputSnsPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputSnsPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'topicArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topicArn' at runtime.

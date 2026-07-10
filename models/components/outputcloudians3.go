@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputCloudianS3Type - Connector type identifier.
 type OutputCloudianS3Type string
 
 const (
@@ -33,7 +34,8 @@ func (e *OutputCloudianS3Type) UnmarshalJSON(data []byte) error {
 
 type OutputCloudianS3 struct {
 	// Unique ID for this output
-	ID   *string              `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputCloudianS3Type `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -96,9 +98,10 @@ type OutputCloudianS3 struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
-	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
+	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
+	// Orphan file recovery
+	Orphans *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Object ACL to assign to uploaded objects
 	ObjectACL *ObjectACLOptions `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects

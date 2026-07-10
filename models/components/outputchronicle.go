@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputChronicleType - Connector type identifier.
 type OutputChronicleType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputChronicleType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputChronicleAuthenticationMethod - Authentication method
 type OutputChronicleAuthenticationMethod string
 
 const (
@@ -54,7 +56,9 @@ func (e *OutputChronicleAuthenticationMethod) IsExact() bool {
 }
 
 type OutputChronicleCustomLabel struct {
-	Key   string `json:"key"`
+	// Key
+	Key string `json:"key"`
+	// Value
 	Value string `json:"value"`
 	// Designate this label for role-based access control and filtering
 	RbacEnabled *bool `json:"rbacEnabled,omitzero"`
@@ -92,6 +96,7 @@ func (o *OutputChronicleCustomLabel) GetRbacEnabled() *bool {
 	return o.RbacEnabled
 }
 
+// OutputChroniclePqControls - Persistent queue controls.
 type OutputChroniclePqControls struct {
 }
 
@@ -108,7 +113,8 @@ func (o *OutputChroniclePqControls) UnmarshalJSON(data []byte) error {
 
 type OutputChronicle struct {
 	// Unique ID for this output
-	ID   *string             `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputChronicleType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -117,8 +123,10 @@ type OutputChronicle struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
 	// Metadata tags used for categorization and filtering.
-	Streamtags           []string                             `json:"streamtags,omitzero"`
-	APIVersion           *string                              `json:"apiVersion,omitzero"`
+	Streamtags []string `json:"streamtags,omitzero"`
+	// API version
+	APIVersion *string `json:"apiVersion,omitzero"`
+	// Authentication method
 	AuthenticationMethod *OutputChronicleAuthenticationMethod `json:"authenticationMethod,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
 	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
@@ -155,7 +163,8 @@ type OutputChronicle struct {
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
-	IngestionMethod    *string  `json:"ingestionMethod,omitzero"`
+	// Chronicle API ingestion method
+	IngestionMethod *string `json:"ingestionMethod,omitzero"`
 	// User-configured environment namespace to identify the data domain the logs originated from. This namespace is used as a tag to identify the appropriate data domain for indexing and enrichment functionality. Can be overwritten by event field __namespace.
 	Namespace *string `json:"namespace,omitzero"`
 	// Default log type value to send to SecOps. Can be overwritten by event field __logType.
@@ -197,8 +206,9 @@ type OutputChronicle struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                    `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputChroniclePqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputChroniclePqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'region' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'region' at runtime.

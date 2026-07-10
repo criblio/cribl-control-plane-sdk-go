@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputDatadogType - Connector type identifier.
 type OutputDatadogType string
 
 const (
@@ -128,6 +129,7 @@ func (e *OutputDatadogDatadogSite) IsExact() bool {
 	return false
 }
 
+// OutputDatadogPqControls - Persistent queue controls.
 type OutputDatadogPqControls struct {
 }
 
@@ -144,7 +146,8 @@ func (o *OutputDatadogPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputDatadog struct {
 	// Unique ID for this output
-	ID   *string           `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputDatadogType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -235,8 +238,9 @@ type OutputDatadog struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                  `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputDatadogPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputDatadogPqControls `json:"pqControls,omitzero"`
 	// Organization's API key in Datadog
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret

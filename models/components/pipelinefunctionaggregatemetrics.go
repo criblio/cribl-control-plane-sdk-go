@@ -93,6 +93,7 @@ func (a *Aggregation) GetAgg() string {
 }
 
 type PipelineFunctionAggregateMetricsAdd struct {
+	// Name
 	Name *string `json:"name,omitzero"`
 	// JavaScript expression to compute the value (can be constant)
 	Value string `json:"value"`

@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputAzureLogsType - Connector type identifier.
 type OutputAzureLogsType string
 
 const (
@@ -54,6 +55,7 @@ func (e *OutputAzureLogsAuthenticationMethod) IsExact() bool {
 	return false
 }
 
+// OutputAzureLogsPqControls - Persistent queue controls.
 type OutputAzureLogsPqControls struct {
 }
 
@@ -70,7 +72,8 @@ func (o *OutputAzureLogsPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputAzureLogs struct {
 	// Unique ID for this output
-	ID   *string             `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputAzureLogsType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -141,8 +144,9 @@ type OutputAzureLogs struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                    `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputAzureLogsPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputAzureLogsPqControls `json:"pqControls,omitzero"`
 	// Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.
 	WorkspaceID *string `json:"workspaceId,omitzero"`
 	// Azure Log Analytics Workspace Primary or Secondary Shared Key. See Azure Dashboard Workspace > Advanced settings.

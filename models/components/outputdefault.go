@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputDefaultType - Connector type identifier.
 type OutputDefaultType string
 
 const (
@@ -33,7 +34,8 @@ func (e *OutputDefaultType) UnmarshalJSON(data []byte) error {
 
 type OutputDefault struct {
 	// Unique ID for this output
-	ID   *string           `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputDefaultType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`

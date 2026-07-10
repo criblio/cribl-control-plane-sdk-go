@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputRouterType - Connector type identifier.
 type OutputRouterType string
 
 const (
@@ -83,7 +84,8 @@ func (o *OutputRouterRule) GetFinal() *bool {
 
 type OutputRouter struct {
 	// Unique ID for this output
-	ID   *string          `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputRouterType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`

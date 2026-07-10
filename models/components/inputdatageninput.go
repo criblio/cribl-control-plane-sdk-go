@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputDatagenType - Connector type identifier.
 type InputDatagenType string
 
 const (
@@ -32,6 +33,7 @@ func (e *InputDatagenType) UnmarshalJSON(data []byte) error {
 }
 
 type InputDatagenSample struct {
+	// Data Generator File Name
 	Sample string `json:"sample"`
 	// Maximum number of events to generate per second per Worker Node. Defaults to 10.
 	EventsPerSec float64 `json:"eventsPerSec"`
@@ -64,7 +66,8 @@ func (i *InputDatagenSample) GetEventsPerSec() float64 {
 
 type InputDatagenInput struct {
 	// Unique ID for this input
-	ID   *string          `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputDatagenType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -81,7 +84,8 @@ type InputDatagenInput struct {
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
 	Pq          *PqType                         `json:"pq,omitzero"`
-	Samples     []InputDatagenSample            `json:"samples"`
+	// Datagens
+	Samples []InputDatagenSample `json:"samples"`
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Optional description for this configuration.

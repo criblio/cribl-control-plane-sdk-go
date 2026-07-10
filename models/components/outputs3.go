@@ -3,38 +3,14 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputS3Type string
-
-const (
-	OutputS3TypeS3 OutputS3Type = "s3"
-)
-
-func (e OutputS3Type) ToPointer() *OutputS3Type {
-	return &e
-}
-func (e *OutputS3Type) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "s3":
-		*e = OutputS3Type(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputS3Type: %v", v)
-	}
-}
-
 type OutputS3 struct {
 	// Unique ID for this output
-	ID   *string      `json:"id,omitzero"`
-	Type OutputS3Type `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsS3 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -104,9 +80,10 @@ type OutputS3 struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
-	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
+	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
+	// Orphan file recovery
+	Orphans *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Object ACL to assign to uploaded objects
@@ -217,9 +194,9 @@ func (o *OutputS3) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputS3) GetType() OutputS3Type {
+func (o *OutputS3) GetType() TypeOptionsS3 {
 	if o == nil {
-		return OutputS3Type("")
+		return TypeOptionsS3("")
 	}
 	return o.Type
 }

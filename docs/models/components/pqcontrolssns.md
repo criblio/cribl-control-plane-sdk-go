@@ -1,5 +1,7 @@
 # PqControlsSns
 
+Persistent queue controls.
+
 
 ## Fields
 

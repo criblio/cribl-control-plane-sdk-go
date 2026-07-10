@@ -1,5 +1,7 @@
 # PqControlsGraphite
 
+Persistent queue controls.
+
 
 ## Fields
 

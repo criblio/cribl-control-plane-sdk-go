@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputFileType - Connector type identifier.
 type InputFileType string
 
 const (
@@ -58,7 +59,8 @@ func (e *InputFileMode) IsExact() bool {
 
 type InputFileInput struct {
 	// Unique ID for this input
-	ID   *string       `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputFileType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -110,8 +112,9 @@ type InputFileInput struct {
 	// Directory path to search for files. Environment variables will be resolved (example: $CRIBL_HOME/log/).
 	Path *string `json:"path,omitzero"`
 	// Set how many subdirectories deep to search. Use 0 to search only files in the given path, 1 to also look in its immediate subdirectories, etc. Leave it empty for unlimited depth.
-	Depth                     *float64 `json:"depth,omitzero"`
-	SuppressMissingPathErrors *bool    `json:"suppressMissingPathErrors,omitzero"`
+	Depth *float64 `json:"depth,omitzero"`
+	// Suppress errors when search path does not exist
+	SuppressMissingPathErrors *bool `json:"suppressMissingPathErrors,omitzero"`
 	// Delete files after they have been collected
 	DeleteFiles *bool `json:"deleteFiles,omitzero"`
 	// Salt the file hash with the Source file path. Ensures that all files with the same header hash, such as CSV files, are ingested. Moving or renaming the file, or toggling this after starting the Source will cause re-ingestion.

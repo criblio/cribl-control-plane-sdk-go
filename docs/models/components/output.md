@@ -441,6 +441,12 @@ output := components.CreateOutputChronicle(components.OutputChronicle{/* values 
 output := components.CreateOutputDatabricks(components.OutputDatabricks{/* values here */})
 ```
 
+### OutputSnowflakeStreaming
+
+```go
+output := components.CreateOutputSnowflakeStreaming(components.OutputSnowflakeStreaming{/* values here */})
+```
+
 ### OutputMicrosoftFabric
 
 ```go
@@ -653,6 +659,8 @@ switch output.Type {
 		// output.OutputChronicle is populated
 	case components.OutputTypeDatabricks:
 		// output.OutputDatabricks is populated
+	case components.OutputTypeSnowflakeStreaming:
+		// output.OutputSnowflakeStreaming is populated
 	case components.OutputTypeMicrosoftFabric:
 		// output.OutputMicrosoftFabric is populated
 	case components.OutputTypeCloudflareR2:

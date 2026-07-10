@@ -3,38 +3,14 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputCriblTCPType string
-
-const (
-	InputCriblTCPTypeCriblTCP InputCriblTCPType = "cribl_tcp"
-)
-
-func (e InputCriblTCPType) ToPointer() *InputCriblTCPType {
-	return &e
-}
-func (e *InputCriblTCPType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "cribl_tcp":
-		*e = InputCriblTCPType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputCriblTCPType: %v", v)
-	}
-}
-
 type InputCriblTCPInput struct {
 	// Unique ID for this input
-	ID   *string           `json:"id,omitzero"`
-	Type InputCriblTCPType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsCribltcp `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -53,8 +29,9 @@ type InputCriblTCPInput struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
@@ -101,9 +78,9 @@ func (i *InputCriblTCPInput) GetID() *string {
 	return i.ID
 }
 
-func (i *InputCriblTCPInput) GetType() InputCriblTCPType {
+func (i *InputCriblTCPInput) GetType() TypeOptionsCribltcp {
 	if i == nil {
-		return InputCriblTCPType("")
+		return TypeOptionsCribltcp("")
 	}
 	return i.Type
 }

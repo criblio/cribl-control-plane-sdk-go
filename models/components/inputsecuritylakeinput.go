@@ -3,38 +3,14 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputSecurityLakeType string
-
-const (
-	InputSecurityLakeTypeSecurityLake InputSecurityLakeType = "security_lake"
-)
-
-func (e InputSecurityLakeType) ToPointer() *InputSecurityLakeType {
-	return &e
-}
-func (e *InputSecurityLakeType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "security_lake":
-		*e = InputSecurityLakeType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSecurityLakeType: %v", v)
-	}
-}
-
 type InputSecurityLakeInput struct {
 	// Unique ID for this input
-	ID   *string               `json:"id,omitzero"`
-	Type InputSecurityLakeType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsSecuritylake `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -58,7 +34,8 @@ type InputSecurityLakeInput struct {
 	AwsAccountID *string `json:"awsAccountId,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitzero"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -111,7 +88,8 @@ type InputSecurityLakeInput struct {
 	Encoding *string `json:"encoding,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -123,7 +101,8 @@ type InputSecurityLakeInput struct {
 	// Choose Auto to use IAM roles
 	SQSAwsAuthenticationMethod *SqsAuthenticationMethodOptions `json:"SQSAwsAuthenticationMethod,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	SQSAwsSecret       *string                    `json:"SQSAwsSecret,omitzero"`
+	SQSAwsSecret *string `json:"SQSAwsSecret,omitzero"`
+	// SQS secret key
 	SQSAwsSecretKey    *string                    `json:"SQSAwsSecretKey,omitzero"`
 	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitzero"`
 	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
@@ -176,9 +155,9 @@ func (i *InputSecurityLakeInput) GetID() *string {
 	return i.ID
 }
 
-func (i *InputSecurityLakeInput) GetType() InputSecurityLakeType {
+func (i *InputSecurityLakeInput) GetType() TypeOptionsSecuritylake {
 	if i == nil {
-		return InputSecurityLakeType("")
+		return TypeOptionsSecuritylake("")
 	}
 	return i.Type
 }

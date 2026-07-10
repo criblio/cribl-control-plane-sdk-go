@@ -9,6 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputAppscopeType - Connector type identifier.
 type InputAppscopeType string
 
 const (
@@ -105,6 +106,7 @@ func (i *InputAppscopeFilter) GetTransportURL() *string {
 	return i.TransportURL
 }
 
+// InputAppscopePersistence - Persistence
 type InputAppscopePersistence struct {
 	// Spool events and metrics on disk for Cribl Edge and Search
 	Enable *bool `json:"enable,omitzero"`
@@ -113,8 +115,9 @@ type InputAppscopePersistence struct {
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
 	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                  `json:"maxDataTime,omitzero"`
-	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
+	MaxDataTime *string `json:"maxDataTime,omitzero"`
+	// Data compression format
+	Compress *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/appscope
 	DestPath *string `json:"destPath,omitzero"`
 }
@@ -264,7 +267,8 @@ func (u InputAppscopeUNIXSocketPermissions) MarshalJSON() ([]byte, error) {
 
 type InputAppscopeInput struct {
 	// Unique ID for this input
-	ID   *string           `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputAppscopeType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -300,9 +304,10 @@ type InputAppscopeInput struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
-	EnableUnixPath *bool                     `json:"enableUnixPath,omitzero"`
-	Filter         *InputAppscopeFilter      `json:"filter,omitzero"`
-	Persistence    *InputAppscopePersistence `json:"persistence,omitzero"`
+	EnableUnixPath *bool                `json:"enableUnixPath,omitzero"`
+	Filter         *InputAppscopeFilter `json:"filter,omitzero"`
+	// Persistence
+	Persistence *InputAppscopePersistence `json:"persistence,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
 	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
 	// Optional description for this configuration.
@@ -310,8 +315,9 @@ type InputAppscopeInput struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `json:"host,omitzero"`
 	// Port to listen on
-	Port *float64                   `json:"port,omitzero"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port *float64 `json:"port,omitzero"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Path to the UNIX domain socket to listen on.
 	UnixSocketPath *string `json:"unixSocketPath,omitzero"`
 	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.

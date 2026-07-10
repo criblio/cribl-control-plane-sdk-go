@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputJournalFilesType - Connector type identifier.
 type InputJournalFilesType string
 
 const (
@@ -65,7 +66,8 @@ func (i *InputJournalFilesRule) GetDescription() *string {
 
 type InputJournalFilesInput struct {
 	// Unique ID for this input
-	ID   *string               `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputJournalFilesType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -93,8 +95,9 @@ type InputJournalFilesInput struct {
 	// Skip log messages that are not part of the current boot session
 	CurrentBoot *bool `json:"currentBoot,omitzero"`
 	// The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.
-	MaxAgeDur                 *string `json:"maxAgeDur,omitzero"`
-	SuppressMissingPathErrors *bool   `json:"suppressMissingPathErrors,omitzero"`
+	MaxAgeDur *string `json:"maxAgeDur,omitzero"`
+	// Suppress errors when search path does not exist
+	SuppressMissingPathErrors *bool `json:"suppressMissingPathErrors,omitzero"`
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Optional description for this configuration.

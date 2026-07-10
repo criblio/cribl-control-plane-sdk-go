@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputKubeLogsType - Connector type identifier.
 type InputKubeLogsType string
 
 const (
@@ -65,7 +66,8 @@ func (i *InputKubeLogsRule) GetDescription() *string {
 
 type InputKubeLogsInput struct {
 	// Unique ID for this input
-	ID   *string           `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputKubeLogsType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -93,8 +95,9 @@ type InputKubeLogsInput struct {
 	// Internal flag to disable LB worker payload reassembly.
 	LBDisableAssembly *bool `json:"__LBDisableAssembly,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Persistence *DiskSpoolingType             `json:"persistence,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Disk Spooling
+	Persistence *DiskSpoolingType `json:"persistence,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines

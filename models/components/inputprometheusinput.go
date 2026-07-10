@@ -3,33 +3,8 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type InputPrometheusType string
-
-const (
-	InputPrometheusTypePrometheus InputPrometheusType = "prometheus"
-)
-
-func (e InputPrometheusType) ToPointer() *InputPrometheusType {
-	return &e
-}
-func (e *InputPrometheusType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "prometheus":
-		*e = InputPrometheusType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputPrometheusType: %v", v)
-	}
-}
 
 // InputPrometheusDiscoveryType - Target discovery mechanism. Use static to manually enter a list of targets.
 type InputPrometheusDiscoveryType string
@@ -85,8 +60,9 @@ func (e *InputPrometheusMetricsProtocol) IsExact() bool {
 
 type InputPrometheusInput struct {
 	// Unique ID for this input
-	ID   *string             `json:"id,omitzero"`
-	Type InputPrometheusType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsPrometheus `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -146,14 +122,16 @@ type InputPrometheusInput struct {
 	ScrapePath *string `json:"scrapePath,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	AwsAPIKey               *string                                     `json:"awsApiKey,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
 	UsePublicIP *bool `json:"usePublicIp,omitzero"`
 	// Filter to apply when searching for EC2 instances
 	SearchFilter []SearchFilterConfInputPrometheus `json:"searchFilter,omitzero"`
-	AwsSecretKey *string                           `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Region where the EC2 is located
 	Region *string `json:"region,omitzero"`
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
@@ -232,9 +210,9 @@ func (i *InputPrometheusInput) GetID() *string {
 	return i.ID
 }
 
-func (i *InputPrometheusInput) GetType() InputPrometheusType {
+func (i *InputPrometheusInput) GetType() TypeOptionsPrometheus {
 	if i == nil {
-		return InputPrometheusType("")
+		return TypeOptionsPrometheus("")
 	}
 	return i.Type
 }

@@ -3,38 +3,14 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputSecurityLakeType string
-
-const (
-	OutputSecurityLakeTypeSecurityLake OutputSecurityLakeType = "security_lake"
-)
-
-func (e OutputSecurityLakeType) ToPointer() *OutputSecurityLakeType {
-	return &e
-}
-func (e *OutputSecurityLakeType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "security_lake":
-		*e = OutputSecurityLakeType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSecurityLakeType: %v", v)
-	}
-}
-
 type OutputSecurityLake struct {
 	// Unique ID for this output
-	ID   *string                `json:"id,omitzero"`
-	Type OutputSecurityLakeType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsSecuritylake `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
@@ -96,10 +72,12 @@ type OutputSecurityLake struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
-	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
-	AwsSecretKey         *string                 `json:"awsSecretKey,omitzero"`
+	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
+	// Orphan file recovery
+	Orphans *OrphanFileRecoveryType `json:"orphans,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Object ACL to assign to uploaded objects
 	ObjectACL *ObjectACLOptions `json:"objectACL,omitzero"`
 	// Storage class to select for uploaded objects
@@ -202,9 +180,9 @@ func (o *OutputSecurityLake) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputSecurityLake) GetType() OutputSecurityLakeType {
+func (o *OutputSecurityLake) GetType() TypeOptionsSecuritylake {
 	if o == nil {
-		return OutputSecurityLakeType("")
+		return TypeOptionsSecuritylake("")
 	}
 	return o.Type
 }

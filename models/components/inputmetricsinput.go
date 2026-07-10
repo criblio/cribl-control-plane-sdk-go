@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputMetricsType - Connector type identifier.
 type InputMetricsType string
 
 const (
@@ -33,7 +34,8 @@ func (e *InputMetricsType) UnmarshalJSON(data []byte) error {
 
 type InputMetricsInput struct {
 	// Unique ID for this input
-	ID   *string          `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputMetricsType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -61,8 +63,9 @@ type InputMetricsInput struct {
 	// Regex matching IP addresses that are allowed to send data
 	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
-	EnableProxyHeader *bool                      `json:"enableProxyHeader,omitzero"`
-	TLS               *TLSSettingsServerSideType `json:"tls,omitzero"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.

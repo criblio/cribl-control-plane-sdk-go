@@ -10,6 +10,7 @@ import (
 )
 
 type RestAuthenticationBasicRestPaginationTypeResponseHeaderLink struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
 	NextRelationAttribute string `json:"nextRelationAttribute"`
@@ -257,6 +258,7 @@ func (u RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttribute
 }
 
 type RestAuthenticationBasicRestPaginationTypeResponseHeader struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
 	Attribute RestAuthenticationBasicRestPaginationTypeResponseHeaderResponseAttributes `json:"attribute"`
@@ -513,6 +515,7 @@ func (u RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes)
 }
 
 type RestAuthenticationBasicRestPaginationTypeResponseBody struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
 	Attribute RestAuthenticationBasicRestPaginationTypeResponseBodyResponseAttributes `json:"attribute"`
@@ -679,6 +682,7 @@ func (r *RestAuthenticationBasicRestPaginationTypeResponseBody) GetTotalPageFiel
 }
 
 type RestAuthenticationBasicRestPaginationTypeNone struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages *float64 `json:"maxPages,omitzero"`
@@ -1066,7 +1070,8 @@ type RestAuthenticationBasicRestRetryRulesTypeBackoff struct {
 	// Maximum number of times to retry a failed HTTP request
 	Limit *float64 `json:"limit,omitzero"`
 	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-	Multiplier    *float64 `json:"multiplier,omitzero"`
+	Multiplier *float64 `json:"multiplier,omitzero"`
+	// Longest interval between retries (ms)
 	MaxIntervalMs *float64 `json:"maxIntervalMs,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
 	Codes []float64 `json:"codes,omitzero"`
@@ -1075,8 +1080,9 @@ type RestAuthenticationBasicRestRetryRulesTypeBackoff struct {
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
 	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool   `json:"retryConnectReset,omitzero"`
-	RetryHeaderName   *string `json:"retryHeaderName,omitzero"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
+	// Retry-After header name
+	RetryHeaderName *string `json:"retryHeaderName,omitzero"`
 }
 
 func (r RestAuthenticationBasicRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
@@ -1174,8 +1180,9 @@ type RestAuthenticationBasicRestRetryRulesTypeStatic struct {
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
 	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool   `json:"retryConnectReset,omitzero"`
-	RetryHeaderName   *string `json:"retryHeaderName,omitzero"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
+	// Retry-After header name
+	RetryHeaderName *string `json:"retryHeaderName,omitzero"`
 }
 
 func (r RestAuthenticationBasicRestRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -1482,12 +1489,16 @@ func (r *RestAuthenticationBasicScheduling) GetStateTracking() *RestAuthenticati
 type RestAuthenticationBasic struct {
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
 	Authentication RestAuthenticationBasicAuthentication `json:"authentication"`
-	Username       string                                `json:"username"`
-	Password       string                                `json:"password"`
-	Discovery      *RestAuthenticationBasicDiscovery     `json:"discovery,omitzero"`
+	// Username
+	Username string `json:"username"`
+	// Password
+	Password  string                            `json:"password"`
+	Discovery *RestAuthenticationBasicDiscovery `json:"discovery,omitzero"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
-	CollectURL            string                                        `json:"collectUrl"`
-	CollectMethod         RestAuthenticationBasicCollectMethod          `json:"collectMethod"`
+	CollectURL string `json:"collectUrl"`
+	// Collect method
+	CollectMethod RestAuthenticationBasicCollectMethod `json:"collectMethod"`
+	// Collect headers
 	CollectRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"collectRequestHeaders,omitzero"`
 	Pagination            *RestAuthenticationBasicPagination            `json:"pagination,omitzero"`
 	// HTTP request inactivity timeout. Use 0 to disable.
@@ -1529,7 +1540,8 @@ type RestAuthenticationBasic struct {
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `json:"authHeaderKey,omitzero"`
 	// JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                                       `json:"authHeaderExpr,omitzero"`
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
+	// Authentication headers
 	AuthRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"authRequestHeaders,omitzero"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitzero"`
@@ -2069,15 +2081,18 @@ type RestAuthenticationNoneRestDiscoveryDiscoverTypeNone struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
-	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Discover method
+	DiscoverMethod *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
+	// Discover headers
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -2247,15 +2262,18 @@ type RestAuthenticationNoneRestDiscoveryDiscoverTypeList struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
-	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Discover method
+	DiscoverMethod *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
+	// Discover headers
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
@@ -2425,13 +2443,16 @@ type RestAuthenticationNoneRestDiscoveryDiscoverTypeJSON struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
-	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Discover method
+	DiscoverMethod *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
+	// Discover headers
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
 	ItemList []string `json:"itemList,omitzero"`
 }
@@ -2592,16 +2613,19 @@ func (e *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherD
 }
 
 type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther struct {
+	// Discover method
 	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
 	// Custom HTTP method to use for the Discover operation
 	DiscoverVerb string `json:"discoverVerb"`
 	// Template for body to send with the discover request
-	DiscoverBody          *string                                       `json:"discoverBody,omitzero"`
+	DiscoverBody *string `json:"discoverBody,omitzero"`
+	// Discover parameters
 	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverURL string `json:"discoverUrl"`
+	// Discover headers
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
@@ -2610,7 +2634,8 @@ type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther stru
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
@@ -2812,13 +2837,15 @@ func (e *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWi
 }
 
 type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
+	// Discover method
 	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
 	// Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
 	DiscoverBody string `json:"discoverBody"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverURL string `json:"discoverUrl"`
+	// Discover headers
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
@@ -2827,7 +2854,8 @@ type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBo
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
@@ -3015,12 +3043,15 @@ func (e *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDi
 }
 
 type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
-	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
+	// Discover method
+	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	// Discover parameters
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverURL string `json:"discoverUrl"`
+	// Discover headers
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
@@ -3029,7 +3060,8 @@ type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struc
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
@@ -3217,12 +3249,15 @@ func (e *RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDis
 }
 
 type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
-	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
+	// Discover method
+	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	// Discover parameters
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverURL string `json:"discoverUrl"`
+	// Discover headers
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
@@ -3231,7 +3266,8 @@ type RestAuthenticationNoneRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
@@ -3728,6 +3764,7 @@ func (u RestAuthenticationNoneDiscovery) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type RestAuthenticationNoneDiscovery: all fields are null")
 }
 
+// RestAuthenticationNoneCollectMethod - Collect method
 type RestAuthenticationNoneCollectMethod string
 
 const (
@@ -3757,6 +3794,7 @@ func (e *RestAuthenticationNoneCollectMethod) IsExact() bool {
 }
 
 type RestAuthenticationNoneRestPaginationTypeRequestPage struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField string `json:"pageField"`
@@ -3914,6 +3952,7 @@ func (r *RestAuthenticationNoneRestPaginationTypeRequestPage) GetLimit() *float6
 }
 
 type RestAuthenticationNoneRestPaginationTypeRequestOffset struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
 	OffsetField string `json:"offsetField"`
@@ -4071,6 +4110,7 @@ func (r *RestAuthenticationNoneRestPaginationTypeRequestOffset) GetTotalPageFiel
 }
 
 type RestAuthenticationNoneRestPaginationTypeResponseHeaderLink struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
 	NextRelationAttribute string `json:"nextRelationAttribute"`
@@ -4318,6 +4358,7 @@ func (u RestAuthenticationNoneRestPaginationTypeResponseHeaderResponseAttributes
 }
 
 type RestAuthenticationNoneRestPaginationTypeResponseHeader struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
 	Attribute RestAuthenticationNoneRestPaginationTypeResponseHeaderResponseAttributes `json:"attribute"`
@@ -4574,6 +4615,7 @@ func (u RestAuthenticationNoneRestPaginationTypeResponseBodyResponseAttributes) 
 }
 
 type RestAuthenticationNoneRestPaginationTypeResponseBody struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
 	Attribute RestAuthenticationNoneRestPaginationTypeResponseBodyResponseAttributes `json:"attribute"`
@@ -4740,6 +4782,7 @@ func (r *RestAuthenticationNoneRestPaginationTypeResponseBody) GetTotalPageField
 }
 
 type RestAuthenticationNoneRestPaginationTypeNone struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages *float64 `json:"maxPages,omitzero"`
@@ -5127,7 +5170,8 @@ type RestAuthenticationNoneRestRetryRulesTypeBackoff struct {
 	// Maximum number of times to retry a failed HTTP request
 	Limit *float64 `json:"limit,omitzero"`
 	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-	Multiplier    *float64 `json:"multiplier,omitzero"`
+	Multiplier *float64 `json:"multiplier,omitzero"`
+	// Longest interval between retries (ms)
 	MaxIntervalMs *float64 `json:"maxIntervalMs,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
 	Codes []float64 `json:"codes,omitzero"`
@@ -5136,8 +5180,9 @@ type RestAuthenticationNoneRestRetryRulesTypeBackoff struct {
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
 	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool   `json:"retryConnectReset,omitzero"`
-	RetryHeaderName   *string `json:"retryHeaderName,omitzero"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
+	// Retry-After header name
+	RetryHeaderName *string `json:"retryHeaderName,omitzero"`
 }
 
 func (r RestAuthenticationNoneRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
@@ -5235,8 +5280,9 @@ type RestAuthenticationNoneRestRetryRulesTypeStatic struct {
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
 	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool   `json:"retryConnectReset,omitzero"`
-	RetryHeaderName   *string `json:"retryHeaderName,omitzero"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
+	// Retry-After header name
+	RetryHeaderName *string `json:"retryHeaderName,omitzero"`
 }
 
 func (r RestAuthenticationNoneRestRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -5545,8 +5591,10 @@ type RestAuthenticationNone struct {
 	Authentication RestAuthenticationNoneAuthentication `json:"authentication"`
 	Discovery      *RestAuthenticationNoneDiscovery     `json:"discovery,omitzero"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
-	CollectURL            string                                        `json:"collectUrl"`
-	CollectMethod         RestAuthenticationNoneCollectMethod           `json:"collectMethod"`
+	CollectURL string `json:"collectUrl"`
+	// Collect method
+	CollectMethod RestAuthenticationNoneCollectMethod `json:"collectMethod"`
+	// Collect headers
 	CollectRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"collectRequestHeaders,omitzero"`
 	Pagination            *RestAuthenticationNonePagination             `json:"pagination,omitzero"`
 	// HTTP request inactivity timeout. Use 0 to disable.
@@ -5571,10 +5619,12 @@ type RestAuthenticationNone struct {
 	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
 	MicrosoftGraphDelta *RestAuthenticationNoneMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
 	Scheduling          *RestAuthenticationNoneScheduling          `json:"__scheduling,omitzero"`
-	Username            *string                                    `json:"username,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
 	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
 	TemplateUsername *string `json:"__template_username,omitzero"`
-	Password         *string `json:"password,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
 	TemplatePassword *string `json:"__template_password,omitzero"`
 	// Select or create a stored secret that references your credentials
@@ -5590,7 +5640,8 @@ type RestAuthenticationNone struct {
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `json:"authHeaderKey,omitzero"`
 	// JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                                       `json:"authHeaderExpr,omitzero"`
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
+	// Authentication headers
 	AuthRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"authRequestHeaders,omitzero"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitzero"`
@@ -6068,6 +6119,7 @@ func (r *RestAuthenticationNone) GetTemplateCollectURL() *string {
 	return r.TemplateCollectURL
 }
 
+// RestCollectMethodOtherCollectMethod - Collect method
 type RestCollectMethodOtherCollectMethod string
 
 const (
@@ -6127,15 +6179,18 @@ type RestCollectMethodOtherRestDiscoveryDiscoverTypeNone struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
-	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Discover method
+	DiscoverMethod *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
+	// Discover headers
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -6305,15 +6360,18 @@ type RestCollectMethodOtherRestDiscoveryDiscoverTypeList struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
-	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Discover method
+	DiscoverMethod *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
+	// Discover headers
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
@@ -6483,13 +6541,16 @@ type RestCollectMethodOtherRestDiscoveryDiscoverTypeJSON struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
-	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Discover method
+	DiscoverMethod *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
+	// Discover headers
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
 	ItemList []string `json:"itemList,omitzero"`
 }
@@ -6650,16 +6711,19 @@ func (e *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherD
 }
 
 type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther struct {
+	// Discover method
 	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
 	// Custom HTTP method to use for the Discover operation
 	DiscoverVerb string `json:"discoverVerb"`
 	// Template for body to send with the discover request
-	DiscoverBody          *string                                       `json:"discoverBody,omitzero"`
+	DiscoverBody *string `json:"discoverBody,omitzero"`
+	// Discover parameters
 	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverURL string `json:"discoverUrl"`
+	// Discover headers
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
@@ -6668,7 +6732,8 @@ type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther stru
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
@@ -6870,13 +6935,15 @@ func (e *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWi
 }
 
 type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
+	// Discover method
 	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
 	// Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
 	DiscoverBody string `json:"discoverBody"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverURL string `json:"discoverUrl"`
+	// Discover headers
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
@@ -6885,7 +6952,8 @@ type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBo
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
@@ -7073,12 +7141,15 @@ func (e *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDi
 }
 
 type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
-	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
+	// Discover method
+	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	// Discover parameters
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverURL string `json:"discoverUrl"`
+	// Discover headers
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
@@ -7087,7 +7158,8 @@ type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struc
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
@@ -7275,12 +7347,15 @@ func (e *RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDis
 }
 
 type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
-	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
+	// Discover method
+	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	// Discover parameters
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverURL string `json:"discoverUrl"`
+	// Discover headers
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
@@ -7289,7 +7364,8 @@ type RestCollectMethodOtherRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
@@ -7787,6 +7863,7 @@ func (u RestCollectMethodOtherDiscovery) MarshalJSON() ([]byte, error) {
 }
 
 type RestCollectMethodOtherRestPaginationTypeRequestPage struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField string `json:"pageField"`
@@ -7944,6 +8021,7 @@ func (r *RestCollectMethodOtherRestPaginationTypeRequestPage) GetLimit() *float6
 }
 
 type RestCollectMethodOtherRestPaginationTypeRequestOffset struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
 	OffsetField string `json:"offsetField"`
@@ -8101,6 +8179,7 @@ func (r *RestCollectMethodOtherRestPaginationTypeRequestOffset) GetTotalPageFiel
 }
 
 type RestCollectMethodOtherRestPaginationTypeResponseHeaderLink struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
 	NextRelationAttribute string `json:"nextRelationAttribute"`
@@ -8348,6 +8427,7 @@ func (u RestCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributes
 }
 
 type RestCollectMethodOtherRestPaginationTypeResponseHeader struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
 	Attribute RestCollectMethodOtherRestPaginationTypeResponseHeaderResponseAttributes `json:"attribute"`
@@ -8604,6 +8684,7 @@ func (u RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes) 
 }
 
 type RestCollectMethodOtherRestPaginationTypeResponseBody struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
 	Attribute RestCollectMethodOtherRestPaginationTypeResponseBodyResponseAttributes `json:"attribute"`
@@ -8770,6 +8851,7 @@ func (r *RestCollectMethodOtherRestPaginationTypeResponseBody) GetTotalPageField
 }
 
 type RestCollectMethodOtherRestPaginationTypeNone struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages *float64 `json:"maxPages,omitzero"`
@@ -9188,7 +9270,8 @@ type RestCollectMethodOtherRestRetryRulesTypeBackoff struct {
 	// Maximum number of times to retry a failed HTTP request
 	Limit *float64 `json:"limit,omitzero"`
 	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-	Multiplier    *float64 `json:"multiplier,omitzero"`
+	Multiplier *float64 `json:"multiplier,omitzero"`
+	// Longest interval between retries (ms)
 	MaxIntervalMs *float64 `json:"maxIntervalMs,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
 	Codes []float64 `json:"codes,omitzero"`
@@ -9197,8 +9280,9 @@ type RestCollectMethodOtherRestRetryRulesTypeBackoff struct {
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
 	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool   `json:"retryConnectReset,omitzero"`
-	RetryHeaderName   *string `json:"retryHeaderName,omitzero"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
+	// Retry-After header name
+	RetryHeaderName *string `json:"retryHeaderName,omitzero"`
 }
 
 func (r RestCollectMethodOtherRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
@@ -9296,8 +9380,9 @@ type RestCollectMethodOtherRestRetryRulesTypeStatic struct {
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
 	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool   `json:"retryConnectReset,omitzero"`
-	RetryHeaderName   *string `json:"retryHeaderName,omitzero"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
+	// Retry-After header name
+	RetryHeaderName *string `json:"retryHeaderName,omitzero"`
 }
 
 func (r RestCollectMethodOtherRestRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -9602,15 +9687,18 @@ func (r *RestCollectMethodOtherScheduling) GetStateTracking() *RestCollectMethod
 }
 
 type RestCollectMethodOther struct {
+	// Collect method
 	CollectMethod RestCollectMethodOtherCollectMethod `json:"collectMethod"`
 	// Custom HTTP method to use for the Collect operation
 	CollectVerb string `json:"collectVerb"`
 	// Template for body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template parameters: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
-	CollectBody          *string                                       `json:"collectBody,omitzero"`
+	CollectBody *string `json:"collectBody,omitzero"`
+	// Collect parameters
 	CollectRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"collectRequestParams,omitzero"`
 	Discovery            *RestCollectMethodOtherDiscovery              `json:"discovery,omitzero"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
-	CollectURL            string                                        `json:"collectUrl"`
+	CollectURL string `json:"collectUrl"`
+	// Collect headers
 	CollectRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"collectRequestHeaders,omitzero"`
 	Pagination            *RestCollectMethodOtherPagination             `json:"pagination,omitzero"`
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -9637,10 +9725,12 @@ type RestCollectMethodOther struct {
 	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
 	MicrosoftGraphDelta *RestCollectMethodOtherMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
 	Scheduling          *RestCollectMethodOtherScheduling          `json:"__scheduling,omitzero"`
-	Username            *string                                    `json:"username,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
 	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
 	TemplateUsername *string `json:"__template_username,omitzero"`
-	Password         *string `json:"password,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
 	TemplatePassword *string `json:"__template_password,omitzero"`
 	// Select or create a stored secret that references your credentials
@@ -9656,7 +9746,8 @@ type RestCollectMethodOther struct {
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `json:"authHeaderKey,omitzero"`
 	// JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                                       `json:"authHeaderExpr,omitzero"`
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
+	// Authentication headers
 	AuthRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"authRequestHeaders,omitzero"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitzero"`
@@ -10155,6 +10246,7 @@ func (r *RestCollectMethodOther) GetTemplateCollectURL() *string {
 	return r.TemplateCollectURL
 }
 
+// RestCollectMethodPostWithBodyCollectMethod - Collect method
 type RestCollectMethodPostWithBodyCollectMethod string
 
 const (
@@ -10214,15 +10306,18 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeNone struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
-	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Discover method
+	DiscoverMethod *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
+	// Discover headers
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -10392,15 +10487,18 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeList struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
-	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Discover method
+	DiscoverMethod *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
+	// Discover headers
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
@@ -10570,13 +10668,16 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeJSON struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
-	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Discover method
+	DiscoverMethod *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
+	// Discover headers
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
 	ItemList []string `json:"itemList,omitzero"`
 }
@@ -10737,16 +10838,19 @@ func (e *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 }
 
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther struct {
+	// Discover method
 	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
 	// Custom HTTP method to use for the Discover operation
 	DiscoverVerb string `json:"discoverVerb"`
 	// Template for body to send with the discover request
-	DiscoverBody          *string                                       `json:"discoverBody,omitzero"`
+	DiscoverBody *string `json:"discoverBody,omitzero"`
+	// Discover parameters
 	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverURL string `json:"discoverUrl"`
+	// Discover headers
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
@@ -10755,7 +10859,8 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodOth
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
@@ -10957,13 +11062,15 @@ func (e *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 }
 
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
+	// Discover method
 	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
 	// Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
 	DiscoverBody string `json:"discoverBody"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverURL string `json:"discoverUrl"`
+	// Discover headers
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
@@ -10972,7 +11079,8 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPos
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
@@ -11160,12 +11268,15 @@ func (e *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 }
 
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
-	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
+	// Discover method
+	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	// Discover parameters
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverURL string `json:"discoverUrl"`
+	// Discover headers
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
@@ -11174,7 +11285,8 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodPos
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
@@ -11362,12 +11474,15 @@ func (e *RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMetho
 }
 
 type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
-	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
+	// Discover method
+	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	// Discover parameters
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverURL string `json:"discoverUrl"`
+	// Discover headers
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
@@ -11376,7 +11491,8 @@ type RestCollectMethodPostWithBodyRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
@@ -11874,6 +11990,7 @@ func (u RestCollectMethodPostWithBodyDiscovery) MarshalJSON() ([]byte, error) {
 }
 
 type RestCollectMethodPostWithBodyRestPaginationTypeRequestPage struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField string `json:"pageField"`
@@ -12031,6 +12148,7 @@ func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestPage) GetLimit() 
 }
 
 type RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
 	OffsetField string `json:"offsetField"`
@@ -12188,6 +12306,7 @@ func (r *RestCollectMethodPostWithBodyRestPaginationTypeRequestOffset) GetTotalP
 }
 
 type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderLink struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
 	NextRelationAttribute string `json:"nextRelationAttribute"`
@@ -12435,6 +12554,7 @@ func (u RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAtt
 }
 
 type RestCollectMethodPostWithBodyRestPaginationTypeResponseHeader struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
 	Attribute RestCollectMethodPostWithBodyRestPaginationTypeResponseHeaderResponseAttributes `json:"attribute"`
@@ -12691,6 +12811,7 @@ func (u RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttri
 }
 
 type RestCollectMethodPostWithBodyRestPaginationTypeResponseBody struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
 	Attribute RestCollectMethodPostWithBodyRestPaginationTypeResponseBodyResponseAttributes `json:"attribute"`
@@ -12857,6 +12978,7 @@ func (r *RestCollectMethodPostWithBodyRestPaginationTypeResponseBody) GetTotalPa
 }
 
 type RestCollectMethodPostWithBodyRestPaginationTypeNone struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages *float64 `json:"maxPages,omitzero"`
@@ -13275,7 +13397,8 @@ type RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff struct {
 	// Maximum number of times to retry a failed HTTP request
 	Limit *float64 `json:"limit,omitzero"`
 	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-	Multiplier    *float64 `json:"multiplier,omitzero"`
+	Multiplier *float64 `json:"multiplier,omitzero"`
+	// Longest interval between retries (ms)
 	MaxIntervalMs *float64 `json:"maxIntervalMs,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
 	Codes []float64 `json:"codes,omitzero"`
@@ -13284,8 +13407,9 @@ type RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff struct {
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
 	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool   `json:"retryConnectReset,omitzero"`
-	RetryHeaderName   *string `json:"retryHeaderName,omitzero"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
+	// Retry-After header name
+	RetryHeaderName *string `json:"retryHeaderName,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
@@ -13383,8 +13507,9 @@ type RestCollectMethodPostWithBodyRestRetryRulesTypeStatic struct {
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
 	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool   `json:"retryConnectReset,omitzero"`
-	RetryHeaderName   *string `json:"retryHeaderName,omitzero"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
+	// Retry-After header name
+	RetryHeaderName *string `json:"retryHeaderName,omitzero"`
 }
 
 func (r RestCollectMethodPostWithBodyRestRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {
@@ -13689,12 +13814,14 @@ func (r *RestCollectMethodPostWithBodyScheduling) GetStateTracking() *RestCollec
 }
 
 type RestCollectMethodPostWithBody struct {
+	// Collect method
 	CollectMethod RestCollectMethodPostWithBodyCollectMethod `json:"collectMethod"`
 	// Template for POST body to send with the Collect request. Reference global variables, functions, or parameters from the Discover response using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`
 	CollectBody string                                  `json:"collectBody"`
 	Discovery   *RestCollectMethodPostWithBodyDiscovery `json:"discovery,omitzero"`
 	// URL (constant or JavaScript expression) to use for the Collect operation
-	CollectURL            string                                        `json:"collectUrl"`
+	CollectURL string `json:"collectUrl"`
+	// Collect headers
 	CollectRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"collectRequestHeaders,omitzero"`
 	Pagination            *RestCollectMethodPostWithBodyPagination      `json:"pagination,omitzero"`
 	// Authentication method for Discover and Collect REST calls. You can specify API key–based authentication by adding the appropriate Collect headers.
@@ -13721,10 +13848,12 @@ type RestCollectMethodPostWithBody struct {
 	// Internal opt-in for the Microsoft Graph deltaLink state-tracking hook. Set programmatically by the Microsoft Graph source when the configured URL targets a /delta endpoint; not user-configurable.
 	MicrosoftGraphDelta *RestCollectMethodPostWithBodyMicrosoftGraphDelta `json:"microsoftGraphDelta,omitzero"`
 	Scheduling          *RestCollectMethodPostWithBodyScheduling          `json:"__scheduling,omitzero"`
-	Username            *string                                           `json:"username,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
 	// Binds 'username' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'username' at runtime.
 	TemplateUsername *string `json:"__template_username,omitzero"`
-	Password         *string `json:"password,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Binds 'password' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'password' at runtime.
 	TemplatePassword *string `json:"__template_password,omitzero"`
 	// Select or create a stored secret that references your credentials
@@ -13740,7 +13869,8 @@ type RestCollectMethodPostWithBody struct {
 	// Authorization header key to pass in Discover and Collect calls. Defaults to the literal name 'Authorization'.
 	AuthHeaderKey *string `json:"authHeaderKey,omitzero"`
 	// JavaScript expression used to compute the Authorization header to pass in Discover and Collect calls. The value ${token} is used to reference the token obtained from login.
-	AuthHeaderExpr     *string                                       `json:"authHeaderExpr,omitzero"`
+	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
+	// Authentication headers
 	AuthRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"authRequestHeaders,omitzero"`
 	// Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
 	TokenRespAttribute *string `json:"tokenRespAttribute,omitzero"`
@@ -14225,6 +14355,7 @@ func (r *RestCollectMethodPostWithBody) GetTemplateCollectURL() *string {
 	return r.TemplateCollectURL
 }
 
+// RestCollectMethodPostCollectMethod - Collect method
 type RestCollectMethodPostCollectMethod string
 
 const (
@@ -14284,15 +14415,18 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeNone struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
-	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Discover method
+	DiscoverMethod *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
+	// Discover headers
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
@@ -14462,15 +14596,18 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeList struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
-	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Discover method
+	DiscoverMethod *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
+	// Discover headers
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
 	DiscoverDataField *string `json:"discoverDataField,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Allows hard-coding the Discover result. Must be a JSON object or array. Works with Discover data field.
 	ManualDiscoverResult *string `json:"manualDiscoverResult,omitzero"`
 }
@@ -14640,13 +14777,16 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeJSON struct {
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
 	DiscoverURL *string `json:"discoverUrl,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
-	TemplateDiscoverURL    *string                                             `json:"__template_discoverUrl,omitzero"`
-	DiscoverMethod         *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
-	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet       `json:"discoverRequestHeaders,omitzero"`
-	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP        `json:"pagination,omitzero"`
+	TemplateDiscoverURL *string `json:"__template_discoverUrl,omitzero"`
+	// Discover method
+	DiscoverMethod *DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod,omitzero"`
+	// Discover headers
+	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
+	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Explicitly set the discover response format. When disabled, best effort parsing is used.
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
-	EnableDiscoverCode          *bool `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Comma-separated list of items to return from the Discover task. Each item returned generates a Collect task and can be referenced using `${id}` in the Collect URL, headers, or parameters.
 	ItemList []string `json:"itemList,omitzero"`
 }
@@ -14807,16 +14947,19 @@ func (e *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDi
 }
 
 type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther struct {
+	// Discover method
 	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
 	// Custom HTTP method to use for the Discover operation
 	DiscoverVerb string `json:"discoverVerb"`
 	// Template for body to send with the discover request
-	DiscoverBody          *string                                       `json:"discoverBody,omitzero"`
+	DiscoverBody *string `json:"discoverBody,omitzero"`
+	// Discover parameters
 	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOtherDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverURL string `json:"discoverUrl"`
+	// Discover headers
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
@@ -14825,7 +14968,8 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodOther struc
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
@@ -15027,13 +15171,15 @@ func (e *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWit
 }
 
 type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBody struct {
+	// Discover method
 	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
 	// Template for POST body to send with the discover request. To reference global variables or functions, use template parameters: `{ myVar: ${C.vars.myVar}, secret: ${C.Secret('mySecret','text').value} }`
 	DiscoverBody string `json:"discoverBody"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBodyDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverURL string `json:"discoverUrl"`
+	// Discover headers
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
@@ -15042,7 +15188,8 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostWithBod
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
@@ -15230,12 +15377,15 @@ func (e *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDis
 }
 
 type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
-	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
+	// Discover method
+	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	// Discover parameters
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPostDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverURL string `json:"discoverUrl"`
+	// Discover headers
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
@@ -15244,7 +15394,8 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodPost struct
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
@@ -15432,12 +15583,15 @@ func (e *RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDisc
 }
 
 type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct {
-	DiscoverMethod        DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
-	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet      `json:"discoverRequestParams,omitzero"`
+	// Discover method
+	DiscoverMethod DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP `json:"discoverMethod"`
+	// Discover parameters
+	DiscoverRequestParams []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestParams,omitzero"`
 	// Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
 	DiscoverType RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGetDiscoverType `json:"discoverType"`
 	// URL to use for the Discover operation. Can be a constant URL, or a JavaScript expression to derive the URL.
-	DiscoverURL            string                                        `json:"discoverUrl"`
+	DiscoverURL string `json:"discoverUrl"`
+	// Discover headers
 	DiscoverRequestHeaders []CollectRequestParamConfRestCollectMethodGet `json:"discoverRequestHeaders,omitzero"`
 	Pagination             *PaginationTypeRestDiscoveryDiscoverTypeHTTP  `json:"pagination,omitzero"`
 	// Path to field in the response object that contains discovery results (ex: level1.name). Leave blank if the result is an array.
@@ -15446,7 +15600,8 @@ type RestCollectMethodPostRestDiscoveryDiscoverTypeHTTPDiscoverMethodGet struct 
 	EnableStrictDiscoverParsing *bool `json:"enableStrictDiscoverParsing,omitzero"`
 	// If 'Strict discover response parsing' parsing is enabled, provide the response format
 	DiscoverResponseFormat *string `json:"discoverResponseFormat,omitzero"`
-	EnableDiscoverCode     *bool   `json:"enableDiscoverCode,omitzero"`
+	// Format discover result with custom code
+	EnableDiscoverCode *bool `json:"enableDiscoverCode,omitzero"`
 	// Custom JavaScript code to format the discover result through the __e variable which is a JSON object or array containing the original discover results. The object or array passed should be manipulated to contain the desired discover results, i.e.: __e['myResult'] = [{lat: -1.1234, long: 2.345, zip: 11111},{lat: -1.235, long 2.346, zip: 22222}] or ['11111','22222']. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
 	FormatResultCode *string `json:"formatResultCode,omitzero"`
 	// Binds 'discoverUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'discoverUrl' at runtime.
@@ -15944,6 +16099,7 @@ func (u RestCollectMethodPostDiscovery) MarshalJSON() ([]byte, error) {
 }
 
 type RestCollectMethodPostRestPaginationTypeRequestPage struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField string `json:"pageField"`
@@ -16101,6 +16257,7 @@ func (r *RestCollectMethodPostRestPaginationTypeRequestPage) GetLimit() *float64
 }
 
 type RestCollectMethodPostRestPaginationTypeRequestOffset struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
 	OffsetField string `json:"offsetField"`
@@ -16258,6 +16415,7 @@ func (r *RestCollectMethodPostRestPaginationTypeRequestOffset) GetTotalPageField
 }
 
 type RestCollectMethodPostRestPaginationTypeResponseHeaderLink struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
 	NextRelationAttribute string `json:"nextRelationAttribute"`
@@ -16505,6 +16663,7 @@ func (u RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes)
 }
 
 type RestCollectMethodPostRestPaginationTypeResponseHeader struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
 	Attribute RestCollectMethodPostRestPaginationTypeResponseHeaderResponseAttributes `json:"attribute"`
@@ -16761,6 +16920,7 @@ func (u RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes) M
 }
 
 type RestCollectMethodPostRestPaginationTypeResponseBody struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
 	Attribute RestCollectMethodPostRestPaginationTypeResponseBodyResponseAttributes `json:"attribute"`
@@ -16927,6 +17087,7 @@ func (r *RestCollectMethodPostRestPaginationTypeResponseBody) GetTotalPageField(
 }
 
 type RestCollectMethodPostRestPaginationTypeNone struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Maximum number of pages to retrieve per collection task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages *float64 `json:"maxPages,omitzero"`
@@ -17345,7 +17506,8 @@ type RestCollectMethodPostRestRetryRulesTypeBackoff struct {
 	// Maximum number of times to retry a failed HTTP request
 	Limit *float64 `json:"limit,omitzero"`
 	// Base for exponential backoff. Example: base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on.
-	Multiplier    *float64 `json:"multiplier,omitzero"`
+	Multiplier *float64 `json:"multiplier,omitzero"`
+	// Longest interval between retries (ms)
 	MaxIntervalMs *float64 `json:"maxIntervalMs,omitzero"`
 	// List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
 	Codes []float64 `json:"codes,omitzero"`
@@ -17354,8 +17516,9 @@ type RestCollectMethodPostRestRetryRulesTypeBackoff struct {
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
 	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool   `json:"retryConnectReset,omitzero"`
-	RetryHeaderName   *string `json:"retryHeaderName,omitzero"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
+	// Retry-After header name
+	RetryHeaderName *string `json:"retryHeaderName,omitzero"`
 }
 
 func (r RestCollectMethodPostRestRetryRulesTypeBackoff) MarshalJSON() ([]byte, error) {
@@ -17453,8 +17616,9 @@ type RestCollectMethodPostRestRetryRulesTypeStatic struct {
 	// Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
 	RetryConnectTimeout *bool `json:"retryConnectTimeout,omitzero"`
 	// Retry request when a connection reset (ECONNRESET) error occurs
-	RetryConnectReset *bool   `json:"retryConnectReset,omitzero"`
-	RetryHeaderName   *string `json:"retryHeaderName,omitzero"`
+	RetryConnectReset *bool `json:"retryConnectReset,omitzero"`
+	// Retry-After header name
+	RetryHeaderName *string `json:"retryHeaderName,omitzero"`
 }
 
 func (r RestCollectMethodPostRestRetryRulesTypeStatic) MarshalJSON() ([]byte, error) {

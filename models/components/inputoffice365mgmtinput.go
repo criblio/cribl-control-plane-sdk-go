@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputOffice365MgmtType - Connector type identifier.
 type InputOffice365MgmtType string
 
 const (
@@ -35,11 +36,13 @@ type InputOffice365MgmtContentConfig struct {
 	// Microsoft 365 Management Activity API Content Type
 	ContentType *string `json:"contentType,omitzero"`
 	// If interval type is minutes the value entered must evenly divisible by 60 or save will fail
-	Description *string  `json:"description,omitzero"`
-	Interval    *float64 `json:"interval,omitzero"`
+	Description *string `json:"description,omitzero"`
+	// Interval
+	Interval *float64 `json:"interval,omitzero"`
 	// Collector runtime Log Level
 	LogLevel *LogLevelOptionsContentConfigItems `json:"logLevel,omitzero"`
-	Enabled  *bool                              `json:"enabled,omitzero"`
+	// Enabled
+	Enabled *bool `json:"enabled,omitzero"`
 }
 
 func (i InputOffice365MgmtContentConfig) MarshalJSON() ([]byte, error) {
@@ -93,7 +96,8 @@ func (i *InputOffice365MgmtContentConfig) GetEnabled() *bool {
 
 type InputOffice365MgmtInput struct {
 	// Unique ID for this input
-	ID   *string                `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputOffice365MgmtType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`

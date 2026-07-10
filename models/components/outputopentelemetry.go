@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputOpenTelemetryType - Connector type identifier.
 type OutputOpenTelemetryType string
 
 const (
@@ -56,6 +57,7 @@ func (e *OutputOpenTelemetryOTLPVersion) IsExact() bool {
 	return false
 }
 
+// OutputOpenTelemetryAuthenticationType - Authentication type
 type OutputOpenTelemetryAuthenticationType string
 
 const (
@@ -88,6 +90,7 @@ func (e *OutputOpenTelemetryAuthenticationType) IsExact() bool {
 	return false
 }
 
+// OutputOpenTelemetryPqControls - Persistent queue controls.
 type OutputOpenTelemetryPqControls struct {
 }
 
@@ -104,7 +107,8 @@ func (o *OutputOpenTelemetryPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputOpenTelemetry struct {
 	// Unique ID for this output
-	ID   *string                 `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputOpenTelemetryType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -123,8 +127,9 @@ type OutputOpenTelemetry struct {
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
 	Compress *CompressionOptionsDeflateGzip `json:"compress,omitzero"`
 	// Type of compression to apply to messages sent to the OpenTelemetry endpoint
-	HTTPCompress *CompressionOptionsMessages            `json:"httpCompress,omitzero"`
-	AuthType     *OutputOpenTelemetryAuthenticationType `json:"authType,omitzero"`
+	HTTPCompress *CompressionOptionsMessages `json:"httpCompress,omitzero"`
+	// Authentication type
+	AuthType *OutputOpenTelemetryAuthenticationType `json:"authType,omitzero"`
 	// If you want to send traces to the default `{endpoint}/v1/traces` endpoint, leave this field empty; otherwise, specify the desired endpoint
 	HTTPTracesEndpointOverride *string `json:"httpTracesEndpointOverride,omitzero"`
 	// If you want to send metrics to the default `{endpoint}/v1/metrics` endpoint, leave this field empty; otherwise, specify the desired endpoint
@@ -157,8 +162,10 @@ type OutputOpenTelemetry struct {
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -195,8 +202,9 @@ type OutputOpenTelemetry struct {
 	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
 	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                              `json:"responseHonorRetryAfterHeader,omitzero"`
-	TLS                           *TLSSettingsClientSideTypeExtended `json:"tls,omitzero"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeExtended `json:"tls,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -218,8 +226,9 @@ type OutputOpenTelemetry struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                        `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputOpenTelemetryPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputOpenTelemetryPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.

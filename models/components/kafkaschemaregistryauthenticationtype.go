@@ -6,7 +6,9 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// KafkaSchemaRegistryAuthenticationType - Kafka Schema Registry Authentication
 type KafkaSchemaRegistryAuthenticationType struct {
+	// Disabled
 	Disabled bool `json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
 	SchemaRegistryURL *string `json:"schemaRegistryURL,omitzero"`
@@ -17,8 +19,9 @@ type KafkaSchemaRegistryAuthenticationType struct {
 	// Maximum number of times to try fetching schemas from the Schema Registry
 	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// Credentials to use when authenticating with the schema registry
-	Auth *AuthType                                `json:"auth,omitzero"`
-	TLS  *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	Auth *AuthType `json:"auth,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// Binds 'schemaRegistryURL' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'schemaRegistryURL' at runtime.
 	TemplateSchemaRegistryURL *string `json:"__template_schemaRegistryURL,omitzero"`
 }

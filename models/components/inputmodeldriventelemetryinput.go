@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputModelDrivenTelemetryType - Connector type identifier.
 type InputModelDrivenTelemetryType string
 
 const (
@@ -33,7 +34,8 @@ func (e *InputModelDrivenTelemetryType) UnmarshalJSON(data []byte) error {
 
 type InputModelDrivenTelemetryInput struct {
 	// Unique ID for this input
-	ID   *string                       `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputModelDrivenTelemetryType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -53,8 +55,9 @@ type InputModelDrivenTelemetryInput struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.

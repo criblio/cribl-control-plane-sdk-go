@@ -64,13 +64,15 @@ type EventBreakerExistingOrNewExisting struct {
 	// ID of an existing event breaker ruleset to apply.
 	ExistingRule *string `json:"existingRule,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool                                                `json:"shouldMarkCriblBreaker,omitzero"`
-	RuleType               *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
+	// Event Breaker type
+	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string `json:"timestampAnchorRegex,omitzero"`
+	// Timestamp format
+	Timestamp *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -207,6 +209,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew) IsExact() bool {
 }
 
 type EventBreakerExistingOrNewNewRuleTypeCsv struct {
+	// Event Breaker type
 	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// Delimiter character to use to split values
 	Delimiter string `json:"delimiter"`
@@ -221,8 +224,9 @@ type EventBreakerExistingOrNewNewRuleTypeCsv struct {
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string `json:"timestampAnchorRegex,omitzero"`
+	// Timestamp format
+	Timestamp *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -391,6 +395,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew) IsExact() bool
 }
 
 type EventBreakerExistingOrNewNewRuleTypeHeader struct {
+	// Event Breaker type
 	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// Field delimiter regex
 	DelimiterRegex string `json:"delimiterRegex"`
@@ -407,8 +412,9 @@ type EventBreakerExistingOrNewNewRuleTypeHeader struct {
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string `json:"timestampAnchorRegex,omitzero"`
+	// Timestamp format
+	Timestamp *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -584,6 +590,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew) IsExact() b
 }
 
 type EventBreakerExistingOrNewNewRuleTypeJSONArray struct {
+	// Event Breaker type
 	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// The path to an array in a JSON event with records to extract, such as Records or level1.level2.events. Leave blank if result itself is an array, such as [{...},{...}]
 	JSONArrayField *string `json:"jsonArrayField,omitzero"`
@@ -600,8 +607,9 @@ type EventBreakerExistingOrNewNewRuleTypeJSONArray struct {
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string `json:"timestampAnchorRegex,omitzero"`
+	// Timestamp format
+	Timestamp *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -777,14 +785,16 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONExistingOrNew) IsExact() bool {
 }
 
 type EventBreakerExistingOrNewNewRuleTypeJSON struct {
+	// Event Breaker type
 	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// Whether to use an existing event breaker ruleset or create a new one inline.
 	ExistingOrNew EventBreakerExistingOrNewNewRuleTypeJSONExistingOrNew `json:"existingOrNew"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string `json:"timestampAnchorRegex,omitzero"`
+	// Timestamp format
+	Timestamp *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -925,6 +935,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew) IsExact() bool 
 }
 
 type EventBreakerExistingOrNewNewRuleTypeRegex struct {
+	// Event Breaker type
 	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// The regex used to break the stream into events at the beginning of the match. Matched content will be consumed, unless you use a lookahead regex such as (?=pattern) to keep it. Do NOT use capturing groups in the pattern.
 	EventBreakerRegex string `json:"eventBreakerRegex"`
@@ -933,8 +944,9 @@ type EventBreakerExistingOrNewNewRuleTypeRegex struct {
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string `json:"timestampAnchorRegex,omitzero"`
+	// Timestamp format
+	Timestamp *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.

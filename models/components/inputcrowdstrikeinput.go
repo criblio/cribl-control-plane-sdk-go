@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputCrowdstrikeType - Connector type identifier.
 type InputCrowdstrikeType string
 
 const (
@@ -33,7 +34,8 @@ func (e *InputCrowdstrikeType) UnmarshalJSON(data []byte) error {
 
 type InputCrowdstrikeInput struct {
 	// Unique ID for this input
-	ID   *string              `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputCrowdstrikeType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -58,7 +60,8 @@ type InputCrowdstrikeInput struct {
 	AwsAccountID *string `json:"awsAccountId,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitzero"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -107,7 +110,8 @@ type InputCrowdstrikeInput struct {
 	Encoding *string `json:"encoding,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Amazon Resource Name (ARN) of the role to assume
@@ -119,7 +123,8 @@ type InputCrowdstrikeInput struct {
 	// Choose Auto to use IAM roles
 	SQSAwsAuthenticationMethod *SqsAuthenticationMethodOptions `json:"SQSAwsAuthenticationMethod,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	SQSAwsSecret       *string                    `json:"SQSAwsSecret,omitzero"`
+	SQSAwsSecret *string `json:"SQSAwsSecret,omitzero"`
+	// SQS secret key
 	SQSAwsSecretKey    *string                    `json:"SQSAwsSecretKey,omitzero"`
 	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitzero"`
 	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.

@@ -7,7 +7,9 @@ import (
 )
 
 type KeyValueMetadataConfOutputFilesystem struct {
-	Key   string `json:"key"`
+	// Key
+	Key string `json:"key"`
+	// Value
 	Value string `json:"value"`
 }
 

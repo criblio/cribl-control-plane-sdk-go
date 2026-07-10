@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputServicenowTableType - Connector type identifier.
 type InputServicenowTableType string
 
 const (
@@ -124,7 +125,8 @@ func (i *InputServicenowTableManageState) UnmarshalJSON(data []byte) error {
 
 type InputServicenowTableInput struct {
 	// Unique ID for this input
-	ID   *string                  `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputServicenowTableType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -204,7 +206,8 @@ type InputServicenowTableInput struct {
 	OauthParams []OauthParamConfInputServicenowTable `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []OauthHeaderConfInputServicenowTable `json:"oauthHeaders,omitzero"`
-	ClientID     *string                               `json:"clientId,omitzero"`
+	// ServiceNow OAuth client ID
+	ClientID *string `json:"clientId,omitzero"`
 	// Select or create a stored text secret for the OAuth client secret value
 	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
 	// JavaScript expression that defines how to update the state from an event. This source defaults to checking that `_time` is a finite number (not only `__timestampExtracted`), so state still advances when the event breaker assigns a fallback time. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields).

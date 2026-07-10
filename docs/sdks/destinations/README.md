@@ -61,6 +61,51 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputResponseExamplesSnowflakeStreamingDestination
+
+<!-- UsageSnippet language="go" operationID="listOutput" method="get" path="/system/outputs" example="OutputResponseExamplesSnowflakeStreamingDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.List(ctx, nil, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.PaginatedOutputResponse != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
 ### Example Usage: OutputResponseExamplesSplunkHecDestination
 
 <!-- UsageSnippet language="go" operationID="listOutput" method="get" path="/system/outputs" example="OutputResponseExamplesSplunkHecDestination" -->
@@ -290,7 +335,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestAzureBlob(
         operations.CreateOutputOutputAzureBlob{
             ID: "azure-blob-output",
-            Type: operations.CreateOutputTypeAzureBlobAzureBlob,
+            Type: components.TypeOptionsAzureblobAzureBlob,
             ContainerName: "my-container",
             StagePath: "/tmp/staging",
         },
@@ -637,7 +682,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestConfluentCloud(
         operations.CreateOutputOutputConfluentCloud{
             ID: "confluent-cloud-output",
-            Type: operations.CreateOutputTypeConfluentCloudConfluentCloud,
+            Type: components.TypeOptionsConfluentcloudConfluentCloud,
             Brokers: []string{
                 "pkc-xxxxx.us-east-1.aws.confluent.cloud:9092",
             },
@@ -884,7 +929,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestCriblTCP(
         operations.CreateOutputOutputCriblTCP{
             ID: "cribl-tcp-output",
-            Type: operations.CreateOutputTypeCriblTCPCriblTCP,
+            Type: components.TypeOptionsCribltcpCriblTCP,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](10090.0),
         },
@@ -1679,7 +1724,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestGooglePubsub(
         operations.CreateOutputOutputGooglePubsub{
             ID: "google-pubsub-output",
-            Type: operations.CreateOutputTypeGooglePubsubGooglePubsub,
+            Type: components.TypeOptionsGooglepubsubGooglePubsub,
             TopicName: "my-topic",
         },
     ))
@@ -1927,7 +1972,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestKafka(
         operations.CreateOutputOutputKafka{
             ID: "kafka-output",
-            Type: operations.CreateOutputTypeKafkaKafka,
+            Type: components.TypeOptionsKafka,
             Brokers: []string{
                 "localhost:9092",
             },
@@ -1970,7 +2015,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestKinesis(
         operations.CreateOutputOutputKinesis{
             ID: "kinesis-output",
-            Type: operations.CreateOutputTypeKinesisKinesis,
+            Type: components.TypeOptionsKinesisKinesis,
             StreamName: "my-stream",
             Region: "us-east-1",
         },
@@ -2176,7 +2221,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestMsk(
         operations.CreateOutputOutputMsk{
             ID: "msk-output",
-            Type: operations.CreateOutputTypeMskMsk,
+            Type: components.TypeOptionsMskMsk,
             Brokers: []string{
                 "b-1.example.xxxxx.c2.kafka.us-east-1.amazonaws.com:9092",
             },
@@ -2221,7 +2266,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestNetflow(
         operations.CreateOutputOutputNetflow{
             ID: "netflow-output",
-            Type: operations.CreateOutputTypeNetflowNetflow,
+            Type: components.TypeOptionsNetflowNetflow,
             Hosts: []operations.CreateOutputHostNetflow{
                 operations.CreateOutputHostNetflow{
                     Host: "localhost",
@@ -2430,7 +2475,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestPrometheus(
         operations.CreateOutputOutputPrometheus{
             ID: "prometheus-output",
-            Type: operations.CreateOutputTypePrometheusPrometheus,
+            Type: components.TypeOptionsPrometheusPrometheus,
             URL: "http://localhost:9091/api/v1/write",
         },
     ))
@@ -2554,7 +2599,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestS3(
         operations.CreateOutputOutputS3{
             ID: "s3-output",
-            Type: operations.CreateOutputTypeS3S3,
+            Type: components.TypeOptionsS3S3,
             Bucket: "my-bucket",
             Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
             StagePath: "/tmp/staging",
@@ -2596,7 +2641,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSecurityLake(
         operations.CreateOutputOutputSecurityLake{
             ID: "security-lake-output",
-            Type: operations.CreateOutputTypeSecurityLakeSecurityLake,
+            Type: components.TypeOptionsSecuritylakeSecurityLake,
             AssumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
             Bucket: "my-bucket",
             Region: "us-east-1",
@@ -2810,13 +2855,60 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSnmp(
         operations.CreateOutputOutputSnmp{
             ID: "snmp-output",
-            Type: operations.CreateOutputTypeSnmpSnmp,
+            Type: components.TypeOptionsSnmpSnmp,
             Hosts: []operations.CreateOutputHostSnmp{
                 operations.CreateOutputHostSnmp{
                     Host: "192.168.1.1",
                     Port: 161.0,
                 },
             },
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesSnowflakeStreaming
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesSnowflakeStreaming" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSnowflakeStreaming(
+        operations.CreateOutputOutputSnowflakeStreaming{
+            ID: "snowflake-streaming-output",
+            Type: operations.CreateOutputTypeSnowflakeStreamingSnowflakeStreaming,
+            AccountIdentifier: "MYORG-MYACCOUNT",
+            User: "STREAMING_USER",
+            Pem: operations.CreateOutputPrivateKey{
+                KeyName: "my-snowflake-private-key",
+            },
+            Database: "EVENTS_DB",
+            Schema: "PUBLIC",
+            Table: "RAW_EVENTS",
         },
     ))
     if err != nil {
@@ -2897,7 +2989,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSplunk(
         operations.CreateOutputOutputSplunk{
             ID: "splunk-output",
-            Type: operations.CreateOutputTypeSplunkSplunk,
+            Type: components.TypeOptionsSplunkSplunk,
             Host: "localhost",
             Port: 9997.0,
         },
@@ -3022,7 +3114,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSqs(
         operations.CreateOutputOutputSqs{
             ID: "sqs-output",
-            Type: operations.CreateOutputTypeSqsSqs,
+            Type: components.TypeOptionsSqsSqs,
             QueueName: "my-queue",
             QueueType: operations.CreateOutputQueueTypeStandard,
             Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
@@ -3230,7 +3322,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSyslog(
         operations.CreateOutputOutputSyslog{
             ID: "syslog-output",
-            Type: operations.CreateOutputTypeSyslogSyslog,
+            Type: components.TypeOptionsSyslogSyslog,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](514.0),
         },
@@ -3271,7 +3363,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestTcpjson(
         operations.CreateOutputOutputTcpjson{
             ID: "tcpjson-output",
-            Type: operations.CreateOutputTypeTcpjsonTcpjson,
+            Type: components.TypeOptionsTcpjsonTcpjson,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](10090.0),
         },
@@ -3700,6 +3792,48 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputResponseExamplesSnowflakeStreamingDestination
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputResponseExamplesSnowflakeStreamingDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestStatsd(
+        operations.CreateOutputOutputStatsd{
+            ID: "<id>",
+            Type: operations.CreateOutputTypeStatsdStatsd,
+            Protocol: components.DestinationProtocolOptionsUDP,
+            Host: "probable-rationale.com",
+            Port: 7475.71,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputResponseExamplesSplunkHecDestination
 
 <!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputResponseExamplesSplunkHecDestination" -->
@@ -3770,7 +3904,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSecurityLake(
         operations.CreateOutputOutputSecurityLake{
             ID: "<id>",
-            Type: operations.CreateOutputTypeSecurityLakeSecurityLake,
+            Type: components.TypeOptionsSecuritylakeSecurityLake,
             AssumeRoleArn: "<value>",
             Bucket: "<value>",
             Region: "<value>",
@@ -3815,6 +3949,39 @@ Get the specified Destination.
 ### Example Usage: OutputResponseExamplesS3Destination
 
 <!-- UsageSnippet language="go" operationID="getOutputById" method="get" path="/system/outputs/{id}" example="OutputResponseExamplesS3Destination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSnowflakeStreamingDestination
+
+<!-- UsageSnippet language="go" operationID="getOutputById" method="get" path="/system/outputs/{id}" example="OutputResponseExamplesSnowflakeStreamingDestination" -->
 ```go
 package main
 
@@ -4004,7 +4171,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputAzureBlob(
         components.OutputAzureBlob{
             ID: criblcontrolplanesdkgo.Pointer("azure-blob-output"),
-            Type: components.OutputAzureBlobTypeAzureBlob,
+            Type: components.TypeOptionsAzureblobAzureBlob,
             ContainerName: "my-container",
             StagePath: "/tmp/staging",
         },
@@ -4343,7 +4510,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputConfluentCloud(
         components.OutputConfluentCloud{
             ID: criblcontrolplanesdkgo.Pointer("confluent-cloud-output"),
-            Type: components.OutputConfluentCloudTypeConfluentCloud,
+            Type: components.TypeOptionsConfluentcloudConfluentCloud,
             Brokers: []string{
                 "pkc-xxxxx.us-east-1.aws.confluent.cloud:9092",
             },
@@ -4586,7 +4753,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputCriblTCP(
         components.OutputCriblTCP{
             ID: criblcontrolplanesdkgo.Pointer("cribl-tcp-output"),
-            Type: components.OutputCriblTCPTypeCriblTCP,
+            Type: components.TypeOptionsCribltcpCriblTCP,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](10090.0),
         },
@@ -5281,7 +5448,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputGooglePubsub(
         components.OutputGooglePubsub{
             ID: criblcontrolplanesdkgo.Pointer("google-pubsub-output"),
-            Type: components.OutputGooglePubsubTypeGooglePubsub,
+            Type: components.TypeOptionsGooglepubsubGooglePubsub,
             TopicName: "my-topic",
         },
     ))
@@ -5523,7 +5690,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputKafka(
         components.OutputKafka{
             ID: criblcontrolplanesdkgo.Pointer("kafka-output"),
-            Type: components.OutputKafkaTypeKafka,
+            Type: components.TypeOptionsKafka,
             Brokers: []string{
                 "localhost:9092",
             },
@@ -5565,7 +5732,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputKinesis(
         components.OutputKinesis{
             ID: criblcontrolplanesdkgo.Pointer("kinesis-output"),
-            Type: components.OutputKinesisTypeKinesis,
+            Type: components.TypeOptionsKinesisKinesis,
             StreamName: "my-stream",
             Region: "us-east-1",
         },
@@ -5766,7 +5933,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputMsk(
         components.OutputMsk{
             ID: criblcontrolplanesdkgo.Pointer("msk-output"),
-            Type: components.OutputMskTypeMsk,
+            Type: components.TypeOptionsMskMsk,
             Brokers: []string{
                 "b-1.example.xxxxx.c2.kafka.us-east-1.amazonaws.com:9092",
             },
@@ -5810,7 +5977,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputNetflow(
         components.OutputNetflow{
             ID: criblcontrolplanesdkgo.Pointer("netflow-output"),
-            Type: components.OutputNetflowTypeNetflow,
+            Type: components.TypeOptionsNetflowNetflow,
             Hosts: []components.OutputNetflowHost{
                 components.OutputNetflowHost{
                     Host: "localhost",
@@ -6014,7 +6181,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputPrometheus(
         components.OutputPrometheus{
             ID: criblcontrolplanesdkgo.Pointer("prometheus-output"),
-            Type: components.OutputPrometheusTypePrometheus,
+            Type: components.TypeOptionsPrometheusPrometheus,
             URL: "http://localhost:9091/api/v1/write",
         },
     ))
@@ -6135,7 +6302,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputS3(
         components.OutputS3{
             ID: criblcontrolplanesdkgo.Pointer("s3-output"),
-            Type: components.OutputS3TypeS3,
+            Type: components.TypeOptionsS3S3,
             Bucket: "my-bucket",
             Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
             StagePath: "/tmp/staging",
@@ -6176,7 +6343,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSecurityLake(
         components.OutputSecurityLake{
             ID: criblcontrolplanesdkgo.Pointer("security-lake-output"),
-            Type: components.OutputSecurityLakeTypeSecurityLake,
+            Type: components.TypeOptionsSecuritylakeSecurityLake,
             AssumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
             Bucket: "my-bucket",
             Region: "us-east-1",
@@ -6385,7 +6552,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSnmp(
         components.OutputSnmp{
             ID: criblcontrolplanesdkgo.Pointer("snmp-output"),
-            Type: components.OutputSnmpTypeSnmp,
+            Type: components.TypeOptionsSnmpSnmp,
             Hosts: []components.OutputSnmpHost{
                 components.OutputSnmpHost{
                     Host: "192.168.1.1",
@@ -6470,7 +6637,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSplunk(
         components.OutputSplunk{
             ID: criblcontrolplanesdkgo.Pointer("splunk-output"),
-            Type: components.OutputSplunkTypeSplunk,
+            Type: components.TypeOptionsSplunkSplunk,
             Host: "localhost",
             Port: 9997.0,
         },
@@ -6592,7 +6759,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSqs(
         components.OutputSqs{
             ID: criblcontrolplanesdkgo.Pointer("sqs-output"),
-            Type: components.OutputSqsTypeSqs,
+            Type: components.TypeOptionsSqsSqs,
             QueueName: "my-queue",
             QueueType: components.OutputSqsQueueTypeStandard,
             Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
@@ -6795,7 +6962,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSyslog(
         components.OutputSyslog{
             ID: criblcontrolplanesdkgo.Pointer("syslog-output"),
-            Type: components.OutputSyslogTypeSyslog,
+            Type: components.TypeOptionsSyslogSyslog,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](514.0),
         },
@@ -6835,7 +7002,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputTcpjson(
         components.OutputTcpjson{
             ID: criblcontrolplanesdkgo.Pointer("tcpjson-output"),
-            Type: components.OutputTcpjsonTypeTcpjson,
+            Type: components.TypeOptionsTcpjsonTcpjson,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](10090.0),
         },
@@ -7250,6 +7417,45 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputResponseExamplesSnowflakeStreamingDestination
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputResponseExamplesSnowflakeStreamingDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputAzureBlob(
+        components.OutputAzureBlob{
+            Type: components.TypeOptionsAzureblobAzureBlob,
+            ContainerName: "<value>",
+            StagePath: "<value>",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputResponseExamplesSplunkHecDestination
 
 <!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputResponseExamplesSplunkHecDestination" -->
@@ -7276,7 +7482,7 @@ func main() {
 
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputS3(
         components.OutputS3{
-            Type: components.OutputS3TypeS3,
+            Type: components.TypeOptionsS3S3,
             Bucket: "<value>",
             StagePath: "<value>",
         },
@@ -7436,7 +7642,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputAzureBlob(
         components.OutputAzureBlob{
             ID: criblcontrolplanesdkgo.Pointer("azure-blob-output"),
-            Type: components.OutputAzureBlobTypeAzureBlob,
+            Type: components.TypeOptionsAzureblobAzureBlob,
             ContainerName: "my-container",
             StagePath: "/tmp/staging",
         },
@@ -7775,7 +7981,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputConfluentCloud(
         components.OutputConfluentCloud{
             ID: criblcontrolplanesdkgo.Pointer("confluent-cloud-output"),
-            Type: components.OutputConfluentCloudTypeConfluentCloud,
+            Type: components.TypeOptionsConfluentcloudConfluentCloud,
             Brokers: []string{
                 "pkc-xxxxx.us-east-1.aws.confluent.cloud:9092",
             },
@@ -8018,7 +8224,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputCriblTCP(
         components.OutputCriblTCP{
             ID: criblcontrolplanesdkgo.Pointer("cribl-tcp-output"),
-            Type: components.OutputCriblTCPTypeCriblTCP,
+            Type: components.TypeOptionsCribltcpCriblTCP,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](10090.0),
         },
@@ -8833,7 +9039,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputGooglePubsub(
         components.OutputGooglePubsub{
             ID: criblcontrolplanesdkgo.Pointer("google-pubsub-output"),
-            Type: components.OutputGooglePubsubTypeGooglePubsub,
+            Type: components.TypeOptionsGooglepubsubGooglePubsub,
             TopicName: "my-topic",
         },
     ))
@@ -9075,7 +9281,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputKafka(
         components.OutputKafka{
             ID: criblcontrolplanesdkgo.Pointer("kafka-output"),
-            Type: components.OutputKafkaTypeKafka,
+            Type: components.TypeOptionsKafka,
             Brokers: []string{
                 "localhost:9092",
             },
@@ -9117,7 +9323,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputKinesis(
         components.OutputKinesis{
             ID: criblcontrolplanesdkgo.Pointer("kinesis-output"),
-            Type: components.OutputKinesisTypeKinesis,
+            Type: components.TypeOptionsKinesisKinesis,
             StreamName: "my-stream",
             Region: "us-east-1",
         },
@@ -9318,7 +9524,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputMsk(
         components.OutputMsk{
             ID: criblcontrolplanesdkgo.Pointer("msk-output"),
-            Type: components.OutputMskTypeMsk,
+            Type: components.TypeOptionsMskMsk,
             Brokers: []string{
                 "b-1.example.xxxxx.c2.kafka.us-east-1.amazonaws.com:9092",
             },
@@ -9362,7 +9568,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputNetflow(
         components.OutputNetflow{
             ID: criblcontrolplanesdkgo.Pointer("netflow-output"),
-            Type: components.OutputNetflowTypeNetflow,
+            Type: components.TypeOptionsNetflowNetflow,
             Hosts: []components.OutputNetflowHost{
                 components.OutputNetflowHost{
                     Host: "localhost",
@@ -9566,7 +9772,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputPrometheus(
         components.OutputPrometheus{
             ID: criblcontrolplanesdkgo.Pointer("prometheus-output"),
-            Type: components.OutputPrometheusTypePrometheus,
+            Type: components.TypeOptionsPrometheusPrometheus,
             URL: "http://localhost:9091/api/v1/write",
         },
     ))
@@ -9687,7 +9893,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputS3(
         components.OutputS3{
             ID: criblcontrolplanesdkgo.Pointer("s3-output"),
-            Type: components.OutputS3TypeS3,
+            Type: components.TypeOptionsS3S3,
             Bucket: "my-bucket",
             Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
             StagePath: "/tmp/staging",
@@ -9728,7 +9934,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSecurityLake(
         components.OutputSecurityLake{
             ID: criblcontrolplanesdkgo.Pointer("security-lake-output"),
-            Type: components.OutputSecurityLakeTypeSecurityLake,
+            Type: components.TypeOptionsSecuritylakeSecurityLake,
             AssumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
             Bucket: "my-bucket",
             Region: "us-east-1",
@@ -9937,13 +10143,59 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSnmp(
         components.OutputSnmp{
             ID: criblcontrolplanesdkgo.Pointer("snmp-output"),
-            Type: components.OutputSnmpTypeSnmp,
+            Type: components.TypeOptionsSnmpSnmp,
             Hosts: []components.OutputSnmpHost{
                 components.OutputSnmpHost{
                     Host: "192.168.1.1",
                     Port: 161.0,
                 },
             },
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateOutputExamplesSnowflakeStreaming
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesSnowflakeStreaming" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSnowflakeStreaming(
+        components.OutputSnowflakeStreaming{
+            ID: criblcontrolplanesdkgo.Pointer("snowflake-streaming-output"),
+            Type: components.OutputSnowflakeStreamingTypeSnowflakeStreaming,
+            AccountIdentifier: "MYORG-MYACCOUNT",
+            User: "STREAMING_USER",
+            Pem: components.OutputSnowflakeStreamingPrivateKey{
+                KeyName: "my-snowflake-private-key",
+            },
+            Database: "EVENTS_DB",
+            Schema: "PUBLIC",
+            Table: "RAW_EVENTS",
         },
     ))
     if err != nil {
@@ -10022,7 +10274,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSplunk(
         components.OutputSplunk{
             ID: criblcontrolplanesdkgo.Pointer("splunk-output"),
-            Type: components.OutputSplunkTypeSplunk,
+            Type: components.TypeOptionsSplunkSplunk,
             Host: "localhost",
             Port: 9997.0,
         },
@@ -10144,7 +10396,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSqs(
         components.OutputSqs{
             ID: criblcontrolplanesdkgo.Pointer("sqs-output"),
-            Type: components.OutputSqsTypeSqs,
+            Type: components.TypeOptionsSqsSqs,
             QueueName: "my-queue",
             QueueType: components.OutputSqsQueueTypeStandard,
             Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
@@ -10347,7 +10599,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSyslog(
         components.OutputSyslog{
             ID: criblcontrolplanesdkgo.Pointer("syslog-output"),
-            Type: components.OutputSyslogTypeSyslog,
+            Type: components.TypeOptionsSyslogSyslog,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](514.0),
         },
@@ -10387,7 +10639,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputTcpjson(
         components.OutputTcpjson{
             ID: criblcontrolplanesdkgo.Pointer("tcpjson-output"),
-            Type: components.OutputTcpjsonTypeTcpjson,
+            Type: components.TypeOptionsTcpjsonTcpjson,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](10090.0),
         },
@@ -10796,6 +11048,39 @@ Delete the specified Destination.
 ### Example Usage: OutputResponseExamplesS3Destination
 
 <!-- UsageSnippet language="go" operationID="deleteOutputById" method="delete" path="/system/outputs/{id}" example="OutputResponseExamplesS3Destination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Delete(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSnowflakeStreamingDestination
+
+<!-- UsageSnippet language="go" operationID="deleteOutputById" method="delete" path="/system/outputs/{id}" example="OutputResponseExamplesSnowflakeStreamingDestination" -->
 ```go
 package main
 

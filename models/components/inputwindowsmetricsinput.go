@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputWindowsMetricsType - Connector type identifier.
 type InputWindowsMetricsType string
 
 const (
@@ -484,6 +485,7 @@ func (i *InputWindowsMetricsHost) GetCustom() *InputWindowsMetricsCustom {
 	return i.Custom
 }
 
+// InputWindowsMetricsPersistence - persistence
 type InputWindowsMetricsPersistence struct {
 	// Spool metrics to disk for Cribl Edge and Search
 	Enable *bool `json:"enable,omitzero"`
@@ -492,8 +494,9 @@ type InputWindowsMetricsPersistence struct {
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
 	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                  `json:"maxDataTime,omitzero"`
-	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
+	MaxDataTime *string `json:"maxDataTime,omitzero"`
+	// Data compression format
+	Compress *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/windows_metrics
 	DestPath *string `json:"destPath,omitzero"`
 }
@@ -553,7 +556,8 @@ func (i *InputWindowsMetricsPersistence) GetDestPath() *string {
 
 type InputWindowsMetricsInput struct {
 	// Unique ID for this input
-	ID   *string                 `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputWindowsMetricsType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -576,7 +580,8 @@ type InputWindowsMetricsInput struct {
 	Process  *ProcessType             `json:"process,omitzero"`
 	Gpu      *GpuType                 `json:"gpu,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection   `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// persistence
 	Persistence *InputWindowsMetricsPersistence `json:"persistence,omitzero"`
 	// Enable to use built-in tools (PowerShell) to collect metrics instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-windows-metrics/#advanced-tab)
 	DisableNativeModule *bool `json:"disableNativeModule,omitzero"`

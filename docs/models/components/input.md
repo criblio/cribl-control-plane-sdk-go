@@ -375,6 +375,12 @@ input := components.CreateInputNetflow(components.InputNetflowInput{/* values he
 input := components.CreateInputSecurityLake(components.InputSecurityLakeInput{/* values here */})
 ```
 
+### InputBedrockS3Input
+
+```go
+input := components.CreateInputBedrockS3(components.InputBedrockS3Input{/* values here */})
+```
+
 ### InputServicenowTableInput
 
 ```go
@@ -553,6 +559,8 @@ switch input.Type {
 		// input.InputNetflowInput is populated
 	case components.InputTypeSecurityLake:
 		// input.InputSecurityLakeInput is populated
+	case components.InputTypeBedrockS3:
+		// input.InputBedrockS3Input is populated
 	case components.InputTypeServicenowTable:
 		// input.InputServicenowTableInput is populated
 	case components.InputTypeZscalerHec:

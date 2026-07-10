@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputGoogleCloudStorageType - Connector type identifier.
 type OutputGoogleCloudStorageType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputGoogleCloudStorageType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputGoogleCloudStorageAuthenticationMethod - Authentication method
 type OutputGoogleCloudStorageAuthenticationMethod string
 
 const (
@@ -59,7 +61,8 @@ func (e *OutputGoogleCloudStorageAuthenticationMethod) IsExact() bool {
 
 type OutputGoogleCloudStorage struct {
 	// Unique ID for this output
-	ID   *string                      `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputGoogleCloudStorageType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -74,7 +77,8 @@ type OutputGoogleCloudStorage struct {
 	// Region where the bucket is located
 	Region string `json:"region"`
 	// Google Cloud Storage service endpoint
-	Endpoint                string                                        `json:"endpoint"`
+	Endpoint string `json:"endpoint"`
+	// Authentication method
 	AwsAuthenticationMethod *OutputGoogleCloudStorageAuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
 	// Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
 	StagePath string `json:"stagePath"`
@@ -121,9 +125,10 @@ type OutputGoogleCloudStorage struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
-	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
+	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
+	// Orphan file recovery
+	Orphans *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered

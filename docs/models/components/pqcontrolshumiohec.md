@@ -1,5 +1,7 @@
 # PqControlsHumioHec
 
+Persistent queue controls.
+
 
 ## Fields
 

@@ -46,6 +46,7 @@ const (
 	PipelineFunctionConfInputTypeLocalSearchTransformer         PipelineFunctionConfInputType = "local_search_transformer"
 	PipelineFunctionConfInputTypeLookup                         PipelineFunctionConfInputType = "lookup"
 	PipelineFunctionConfInputTypeMask                           PipelineFunctionConfInputType = "mask"
+	PipelineFunctionConfInputTypeMetricsExport                  PipelineFunctionConfInputType = "metrics_export"
 	PipelineFunctionConfInputTypeMvExpand                       PipelineFunctionConfInputType = "mv_expand"
 	PipelineFunctionConfInputTypeMvPull                         PipelineFunctionConfInputType = "mv_pull"
 	PipelineFunctionConfInputTypeNotificationPolicies           PipelineFunctionConfInputType = "notification_policies"
@@ -118,6 +119,7 @@ type PipelineFunctionConfInput struct {
 	PipelineFunctionLocalSearchTransformer         *PipelineFunctionLocalSearchTransformer         `queryParam:"inline" union:"member"`
 	PipelineFunctionLookup                         *PipelineFunctionLookup                         `queryParam:"inline" union:"member"`
 	PipelineFunctionMask                           *PipelineFunctionMask                           `queryParam:"inline" union:"member"`
+	PipelineFunctionMetricsExport                  *PipelineFunctionMetricsExport                  `queryParam:"inline" union:"member"`
 	PipelineFunctionMvExpand                       *PipelineFunctionMvExpand                       `queryParam:"inline" union:"member"`
 	PipelineFunctionMvPull                         *PipelineFunctionMvPull                         `queryParam:"inline" union:"member"`
 	PipelineFunctionNotificationPolicies           *PipelineFunctionNotificationPolicies           `queryParam:"inline" union:"member"`
@@ -562,6 +564,18 @@ func CreatePipelineFunctionConfInputMask(mask PipelineFunctionMask) PipelineFunc
 	return PipelineFunctionConfInput{
 		PipelineFunctionMask: &mask,
 		Type:                 typ,
+	}
+}
+
+func CreatePipelineFunctionConfInputMetricsExport(metricsExport PipelineFunctionMetricsExport) PipelineFunctionConfInput {
+	typ := PipelineFunctionConfInputTypeMetricsExport
+
+	typStr := PipelineFunctionMetricsExportID(typ)
+	metricsExport.ID = typStr
+
+	return PipelineFunctionConfInput{
+		PipelineFunctionMetricsExport: &metricsExport,
+		Type:                          typ,
 	}
 }
 
@@ -1303,6 +1317,15 @@ func (u *PipelineFunctionConfInput) UnmarshalJSON(data []byte) error {
 		u.PipelineFunctionMask = pipelineFunctionMask
 		u.Type = PipelineFunctionConfInputTypeMask
 		return nil
+	case "metrics_export":
+		pipelineFunctionMetricsExport := new(PipelineFunctionMetricsExport)
+		if err := utils.UnmarshalJSON(data, &pipelineFunctionMetricsExport, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == metrics_export) type PipelineFunctionMetricsExport within PipelineFunctionConfInput: %w", string(data), err)
+		}
+
+		u.PipelineFunctionMetricsExport = pipelineFunctionMetricsExport
+		u.Type = PipelineFunctionConfInputTypeMetricsExport
+		return nil
 	case "mv_expand":
 		pipelineFunctionMvExpand := new(PipelineFunctionMvExpand)
 		if err := utils.UnmarshalJSON(data, &pipelineFunctionMvExpand, "", true, nil); err != nil {
@@ -1758,6 +1781,10 @@ func (u PipelineFunctionConfInput) MarshalJSON() ([]byte, error) {
 
 	if u.PipelineFunctionMask != nil {
 		return utils.MarshalJSON(u.PipelineFunctionMask, "", true)
+	}
+
+	if u.PipelineFunctionMetricsExport != nil {
+		return utils.MarshalJSON(u.PipelineFunctionMetricsExport, "", true)
 	}
 
 	if u.PipelineFunctionMvExpand != nil {

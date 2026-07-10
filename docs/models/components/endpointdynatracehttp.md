@@ -1,5 +1,7 @@
 # EndpointDynatraceHTTP
 
+Endpoint
+
 ## Example Usage
 
 ```go

@@ -3,40 +3,20 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputSnmpType string
-
-const (
-	InputSnmpTypeSnmp InputSnmpType = "snmp"
-)
-
-func (e InputSnmpType) ToPointer() *InputSnmpType {
-	return &e
-}
-func (e *InputSnmpType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "snmp":
-		*e = InputSnmpType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSnmpType: %v", v)
-	}
-}
-
 type InputSnmpV3User struct {
-	Name         string                                                            `json:"name"`
-	AuthProtocol *AuthenticationProtocolOptionsV3User                              `json:"authProtocol,omitzero"`
-	AuthKey      *string                                                           `json:"authKey,omitzero"`
+	// V3 name
+	Name string `json:"name"`
+	// Authentication protocol
+	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
+	// V3 authentication key
+	AuthKey *string `json:"authKey,omitzero"`
+	// Privacy protocol
 	PrivProtocol *PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone `json:"privProtocol,omitzero"`
-	PrivKey      *string                                                           `json:"privKey,omitzero"`
+	// V3 privacy key
+	PrivKey *string `json:"privKey,omitzero"`
 }
 
 func (i InputSnmpV3User) MarshalJSON() ([]byte, error) {
@@ -90,6 +70,7 @@ func (i *InputSnmpV3User) GetPrivKey() *string {
 
 // InputSnmpSNMPv3Authentication - Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
 type InputSnmpSNMPv3Authentication struct {
+	// Enabled
 	V3AuthEnabled bool `json:"v3AuthEnabled"`
 	// Pass through traps that don't match any of the configured users. @{product} will not attempt to decrypt these traps.
 	AllowUnmatchedTrap *bool `json:"allowUnmatchedTrap,omitzero"`
@@ -134,8 +115,9 @@ func (i *InputSnmpSNMPv3Authentication) GetV3Users() []InputSnmpV3User {
 
 type InputSnmpInput struct {
 	// Unique ID for this input
-	ID   *string       `json:"id,omitzero"`
-	Type InputSnmpType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsSnmp `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -199,9 +181,9 @@ func (i *InputSnmpInput) GetID() *string {
 	return i.ID
 }
 
-func (i *InputSnmpInput) GetType() InputSnmpType {
+func (i *InputSnmpInput) GetType() TypeOptionsSnmp {
 	if i == nil {
-		return InputSnmpType("")
+		return TypeOptionsSnmp("")
 	}
 	return i.Type
 }

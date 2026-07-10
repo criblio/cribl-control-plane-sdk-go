@@ -377,6 +377,12 @@ inputResponse := components.CreateInputResponseNetflow(components.InputResponseI
 inputResponse := components.CreateInputResponseSecurityLake(components.InputResponseInputSecurityLake{/* values here */})
 ```
 
+### InputResponseInputBedrockS3
+
+```go
+inputResponse := components.CreateInputResponseBedrockS3(components.InputResponseInputBedrockS3{/* values here */})
+```
+
 ### InputResponseInputServicenowTable
 
 ```go
@@ -433,23 +439,23 @@ Use the `Type` field to determine which variant is active, then access the corre
 switch inputResponse.Type {
 	case components.InputResponseTypeCollectionValue:
 		// inputResponse.InputResponseInputCollection is populated
-	case components.InputResponseTypeKafkaValue:
+	case components.InputResponseTypeKafka:
 		// inputResponse.InputResponseInputKafka is populated
-	case components.InputResponseTypeMskValue:
+	case components.InputResponseTypeMsk:
 		// inputResponse.InputResponseInputMsk is populated
 	case components.InputResponseTypeHTTPValue:
 		// inputResponse.InputResponseInputHTTP is populated
-	case components.InputResponseTypeSplunkValue:
+	case components.InputResponseTypeSplunk:
 		// inputResponse.InputResponseInputSplunk is populated
 	case components.InputResponseTypeSplunkSearchValue:
 		// inputResponse.InputResponseInputSplunkSearch is populated
 	case components.InputResponseTypeSplunkHecValue:
 		// inputResponse.InputResponseInputSplunkHec is populated
-	case components.InputResponseTypeAzureBlobValue:
+	case components.InputResponseTypeAzureBlob:
 		// inputResponse.InputResponseInputAzureBlob is populated
 	case components.InputResponseTypeElasticValue:
 		// inputResponse.InputResponseInputElastic is populated
-	case components.InputResponseTypeConfluentCloudValue:
+	case components.InputResponseTypeConfluentCloud:
 		// inputResponse.InputResponseInputConfluentCloud is populated
 	case components.InputResponseTypeGrafana:
 		// inputResponse.InputResponseInputGrafanaUnion is populated
@@ -457,7 +463,7 @@ switch inputResponse.Type {
 		// inputResponse.InputResponseInputLoki is populated
 	case components.InputResponseTypePrometheusRwValue:
 		// inputResponse.InputResponseInputPrometheusRw is populated
-	case components.InputResponseTypePrometheusValue:
+	case components.InputResponseTypePrometheus:
 		// inputResponse.InputResponseInputPrometheus is populated
 	case components.InputResponseTypeEdgePrometheusValue:
 		// inputResponse.InputResponseInputEdgePrometheus is populated
@@ -477,17 +483,17 @@ switch inputResponse.Type {
 		// inputResponse.InputResponseInputExec is populated
 	case components.InputResponseTypeFirehoseValue:
 		// inputResponse.InputResponseInputFirehose is populated
-	case components.InputResponseTypeGooglePubsubValue:
+	case components.InputResponseTypeGooglePubsub:
 		// inputResponse.InputResponseInputGooglePubsub is populated
 	case components.InputResponseTypeCriblValue:
 		// inputResponse.InputResponseInputCribl is populated
-	case components.InputResponseTypeCriblTCPValue:
+	case components.InputResponseTypeCriblTCP:
 		// inputResponse.InputResponseInputCriblTCP is populated
 	case components.InputResponseTypeCriblHTTPValue:
 		// inputResponse.InputResponseInputCriblHTTP is populated
 	case components.InputResponseTypeCriblLakeHTTPValue:
 		// inputResponse.InputResponseInputCriblLakeHTTP is populated
-	case components.InputResponseTypeTcpjsonValue:
+	case components.InputResponseTypeTcpjson:
 		// inputResponse.InputResponseInputTcpjson is populated
 	case components.InputResponseTypeSystemMetricsValue:
 		// inputResponse.InputResponseInputSystemMetrics is populated
@@ -509,23 +515,23 @@ switch inputResponse.Type {
 		// inputResponse.InputResponseInputDatagen is populated
 	case components.InputResponseTypeHTTPRawValue:
 		// inputResponse.InputResponseInputHTTPRaw is populated
-	case components.InputResponseTypeKinesisValue:
+	case components.InputResponseTypeKinesis:
 		// inputResponse.InputResponseInputKinesis is populated
 	case components.InputResponseTypeCriblmetricsValue:
 		// inputResponse.InputResponseInputCriblmetrics is populated
 	case components.InputResponseTypeMetricsValue:
 		// inputResponse.InputResponseInputMetrics is populated
-	case components.InputResponseTypeS3Value:
+	case components.InputResponseTypeS3:
 		// inputResponse.InputResponseInputS3 is populated
 	case components.InputResponseTypeS3InventoryValue:
 		// inputResponse.InputResponseInputS3Inventory is populated
-	case components.InputResponseTypeSnmpValue:
+	case components.InputResponseTypeSnmp:
 		// inputResponse.InputResponseInputSnmp is populated
 	case components.InputResponseTypeOpenTelemetryValue:
 		// inputResponse.InputResponseInputOpenTelemetry is populated
 	case components.InputResponseTypeModelDrivenTelemetryValue:
 		// inputResponse.InputResponseInputModelDrivenTelemetry is populated
-	case components.InputResponseTypeSqsValue:
+	case components.InputResponseTypeSqs:
 		// inputResponse.InputResponseInputSqs is populated
 	case components.InputResponseTypeSyslog:
 		// inputResponse.InputResponseInputSyslogUnion is populated
@@ -551,10 +557,12 @@ switch inputResponse.Type {
 		// inputResponse.InputResponseInputOpenai is populated
 	case components.InputResponseTypeWizWebhookValue:
 		// inputResponse.InputResponseInputWizWebhook is populated
-	case components.InputResponseTypeNetflowValue:
+	case components.InputResponseTypeNetflow:
 		// inputResponse.InputResponseInputNetflow is populated
-	case components.InputResponseTypeSecurityLakeValue:
+	case components.InputResponseTypeSecurityLake:
 		// inputResponse.InputResponseInputSecurityLake is populated
+	case components.InputResponseTypeBedrockS3Value:
+		// inputResponse.InputResponseInputBedrockS3 is populated
 	case components.InputResponseTypeServicenowTableValue:
 		// inputResponse.InputResponseInputServicenowTable is populated
 	case components.InputResponseTypeZscalerHecValue:

@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputDatasetType - Connector type identifier.
 type OutputDatasetType string
 
 const (
@@ -93,6 +94,7 @@ func (e *OutputDatasetDataSetSite) IsExact() bool {
 	return false
 }
 
+// OutputDatasetPqControls - Persistent queue controls.
 type OutputDatasetPqControls struct {
 }
 
@@ -109,7 +111,8 @@ func (o *OutputDatasetPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputDataset struct {
 	// Unique ID for this output
-	ID   *string           `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputDatasetType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -190,8 +193,9 @@ type OutputDataset struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                  `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputDatasetPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputDatasetPqControls `json:"pqControls,omitzero"`
 	// A 'Log Write Access' API key for the DataSet account
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret

@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputEventhubAmqpType - Connector type identifier.
 type InputEventhubAmqpType string
 
 const (
@@ -31,6 +32,7 @@ func (e *InputEventhubAmqpType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// InputEventhubAmqpAuthenticationMechanism - Authentication mechanism
 type InputEventhubAmqpAuthenticationMechanism string
 
 const (
@@ -106,9 +108,11 @@ func (i *InputEventhubAmqpCertificate) GetPassphrase() *string {
 }
 
 type InputEventhubAmqpAuth struct {
+	// Authentication mechanism
 	Mechanism InputEventhubAmqpAuthenticationMechanism `json:"mechanism"`
 	// Select or create a stored text secret
-	TextSecret           *string                          `json:"textSecret,omitzero"`
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Authentication method
 	ClientSecretAuthType *AuthenticationMethodOptionsAuth `json:"clientSecretAuthType,omitzero"`
 	// Select or create a stored text secret
 	ClientTextSecret *string                       `json:"clientTextSecret,omitzero"`
@@ -233,6 +237,7 @@ func (i *InputEventhubAmqpAuth) GetTemplateFullyQualifiedNamespace() *string {
 	return i.TemplateFullyQualifiedNamespace
 }
 
+// InputEventhubAmqpAuthenticationMethod - Authentication method
 type InputEventhubAmqpAuthenticationMethod string
 
 const (
@@ -258,10 +263,12 @@ func (e *InputEventhubAmqpAuthenticationMethod) IsExact() bool {
 	return false
 }
 
+// InputEventhubAmqpAzureBlobStorage - Azure Blob Storage
 type InputEventhubAmqpAzureBlobStorage struct {
 	// Azure Blob Storage container used to store checkpoints. Must be 3–63 lowercase alphanumeric characters or hyphens.
-	ContainerName string                                 `json:"containerName"`
-	AuthType      *InputEventhubAmqpAuthenticationMethod `json:"authType,omitzero"`
+	ContainerName string `json:"containerName"`
+	// Authentication method
+	AuthType *InputEventhubAmqpAuthenticationMethod `json:"authType,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
 	// The name of your Azure storage account
@@ -397,6 +404,7 @@ func (i *InputEventhubAmqpAzureBlobStorage) GetTemplateAzureCloud() *string {
 }
 
 type InputEventhubAmqpCheckpointing struct {
+	// Azure Blob Storage
 	BlobStore InputEventhubAmqpAzureBlobStorage `json:"blobStore"`
 }
 
@@ -420,7 +428,8 @@ func (i *InputEventhubAmqpCheckpointing) GetBlobStore() InputEventhubAmqpAzureBl
 
 type InputEventhubAmqpInput struct {
 	// Unique ID for this input
-	ID   *string               `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputEventhubAmqpType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`

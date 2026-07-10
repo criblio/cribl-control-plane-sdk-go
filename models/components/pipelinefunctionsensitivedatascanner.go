@@ -73,8 +73,10 @@ func (p *PipelineFunctionSensitiveDataScannerRule) GetDisabled() *bool {
 }
 
 type Flag struct {
-	Name  *string `json:"name,omitzero"`
-	Value string  `json:"value"`
+	// Name
+	Name *string `json:"name,omitzero"`
+	// Value
+	Value string `json:"value"`
 }
 
 func (f Flag) MarshalJSON() ([]byte, error) {

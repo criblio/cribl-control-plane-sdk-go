@@ -1,0 +1,9 @@
+# LabelFields1
+
+
+## Fields
+
+| Field                                                                                                          | Type                                                                                                           | Required                                                                                                       | Description                                                                                                    |
+| -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `Mode`                                                                                                         | [components.PipelineFunctionMetricsExportMode1](../../models/components/pipelinefunctionmetricsexportmode1.md) | :heavy_check_mark:                                                                                             | Discriminator value.                                                                                           |
+| `Field`                                                                                                        | [components.NameFieldType](../../models/components/namefieldtype.md)                                           | :heavy_check_mark:                                                                                             | N/A                                                                                                            |

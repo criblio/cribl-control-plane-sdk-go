@@ -8,6 +8,7 @@ import (
 
 // AuthType - Credentials to use when authenticating with the schema registry
 type AuthType struct {
+	// Disabled
 	Disabled bool `json:"disabled"`
 	// Authenticate with the schema registry using OAuth instead of basic HTTP authentication
 	OauthEnabled *bool `json:"oauthEnabled,omitzero"`

@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputWefType - Connector type identifier.
 type InputWefType string
 
 const (
@@ -56,6 +57,7 @@ func (e *InputWefAuthenticationMethod) IsExact() bool {
 	return false
 }
 
+// InputWefMTLSSettings - mTLS settings
 type InputWefMTLSSettings struct {
 	// Enable TLS
 	Disabled *bool `json:"disabled,omitzero"`
@@ -74,9 +76,11 @@ type InputWefMTLSSettings struct {
 	// Server path containing CA certificates (in PEM format) to use. Can reference $ENV_VARS. If multiple certificates are present in a .pem, each must directly certify the one preceding it.
 	CaPath string `json:"caPath"`
 	// Regex matching allowable common names in peer certificates' subject attribute
-	CommonNameRegex *string                      `json:"commonNameRegex,omitzero"`
-	MinVersion      *MinimumTLSVersionOptionsTLS `json:"minVersion,omitzero"`
-	MaxVersion      *MaximumTLSVersionOptionsTLS `json:"maxVersion,omitzero"`
+	CommonNameRegex *string `json:"commonNameRegex,omitzero"`
+	// Minimum TLS version
+	MinVersion *MinimumTLSVersionOptionsTLS `json:"minVersion,omitzero"`
+	// Maximum TLS version
+	MaxVersion *MaximumTLSVersionOptionsTLS `json:"maxVersion,omitzero"`
 	// Enable OCSP check of certificate
 	OcspCheck *bool `json:"ocspCheck,omitzero"`
 	// If enabled, checks will fail on any OCSP error. Otherwise, checks will fail only when a certificate is revoked, ignoring other errors.
@@ -208,6 +212,7 @@ func (e *InputWefFormat) IsExact() bool {
 	return false
 }
 
+// InputWefQueryBuilderMode - Query builder mode
 type InputWefQueryBuilderMode string
 
 const (
@@ -263,6 +268,7 @@ func (i *InputWefQuery) GetQueryExpression() string {
 }
 
 type InputWefSubscription struct {
+	// Subscription name
 	SubscriptionName string `json:"subscriptionName"`
 	// Version UUID for this subscription. If any subscription parameters are modified, this value will change.
 	Version *string `json:"version,omitzero"`
@@ -281,11 +287,13 @@ type InputWefSubscription struct {
 	// The DNS names of the endpoints that should forward these events. You may use wildcards, such as *.mydomain.com
 	Targets []string `json:"targets"`
 	// The RFC-3066 locale the Windows clients should use when sending events. Defaults to "en-US".
-	Locale        *string                   `json:"locale,omitzero"`
+	Locale *string `json:"locale,omitzero"`
+	// Query builder mode
 	QuerySelector *InputWefQueryBuilderMode `json:"querySelector,omitzero"`
 	// Fields to add to events ingested under this subscription
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Queries  []InputWefQuery               `json:"queries,omitzero"`
+	// Queries
+	Queries []InputWefQuery `json:"queries,omitzero"`
 	// The XPath query to use for selecting events
 	XMLQuery *string `json:"xmlQuery,omitzero"`
 }
@@ -401,7 +409,8 @@ func (i *InputWefSubscription) GetXMLQuery() *string {
 
 type InputWefInput struct {
 	// Unique ID for this input
-	ID   *string      `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputWefType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -424,7 +433,8 @@ type InputWefInput struct {
 	Port float64 `json:"port"`
 	// How to authenticate incoming client connections
 	AuthMethod *InputWefAuthenticationMethod `json:"authMethod,omitzero"`
-	TLS        *InputWefMTLSSettings         `json:"tls,omitzero"`
+	// mTLS settings
+	TLS *InputWefMTLSSettings `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).

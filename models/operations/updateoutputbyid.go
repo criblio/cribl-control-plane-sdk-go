@@ -320,6 +320,10 @@ func (u *UpdateOutputByIDRequest) GetOutputDatabricks() *components.OutputDatabr
 	return u.GetOutput().OutputDatabricks
 }
 
+func (u *UpdateOutputByIDRequest) GetOutputSnowflakeStreaming() *components.OutputSnowflakeStreaming {
+	return u.GetOutput().OutputSnowflakeStreaming
+}
+
 func (u *UpdateOutputByIDRequest) GetOutputMicrosoftFabric() *components.OutputMicrosoftFabric {
 	return u.GetOutput().OutputMicrosoftFabric
 }

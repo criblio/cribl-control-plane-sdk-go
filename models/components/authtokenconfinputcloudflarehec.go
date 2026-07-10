@@ -12,8 +12,10 @@ type AuthTokenConfInputCloudflareHec struct {
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
 	// Shared secret to be provided by any client (Authorization: <token>)
-	Token       *string `json:"token,omitzero"`
-	Enabled     *bool   `json:"enabled,omitzero"`
+	Token *string `json:"token,omitzero"`
+	// Enable token
+	Enabled *bool `json:"enabled,omitzero"`
+	// Description
 	Description *string `json:"description,omitzero"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`

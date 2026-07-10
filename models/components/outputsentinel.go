@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputSentinelType - Connector type identifier.
 type OutputSentinelType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputSentinelType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputSentinelAuthType - Discriminator value.
 type OutputSentinelAuthType string
 
 const (
@@ -101,6 +103,7 @@ func (e *OutputSentinelFormat) IsExact() bool {
 	return false
 }
 
+// OutputSentinelPqControls - Persistent queue controls.
 type OutputSentinelPqControls struct {
 }
 
@@ -117,7 +120,8 @@ func (o *OutputSentinelPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputSentinel struct {
 	// Unique ID for this output
-	ID   *string            `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputSentinelType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -160,7 +164,8 @@ type OutputSentinel struct {
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	AuthType       *OutputSentinelAuthType      `json:"authType,omitzero"`
+	// Discriminator value.
+	AuthType *OutputSentinelAuthType `json:"authType,omitzero"`
 	// URL for OAuth
 	LoginURL string `json:"loginUrl"`
 	// Secret parameter value to pass in request body
@@ -221,8 +226,9 @@ type OutputSentinel struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                   `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputSentinelPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputSentinelPqControls `json:"pqControls,omitzero"`
 	// URL to send events to. Can be overwritten by an event's __url field.
 	URL *string `json:"url,omitzero"`
 	// Immutable ID for the Data Collection Rule (DCR)

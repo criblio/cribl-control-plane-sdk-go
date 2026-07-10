@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputLocalSearchStorageType - Connector type identifier.
 type OutputLocalSearchStorageType string
 
 const (
@@ -208,6 +209,7 @@ func (o *OutputLocalSearchStorageColumnMapping) GetColumnValueExpression() strin
 	return o.ColumnValueExpression
 }
 
+// OutputLocalSearchStoragePqControls - Persistent queue controls.
 type OutputLocalSearchStoragePqControls struct {
 }
 
@@ -224,7 +226,8 @@ func (o *OutputLocalSearchStoragePqControls) UnmarshalJSON(data []byte) error {
 
 type OutputLocalSearchStorage struct {
 	// Unique ID for this output
-	ID   *string                      `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputLocalSearchStorageType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -235,9 +238,11 @@ type OutputLocalSearchStorage struct {
 	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// URL of the database instance. Example: http://localhost:8123/
-	URL      string                     `json:"url"`
+	URL string `json:"url"`
+	// Authentication type
 	AuthType *AuthenticationTypeOptions `json:"authType,omitzero"`
-	Database string                     `json:"database"`
+	// Database
+	Database string `json:"database"`
 	// Name of the table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
 	// Data format to use when sending data. Defaults to JSON Compact.
@@ -245,8 +250,9 @@ type OutputLocalSearchStorage struct {
 	// How event fields are mapped to columns.
 	MappingType *OutputLocalSearchStorageMappingType `json:"mappingType,omitzero"`
 	// Collect data into batches for later processing. Disable to write to a table immediately.
-	AsyncInserts *bool                                            `json:"asyncInserts,omitzero"`
-	TLS          *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
+	AsyncInserts *bool `json:"asyncInserts,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -285,8 +291,10 @@ type OutputLocalSearchStorage struct {
 	StatsDestination *OutputLocalSearchStorageStatsDestination `json:"statsDestination,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Username for certificate authentication
@@ -296,7 +304,8 @@ type OutputLocalSearchStorage struct {
 	// Fields to exclude from sending
 	ExcludeMappingFields []string `json:"excludeMappingFields,omitzero"`
 	// Retrieves the table schema and populates the Column Mapping table
-	DescribeTable  *string                                 `json:"describeTable,omitzero"`
+	DescribeTable *string `json:"describeTable,omitzero"`
+	// Column Mapping
 	ColumnMappings []OutputLocalSearchStorageColumnMapping `json:"columnMappings,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
@@ -319,8 +328,9 @@ type OutputLocalSearchStorage struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                             `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputLocalSearchStoragePqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputLocalSearchStoragePqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.

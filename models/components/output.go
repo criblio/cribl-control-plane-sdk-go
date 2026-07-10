@@ -85,6 +85,7 @@ const (
 	OutputTypeSentinelOneAiSiem        OutputType = "sentinel_one_ai_siem"
 	OutputTypeChronicle                OutputType = "chronicle"
 	OutputTypeDatabricks               OutputType = "databricks"
+	OutputTypeSnowflakeStreaming       OutputType = "snowflake_streaming"
 	OutputTypeMicrosoftFabric          OutputType = "microsoft_fabric"
 	OutputTypeCloudflareR2             OutputType = "cloudflare_r2"
 	OutputTypeNutanixObjects           OutputType = "nutanix_objects"
@@ -171,6 +172,7 @@ type Output struct {
 	OutputSentinelOneAiSiem        *OutputSentinelOneAiSiem        `queryParam:"inline" union:"member"`
 	OutputChronicle                *OutputChronicle                `queryParam:"inline" union:"member"`
 	OutputDatabricks               *OutputDatabricks               `queryParam:"inline" union:"member"`
+	OutputSnowflakeStreaming       *OutputSnowflakeStreaming       `queryParam:"inline" union:"member"`
 	OutputMicrosoftFabric          *OutputMicrosoftFabric          `queryParam:"inline" union:"member"`
 	OutputCloudflareR2             *OutputCloudflareR2             `queryParam:"inline" union:"member"`
 	OutputNutanixObjects           *OutputNutanixObjects           `queryParam:"inline" union:"member"`
@@ -233,7 +235,7 @@ func CreateOutputDevnull(devnull OutputDevnull) Output {
 func CreateOutputSyslog(syslog OutputSyslog) Output {
 	typ := OutputTypeSyslog
 
-	typStr := OutputSyslogType(typ)
+	typStr := TypeOptionsSyslog(typ)
 	syslog.Type = typStr
 
 	return Output{
@@ -245,7 +247,7 @@ func CreateOutputSyslog(syslog OutputSyslog) Output {
 func CreateOutputSplunk(splunk OutputSplunk) Output {
 	typ := OutputTypeSplunk
 
-	typStr := OutputSplunkType(typ)
+	typStr := TypeOptionsSplunk(typ)
 	splunk.Type = typStr
 
 	return Output{
@@ -293,7 +295,7 @@ func CreateOutputWizHec(wizHec OutputWizHec) Output {
 func CreateOutputTcpjson(tcpjson OutputTcpjson) Output {
 	typ := OutputTypeTcpjson
 
-	typStr := OutputTcpjsonType(typ)
+	typStr := TypeOptionsTcpjson(typ)
 	tcpjson.Type = typStr
 
 	return Output{
@@ -341,7 +343,7 @@ func CreateOutputFilesystem(filesystem OutputFilesystem) Output {
 func CreateOutputS3(s3 OutputS3) Output {
 	typ := OutputTypeS3
 
-	typStr := OutputS3Type(typ)
+	typStr := TypeOptionsS3(typ)
 	s3.Type = typStr
 
 	return Output{
@@ -353,7 +355,7 @@ func CreateOutputS3(s3 OutputS3) Output {
 func CreateOutputAzureBlob(azureBlob OutputAzureBlob) Output {
 	typ := OutputTypeAzureBlob
 
-	typStr := OutputAzureBlobType(typ)
+	typStr := TypeOptionsAzureblob(typ)
 	azureBlob.Type = typStr
 
 	return Output{
@@ -389,7 +391,7 @@ func CreateOutputAzureLogs(azureLogs OutputAzureLogs) Output {
 func CreateOutputKinesis(kinesis OutputKinesis) Output {
 	typ := OutputTypeKinesis
 
-	typStr := OutputKinesisType(typ)
+	typStr := TypeOptionsKinesis(typ)
 	kinesis.Type = typStr
 
 	return Output{
@@ -485,7 +487,7 @@ func CreateOutputGoogleCloudObservability(googleCloudObservability OutputGoogleC
 func CreateOutputGooglePubsub(googlePubsub OutputGooglePubsub) Output {
 	typ := OutputTypeGooglePubsub
 
-	typStr := OutputGooglePubsubType(typ)
+	typStr := TypeOptionsGooglepubsub(typ)
 	googlePubsub.Type = typStr
 
 	return Output{
@@ -509,7 +511,7 @@ func CreateOutputExabeam(exabeam OutputExabeam) Output {
 func CreateOutputKafka(kafka OutputKafka) Output {
 	typ := OutputTypeKafka
 
-	typStr := OutputKafkaType(typ)
+	typStr := TypeOptions(typ)
 	kafka.Type = typStr
 
 	return Output{
@@ -521,7 +523,7 @@ func CreateOutputKafka(kafka OutputKafka) Output {
 func CreateOutputConfluentCloud(confluentCloud OutputConfluentCloud) Output {
 	typ := OutputTypeConfluentCloud
 
-	typStr := OutputConfluentCloudType(typ)
+	typStr := TypeOptionsConfluentcloud(typ)
 	confluentCloud.Type = typStr
 
 	return Output{
@@ -533,7 +535,7 @@ func CreateOutputConfluentCloud(confluentCloud OutputConfluentCloud) Output {
 func CreateOutputMsk(msk OutputMsk) Output {
 	typ := OutputTypeMsk
 
-	typStr := OutputMskType(typ)
+	typStr := TypeOptionsMsk(typ)
 	msk.Type = typStr
 
 	return Output{
@@ -689,7 +691,7 @@ func CreateOutputSns(sns OutputSns) Output {
 func CreateOutputSqs(sqs OutputSqs) Output {
 	typ := OutputTypeSqs
 
-	typStr := OutputSqsType(typ)
+	typStr := TypeOptionsSqs(typ)
 	sqs.Type = typStr
 
 	return Output{
@@ -701,7 +703,7 @@ func CreateOutputSqs(sqs OutputSqs) Output {
 func CreateOutputSnmp(snmp OutputSnmp) Output {
 	typ := OutputTypeSnmp
 
-	typStr := OutputSnmpType(typ)
+	typStr := TypeOptionsSnmp(typ)
 	snmp.Type = typStr
 
 	return Output{
@@ -770,7 +772,7 @@ func CreateOutputAmazonManagedPrometheus(amazonManagedPrometheus OutputAmazonMan
 func CreateOutputPrometheus(prometheus OutputPrometheus) Output {
 	typ := OutputTypePrometheus
 
-	typStr := OutputPrometheusType(typ)
+	typStr := TypeOptionsPrometheus(typ)
 	prometheus.Type = typStr
 
 	return Output{
@@ -830,7 +832,7 @@ func CreateOutputDataset(dataset OutputDataset) Output {
 func CreateOutputCriblTCP(criblTCP OutputCriblTCP) Output {
 	typ := OutputTypeCriblTCP
 
-	typStr := OutputCriblTCPType(typ)
+	typStr := TypeOptionsCribltcp(typ)
 	criblTCP.Type = typStr
 
 	return Output{
@@ -902,7 +904,7 @@ func CreateOutputDlS3(dlS3 OutputDlS3) Output {
 func CreateOutputSecurityLake(securityLake OutputSecurityLake) Output {
 	typ := OutputTypeSecurityLake
 
-	typStr := OutputSecurityLakeType(typ)
+	typStr := TypeOptionsSecuritylake(typ)
 	securityLake.Type = typStr
 
 	return Output{
@@ -986,7 +988,7 @@ func CreateOutputXsiam(xsiam OutputXsiam) Output {
 func CreateOutputNetflow(netflow OutputNetflow) Output {
 	typ := OutputTypeNetflow
 
-	typStr := OutputNetflowType(typ)
+	typStr := TypeOptionsNetflow(typ)
 	netflow.Type = typStr
 
 	return Output{
@@ -1052,6 +1054,18 @@ func CreateOutputDatabricks(databricks OutputDatabricks) Output {
 	return Output{
 		OutputDatabricks: &databricks,
 		Type:             typ,
+	}
+}
+
+func CreateOutputSnowflakeStreaming(snowflakeStreaming OutputSnowflakeStreaming) Output {
+	typ := OutputTypeSnowflakeStreaming
+
+	typStr := OutputSnowflakeStreamingType(typ)
+	snowflakeStreaming.Type = typStr
+
+	return Output{
+		OutputSnowflakeStreaming: &snowflakeStreaming,
+		Type:                     typ,
 	}
 }
 
@@ -1844,6 +1858,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputDatabricks = outputDatabricks
 		u.Type = OutputTypeDatabricks
 		return nil
+	case "snowflake_streaming":
+		outputSnowflakeStreaming := new(OutputSnowflakeStreaming)
+		if err := utils.UnmarshalJSON(data, &outputSnowflakeStreaming, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == snowflake_streaming) type OutputSnowflakeStreaming within Output: %w", string(data), err)
+		}
+
+		u.OutputSnowflakeStreaming = outputSnowflakeStreaming
+		u.Type = OutputTypeSnowflakeStreaming
+		return nil
 	case "microsoft_fabric":
 		outputMicrosoftFabric := new(OutputMicrosoftFabric)
 		if err := utils.UnmarshalJSON(data, &outputMicrosoftFabric, "", true, nil); err != nil {
@@ -2230,6 +2253,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputDatabricks != nil {
 		return utils.MarshalJSON(u.OutputDatabricks, "", true)
+	}
+
+	if u.OutputSnowflakeStreaming != nil {
+		return utils.MarshalJSON(u.OutputSnowflakeStreaming, "", true)
 	}
 
 	if u.OutputMicrosoftFabric != nil {

@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputCustomerMetricsStorageType - Connector type identifier.
 type OutputCustomerMetricsStorageType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputCustomerMetricsStorageType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputCustomerMetricsStoragePqControls - Persistent queue controls.
 type OutputCustomerMetricsStoragePqControls struct {
 }
 
@@ -47,7 +49,8 @@ func (o *OutputCustomerMetricsStoragePqControls) UnmarshalJSON(data []byte) erro
 
 type OutputCustomerMetricsStorage struct {
 	// Unique ID for this output
-	ID   *string                          `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputCustomerMetricsStorageType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -58,9 +61,11 @@ type OutputCustomerMetricsStorage struct {
 	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// URL of the ClickHouse instance. Example: http://localhost:8123/
-	URL      string                     `json:"url"`
+	URL string `json:"url"`
+	// Authentication type
 	AuthType *AuthenticationTypeOptions `json:"authType,omitzero"`
-	Database string                     `json:"database"`
+	// ClickHouse database
+	Database string `json:"database"`
 	// Name of the ClickHouse table where data will be inserted. Name can contain letters (A-Z, a-z), numbers (0-9), and the character "_", and must start with either a letter or the character "_".
 	TableName string `json:"tableName"`
 	// Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
@@ -68,8 +73,9 @@ type OutputCustomerMetricsStorage struct {
 	// How event fields are mapped to ClickHouse columns
 	MappingType *MappingTypeOptions `json:"mappingType,omitzero"`
 	// Collect data into batches for later processing on the ClickHouse server. Disable to write to a ClickHouse table immediately. Cribl sends the configured value with every insert (<code>async_insert=1</code> or <code>async_insert=0</code>) so behavior is consistent across ClickHouse versions, including 26.3 LTS and later, where async inserts are enabled by default on the server.
-	AsyncInserts *bool                                            `json:"asyncInserts,omitzero"`
-	TLS          *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
+	AsyncInserts *bool `json:"asyncInserts,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -107,8 +113,10 @@ type OutputCustomerMetricsStorage struct {
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Username for certificate authentication
@@ -118,7 +126,8 @@ type OutputCustomerMetricsStorage struct {
 	// Fields to exclude from sending to ClickHouse
 	ExcludeMappingFields []string `json:"excludeMappingFields,omitzero"`
 	// Retrieves the table schema from ClickHouse and populates the Column Mapping table
-	DescribeTable  *string                             `json:"describeTable,omitzero"`
+	DescribeTable *string `json:"describeTable,omitzero"`
+	// Column Mapping
 	ColumnMappings []ColumnMappingConfOutputClickHouse `json:"columnMappings,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
@@ -141,8 +150,9 @@ type OutputCustomerMetricsStorage struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                                 `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputCustomerMetricsStoragePqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputCustomerMetricsStoragePqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.

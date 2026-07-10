@@ -1,5 +1,7 @@
 # PqControlsAmazonManagedPrometheus
 
+Persistent queue controls.
+
 
 ## Fields
 

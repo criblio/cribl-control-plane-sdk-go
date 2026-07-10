@@ -3,33 +3,8 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type InputSqsType string
-
-const (
-	InputSqsTypeSqs InputSqsType = "sqs"
-)
-
-func (e InputSqsType) ToPointer() *InputSqsType {
-	return &e
-}
-func (e *InputSqsType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "sqs":
-		*e = InputSqsType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSqsType: %v", v)
-	}
-}
 
 // InputSqsQueueType - The queue type used (or created)
 type InputSqsQueueType string
@@ -58,8 +33,9 @@ func (e *InputSqsQueueType) IsExact() bool {
 
 type InputSqsInput struct {
 	// Unique ID for this input
-	ID   *string      `json:"id,omitzero"`
-	Type InputSqsType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsSqs `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -85,7 +61,8 @@ type InputSqsInput struct {
 	CreateQueue *bool `json:"createQueue,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitzero"`
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
@@ -112,7 +89,8 @@ type InputSqsInput struct {
 	PollTimeout *float64 `json:"pollTimeout,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
@@ -159,9 +137,9 @@ func (i *InputSqsInput) GetID() *string {
 	return i.ID
 }
 
-func (i *InputSqsInput) GetType() InputSqsType {
+func (i *InputSqsInput) GetType() TypeOptionsSqs {
 	if i == nil {
-		return InputSqsType("")
+		return TypeOptionsSqs("")
 	}
 	return i.Type
 }

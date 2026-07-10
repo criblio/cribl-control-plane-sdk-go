@@ -3,38 +3,14 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputMskType string
-
-const (
-	InputMskTypeMsk InputMskType = "msk"
-)
-
-func (e InputMskType) ToPointer() *InputMskType {
-	return &e
-}
-func (e *InputMskType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "msk":
-		*e = InputMskType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputMskType: %v", v)
-	}
-}
-
 type InputMskInput struct {
 	// Unique ID for this input
-	ID   *string      `json:"id,omitzero"`
-	Type InputMskType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsMsk `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -69,7 +45,8 @@ type InputMskInput struct {
 	// Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities. Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value. See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
 	HeartbeatInterval *float64 `json:"heartbeatInterval,omitzero"`
 	// Fields to add to events from this input
-	Metadata            []MetadataConfInputCollection          `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Kafka Schema Registry Authentication
 	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
@@ -89,7 +66,8 @@ type InputMskInput struct {
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                    `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
@@ -105,8 +83,9 @@ type InputMskInput struct {
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64                                 `json:"durationSeconds,omitzero"`
-	TLS             *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
 	AutoCommitInterval *float64 `json:"autoCommitInterval,omitzero"`
 	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
@@ -119,7 +98,8 @@ type InputMskInput struct {
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -164,9 +144,9 @@ func (i *InputMskInput) GetID() *string {
 	return i.ID
 }
 
-func (i *InputMskInput) GetType() InputMskType {
+func (i *InputMskInput) GetType() TypeOptionsMsk {
 	if i == nil {
-		return InputMskType("")
+		return TypeOptionsMsk("")
 	}
 	return i.Type
 }

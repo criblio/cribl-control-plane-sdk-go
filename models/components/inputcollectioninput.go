@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputCollectionType - Connector type identifier.
 type InputCollectionType string
 
 const (
@@ -33,7 +34,8 @@ func (e *InputCollectionType) UnmarshalJSON(data []byte) error {
 
 type InputCollectionInput struct {
 	// Unique ID for this input
-	ID   *string             `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputCollectionType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`

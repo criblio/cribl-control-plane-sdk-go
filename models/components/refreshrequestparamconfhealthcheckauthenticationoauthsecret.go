@@ -7,7 +7,9 @@ import (
 )
 
 type RefreshRequestParamConfHealthCheckAuthenticationOauthSecret struct {
-	Name  string `json:"name"`
+	// Name
+	Name string `json:"name"`
+	// Value
 	Value string `json:"value"`
 }
 

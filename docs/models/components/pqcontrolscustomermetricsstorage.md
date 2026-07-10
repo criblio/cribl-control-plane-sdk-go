@@ -1,5 +1,7 @@
 # PqControlsCustomerMetricsStorage
 
+Persistent queue controls.
+
 
 ## Fields
 

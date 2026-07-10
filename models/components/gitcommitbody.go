@@ -7,7 +7,7 @@ import (
 )
 
 type GitCommitBody struct {
-	// If <code>true</code>, apply the commit to the group's effective configuration. Otherwise, <code>false</code>.
+	// If <code>true</code>, apply the commit to the group's effective configuration. Requires a group context.
 	Effective *bool `json:"effective,omitzero"`
 	// Array of file paths to include in the commit, relative to the configuration root. If omitted, all pending changes are committed.
 	Files []string `json:"files,omitzero"`

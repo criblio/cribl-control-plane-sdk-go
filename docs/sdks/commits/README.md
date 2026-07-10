@@ -64,13 +64,13 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                             | Type                                                                  | Required                                                              | Description                                                           |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `ctx`                                                                 | [context.Context](https://pkg.go.dev/context#Context)                 | :heavy_check_mark:                                                    | The context to use for the request.                                   |
-| `count`                                                               | `*int64`                                                              | :heavy_minus_sign:                                                    | Maximum number of commits to return in the response for this request. |
-| `offset`                                                              | `*int64`                                                              | :heavy_minus_sign:                                                    | Pagination offset                                                     |
-| `limit`                                                               | `*int64`                                                              | :heavy_minus_sign:                                                    | Maximum number of items to return                                     |
-| `opts`                                                                | [][operations.Option](../../models/operations/option.md)              | :heavy_minus_sign:                                                    | The options for this request.                                         |
+| Parameter                                                                                                                                          | Type                                                                                                                                               | Required                                                                                                                                           | Description                                                                                                                                        |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                                                                              | :heavy_check_mark:                                                                                                                                 | The context to use for the request.                                                                                                                |
+| `count`                                                                                                                                            | `*int64`                                                                                                                                           | :heavy_minus_sign:                                                                                                                                 | Maximum number of commits to read from the commit history. When provided, <code>offset</code> and <code>limit</code> are applied to that read set. |
+| `offset`                                                                                                                                           | `*int64`                                                                                                                                           | :heavy_minus_sign:                                                                                                                                 | Pagination offset                                                                                                                                  |
+| `limit`                                                                                                                                            | `*int64`                                                                                                                                           | :heavy_minus_sign:                                                                                                                                 | Maximum number of items to return                                                                                                                  |
+| `opts`                                                                                                                                             | [][operations.Option](../../models/operations/option.md)                                                                                           | :heavy_minus_sign:                                                                                                                                 | The options for this request.                                                                                                                      |
 
 ### Response
 
@@ -88,6 +88,41 @@ func main() {
 
 Create a new commit for pending changes to the Cribl configuration. Any merge conflicts indicated in the response must be resolved using Git.<br/><br/>To commit only a subset of configuration changes, specify the files to include in the commit in the <code>files</code> array.
 
+### Example Usage: VersionCommitBadRequestExamplesEffectiveWithoutGroup
+
+<!-- UsageSnippet language="go" operationID="createVersionCommit" method="post" path="/version/commit" example="VersionCommitBadRequestExamplesEffectiveWithoutGroup" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Versions.Commits.Create(ctx, components.GitCommitBody{
+        Message: "<value>",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedGitCommitSummary != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: VersionCommitExamplesCommitAll
 
 <!-- UsageSnippet language="go" operationID="createVersionCommit" method="post" path="/version/commit" example="VersionCommitExamplesCommitAll" -->
@@ -213,11 +248,12 @@ func main() {
 
 ### Errors
 
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 401                | application/json   |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| apierrors.RestAPIJSONError | 400                        | application/json           |
+| apierrors.Error            | 401                        | application/json           |
+| apierrors.Error            | 500                        | application/json           |
+| apierrors.APIError         | 4XX, 5XX                   | \*/\*                      |
 
 ## Diff
 

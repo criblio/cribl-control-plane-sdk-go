@@ -248,8 +248,9 @@ type HealthCheckAuthenticationNone struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `json:"timeout,omitzero"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitzero"`
-	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Hidden Default Breakers
+	DefaultBreakers *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                 `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckAuthenticationNoneRetryRules `json:"retryRules,omitzero"`
@@ -2065,8 +2066,9 @@ type HealthCheckCollectMethodPostWithBody struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `json:"timeout,omitzero"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitzero"`
-	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Hidden Default Breakers
+	DefaultBreakers *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckCollectMethodPostWithBodyRetryRules `json:"retryRules,omitzero"`
@@ -3889,8 +3891,9 @@ type HealthCheckCollectMethodPost struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `json:"timeout,omitzero"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitzero"`
-	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Hidden Default Breakers
+	DefaultBreakers *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckCollectMethodPostRetryRules `json:"retryRules,omitzero"`
@@ -5745,8 +5748,9 @@ type HealthCheckCollectMethodGet struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `json:"timeout,omitzero"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitzero"`
-	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Hidden Default Breakers
+	DefaultBreakers *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                               `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckCollectMethodGetRetryRules `json:"retryRules,omitzero"`

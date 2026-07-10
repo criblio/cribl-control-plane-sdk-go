@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputEventhubType - Connector type identifier.
 type InputEventhubType string
 
 const (
@@ -33,7 +34,8 @@ func (e *InputEventhubType) UnmarshalJSON(data []byte) error {
 
 type InputEventhubInput struct {
 	// Unique ID for this input
-	ID   *string           `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputEventhubType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -75,8 +77,9 @@ type InputEventhubInput struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *AuthenticationTypeUse     `json:"sasl,omitzero"`
-	TLS  *TLSSettingsClientSideType `json:"tls,omitzero"`
+	Sasl *AuthenticationTypeUse `json:"sasl,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideType `json:"tls,omitzero"`
 	// Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities. If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance. Value must be lower than rebalanceTimeout. See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
 	SessionTimeout *float64 `json:"sessionTimeout,omitzero"`
 	// Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).

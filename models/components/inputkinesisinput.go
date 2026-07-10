@@ -3,33 +3,8 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type InputKinesisType string
-
-const (
-	InputKinesisTypeKinesis InputKinesisType = "kinesis"
-)
-
-func (e InputKinesisType) ToPointer() *InputKinesisType {
-	return &e
-}
-func (e *InputKinesisType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "kinesis":
-		*e = InputKinesisType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKinesisType: %v", v)
-	}
-}
 
 // InputKinesisShardIteratorStart - Location at which to start reading a shard for the first time
 type InputKinesisShardIteratorStart string
@@ -112,8 +87,9 @@ func (e *InputKinesisShardLoadBalancing) IsExact() bool {
 
 type InputKinesisInput struct {
 	// Unique ID for this input
-	ID   *string          `json:"id,omitzero"`
-	Type InputKinesisType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsKinesis `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -147,7 +123,8 @@ type InputKinesisInput struct {
 	LoadBalancingAlgorithm *InputKinesisShardLoadBalancing `json:"loadBalancingAlgorithm,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Region where the Kinesis stream is located
 	Region string `json:"region"`
 	// Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
@@ -172,7 +149,8 @@ type InputKinesisInput struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -217,9 +195,9 @@ func (i *InputKinesisInput) GetID() *string {
 	return i.ID
 }
 
-func (i *InputKinesisInput) GetType() InputKinesisType {
+func (i *InputKinesisInput) GetType() TypeOptionsKinesis {
 	if i == nil {
-		return InputKinesisType("")
+		return TypeOptionsKinesis("")
 	}
 	return i.Type
 }

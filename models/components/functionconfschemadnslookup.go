@@ -50,6 +50,7 @@ func (e *ResourceRecordType) IsExact() bool {
 }
 
 type DNSLookupField struct {
+	// Lookup field name
 	InFieldName *string `json:"inFieldName,omitzero"`
 	// The DNS record type (RR) to return. Defaults to 'A'.
 	ResourceRecordType *ResourceRecordType `json:"resourceRecordType,omitzero"`

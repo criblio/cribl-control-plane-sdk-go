@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputAzureDataExplorerType - Connector type identifier.
 type OutputAzureDataExplorerType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputAzureDataExplorerType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputAzureDataExplorerIngestionMode - Ingestion mode
 type OutputAzureDataExplorerIngestionMode string
 
 const (
@@ -105,6 +107,7 @@ func (o *OutputAzureDataExplorerCertificate) GetCertificateName() *string {
 	return o.CertificateName
 }
 
+// OutputAzureDataExplorerPrefixOptional - Prefix (optional)
 type OutputAzureDataExplorerPrefixOptional string
 
 const (
@@ -130,8 +133,10 @@ func (e *OutputAzureDataExplorerPrefixOptional) IsExact() bool {
 }
 
 type OutputAzureDataExplorerExtentTag struct {
+	// Prefix (optional)
 	Prefix *OutputAzureDataExplorerPrefixOptional `json:"prefix,omitzero"`
-	Value  string                                 `json:"value"`
+	// Value
+	Value string `json:"value"`
 }
 
 func (o OutputAzureDataExplorerExtentTag) MarshalJSON() ([]byte, error) {
@@ -160,6 +165,7 @@ func (o *OutputAzureDataExplorerExtentTag) GetValue() string {
 }
 
 type OutputAzureDataExplorerIngestIfNotExist struct {
+	// Value
 	Value string `json:"value"`
 }
 
@@ -236,7 +242,9 @@ func (e *OutputAzureDataExplorerReportMethod) IsExact() bool {
 }
 
 type OutputAzureDataExplorerAdditionalProperty struct {
-	Key   string `json:"key"`
+	// Key
+	Key string `json:"key"`
+	// Value
 	Value string `json:"value"`
 }
 
@@ -265,6 +273,7 @@ func (o *OutputAzureDataExplorerAdditionalProperty) GetValue() string {
 	return o.Value
 }
 
+// OutputAzureDataExplorerPqControls - Persistent queue controls.
 type OutputAzureDataExplorerPqControls struct {
 }
 
@@ -281,7 +290,8 @@ func (o *OutputAzureDataExplorerPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputAzureDataExplorer struct {
 	// Unique ID for this output
-	ID   *string                     `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputAzureDataExplorerType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -298,8 +308,9 @@ type OutputAzureDataExplorer struct {
 	// Name of the table to ingest data into
 	Table string `json:"table"`
 	// When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
-	ValidateDatabaseSettings *bool                                 `json:"validateDatabaseSettings,omitzero"`
-	IngestMode               *OutputAzureDataExplorerIngestionMode `json:"ingestMode,omitzero"`
+	ValidateDatabaseSettings *bool `json:"validateDatabaseSettings,omitzero"`
+	// Ingestion mode
+	IngestMode *OutputAzureDataExplorerIngestionMode `json:"ingestMode,omitzero"`
 	// Endpoint used to acquire authentication tokens from Azure
 	OauthEndpoint MicrosoftEntraIDAuthenticationEndpointOptionsSasl `json:"oauthEndpoint"`
 	// Directory ID (tenant identifier) in Azure Active Directory
@@ -384,9 +395,10 @@ type OutputAzureDataExplorer struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Add the Output ID value to staging location
-	AddIDToStagePath *bool                   `json:"addIdToStagePath,omitzero"`
-	RetrySettings    *RetrySettingsType      `json:"retrySettings,omitzero"`
-	Orphans          *OrphanFileRecoveryType `json:"orphans,omitzero"`
+	AddIDToStagePath *bool              `json:"addIdToStagePath,omitzero"`
+	RetrySettings    *RetrySettingsType `json:"retrySettings,omitzero"`
+	// Orphan file recovery
+	Orphans *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it
 	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
 	// Bypass the data management service's aggregation mechanism
@@ -445,8 +457,9 @@ type OutputAzureDataExplorer struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                            `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputAzureDataExplorerPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputAzureDataExplorerPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'clusterUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'clusterUrl' at runtime.

@@ -329,6 +329,10 @@ func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputDatabricks() *components
 	return u.GetOutput().OutputDatabricks
 }
 
+func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputSnowflakeStreaming() *components.OutputSnowflakeStreaming {
+	return u.GetOutput().OutputSnowflakeStreaming
+}
+
 func (u *UpdateOutputSystemByPackAndIDRequest) GetOutputMicrosoftFabric() *components.OutputMicrosoftFabric {
 	return u.GetOutput().OutputMicrosoftFabric
 }

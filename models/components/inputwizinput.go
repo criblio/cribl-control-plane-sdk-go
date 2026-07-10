@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputWizType - Connector type identifier.
 type InputWizType string
 
 const (
@@ -47,9 +48,11 @@ func (i *InputWizManageState) UnmarshalJSON(data []byte) error {
 
 type InputWizContentConfig struct {
 	// The name of the Wiz query
-	ContentType        string  `json:"contentType"`
+	ContentType string `json:"contentType"`
+	// Description
 	ContentDescription *string `json:"contentDescription,omitzero"`
-	Enabled            *bool   `json:"enabled,omitzero"`
+	// Enable content
+	Enabled *bool `json:"enabled,omitzero"`
 	// Track collection progress between consecutive scheduled executions
 	StateTracking *bool `json:"stateTracking,omitzero"`
 	// JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
@@ -184,7 +187,8 @@ func (i *InputWizContentConfig) GetMaxPages() *float64 {
 
 type InputWizInput struct {
 	// Unique ID for this input
-	ID   *string      `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputWizType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -208,7 +212,8 @@ type InputWizInput struct {
 	// The audience to use when requesting an OAuth token for a custom auth URL. When not specified, `wiz-api` will be used.
 	AuthAudienceOverride *string `json:"authAudienceOverride,omitzero"`
 	// The client ID of the Wiz application
-	ClientID      string                  `json:"clientId"`
+	ClientID string `json:"clientId"`
+	// Content types
 	ContentConfig []InputWizContentConfig `json:"contentConfig"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`

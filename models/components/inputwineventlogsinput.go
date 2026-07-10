@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputWinEventLogsType - Connector type identifier.
 type InputWinEventLogsType string
 
 const (
@@ -83,7 +84,8 @@ func (e *InputWinEventLogsEventFormat) IsExact() bool {
 
 type InputWinEventLogsInput struct {
 	// Unique ID for this input
-	ID   *string               `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputWinEventLogsType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -102,6 +104,8 @@ type InputWinEventLogsInput struct {
 	Pq          *PqType                         `json:"pq,omitzero"`
 	// Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
 	LogNames []string `json:"logNames"`
+	// When enabled, missing event log channels will not cause the Source to report errors. Use in Fleets where some hosts may not have all configured event logs.
+	SuppressMissingLogErrors *bool `json:"suppressMissingLogErrors,omitzero"`
 	// Read all stored and future event logs, or only future events
 	ReadMode *InputWinEventLogsReadMode `json:"readMode,omitzero"`
 	// Format of individual events
@@ -214,6 +218,13 @@ func (i *InputWinEventLogsInput) GetLogNames() []string {
 		return []string{}
 	}
 	return i.LogNames
+}
+
+func (i *InputWinEventLogsInput) GetSuppressMissingLogErrors() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SuppressMissingLogErrors
 }
 
 func (i *InputWinEventLogsInput) GetReadMode() *InputWinEventLogsReadMode {

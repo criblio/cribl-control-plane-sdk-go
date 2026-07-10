@@ -10,8 +10,9 @@ type FunctionConfSchemaOtlpMetrics struct {
 	// The prefixes of top-level attributes to add as resource attributes. Each attribute must match the regex pattern `^[a-zA-Z0-9_\.]+$`. Use Eval to copy nested attributes to the top level for matching.
 	ResourceAttributePrefixes []string `json:"resourceAttributePrefixes,omitzero"`
 	// Drop events that are not OTLP metric data points.
-	DropNonMetricEvents *bool               `json:"dropNonMetricEvents,omitzero"`
-	OtlpVersion         *OtlpVersionOptions `json:"otlpVersion,omitzero"`
+	DropNonMetricEvents *bool `json:"dropNonMetricEvents,omitzero"`
+	// OTLP version
+	OtlpVersion *OtlpVersionOptions `json:"otlpVersion,omitzero"`
 	// Batch OTLP metrics by shared top-level `resource` attributes
 	BatchOTLPMetrics *bool `json:"batchOTLPMetrics,omitzero"`
 	// Number of metric data points after which a batch will be sent, regardless of the timeout

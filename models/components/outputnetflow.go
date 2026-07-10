@@ -3,33 +3,8 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type OutputNetflowType string
-
-const (
-	OutputNetflowTypeNetflow OutputNetflowType = "netflow"
-)
-
-func (e OutputNetflowType) ToPointer() *OutputNetflowType {
-	return &e
-}
-func (e *OutputNetflowType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "netflow":
-		*e = OutputNetflowType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputNetflowType: %v", v)
-	}
-}
 
 type OutputNetflowHost struct {
 	// Destination host
@@ -83,8 +58,9 @@ func (o *OutputNetflowHost) GetTemplatePort() *string {
 
 type OutputNetflow struct {
 	// Unique ID for this output
-	ID   *string           `json:"id,omitzero"`
-	Type OutputNetflowType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsNetflow `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -125,9 +101,9 @@ func (o *OutputNetflow) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputNetflow) GetType() OutputNetflowType {
+func (o *OutputNetflow) GetType() TypeOptionsNetflow {
 	if o == nil {
-		return OutputNetflowType("")
+		return TypeOptionsNetflow("")
 	}
 	return o.Type
 }

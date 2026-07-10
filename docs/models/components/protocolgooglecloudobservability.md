@@ -1,5 +1,7 @@
 # ProtocolGoogleCloudObservability
 
+Discriminator value.
+
 ## Example Usage
 
 ```go

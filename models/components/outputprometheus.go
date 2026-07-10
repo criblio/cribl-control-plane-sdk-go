@@ -3,33 +3,8 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type OutputPrometheusType string
-
-const (
-	OutputPrometheusTypePrometheus OutputPrometheusType = "prometheus"
-)
-
-func (e OutputPrometheusType) ToPointer() *OutputPrometheusType {
-	return &e
-}
-func (e *OutputPrometheusType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "prometheus":
-		*e = OutputPrometheusType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputPrometheusType: %v", v)
-	}
-}
 
 // OutputPrometheusAuthenticationType - Remote Write authentication type
 type OutputPrometheusAuthenticationType string
@@ -64,6 +39,7 @@ func (e *OutputPrometheusAuthenticationType) IsExact() bool {
 	return false
 }
 
+// OutputPrometheusPqControls - Persistent queue controls.
 type OutputPrometheusPqControls struct {
 }
 
@@ -80,8 +56,9 @@ func (o *OutputPrometheusPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputPrometheus struct {
 	// Unique ID for this output
-	ID   *string              `json:"id,omitzero"`
-	Type OutputPrometheusType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsPrometheus `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions to generated metrics.
@@ -154,10 +131,13 @@ type OutputPrometheus struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                     `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputPrometheusPqControls `json:"pqControls,omitzero"`
-	Username             *string                     `json:"username,omitzero"`
-	Password             *string                     `json:"password,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputPrometheusPqControls `json:"pqControls,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -216,9 +196,9 @@ func (o *OutputPrometheus) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputPrometheus) GetType() OutputPrometheusType {
+func (o *OutputPrometheus) GetType() TypeOptionsPrometheus {
 	if o == nil {
-		return OutputPrometheusType("")
+		return TypeOptionsPrometheus("")
 	}
 	return o.Type
 }

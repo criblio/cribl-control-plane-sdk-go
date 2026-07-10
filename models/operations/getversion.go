@@ -8,7 +8,7 @@ import (
 )
 
 type GetVersionRequest struct {
-	// Maximum number of commits to return in the response for this request.
+	// Maximum number of commits to read from the commit history. When provided, <code>offset</code> and <code>limit</code> are applied to that read set.
 	Count *int64 `queryParam:"style=form,explode=true,name=count"`
 	// Pagination offset
 	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`

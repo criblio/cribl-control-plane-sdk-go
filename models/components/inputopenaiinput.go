@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputOpenaiType - Connector type identifier.
 type InputOpenaiType string
 
 const (
@@ -45,6 +46,7 @@ func (i *InputOpenaiManageState) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// InputOpenaiPaginationType - Pagination type
 type InputOpenaiPaginationType string
 
 const (
@@ -100,6 +102,7 @@ func (e *InputOpenaiLogLevel) IsExact() bool {
 }
 
 type InputOpenaiContentConfig struct {
+	// Enabled
 	Disabled *bool `json:"disabled,omitzero"`
 	// Track collection progress between consecutive scheduled executions.
 	StateTracking *bool `json:"stateTracking,omitzero"`
@@ -109,10 +112,13 @@ type InputOpenaiContentConfig struct {
 	StateMergeExpression *string                 `json:"stateMergeExpression,omitzero"`
 	ManageState          *InputOpenaiManageState `json:"manageState,omitzero"`
 	// Query-string parameters to send with this endpoint
-	RequestParams          []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"requestParams"`
-	PaginationType         InputOpenaiPaginationType                                     `json:"paginationType"`
-	PaginationAttribute    []string                                                      `json:"paginationAttribute,omitzero"`
-	PaginationLastPageExpr *string                                                       `json:"paginationLastPageExpr,omitzero"`
+	RequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"requestParams"`
+	// Pagination type
+	PaginationType InputOpenaiPaginationType `json:"paginationType"`
+	// Pagination attributes
+	PaginationAttribute []string `json:"paginationAttribute,omitzero"`
+	// Last page expression
+	PaginationLastPageExpr *string `json:"paginationLastPageExpr,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Set to 0 only when unlimited pagination is required.
 	MaxPages *float64 `json:"maxPages,omitzero"`
 	// Used only for RFC 5988 link-header pagination
@@ -272,7 +278,8 @@ func (i *InputOpenaiContentConfig) GetEndpointMetadata() []MetadataConfInputColl
 
 type InputOpenaiInput struct {
 	// Unique ID for this input
-	ID   *string         `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputOpenaiType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -292,11 +299,13 @@ type InputOpenaiInput struct {
 	// Optional `OpenAI-Organization` request header value, typically `org-xxxxxxxxxxxxxxxxxxxxxxxx`
 	OpenaiOrganization *string `json:"openaiOrganization,omitzero"`
 	// Optional `OpenAI-Project` request header value, typically `proj_xxxxxxxxxxxxxxxxxxxxxxxx`
-	OpenaiProject *string                    `json:"openaiProject,omitzero"`
+	OpenaiProject *string `json:"openaiProject,omitzero"`
+	// Content Types
 	ContentConfig []InputOpenaiContentConfig `json:"contentConfig"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
-	APIKey         *string  `json:"apiKey,omitzero"`
+	// API key
+	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored API key. Visit [OpenAI's organization admin keys page](https://platform.openai.com/settings/organization/admin-keys) to create an organization admin key.
 	TextSecret string `json:"textSecret"`
 	// How often workers should check in with the scheduler to keep job subscription alive

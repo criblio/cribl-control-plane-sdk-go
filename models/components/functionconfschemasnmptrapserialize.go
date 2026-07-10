@@ -10,11 +10,15 @@ import (
 )
 
 type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone struct {
-	PrivProtocol *string                              `json:"privProtocol,omitzero"`
-	PrivKey      string                               `json:"privKey"`
+	PrivProtocol *string `json:"privProtocol,omitzero"`
+	// V3 privacy key
+	PrivKey string `json:"privKey"`
+	// Authentication protocol
 	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
-	AuthKey      string                               `json:"authKey"`
-	Name         string                               `json:"name"`
+	// V3 authentication key
+	AuthKey string `json:"authKey"`
+	// Username
+	Name string `json:"name"`
 }
 
 func (s SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) MarshalJSON() ([]byte, error) {
@@ -67,10 +71,13 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetName(
 // #endregion class-body-snmptrapserializev3userauthprotocolnotnoneprivprotocolnotnone
 
 type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone struct {
-	PrivProtocol *string                              `json:"privProtocol,omitzero"`
+	PrivProtocol *string `json:"privProtocol,omitzero"`
+	// Authentication protocol
 	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
-	AuthKey      string                               `json:"authKey"`
-	Name         string                               `json:"name"`
+	// V3 authentication key
+	AuthKey string `json:"authKey"`
+	// Username
+	Name string `json:"name"`
 }
 
 func (s SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) MarshalJSON() ([]byte, error) {
@@ -297,9 +304,11 @@ func (u SnmpTrapSerializeV3UserAuthProtocolNotNone) MarshalJSON() ([]byte, error
 }
 
 type SnmpTrapSerializeV3UserAuthProtocolNone struct {
+	// Authentication protocol
 	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
-	Name         *string                              `json:"name,omitzero"`
-	PrivProtocol *string                              `json:"privProtocol,omitzero"`
+	// Username
+	Name         *string `json:"name,omitzero"`
+	PrivProtocol *string `json:"privProtocol,omitzero"`
 }
 
 func (s SnmpTrapSerializeV3UserAuthProtocolNone) MarshalJSON() ([]byte, error) {

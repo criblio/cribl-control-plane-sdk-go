@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputCrowdstrikeNextGenSiemType - Connector type identifier.
 type OutputCrowdstrikeNextGenSiemType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputCrowdstrikeNextGenSiemType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputCrowdstrikeNextGenSiemPqControls - Persistent queue controls.
 type OutputCrowdstrikeNextGenSiemPqControls struct {
 }
 
@@ -47,7 +49,8 @@ func (o *OutputCrowdstrikeNextGenSiemPqControls) UnmarshalJSON(data []byte) erro
 
 type OutputCrowdstrikeNextGenSiem struct {
 	// Unique ID for this output
-	ID   *string                          `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputCrowdstrikeNextGenSiemType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -97,7 +100,8 @@ type OutputCrowdstrikeNextGenSiem struct {
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	Token       *string `json:"token,omitzero"`
+	// Next-Gen SIEM authentication token
+	Token *string `json:"token,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -121,8 +125,9 @@ type OutputCrowdstrikeNextGenSiem struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                                 `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputCrowdstrikeNextGenSiemPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputCrowdstrikeNextGenSiemPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.

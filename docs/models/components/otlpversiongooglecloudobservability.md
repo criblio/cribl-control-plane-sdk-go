@@ -1,5 +1,7 @@
 # OtlpVersionGoogleCloudObservability
 
+Discriminator value.
+
 ## Example Usage
 
 ```go

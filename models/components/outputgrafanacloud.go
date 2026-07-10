@@ -9,6 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputGrafanaCloudType2 - Connector type identifier.
 type OutputGrafanaCloudType2 string
 
 const (
@@ -32,6 +33,7 @@ func (e *OutputGrafanaCloudType2) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputGrafanaCloudPqControls2 - Persistent queue controls.
 type OutputGrafanaCloudPqControls2 struct {
 }
 
@@ -51,7 +53,8 @@ func (o *OutputGrafanaCloudPqControls2) UnmarshalJSON(data []byte) error {
 
 type OutputGrafanaCloudGrafanaCloud2 struct {
 	// Unique ID for this output
-	ID   *string                 `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputGrafanaCloudType2 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -129,8 +132,9 @@ type OutputGrafanaCloudGrafanaCloud2 struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                        `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputGrafanaCloudPqControls2 `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputGrafanaCloudPqControls2 `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.
@@ -486,6 +490,7 @@ func (o *OutputGrafanaCloudGrafanaCloud2) GetTemplateOnBackpressure() *string {
 // #region class-body-outputgrafanacloudgrafanacloud2
 // #endregion class-body-outputgrafanacloudgrafanacloud2
 
+// OutputGrafanaCloudType1 - Connector type identifier.
 type OutputGrafanaCloudType1 string
 
 const (
@@ -509,6 +514,7 @@ func (e *OutputGrafanaCloudType1) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputGrafanaCloudPqControls1 - Persistent queue controls.
 type OutputGrafanaCloudPqControls1 struct {
 }
 
@@ -528,7 +534,8 @@ func (o *OutputGrafanaCloudPqControls1) UnmarshalJSON(data []byte) error {
 
 type OutputGrafanaCloudGrafanaCloud1 struct {
 	// Unique ID for this output
-	ID   *string                 `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputGrafanaCloudType1 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -606,8 +613,9 @@ type OutputGrafanaCloudGrafanaCloud1 struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                        `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputGrafanaCloudPqControls1 `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputGrafanaCloudPqControls1 `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'lokiUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'lokiUrl' at runtime.

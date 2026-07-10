@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputSplunkLbType - Connector type identifier.
 type OutputSplunkLbType string
 
 const (
@@ -159,6 +160,7 @@ func (o *OutputSplunkLbIndexerDiscoveryConfigs) GetTextSecret() *string {
 	return o.TextSecret
 }
 
+// OutputSplunkLbPqControls - Persistent queue controls.
 type OutputSplunkLbPqControls struct {
 }
 
@@ -175,7 +177,8 @@ func (o *OutputSplunkLbPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputSplunkLb struct {
 	// Unique ID for this output
-	ID   *string            `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputSplunkLbType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -198,8 +201,9 @@ type OutputSplunkLb struct {
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64                                 `json:"writeTimeout,omitzero"`
-	TLS          *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	WriteTimeout *float64 `json:"writeTimeout,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
 	EnableMultiMetrics *bool `json:"enableMultiMetrics,omitzero"`
 	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
@@ -249,8 +253,9 @@ type OutputSplunkLb struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                   `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputSplunkLbPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputSplunkLbPqControls `json:"pqControls,omitzero"`
 	// Shared secret token to use when establishing a connection to a Splunk indexer.
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret

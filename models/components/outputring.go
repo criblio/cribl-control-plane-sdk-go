@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputRingType - Connector type identifier.
 type OutputRingType string
 
 const (
@@ -56,7 +57,8 @@ func (e *OutputRingDataFormat) IsExact() bool {
 
 type OutputRing struct {
 	// Unique ID for this output
-	ID   *string        `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputRingType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -73,8 +75,9 @@ type OutputRing struct {
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
 	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                  `json:"maxDataTime,omitzero"`
-	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
+	MaxDataTime *string `json:"maxDataTime,omitzero"`
+	// Data compression format
+	Compress *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/<id>
 	DestPath *string `json:"destPath,omitzero"`
 	// How to handle events when all receivers are exerting backpressure

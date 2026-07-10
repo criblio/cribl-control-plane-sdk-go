@@ -3,39 +3,16 @@
 package components
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputSyslogType2 string
-
-const (
-	InputSyslogType2Syslog InputSyslogType2 = "syslog"
-)
-
-func (e InputSyslogType2) ToPointer() *InputSyslogType2 {
-	return &e
-}
-func (e *InputSyslogType2) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "syslog":
-		*e = InputSyslogType2(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogType2: %v", v)
-	}
-}
-
 type InputSyslogSyslogInput2 struct {
 	// Unique ID for this input
-	ID   *string          `json:"id,omitzero"`
-	Type InputSyslogType2 `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsSyslog `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -84,8 +61,9 @@ type InputSyslogSyslogInput2 struct {
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
 	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64                   `json:"socketMaxLifespan,omitzero"`
-	TLS               *TLSSettingsServerSideType `json:"tls,omitzero"`
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitzero"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
@@ -128,9 +106,9 @@ func (i *InputSyslogSyslogInput2) GetID() *string {
 	return i.ID
 }
 
-func (i *InputSyslogSyslogInput2) GetType() InputSyslogType2 {
+func (i *InputSyslogSyslogInput2) GetType() TypeOptionsSyslog {
 	if i == nil {
-		return InputSyslogType2("")
+		return TypeOptionsSyslog("")
 	}
 	return i.Type
 }
@@ -397,33 +375,11 @@ func (i *InputSyslogSyslogInput2) GetTemplateTimestampTimezone() *string {
 // #region class-body-inputsyslogsysloginput2
 // #endregion class-body-inputsyslogsysloginput2
 
-type InputSyslogType1 string
-
-const (
-	InputSyslogType1Syslog InputSyslogType1 = "syslog"
-)
-
-func (e InputSyslogType1) ToPointer() *InputSyslogType1 {
-	return &e
-}
-func (e *InputSyslogType1) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "syslog":
-		*e = InputSyslogType1(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSyslogType1: %v", v)
-	}
-}
-
 type InputSyslogSyslogInput1 struct {
 	// Unique ID for this input
-	ID   *string          `json:"id,omitzero"`
-	Type InputSyslogType1 `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsSyslog `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -472,8 +428,9 @@ type InputSyslogSyslogInput1 struct {
 	// How long the server will wait after initiating a closure for a client to close its end of the connection. If the client doesn't close the connection within this time, the server will forcefully terminate the socket to prevent resource leaks and ensure efficient connection cleanup and system stability. Leave at 0 for no inactive socket monitoring.
 	SocketEndingMaxWait *float64 `json:"socketEndingMaxWait,omitzero"`
 	// The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
-	SocketMaxLifespan *float64                   `json:"socketMaxLifespan,omitzero"`
-	TLS               *TLSSettingsServerSideType `json:"tls,omitzero"`
+	SocketMaxLifespan *float64 `json:"socketMaxLifespan,omitzero"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
@@ -516,9 +473,9 @@ func (i *InputSyslogSyslogInput1) GetID() *string {
 	return i.ID
 }
 
-func (i *InputSyslogSyslogInput1) GetType() InputSyslogType1 {
+func (i *InputSyslogSyslogInput1) GetType() TypeOptionsSyslog {
 	if i == nil {
-		return InputSyslogType1("")
+		return TypeOptionsSyslog("")
 	}
 	return i.Type
 }

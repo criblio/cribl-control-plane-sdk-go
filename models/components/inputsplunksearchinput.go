@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputSplunkSearchType - Connector type identifier.
 type InputSplunkSearchType string
 
 const (
@@ -32,6 +33,7 @@ func (e *InputSplunkSearchType) UnmarshalJSON(data []byte) error {
 }
 
 type InputSplunkSearchEndpointParam struct {
+	// Parameter Name
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
 	Value string `json:"value"`
@@ -63,6 +65,7 @@ func (i *InputSplunkSearchEndpointParam) GetValue() string {
 }
 
 type InputSplunkSearchEndpointHeader struct {
+	// Header Name
 	Name string `json:"name"`
 	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
 	Value string `json:"value"`
@@ -151,7 +154,8 @@ func (e *InputSplunkSearchAuthenticationType) IsExact() bool {
 
 type InputSplunkSearchInput struct {
 	// Unique ID for this input
-	ID   *string               `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputSplunkSearchType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -217,8 +221,10 @@ type InputSplunkSearchInput struct {
 	AuthType InputSplunkSearchAuthenticationType `json:"authType"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials

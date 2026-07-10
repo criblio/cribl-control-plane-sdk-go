@@ -443,6 +443,12 @@ createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPack
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyDatabricks(operations.CreateOutputSystemByPackOutputDatabricks{/* values here */})
 ```
 
+### CreateOutputSystemByPackOutputSnowflakeStreaming
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodySnowflakeStreaming(operations.CreateOutputSystemByPackOutputSnowflakeStreaming{/* values here */})
+```
+
 ### CreateOutputSystemByPackOutputMicrosoftFabric
 
 ```go
@@ -655,6 +661,8 @@ switch createOutputSystemByPackRequestBody.Type {
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputChronicle is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeDatabricks:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputDatabricks is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeSnowflakeStreaming:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputSnowflakeStreaming is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeMicrosoftFabric:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputMicrosoftFabric is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeCloudflareR2:

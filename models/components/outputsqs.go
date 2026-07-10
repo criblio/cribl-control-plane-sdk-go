@@ -3,33 +3,8 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type OutputSqsType string
-
-const (
-	OutputSqsTypeSqs OutputSqsType = "sqs"
-)
-
-func (e OutputSqsType) ToPointer() *OutputSqsType {
-	return &e
-}
-func (e *OutputSqsType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "sqs":
-		*e = OutputSqsType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSqsType: %v", v)
-	}
-}
 
 // OutputSqsQueueType - The queue type used (or created). Defaults to Standard.
 type OutputSqsQueueType string
@@ -56,6 +31,7 @@ func (e *OutputSqsQueueType) IsExact() bool {
 	return false
 }
 
+// OutputSqsPqControls - Persistent queue controls.
 type OutputSqsPqControls struct {
 }
 
@@ -72,8 +48,9 @@ func (o *OutputSqsPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputSqs struct {
 	// Unique ID for this output
-	ID   *string       `json:"id,omitzero"`
-	Type OutputSqsType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsSqs `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -94,7 +71,8 @@ type OutputSqs struct {
 	CreateQueue *bool `json:"createQueue,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitzero"`
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
@@ -123,7 +101,8 @@ type OutputSqs struct {
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -147,8 +126,9 @@ type OutputSqs struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string              `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputSqsPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputSqsPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'queueName' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'queueName' at runtime.
@@ -193,9 +173,9 @@ func (o *OutputSqs) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputSqs) GetType() OutputSqsType {
+func (o *OutputSqs) GetType() TypeOptionsSqs {
 	if o == nil {
-		return OutputSqsType("")
+		return TypeOptionsSqs("")
 	}
 	return o.Type
 }

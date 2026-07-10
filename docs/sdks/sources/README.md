@@ -151,6 +151,51 @@ func main() {
     }
 }
 ```
+### Example Usage: InputResponseExamplesSyslogWithPQSource
+
+<!-- UsageSnippet language="go" operationID="listInput" method="get" path="/system/inputs" example="InputResponseExamplesSyslogWithPQSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.List(ctx, nil, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.PaginatedInputResponse != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
 
 ### Parameters
 
@@ -210,20 +255,6 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             TextSecret: "anthropic-api-key-secret",
-            ContentConfig: []operations.CreateInputContentConfigAnthropicCompliance{
-                operations.CreateInputContentConfigAnthropicCompliance{
-                    ContentType: operations.CreateInputEndpointNameActivities,
-                    ContentDescription: criblcontrolplanesdkgo.Pointer("Compliance Activities"),
-                    Enabled: criblcontrolplanesdkgo.Pointer(true),
-                    StateTracking: criblcontrolplanesdkgo.Pointer(true),
-                    StateUpdateExpression: criblcontrolplanesdkgo.Pointer("__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}"),
-                    StateMergeExpression: criblcontrolplanesdkgo.Pointer("prevState.latestTime > newState.latestTime ? prevState : newState"),
-                    Earliest: criblcontrolplanesdkgo.Pointer("-7d@d"),
-                    Latest: criblcontrolplanesdkgo.Pointer("now"),
-                    CronSchedule: "*/5 * * * *",
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("300"),
-                },
-            },
         },
     ))
     if err != nil {
@@ -347,10 +378,53 @@ func main() {
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestAzureBlob(
         operations.CreateInputInputAzureBlob{
             ID: "azure-blob-source",
-            Type: operations.CreateInputTypeAzureBlobAzureBlob,
+            Type: components.TypeOptionsAzureblobAzureBlob,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             QueueName: "azure-blob-queue",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputCreateExamplesBedrockS3
+
+<!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesBedrockS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestBedrockS3(
+        operations.CreateInputInputBedrockS3{
+            ID: "bedrock-s3-source",
+            Type: operations.CreateInputTypeBedrockS3BedrockS3,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            QueueName: "s3-notifications-queue",
+            Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
         },
     ))
     if err != nil {
@@ -474,7 +548,7 @@ func main() {
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestConfluentCloud(
         operations.CreateInputInputConfluentCloud{
             ID: "confluent-cloud-source",
-            Type: operations.CreateInputTypeConfluentCloudConfluentCloud,
+            Type: components.TypeOptionsConfluentcloudConfluentCloud,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Brokers: []string{
@@ -607,7 +681,7 @@ func main() {
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestCriblTCP(
         operations.CreateInputInputCriblTCP{
             ID: "cribl-tcp-source",
-            Type: operations.CreateInputTypeCriblTCPCriblTCP,
+            Type: components.TypeOptionsCribltcpCriblTCP,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -1098,7 +1172,7 @@ func main() {
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestGooglePubsub(
         operations.CreateInputInputGooglePubsub{
             ID: "google-pubsub-source",
-            Type: operations.CreateInputTypeGooglePubsubGooglePubsub,
+            Type: components.TypeOptionsGooglepubsubGooglePubsub,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             TopicName: "my-topic",
@@ -1318,7 +1392,7 @@ func main() {
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestKafka(
         operations.CreateInputInputKafka{
             ID: "kafka-source",
-            Type: operations.CreateInputTypeKafkaKafka,
+            Type: components.TypeOptionsKafka,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Brokers: []string{
@@ -1365,7 +1439,7 @@ func main() {
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestKinesis(
         operations.CreateInputInputKinesis{
             ID: "kinesis-source",
-            Type: operations.CreateInputTypeKinesisKinesis,
+            Type: components.TypeOptionsKinesisKinesis,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             StreamName: "my-stream",
@@ -1704,7 +1778,7 @@ func main() {
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestMsk(
         operations.CreateInputInputMsk{
             ID: "msk-source",
-            Type: operations.CreateInputTypeMskMsk,
+            Type: components.TypeOptionsMskMsk,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Brokers: []string{
@@ -1753,7 +1827,7 @@ func main() {
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestNetflow(
         operations.CreateInputInputNetflow{
             ID: "netflow-source",
-            Type: operations.CreateInputTypeNetflowNetflow,
+            Type: components.TypeOptionsNetflowNetflow,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -2131,7 +2205,7 @@ func main() {
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestPrometheus(
         operations.CreateInputInputPrometheus{
             ID: "prometheus-source",
-            Type: operations.CreateInputTypePrometheusPrometheus,
+            Type: components.TypeOptionsPrometheusPrometheus,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             DiscoveryType: operations.CreateInputDiscoveryTypePrometheusStatic.ToPointer(),
@@ -2265,7 +2339,7 @@ func main() {
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestS3(
         operations.CreateInputInputS3{
             ID: "s3-source",
-            Type: operations.CreateInputTypeS3S3,
+            Type: components.TypeOptionsS3S3,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             QueueName: "s3-notifications-queue",
@@ -2351,7 +2425,7 @@ func main() {
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestSecurityLake(
         operations.CreateInputInputSecurityLake{
             ID: "security-lake-source",
-            Type: operations.CreateInputTypeSecurityLakeSecurityLake,
+            Type: components.TypeOptionsSecuritylakeSecurityLake,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             QueueName: "security-lake-queue",
@@ -2446,7 +2520,7 @@ func main() {
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestSnmp(
         operations.CreateInputInputSnmp{
             ID: "snmp-source",
-            Type: operations.CreateInputTypeSnmpSnmp,
+            Type: components.TypeOptionsSnmpSnmp,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "192.168.1.1",
@@ -2489,7 +2563,7 @@ func main() {
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestSplunk(
         operations.CreateInputInputSplunk{
             ID: "splunk-source",
-            Type: operations.CreateInputTypeSplunkSplunk,
+            Type: components.TypeOptionsSplunkSplunk,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -2623,7 +2697,7 @@ func main() {
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestSqs(
         operations.CreateInputInputSqs{
             ID: "sqs-source",
-            Type: operations.CreateInputTypeSqsSqs,
+            Type: components.TypeOptionsSqsSqs,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             QueueName: "my-queue",
@@ -2712,9 +2786,63 @@ func main() {
         operations.CreateCreateInputInputSyslogUnionCreateInputInputSyslogSyslog1(
             operations.CreateInputInputSyslogSyslog1{
                 ID: "syslog-source",
-                Type: operations.CreateInputInputSyslogType1Syslog,
+                Type: components.TypeOptionsSyslogSyslog,
                 SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
                 PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+                Host: "0.0.0.0",
+                UDPPort: 514.0,
+            },
+        ),
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputCreateExamplesSyslogWithPQ
+
+<!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputCreateExamplesSyslogWithPQ" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestSyslog(
+        operations.CreateCreateInputInputSyslogUnionCreateInputInputSyslogSyslog1(
+            operations.CreateInputInputSyslogSyslog1{
+                ID: "syslog-pq-source",
+                Type: components.TypeOptionsSyslogSyslog,
+                SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+                PqEnabled: criblcontrolplanesdkgo.Pointer(true),
+                Pq: &components.PqType{
+                    Mode: components.ModeOptionsPqAlways.ToPointer(),
+                    MaxBufferSizeBytes: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxFileSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                    MaxSize: criblcontrolplanesdkgo.Pointer("5GB"),
+                    Path: criblcontrolplanesdkgo.Pointer("$CRIBL_HOME/state/queues"),
+                    Compress: components.CompressionOptionsPqNone.ToPointer(),
+                    OnBackpressure: components.QueueFullBehaviorOptionsPqDrop.ToPointer(),
+                },
                 Host: "0.0.0.0",
                 UDPPort: 514.0,
             },
@@ -2881,7 +3009,7 @@ func main() {
     res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestTcpjson(
         operations.CreateInputInputTcpjson{
             ID: "tcpjson-source",
-            Type: operations.CreateInputTypeTcpjsonTcpjson,
+            Type: components.TypeOptionsTcpjsonTcpjson,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -3334,6 +3462,47 @@ func main() {
     }
 }
 ```
+### Example Usage: InputResponseExamplesSyslogWithPQSource
+
+<!-- UsageSnippet language="go" operationID="createInput" method="post" path="/system/inputs" example="InputResponseExamplesSyslogWithPQSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Create(ctx, operations.CreateCreateInputRequestWizWebhook(
+        operations.CreateInputInputWizWebhook{
+            ID: "<id>",
+            Type: operations.CreateInputTypeWizWebhookWizWebhook,
+            Host: "amused-glider.biz",
+            Port: 7905.42,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -3458,6 +3627,39 @@ func main() {
     }
 }
 ```
+### Example Usage: InputResponseExamplesSyslogWithPQSource
+
+<!-- UsageSnippet language="go" operationID="getInputById" method="get" path="/system/inputs/{id}" example="InputResponseExamplesSyslogWithPQSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -3514,20 +3716,6 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             TextSecret: "anthropic-api-key-secret",
-            ContentConfig: []components.InputAnthropicComplianceContentConfig{
-                components.InputAnthropicComplianceContentConfig{
-                    ContentType: components.InputAnthropicComplianceEndpointNameActivities,
-                    ContentDescription: criblcontrolplanesdkgo.Pointer("Compliance Activities"),
-                    Enabled: criblcontrolplanesdkgo.Pointer(true),
-                    StateTracking: criblcontrolplanesdkgo.Pointer(true),
-                    StateUpdateExpression: criblcontrolplanesdkgo.Pointer("__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}"),
-                    StateMergeExpression: criblcontrolplanesdkgo.Pointer("prevState.latestTime > newState.latestTime ? prevState : newState"),
-                    Earliest: criblcontrolplanesdkgo.Pointer("-7d@d"),
-                    Latest: criblcontrolplanesdkgo.Pointer("now"),
-                    CronSchedule: "*/5 * * * *",
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("300"),
-                },
-            },
         },
     ))
     if err != nil {
@@ -3648,7 +3836,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputAzureBlob(
         components.InputAzureBlobInput{
             ID: criblcontrolplanesdkgo.Pointer("azure-blob-source"),
-            Type: components.InputAzureBlobTypeAzureBlob,
+            Type: components.TypeOptionsAzureblobAzureBlob,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             QueueName: "azure-blob-queue",
@@ -3772,7 +3960,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputConfluentCloud(
         components.InputConfluentCloudInput{
             ID: criblcontrolplanesdkgo.Pointer("confluent-cloud-source"),
-            Type: components.InputConfluentCloudTypeConfluentCloud,
+            Type: components.TypeOptionsConfluentcloudConfluentCloud,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Brokers: []string{
@@ -3902,7 +4090,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCriblTCP(
         components.InputCriblTCPInput{
             ID: criblcontrolplanesdkgo.Pointer("cribl-tcp-source"),
-            Type: components.InputCriblTCPTypeCriblTCP,
+            Type: components.TypeOptionsCribltcpCriblTCP,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -4382,7 +4570,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputGooglePubsub(
         components.InputGooglePubsubInput{
             ID: criblcontrolplanesdkgo.Pointer("google-pubsub-source"),
-            Type: components.InputGooglePubsubTypeGooglePubsub,
+            Type: components.TypeOptionsGooglepubsubGooglePubsub,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             TopicName: "my-topic",
@@ -4597,7 +4785,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKafka(
         components.InputKafkaInput{
             ID: criblcontrolplanesdkgo.Pointer("kafka-source"),
-            Type: components.InputKafkaTypeKafka,
+            Type: components.TypeOptionsKafka,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Brokers: []string{
@@ -4643,7 +4831,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKinesis(
         components.InputKinesisInput{
             ID: criblcontrolplanesdkgo.Pointer("kinesis-source"),
-            Type: components.InputKinesisTypeKinesis,
+            Type: components.TypeOptionsKinesisKinesis,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             StreamName: "my-stream",
@@ -4974,7 +5162,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputMsk(
         components.InputMskInput{
             ID: criblcontrolplanesdkgo.Pointer("msk-source"),
-            Type: components.InputMskTypeMsk,
+            Type: components.TypeOptionsMskMsk,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Brokers: []string{
@@ -5022,7 +5210,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputNetflow(
         components.InputNetflowInput{
             ID: criblcontrolplanesdkgo.Pointer("netflow-source"),
-            Type: components.InputNetflowTypeNetflow,
+            Type: components.TypeOptionsNetflowNetflow,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -5392,7 +5580,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputPrometheus(
         components.InputPrometheusInput{
             ID: criblcontrolplanesdkgo.Pointer("prometheus-source"),
-            Type: components.InputPrometheusTypePrometheus,
+            Type: components.TypeOptionsPrometheusPrometheus,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             DiscoveryType: components.InputPrometheusDiscoveryTypeStatic.ToPointer(),
@@ -5523,7 +5711,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputS3(
         components.InputS3Input{
             ID: criblcontrolplanesdkgo.Pointer("s3-source"),
-            Type: components.InputS3TypeS3,
+            Type: components.TypeOptionsS3S3,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             QueueName: "s3-notifications-queue",
@@ -5607,7 +5795,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSecurityLake(
         components.InputSecurityLakeInput{
             ID: criblcontrolplanesdkgo.Pointer("security-lake-source"),
-            Type: components.InputSecurityLakeTypeSecurityLake,
+            Type: components.TypeOptionsSecuritylakeSecurityLake,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             QueueName: "security-lake-queue",
@@ -5700,7 +5888,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSnmp(
         components.InputSnmpInput{
             ID: criblcontrolplanesdkgo.Pointer("snmp-source"),
-            Type: components.InputSnmpTypeSnmp,
+            Type: components.TypeOptionsSnmpSnmp,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "192.168.1.1",
@@ -5742,7 +5930,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSplunk(
         components.InputSplunkInput{
             ID: criblcontrolplanesdkgo.Pointer("splunk-source"),
-            Type: components.InputSplunkTypeSplunk,
+            Type: components.TypeOptionsSplunkSplunk,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -5873,7 +6061,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSqs(
         components.InputSqsInput{
             ID: criblcontrolplanesdkgo.Pointer("sqs-source"),
-            Type: components.InputSqsTypeSqs,
+            Type: components.TypeOptionsSqsSqs,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             QueueName: "my-queue",
@@ -5917,7 +6105,7 @@ func main() {
         components.CreateInputSyslogInputUnionInputSyslogSyslogInput1(
             components.InputSyslogSyslogInput1{
                 ID: criblcontrolplanesdkgo.Pointer("syslog-source"),
-                Type: components.InputSyslogType1Syslog,
+                Type: components.TypeOptionsSyslogSyslog,
                 SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
                 PqEnabled: criblcontrolplanesdkgo.Pointer(false),
                 Host: "0.0.0.0",
@@ -6082,7 +6270,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputTcpjson(
         components.InputTcpjsonInput{
             ID: criblcontrolplanesdkgo.Pointer("tcpjson-source"),
-            Type: components.InputTcpjsonTypeTcpjson,
+            Type: components.TypeOptionsTcpjsonTcpjson,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -6558,6 +6746,45 @@ func main() {
     }
 }
 ```
+### Example Usage: InputResponseExamplesSyslogWithPQSource
+
+<!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="InputResponseExamplesSyslogWithPQSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputHTTPRaw(
+        components.InputHTTPRawInput{
+            Type: components.InputHTTPRawTypeHTTPRaw,
+            Host: "focused-invite.org",
+            Port: 4085.76,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: UpdateInputExamplesAnthropicCompliance
 
 <!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="UpdateInputExamplesAnthropicCompliance" -->
@@ -6589,20 +6816,6 @@ func main() {
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             TextSecret: "anthropic-api-key-secret",
-            ContentConfig: []components.InputAnthropicComplianceContentConfig{
-                components.InputAnthropicComplianceContentConfig{
-                    ContentType: components.InputAnthropicComplianceEndpointNameActivities,
-                    ContentDescription: criblcontrolplanesdkgo.Pointer("Compliance Activities"),
-                    Enabled: criblcontrolplanesdkgo.Pointer(true),
-                    StateTracking: criblcontrolplanesdkgo.Pointer(true),
-                    StateUpdateExpression: criblcontrolplanesdkgo.Pointer("__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}"),
-                    StateMergeExpression: criblcontrolplanesdkgo.Pointer("prevState.latestTime > newState.latestTime ? prevState : newState"),
-                    Earliest: criblcontrolplanesdkgo.Pointer("-7d@d"),
-                    Latest: criblcontrolplanesdkgo.Pointer("now"),
-                    CronSchedule: "*/5 * * * *",
-                    JobTimeout: criblcontrolplanesdkgo.Pointer("300"),
-                },
-            },
         },
     ))
     if err != nil {
@@ -6723,10 +6936,52 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputAzureBlob(
         components.InputAzureBlobInput{
             ID: criblcontrolplanesdkgo.Pointer("azure-blob-source"),
-            Type: components.InputAzureBlobTypeAzureBlob,
+            Type: components.TypeOptionsAzureblobAzureBlob,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             QueueName: "azure-blob-queue",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateInputExamplesBedrockS3
+
+<!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="UpdateInputExamplesBedrockS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputBedrockS3(
+        components.InputBedrockS3Input{
+            ID: criblcontrolplanesdkgo.Pointer("bedrock-s3-source"),
+            Type: components.InputBedrockS3TypeBedrockS3,
+            SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+            PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+            QueueName: "s3-notifications-queue",
+            Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
         },
     ))
     if err != nil {
@@ -6847,7 +7102,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputConfluentCloud(
         components.InputConfluentCloudInput{
             ID: criblcontrolplanesdkgo.Pointer("confluent-cloud-source"),
-            Type: components.InputConfluentCloudTypeConfluentCloud,
+            Type: components.TypeOptionsConfluentcloudConfluentCloud,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Brokers: []string{
@@ -7057,7 +7312,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputCriblTCP(
         components.InputCriblTCPInput{
             ID: criblcontrolplanesdkgo.Pointer("cribl-tcp-source"),
-            Type: components.InputCriblTCPTypeCriblTCP,
+            Type: components.TypeOptionsCribltcpCriblTCP,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -7537,7 +7792,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputGooglePubsub(
         components.InputGooglePubsubInput{
             ID: criblcontrolplanesdkgo.Pointer("google-pubsub-source"),
-            Type: components.InputGooglePubsubTypeGooglePubsub,
+            Type: components.TypeOptionsGooglepubsubGooglePubsub,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             TopicName: "my-topic",
@@ -7752,7 +8007,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKafka(
         components.InputKafkaInput{
             ID: criblcontrolplanesdkgo.Pointer("kafka-source"),
-            Type: components.InputKafkaTypeKafka,
+            Type: components.TypeOptionsKafka,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Brokers: []string{
@@ -7798,7 +8053,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputKinesis(
         components.InputKinesisInput{
             ID: criblcontrolplanesdkgo.Pointer("kinesis-source"),
-            Type: components.InputKinesisTypeKinesis,
+            Type: components.TypeOptionsKinesisKinesis,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             StreamName: "my-stream",
@@ -8129,7 +8384,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputMsk(
         components.InputMskInput{
             ID: criblcontrolplanesdkgo.Pointer("msk-source"),
-            Type: components.InputMskTypeMsk,
+            Type: components.TypeOptionsMskMsk,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Brokers: []string{
@@ -8177,7 +8432,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputNetflow(
         components.InputNetflowInput{
             ID: criblcontrolplanesdkgo.Pointer("netflow-source"),
-            Type: components.InputNetflowTypeNetflow,
+            Type: components.TypeOptionsNetflowNetflow,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -8547,7 +8802,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputPrometheus(
         components.InputPrometheusInput{
             ID: criblcontrolplanesdkgo.Pointer("prometheus-source"),
-            Type: components.InputPrometheusTypePrometheus,
+            Type: components.TypeOptionsPrometheusPrometheus,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             DiscoveryType: components.InputPrometheusDiscoveryTypeStatic.ToPointer(),
@@ -8678,7 +8933,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputS3(
         components.InputS3Input{
             ID: criblcontrolplanesdkgo.Pointer("s3-source"),
-            Type: components.InputS3TypeS3,
+            Type: components.TypeOptionsS3S3,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             QueueName: "s3-notifications-queue",
@@ -8762,7 +9017,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSecurityLake(
         components.InputSecurityLakeInput{
             ID: criblcontrolplanesdkgo.Pointer("security-lake-source"),
-            Type: components.InputSecurityLakeTypeSecurityLake,
+            Type: components.TypeOptionsSecuritylakeSecurityLake,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             QueueName: "security-lake-queue",
@@ -8855,7 +9110,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSnmp(
         components.InputSnmpInput{
             ID: criblcontrolplanesdkgo.Pointer("snmp-source"),
-            Type: components.InputSnmpTypeSnmp,
+            Type: components.TypeOptionsSnmpSnmp,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "192.168.1.1",
@@ -8897,7 +9152,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSplunk(
         components.InputSplunkInput{
             ID: criblcontrolplanesdkgo.Pointer("splunk-source"),
-            Type: components.InputSplunkTypeSplunk,
+            Type: components.TypeOptionsSplunkSplunk,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -9028,7 +9283,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSqs(
         components.InputSqsInput{
             ID: criblcontrolplanesdkgo.Pointer("sqs-source"),
-            Type: components.InputSqsTypeSqs,
+            Type: components.TypeOptionsSqsSqs,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             QueueName: "my-queue",
@@ -9115,9 +9370,62 @@ func main() {
         components.CreateInputSyslogInputUnionInputSyslogSyslogInput1(
             components.InputSyslogSyslogInput1{
                 ID: criblcontrolplanesdkgo.Pointer("syslog-source"),
-                Type: components.InputSyslogType1Syslog,
+                Type: components.TypeOptionsSyslogSyslog,
                 SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
                 PqEnabled: criblcontrolplanesdkgo.Pointer(false),
+                Host: "0.0.0.0",
+                UDPPort: 514.0,
+            },
+        ),
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateInputExamplesSyslogWithPQ
+
+<!-- UsageSnippet language="go" operationID="updateInputById" method="patch" path="/system/inputs/{id}" example="UpdateInputExamplesSyslogWithPQ" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Update(ctx, "<id>", components.CreateInputSyslog(
+        components.CreateInputSyslogInputUnionInputSyslogSyslogInput1(
+            components.InputSyslogSyslogInput1{
+                ID: criblcontrolplanesdkgo.Pointer("syslog-pq-source"),
+                Type: components.TypeOptionsSyslogSyslog,
+                SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
+                PqEnabled: criblcontrolplanesdkgo.Pointer(true),
+                Pq: &components.PqType{
+                    Mode: components.ModeOptionsPqAlways.ToPointer(),
+                    MaxBufferSizeBytes: criblcontrolplanesdkgo.Pointer("1MB"),
+                    MaxFileSize: criblcontrolplanesdkgo.Pointer("10MB"),
+                    MaxSize: criblcontrolplanesdkgo.Pointer("5GB"),
+                    Path: criblcontrolplanesdkgo.Pointer("$CRIBL_HOME/state/queues"),
+                    Compress: components.CompressionOptionsPqNone.ToPointer(),
+                    OnBackpressure: components.QueueFullBehaviorOptionsPqDrop.ToPointer(),
+                },
                 Host: "0.0.0.0",
                 UDPPort: 514.0,
             },
@@ -9280,7 +9588,7 @@ func main() {
     res, err := s.Sources.Update(ctx, "<id>", components.CreateInputTcpjson(
         components.InputTcpjsonInput{
             ID: criblcontrolplanesdkgo.Pointer("tcpjson-source"),
-            Type: components.InputTcpjsonTypeTcpjson,
+            Type: components.TypeOptionsTcpjsonTcpjson,
             SendToRoutes: criblcontrolplanesdkgo.Pointer(true),
             PqEnabled: criblcontrolplanesdkgo.Pointer(false),
             Host: "0.0.0.0",
@@ -9697,6 +10005,39 @@ func main() {
 ### Example Usage: InputResponseExamplesSyslogSource
 
 <!-- UsageSnippet language="go" operationID="deleteInputById" method="delete" path="/system/inputs/{id}" example="InputResponseExamplesSyslogSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.Delete(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputResponseExamplesSyslogWithPQSource
+
+<!-- UsageSnippet language="go" operationID="deleteInputById" method="delete" path="/system/inputs/{id}" example="InputResponseExamplesSyslogWithPQSource" -->
 ```go
 package main
 

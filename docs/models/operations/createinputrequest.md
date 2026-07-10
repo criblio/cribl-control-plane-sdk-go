@@ -377,6 +377,12 @@ createInputRequest := operations.CreateCreateInputRequestNetflow(operations.Crea
 createInputRequest := operations.CreateCreateInputRequestSecurityLake(operations.CreateInputInputSecurityLake{/* values here */})
 ```
 
+### CreateInputInputBedrockS3
+
+```go
+createInputRequest := operations.CreateCreateInputRequestBedrockS3(operations.CreateInputInputBedrockS3{/* values here */})
+```
+
 ### CreateInputInputServicenowTable
 
 ```go
@@ -555,6 +561,8 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputNetflow is populated
 	case operations.CreateInputRequestTypeSecurityLake:
 		// createInputRequest.CreateInputInputSecurityLake is populated
+	case operations.CreateInputRequestTypeBedrockS3:
+		// createInputRequest.CreateInputInputBedrockS3 is populated
 	case operations.CreateInputRequestTypeServicenowTable:
 		// createInputRequest.CreateInputInputServicenowTable is populated
 	case operations.CreateInputRequestTypeZscalerHec:

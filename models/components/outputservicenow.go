@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputServiceNowType - Connector type identifier.
 type OutputServiceNowType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputServiceNowType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputServiceNowPqControls - Persistent queue controls.
 type OutputServiceNowPqControls struct {
 }
 
@@ -47,7 +49,8 @@ func (o *OutputServiceNowPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputServiceNow struct {
 	// Unique ID for this output
-	ID   *string              `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputServiceNowType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -60,7 +63,8 @@ type OutputServiceNow struct {
 	// The endpoint where ServiceNow events will be sent. Enter any valid URL or an IP address (IPv4 or IPv6; enclose IPv6 addresses in square brackets)
 	Endpoint string `json:"endpoint"`
 	// Select or create a stored text secret
-	TokenSecret   string  `json:"tokenSecret"`
+	TokenSecret string `json:"tokenSecret"`
+	// Auth token name
 	AuthTokenName *string `json:"authTokenName,omitzero"`
 	// The version of OTLP Protobuf definitions to use when structuring data to send
 	OtlpVersion OtlpVersionOptions131 `json:"otlpVersion"`
@@ -116,8 +120,9 @@ type OutputServiceNow struct {
 	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
 	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                              `json:"responseHonorRetryAfterHeader,omitzero"`
-	TLS                           *TLSSettingsClientSideTypeExtended `json:"tls,omitzero"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeExtended `json:"tls,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -139,8 +144,9 @@ type OutputServiceNow struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                     `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputServiceNowPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputServiceNowPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.

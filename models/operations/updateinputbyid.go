@@ -276,6 +276,10 @@ func (u *UpdateInputByIDRequest) GetInputSecurityLake() *components.InputSecurit
 	return u.GetInput().InputSecurityLakeInput
 }
 
+func (u *UpdateInputByIDRequest) GetInputBedrockS3() *components.InputBedrockS3Input {
+	return u.GetInput().InputBedrockS3Input
+}
+
 func (u *UpdateInputByIDRequest) GetInputServicenowTable() *components.InputServicenowTableInput {
 	return u.GetInput().InputServicenowTableInput
 }

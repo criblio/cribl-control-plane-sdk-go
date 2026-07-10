@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputGoogleBigqueryType - Connector type identifier.
 type OutputGoogleBigqueryType string
 
 const (
@@ -56,6 +57,7 @@ func (e *OutputGoogleBigqueryGoogleAuthenticationMethod) IsExact() bool {
 	return false
 }
 
+// OutputGoogleBigqueryPqControls - Persistent queue controls.
 type OutputGoogleBigqueryPqControls struct {
 }
 
@@ -72,7 +74,8 @@ func (o *OutputGoogleBigqueryPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputGoogleBigquery struct {
 	// Unique ID for this output
-	ID   *string                  `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputGoogleBigqueryType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -102,6 +105,8 @@ type OutputGoogleBigquery struct {
 	MaxRecordSizeKB *float64 `json:"maxRecordSizeKB,omitzero"`
 	// The maximum number of in-progress API requests before backpressure is applied
 	MaxInProgress *float64 `json:"maxInProgress,omitzero"`
+	// Maximum retries per batch for retryable failures (transient, rate-limit, unknown) before dropping. 0 (default) retries indefinitely.
+	MaxSendRetries *float64 `json:"maxSendRetries,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Optional description for this configuration.
@@ -127,8 +132,9 @@ type OutputGoogleBigquery struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                         `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputGoogleBigqueryPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputGoogleBigqueryPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'projectId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'projectId' at runtime.
@@ -262,6 +268,13 @@ func (o *OutputGoogleBigquery) GetMaxInProgress() *float64 {
 		return nil
 	}
 	return o.MaxInProgress
+}
+
+func (o *OutputGoogleBigquery) GetMaxSendRetries() *float64 {
+	if o == nil {
+		return nil
+	}
+	return o.MaxSendRetries
 }
 
 func (o *OutputGoogleBigquery) GetOnBackpressure() *BackpressureBehaviorOptions {

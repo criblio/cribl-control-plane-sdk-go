@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputWizHecType - Connector type identifier.
 type OutputWizHecType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputWizHecType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputWizHecPqControls - Persistent queue controls.
 type OutputWizHecPqControls struct {
 }
 
@@ -47,7 +49,8 @@ func (o *OutputWizHecPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputWizHec struct {
 	// Unique ID for this output
-	ID   *string          `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputWizHecType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -56,8 +59,9 @@ type OutputWizHec struct {
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
 	// Metadata tags used for categorization and filtering.
-	Streamtags []string                                         `json:"streamtags,omitzero"`
-	TLS        *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
+	Streamtags []string `json:"streamtags,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum number of ongoing requests before blocking
 	Concurrency *float64 `json:"concurrency,omitzero"`
 	// Maximum size, in KB, of the request body
@@ -89,10 +93,11 @@ type OutputWizHec struct {
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// The unique identifier for the specific Cribl connector defined in your Wiz Settings. This is used to cross-validate the bearer token and ensure traffic is originating from the authorized integration.
 	WizConnectorID string `json:"wiz_connector_id"`
-	// Your Wiz deployment environment.
+	// Your Wiz deployment environment
 	WizEnvironment string `json:"wiz_environment"`
-	// Your Wiz deployment data center (e.g., us1, us8, eu1). From Tenant Info → Data Center and Regions → Tenant Data Center in your Wiz console.
-	DataCenter    string `json:"data_center"`
+	// Your Wiz deployment data center (such as us1, us8, or eu1). From Tenant Info → Data Center and Regions → Tenant Data Center in your Wiz console.
+	DataCenter string `json:"data_center"`
+	// Wiz Defend Source type
 	WizSourcetype string `json:"wiz_sourcetype"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
@@ -123,8 +128,9 @@ type OutputWizHec struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                 `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputWizHecPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputWizHecPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.

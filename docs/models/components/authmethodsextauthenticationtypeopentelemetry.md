@@ -1,5 +1,7 @@
 # AuthMethodsExtAuthenticationTypeOpenTelemetry
 
+Authentication type
+
 ## Example Usage
 
 ```go

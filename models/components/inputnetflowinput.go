@@ -3,38 +3,14 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputNetflowType string
-
-const (
-	InputNetflowTypeNetflow InputNetflowType = "netflow"
-)
-
-func (e InputNetflowType) ToPointer() *InputNetflowType {
-	return &e
-}
-func (e *InputNetflowType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "netflow":
-		*e = InputNetflowType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputNetflowType: %v", v)
-	}
-}
-
 type InputNetflowInput struct {
 	// Unique ID for this input
-	ID   *string          `json:"id,omitzero"`
-	Type InputNetflowType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsNetflow `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -102,9 +78,9 @@ func (i *InputNetflowInput) GetID() *string {
 	return i.ID
 }
 
-func (i *InputNetflowInput) GetType() InputNetflowType {
+func (i *InputNetflowInput) GetType() TypeOptionsNetflow {
 	if i == nil {
-		return InputNetflowType("")
+		return TypeOptionsNetflow("")
 	}
 	return i.Type
 }

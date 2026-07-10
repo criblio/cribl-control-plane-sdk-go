@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputNewrelicType - Connector type identifier.
 type OutputNewrelicType string
 
 const (
@@ -88,6 +89,7 @@ func (o *OutputNewrelicMetadatum) GetValue() string {
 	return o.Value
 }
 
+// OutputNewrelicPqControls - Persistent queue controls.
 type OutputNewrelicPqControls struct {
 }
 
@@ -104,7 +106,8 @@ func (o *OutputNewrelicPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputNewrelic struct {
 	// Unique ID for this output
-	ID   *string            `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputNewrelicType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -181,8 +184,9 @@ type OutputNewrelic struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                   `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputNewrelicPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputNewrelicPqControls `json:"pqControls,omitzero"`
 	// New Relic API key. Can be overridden using __newRelic_apiKey field.
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret

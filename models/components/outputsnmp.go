@@ -3,33 +3,8 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type OutputSnmpType string
-
-const (
-	OutputSnmpTypeSnmp OutputSnmpType = "snmp"
-)
-
-func (e OutputSnmpType) ToPointer() *OutputSnmpType {
-	return &e
-}
-func (e *OutputSnmpType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "snmp":
-		*e = OutputSnmpType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSnmpType: %v", v)
-	}
-}
 
 type OutputSnmpHost struct {
 	// Destination host
@@ -83,8 +58,9 @@ func (o *OutputSnmpHost) GetTemplatePort() *string {
 
 type OutputSnmp struct {
 	// Unique ID for this output
-	ID   *string        `json:"id,omitzero"`
-	Type OutputSnmpType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsSnmp `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
@@ -125,9 +101,9 @@ func (o *OutputSnmp) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputSnmp) GetType() OutputSnmpType {
+func (o *OutputSnmp) GetType() TypeOptionsSnmp {
 	if o == nil {
-		return OutputSnmpType("")
+		return TypeOptionsSnmp("")
 	}
 	return o.Type
 }

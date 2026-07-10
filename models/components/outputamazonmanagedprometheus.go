@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputAmazonManagedPrometheusType - Connector type identifier.
 type OutputAmazonManagedPrometheusType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputAmazonManagedPrometheusType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputAmazonManagedPrometheusPqControls - Persistent queue controls.
 type OutputAmazonManagedPrometheusPqControls struct {
 }
 
@@ -47,7 +49,8 @@ func (o *OutputAmazonManagedPrometheusPqControls) UnmarshalJSON(data []byte) err
 
 type OutputAmazonManagedPrometheus struct {
 	// Unique ID for this output
-	ID   *string                           `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputAmazonManagedPrometheusType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -61,7 +64,8 @@ type OutputAmazonManagedPrometheus struct {
 	URL string `json:"url"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod AuthenticationMethodOptionsAutoSecret `json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                               `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Region where the AMSP is located
 	Region string `json:"region"`
 	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
@@ -134,8 +138,9 @@ type OutputAmazonManagedPrometheus struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                                  `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputAmazonManagedPrometheusPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputAmazonManagedPrometheusPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.

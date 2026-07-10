@@ -1,5 +1,7 @@
 # CreateOutputSystemByPackTypeOpenTelemetry
 
+Connector type identifier.
+
 ## Example Usage
 
 ```go

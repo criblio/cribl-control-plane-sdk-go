@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputExecType - Connector type identifier.
 type InputExecType string
 
 const (
@@ -56,9 +57,11 @@ func (e *ScheduleType) IsExact() bool {
 
 type InputExecInput struct {
 	// Unique ID for this input
-	ID       *string       `json:"id,omitzero"`
-	Type     InputExecType `json:"type"`
-	Disabled *bool         `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type InputExecType `json:"type"`
+	// Disabled
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.

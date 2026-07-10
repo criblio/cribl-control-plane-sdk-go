@@ -10,8 +10,129 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+// CreateInputDisksAndFileSystems - Creates events for physical disks, partitions, and file systems
+type CreateInputDisksAndFileSystems struct {
+	// Enabled
+	Enable *bool `json:"enable,omitzero"`
+}
+
+func (c CreateInputDisksAndFileSystems) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputDisksAndFileSystems) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputDisksAndFileSystems) GetEnable() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enable
+}
+
+// CreateInputHostInfo - Creates events based on the host system’s current state
+type CreateInputHostInfo struct {
+	// Enabled
+	Enable *bool `json:"enable,omitzero"`
+}
+
+func (c CreateInputHostInfo) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputHostInfo) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputHostInfo) GetEnable() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enable
+}
+
+// CreateInputRoutes - Creates events based on entries collected from the host’s network routes
+type CreateInputRoutes struct {
+	// Enabled
+	Enable *bool `json:"enable,omitzero"`
+}
+
+func (c CreateInputRoutes) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputRoutes) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputRoutes) GetEnable() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enable
+}
+
+// CreateInputDNS - Creates events for DNS resolvers and search entries
+type CreateInputDNS struct {
+	// Enabled
+	Enable *bool `json:"enable,omitzero"`
+}
+
+func (c CreateInputDNS) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputDNS) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputDNS) GetEnable() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enable
+}
+
+// CreateInputUsersAndGroups - Creates events for local users and groups
+type CreateInputUsersAndGroups struct {
+	// Enabled
+	Enable *bool `json:"enable,omitzero"`
+}
+
+func (c CreateInputUsersAndGroups) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(c, "", false)
+}
+
+func (c *CreateInputUsersAndGroups) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c *CreateInputUsersAndGroups) GetEnable() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Enable
+}
+
 // CreateInputFirewall - Creates events for Firewall rules entries
 type CreateInputFirewall struct {
+	// Enabled
 	Enable *bool `json:"enable,omitzero"`
 }
 
@@ -35,6 +156,7 @@ func (c *CreateInputFirewall) GetEnable() *bool {
 
 // CreateInputServices - Creates events from the list of services
 type CreateInputServices struct {
+	// Enabled
 	Enable *bool `json:"enable,omitzero"`
 }
 
@@ -58,6 +180,7 @@ func (c *CreateInputServices) GetEnable() *bool {
 
 // CreateInputListeningPorts - Creates events from list of listening ports
 type CreateInputListeningPorts struct {
+	// Enabled
 	Enable *bool `json:"enable,omitzero"`
 }
 
@@ -81,6 +204,7 @@ func (c *CreateInputListeningPorts) GetEnable() *bool {
 
 // CreateInputLoggedInUsers - Creates events from list of logged-in users
 type CreateInputLoggedInUsers struct {
+	// Enabled
 	Enable *bool `json:"enable,omitzero"`
 }
 
@@ -223,8 +347,9 @@ type CreateInputPersistenceSystemState struct {
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
 	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                             `json:"maxDataTime,omitzero"`
-	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
+	MaxDataTime *string `json:"maxDataTime,omitzero"`
+	// Data compression format
+	Compress *components.DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
 	DestPath *string `json:"destPath,omitzero"`
 }
@@ -284,7 +409,8 @@ func (c *CreateInputPersistenceSystemState) GetDestPath() *string {
 
 type CreateInputInputSystemState struct {
 	// Unique ID for this input
-	ID   string                     `json:"id"`
+	ID string `json:"id"`
+	// Connector type identifier.
 	Type CreateInputTypeSystemState `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -463,6 +589,7 @@ func (c *CreateInputInputSystemState) GetTemplateStreamtags() *string {
 	return c.TemplateStreamtags
 }
 
+// CreateInputTypeSystemMetrics - Connector type identifier.
 type CreateInputTypeSystemMetrics string
 
 const (
@@ -996,6 +1123,7 @@ func (e *CreateInputContainerMode) IsExact() bool {
 }
 
 type CreateInputContainerFilter struct {
+	// Expression
 	Expr string `json:"expr"`
 }
 
@@ -1094,6 +1222,7 @@ func (c *CreateInputContainer) GetDetail() *bool {
 	return c.Detail
 }
 
+// CreateInputPersistenceSystemMetrics - persistence
 type CreateInputPersistenceSystemMetrics struct {
 	// Spool metrics to disk for Cribl Edge and Search
 	Enable *bool `json:"enable,omitzero"`
@@ -1102,8 +1231,9 @@ type CreateInputPersistenceSystemMetrics struct {
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
 	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                             `json:"maxDataTime,omitzero"`
-	Compress    *components.DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
+	MaxDataTime *string `json:"maxDataTime,omitzero"`
+	// Data compression format
+	Compress *components.DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_metrics
 	DestPath *string `json:"destPath,omitzero"`
 }
@@ -1163,7 +1293,8 @@ func (c *CreateInputPersistenceSystemMetrics) GetDestPath() *string {
 
 type CreateInputInputSystemMetrics struct {
 	// Unique ID for this input
-	ID   string                       `json:"id"`
+	ID string `json:"id"`
+	// Connector type identifier.
 	Type CreateInputTypeSystemMetrics `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -1187,8 +1318,9 @@ type CreateInputInputSystemMetrics struct {
 	Container *CreateInputContainer         `json:"container,omitzero"`
 	Gpu       *components.GpuType           `json:"gpu,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-	Persistence *CreateInputPersistenceSystemMetrics     `json:"persistence,omitzero"`
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// persistence
+	Persistence *CreateInputPersistenceSystemMetrics `json:"persistence,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -1348,33 +1480,11 @@ func (c *CreateInputInputSystemMetrics) GetTemplateStreamtags() *string {
 	return c.TemplateStreamtags
 }
 
-type CreateInputTypeTcpjson string
-
-const (
-	CreateInputTypeTcpjsonTcpjson CreateInputTypeTcpjson = "tcpjson"
-)
-
-func (e CreateInputTypeTcpjson) ToPointer() *CreateInputTypeTcpjson {
-	return &e
-}
-func (e *CreateInputTypeTcpjson) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "tcpjson":
-		*e = CreateInputTypeTcpjson(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CreateInputTypeTcpjson: %v", v)
-	}
-}
-
 type CreateInputInputTcpjson struct {
 	// Unique ID for this input
-	ID   string                 `json:"id"`
-	Type CreateInputTypeTcpjson `json:"type"`
+	ID string `json:"id"`
+	// Connector type identifier.
+	Type components.TypeOptionsTcpjson `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -1393,8 +1503,9 @@ type CreateInputInputTcpjson struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Regex matching IP addresses that are allowed to establish a connection
 	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -1447,9 +1558,9 @@ func (c *CreateInputInputTcpjson) GetID() string {
 	return c.ID
 }
 
-func (c *CreateInputInputTcpjson) GetType() CreateInputTypeTcpjson {
+func (c *CreateInputInputTcpjson) GetType() components.TypeOptionsTcpjson {
 	if c == nil {
-		return CreateInputTypeTcpjson("")
+		return components.TypeOptionsTcpjson("")
 	}
 	return c.Type
 }
@@ -1668,6 +1779,7 @@ func (e *CreateInputTypeCriblLakeHTTP) UnmarshalJSON(data []byte) error {
 }
 
 type CreateInputSplunkHecMetadata struct {
+	// Splunk HEC
 	Enabled               *bool    `json:"enabled,omitzero"`
 	DefaultDataset        *string  `json:"defaultDataset,omitzero"`
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
@@ -1706,6 +1818,7 @@ func (c *CreateInputSplunkHecMetadata) GetAllowedIndexesAtToken() []string {
 }
 
 type CreateInputElasticsearchMetadata struct {
+	// Elasticsearch
 	Enabled        *bool   `json:"enabled,omitzero"`
 	DefaultDataset *string `json:"defaultDataset,omitzero"`
 }
@@ -1736,6 +1849,7 @@ func (c *CreateInputElasticsearchMetadata) GetDefaultDataset() *string {
 }
 
 type CreateInputAuthTokensExt struct {
+	// Token
 	Token       string  `json:"token"`
 	Description *string `json:"description,omitzero"`
 	// Fields to add to events referencing this token
@@ -1815,8 +1929,9 @@ type CreateInputInputCriblLakeHTTP struct {
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []string                              `json:"authTokens,omitzero"`
-	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	AuthTokens []string `json:"authTokens,omitzero"`
+	// TLS settings (server side)
+	TLS *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -1844,11 +1959,13 @@ type CreateInputInputCriblLakeHTTP struct {
 	// Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
 	ElasticAPI *string `json:"elasticAPI,omitzero"`
 	// Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
-	SplunkHecAPI  *string `json:"splunkHecAPI,omitzero"`
-	SplunkHecAcks *bool   `json:"splunkHecAcks,omitzero"`
+	SplunkHecAPI *string `json:"splunkHecAPI,omitzero"`
+	// Enable Splunk HEC acknowledgements
+	SplunkHecAcks *bool `json:"splunkHecAcks,omitzero"`
 	// Fields to add to events from this input
-	Metadata      []components.MetadataConfInputCollection `json:"metadata,omitzero"`
-	AuthTokensExt []CreateInputAuthTokensExt               `json:"authTokensExt,omitzero"`
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Auth tokens
+	AuthTokensExt []CreateInputAuthTokensExt `json:"authTokensExt,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -2210,7 +2327,8 @@ type CreateInputInputCriblHTTP struct {
 	Port float64 `json:"port"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
 	AuthTokens []components.AuthTokenConfInputCriblTCP `json:"authTokens,omitzero"`
-	TLS        *components.TLSSettingsServerSideType   `json:"tls,omitzero"`
+	// TLS settings (server side)
+	TLS *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -2475,33 +2593,11 @@ func (c *CreateInputInputCriblHTTP) GetTemplatePort() *string {
 	return c.TemplatePort
 }
 
-type CreateInputTypeCriblTCP string
-
-const (
-	CreateInputTypeCriblTCPCriblTCP CreateInputTypeCriblTCP = "cribl_tcp"
-)
-
-func (e CreateInputTypeCriblTCP) ToPointer() *CreateInputTypeCriblTCP {
-	return &e
-}
-func (e *CreateInputTypeCriblTCP) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "cribl_tcp":
-		*e = CreateInputTypeCriblTCP(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CreateInputTypeCriblTCP: %v", v)
-	}
-}
-
 type CreateInputInputCriblTCP struct {
 	// Unique ID for this input
-	ID   string                  `json:"id"`
-	Type CreateInputTypeCriblTCP `json:"type"`
+	ID string `json:"id"`
+	// Connector type identifier.
+	Type components.TypeOptionsCribltcp `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -2520,8 +2616,9 @@ type CreateInputInputCriblTCP struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
 	// How long @{product} should wait before assuming that an inactive socket has timed out. After this time, the connection will be closed. Leave at 0 for no inactive socket monitoring.
@@ -2568,9 +2665,9 @@ func (c *CreateInputInputCriblTCP) GetID() string {
 	return c.ID
 }
 
-func (c *CreateInputInputCriblTCP) GetType() CreateInputTypeCriblTCP {
+func (c *CreateInputInputCriblTCP) GetType() components.TypeOptionsCribltcp {
 	if c == nil {
-		return CreateInputTypeCriblTCP("")
+		return components.TypeOptionsCribltcp("")
 	}
 	return c.Type
 }
@@ -2743,6 +2840,7 @@ func (c *CreateInputInputCriblTCP) GetTemplatePort() *string {
 	return c.TemplatePort
 }
 
+// CreateInputTypeCribl - Connector type identifier.
 type CreateInputTypeCribl string
 
 const (
@@ -2768,7 +2866,8 @@ func (e *CreateInputTypeCribl) UnmarshalJSON(data []byte) error {
 
 type CreateInputInputCribl struct {
 	// Unique ID for this input
-	ID   string               `json:"id"`
+	ID string `json:"id"`
+	// Connector type identifier.
 	Type CreateInputTypeCribl `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -2912,33 +3011,11 @@ func (c *CreateInputInputCribl) GetTemplateStreamtags() *string {
 	return c.TemplateStreamtags
 }
 
-type CreateInputTypeGooglePubsub string
-
-const (
-	CreateInputTypeGooglePubsubGooglePubsub CreateInputTypeGooglePubsub = "google_pubsub"
-)
-
-func (e CreateInputTypeGooglePubsub) ToPointer() *CreateInputTypeGooglePubsub {
-	return &e
-}
-func (e *CreateInputTypeGooglePubsub) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "google_pubsub":
-		*e = CreateInputTypeGooglePubsub(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CreateInputTypeGooglePubsub: %v", v)
-	}
-}
-
 type CreateInputInputGooglePubsub struct {
 	// Unique ID for this input
-	ID   string                      `json:"id"`
-	Type CreateInputTypeGooglePubsub `json:"type"`
+	ID string `json:"id"`
+	// Connector type identifier.
+	Type components.TypeOptionsGooglepubsub `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -3014,9 +3091,9 @@ func (c *CreateInputInputGooglePubsub) GetID() string {
 	return c.ID
 }
 
-func (c *CreateInputInputGooglePubsub) GetType() CreateInputTypeGooglePubsub {
+func (c *CreateInputInputGooglePubsub) GetType() components.TypeOptionsGooglepubsub {
 	if c == nil {
-		return CreateInputTypeGooglePubsub("")
+		return components.TypeOptionsGooglepubsub("")
 	}
 	return c.Type
 }
@@ -3266,8 +3343,9 @@ type CreateInputInputFirehose struct {
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []string                              `json:"authTokens,omitzero"`
-	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	AuthTokens []string `json:"authTokens,omitzero"`
+	// TLS settings (server side)
+	TLS *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -3541,6 +3619,7 @@ func (c *CreateInputInputFirehose) GetTemplateAuthTokens() *string {
 	return c.TemplateAuthTokens
 }
 
+// CreateInputInputExecType - Connector type identifier.
 type CreateInputInputExecType string
 
 const (
@@ -3589,9 +3668,11 @@ func (e *CreateInputScheduleType) IsExact() bool {
 
 type CreateInputInputExec struct {
 	// Unique ID for this input
-	ID       string                   `json:"id"`
-	Type     CreateInputInputExecType `json:"type"`
-	Disabled *bool                    `json:"disabled,omitzero"`
+	ID string `json:"id"`
+	// Connector type identifier.
+	Type CreateInputInputExecType `json:"type"`
+	// Disabled
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -3796,6 +3877,7 @@ func (c *CreateInputInputExec) GetTemplateStreamtags() *string {
 	return c.TemplateStreamtags
 }
 
+// CreateInputTypeEventhubAmqp - Connector type identifier.
 type CreateInputTypeEventhubAmqp string
 
 const (
@@ -3819,6 +3901,7 @@ func (e *CreateInputTypeEventhubAmqp) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// CreateInputAuthenticationMechanism - Authentication mechanism
 type CreateInputAuthenticationMechanism string
 
 const (
@@ -3894,9 +3977,11 @@ func (c *CreateInputCertificate) GetPassphrase() *string {
 }
 
 type CreateInputAuth struct {
+	// Authentication mechanism
 	Mechanism CreateInputAuthenticationMechanism `json:"mechanism"`
 	// Select or create a stored text secret
-	TextSecret           *string                                     `json:"textSecret,omitzero"`
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Authentication method
 	ClientSecretAuthType *components.AuthenticationMethodOptionsAuth `json:"clientSecretAuthType,omitzero"`
 	// Select or create a stored text secret
 	ClientTextSecret *string                 `json:"clientTextSecret,omitzero"`
@@ -4021,6 +4106,7 @@ func (c *CreateInputAuth) GetTemplateFullyQualifiedNamespace() *string {
 	return c.TemplateFullyQualifiedNamespace
 }
 
+// CreateInputBlobStoreAuthenticationMethod - Authentication method
 type CreateInputBlobStoreAuthenticationMethod string
 
 const (
@@ -4046,10 +4132,12 @@ func (e *CreateInputBlobStoreAuthenticationMethod) IsExact() bool {
 	return false
 }
 
+// CreateInputAzureBlobStorage - Azure Blob Storage
 type CreateInputAzureBlobStorage struct {
 	// Azure Blob Storage container used to store checkpoints. Must be 3–63 lowercase alphanumeric characters or hyphens.
-	ContainerName string                                    `json:"containerName"`
-	AuthType      *CreateInputBlobStoreAuthenticationMethod `json:"authType,omitzero"`
+	ContainerName string `json:"containerName"`
+	// Authentication method
+	AuthType *CreateInputBlobStoreAuthenticationMethod `json:"authType,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
 	// The name of your Azure storage account
@@ -4185,6 +4273,7 @@ func (c *CreateInputAzureBlobStorage) GetTemplateAzureCloud() *string {
 }
 
 type CreateInputCheckpointing struct {
+	// Azure Blob Storage
 	BlobStore CreateInputAzureBlobStorage `json:"blobStore"`
 }
 
@@ -4208,7 +4297,8 @@ func (c *CreateInputCheckpointing) GetBlobStore() CreateInputAzureBlobStorage {
 
 type CreateInputInputEventhubAmqp struct {
 	// Unique ID for this input
-	ID   string                      `json:"id"`
+	ID string `json:"id"`
+	// Connector type identifier.
 	Type CreateInputTypeEventhubAmqp `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -4477,6 +4567,7 @@ func (c *CreateInputInputEventhubAmqp) GetTemplateStreamtags() *string {
 	return c.TemplateStreamtags
 }
 
+// CreateInputTypeEventhub - Connector type identifier.
 type CreateInputTypeEventhub string
 
 const (
@@ -4502,7 +4593,8 @@ func (e *CreateInputTypeEventhub) UnmarshalJSON(data []byte) error {
 
 type CreateInputInputEventhub struct {
 	// Unique ID for this input
-	ID   string                  `json:"id"`
+	ID string `json:"id"`
+	// Connector type identifier.
 	Type CreateInputTypeEventhub `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -4544,8 +4636,9 @@ type CreateInputInputEventhub struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *components.AuthenticationTypeUse     `json:"sasl,omitzero"`
-	TLS  *components.TLSSettingsClientSideType `json:"tls,omitzero"`
+	Sasl *components.AuthenticationTypeUse `json:"sasl,omitzero"`
+	// TLS settings (client side)
+	TLS *components.TLSSettingsClientSideType `json:"tls,omitzero"`
 	// Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities. If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance. Value must be lower than rebalanceTimeout. See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
 	SessionTimeout *float64 `json:"sessionTimeout,omitzero"`
 	// Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
@@ -4871,6 +4964,7 @@ func (c *CreateInputInputEventhub) GetTemplateGroupID() *string {
 	return c.TemplateGroupID
 }
 
+// CreateInputTypeMicrosoftGraph - Connector type identifier.
 type CreateInputTypeMicrosoftGraph string
 
 const (
@@ -4951,7 +5045,8 @@ func (e *CreateInputSubscriptionPlan) IsExact() bool {
 
 type CreateInputInputMicrosoftGraph struct {
 	// Unique ID for this input
-	ID   string                        `json:"id"`
+	ID string `json:"id"`
+	// Connector type identifier.
 	Type CreateInputTypeMicrosoftGraph `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -5003,6 +5098,10 @@ type CreateInputInputMicrosoftGraph struct {
 	// Log Level (verbosity) for collection runtime behavior.
 	LogLevel   *components.LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
 	RetryRules *components.RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
+	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
+	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
+	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// client_secret to pass in the OAuth request parameter.
@@ -5241,6 +5340,20 @@ func (c *CreateInputInputMicrosoftGraph) GetRetryRules() *components.RetryRulesT
 	return c.RetryRules
 }
 
+func (c *CreateInputInputMicrosoftGraph) GetBreakerRulesets() []string {
+	if c == nil {
+		return nil
+	}
+	return c.BreakerRulesets
+}
+
+func (c *CreateInputInputMicrosoftGraph) GetStaleChannelFlushMs() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.StaleChannelFlushMs
+}
+
 func (c *CreateInputInputMicrosoftGraph) GetDescription() *string {
 	if c == nil {
 		return nil
@@ -5346,6 +5459,7 @@ func (c *CreateInputInputMicrosoftGraph) GetTemplatePlanType() *string {
 	return c.TemplatePlanType
 }
 
+// CreateInputTypeOffice365MsgTrace - Connector type identifier.
 type CreateInputTypeOffice365MsgTrace string
 
 const (
@@ -5397,7 +5511,8 @@ func (e *CreateInputAuthenticationMethodOffice365MsgTrace) IsExact() bool {
 
 type CreateInputInputOffice365MsgTrace struct {
 	// Unique ID for this input
-	ID   string                           `json:"id"`
+	ID string `json:"id"`
+	// Connector type identifier.
 	Type CreateInputTypeOffice365MsgTrace `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -5813,6 +5928,7 @@ func (c *CreateInputInputOffice365MsgTrace) GetTemplatePlanType() *string {
 // #region class-body-createinputinputoffice365msgtrace
 // #endregion class-body-createinputinputoffice365msgtrace
 
+// CreateInputTypeOffice365Service - Connector type identifier.
 type CreateInputTypeOffice365Service string
 
 const (
@@ -5840,11 +5956,13 @@ type CreateInputContentConfigOffice365Service struct {
 	// Microsoft 365 Services API Content Type
 	ContentType *string `json:"contentType,omitzero"`
 	// If interval type is minutes the value entered must evenly divisible by 60 or save will fail
-	Description *string  `json:"description,omitzero"`
-	Interval    *float64 `json:"interval,omitzero"`
+	Description *string `json:"description,omitzero"`
+	// Interval
+	Interval *float64 `json:"interval,omitzero"`
 	// Collector runtime Log Level
 	LogLevel *components.LogLevelOptionsContentConfigItems `json:"logLevel,omitzero"`
-	Enabled  *bool                                         `json:"enabled,omitzero"`
+	// Enabled
+	Enabled *bool `json:"enabled,omitzero"`
 }
 
 func (c CreateInputContentConfigOffice365Service) MarshalJSON() ([]byte, error) {
@@ -5898,7 +6016,8 @@ func (c *CreateInputContentConfigOffice365Service) GetEnabled() *bool {
 
 type CreateInputInputOffice365Service struct {
 	// Unique ID for this input
-	ID   string                          `json:"id"`
+	ID string `json:"id"`
+	// Connector type identifier.
 	Type CreateInputTypeOffice365Service `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -6198,6 +6317,7 @@ func (c *CreateInputInputOffice365Service) GetTemplateClientSecret() *string {
 // #region class-body-createinputinputoffice365service
 // #endregion class-body-createinputinputoffice365service
 
+// CreateInputTypeOffice365Mgmt - Connector type identifier.
 type CreateInputTypeOffice365Mgmt string
 
 const (
@@ -6225,11 +6345,13 @@ type CreateInputContentConfigOffice365Mgmt struct {
 	// Microsoft 365 Management Activity API Content Type
 	ContentType *string `json:"contentType,omitzero"`
 	// If interval type is minutes the value entered must evenly divisible by 60 or save will fail
-	Description *string  `json:"description,omitzero"`
-	Interval    *float64 `json:"interval,omitzero"`
+	Description *string `json:"description,omitzero"`
+	// Interval
+	Interval *float64 `json:"interval,omitzero"`
 	// Collector runtime Log Level
 	LogLevel *components.LogLevelOptionsContentConfigItems `json:"logLevel,omitzero"`
-	Enabled  *bool                                         `json:"enabled,omitzero"`
+	// Enabled
+	Enabled *bool `json:"enabled,omitzero"`
 }
 
 func (c CreateInputContentConfigOffice365Mgmt) MarshalJSON() ([]byte, error) {
@@ -6283,7 +6405,8 @@ func (c *CreateInputContentConfigOffice365Mgmt) GetEnabled() *bool {
 
 type CreateInputInputOffice365Mgmt struct {
 	// Unique ID for this input
-	ID   string                       `json:"id"`
+	ID string `json:"id"`
+	// Connector type identifier.
 	Type CreateInputTypeOffice365Mgmt `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -6610,6 +6733,7 @@ func (c *CreateInputInputOffice365Mgmt) GetTemplateClientSecret() *string {
 // #region class-body-createinputinputoffice365mgmt
 // #endregion class-body-createinputinputoffice365mgmt
 
+// CreateInputTypeEdgePrometheus - Connector type identifier.
 type CreateInputTypeEdgePrometheus string
 
 const (
@@ -6776,7 +6900,8 @@ func (c *CreateInputPodFilter) GetDescription() *string {
 
 type CreateInputInputEdgePrometheus struct {
 	// Unique ID for this input
-	ID   string                        `json:"id"`
+	ID string `json:"id"`
+	// Connector type identifier.
 	Type CreateInputTypeEdgePrometheus `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -6802,15 +6927,17 @@ type CreateInputInputEdgePrometheus struct {
 	// How often in seconds to scrape targets for metrics.
 	Interval float64 `json:"interval"`
 	// Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable
-	Timeout     *float64                     `json:"timeout,omitzero"`
+	Timeout *float64 `json:"timeout,omitzero"`
+	// Disk Spooling
 	Persistence *components.DiskSpoolingType `json:"persistence,omitzero"`
 	// Fields to add to events from this input
 	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
 	AuthType *CreateInputAuthenticationMethodEdgePrometheus `json:"authType,omitzero"`
 	// Optional description for this configuration.
-	Description *string             `json:"description,omitzero"`
-	Targets     []CreateInputTarget `json:"targets,omitzero"`
+	Description *string `json:"description,omitzero"`
+	// Targets
+	Targets []CreateInputTarget `json:"targets,omitzero"`
 	// DNS record type to resolve
 	RecordType *components.RecordTypeOptions `json:"recordType,omitzero"`
 	// The port number in the metrics URL for discovered targets.
@@ -6823,14 +6950,16 @@ type CreateInputInputEdgePrometheus struct {
 	ScrapePath *string `json:"scrapePath,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	AwsAPIKey               *string                                                `json:"awsApiKey,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
 	UsePublicIP *bool `json:"usePublicIp,omitzero"`
 	// Filter to apply when searching for EC2 instances
 	SearchFilter []components.SearchFilterConfInputPrometheus `json:"searchFilter,omitzero"`
-	AwsSecretKey *string                                      `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Region where the EC2 is located
 	Region *string `json:"region,omitzero"`
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
@@ -7334,29 +7463,6 @@ func (c *CreateInputInputEdgePrometheus) GetTemplateAssumeRoleExternalID() *stri
 	return c.TemplateAssumeRoleExternalID
 }
 
-type CreateInputTypePrometheus string
-
-const (
-	CreateInputTypePrometheusPrometheus CreateInputTypePrometheus = "prometheus"
-)
-
-func (e CreateInputTypePrometheus) ToPointer() *CreateInputTypePrometheus {
-	return &e
-}
-func (e *CreateInputTypePrometheus) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "prometheus":
-		*e = CreateInputTypePrometheus(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CreateInputTypePrometheus: %v", v)
-	}
-}
-
 // CreateInputDiscoveryTypePrometheus - Target discovery mechanism. Use static to manually enter a list of targets.
 type CreateInputDiscoveryTypePrometheus string
 
@@ -7411,8 +7517,9 @@ func (e *CreateInputMetricsProtocol) IsExact() bool {
 
 type CreateInputInputPrometheus struct {
 	// Unique ID for this input
-	ID   string                    `json:"id"`
-	Type CreateInputTypePrometheus `json:"type"`
+	ID string `json:"id"`
+	// Connector type identifier.
+	Type components.TypeOptionsPrometheus `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -7472,14 +7579,16 @@ type CreateInputInputPrometheus struct {
 	ScrapePath *string `json:"scrapePath,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	AwsAPIKey               *string                                                `json:"awsApiKey,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
 	UsePublicIP *bool `json:"usePublicIp,omitzero"`
 	// Filter to apply when searching for EC2 instances
 	SearchFilter []components.SearchFilterConfInputPrometheus `json:"searchFilter,omitzero"`
-	AwsSecretKey *string                                      `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Region where the EC2 is located
 	Region *string `json:"region,omitzero"`
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
@@ -7558,9 +7667,9 @@ func (c *CreateInputInputPrometheus) GetID() string {
 	return c.ID
 }
 
-func (c *CreateInputInputPrometheus) GetType() CreateInputTypePrometheus {
+func (c *CreateInputInputPrometheus) GetType() components.TypeOptionsPrometheus {
 	if c == nil {
-		return CreateInputTypePrometheus("")
+		return components.TypeOptionsPrometheus("")
 	}
 	return c.Type
 }
@@ -8060,8 +8169,9 @@ type CreateInputInputPrometheusRw struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -8092,8 +8202,10 @@ type CreateInputInputPrometheusRw struct {
 	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -8445,8 +8557,9 @@ type CreateInputInputLoki struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -8477,8 +8590,10 @@ type CreateInputInputLoki struct {
 	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -8801,8 +8916,10 @@ func (e *CreateInputInputGrafanaType2) UnmarshalJSON(data []byte) error {
 type CreateInputPrometheusAuth2 struct {
 	// Remote Write authentication type
 	AuthType *components.AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
-	Username *string                                             `json:"username,omitzero"`
-	Password *string                                             `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -8870,8 +8987,10 @@ func (c *CreateInputPrometheusAuth2) GetTextSecret() *string {
 type CreateInputLokiAuth2 struct {
 	// Loki logs authentication type
 	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
-	Username *string                                       `json:"username,omitzero"`
-	Password *string                                       `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -8959,8 +9078,9 @@ type CreateInputInputGrafanaGrafana2 struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -9300,8 +9420,10 @@ func (e *CreateInputInputGrafanaType1) UnmarshalJSON(data []byte) error {
 type CreateInputPrometheusAuth1 struct {
 	// Remote Write authentication type
 	AuthType *components.AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
-	Username *string                                             `json:"username,omitzero"`
-	Password *string                                             `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -9369,8 +9491,10 @@ func (c *CreateInputPrometheusAuth1) GetTextSecret() *string {
 type CreateInputLokiAuth1 struct {
 	// Loki logs authentication type
 	AuthType *components.AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
-	Username *string                                       `json:"username,omitzero"`
-	Password *string                                       `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -9458,8 +9582,9 @@ type CreateInputInputGrafanaGrafana1 struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -9861,33 +9986,11 @@ func (u CreateInputInputGrafanaUnion) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("could not marshal union type CreateInputInputGrafanaUnion: all fields are null")
 }
 
-type CreateInputTypeConfluentCloud string
-
-const (
-	CreateInputTypeConfluentCloudConfluentCloud CreateInputTypeConfluentCloud = "confluent_cloud"
-)
-
-func (e CreateInputTypeConfluentCloud) ToPointer() *CreateInputTypeConfluentCloud {
-	return &e
-}
-func (e *CreateInputTypeConfluentCloud) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "confluent_cloud":
-		*e = CreateInputTypeConfluentCloud(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CreateInputTypeConfluentCloud: %v", v)
-	}
-}
-
 type CreateInputInputConfluentCloud struct {
 	// Unique ID for this input
-	ID   string                        `json:"id"`
-	Type CreateInputTypeConfluentCloud `json:"type"`
+	ID string `json:"id"`
+	// Connector type identifier.
+	Type components.TypeOptionsConfluentcloud `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -9904,14 +10007,16 @@ type CreateInputInputConfluentCloud struct {
 	Connections []components.ConnectionConfInputCollection `json:"connections,omitzero"`
 	Pq          *components.PqType                         `json:"pq,omitzero"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
-	Brokers []string                                            `json:"brokers"`
-	TLS     *components.TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	Brokers []string `json:"brokers"`
+	// TLS settings (client side)
+	TLS *components.TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
 	Topics []string `json:"topics"`
 	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
 	GroupID *string `json:"groupId,omitzero"`
 	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
-	FromBeginning       *bool                                             `json:"fromBeginning,omitzero"`
+	FromBeginning *bool `json:"fromBeginning,omitzero"`
+	// Kafka Schema Registry Authentication
 	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
@@ -9985,9 +10090,9 @@ func (c *CreateInputInputConfluentCloud) GetID() string {
 	return c.ID
 }
 
-func (c *CreateInputInputConfluentCloud) GetType() CreateInputTypeConfluentCloud {
+func (c *CreateInputInputConfluentCloud) GetType() components.TypeOptionsConfluentcloud {
 	if c == nil {
-		return CreateInputTypeConfluentCloud("")
+		return components.TypeOptionsConfluentcloud("")
 	}
 	return c.Type
 }
@@ -10282,6 +10387,7 @@ func (e *CreateInputTypeElastic) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// CreateInputAuthenticationTypeElastic - Authentication type
 type CreateInputAuthenticationTypeElastic string
 
 const (
@@ -10366,8 +10472,10 @@ type CreateInputProxyModeElastic struct {
 	Enabled bool `json:"enabled"`
 	// Enter credentials directly, or select a stored secret
 	AuthType *CreateInputProxyModeAuthenticationMethod `json:"authType,omitzero"`
-	Username *string                                   `json:"username,omitzero"`
-	Password *string                                   `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
@@ -10486,8 +10594,9 @@ type CreateInputInputElastic struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -10511,8 +10620,9 @@ type CreateInputInputElastic struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
-	ElasticAPI string                                `json:"elasticAPI"`
-	AuthType   *CreateInputAuthenticationTypeElastic `json:"authType,omitzero"`
+	ElasticAPI string `json:"elasticAPI"`
+	// Authentication type
+	AuthType *CreateInputAuthenticationTypeElastic `json:"authType,omitzero"`
 	// The API version to use for communicating with the server
 	APIVersion *CreateInputAPIVersion `json:"apiVersion,omitzero"`
 	// Headers to add to all events
@@ -10522,8 +10632,10 @@ type CreateInputInputElastic struct {
 	ProxyMode *CreateInputProxyModeElastic             `json:"proxyMode,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 	// Bearer tokens to include in the authorization header
@@ -10849,33 +10961,11 @@ func (c *CreateInputInputElastic) GetTemplateAuthTokens() *string {
 	return c.TemplateAuthTokens
 }
 
-type CreateInputTypeAzureBlob string
-
-const (
-	CreateInputTypeAzureBlobAzureBlob CreateInputTypeAzureBlob = "azure_blob"
-)
-
-func (e CreateInputTypeAzureBlob) ToPointer() *CreateInputTypeAzureBlob {
-	return &e
-}
-func (e *CreateInputTypeAzureBlob) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "azure_blob":
-		*e = CreateInputTypeAzureBlob(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CreateInputTypeAzureBlob: %v", v)
-	}
-}
-
 type CreateInputInputAzureBlob struct {
 	// Unique ID for this input
-	ID   string                   `json:"id"`
-	Type CreateInputTypeAzureBlob `json:"type"`
+	ID string `json:"id"`
+	// Connector type identifier.
+	Type components.TypeOptionsAzureblob `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -10914,8 +11004,9 @@ type CreateInputInputAzureBlob struct {
 	// Maximum file size for each Parquet chunk
 	ParquetChunkSizeMB *float64 `json:"parquetChunkSizeMB,omitzero"`
 	// The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
-	ParquetChunkDownloadTimeout *float64                                `json:"parquetChunkDownloadTimeout,omitzero"`
-	AuthType                    *components.AuthenticationMethodOptions `json:"authType,omitzero"`
+	ParquetChunkDownloadTimeout *float64 `json:"parquetChunkDownloadTimeout,omitzero"`
+	// Authentication method
+	AuthType *components.AuthenticationMethodOptions `json:"authType,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
@@ -10971,9 +11062,9 @@ func (c *CreateInputInputAzureBlob) GetID() string {
 	return c.ID
 }
 
-func (c *CreateInputInputAzureBlob) GetType() CreateInputTypeAzureBlob {
+func (c *CreateInputInputAzureBlob) GetType() components.TypeOptionsAzureblob {
 	if c == nil {
-		return CreateInputTypeAzureBlob("")
+		return components.TypeOptionsAzureblob("")
 	}
 	return c.Type
 }
@@ -11377,8 +11468,9 @@ type CreateInputInputSplunkHec struct {
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []CreateInputAuthTokenSplunkHec       `json:"authTokens,omitzero"`
-	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	AuthTokens []CreateInputAuthTokenSplunkHec `json:"authTokens,omitzero"`
+	// TLS settings (server side)
+	TLS *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -11742,6 +11834,7 @@ func (c *CreateInputInputSplunkHec) GetTemplateSplunkHecAPI() *string {
 	return c.TemplateSplunkHecAPI
 }
 
+// CreateInputTypeSplunkSearch - Connector type identifier.
 type CreateInputTypeSplunkSearch string
 
 const (
@@ -11766,6 +11859,7 @@ func (e *CreateInputTypeSplunkSearch) UnmarshalJSON(data []byte) error {
 }
 
 type CreateInputEndpointParam struct {
+	// Parameter Name
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
 	Value string `json:"value"`
@@ -11797,6 +11891,7 @@ func (c *CreateInputEndpointParam) GetValue() string {
 }
 
 type CreateInputEndpointHeader struct {
+	// Header Name
 	Name string `json:"name"`
 	// JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
 	Value string `json:"value"`
@@ -11885,7 +11980,8 @@ func (e *CreateInputAuthenticationTypeSplunkSearch) IsExact() bool {
 
 type CreateInputInputSplunkSearch struct {
 	// Unique ID for this input
-	ID   string                      `json:"id"`
+	ID string `json:"id"`
+	// Connector type identifier.
 	Type CreateInputTypeSplunkSearch `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -11951,8 +12047,10 @@ type CreateInputInputSplunkSearch struct {
 	AuthType CreateInputAuthenticationTypeSplunkSearch `json:"authType"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -12324,32 +12422,10 @@ func (c *CreateInputInputSplunkSearch) GetTemplateLogLevel() *string {
 	return c.TemplateLogLevel
 }
 
-type CreateInputTypeSplunk string
-
-const (
-	CreateInputTypeSplunkSplunk CreateInputTypeSplunk = "splunk"
-)
-
-func (e CreateInputTypeSplunk) ToPointer() *CreateInputTypeSplunk {
-	return &e
-}
-func (e *CreateInputTypeSplunk) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "splunk":
-		*e = CreateInputTypeSplunk(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CreateInputTypeSplunk: %v", v)
-	}
-}
-
 type CreateInputAuthTokenSplunk struct {
 	// Shared secrets to be provided by any Splunk forwarder. If empty, unauthorized access is permitted.
-	Token       string  `json:"token"`
+	Token string `json:"token"`
+	// Description
 	Description *string `json:"description,omitzero"`
 }
 
@@ -12432,8 +12508,9 @@ func (e *CreateInputCompression) IsExact() bool {
 
 type CreateInputInputSplunk struct {
 	// Unique ID for this input
-	ID   string                `json:"id"`
-	Type CreateInputTypeSplunk `json:"type"`
+	ID string `json:"id"`
+	// Connector type identifier.
+	Type components.TypeOptionsSplunk `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -12452,8 +12529,9 @@ type CreateInputInputSplunk struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                               `json:"port"`
-	TLS  *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Regex matching IP addresses that are allowed to establish a connection
 	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
@@ -12518,9 +12596,9 @@ func (c *CreateInputInputSplunk) GetID() string {
 	return c.ID
 }
 
-func (c *CreateInputInputSplunk) GetType() CreateInputTypeSplunk {
+func (c *CreateInputInputSplunk) GetType() components.TypeOptionsSplunk {
 	if c == nil {
-		return CreateInputTypeSplunk("")
+		return components.TypeOptionsSplunk("")
 	}
 	return c.Type
 }
@@ -12805,8 +12883,9 @@ type CreateInputInputHTTP struct {
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []string                              `json:"authTokens,omitzero"`
-	TLS        *components.TLSSettingsServerSideType `json:"tls,omitzero"`
+	AuthTokens []string `json:"authTokens,omitzero"`
+	// TLS settings (server side)
+	TLS *components.TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -12834,8 +12913,9 @@ type CreateInputInputHTTP struct {
 	// Absolute path on which to listen for the Elasticsearch API requests. Only _bulk (default /elastic/_bulk) is available. Use empty string to disable.
 	ElasticAPI *string `json:"elasticAPI,omitzero"`
 	// Absolute path on which listen for the Splunk HTTP Event Collector API requests. Use empty string to disable.
-	SplunkHecAPI  *string `json:"splunkHecAPI,omitzero"`
-	SplunkHecAcks *bool   `json:"splunkHecAcks,omitzero"`
+	SplunkHecAPI *string `json:"splunkHecAPI,omitzero"`
+	// Enable Splunk HEC acknowledgements
+	SplunkHecAcks *bool `json:"splunkHecAcks,omitzero"`
 	// Fields to add to events from this input
 	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
@@ -13151,33 +13231,11 @@ func (c *CreateInputInputHTTP) GetTemplateSplunkHecAPI() *string {
 	return c.TemplateSplunkHecAPI
 }
 
-type CreateInputTypeMsk string
-
-const (
-	CreateInputTypeMskMsk CreateInputTypeMsk = "msk"
-)
-
-func (e CreateInputTypeMsk) ToPointer() *CreateInputTypeMsk {
-	return &e
-}
-func (e *CreateInputTypeMsk) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "msk":
-		*e = CreateInputTypeMsk(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CreateInputTypeMsk: %v", v)
-	}
-}
-
 type CreateInputInputMsk struct {
 	// Unique ID for this input
-	ID   string             `json:"id"`
-	Type CreateInputTypeMsk `json:"type"`
+	ID string `json:"id"`
+	// Connector type identifier.
+	Type components.TypeOptionsMsk `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -13212,7 +13270,8 @@ type CreateInputInputMsk struct {
 	// Expected time between heartbeats to the consumer coordinator when using Kafka's group-management facilities. Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value. See [Kafka's documentation](https://kafka.apache.org/documentation/#consumerconfigs_heartbeat.interval.ms) for details.
 	HeartbeatInterval *float64 `json:"heartbeatInterval,omitzero"`
 	// Fields to add to events from this input
-	Metadata            []components.MetadataConfInputCollection          `json:"metadata,omitzero"`
+	Metadata []components.MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Kafka Schema Registry Authentication
 	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
@@ -13232,7 +13291,8 @@ type CreateInputInputMsk struct {
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod components.AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                               `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
@@ -13248,8 +13308,9 @@ type CreateInputInputMsk struct {
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64                                            `json:"durationSeconds,omitzero"`
-	TLS             *components.TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// TLS settings (client side)
+	TLS *components.TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
 	AutoCommitInterval *float64 `json:"autoCommitInterval,omitzero"`
 	// How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
@@ -13262,7 +13323,8 @@ type CreateInputInputMsk struct {
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
-	AwsAPIKey   *string `json:"awsApiKey,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
@@ -13307,9 +13369,9 @@ func (c *CreateInputInputMsk) GetID() string {
 	return c.ID
 }
 
-func (c *CreateInputInputMsk) GetType() CreateInputTypeMsk {
+func (c *CreateInputInputMsk) GetType() components.TypeOptionsMsk {
 	if c == nil {
-		return CreateInputTypeMsk("")
+		return components.TypeOptionsMsk("")
 	}
 	return c.Type
 }
@@ -13699,33 +13761,11 @@ func (c *CreateInputInputMsk) GetTemplateAwsAPIKey() *string {
 	return c.TemplateAwsAPIKey
 }
 
-type CreateInputTypeKafka string
-
-const (
-	CreateInputTypeKafkaKafka CreateInputTypeKafka = "kafka"
-)
-
-func (e CreateInputTypeKafka) ToPointer() *CreateInputTypeKafka {
-	return &e
-}
-func (e *CreateInputTypeKafka) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "kafka":
-		*e = CreateInputTypeKafka(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CreateInputTypeKafka: %v", v)
-	}
-}
-
 type CreateInputInputKafka struct {
 	// Unique ID for this input
-	ID   string               `json:"id"`
-	Type CreateInputTypeKafka `json:"type"`
+	ID string `json:"id"`
+	// Connector type identifier.
+	Type components.TypeOptions `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
@@ -13748,7 +13788,8 @@ type CreateInputInputKafka struct {
 	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
 	GroupID *string `json:"groupId,omitzero"`
 	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
-	FromBeginning       *bool                                             `json:"fromBeginning,omitzero"`
+	FromBeginning *bool `json:"fromBeginning,omitzero"`
+	// Kafka Schema Registry Authentication
 	KafkaSchemaRegistry *components.KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
@@ -13767,8 +13808,9 @@ type CreateInputInputKafka struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *components.AuthenticationType                      `json:"sasl,omitzero"`
-	TLS  *components.TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	Sasl *components.AuthenticationType `json:"sasl,omitzero"`
+	// TLS settings (client side)
+	TLS *components.TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	//       Timeout used to detect client failures when using Kafka's group-management facilities.
 	//       If the client sends no heartbeats to the broker before the timeout expires,
 	//       the broker will remove the client from the group and initiate a rebalance.
@@ -13823,9 +13865,9 @@ func (c *CreateInputInputKafka) GetID() string {
 	return c.ID
 }
 
-func (c *CreateInputInputKafka) GetType() CreateInputTypeKafka {
+func (c *CreateInputInputKafka) GetType() components.TypeOptions {
 	if c == nil {
-		return CreateInputTypeKafka("")
+		return components.TypeOptions("")
 	}
 	return c.Type
 }
@@ -14096,6 +14138,7 @@ func (c *CreateInputInputKafka) GetTemplateGroupID() *string {
 	return c.TemplateGroupID
 }
 
+// CreateInputTypeCollection - Connector type identifier.
 type CreateInputTypeCollection string
 
 const (
@@ -14121,7 +14164,8 @@ func (e *CreateInputTypeCollection) UnmarshalJSON(data []byte) error {
 
 type CreateInputInputCollection struct {
 	// Unique ID for this input
-	ID   string                    `json:"id"`
+	ID string `json:"id"`
+	// Connector type identifier.
 	Type CreateInputTypeCollection `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -14357,6 +14401,7 @@ const (
 	CreateInputRequestTypeWizWebhook           CreateInputRequestType = "wiz_webhook"
 	CreateInputRequestTypeNetflow              CreateInputRequestType = "netflow"
 	CreateInputRequestTypeSecurityLake         CreateInputRequestType = "security_lake"
+	CreateInputRequestTypeBedrockS3            CreateInputRequestType = "bedrock_s3"
 	CreateInputRequestTypeServicenowTable      CreateInputRequestType = "servicenow_table"
 	CreateInputRequestTypeZscalerHec           CreateInputRequestType = "zscaler_hec"
 	CreateInputRequestTypeCloudflareHec        CreateInputRequestType = "cloudflare_hec"
@@ -14431,6 +14476,7 @@ type CreateInputRequest struct {
 	CreateInputInputWizWebhook           *CreateInputInputWizWebhook           `queryParam:"inline" union:"member"`
 	CreateInputInputNetflow              *CreateInputInputNetflow              `queryParam:"inline" union:"member"`
 	CreateInputInputSecurityLake         *CreateInputInputSecurityLake         `queryParam:"inline" union:"member"`
+	CreateInputInputBedrockS3            *CreateInputInputBedrockS3            `queryParam:"inline" union:"member"`
 	CreateInputInputServicenowTable      *CreateInputInputServicenowTable      `queryParam:"inline" union:"member"`
 	CreateInputInputZscalerHec           *CreateInputInputZscalerHec           `queryParam:"inline" union:"member"`
 	CreateInputInputCloudflareHec        *CreateInputInputCloudflareHec        `queryParam:"inline" union:"member"`
@@ -14458,7 +14504,7 @@ func CreateCreateInputRequestCollection(collection CreateInputInputCollection) C
 func CreateCreateInputRequestKafka(kafka CreateInputInputKafka) CreateInputRequest {
 	typ := CreateInputRequestTypeKafka
 
-	typStr := CreateInputTypeKafka(typ)
+	typStr := components.TypeOptions(typ)
 	kafka.Type = typStr
 
 	return CreateInputRequest{
@@ -14470,7 +14516,7 @@ func CreateCreateInputRequestKafka(kafka CreateInputInputKafka) CreateInputReque
 func CreateCreateInputRequestMsk(msk CreateInputInputMsk) CreateInputRequest {
 	typ := CreateInputRequestTypeMsk
 
-	typStr := CreateInputTypeMsk(typ)
+	typStr := components.TypeOptionsMsk(typ)
 	msk.Type = typStr
 
 	return CreateInputRequest{
@@ -14494,7 +14540,7 @@ func CreateCreateInputRequestHTTP(http CreateInputInputHTTP) CreateInputRequest 
 func CreateCreateInputRequestSplunk(splunk CreateInputInputSplunk) CreateInputRequest {
 	typ := CreateInputRequestTypeSplunk
 
-	typStr := CreateInputTypeSplunk(typ)
+	typStr := components.TypeOptionsSplunk(typ)
 	splunk.Type = typStr
 
 	return CreateInputRequest{
@@ -14530,7 +14576,7 @@ func CreateCreateInputRequestSplunkHec(splunkHec CreateInputInputSplunkHec) Crea
 func CreateCreateInputRequestAzureBlob(azureBlob CreateInputInputAzureBlob) CreateInputRequest {
 	typ := CreateInputRequestTypeAzureBlob
 
-	typStr := CreateInputTypeAzureBlob(typ)
+	typStr := components.TypeOptionsAzureblob(typ)
 	azureBlob.Type = typStr
 
 	return CreateInputRequest{
@@ -14554,7 +14600,7 @@ func CreateCreateInputRequestElastic(elastic CreateInputInputElastic) CreateInpu
 func CreateCreateInputRequestConfluentCloud(confluentCloud CreateInputInputConfluentCloud) CreateInputRequest {
 	typ := CreateInputRequestTypeConfluentCloud
 
-	typStr := CreateInputTypeConfluentCloud(typ)
+	typStr := components.TypeOptionsConfluentcloud(typ)
 	confluentCloud.Type = typStr
 
 	return CreateInputRequest{
@@ -14599,7 +14645,7 @@ func CreateCreateInputRequestPrometheusRw(prometheusRw CreateInputInputPrometheu
 func CreateCreateInputRequestPrometheus(prometheus CreateInputInputPrometheus) CreateInputRequest {
 	typ := CreateInputRequestTypePrometheus
 
-	typStr := CreateInputTypePrometheus(typ)
+	typStr := components.TypeOptionsPrometheus(typ)
 	prometheus.Type = typStr
 
 	return CreateInputRequest{
@@ -14719,7 +14765,7 @@ func CreateCreateInputRequestFirehose(firehose CreateInputInputFirehose) CreateI
 func CreateCreateInputRequestGooglePubsub(googlePubsub CreateInputInputGooglePubsub) CreateInputRequest {
 	typ := CreateInputRequestTypeGooglePubsub
 
-	typStr := CreateInputTypeGooglePubsub(typ)
+	typStr := components.TypeOptionsGooglepubsub(typ)
 	googlePubsub.Type = typStr
 
 	return CreateInputRequest{
@@ -14743,7 +14789,7 @@ func CreateCreateInputRequestCribl(cribl CreateInputInputCribl) CreateInputReque
 func CreateCreateInputRequestCriblTCP(criblTCP CreateInputInputCriblTCP) CreateInputRequest {
 	typ := CreateInputRequestTypeCriblTCP
 
-	typStr := CreateInputTypeCriblTCP(typ)
+	typStr := components.TypeOptionsCribltcp(typ)
 	criblTCP.Type = typStr
 
 	return CreateInputRequest{
@@ -14779,7 +14825,7 @@ func CreateCreateInputRequestCriblLakeHTTP(criblLakeHTTP CreateInputInputCriblLa
 func CreateCreateInputRequestTcpjson(tcpjson CreateInputInputTcpjson) CreateInputRequest {
 	typ := CreateInputRequestTypeTcpjson
 
-	typStr := CreateInputTypeTcpjson(typ)
+	typStr := components.TypeOptionsTcpjson(typ)
 	tcpjson.Type = typStr
 
 	return CreateInputRequest{
@@ -14911,7 +14957,7 @@ func CreateCreateInputRequestHTTPRaw(httpRaw CreateInputInputHTTPRaw) CreateInpu
 func CreateCreateInputRequestKinesis(kinesis CreateInputInputKinesis) CreateInputRequest {
 	typ := CreateInputRequestTypeKinesis
 
-	typStr := CreateInputTypeKinesis(typ)
+	typStr := components.TypeOptionsKinesis(typ)
 	kinesis.Type = typStr
 
 	return CreateInputRequest{
@@ -14947,7 +14993,7 @@ func CreateCreateInputRequestMetrics(metrics CreateInputInputMetrics) CreateInpu
 func CreateCreateInputRequestS3(s3 CreateInputInputS3) CreateInputRequest {
 	typ := CreateInputRequestTypeS3
 
-	typStr := CreateInputTypeS3(typ)
+	typStr := components.TypeOptionsS3(typ)
 	s3.Type = typStr
 
 	return CreateInputRequest{
@@ -14971,7 +15017,7 @@ func CreateCreateInputRequestS3Inventory(s3Inventory CreateInputInputS3Inventory
 func CreateCreateInputRequestSnmp(snmp CreateInputInputSnmp) CreateInputRequest {
 	typ := CreateInputRequestTypeSnmp
 
-	typStr := CreateInputTypeSnmp(typ)
+	typStr := components.TypeOptionsSnmp(typ)
 	snmp.Type = typStr
 
 	return CreateInputRequest{
@@ -15007,7 +15053,7 @@ func CreateCreateInputRequestModelDrivenTelemetry(modelDrivenTelemetry CreateInp
 func CreateCreateInputRequestSqs(sqs CreateInputInputSqs) CreateInputRequest {
 	typ := CreateInputRequestTypeSqs
 
-	typStr := CreateInputTypeSqs(typ)
+	typStr := components.TypeOptionsSqs(typ)
 	sqs.Type = typStr
 
 	return CreateInputRequest{
@@ -15160,7 +15206,7 @@ func CreateCreateInputRequestWizWebhook(wizWebhook CreateInputInputWizWebhook) C
 func CreateCreateInputRequestNetflow(netflow CreateInputInputNetflow) CreateInputRequest {
 	typ := CreateInputRequestTypeNetflow
 
-	typStr := CreateInputTypeNetflow(typ)
+	typStr := components.TypeOptionsNetflow(typ)
 	netflow.Type = typStr
 
 	return CreateInputRequest{
@@ -15172,12 +15218,24 @@ func CreateCreateInputRequestNetflow(netflow CreateInputInputNetflow) CreateInpu
 func CreateCreateInputRequestSecurityLake(securityLake CreateInputInputSecurityLake) CreateInputRequest {
 	typ := CreateInputRequestTypeSecurityLake
 
-	typStr := CreateInputTypeSecurityLake(typ)
+	typStr := components.TypeOptionsSecuritylake(typ)
 	securityLake.Type = typStr
 
 	return CreateInputRequest{
 		CreateInputInputSecurityLake: &securityLake,
 		Type:                         typ,
+	}
+}
+
+func CreateCreateInputRequestBedrockS3(bedrockS3 CreateInputInputBedrockS3) CreateInputRequest {
+	typ := CreateInputRequestTypeBedrockS3
+
+	typStr := CreateInputTypeBedrockS3(typ)
+	bedrockS3.Type = typStr
+
+	return CreateInputRequest{
+		CreateInputInputBedrockS3: &bedrockS3,
+		Type:                      typ,
 	}
 }
 
@@ -15847,6 +15905,15 @@ func (u *CreateInputRequest) UnmarshalJSON(data []byte) error {
 		u.CreateInputInputSecurityLake = createInputInputSecurityLake
 		u.Type = CreateInputRequestTypeSecurityLake
 		return nil
+	case "bedrock_s3":
+		createInputInputBedrockS3 := new(CreateInputInputBedrockS3)
+		if err := utils.UnmarshalJSON(data, &createInputInputBedrockS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == bedrock_s3) type CreateInputInputBedrockS3 within CreateInputRequest: %w", string(data), err)
+		}
+
+		u.CreateInputInputBedrockS3 = createInputInputBedrockS3
+		u.Type = CreateInputRequestTypeBedrockS3
+		return nil
 	case "servicenow_table":
 		createInputInputServicenowTable := new(CreateInputInputServicenowTable)
 		if err := utils.UnmarshalJSON(data, &createInputInputServicenowTable, "", true, nil); err != nil {
@@ -16171,6 +16238,10 @@ func (u CreateInputRequest) MarshalJSON() ([]byte, error) {
 
 	if u.CreateInputInputSecurityLake != nil {
 		return utils.MarshalJSON(u.CreateInputInputSecurityLake, "", true)
+	}
+
+	if u.CreateInputInputBedrockS3 != nil {
+		return utils.MarshalJSON(u.CreateInputInputBedrockS3, "", true)
 	}
 
 	if u.CreateInputInputServicenowTable != nil {

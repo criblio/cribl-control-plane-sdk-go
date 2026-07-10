@@ -1,5 +1,7 @@
 # PqControlsSentinel
 
+Persistent queue controls.
+
 
 ## Fields
 

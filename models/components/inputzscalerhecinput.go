@@ -38,8 +38,10 @@ type InputZscalerHecAuthToken struct {
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
 	// Shared secret to be provided by any client (Authorization: <token>)
-	Token       string  `json:"token"`
-	Enabled     *bool   `json:"enabled,omitzero"`
+	Token string `json:"token"`
+	// Enable token
+	Enabled *bool `json:"enabled,omitzero"`
+	// Description
 	Description *string `json:"description,omitzero"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
@@ -133,7 +135,8 @@ type InputZscalerHecInput struct {
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokens []InputZscalerHecAuthToken `json:"authTokens,omitzero"`
-	TLS        *TLSSettingsServerSideType `json:"tls,omitzero"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).

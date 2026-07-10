@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputSystemMetricsType - Connector type identifier.
 type InputSystemMetricsType string
 
 const (
@@ -541,6 +542,7 @@ func (e *InputSystemMetricsContainerMode) IsExact() bool {
 }
 
 type InputSystemMetricsFilter struct {
+	// Expression
 	Expr string `json:"expr"`
 }
 
@@ -639,6 +641,7 @@ func (i *InputSystemMetricsContainer) GetDetail() *bool {
 	return i.Detail
 }
 
+// InputSystemMetricsPersistence - persistence
 type InputSystemMetricsPersistence struct {
 	// Spool metrics to disk for Cribl Edge and Search
 	Enable *bool `json:"enable,omitzero"`
@@ -647,8 +650,9 @@ type InputSystemMetricsPersistence struct {
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
 	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                  `json:"maxDataTime,omitzero"`
-	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
+	MaxDataTime *string `json:"maxDataTime,omitzero"`
+	// Data compression format
+	Compress *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_metrics
 	DestPath *string `json:"destPath,omitzero"`
 }
@@ -708,7 +712,8 @@ func (i *InputSystemMetricsPersistence) GetDestPath() *string {
 
 type InputSystemMetricsInput struct {
 	// Unique ID for this input
-	ID   *string                `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type InputSystemMetricsType `json:"type"`
 	// If true, the Source is disabled and will not collect data.
 	Disabled *bool `json:"disabled,omitzero"`
@@ -732,7 +737,8 @@ type InputSystemMetricsInput struct {
 	Container *InputSystemMetricsContainer `json:"container,omitzero"`
 	Gpu       *GpuType                     `json:"gpu,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection  `json:"metadata,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// persistence
 	Persistence *InputSystemMetricsPersistence `json:"persistence,omitzero"`
 	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`

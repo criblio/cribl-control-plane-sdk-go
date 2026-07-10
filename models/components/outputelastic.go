@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputElasticType - Connector type identifier.
 type OutputElasticType string
 
 const (
@@ -124,6 +125,7 @@ func (o *OutputElasticURL) GetTemplateURL() *string {
 	return o.TemplateURL
 }
 
+// OutputElasticPqControls - Persistent queue controls.
 type OutputElasticPqControls struct {
 }
 
@@ -140,7 +142,8 @@ func (o *OutputElasticPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputElastic struct {
 	// Unique ID for this output
-	ID   *string           `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputElasticType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -182,9 +185,10 @@ type OutputElastic struct {
 	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
 	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                                 `json:"responseHonorRetryAfterHeader,omitzero"`
-	ExtraParams                   []SaslExtensionConfInputKafka         `json:"extraParams,omitzero"`
-	Auth                          *AuthTypeTemplatemanualAPIKeyAuthType `json:"auth,omitzero"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// Extra parameters
+	ExtraParams []SaslExtensionConfInputKafka         `json:"extraParams,omitzero"`
+	Auth        *AuthTypeTemplatemanualAPIKeyAuthType `json:"auth,omitzero"`
 	// Optional Elasticsearch version, used to format events. If not specified, will auto-discover version.
 	ElasticVersion *OutputElasticElasticVersion `json:"elasticVersion,omitzero"`
 	// Optional Elasticsearch destination pipeline
@@ -204,8 +208,9 @@ type OutputElastic struct {
 	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
 	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool              `json:"excludeSelf,omitzero"`
-	Urls        []OutputElasticURL `json:"urls,omitzero"`
+	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
+	// Bulk API URLs
+	Urls []OutputElasticURL `json:"urls,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -231,8 +236,9 @@ type OutputElastic struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                  `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputElasticPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputElasticPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'index' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'index' at runtime.

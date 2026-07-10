@@ -9,6 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputWebhookType2 - Connector type identifier.
 type OutputWebhookType2 string
 
 const (
@@ -94,6 +95,7 @@ func (e *OutputWebhookAuthenticationType2) IsExact() bool {
 	return false
 }
 
+// OutputWebhookPqControls2 - Persistent queue controls.
 type OutputWebhookPqControls2 struct {
 }
 
@@ -157,7 +159,8 @@ func (o *OutputWebhookURL2) GetTemplateURL() *string {
 
 type OutputWebhookWebhook2 struct {
 	// Unique ID for this output
-	ID   *string            `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputWebhookType2 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -205,8 +208,9 @@ type OutputWebhookWebhook2 struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Authentication method to use for the HTTP request
-	AuthType *OutputWebhookAuthenticationType2                `json:"authType,omitzero"`
-	TLS      *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
+	AuthType *OutputWebhookAuthenticationType2 `json:"authType,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
@@ -250,10 +254,13 @@ type OutputWebhookWebhook2 struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                   `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputWebhookPqControls2 `json:"pqControls,omitzero"`
-	Username             *string                   `json:"username,omitzero"`
-	Password             *string                   `json:"password,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputWebhookPqControls2 `json:"pqControls,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -287,8 +294,9 @@ type OutputWebhookWebhook2 struct {
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL *string `json:"url,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool               `json:"excludeSelf,omitzero"`
-	Urls        []OutputWebhookURL2 `json:"urls"`
+	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
+	// Webhook URLs
+	Urls []OutputWebhookURL2 `json:"urls"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -869,6 +877,7 @@ func (o *OutputWebhookWebhook2) GetTemplateURL() *string {
 // #region class-body-outputwebhookwebhook2
 // #endregion class-body-outputwebhookwebhook2
 
+// OutputWebhookType1 - Connector type identifier.
 type OutputWebhookType1 string
 
 const (
@@ -954,6 +963,7 @@ func (e *OutputWebhookAuthenticationType1) IsExact() bool {
 	return false
 }
 
+// OutputWebhookPqControls1 - Persistent queue controls.
 type OutputWebhookPqControls1 struct {
 }
 
@@ -1017,7 +1027,8 @@ func (o *OutputWebhookURL1) GetTemplateURL() *string {
 
 type OutputWebhookWebhook1 struct {
 	// Unique ID for this output
-	ID   *string            `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputWebhookType1 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -1065,8 +1076,9 @@ type OutputWebhookWebhook1 struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Authentication method to use for the HTTP request
-	AuthType *OutputWebhookAuthenticationType1                `json:"authType,omitzero"`
-	TLS      *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
+	AuthType *OutputWebhookAuthenticationType1 `json:"authType,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
@@ -1110,10 +1122,13 @@ type OutputWebhookWebhook1 struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                   `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputWebhookPqControls1 `json:"pqControls,omitzero"`
-	Username             *string                   `json:"username,omitzero"`
-	Password             *string                   `json:"password,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputWebhookPqControls1 `json:"pqControls,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -1147,8 +1162,9 @@ type OutputWebhookWebhook1 struct {
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL string `json:"url"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool               `json:"excludeSelf,omitzero"`
-	Urls        []OutputWebhookURL1 `json:"urls,omitzero"`
+	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
+	// Webhook URLs
+	Urls []OutputWebhookURL1 `json:"urls,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes

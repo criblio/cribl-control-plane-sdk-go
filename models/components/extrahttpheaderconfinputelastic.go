@@ -7,8 +7,10 @@ import (
 )
 
 type ExtraHTTPHeaderConfInputElastic struct {
-	Name  *string `json:"name,omitzero"`
-	Value string  `json:"value"`
+	// Field Name
+	Name *string `json:"name,omitzero"`
+	// Field Value
+	Value string `json:"value"`
 }
 
 func (e ExtraHTTPHeaderConfInputElastic) MarshalJSON() ([]byte, error) {

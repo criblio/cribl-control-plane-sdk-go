@@ -1,5 +1,7 @@
 # CreateInputBlobStoreAuthenticationMethod
 
+Authentication method
+
 ## Example Usage
 
 ```go

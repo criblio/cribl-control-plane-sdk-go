@@ -7,6 +7,7 @@ import (
 )
 
 type Header struct {
+	// Name
 	Name *string `json:"name,omitzero"`
 	// JavaScript expression to compute the value (can be constant)
 	Value string `json:"value"`
@@ -38,6 +39,7 @@ func (h *Header) GetValue() string {
 }
 
 type Extension struct {
+	// Name
 	Name string `json:"name"`
 	// JavaScript expression to compute the value (can be constant)
 	Value string `json:"value"`
