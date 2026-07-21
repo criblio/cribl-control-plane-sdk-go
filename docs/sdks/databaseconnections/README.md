@@ -647,6 +647,53 @@ func main() {
     }
 }
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="createDatabaseConnectionConfig" method="post" path="/lib/database-connections" example="authenticationFailed" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.DatabaseConnections.Create(ctx, components.DatabaseConnectionConfig{
+        AuthType: components.DatabaseConnectionAuthTypeConnectionString,
+        ConfigObj: criblcontrolplanesdkgo.Pointer("{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"trustServerCertificate\":false,\"connectTimeout\":20000}}"),
+        ConnectionString: criblcontrolplanesdkgo.Pointer("mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true"),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[int64](10000),
+        CredsSecrets: criblcontrolplanesdkgo.Pointer("oracle-production-credentials"),
+        DatabaseType: components.DatabaseConnectionTypePostgres,
+        Description: "Production MySQL database for customer data",
+        ID: "mysql-prod-db",
+        Password: criblcontrolplanesdkgo.Pointer("yourPassword"),
+        RequestTimeout: criblcontrolplanesdkgo.Pointer[int64](30000),
+        Tags: criblcontrolplanesdkgo.Pointer("production,mysql,customer-data"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("mysql-production-connection"),
+        User: criblcontrolplanesdkgo.Pointer("yourUsername"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.DatabaseConnectionResponseEnvelope != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -2068,6 +2115,53 @@ func main() {
         RequestTimeout: criblcontrolplanesdkgo.Pointer[int64](15000),
         Tags: criblcontrolplanesdkgo.Pointer("crm,sqlserver,sales"),
         TextSecret: criblcontrolplanesdkgo.Pointer("sqlserver-crm-connection"),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.DatabaseConnectionResponseEnvelope != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="updateDatabaseConnectionConfigById" method="patch" path="/lib/database-connections/{id}" example="authenticationFailed" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.DatabaseConnections.Update(ctx, "<id>", components.DatabaseConnectionConfig{
+        AuthType: components.DatabaseConnectionAuthTypeConfigObj,
+        ConfigObj: criblcontrolplanesdkgo.Pointer("{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"trustServerCertificate\":false,\"connectTimeout\":20000}}"),
+        ConnectionString: criblcontrolplanesdkgo.Pointer("mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true"),
+        ConnectionTimeout: criblcontrolplanesdkgo.Pointer[int64](10000),
+        CredsSecrets: criblcontrolplanesdkgo.Pointer("oracle-production-credentials"),
+        DatabaseType: components.DatabaseConnectionTypeSqlserver,
+        Description: "Production MySQL database for customer data",
+        ID: "mysql-prod-db",
+        Password: criblcontrolplanesdkgo.Pointer("yourPassword"),
+        RequestTimeout: criblcontrolplanesdkgo.Pointer[int64](30000),
+        Tags: criblcontrolplanesdkgo.Pointer("production,mysql,customer-data"),
+        TextSecret: criblcontrolplanesdkgo.Pointer("mysql-production-connection"),
+        User: criblcontrolplanesdkgo.Pointer("yourUsername"),
     })
     if err != nil {
         log.Fatal(err)

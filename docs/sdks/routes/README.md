@@ -476,6 +476,42 @@ func main() {
     }
 }
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="updateRoutesById" method="patch" path="/routes/{id}" example="authenticationFailed" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Routes.Update(ctx, "<id>", components.RoutesInput{
+        ID: "<id>",
+        Routes: []components.RouteConfInput{},
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRoutes != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -716,6 +752,39 @@ func main() {
 ### Example Usage: RoutesResponseExamplesMultiRouteTable
 
 <!-- UsageSnippet language="go" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" example="RoutesResponseExamplesMultiRouteTable" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Routes.Append(ctx, "<id>", []components.RouteConfInput{})
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRoutes != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="createRoutesAppendById" method="post" path="/routes/{id}/append" example="authenticationFailed" -->
 ```go
 package main
 

@@ -2740,6 +2740,51 @@ func main() {
     }
 }
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="createPipelines" method="post" path="/pipelines" example="authenticationFailed" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.Create(ctx, components.PipelineInput{
+        ID: "<id>",
+        Conf: components.ConfInput{
+            Functions: []components.PipelineFunctionConfInput{
+                components.CreatePipelineFunctionConfInputCef(
+                    components.PipelineFunctionCefInput{
+                        ID: components.PipelineFunctionCefIDCef,
+                        Conf: components.FunctionConfSchemaCefInput{},
+                    },
+                ),
+            },
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -8062,6 +8107,51 @@ func main() {
             },
             Groups: map[string]components.PipelineGroups{
 
+            },
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPipeline != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="updatePipelinesById" method="patch" path="/pipelines/{id}" example="authenticationFailed" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Pipelines.Update(ctx, "<id>", components.PipelineInput{
+        ID: "<id>",
+        Conf: components.ConfInput{
+            Functions: []components.PipelineFunctionConfInput{
+                components.CreatePipelineFunctionConfInputSnmpTrapSerialize(
+                    components.PipelineFunctionSnmpTrapSerialize{
+                        ID: components.PipelineFunctionSnmpTrapSerializeIDSnmpTrapSerialize,
+                        Conf: components.FunctionConfSchemaSnmpTrapSerialize{},
+                    },
+                ),
             },
         },
     })

@@ -638,7 +638,7 @@ func (s *Packs) List(ctx context.Context, with *string, offset *int64, limit *in
 
 // Upload a Pack file
 // Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs</code>, which you must call separately.
-func (s *Packs) Upload(ctx context.Context, filename string, requestBody any, opts ...operations.Option) (*operations.UpdatePacksResponse, error) {
+func (s *Packs) Upload(ctx context.Context, filename string, requestBody string, opts ...operations.Option) (*operations.UpdatePacksResponse, error) {
 	request := operations.UpdatePacksRequest{
 		Filename:    filename,
 		RequestBody: requestBody,
@@ -677,7 +677,7 @@ func (s *Packs) Upload(ctx context.Context, filename string, requestBody any, op
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
-	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "raw", `request:"mediaType=application/octet-stream"`)
+	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RequestBody", "string", `request:"mediaType=application/octet-stream"`)
 	if err != nil {
 		return nil, err
 	}

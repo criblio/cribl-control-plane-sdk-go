@@ -486,6 +486,47 @@ func main() {
     }
 }
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="updateRoutesByPackAndId" method="patch" path="/p/{pack}/routes/{id}" example="authenticationFailed" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Routes.Update(ctx, "<id>", "<value>", components.RoutesInput{
+        ID: "<id>",
+        Routes: []components.RouteConfInput{
+            components.RouteConfInput{
+                Name: "<value>",
+                Pipeline: "<value>",
+            },
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRoutes != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -727,6 +768,44 @@ func main() {
 ### Example Usage: RoutesResponseExamplesMultiRouteTable
 
 <!-- UsageSnippet language="go" operationID="createRoutesAppendByPackAndId" method="post" path="/p/{pack}/routes/{id}/append" example="RoutesResponseExamplesMultiRouteTable" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Routes.Append(ctx, "<id>", "<value>", []components.RouteConfInput{
+        components.RouteConfInput{
+            Name: "<value>",
+            Pipeline: "<value>",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRoutes != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="createRoutesAppendByPackAndId" method="post" path="/p/{pack}/routes/{id}/append" example="authenticationFailed" -->
 ```go
 package main
 

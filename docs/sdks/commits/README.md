@@ -233,6 +233,41 @@ func main() {
     }
 }
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="createVersionCommit" method="post" path="/version/commit" example="authenticationFailed" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Versions.Commits.Create(ctx, components.GitCommitBody{
+        Message: "<value>",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedGitCommitSummary != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -451,6 +486,41 @@ func main() {
 ### Example Usage: VersionRevertResponseExamplesRevertResult
 
 <!-- UsageSnippet language="go" operationID="createVersionRevert" method="post" path="/version/revert" example="VersionRevertResponseExamplesRevertResult" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Versions.Commits.Revert(ctx, components.GitRevertParams{
+        Commit: "<value>",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedGitRevertResult != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="createVersionRevert" method="post" path="/version/revert" example="authenticationFailed" -->
 ```go
 package main
 

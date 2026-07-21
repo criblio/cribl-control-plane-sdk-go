@@ -1,18 +1,18 @@
 lockVersion: 2.0.0
 id: 01b4ba3c-d9b5-403a-adb5-b7041c0829f2
 management:
-  docChecksum: a53186fbd6908d124427137310b3e08d
-  docVersion: 4.19.1-alpha.1784628830262-d0cc0691
+  docChecksum: 52ab5630b26026bf2e12dbf67bd3a8ac
+  docVersion: 4.19.1-alpha.1784633703340-f5a1d118
   speakeasyVersion: 1.789.2
   generationVersion: 2.916.4
-  releaseVersion: 0.10.0-rc.1
-  configChecksum: e95586313f158107d60a3115fcc9040c
+  releaseVersion: 0.10.0-rc.2
+  configChecksum: efc2c53bea106ccfaacfb4a557db3b3d
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
 persistentEdits:
-  generation_id: 8baca74e-6a3f-48d6-a28d-6d0ff9180f50
-  pristine_commit_hash: 69c5eba8c76055e6436ac297463864f90562587c
-  pristine_tree_hash: 3c0d8f51014345532959a5c6291d9a3fa1b50d07
+  generation_id: bb3b69cf-0b7e-44f8-b2ef-1e2d0a3b8048
+  pristine_commit_hash: 4de871c8f47e3e972507084aa436f4df1d177180
+  pristine_tree_hash: c7fcfa58a3942fa09c53c4379362e00817def077
 features:
   go:
     additionalDependencies: 0.1.0
@@ -41,7 +41,6 @@ features:
     retries: 2.84.3
     sdkHooks: 0.3.0
     unions: 2.87.7
-    uploadStreams: 0.1.0
 trackedFiles:
   .devcontainer/README.md:
     id: b170c0f184ac
@@ -97,8 +96,8 @@ trackedFiles:
     pristine_git_object: 3da97969bc4f397de8549b440dddc7d6698942de
   criblcontrolplane.go:
     id: 041381dd4d6e
-    last_write_checksum: sha1:c95c360d3ee95ec37e589e1f44eda0bf5f03ce7a
-    pristine_git_object: 554aef7599350e7a6868d06b2ce7d0f0c299016b
+    last_write_checksum: sha1:1b317ccd7f10c03376db042c53d0a74c64355a12
+    pristine_git_object: cda61cb8f6d23720328b54e46a753bf3c077e250
   databaseconnections.go:
     id: 6871bc6bafc7
     last_write_checksum: sha1:6052ab1f89eb213c17ce960790d477efa351844c
@@ -953,8 +952,8 @@ trackedFiles:
     pristine_git_object: 6f76342c044efb75f6e870dbd5d8017da6dc051a
   docs/models/components/databaseconnectionconfig.md:
     id: ac3e9f286529
-    last_write_checksum: sha1:8cd67a6edd451e708e361d82c14674b9e95a568f
-    pristine_git_object: 4cde90ccf64a4aa879393a895b8933ab521ce9e1
+    last_write_checksum: sha1:a795de846de2da9069b0044ec9ab584c6ce2c72a
+    pristine_git_object: 6adeadd07985ebf2921fab9481bb69655b301453
   docs/models/components/databaseconnectionresponseenvelope.md:
     id: 37023a95673d
     last_write_checksum: sha1:10a511284452ab33b9cb0f05ab7ba1cdc5fc9412
@@ -17273,8 +17272,8 @@ trackedFiles:
     pristine_git_object: b421b5dfbd71e12ebdbf6644d8d4293975956365
   docs/models/operations/updatepacksrequest.md:
     id: c567bb4a8c62
-    last_write_checksum: sha1:285c01021012d072d7b704b12e910f7765c45c8f
-    pristine_git_object: 2843b83ee6f906607025ee3aca3087411554ef2a
+    last_write_checksum: sha1:10f49c671eb3ed17b0c10da3aa98d44ceb9d41df
+    pristine_git_object: 3578ded34b202ede9b55855ec0551ffcb116e40a
   docs/models/operations/updatepacksresponse.md:
     id: d0a9d48844d4
     last_write_checksum: sha1:e88215a6b09b6c638aa740c4b52052a7b74e22fd
@@ -17357,36 +17356,36 @@ trackedFiles:
     pristine_git_object: a56ad61d7a668ad1b8f0263a18f96734b1252d56
   docs/sdks/captures/README.md:
     id: 7598191d8c6a
-    last_write_checksum: sha1:48100837bdaef0fd92e4e960d0316e1086b9ba08
-    pristine_git_object: fd4d8c14349c75cfa6b1ec2e97a32a8a9a35fbf0
+    last_write_checksum: sha1:58cf65d5ee0469c8edc62f46beae7fbf053968f3
+    pristine_git_object: 1a38404af9371adce1933f3bf7bcc548f38b95e9
   docs/sdks/collectors/README.md:
     id: b8ecaf222c71
-    last_write_checksum: sha1:b266f25422eacd30fdb97a3dc65299844c32d57e
-    pristine_git_object: f116bbe63da00472dbbda5ae3acea0bcf2974201
+    last_write_checksum: sha1:dadd234fa0c821aafcdcebd46dda6e46a865af32
+    pristine_git_object: 81c62aafeef505a7931bfde93da8865da0f92d37
   docs/sdks/commits/README.md:
     id: ae81a8318c17
-    last_write_checksum: sha1:8e739ac2a7e4b421505a05dddac2e3054290c9cd
-    pristine_git_object: be5ddb9d6b6f6a2225358ffc4d3ab96907eb585b
+    last_write_checksum: sha1:b0f00057f2dba70caff5294bf5a4fc4ae54b4cd7
+    pristine_git_object: 1eb4291c7e0a840cd15efc96243ea13b5e698503
   docs/sdks/configsversions/README.md:
     id: ac0c3c5ebd05
     last_write_checksum: sha1:dd4295b8268bc6145cb8a0356b070de1802bbda4
     pristine_git_object: 1c3dd29d5562a1033f19bb9c8b25ee33b4ebebe3
   docs/sdks/cribl/README.md:
     id: 18ac8b824441
-    last_write_checksum: sha1:4ed1003bd0f973c008cdfa3c1fe09a92493f5bbb
-    pristine_git_object: c6f9ce6a4380e955c6d3138325e128984d3c3164
+    last_write_checksum: sha1:9330f61835de9561cd20f8ec21d412d5b22c5137
+    pristine_git_object: 6b2d5489e529a945cb911dfa3e5a6cfd1f4874ef
   docs/sdks/databaseconnections/README.md:
     id: ef33daf326f1
-    last_write_checksum: sha1:6b50362bddba1e4e583d3a9cf5bcf63ce5d245a8
-    pristine_git_object: 1e86ed004914cdd6e58953c56069c17a8f685e61
+    last_write_checksum: sha1:f65d71ee50d6e43fab70d6bcd1416c5961eff5f7
+    pristine_git_object: c3463d09ea5dcecef736de6b3df9f84b17597721
   docs/sdks/datasets/README.md:
     id: deb5d90f4faf
-    last_write_checksum: sha1:b05a20bb6e94686e3e717f6d89aacd9800ac7c7c
-    pristine_git_object: 6535239399beb1398d0eebaf270d9428086bf24c
+    last_write_checksum: sha1:a343f4e7cc76c75c88ad8ee44af87746c2b86647
+    pristine_git_object: d0157066a216fbd01f00899adb276e69eac9e9a9
   docs/sdks/destinations/README.md:
     id: e83d288899aa
-    last_write_checksum: sha1:0c63bb1579f30932885f0c58f9d06e27ca2c3241
-    pristine_git_object: 80715b89f4f784cf19b2658539a7efd8257a4a8f
+    last_write_checksum: sha1:335c38e8cedb89ba40b7f4f63b3d43d32c2d981c
+    pristine_git_object: 7927d3cb72de16675ada6348c0c9ef70167621f6
   docs/sdks/destinationspq/README.md:
     id: 4e89748a1821
     last_write_checksum: sha1:00ec0e6c704879c40749d50e58eb60db54f2e5d7
@@ -17405,28 +17404,28 @@ trackedFiles:
     pristine_git_object: 11256fd5f804f9c4ebe6e68bce7f448320f65ef5
   docs/sdks/groups/README.md:
     id: 3336939a71e4
-    last_write_checksum: sha1:ee7ddb4f978d4b2117aeb2857151cfc5e14dd030
-    pristine_git_object: 041b204fd093e14428795f845e9f32c4e2a4198f
+    last_write_checksum: sha1:25b80ee8aa54066e8775480fc16d1adc76fc34a5
+    pristine_git_object: 07480a9957902fb18a76b316e7946b20af61c5a3
   docs/sdks/health/README.md:
     id: 5082c50d5e82
     last_write_checksum: sha1:2d1acd95460a4918bf6460039c8d55ca37a18427
     pristine_git_object: cf00ff5b20b865a3d57180782cbe4dd87aa60743
   docs/sdks/hectokens/README.md:
     id: 341daeeec3d1
-    last_write_checksum: sha1:32f12759bc1e7e91ef06047c2fe78619916ece32
-    pristine_git_object: 6d61e5764dd3c7c3979a521b7b1cd19c1608dd53
+    last_write_checksum: sha1:7ceff9f0dfe268cb0da5f95562742b274af5f8ec
+    pristine_git_object: a1010d2f60813cf92735d0bc8084b1290e3a446a
   docs/sdks/nodes/README.md:
     id: caae80e86772
-    last_write_checksum: sha1:92b0ea3c521a1c3455142574c97fea80d41c9e6e
-    pristine_git_object: 16cf6dae60376635a331d5dad8625394ca6625b9
+    last_write_checksum: sha1:2748555bd2c9820db96513cd1b002a939cb92225
+    pristine_git_object: c40aa8d5bcccef7cc782dc73a30bf0fee2ea1432
   docs/sdks/packs/README.md:
     id: aea0b099af37
-    last_write_checksum: sha1:af3b82eca8b04a516a8de34e6ebf48f611080978
-    pristine_git_object: 472092d0de8da7408b08aac8cb173d1369182602
+    last_write_checksum: sha1:cd11915407b4779568413081681534843ff3c35b
+    pristine_git_object: 908a6e41c1d0c95a3c2e0de93b663808584ae990
   docs/sdks/packsdestinations/README.md:
     id: 895ef2236167
-    last_write_checksum: sha1:f160023ae1cf68a4e5fed363a890e79a120c3b8f
-    pristine_git_object: d98a0e90ec5420dc957e1cdfff81a0d701af961c
+    last_write_checksum: sha1:fed765ddf9a74b4b1103b1ca831b8a170cd7df20
+    pristine_git_object: 2487bcd801c234592984d0f6d46b49694673091d
   docs/sdks/packsdestinationspq/README.md:
     id: 12a1d2d7f4c4
     last_write_checksum: sha1:84f32a01bd6702d8abbe486fad816654f360f295
@@ -17437,24 +17436,24 @@ trackedFiles:
     pristine_git_object: d237ff391d898274ca9dc87d0cde8c3049f2a68a
   docs/sdks/packshectokens/README.md:
     id: 7c22dc9d7d8c
-    last_write_checksum: sha1:3b9ca7691aec9e277a808a40e7b824f19bcfac64
-    pristine_git_object: 7af788393d84c16a493420de6e627419073b8ec8
+    last_write_checksum: sha1:fbf3171a72e72f5fae885c86735481ef760d0858
+    pristine_git_object: 0e821946e757927a73d1275cef2a9e32824feed7
   docs/sdks/packspipelines/README.md:
     id: b0262a36d64a
-    last_write_checksum: sha1:d00db10d8a7bb9c17f5d71f3ca5ecdf4564d6d0a
-    pristine_git_object: 06b0b1a477e2f847b9ac047e54277b1dc4920731
+    last_write_checksum: sha1:a7c99279d12179869b30ee4e551810500bc5076e
+    pristine_git_object: db1a8c036174d06952fc4aeb07a6f1767700e989
   docs/sdks/packsroutes/README.md:
     id: a1fb73e27b09
-    last_write_checksum: sha1:870d0320275e6f1633a0fe741bef41f6f2898235
-    pristine_git_object: a644a9cf1ff9a2d6c99fa0cf0420a4d25d1dcb4a
+    last_write_checksum: sha1:f3d544ce1b453718bc0a1068ca73c21fb3223278
+    pristine_git_object: 9258de2b402dbbe25a0369168796fb00b4410736
   docs/sdks/packssamples/README.md:
     id: d2c04868bca4
-    last_write_checksum: sha1:bc78a36a9033beec7b181e7f8a883086994cc728
-    pristine_git_object: 7f42aff141f4bb0e229c8c04a1caf4de5c5a8378
+    last_write_checksum: sha1:89d45b910e6ff67fc0cb48e1f9f3f8603bf973a1
+    pristine_git_object: b133a46959c6511bc9acd363cda70bba418f9606
   docs/sdks/packssources/README.md:
     id: 91cf5c639969
-    last_write_checksum: sha1:873e966773fa6a3c2041f5b9532095eaa4a18870
-    pristine_git_object: 968e07373e85f69f90ee13372bcbb08a2b0f36e8
+    last_write_checksum: sha1:ecd098457fb5251cef32e974c380f025d8de05d9
+    pristine_git_object: b7731df9189aa0f76f7b8e06e59e5548669a2511
   docs/sdks/packssourcespq/README.md:
     id: cbbc4cefed4b
     last_write_checksum: sha1:0dae68771f92d106b8b0ab6fa285ca21a800e7ba
@@ -17465,24 +17464,24 @@ trackedFiles:
     pristine_git_object: 74171be38b8d3a850a3075ffb08eb2a3121c3387
   docs/sdks/pipelines/README.md:
     id: 96306a4a5f5a
-    last_write_checksum: sha1:daa712d2dd278323f7135470d6bd49d4b06cce72
-    pristine_git_object: 7979d9d8e7543b2951d978240a2804fa9f5f7675
+    last_write_checksum: sha1:fa0a88cdd7d3f8aacfdc37e96f8c17b8fd48d66a
+    pristine_git_object: 8a4b6230fd67b55af67f51e6ad93c0a32cc27011
   docs/sdks/routes/README.md:
     id: 8eceb878c9af
-    last_write_checksum: sha1:7e97f509cf16cc338e7b1292c118aa8b48d0cb42
-    pristine_git_object: b2fae16e99dba9fc9a4ab53a0d9a36ab62a5a716
+    last_write_checksum: sha1:ca0c8376ee25e23b8fbe6493de498afa987ec756
+    pristine_git_object: aae3a8c85c3c57c865d357602fd8502b669839ff
   docs/sdks/samples/README.md:
     id: 2b3e67e9f9a5
-    last_write_checksum: sha1:bc909fbdbe55537855479b21cae699e8add34e31
-    pristine_git_object: dfa6244c6f9fd65032bed79da71a1dfdf6a41662
+    last_write_checksum: sha1:2dbdc8ca65bf6c5e7afb3981c23e0a3c8469cd7d
+    pristine_git_object: 1f56fc69e736134c695d7eba17efc732771a72e2
   docs/sdks/settings/README.md:
     id: ffd4dbcfc0ce
     last_write_checksum: sha1:832697b742ccb6c984f3d61e7aed929b692352bd
     pristine_git_object: c21a9c62bce14f0e402f1b8ed446fdadbad25ec2
   docs/sdks/sources/README.md:
     id: c1396b2a57d9
-    last_write_checksum: sha1:e4f9b289dc02fe78a5f9364461eed21a98ebd52e
-    pristine_git_object: c6ca8869119d72f65f521543cd95b62e9a4624e0
+    last_write_checksum: sha1:8d11a55edc71c92b19740c93e13bcfb61072dd9c
+    pristine_git_object: 643aa0e3c52866f62714516efbcac8995a60238b
   docs/sdks/sourcespq/README.md:
     id: 08e24f4817a2
     last_write_checksum: sha1:2fd589f89f402e59332fdf0018709d6e42790075
@@ -17501,8 +17500,8 @@ trackedFiles:
     pristine_git_object: 215e68e4723bbb9f48405d261998a58d9a603370
   docs/sdks/tokens/README.md:
     id: ca61030eb3e5
-    last_write_checksum: sha1:893cb0b3859cf25f5da73361a71e38c1449f3461
-    pristine_git_object: 66abb4e9d1835ecfd95d729f09622f2affb734ee
+    last_write_checksum: sha1:3c4219b8c6838b8a8bbd5936bb44e74a86a535b4
+    pristine_git_object: 3633df4ee4eeadd1159b4df9fab8464e66180ac8
   docs/sdks/versionsconfigs/README.md:
     id: 5019616c9cac
     last_write_checksum: sha1:5e302bda68251d60ae3ce945e958c9d615c1448b
@@ -21081,8 +21080,8 @@ trackedFiles:
     pristine_git_object: 0193929d20a0bd14659508ed19320fcd46c3851b
   models/operations/updatepacks.go:
     id: fa381c42bb1a
-    last_write_checksum: sha1:bf281a5ea584e2c520be9eada07fdffc31de3ce0
-    pristine_git_object: 4a01a391cb2f6c2133c02bae6d3b63f8f235733e
+    last_write_checksum: sha1:004b85cc24e565bea3cb906fc21429d651da5b98
+    pristine_git_object: 78a10f0d004af5dd5dcf6bea171d07a14ac96cd6
   models/operations/updatepacksbyid.go:
     id: c24a2933e794
     last_write_checksum: sha1:7b4dca3f3a60ccf1105838b17438656e6d0c5c7c
@@ -21137,8 +21136,8 @@ trackedFiles:
     pristine_git_object: e6e5a01c6e721e879e24a38a1f97e3e27d4686d4
   packs.go:
     id: da66858c5cc8
-    last_write_checksum: sha1:323a4e6934df48174307a54b9516a31b48203fc0
-    pristine_git_object: ce1d271de854a792bc237f44b6ea0426cb3e902c
+    last_write_checksum: sha1:eb563fa1cf413f1e42ef3ee6c451ef0106ab28c9
+    pristine_git_object: 8c47f6cb7da61630df0c440b3085bf47d072ff51
   packsdestinations.go:
     id: c7d2f7613b11
     last_write_checksum: sha1:ec3d143ced9ff56cf5a7071e587e2e39918f6cbd
@@ -21301,6 +21300,12 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"id": "http-source", "type": "http", "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 10080, "captureHeadersWarning": ""}], "count": 1}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createInput:
     speakeasy-default-create-input:
       requestBody:
@@ -22036,6 +22041,14 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "http-source", "type": "http", "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 10080, "captureHeadersWarning": ""}]}
+    authenticationFailed:
+      requestBody:
+        application/json: {"id": "<id>", "type": "wiz_webhook", "host": "amused-glider.biz", "port": 7905.42}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getInputById:
     speakeasy-default-get-input-by-id:
       parameters:
@@ -22076,6 +22089,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "http-source", "type": "http", "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 10080, "captureHeadersWarning": ""}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updateInputById:
     speakeasy-default-update-input-by-id:
       parameters:
@@ -23810,6 +23832,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "http-source", "type": "http", "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 10080, "captureHeadersWarning": ""}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"type": "http_raw", "host": "focused-invite.org", "port": 4085.76}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   deleteInputById:
     speakeasy-default-delete-input-by-id:
       parameters:
@@ -23850,6 +23883,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "http-source", "type": "http", "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 10080, "captureHeadersWarning": ""}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createInputHecTokenById:
     speakeasy-default-create-input-hec-token-by-id:
       parameters:
@@ -23899,6 +23941,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "splunk-hec-source", "type": "splunk_hec", "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 8088, "authTokens": [{"token": "12345678901", "enabled": true, "metadata": [{"name": "fieldX", "value": "valueX"}]}], "captureHeadersWarning": "", "splunkHecAPI": "/services/collector"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"token": "<value>"}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updateInputHecTokenByIdAndToken:
     speakeasy-default-update-input-hec-token-by-id-and-token:
       parameters:
@@ -23952,6 +24005,18 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "splunk-hec-source", "type": "splunk_hec", "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 8088, "authTokens": [{"token": "12345678901", "enabled": true, "metadata": [{"name": "fieldX", "value": "valueX"}]}], "captureHeadersWarning": "", "splunkHecAPI": "/services/collector"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          token: "<value>"
+      requestBody:
+        application/json: {}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   listOutput:
     speakeasy-default-list-output:
       responses:
@@ -23977,6 +24042,12 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"id": "snowflake-streaming-output", "type": "snowflake_streaming", "accountIdentifier": "MYORG-MYACCOUNT", "user": "STREAMING_USER", "pem": {"keyName": "my-snowflake-private-key"}, "database": "EVENTS_DB", "schema": "PUBLIC", "table": "RAW_EVENTS"}], "count": 1}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createOutput:
     speakeasy-default-create-output:
       requestBody:
@@ -24832,6 +24903,14 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "snowflake-streaming-output", "type": "snowflake_streaming", "accountIdentifier": "MYORG-MYACCOUNT", "user": "STREAMING_USER", "pem": {"keyName": "my-snowflake-private-key"}, "database": "EVENTS_DB", "schema": "PUBLIC", "table": "RAW_EVENTS"}]}
+    authenticationFailed:
+      requestBody:
+        application/json: {"id": "<id>", "type": "statsd", "protocol": "udp", "host": "probable-rationale.com", "port": 7475.71}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getOutputById:
     speakeasy-default-get-output-by-id:
       parameters:
@@ -24872,6 +24951,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "snowflake-streaming-output", "type": "snowflake_streaming", "accountIdentifier": "MYORG-MYACCOUNT", "user": "STREAMING_USER", "pem": {"keyName": "my-snowflake-private-key"}, "database": "EVENTS_DB", "schema": "PUBLIC", "table": "RAW_EVENTS"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updateOutputById:
     speakeasy-default-update-output-by-id:
       parameters:
@@ -26848,6 +26936,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "snowflake-streaming-output", "type": "snowflake_streaming", "accountIdentifier": "MYORG-MYACCOUNT", "user": "STREAMING_USER", "pem": {"keyName": "my-snowflake-private-key"}, "database": "EVENTS_DB", "schema": "PUBLIC", "table": "RAW_EVENTS"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"type": "azure_blob", "containerName": "<value>", "stagePath": "<value>"}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   deleteOutputById:
     speakeasy-default-delete-output-by-id:
       parameters:
@@ -26888,6 +26987,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "snowflake-streaming-output", "type": "snowflake_streaming", "accountIdentifier": "MYORG-MYACCOUNT", "user": "STREAMING_USER", "pem": {"keyName": "my-snowflake-private-key"}, "database": "EVENTS_DB", "schema": "PUBLIC", "table": "RAW_EVENTS"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   deleteOutputPqById:
     speakeasy-default-delete-output-pq-by-id:
       parameters:
@@ -26909,6 +27017,15 @@ examples:
       responses:
         "201":
           application/json: {"count": 1, "items": ["ceb17a42-f785-4f5e-b52a-7f0e1b2c3d4e"]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getOutputPqById:
     speakeasy-default-get-output-pq-by-id:
       parameters:
@@ -26921,6 +27038,15 @@ examples:
           application/json: {"status": "error", "message": "<value>"}
         "401":
           application/json: {"status": "error", "message": "<value>"}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getOutputSamplesById:
     speakeasy-default-get-output-samples-by-id:
       parameters:
@@ -26940,6 +27066,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"events": [{"_raw": "Sample event for Destination", "source": "test", "sourcetype": "manual"}]}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createOutputTestById:
     speakeasy-default-create-output-test-by-id:
       parameters:
@@ -26998,6 +27133,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"error": "Connection timed out after 30000ms", "outputId": "s3-output", "success": false}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"events": []}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   listRoutes:
     speakeasy-default-list-routes:
       responses:
@@ -27031,6 +27177,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "default", "routes": [{"disabled": false, "filter": "sourcetype=='syslog'", "final": false, "id": "route-security", "name": "Security events", "output": "splunk-hec", "pipeline": "security-pipeline"}, {"disabled": false, "filter": "true", "final": true, "id": "default", "name": "default", "output": "default", "pipeline": "main"}]}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updateRoutesById:
     speakeasy-default-update-routes-by-id:
       parameters:
@@ -27115,6 +27270,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "default", "routes": [{"disabled": false, "filter": "sourcetype=='syslog'", "final": false, "id": "route-security", "name": "Security events", "output": "splunk-hec", "pipeline": "security-pipeline"}, {"disabled": false, "filter": "true", "final": true, "id": "default", "name": "default", "output": "default", "pipeline": "main"}]}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "<id>", "routes": []}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createRoutesAppendById:
     speakeasy-default-create-routes-append-by-id:
       parameters:
@@ -27199,6 +27365,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "default", "routes": [{"disabled": false, "filter": "sourcetype=='syslog'", "final": false, "id": "route-security", "name": "Security events", "output": "splunk-hec", "pipeline": "security-pipeline"}, {"disabled": false, "filter": "true", "final": true, "id": "default", "name": "default", "output": "default", "pipeline": "main"}]}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: []
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   listPipeline:
     speakeasy-default-list-pipeline:
       responses:
@@ -28020,6 +28197,12 @@ examples:
       responses:
         "200":
           application/json: {"count": 2, "items": [{"id": "main"}, {"id": "feature/new-pipeline"}]}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createVersionCommit:
     speakeasy-default-create-version-commit:
       parameters:
@@ -28072,6 +28255,14 @@ examples:
       responses:
         "400":
           application/json: {"message": "\"effective\" param must be used with \"group\"", "status": "error"}
+    authenticationFailed:
+      requestBody:
+        application/json: {"message": "<value>"}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getVersionCount:
     speakeasy-default-get-version-count:
       parameters:
@@ -28091,6 +28282,12 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"count": 3}]}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getVersionCurrentBranch:
     speakeasy-default-get-version-current-branch:
       responses:
@@ -28104,6 +28301,12 @@ examples:
       responses:
         "200":
           application/json: {"branch": "main"}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getVersionDiff:
     speakeasy-default-get-version-diff:
       parameters:
@@ -28124,6 +28327,12 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"diffJson": [{"addedLines": 5, "blocks": [], "deletedLines": 2, "isCombined": false, "isGitDiff": true, "language": "yml", "newName": "groups/default/local/cribl/pipelines/http_input/conf.yml", "oldName": "groups/default/local/cribl/pipelines/http_input/conf.yml"}]}]}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getVersionFiles:
     speakeasy-default-get-version-files:
       parameters:
@@ -28143,6 +28352,12 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"commitMessage": "Updated pipeline configuration", "count": 2, "items": [{"name": "groups/default/local/cribl/pipelines/http_input/conf.yml", "state": "M"}, {"name": "groups/default/local/cribl/routes.yml", "state": "A"}]}]}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getVersionInfo:
     speakeasy-default-get-version-info:
       responses:
@@ -28156,6 +28371,12 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"remote": "https://github.com/example/cribl-config.git", "versioning": true}]}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createVersionPush:
     speakeasy-default-create-version-push:
       responses:
@@ -28169,6 +28390,12 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": ["To https://github.com/example/cribl-config.git\n   a1b2c3d..b2c3d4e  main -> main"]}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createVersionRevert:
     speakeasy-default-create-version-revert:
       parameters:
@@ -28210,6 +28437,14 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"audit": {"files": {"modified": ["groups/default/local/cribl/pipelines/http_input/conf.yml"]}, "id": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2"}, "reverted": true}]}
+    authenticationFailed:
+      requestBody:
+        application/json: {"commit": "<value>"}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getVersionShow:
     speakeasy-default-get-version-show:
       parameters:
@@ -28230,6 +28465,12 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"commitMessage": "Updated syslog pipeline configuration", "diffJson": [{"addedLines": 3, "blocks": [], "deletedLines": 1, "isCombined": false, "isGitDiff": true, "language": "yml", "newName": "groups/default/local/cribl/pipelines/syslog/conf.yml", "oldName": "groups/default/local/cribl/pipelines/syslog/conf.yml"}]}]}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getVersionStatus:
     speakeasy-default-get-version-status:
       parameters:
@@ -28247,6 +28488,12 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"ahead": 0, "behind": 0, "conflicted": [], "created": [], "current": "main", "deleted": [], "files": [{"index": "M", "path": "groups/default/local/cribl/pipelines/http_input/conf.yml", "working_dir": " "}], "modified": ["groups/default/local/cribl/pipelines/http_input/conf.yml"], "not_added": [], "renamed": [], "staged": []}]}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createVersionSync:
     speakeasy-default-create-version-sync:
       responses:
@@ -28271,6 +28518,12 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [true]}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createCriblLakeDatasetByLakeId:
     speakeasy-default-create-cribl-lake-dataset-by-lake-id:
       parameters:
@@ -28324,6 +28577,17 @@ examples:
           application/json: {"status": "error", "message": "<value>"}
         "401":
           application/json: {"status": "error", "message": "<value>"}
+    authenticationFailed:
+      parameters:
+        path:
+          lakeId: "<id>"
+      requestBody:
+        application/json: {"id": "<id>", "searchConfig": {"metadata": {"earliest": "-30d", "enableAcceleration": false, "fieldList": ["<value 1>", "<value 2>"], "scanMode": "detailed"}}}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getCriblLakeDatasetByLakeId:
     speakeasy-default-get-cribl-lake-dataset-by-lake-id:
       parameters:
@@ -28343,6 +28607,15 @@ examples:
           application/json: {"status": "error", "message": "<value>"}
         "401":
           application/json: {"status": "error", "message": "<value>"}
+    authenticationFailed:
+      parameters:
+        path:
+          lakeId: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getSummaryWorkers:
     speakeasy-default-get-summary-workers:
       parameters:
@@ -28452,6 +28725,14 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"author": "Cribl", "description": "Packs for processing Palo Alto Networks firewall logs.", "displayName": "Palo Alto Networks", "exports": ["pipelines", "inputs"], "id": "cribl-palo-alto-networks", "source": "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl", "version": "1.1.4", "warnings": []}]}
+    authenticationFailed:
+      requestBody:
+        application/json: {"version": "1.0.0", "source": "<value>", "tags": {"domain": ["security", "observability"], "technology": ["aws", "splunk"]}}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getPacks:
     speakeasy-default-get-packs:
       parameters:
@@ -28468,6 +28749,12 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"author": "Cribl", "description": "Packs for processing Palo Alto Networks firewall logs.", "displayName": "Palo Alto Networks", "exports": ["pipelines", "inputs"], "id": "cribl-palo-alto-networks", "source": "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl", "version": "1.1.4"}, {"author": "", "description": "", "displayName": "testPackFoo", "exports": [], "id": "testPackFoo", "source": "", "version": "0.0.1"}], "count": 2, "offset": 0, "limit": 20}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updatePacks:
     speakeasy-default-update-packs:
       parameters:
@@ -28491,6 +28778,17 @@ examples:
       responses:
         "200":
           application/json: {"source": "cribl-palo-alto-networks-1.1.4.AbCdEfGh.crbl"}
+    authenticationFailed:
+      parameters:
+        query:
+          filename: "example.file"
+      requestBody:
+        application/octet-stream: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getGroupsConfigVersionById:
     speakeasy-default-get-groups-config-version-by-id:
       parameters:
@@ -28576,6 +28874,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"cloud": {"provider": "aws", "region": "us-west-2"}, "configVersion": "abc1234", "deployingWorkerCount": 0, "estimatedIngestRate": 2048, "id": "goatCloudIanWg", "incompatibleWorkerCount": 0, "lookupDeployments": [], "name": "goatcloudianwg", "onPrem": false, "provisioned": true, "type": "stream", "workerCount": 3, "workerRemoteAccess": true}]}
+    authenticationFailed:
+      parameters:
+        path:
+          product: "stream"
+      requestBody:
+        application/json: {"estimatedIngestRate": 4096, "id": "<id>"}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getProductsGroupsByProduct:
     speakeasy-default-get-products-groups-by-product:
       parameters:
@@ -28597,6 +28906,15 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"cloud": {"provider": "aws", "region": "us-west-2"}, "configVersion": "abc1234", "deployingWorkerCount": 0, "estimatedIngestRate": 2048, "id": "goatCloudIanWg", "incompatibleWorkerCount": 0, "lookupDeployments": [], "name": "goatcloudianwg", "onPrem": false, "provisioned": true, "type": "stream", "workerCount": 3, "workerRemoteAccess": true}, {"configVersion": "def5678", "deployingWorkerCount": 0, "description": "Worker group in customer-managed deployment", "id": "goatOnPremIanWg", "incompatibleWorkerCount": 0, "lookupDeployments": [], "name": "goatonpremianwg", "onPrem": true, "type": "stream", "workerCount": 5, "workerRemoteAccess": true}], "count": 2, "offset": 0, "limit": 20}
+    authenticationFailed:
+      parameters:
+        path:
+          product: "stream"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updateGroupsDeployById:
     speakeasy-default-update-groups-deploy-by-id:
       parameters:
@@ -28648,6 +28966,16 @@ examples:
           application/json: {"status": "error", "message": "<value>"}
         "401":
           application/json: {"status": "error", "message": "<value>"}
+    authenticationFailed:
+      parameters:
+        path:
+          product: "stream"
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   deleteCriblLakeDatasetByLakeIdAndId:
     speakeasy-default-delete-cribl-lake-dataset-by-lake-id-and-id:
       parameters:
@@ -28661,6 +28989,16 @@ examples:
           application/json: {"status": "error", "message": "<value>"}
         "401":
           application/json: {"status": "error", "message": "<value>"}
+    authenticationFailed:
+      parameters:
+        path:
+          lakeId: "<id>"
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getCriblLakeDatasetByLakeIdAndId:
     speakeasy-default-get-cribl-lake-dataset-by-lake-id-and-id:
       parameters:
@@ -28674,6 +29012,16 @@ examples:
           application/json: {"status": "error", "message": "<value>"}
         "401":
           application/json: {"status": "error", "message": "<value>"}
+    authenticationFailed:
+      parameters:
+        path:
+          lakeId: "<id>"
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updateCriblLakeDatasetByLakeIdAndId:
     speakeasy-default-update-cribl-lake-dataset-by-lake-id-and-id:
       parameters:
@@ -28717,6 +29065,18 @@ examples:
           application/json: {"status": "error", "message": "<value>"}
         "401":
           application/json: {"status": "error", "message": "<value>"}
+    authenticationFailed:
+      parameters:
+        path:
+          lakeId: "<id>"
+          id: "<id>"
+      requestBody:
+        application/json: {"searchConfig": {"metadata": {"earliest": "-30d", "enableAcceleration": false, "fieldList": ["<value 1>", "<value 2>"], "scanMode": "quick"}}}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   deletePacksById:
     speakeasy-default-delete-packs-by-id:
       parameters:
@@ -28736,6 +29096,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "cribl-palo-alto-networks", "source": "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.4/cribl-palo-alto-networks-a3e5a19d-1.1.4.crbl"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updatePacksById:
     speakeasy-default-update-packs-by-id:
       parameters:
@@ -28776,6 +29145,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"author": "Cribl", "description": "Packs for processing Palo Alto Networks firewall logs.", "displayName": "Palo Alto Networks", "exports": ["pipelines", "inputs"], "id": "cribl-palo-alto-networks", "source": "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.5/cribl-palo-alto-networks-a3e5a19d-1.1.5.crbl", "version": "1.1.5"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"source": "<value>"}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   deleteGroupsById:
     speakeasy-default-delete-groups-by-id:
       parameters:
@@ -29020,6 +29400,12 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"author_email": "admin@example.com", "author_name": "Admin User", "body": "", "date": "2024-01-15 10:30:00 +0000", "hash": "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2", "message": "Updated syslog pipeline configuration", "refs": "HEAD -> main"}, {"author_email": "admin@example.com", "author_name": "Admin User", "body": "", "date": "2024-01-14 09:15:00 +0000", "hash": "b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3", "message": "Added new HTTP Source", "refs": ""}], "count": 2, "offset": 0, "limit": 20}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getSystemSettingsAuth:
     speakeasy-default-get-system-settings-auth:
       responses:
@@ -29047,6 +29433,12 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"api": {"disabled": false, "host": "0.0.0.0", "port": 9000, "ssl": {"certPath": "/opt/cribl/local/cribl/auth/cribl.crt", "disabled": false, "passphrase": "", "privKeyPath": "/opt/cribl/local/cribl/auth/cribl.key"}}, "apps": {"enabled": true}, "backups": {}, "pii": {}, "proxy": {"useEnvVars": false}, "rollback": {}, "shutdown": {"drainTimeout": 10000}, "sni": {}, "system": {"intercom": true, "upgrade": "api"}, "tls": {"defaultCipherList": "DEFAULT", "defaultEcdhCurve": "auto", "maxVersion": "TLSv1.3", "minVersion": "TLSv1.2", "rejectUnauthorized": true}, "upgradeGroupSettings": {}, "upgradeSettings": {}, "workers": {"count": 0, "memory": 0, "minimum": 1}}]}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updateSystemSettingsConf:
     speakeasy-default-update-system-settings-conf:
       requestBody:
@@ -29074,6 +29466,14 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"api": {"disabled": false, "host": "0.0.0.0", "port": 9000, "ssl": {"certPath": "/opt/cribl/local/cribl/auth/cribl.crt", "disabled": false, "passphrase": "", "privKeyPath": "/opt/cribl/local/cribl/auth/cribl.key"}}, "apps": {"enabled": true}, "backups": {}, "pii": {}, "proxy": {"useEnvVars": false}, "rollback": {}, "shutdown": {"drainTimeout": 10000}, "sni": {}, "system": {"intercom": true, "upgrade": "api"}, "tls": {"defaultCipherList": "DEFAULT", "defaultEcdhCurve": "auto", "maxVersion": "TLSv1.3", "minVersion": "TLSv1.2", "rejectUnauthorized": true}, "upgradeGroupSettings": {}, "upgradeSettings": {}, "workers": {"count": 0, "memory": 0, "minimum": 1}}]}
+    authenticationFailed:
+      requestBody:
+        application/json: {"backups": {}, "pii": {}, "rollback": {}, "sni": {}, "tls": {}}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getSystemSettingsGitSettings:
     speakeasy-default-get-system-settings-git-settings:
       responses:
@@ -29114,6 +29514,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"author": "", "description": "", "displayName": "testPackFoo", "exports": [], "id": "testPackFoo", "source": "", "version": "0.0.1"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createAuthLogin:
     speakeasy-default-create-auth-login:
       requestBody:
@@ -29125,6 +29534,14 @@ examples:
           application/json: {"status": "error", "message": "<value>"}
         "401":
           application/json: {"status": "error", "message": "<value>"}
+    authenticationFailed:
+      requestBody:
+        application/json: {"password": "6j50J9421x29IhO", "username": "Lilly_Weissnat"}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getHealth:
     speakeasy-default-get-health:
       responses:
@@ -29277,6 +29694,14 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"type": "collection", "savedQueryId": "<id>"}]}
+    authenticationFailed:
+      requestBody:
+        application/json: {"type": "collection", "collector": {"type": "azure_blob", "conf": {"authType": "clientCert", "storageAccountName": "<value>", "tenantId": "<id>", "clientId": "<id>", "certificate": {"certificateName": "<value>"}, "containerName": "<value>"}}}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getSavedJob:
     speakeasy-default-get-saved-job:
       parameters:
@@ -29295,6 +29720,12 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"type": "scheduledSearch", "collector": {"type": "google_cloud_storage", "conf": {"authType": "secret", "textSecret": "<value>", "bucket": "<value>"}}}, {"type": "executor", "savedQueryId": "<id>"}], "count": 2, "offset": 0, "limit": 20}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   deleteSavedJobById:
     speakeasy-default-delete-saved-job-by-id:
       parameters:
@@ -29317,6 +29748,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"type": "executor", "savedQueryId": "<id>"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getSavedJobById:
     speakeasy-default-get-saved-job-by-id:
       parameters:
@@ -29338,6 +29778,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"type": "executor", "executor": {"type": "<value>"}}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updateSavedJobById:
     CollectorExamplesRest:
       parameters:
@@ -29597,6 +30046,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"type": "executor", "savedQueryId": "<id>"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"type": "collection", "collector": {"type": "splunk", "conf": {"authentication": "token", "token": "<value>", "searchHead": "<value>", "search": "<value>", "endpoint": "<value>", "outputMode": "json"}}}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getFunctionsById:
     speakeasy-default-get-functions-by-id:
       parameters:
@@ -29623,6 +30083,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"__filename": "drop/index.js", "group": "Standard", "id": "drop", "loadTime": 0, "modTime": 0, "name": "Drop", "uischema": {}, "version": "0.1"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getFunctions:
     speakeasy-default-get-functions:
       responses:
@@ -29636,6 +30105,12 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"__filename": "eval/index.js", "group": "Standard", "id": "eval", "loadTime": 0, "modTime": 0, "name": "Eval", "uischema": {}, "version": "0.4"}, {"__filename": "drop/index.js", "group": "Standard", "id": "drop", "loadTime": 0, "modTime": 0, "name": "Drop", "uischema": {}, "version": "0.1"}], "count": 2, "offset": 0, "limit": 20}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createSystemCapture:
     speakeasy-default-create-system-capture:
       requestBody:
@@ -29689,6 +30164,14 @@ examples:
       responses:
         "200":
           application/x-ndjson: {"_time": 1700000000, "_raw": "2023-11-14T22:13:20Z src=10.0.1.50 dst=192.168.1.100 action=allow", "sourcetype": "pan:traffic", "__inputId": "syslog:my_syslog_input"}
+    authenticationFailed:
+      requestBody:
+        application/json: {}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createDatabaseConnectionConfig:
     DatabaseConnectionExamplesMySQLWithConnectionString:
       requestBody:
@@ -29846,6 +30329,14 @@ examples:
       responses:
         "400":
           application/json: {"message": "must have required property 'id'", "status": "error"}
+    authenticationFailed:
+      requestBody:
+        application/json: {"authType": "connectionString", "configObj": "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"trustServerCertificate\":false,\"connectTimeout\":20000}}", "connectionString": "mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true", "connectionTimeout": 10000, "credsSecrets": "oracle-production-credentials", "databaseType": "postgres", "description": "Production MySQL database for customer data", "id": "mysql-prod-db", "password": "yourPassword", "requestTimeout": 30000, "tags": "production,mysql,customer-data", "textSecret": "mysql-production-connection", "user": "yourUsername"}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   deleteDatabaseConnectionConfigById:
     speakeasy-default-delete-database-connection-config-by-id:
       parameters:
@@ -29874,6 +30365,15 @@ examples:
       responses:
         "404":
           application/json: {"message": "Database Connection not found", "status": "error"}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getDatabaseConnectionConfigById:
     speakeasy-default-get-database-connection-config-by-id:
       parameters:
@@ -29902,6 +30402,15 @@ examples:
       responses:
         "404":
           application/json: {"message": "Database Connection not found", "status": "error"}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updateDatabaseConnectionConfigById:
     DatabaseConnectionExamplesMySQLWithConnectionString:
       parameters:
@@ -30306,6 +30815,17 @@ examples:
       responses:
         "400":
           application/json: {"message": "must have required property 'id'", "status": "error"}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"authType": "configObj", "configObj": "{\"server\":\"sqlserver.example.com\",\"database\":\"Reporting\",\"user\":\"yourUsername\",\"password\":\"yourPassword\",\"options\":{\"trustServerCertificate\":false,\"connectTimeout\":20000}}", "connectionString": "mysql://yourUsername:yourPassword@mysql.example.com:3306/production?ssl=true", "connectionTimeout": 10000, "credsSecrets": "oracle-production-credentials", "databaseType": "sqlserver", "description": "Production MySQL database for customer data", "id": "mysql-prod-db", "password": "yourPassword", "requestTimeout": 30000, "tags": "production,mysql,customer-data", "textSecret": "mysql-production-connection", "user": "yourUsername"}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createPipelines:
     PipelineExamplesEmpty:
       requestBody:
@@ -30729,6 +31249,14 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "eval-pipeline", "conf": {"asyncFuncTimeout": 3000, "description": "Adds environment metadata to events.", "functions": [{"filter": "true", "id": "eval", "disabled": false, "conf": {"add": [{"name": "env", "value": "'production'"}]}}]}}]}
+    authenticationFailed:
+      requestBody:
+        application/json: {"id": "<id>", "conf": {"functions": [{"id": "cef", "conf": {}}]}}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getPipelines:
     speakeasy-default-get-pipelines:
       responses:
@@ -30746,6 +31274,12 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"id": "eval-pipeline", "conf": {"asyncFuncTimeout": 3000, "description": "Adds environment metadata to events.", "functions": [{"filter": "true", "id": "eval", "disabled": false, "conf": {"add": [{"name": "env", "value": "'production'"}]}}]}}], "count": 1}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   deletePipelinesById:
     speakeasy-default-delete-pipelines-by-id:
       parameters:
@@ -30772,6 +31306,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "eval-pipeline", "conf": {"asyncFuncTimeout": 3000, "description": "Adds environment metadata to events.", "functions": [{"filter": "true", "id": "eval", "disabled": false, "conf": {"add": [{"name": "env", "value": "'production'"}]}}]}}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getPipelinesById:
     speakeasy-default-get-pipelines-by-id:
       parameters:
@@ -30798,6 +31341,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "eval-pipeline", "conf": {"asyncFuncTimeout": 3000, "description": "Adds environment metadata to events.", "functions": [{"filter": "true", "id": "eval", "disabled": false, "conf": {"add": [{"name": "env", "value": "'production'"}]}}]}}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updatePipelinesById:
     PipelineExamplesEmpty:
       parameters:
@@ -31790,6 +32342,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "eval-pipeline", "conf": {"asyncFuncTimeout": 3000, "description": "Adds environment metadata to events.", "functions": [{"filter": "true", "id": "eval", "disabled": false, "conf": {"add": [{"name": "env", "value": "'production'"}]}}]}}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "<id>", "conf": {"functions": [{"id": "snmp_trap_serialize", "conf": {}}]}}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getRoutes:
     speakeasy-default-get-routes:
       responses:
@@ -31807,6 +32370,12 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "default", "routes": [{"disabled": false, "filter": "sourcetype=='syslog'", "final": false, "id": "route-security", "name": "Security events", "output": "splunk-hec", "pipeline": "security-pipeline"}, {"disabled": false, "filter": "true", "final": true, "id": "default", "name": "default", "output": "default", "pipeline": "main"}]}]}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getInputSystemByPack:
     speakeasy-default-get-input-system-by-pack:
       parameters:
@@ -31847,6 +32416,15 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"id": "http-source", "type": "http", "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 10080, "captureHeadersWarning": ""}], "count": 1}
+    authenticationFailed:
+      parameters:
+        path:
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getInputSystemByPackAndId:
     speakeasy-default-get-input-system-by-pack-and-id:
       parameters:
@@ -31892,6 +32470,16 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "http-source", "type": "http", "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 10080, "captureHeadersWarning": ""}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updateInputSystemByPackAndId:
     InputCreateExamplesAppscope:
       parameters:
@@ -33771,6 +34359,18 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "http-source", "type": "http", "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 10080, "captureHeadersWarning": ""}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: {"type": "office365_service", "tenantId": "<id>", "appId": "<id>"}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   deleteInputSystemByPackAndId:
     speakeasy-default-delete-input-system-by-pack-and-id:
       parameters:
@@ -33816,6 +34416,16 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "http-source", "type": "http", "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 10080, "captureHeadersWarning": ""}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createInputSystemHecTokenByPackAndId:
     HecTokenExamplesHecToken:
       parameters:
@@ -33869,6 +34479,18 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "splunk-hec-source", "type": "splunk_hec", "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 8088, "authTokens": [{"token": "12345678901", "enabled": true, "metadata": [{"name": "fieldX", "value": "valueX"}]}], "captureHeadersWarning": "", "splunkHecAPI": "/services/collector"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: {"token": "<value>"}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updateInputSystemHecTokenByPackAndIdAndToken:
     HecTokenExamplesHecToken:
       parameters:
@@ -33926,6 +34548,19 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "splunk-hec-source", "type": "splunk_hec", "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 8088, "authTokens": [{"token": "12345678901", "enabled": true, "metadata": [{"name": "fieldX", "value": "valueX"}]}], "captureHeadersWarning": "", "splunkHecAPI": "/services/collector"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          token: "<value>"
+          pack: "<value>"
+      requestBody:
+        application/json: {}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   deleteInputSystemPqByPackAndId:
     speakeasy-default-delete-input-system-pq-by-pack-and-id:
       parameters:
@@ -33949,6 +34584,16 @@ examples:
       responses:
         "201":
           application/json: {"count": 1, "items": ["1727123456.1234567890"]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createInputSystemByPack:
     InputCreateExamplesAppscope:
       parameters:
@@ -34909,6 +35554,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "http-source", "type": "http", "sendToRoutes": true, "pqEnabled": false, "host": "0.0.0.0", "port": 10080, "captureHeadersWarning": ""}]}
+    authenticationFailed:
+      parameters:
+        path:
+          pack: "<value>"
+      requestBody:
+        application/json: {"id": "<id>", "type": "win_event_logs", "logNames": ["<value 1>", "<value 2>", "<value 3>"]}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getInputSystemPqByPackAndId:
     speakeasy-default-get-input-system-pq-by-pack-and-id:
       parameters:
@@ -34930,6 +35586,16 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"args": {"collector": {"type": "splunk", "conf": {"authentication": "basic", "username": "Betty.Williamson20", "password": "l4aFcBec8QubGWA", "searchHead": "<value>", "search": "<value>", "endpoint": "<value>", "outputMode": "json"}}, "run": {"mode": "list"}}, "id": "1727123456.1234567890", "stats": {}, "status": {"state": 5}}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getOutputSystemByPack:
     speakeasy-default-get-output-system-by-pack:
       parameters:
@@ -34970,6 +35636,15 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"id": "snowflake-streaming-output", "type": "snowflake_streaming", "accountIdentifier": "MYORG-MYACCOUNT", "user": "STREAMING_USER", "pem": {"keyName": "my-snowflake-private-key"}, "database": "EVENTS_DB", "schema": "PUBLIC", "table": "RAW_EVENTS"}], "count": 1}
+    authenticationFailed:
+      parameters:
+        path:
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createOutputSystemByPack:
     OutputCreateExamplesTcpjson:
       parameters:
@@ -36086,6 +36761,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "snowflake-streaming-output", "type": "snowflake_streaming", "accountIdentifier": "MYORG-MYACCOUNT", "user": "STREAMING_USER", "pem": {"keyName": "my-snowflake-private-key"}, "database": "EVENTS_DB", "schema": "PUBLIC", "table": "RAW_EVENTS"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          pack: "<value>"
+      requestBody:
+        application/json: {"id": "<id>", "type": "router", "rules": []}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getOutputSystemByPackAndId:
     speakeasy-default-get-output-system-by-pack-and-id:
       parameters:
@@ -36131,6 +36817,16 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "snowflake-streaming-output", "type": "snowflake_streaming", "accountIdentifier": "MYORG-MYACCOUNT", "user": "STREAMING_USER", "pem": {"keyName": "my-snowflake-private-key"}, "database": "EVENTS_DB", "schema": "PUBLIC", "table": "RAW_EVENTS"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updateOutputSystemByPackAndId:
     OutputExamplesDefault:
       parameters:
@@ -38272,6 +38968,18 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "snowflake-streaming-output", "type": "snowflake_streaming", "accountIdentifier": "MYORG-MYACCOUNT", "user": "STREAMING_USER", "pem": {"keyName": "my-snowflake-private-key"}, "database": "EVENTS_DB", "schema": "PUBLIC", "table": "RAW_EVENTS"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: {"type": "honeycomb", "dataset": "<value>"}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   deleteOutputSystemByPackAndId:
     speakeasy-default-delete-output-system-by-pack-and-id:
       parameters:
@@ -38317,6 +39025,16 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "snowflake-streaming-output", "type": "snowflake_streaming", "accountIdentifier": "MYORG-MYACCOUNT", "user": "STREAMING_USER", "pem": {"keyName": "my-snowflake-private-key"}, "database": "EVENTS_DB", "schema": "PUBLIC", "table": "RAW_EVENTS"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   deleteOutputSystemPqByPackAndId:
     speakeasy-default-delete-output-system-pq-by-pack-and-id:
       parameters:
@@ -38338,6 +39056,16 @@ examples:
       responses:
         "201":
           application/json: {"count": 1, "items": ["ceb17a42-f785-4f5e-b52a-7f0e1b2c3d4e"]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getOutputSystemPqByPackAndId:
     speakeasy-default-get-output-system-pq-by-pack-and-id:
       parameters:
@@ -38351,6 +39079,16 @@ examples:
           application/json: {"status": "error", "message": "<value>"}
         "401":
           application/json: {"status": "error", "message": "<value>"}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getOutputSystemSamplesByPackAndId:
     speakeasy-default-get-output-system-samples-by-pack-and-id:
       parameters:
@@ -38372,6 +39110,16 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"events": [{"_raw": "Sample event for Destination", "source": "test", "sourcetype": "manual"}]}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createOutputSystemTestByPackAndId:
     speakeasy-default-create-output-system-test-by-pack-and-id:
       parameters:
@@ -38435,6 +39183,18 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"error": "Connection timed out after 30000ms", "outputId": "s3-output", "success": false}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: {"events": []}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   deleteInputPqById:
     speakeasy-default-delete-input-pq-by-id:
       parameters:
@@ -38454,6 +39214,15 @@ examples:
       responses:
         "201":
           application/json: {"count": 1, "items": ["1727123456.1234567890"]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getInputPqById:
     speakeasy-default-get-input-pq-by-id:
       parameters:
@@ -38473,6 +39242,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"args": {"executor": {"type": "<value>"}, "run": {}}, "id": "1727123456.1234567890", "stats": {}, "status": {"state": 5}}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getProductsSummaryWorkersByProduct:
     speakeasy-default-get-products-summary-workers-by-product:
       parameters:
@@ -38496,6 +39274,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [42]}
+    authenticationFailed:
+      parameters:
+        path:
+          product: "outpost"
+        query:
+          filterExp: "group==\"default\""
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getProductsWorkersByProductAndId:
     speakeasy-default-get-products-workers-by-product-and-id:
       parameters:
@@ -38517,6 +39306,16 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"firstMsgTime": 1700000000000, "group": "default", "id": "11111111-1111-1111-1111-111111111111", "info": {"architecture": "x64", "cpus": 8, "cribl": {"config": {"version": "1.0.0"}, "distMode": "worker", "group": "default", "guid": "11111111-1111-1111-1111-111111111111", "startTime": 1700000000000, "version": "4.19.0"}, "env": {"TZ": "UTC", "LANG": "en_US.UTF-8"}, "hostname": "worker-1", "node": "v22.17.1", "platform": "linux", "release": "6.8.0-1013-oem", "totalmem": 17179869184}, "lastMsgTime": 1710000060000, "status": "healthy", "workerProcesses": 4}]}
+    authenticationFailed:
+      parameters:
+        path:
+          product: "edge"
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getProductsWorkersByProduct:
     speakeasy-default-get-products-workers-by-product:
       parameters:
@@ -38546,6 +39345,18 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"firstMsgTime": 1717200000000, "group": "default", "id": "worker-guid-01", "info": {"architecture": "x64", "cpus": 8, "cribl": {"config": {}, "distMode": "worker", "group": "default", "guid": "worker-guid-01", "startTime": 1717200000000}, "env": {}, "hostname": "worker-01", "node": "v22.17.1", "platform": "linux", "release": "6.8.0", "totalmem": 34359738368}, "lastMsgTime": 1717200060000, "status": "healthy", "workerProcesses": 4}], "count": 1, "offset": 0, "limit": 20}
+    authenticationFailed:
+      parameters:
+        path:
+          product: "stream"
+        query:
+          filterExp: "group==\"default\""
+          filter: "%7B%22field%22%3A%22group%22%2C%22op%22%3A%22is%22%2C%22value%22%3A%22default%22%7D"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updateProductsWorkersRestartByProduct:
     RestartWorkersExamplesRestartWorkers:
       parameters:
@@ -38591,6 +39402,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 2, "items": [{"id": "guid-12345678-abcd-1234-abcd-123456789abc", "status": "Restarting"}, {"id": "guid-87654321-dcba-4321-dcba-cba987654321", "message": "Node is not connected to the Leader.", "status": "Error"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          product: "edge"
+      requestBody:
+        application/json: {"guids": ["<value 1>"]}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getRoutesByPackAndId:
     speakeasy-default-get-routes-by-pack-and-id:
       parameters:
@@ -38620,6 +39442,16 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "default", "routes": [{"disabled": false, "filter": "sourcetype=='syslog'", "final": false, "id": "route-security", "name": "Security events", "output": "splunk-hec", "pipeline": "security-pipeline"}, {"disabled": false, "filter": "true", "final": true, "id": "default", "name": "default", "output": "default", "pipeline": "main"}]}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updateRoutesByPackAndId:
     RoutesUpdateExamplesBasicRoute:
       parameters:
@@ -38711,6 +39543,18 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "default", "routes": [{"disabled": false, "filter": "sourcetype=='syslog'", "final": false, "id": "route-security", "name": "Security events", "output": "splunk-hec", "pipeline": "security-pipeline"}, {"disabled": false, "filter": "true", "final": true, "id": "default", "name": "default", "output": "default", "pipeline": "main"}]}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: {"id": "<id>", "routes": [{"name": "<value>", "pipeline": "<value>"}]}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getRoutesByPack:
     speakeasy-default-get-routes-by-pack:
       parameters:
@@ -38737,6 +39581,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "default", "routes": [{"disabled": false, "filter": "sourcetype=='syslog'", "final": false, "id": "route-security", "name": "Security events", "output": "splunk-hec", "pipeline": "security-pipeline"}, {"disabled": false, "filter": "true", "final": true, "id": "default", "name": "default", "output": "default", "pipeline": "main"}]}]}
+    authenticationFailed:
+      parameters:
+        path:
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createRoutesAppendByPackAndId:
     RoutesAppendExamplesSingleRoute:
       parameters:
@@ -38828,6 +39681,18 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "default", "routes": [{"disabled": false, "filter": "sourcetype=='syslog'", "final": false, "id": "route-security", "name": "Security events", "output": "splunk-hec", "pipeline": "security-pipeline"}, {"disabled": false, "filter": "true", "final": true, "id": "default", "name": "default", "output": "default", "pipeline": "main"}]}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: [{"name": "<value>", "pipeline": "<value>"}]
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createSystemSettingsRestart:
     speakeasy-default-create-system-settings-restart:
       parameters:
@@ -38844,6 +39709,12 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"restart": true}]}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createPipelinesByPack:
     PipelineExamplesEmpty:
       parameters:
@@ -39396,6 +40267,17 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "eval-pipeline", "conf": {"asyncFuncTimeout": 3000, "description": "Adds environment metadata to events.", "functions": [{"filter": "true", "id": "eval", "disabled": false, "conf": {"add": [{"name": "env", "value": "'production'"}]}}]}}]}
+    authenticationFailed:
+      parameters:
+        path:
+          pack: "<value>"
+      requestBody:
+        application/json: {"id": "<id>", "conf": {"functions": [{"id": "mv_pull", "conf": {"arrayPath": "<value>", "relativeKeyPath": "<value>", "relativeValuePath": "<value>"}}]}}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getPipelinesByPack:
     speakeasy-default-get-pipelines-by-pack:
       parameters:
@@ -39422,6 +40304,15 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"id": "eval-pipeline", "conf": {"asyncFuncTimeout": 3000, "description": "Adds environment metadata to events.", "functions": [{"filter": "true", "id": "eval", "disabled": false, "conf": {"add": [{"name": "env", "value": "'production'"}]}}]}}], "count": 1}
+    authenticationFailed:
+      parameters:
+        path:
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   deletePipelinesByPackAndId:
     speakeasy-default-delete-pipelines-by-pack-and-id:
       parameters:
@@ -39451,6 +40342,16 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "eval-pipeline", "conf": {"asyncFuncTimeout": 3000, "description": "Adds environment metadata to events.", "functions": [{"filter": "true", "id": "eval", "disabled": false, "conf": {"add": [{"name": "env", "value": "'production'"}]}}]}}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getPipelinesByPackAndId:
     speakeasy-default-get-pipelines-by-pack-and-id:
       parameters:
@@ -39480,6 +40381,16 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "eval-pipeline", "conf": {"asyncFuncTimeout": 3000, "description": "Adds environment metadata to events.", "functions": [{"filter": "true", "id": "eval", "disabled": false, "conf": {"add": [{"name": "env", "value": "'production'"}]}}]}}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updatePipelinesByPackAndId:
     PipelineExamplesEmpty:
       parameters:
@@ -40555,6 +41466,18 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "eval-pipeline", "conf": {"asyncFuncTimeout": 3000, "description": "Adds environment metadata to events.", "functions": [{"filter": "true", "id": "eval", "disabled": false, "conf": {"add": [{"name": "env", "value": "'production'"}]}}]}}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      requestBody:
+        application/json: {"id": "<id>", "conf": {"functions": [{"id": "gen_stats", "conf": {}}]}}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getProductsSummaryByProduct:
     speakeasy-default-get-products-summary-by-product:
       parameters:
@@ -40574,6 +41497,15 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"groups": {"count": 1, "destinations": 2, "packs": 1, "pipelines": 2, "quickConnects": 1, "routes": 3, "sources": 4}, "workers": {"alive": 2, "confVersions": 1, "count": 2, "disconnectedCount": 0, "groups": 1, "softwareVersions": 1, "unhealthy": 0}}], "count": 1, "offset": 0, "limit": 20}
+    authenticationFailed:
+      parameters:
+        path:
+          product: "stream"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getInputStatusById:
     speakeasy-default-get-input-status-by-id:
       parameters:
@@ -40603,6 +41535,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "splunk-hec-source", "status": {"health": "Yellow", "healthCounts": {"Green": 1, "Red": 0, "Unknown": 0, "Yellow": 1}, "timestamp": 1627123456789}, "type": "splunk_hec"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getInputStatus:
     speakeasy-default-get-input-status:
       parameters:
@@ -40624,6 +41565,12 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"id": "splunk-hec-source", "status": {"health": "Yellow", "healthCounts": {"Green": 1, "Red": 0, "Unknown": 0, "Yellow": 1}, "timestamp": 1627123456789}, "type": "splunk_hec"}], "count": 1}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getInputStatusSystemInputsByPackAndId:
     speakeasy-default-get-input-status-system-inputs-by-pack-and-id:
       parameters:
@@ -40656,6 +41603,16 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "splunk-hec-source", "status": {"health": "Yellow", "healthCounts": {"Green": 1, "Red": 0, "Unknown": 0, "Yellow": 1}, "timestamp": 1627123456789}, "type": "splunk_hec"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getInputStatusSystemInputsByPack:
     speakeasy-default-get-input-status-system-inputs-by-pack:
       parameters:
@@ -40685,6 +41642,15 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"id": "splunk-hec-source", "status": {"health": "Yellow", "healthCounts": {"Green": 1, "Red": 0, "Unknown": 0, "Yellow": 1}, "timestamp": 1627123456789}, "type": "splunk_hec"}], "count": 1}
+    authenticationFailed:
+      parameters:
+        path:
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getOutputStatusSystemOutputsByPackAndId:
     speakeasy-default-get-output-status-system-outputs-by-pack-and-id:
       parameters:
@@ -40717,6 +41683,16 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "s3-output", "status": {"health": "Yellow", "healthCounts": {"Green": 1, "Red": 0, "Unknown": 0, "Yellow": 1}, "timestamp": 1627123456789}, "type": "s3"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getOutputStatusSystemOutputsByPack:
     speakeasy-default-get-output-status-system-outputs-by-pack:
       parameters:
@@ -40746,6 +41722,15 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"id": "s3-output", "status": {"health": "Yellow", "healthCounts": {"Green": 1, "Red": 0, "Unknown": 0, "Yellow": 1}, "timestamp": 1627123456789}, "type": "s3"}], "count": 1}
+    authenticationFailed:
+      parameters:
+        path:
+          pack: "<value>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getOutputStatusById:
     speakeasy-default-get-output-status-by-id:
       parameters:
@@ -40775,6 +41760,15 @@ examples:
       responses:
         "200":
           application/json: {"count": 1, "items": [{"id": "s3-output", "status": {"health": "Yellow", "healthCounts": {"Green": 1, "Red": 0, "Unknown": 0, "Yellow": 1}, "timestamp": 1627123456789}, "type": "s3"}]}
+    authenticationFailed:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getOutputStatus:
     speakeasy-default-get-output-status:
       parameters:
@@ -40796,6 +41790,12 @@ examples:
       responses:
         "200":
           application/json: {"items": [{"id": "s3-output", "status": {"health": "Yellow", "healthCounts": {"Green": 1, "Red": 0, "Unknown": 0, "Yellow": 1}, "timestamp": 1627123456789}, "type": "s3"}], "count": 1}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   createPreview:
     speakeasy-default-create-preview:
       requestBody:
@@ -40999,6 +41999,12 @@ examples:
       responses:
         "200":
           application/json: {"count": 2, "items": [{"authType": "connectionString", "connectionString": "*****", "connectionTimeout": 10000, "databaseType": "mysql", "description": "Production MySQL database for customer data", "id": "mysql-prod-db", "tags": "production,mysql,customer-data"}, {"authType": "secret", "connectionTimeout": 15000, "databaseType": "postgres", "description": "Data warehouse PostgreSQL database", "id": "postgres-warehouse", "tags": "warehouse,postgres,reporting", "textSecret": "postgres-warehouse-connection"}]}
+    authenticationFailed:
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getProductsGroupsByProductAndId:
     GroupGetResponseExamplesWorkerGroup:
       parameters:
@@ -41020,6 +42026,16 @@ examples:
           application/json: {"status": "error", "message": "<value>"}
         "500":
           application/json: {"status": "error", "message": "<value>"}
+    authenticationFailed:
+      parameters:
+        path:
+          product: "edge"
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updateProductsGroupsByProductAndId:
     UpdateGroupExamplesScaleCloudWorkerGroup:
       parameters:
@@ -41073,6 +42089,18 @@ examples:
           application/json: {"status": "error", "message": "<value>"}
         "500":
           application/json: {"status": "error", "message": "<value>"}
+    authenticationFailed:
+      parameters:
+        path:
+          product: "stream"
+          id: "<id>"
+      requestBody:
+        application/json: {"estimatedIngestRate": 4096, "id": "<id>"}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   deleteProductsGroupsByProductAndId:
     GroupDeleteResponseExamplesWorkerGroup:
       parameters:
@@ -41094,6 +42122,16 @@ examples:
           application/json: {"status": "error", "message": "<value>"}
         "500":
           application/json: {"status": "error", "message": "<value>"}
+    authenticationFailed:
+      parameters:
+        path:
+          product: "edge"
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   updateProductsGroupsDeployByProductAndId:
     DeployGroupExamplesDeployWorkerGroup:
       parameters:
@@ -41133,6 +42171,18 @@ examples:
           application/json: {"status": "error", "message": "<value>"}
         "500":
           application/json: {"status": "error", "message": "<value>"}
+    authenticationFailed:
+      parameters:
+        path:
+          product: "edge"
+          id: "<id>"
+      requestBody:
+        application/json: {"version": "<value>"}
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getProductsGroupsAclByProductAndId:
     speakeasy-default-get-products-groups-acl-by-product-and-id:
       parameters:
@@ -41146,6 +42196,16 @@ examples:
           application/json: {"status": "error", "message": "<value>"}
         "500":
           application/json: {"status": "error", "message": "<value>"}
+    authenticationFailed:
+      parameters:
+        path:
+          product: "outpost"
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
   getProductsGroupsConfigVersionByProductAndId:
     GroupConfigVersionResponseExamplesConfigVersion:
       parameters:
@@ -41167,6 +42227,16 @@ examples:
           application/json: {"status": "error", "message": "<value>"}
         "500":
           application/json: {"status": "error", "message": "<value>"}
+    authenticationFailed:
+      parameters:
+        path:
+          product: "stream"
+          id: "<id>"
+      responses:
+        "401":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
+        "500":
+          application/json: {"status": "error", "message": "Authentication failed (missing or invalid credentials or Bearer token)."}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:08:45+02:00"
@@ -41232,7 +42302,9 @@ generatedTests:
   updatePacksById: "2025-08-01T01:29:44Z"
   deleteGroupsById: "2025-08-01T19:57:10Z"
   updateGroupsById: "2025-08-01T19:57:10Z"
-releaseNotes: "## Go SDK Changes:\n* `CriblControlPlane.Sources.Delete()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Nodes.List()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Versions.Statuses.Get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Versions.Commits.Files.List()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.DatabaseConnections.List()`: \n  *  `request` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.DatabaseConnections.Create()`: \n  *  `request.Request` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.DatabaseConnections.Get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.DatabaseConnections.Update()`: \n  *  `request.DatabaseConnectionConfig` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.DatabaseConnections.Delete()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Versions.Commits.Files.Count()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Versions.Commits.Get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Versions.Commits.Diff()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Versions.Commits.Create()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Destinations.Statuses.Get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Destinations.Statuses.List()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Destinations.Delete()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Destinations.Update()`: \n  *  `request.Output` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Destinations.Get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Update()`: \n  *  `request.PackUpgradeRequest.Minor` **Changed** (Breaking ⚠️)\n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Destinations.Create()`: \n  *  `request.Request` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Pipelines.List()`: \n  *  `request` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Pipelines.Create()`: \n  *  `request.Pipeline.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Pipelines.Get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Pipelines.Delete()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Destinations.List()`: \n  *  `request` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Sources.Statuses.Get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Sources.Statuses.List()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Sources.Update()`: \n  *  `request.Input` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Sources.List()`: \n  *  `request` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Sources.Create()`: \n  *  `request.RequestBody` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Sources.Get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Sources.Update()`: \n  *  `request.Input` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Sources.Delete()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Sources.Get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Sources.Create()`: \n  *  `request.Request` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Sources.List()`: \n  *  `request` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.System.Settings.Cribl.Update()`: \n  *  `request.Request` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Sources.Statuses.List()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Sources.Statuses.Get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Destinations.List()`: \n  *  `request` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Destinations.Create()`: \n  *  `request.RequestBody` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Destinations.Get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Destinations.Update()`: \n  *  `request.Output` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Destinations.Delete()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.System.Settings.Cribl.List()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Lakes.Datasets.Delete()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Lakes.Datasets.Update()`: \n  *  `request.CriblLakeDatasetUpdate` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Lakes.Datasets.Get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Destinations.Statuses.List()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Destinations.Statuses.Get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Pipelines.List()`: \n  *  `request` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Pipelines.Create()`: \n  *  `request.Request.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Pipelines.Delete()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Lakes.Datasets.Create()`: \n  *  `request.CriblLakeDataset` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Pipelines.Update()`: \n  *  `request.Pipeline.Conf.Functions[]` **Changed** (Breaking ⚠️)\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Lakes.Datasets.List()`: \n  *  `request.Request` **Changed**\n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Nodes.Get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Pipelines.Get()`: \n  *  `response` **Changed** (Breaking ⚠️)\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Upload()`:  `error` **Changed**\n* `CriblControlPlane.Sources.HecTokens.Create()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Groups.Deploy()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Groups.Acl.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Groups.Acl.Teams.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Groups.Configs.Versions.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Nodes.Count()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Functions.List()`: \n  *  `request` **Changed**\n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Groups.Create()`: \n  *  `request.GroupCreateRequest.CollectorsHaEnabled` **Added**\n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Nodes.Restart()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Nodes.Summaries.Get()`: \n  *  `request` **Changed**\n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Groups.List()`: \n  *  `request` **Changed**\n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Groups.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Destinations.Samples.Create()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Destinations.Samples.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Destinations.Pq.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Routes.List()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Routes.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Routes.Update()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Routes.Append()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.System.Captures.Create()`:  `error` **Changed**\n* `CriblControlPlane.System.Settings.Restart()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Destinations.Pq.Clear()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Sources.Pq.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Sources.Pq.Clear()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Sources.HecTokens.Update()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Sources.HecTokens.Create()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Routes.Append()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Auth.Tokens.Get()`:  `error` **Changed**\n* `CriblControlPlane.Collectors.List()`: \n  *  `request` **Changed**\n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Sources.HecTokens.Update()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Sources.Pq.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Sources.Pq.Clear()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Routes.Update()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Routes.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Routes.List()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Delete()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Groups.Update()`: \n  *  `request.ConfigGroup.CollectorsHaEnabled` **Added**\n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.List()`: \n  *  `request` **Changed**\n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Destinations.Pq.Clear()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Destinations.Pq.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Destinations.Samples.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Destinations.Samples.Create()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Packs.Install()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Collectors.Delete()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Versions.Commits.List()`: \n  *  `request` **Changed**\n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Collectors.Update()`: \n  *  `request.SavedJob.union(SavedJobCollection).Collector` **Changed**\n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Collectors.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Versions.Commits.Push()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Versions.Commits.Revert()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Collectors.Create()`: \n  *  `request.Request.union(SavedJobCollection).Collector` **Changed**\n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Versions.Commits.Undo()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Groups.Delete()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Health.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Versions.Branches.List()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Versions.Branches.Get()`:  `error` **Changed**\n* `CriblControlPlane.Versions.Configs.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n* `CriblControlPlane.Functions.Get()`: \n  *  `response` **Changed**\n  *  `error` **Changed**\n"
+releaseNotes: |
+  ## Go SDK Changes:
+  * `CriblControlPlane.Packs.Upload()`:  `request.RequestBody` **Changed** (Breaking ⚠️)
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

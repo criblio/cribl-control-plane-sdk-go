@@ -214,6 +214,55 @@ func main() {
     }
 }
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="updateSystemSettingsConf" method="patch" path="/system/settings/conf" example="authenticationFailed" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.System.Settings.Cribl.Update(ctx, components.SystemSettingsConfUpdate{
+        Backups: criblcontrolplanesdkgo.Pointer(components.CreateBackupsSettingsUnionEmptyObject(
+            components.EmptyObject{},
+        )),
+        Pii: criblcontrolplanesdkgo.Pointer(components.CreatePiiSettingsUnionEmptyObject(
+            components.EmptyObject{},
+        )),
+        Rollback: criblcontrolplanesdkgo.Pointer(components.CreateRollbackSettingsUnionEmptyObject(
+            components.EmptyObject{},
+        )),
+        Sni: criblcontrolplanesdkgo.Pointer(components.CreateSniSettingsUnionEmptyObject(
+            components.EmptyObject{},
+        )),
+        TLS: criblcontrolplanesdkgo.Pointer(components.CreateTLSSettingsUnionEmptyObject(
+            components.EmptyObject{},
+        )),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSystemSettingsConf != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 

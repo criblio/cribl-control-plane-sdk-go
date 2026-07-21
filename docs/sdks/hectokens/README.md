@@ -127,6 +127,41 @@ func main() {
     }
 }
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="createInputHecTokenById" method="post" path="/system/inputs/{id}/hectoken" example="authenticationFailed" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.HecTokens.Create(ctx, "<id>", components.AddHecTokenRequest{
+        Token: "<value>",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputSplunkHec != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -235,6 +270,39 @@ func main() {
 ### Example Usage: HecTokenResponseExamplesSplunkHecSource
 
 <!-- UsageSnippet language="go" operationID="updateInputHecTokenByIdAndToken" method="patch" path="/system/inputs/{id}/hectoken/{token}" example="HecTokenResponseExamplesSplunkHecSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.HecTokens.Update(ctx, "<id>", "<value>", components.UpdateHecTokenRequest{})
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputSplunkHec != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="updateInputHecTokenByIdAndToken" method="patch" path="/system/inputs/{id}/hectoken/{token}" example="authenticationFailed" -->
 ```go
 package main
 

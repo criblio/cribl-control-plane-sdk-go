@@ -9,9 +9,8 @@ import (
 
 type UpdatePacksRequest struct {
 	// Filename of the Pack file to upload.
-	Filename string `queryParam:"style=form,explode=true,name=filename"`
-	// This field accepts []byte data or io.Reader implementations, such as *os.File.
-	RequestBody any `request:"mediaType=application/octet-stream"`
+	Filename    string `queryParam:"style=form,explode=true,name=filename"`
+	RequestBody string `request:"mediaType=application/octet-stream"`
 }
 
 func (u *UpdatePacksRequest) GetFilename() string {
@@ -21,9 +20,9 @@ func (u *UpdatePacksRequest) GetFilename() string {
 	return u.Filename
 }
 
-func (u *UpdatePacksRequest) GetRequestBody() any {
+func (u *UpdatePacksRequest) GetRequestBody() string {
 	if u == nil {
-		return nil
+		return ""
 	}
 	return u.RequestBody
 }
