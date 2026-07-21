@@ -319,6 +319,43 @@ func main() {
     }
 }
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="updateProductsWorkersRestartByProduct" method="patch" path="/products/{product}/workers/restart" example="authenticationFailed" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Nodes.Restart(ctx, components.ProductsCoreEdge, components.RestartRequest{
+        Guids: []string{
+            "<value 1>",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRestartResponse != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 

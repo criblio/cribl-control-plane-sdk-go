@@ -521,6 +521,60 @@ func main() {
     }
 }
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="createSavedJob" method="post" path="/lib/jobs" example="authenticationFailed" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Create(ctx, components.CreateSavedJobSavedJobCollection(
+        components.SavedJobCollection{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Collector: components.CreateCollectorAzureBlob(
+                components.CollectorAzureBlob{
+                    Type: components.CollectorAzureBlobTypeAzureBlob,
+                    Conf: components.CreateAzureBlobCollectorConfClientCert(
+                        components.AzureBlobAuthTypeClientCert{
+                            AuthType: components.AzureBlobAuthTypeClientCertAuthenticationMethodClientCert.ToPointer(),
+                            StorageAccountName: "<value>",
+                            TenantID: "<id>",
+                            ClientID: "<id>",
+                            Certificate: components.CertificateTypeAzureBlobAuthTypeClientCert{
+                                CertificateName: "<value>",
+                            },
+                            ContainerName: "<value>",
+                        },
+                    ),
+                },
+            ),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJobResponse != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -1405,6 +1459,58 @@ func main() {
 ### Example Usage: UpdateCollectorExamplesSplunk
 
 <!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="UpdateCollectorExamplesSplunk" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Collectors.Update(ctx, "<id>", components.CreateSavedJobSavedJobCollection(
+        components.SavedJobCollection{
+            Type: components.JobTypeOptionsRunnableJobCollectionCollection,
+            Collector: components.CreateCollectorSplunk(
+                components.CollectorSplunk{
+                    Type: components.CollectorSplunkTypeSplunk,
+                    Conf: components.CreateSplunkCollectorConfToken(
+                        components.SplunkAuthenticationToken{
+                            Authentication: components.SplunkAuthenticationTokenAuthenticationToken,
+                            Token: "<value>",
+                            SearchHead: "<value>",
+                            Search: "<value>",
+                            Endpoint: "<value>",
+                            OutputMode: components.OutputModeOptionsSplunkCollectorConfJSON,
+                        },
+                    ),
+                },
+            ),
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedSavedJobResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="updateSavedJobById" method="patch" path="/lib/jobs/{id}" example="authenticationFailed" -->
 ```go
 package main
 

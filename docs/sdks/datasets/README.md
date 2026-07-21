@@ -215,6 +215,52 @@ func main() {
     }
 }
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="createCriblLakeDatasetByLakeId" method="post" path="/products/lake/lakes/{lakeId}/datasets" example="authenticationFailed" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Lakes.Datasets.Create(ctx, "<id>", components.CriblLakeDataset{
+        ID: "<id>",
+        SearchConfig: &components.LakeDatasetSearchConfig{
+            Metadata: &components.DatasetMetadata{
+                Earliest: "-30d",
+                EnableAcceleration: false,
+                FieldList: []string{
+                    "<value 1>",
+                    "<value 2>",
+                },
+                ScanMode: components.ScanModeDetailed,
+            },
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedCriblLakeDataset != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -367,6 +413,51 @@ func main() {
 
     res, err := s.Lakes.Datasets.Update(ctx, "<id>", "<id>", components.CriblLakeDatasetUpdate{
         RetentionPeriodInDays: criblcontrolplanesdkgo.Pointer[int64](180),
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedCriblLakeDataset != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="updateCriblLakeDatasetByLakeIdAndId" method="patch" path="/products/lake/lakes/{lakeId}/datasets/{id}" example="authenticationFailed" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Lakes.Datasets.Update(ctx, "<id>", "<id>", components.CriblLakeDatasetUpdate{
+        SearchConfig: &components.LakeDatasetSearchConfig{
+            Metadata: &components.DatasetMetadata{
+                Earliest: "-30d",
+                EnableAcceleration: false,
+                FieldList: []string{
+                    "<value 1>",
+                    "<value 2>",
+                },
+                ScanMode: components.ScanModeQuick,
+            },
+        },
     })
     if err != nil {
         log.Fatal(err)

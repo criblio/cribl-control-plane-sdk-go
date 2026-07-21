@@ -283,6 +283,54 @@ func main() {
     }
 }
 ```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="createPacks" method="post" path="/packs" example="authenticationFailed" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Install(ctx, components.CreatePackRequestBodyUnionPackRequestBody2(
+        components.PackRequestBody2{
+            Version: criblcontrolplanesdkgo.Pointer("1.0.0"),
+            Source: "<value>",
+            Tags: &components.Tags2{
+                Domain: []string{
+                    "security",
+                    "observability",
+                },
+                Technology: []string{
+                    "aws",
+                    "splunk",
+                },
+            },
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPackInstallInfo != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -380,9 +428,47 @@ func main() {
 
 Upload a Pack file. Returns the <code>source</code> ID needed to install the Pack with <code>POST /packs</code>, which you must call separately.
 
-### Example Usage
+### Example Usage: PackUploadResponseExamplesUploadedPack
 
 <!-- UsageSnippet language="go" operationID="updatePacks" method="put" path="/packs" example="PackUploadResponseExamplesUploadedPack" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    example, fileErr := os.Open("example.file")
+    if fileErr != nil {
+        panic(fileErr)
+    }
+
+    res, err := s.Packs.Upload(ctx, "example.file", example)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.UploadPackResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="updatePacks" method="put" path="/packs" example="authenticationFailed" -->
 ```go
 package main
 
@@ -573,6 +659,41 @@ func main() {
 ### Example Usage: PackUpgradeResponseExamplesUpgraded
 
 <!-- UsageSnippet language="go" operationID="updatePacksById" method="patch" path="/packs/{id}" example="PackUpgradeResponseExamplesUpgraded" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Update(ctx, "<id>", components.PackUpgradeRequest{
+        Source: "<value>",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPackInfo != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: authenticationFailed
+
+<!-- UsageSnippet language="go" operationID="updatePacksById" method="patch" path="/packs/{id}" example="authenticationFailed" -->
 ```go
 package main
 
