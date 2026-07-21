@@ -50,19 +50,19 @@ func main() {
 	fmt.Println("🔍 Searching for existing Worker Groups...")
 
 	// Get the first available Worker Group
-	workerGroupsList, err := client.Groups.List(ctx, components.ProductsCoreStream, nil)
+	workerGroupsList, err := client.Groups.List(ctx, components.ProductsCoreStream, nil, nil, nil)
 	if err != nil {
 		log.Fatalf("Error listing Worker Groups: %v", err)
 	}
 
-	if workerGroupsList.CountedConfigGroup == nil ||
-		workerGroupsList.CountedConfigGroup.Items == nil ||
-		len(workerGroupsList.CountedConfigGroup.Items) == 0 {
+	if workerGroupsList.PaginatedConfigGroup == nil ||
+		workerGroupsList.PaginatedConfigGroup.Items == nil ||
+		len(workerGroupsList.PaginatedConfigGroup.Items) == 0 {
 		fmt.Println("❌ No Worker Groups found. Please create at least one Worker Group first.")
 		return
 	}
 
-	firstWorkerGroup := workerGroupsList.CountedConfigGroup.Items[0]
+	firstWorkerGroup := workerGroupsList.PaginatedConfigGroup.Items[0]
 	fmt.Printf("📋 Found Worker Group to replicate: %s\n", firstWorkerGroup.ID)
 
 	// Replicate the first Worker Group
