@@ -1,5 +1,7 @@
 # PqControlsSentinelOneAiSiem
 
+Persistent queue controls.
+
 
 ## Fields
 

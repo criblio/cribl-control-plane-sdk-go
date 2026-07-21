@@ -26,3 +26,4 @@ custom := components.DiscoveryTypeEdgePrometheus("custom_value")
 | `DiscoveryTypeEdgePrometheusK8sNode`           | k8s-node                                       |
 | `DiscoveryTypeEdgePrometheusK8sPods`           | k8s-pods                                       |
 | `DiscoveryTypeEdgePrometheusK8sServiceMonitor` | k8s-service-monitor                            |
+| `DiscoveryTypeEdgePrometheusHTTPSd`            | http_sd                                        |

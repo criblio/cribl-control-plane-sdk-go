@@ -7,12 +7,17 @@ import (
 )
 
 type KubeTypeHeartbeatMetadata struct {
-	Enabled   bool                            `json:"enabled"`
-	Namespace string                          `json:"namespace"`
-	Node      string                          `json:"node"`
-	Owner     *OwnerTypeHeartbeatMetadataKube `json:"owner,omitzero"`
-	Pod       string                          `json:"pod"`
-	Source    string                          `json:"source"`
+	// If <code>true</code>, the Kubernetes metadata collector is enabled on the node. Otherwise, <code>false</code>.
+	Enabled bool `json:"enabled"`
+	// Kubernetes Namespace name.
+	Namespace string `json:"namespace"`
+	// Kubernetes Node name.
+	Node  string                          `json:"node"`
+	Owner *OwnerTypeHeartbeatMetadataKube `json:"owner,omitzero"`
+	// Kubernetes Pod name.
+	Pod string `json:"pod"`
+	// Kubernetes config source.
+	Source string `json:"source"`
 }
 
 func (k KubeTypeHeartbeatMetadata) MarshalJSON() ([]byte, error) {

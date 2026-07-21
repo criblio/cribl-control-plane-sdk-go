@@ -2,7 +2,9 @@
 
 package components
 
+// ProxyTypeSystemSettingsConf - HTTP proxy configuration for outbound connections.
 type ProxyTypeSystemSettingsConf struct {
+	// If <code>true</code>, use proxy settings from environment variables (<code>HTTP_PROXY</code>, <code>HTTPS_PROXY</code>, <code>NO_PROXY</code>). Otherwise, <code>false</code>.
 	UseEnvVars bool `json:"useEnvVars"`
 }
 

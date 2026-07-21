@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionSensitiveDataScannerID - Function ID
+// PipelineFunctionSensitiveDataScannerID - Identifier of the Function. Always <code>sensitive_data_scanner</code>
 type PipelineFunctionSensitiveDataScannerID string
 
 const (
@@ -37,7 +37,8 @@ type PipelineFunctionSensitiveDataScannerRule struct {
 	RulesetID string `json:"rulesetId"`
 	// A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
 	ReplaceExpr string `json:"replaceExpr"`
-	Disabled    *bool  `json:"disabled,omitzero"`
+	// If <code>true</code>, disable this rule so that it is not applied during scanning.
+	Disabled *bool `json:"disabled,omitzero"`
 }
 
 func (p PipelineFunctionSensitiveDataScannerRule) MarshalJSON() ([]byte, error) {
@@ -72,47 +73,52 @@ func (p *PipelineFunctionSensitiveDataScannerRule) GetDisabled() *bool {
 	return p.Disabled
 }
 
-type Flag struct {
-	Name  *string `json:"name,omitzero"`
-	Value string  `json:"value"`
+type PipelineFunctionSensitiveDataScannerFlag struct {
+	// Name of the field to set when one or more scanning rules match.
+	Name *string `json:"name,omitzero"`
+	// JavaScript expression to compute the value to assign to this field.
+	Value string `json:"value"`
 }
 
-func (f Flag) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(f, "", false)
+func (p PipelineFunctionSensitiveDataScannerFlag) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
 }
 
-func (f *Flag) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &f, "", false, nil); err != nil {
+func (p *PipelineFunctionSensitiveDataScannerFlag) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (f *Flag) GetName() *string {
-	if f == nil {
+func (p *PipelineFunctionSensitiveDataScannerFlag) GetName() *string {
+	if p == nil {
 		return nil
 	}
-	return f.Name
+	return p.Name
 }
 
-func (f *Flag) GetValue() string {
-	if f == nil {
+func (p *PipelineFunctionSensitiveDataScannerFlag) GetValue() string {
+	if p == nil {
 		return ""
 	}
-	return f.Value
+	return p.Value
 }
 
+// PipelineFunctionSensitiveDataScannerConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionSensitiveDataScannerConf struct {
+	// List of scanning rulesets to apply, each with a ruleset ID and a mitigation expression.
 	Rules []PipelineFunctionSensitiveDataScannerRule `json:"rules"`
 	// Rulesets act on the events contained in these fields. Mitigation expressions apply to the scan results. Supports wildcards (*).
 	Fields []string `json:"fields,omitzero"`
 	// Fields that the mitigation expression will not be applied to. Supports wildcards (*).
 	ExcludeFields []string `json:"excludeFields,omitzero"`
 	// Fields to add when mitigation is applied to an event
-	Flags []Flag `json:"flags,omitzero"`
+	Flags []PipelineFunctionSensitiveDataScannerFlag `json:"flags,omitzero"`
 	// Add matching ruleset IDs to a field called "__detected"
 	IncludeDetectedRules *bool `json:"includeDetectedRules,omitzero"`
-	BackgroundDetection  *bool `json:"backgroundDetection,omitzero"`
+	// Run detection in the background without blocking event processing.
+	BackgroundDetection *bool `json:"backgroundDetection,omitzero"`
 }
 
 func (p PipelineFunctionSensitiveDataScannerConf) MarshalJSON() ([]byte, error) {
@@ -147,7 +153,7 @@ func (p *PipelineFunctionSensitiveDataScannerConf) GetExcludeFields() []string {
 	return p.ExcludeFields
 }
 
-func (p *PipelineFunctionSensitiveDataScannerConf) GetFlags() []Flag {
+func (p *PipelineFunctionSensitiveDataScannerConf) GetFlags() []PipelineFunctionSensitiveDataScannerFlag {
 	if p == nil {
 		return nil
 	}
@@ -169,18 +175,19 @@ func (p *PipelineFunctionSensitiveDataScannerConf) GetBackgroundDetection() *boo
 }
 
 type PipelineFunctionSensitiveDataScanner struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>sensitive_data_scanner</code>
 	ID PipelineFunctionSensitiveDataScannerID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                                    `json:"final,omitzero"`
-	Conf  PipelineFunctionSensitiveDataScannerConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionSensitiveDataScannerConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

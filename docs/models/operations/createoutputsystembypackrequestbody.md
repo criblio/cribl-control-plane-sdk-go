@@ -125,6 +125,12 @@ createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPack
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyAzureEventhub(operations.CreateOutputSystemByPackOutputAzureEventhub{/* values here */})
 ```
 
+### CreateOutputSystemByPackOutputGoogleBigquery
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyGoogleBigquery(operations.CreateOutputSystemByPackOutputGoogleBigquery{/* values here */})
+```
+
 ### CreateOutputSystemByPackOutputGoogleChronicle
 
 ```go
@@ -141,6 +147,12 @@ createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPack
 
 ```go
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyGoogleCloudLogging(operations.CreateOutputSystemByPackOutputGoogleCloudLogging{/* values here */})
+```
+
+### CreateOutputSystemByPackOutputGoogleCloudObservability
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyGoogleCloudObservability(operations.CreateOutputSystemByPackOutputGoogleCloudObservability{/* values here */})
 ```
 
 ### CreateOutputSystemByPackOutputGooglePubsub
@@ -281,6 +293,12 @@ createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPack
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyLoki(operations.CreateOutputSystemByPackOutputLoki{/* values here */})
 ```
 
+### CreateOutputSystemByPackOutputAmazonManagedPrometheus
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyAmazonManagedPrometheus(operations.CreateOutputSystemByPackOutputAmazonManagedPrometheus{/* values here */})
+```
+
 ### CreateOutputSystemByPackOutputPrometheus
 
 ```go
@@ -371,6 +389,12 @@ createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPack
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyClickHouse(operations.CreateOutputSystemByPackOutputClickHouse{/* values here */})
 ```
 
+### CreateOutputSystemByPackOutputCustomerMetricsStorage
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyCustomerMetricsStorage(operations.CreateOutputSystemByPackOutputCustomerMetricsStorage{/* values here */})
+```
+
 ### CreateOutputSystemByPackOutputLocalSearchStorage
 
 ```go
@@ -417,6 +441,12 @@ createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPack
 
 ```go
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyDatabricks(operations.CreateOutputSystemByPackOutputDatabricks{/* values here */})
+```
+
+### CreateOutputSystemByPackOutputSnowflakeStreaming
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodySnowflakeStreaming(operations.CreateOutputSystemByPackOutputSnowflakeStreaming{/* values here */})
 ```
 
 ### CreateOutputSystemByPackOutputMicrosoftFabric
@@ -473,6 +503,12 @@ createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPack
 createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyAlibabaCloudS3(operations.CreateOutputSystemByPackOutputAlibabaCloudS3{/* values here */})
 ```
 
+### CreateOutputSystemByPackOutputIbmCloudS3
+
+```go
+createOutputSystemByPackRequestBody := operations.CreateCreateOutputSystemByPackRequestBodyIbmCloudS3(operations.CreateOutputSystemByPackOutputIbmCloudS3{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -519,12 +555,16 @@ switch createOutputSystemByPackRequestBody.Type {
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputHoneycomb is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeAzureEventhub:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputAzureEventhub is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeGoogleBigquery:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputGoogleBigquery is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeGoogleChronicle:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputGoogleChronicle is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeGoogleCloudStorage:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputGoogleCloudStorage is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeGoogleCloudLogging:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputGoogleCloudLogging is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeGoogleCloudObservability:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputGoogleCloudObservability is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeGooglePubsub:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputGooglePubsub is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeExabeam:
@@ -571,6 +611,8 @@ switch createOutputSystemByPackRequestBody.Type {
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputGrafanaCloudUnion is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeLoki:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputLoki is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeAmazonManagedPrometheus:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputAmazonManagedPrometheus is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypePrometheus:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputPrometheus is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeRing:
@@ -601,6 +643,8 @@ switch createOutputSystemByPackRequestBody.Type {
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputDiskSpool is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeClickHouse:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputClickHouse is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeCustomerMetricsStorage:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputCustomerMetricsStorage is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeLocalSearchStorage:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputLocalSearchStorage is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeXsiam:
@@ -617,6 +661,8 @@ switch createOutputSystemByPackRequestBody.Type {
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputChronicle is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeDatabricks:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputDatabricks is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeSnowflakeStreaming:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputSnowflakeStreaming is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeMicrosoftFabric:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputMicrosoftFabric is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeCloudflareR2:
@@ -635,5 +681,7 @@ switch createOutputSystemByPackRequestBody.Type {
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputScalityS3 is populated
 	case operations.CreateOutputSystemByPackRequestBodyTypeAlibabaCloudS3:
 		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputAlibabaCloudS3 is populated
+	case operations.CreateOutputSystemByPackRequestBodyTypeIbmCloudS3:
+		// createOutputSystemByPackRequestBody.CreateOutputSystemByPackOutputIbmCloudS3 is populated
 }
 ```

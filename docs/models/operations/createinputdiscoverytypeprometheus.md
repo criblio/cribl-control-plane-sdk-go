@@ -23,3 +23,4 @@ custom := operations.CreateInputDiscoveryTypePrometheus("custom_value")
 | `CreateInputDiscoveryTypePrometheusStatic` | static                                     |
 | `CreateInputDiscoveryTypePrometheusDNS`    | dns                                        |
 | `CreateInputDiscoveryTypePrometheusEc2`    | ec2                                        |
+| `CreateInputDiscoveryTypePrometheusHTTPSd` | http_sd                                    |

@@ -8,11 +8,11 @@
 
 ## Restart
 
-Restart the Cribl server. Useful for applying configuration changes that require a full process restart, such as changes to system-level settings that cannot be applied by reloading.
+Restart the Cribl server.<br/><br/>This operation requires <code>system.restart</code> to be set to <code>api</code> in <code>cribl.yml</code>. If this setting is not configured, the request returns a <code>403</code> error.<br/><br/>Restarting the server causes a brief period of downtime while the process stops and restarts. All in-flight events are drained before the process exits. Use <code>POST /system/settings/reload</code> to apply configuration changes without a full restart.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="createSystemSettingsRestart" method="post" path="/system/settings/restart" -->
+<!-- UsageSnippet language="go" operationID="createSystemSettingsRestart" method="post" path="/system/settings/restart" example="RestartSystemExamplesDefault" -->
 ```go
 package main
 
@@ -59,5 +59,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

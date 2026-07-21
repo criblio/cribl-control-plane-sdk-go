@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionJSONUnrollID - Function ID
+// PipelineFunctionJSONUnrollID - Identifier of the Function. Always <code>json_unroll</code>
 type PipelineFunctionJSONUnrollID string
 
 const (
@@ -32,6 +32,7 @@ func (e *PipelineFunctionJSONUnrollID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PipelineFunctionJSONUnrollConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionJSONUnrollConf struct {
 	// Path to array to unroll, such as foo.0.bar
 	Path string `json:"path"`
@@ -65,18 +66,19 @@ func (p *PipelineFunctionJSONUnrollConf) GetName() *string {
 }
 
 type PipelineFunctionJSONUnroll struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>json_unroll</code>
 	ID PipelineFunctionJSONUnrollID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                          `json:"final,omitzero"`
-	Conf  PipelineFunctionJSONUnrollConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionJSONUnrollConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

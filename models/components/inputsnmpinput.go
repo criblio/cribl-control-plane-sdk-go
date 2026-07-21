@@ -3,40 +3,86 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputSnmpType string
+// InputSnmpAuthenticationProtocol - Authentication protocol
+type InputSnmpAuthenticationProtocol string
 
 const (
-	InputSnmpTypeSnmp InputSnmpType = "snmp"
+	// InputSnmpAuthenticationProtocolNone None
+	InputSnmpAuthenticationProtocolNone InputSnmpAuthenticationProtocol = "none"
+	// InputSnmpAuthenticationProtocolMd5 MD5
+	InputSnmpAuthenticationProtocolMd5 InputSnmpAuthenticationProtocol = "md5"
+	// InputSnmpAuthenticationProtocolSha SHA1
+	InputSnmpAuthenticationProtocolSha InputSnmpAuthenticationProtocol = "sha"
+	// InputSnmpAuthenticationProtocolSha224 SHA224
+	InputSnmpAuthenticationProtocolSha224 InputSnmpAuthenticationProtocol = "sha224"
+	// InputSnmpAuthenticationProtocolSha256 SHA256
+	InputSnmpAuthenticationProtocolSha256 InputSnmpAuthenticationProtocol = "sha256"
+	// InputSnmpAuthenticationProtocolSha384 SHA384
+	InputSnmpAuthenticationProtocolSha384 InputSnmpAuthenticationProtocol = "sha384"
+	// InputSnmpAuthenticationProtocolSha512 SHA512
+	InputSnmpAuthenticationProtocolSha512 InputSnmpAuthenticationProtocol = "sha512"
 )
 
-func (e InputSnmpType) ToPointer() *InputSnmpType {
+func (e InputSnmpAuthenticationProtocol) ToPointer() *InputSnmpAuthenticationProtocol {
 	return &e
 }
-func (e *InputSnmpType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSnmpAuthenticationProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "md5", "sha", "sha224", "sha256", "sha384", "sha512":
+			return true
+		}
 	}
-	switch v {
-	case "snmp":
-		*e = InputSnmpType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSnmpType: %v", v)
+	return false
+}
+
+// InputSnmpPrivacyProtocol - Privacy protocol
+type InputSnmpPrivacyProtocol string
+
+const (
+	// InputSnmpPrivacyProtocolNone None
+	InputSnmpPrivacyProtocolNone InputSnmpPrivacyProtocol = "none"
+	// InputSnmpPrivacyProtocolDes DES
+	InputSnmpPrivacyProtocolDes InputSnmpPrivacyProtocol = "des"
+	// InputSnmpPrivacyProtocolAes AES128
+	InputSnmpPrivacyProtocolAes InputSnmpPrivacyProtocol = "aes"
+	// InputSnmpPrivacyProtocolAes256b AES256b (Blumenthal)
+	InputSnmpPrivacyProtocolAes256b InputSnmpPrivacyProtocol = "aes256b"
+	// InputSnmpPrivacyProtocolAes256r AES256r (Reeder)
+	InputSnmpPrivacyProtocolAes256r InputSnmpPrivacyProtocol = "aes256r"
+)
+
+func (e InputSnmpPrivacyProtocol) ToPointer() *InputSnmpPrivacyProtocol {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *InputSnmpPrivacyProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "des", "aes", "aes256b", "aes256r":
+			return true
+		}
 	}
+	return false
 }
 
 type InputSnmpV3User struct {
-	Name         string                                                            `json:"name"`
-	AuthProtocol *AuthenticationProtocolOptionsV3User                              `json:"authProtocol,omitzero"`
-	AuthKey      *string                                                           `json:"authKey,omitzero"`
-	PrivProtocol *PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone `json:"privProtocol,omitzero"`
-	PrivKey      *string                                                           `json:"privKey,omitzero"`
+	// V3 name
+	Name string `json:"name"`
+	// Authentication protocol
+	AuthProtocol *InputSnmpAuthenticationProtocol `json:"authProtocol,omitzero"`
+	// V3 authentication key
+	AuthKey *string `json:"authKey,omitzero"`
+	// Privacy protocol
+	PrivProtocol *InputSnmpPrivacyProtocol `json:"privProtocol,omitzero"`
+	// V3 privacy key
+	PrivKey *string `json:"privKey,omitzero"`
 }
 
 func (i InputSnmpV3User) MarshalJSON() ([]byte, error) {
@@ -57,7 +103,7 @@ func (i *InputSnmpV3User) GetName() string {
 	return i.Name
 }
 
-func (i *InputSnmpV3User) GetAuthProtocol() *AuthenticationProtocolOptionsV3User {
+func (i *InputSnmpV3User) GetAuthProtocol() *InputSnmpAuthenticationProtocol {
 	if i == nil {
 		return nil
 	}
@@ -71,7 +117,7 @@ func (i *InputSnmpV3User) GetAuthKey() *string {
 	return i.AuthKey
 }
 
-func (i *InputSnmpV3User) GetPrivProtocol() *PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone {
+func (i *InputSnmpV3User) GetPrivProtocol() *InputSnmpPrivacyProtocol {
 	if i == nil {
 		return nil
 	}
@@ -90,6 +136,7 @@ func (i *InputSnmpV3User) GetPrivKey() *string {
 
 // InputSnmpSNMPv3Authentication - Authentication parameters for SNMPv3 trap. Set the log level to debug if you are experiencing authentication or decryption issues.
 type InputSnmpSNMPv3Authentication struct {
+	// Enabled
 	V3AuthEnabled bool `json:"v3AuthEnabled"`
 	// Pass through traps that don't match any of the configured users. @{product} will not attempt to decrypt these traps.
 	AllowUnmatchedTrap *bool `json:"allowUnmatchedTrap,omitzero"`
@@ -134,9 +181,11 @@ func (i *InputSnmpSNMPv3Authentication) GetV3Users() []InputSnmpV3User {
 
 type InputSnmpInput struct {
 	// Unique ID for this input
-	ID       *string       `json:"id,omitzero"`
-	Type     InputSnmpType `json:"type"`
-	Disabled *bool         `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsSnmp `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -145,7 +194,7 @@ type InputSnmpInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -167,8 +216,9 @@ type InputSnmpInput struct {
 	// If enabled, parses varbinds as an array of objects that include OID, value, and type
 	VarbindsWithTypes *bool `json:"varbindsWithTypes,omitzero"`
 	// If enabled, the parser will attempt to parse varbind octet strings as UTF-8, first, otherwise will fallback to other methods
-	BestEffortParsing *bool   `json:"bestEffortParsing,omitzero"`
-	Description       *string `json:"description,omitzero"`
+	BestEffortParsing *bool `json:"bestEffortParsing,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -197,9 +247,9 @@ func (i *InputSnmpInput) GetID() *string {
 	return i.ID
 }
 
-func (i *InputSnmpInput) GetType() InputSnmpType {
+func (i *InputSnmpInput) GetType() TypeOptionsSnmp {
 	if i == nil {
-		return InputSnmpType("")
+		return TypeOptionsSnmp("")
 	}
 	return i.Type
 }

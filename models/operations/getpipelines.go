@@ -7,10 +7,33 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
 )
 
+type GetPipelinesRequest struct {
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
+}
+
+func (g *GetPipelinesRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetPipelinesRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
 type GetPipelinesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Pipeline objects
-	CountedPipeline *components.CountedPipeline
+	// List of Pipeline objects.
+	PaginatedPipeline *components.PaginatedPipeline
+
+	Next func() (*GetPipelinesResponse, error)
 }
 
 func (g GetPipelinesResponse) MarshalJSON() ([]byte, error) {
@@ -31,9 +54,9 @@ func (g *GetPipelinesResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetPipelinesResponse) GetCountedPipeline() *components.CountedPipeline {
+func (g *GetPipelinesResponse) GetPaginatedPipeline() *components.PaginatedPipeline {
 	if g == nil {
 		return nil
 	}
-	return g.CountedPipeline
+	return g.PaginatedPipeline
 }

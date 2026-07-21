@@ -12,7 +12,7 @@ Get the Access Control List (ACL) for teams that have permissions on a Worker Gr
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getConfigGroupAclTeamsByProductAndId" method="get" path="/products/{product}/groups/{id}/acl/teams" -->
+<!-- UsageSnippet language="go" operationID="getProductsGroupsAclTeamsByProductAndId" method="get" path="/products/{product}/groups/{id}/acl/teams" -->
 ```go
 package main
 
@@ -34,7 +34,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.ACL.Teams.Get(ctx, components.ProductsCoreEdge, "<id>", components.RbacResourceMacros.ToPointer())
+    res, err := s.Groups.ACL.Teams.Get(ctx, components.ProductsCoreStream, "<id>", components.RbacResourceDatasets.ToPointer())
     if err != nil {
         log.Fatal(err)
     }
@@ -56,11 +56,12 @@ func main() {
 
 ### Response
 
-**[*operations.GetConfigGroupACLTeamsByProductAndIDResponse](../../models/operations/getconfiggroupaclteamsbyproductandidresponse.md), error**
+**[*operations.GetProductsGroupsACLTeamsByProductAndIDResponse](../../models/operations/getproductsgroupsaclteamsbyproductandidresponse.md), error**
 
 ### Errors
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

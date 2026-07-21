@@ -6,10 +6,14 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// SupportTypeSystemSettingsConf - Support and diagnostics settings.
 type SupportTypeSystemSettingsConf struct {
+	// List of feature flag overrides applied to this Cribl instance.
 	FeatureFlagOverrides []FeatureFlagOverrideConfSystemSettingsConf `json:"featureFlagOverrides,omitzero"`
-	LogFileMaxFiles      *float64                                    `json:"logFileMaxFiles,omitzero"`
-	LogFileMaxSize       *string                                     `json:"logFileMaxSize,omitzero"`
+	// Maximum number of log files to retain before rotating.
+	LogFileMaxFiles *int64 `json:"logFileMaxFiles,omitzero"`
+	// Maximum size of each log file. Value is a numeral and unit such as <code>10 MB</code>.
+	LogFileMaxSize *string `json:"logFileMaxSize,omitzero"`
 }
 
 func (s SupportTypeSystemSettingsConf) MarshalJSON() ([]byte, error) {
@@ -30,7 +34,7 @@ func (s *SupportTypeSystemSettingsConf) GetFeatureFlagOverrides() []FeatureFlagO
 	return s.FeatureFlagOverrides
 }
 
-func (s *SupportTypeSystemSettingsConf) GetLogFileMaxFiles() *float64 {
+func (s *SupportTypeSystemSettingsConf) GetLogFileMaxFiles() *int64 {
 	if s == nil {
 		return nil
 	}

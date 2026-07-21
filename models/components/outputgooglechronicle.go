@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputGoogleChronicleType - Connector type identifier.
 type OutputGoogleChronicleType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputGoogleChronicleType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputGoogleChronicleAPIVersion - API version
 type OutputGoogleChronicleAPIVersion string
 
 const (
@@ -55,6 +57,7 @@ func (e *OutputGoogleChronicleAPIVersion) IsExact() bool {
 	return false
 }
 
+// OutputGoogleChronicleAuthenticationMethod - Authentication method
 type OutputGoogleChronicleAuthenticationMethod string
 
 const (
@@ -83,6 +86,7 @@ func (e *OutputGoogleChronicleAuthenticationMethod) IsExact() bool {
 	return false
 }
 
+// OutputGoogleChronicleSendEventsAs - Send events as
 type OutputGoogleChronicleSendEventsAs string
 
 const (
@@ -108,7 +112,9 @@ func (e *OutputGoogleChronicleSendEventsAs) IsExact() bool {
 }
 
 type OutputGoogleChronicleExtraLogType struct {
-	LogType     string  `json:"logType"`
+	// Log Type
+	LogType string `json:"logType"`
+	// Description
 	Description *string `json:"description,omitzero"`
 }
 
@@ -160,6 +166,7 @@ func (e *OutputGoogleChronicleUDMType) IsExact() bool {
 	return false
 }
 
+// OutputGoogleChroniclePqControls - Persistent queue controls.
 type OutputGoogleChroniclePqControls struct {
 }
 
@@ -176,7 +183,8 @@ func (o *OutputGoogleChroniclePqControls) UnmarshalJSON(data []byte) error {
 
 type OutputGoogleChronicle struct {
 	// Unique ID for this output
-	ID   *string                   `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputGoogleChronicleType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -184,16 +192,19 @@ type OutputGoogleChronicle struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags           []string                                   `json:"streamtags,omitzero"`
-	APIVersion           *OutputGoogleChronicleAPIVersion           `json:"apiVersion,omitzero"`
+	// Metadata tags used for categorization and filtering.
+	Streamtags []string `json:"streamtags,omitzero"`
+	// API version
+	APIVersion *OutputGoogleChronicleAPIVersion `json:"apiVersion,omitzero"`
+	// Authentication method
 	AuthenticationMethod *OutputGoogleChronicleAuthenticationMethod `json:"authenticationMethod,omitzero"`
 	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
 	ResponseRetrySettings []ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
 	TimeoutRetrySettings  *TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool                             `json:"responseHonorRetryAfterHeader,omitzero"`
-	LogFormatType                 OutputGoogleChronicleSendEventsAs `json:"logFormatType"`
+	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
+	// Send events as
+	LogFormatType OutputGoogleChronicleSendEventsAs `json:"logFormatType"`
 	// Regional endpoint to send events to
 	Region *string `json:"region,omitzero"`
 	// Maximum number of ongoing requests before blocking
@@ -224,7 +235,8 @@ type OutputGoogleChronicle struct {
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
-	Description        *string  `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Custom log types. If the value "Custom" is selected in the setting "Default log type" above, the first custom log type in this table will be automatically selected as default log type.
 	ExtraLogTypes []OutputGoogleChronicleExtraLogType `json:"extraLogTypes,omitzero"`
 	// Default log type value to send to SecOps. Can be overwritten by event field __logType.
@@ -267,9 +279,10 @@ type OutputGoogleChronicle struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                          `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputGoogleChroniclePqControls `json:"pqControls,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputGoogleChroniclePqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'apiVersion' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'apiVersion' at runtime.

@@ -3,9 +3,9 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `Green`            | `*float64`         | :heavy_minus_sign: | N/A                |
-| `Yellow`           | `*float64`         | :heavy_minus_sign: | N/A                |
-| `Red`              | `*float64`         | :heavy_minus_sign: | N/A                |
-| `Unknown`          | `*float64`         | :heavy_minus_sign: | N/A                |
+| Field                                                            | Type                                                             | Required                                                         | Description                                                      |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
+| `Green`                                                          | `*int64`                                                         | :heavy_minus_sign:                                               | Number of Worker Processes reporting a healthy (Green) status.   |
+| `Red`                                                            | `*int64`                                                         | :heavy_minus_sign:                                               | Number of Worker Processes reporting a critical (Red) status.    |
+| `Unknown`                                                        | `*int64`                                                         | :heavy_minus_sign:                                               | Number of Worker Processes reporting an unknown health status.   |
+| `Yellow`                                                         | `*int64`                                                         | :heavy_minus_sign:                                               | Number of Worker Processes reporting a degraded (Yellow) status. |

@@ -8,14 +8,18 @@ import (
 
 // AuthenticationType - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
 type AuthenticationType struct {
-	Disabled bool    `json:"disabled"`
+	// Disabled
+	Disabled bool `json:"disabled"`
+	// Username
 	Username *string `json:"username,omitzero"`
+	// Password
 	Password *string `json:"password,omitzero"`
 	// Enter credentials directly, or select a stored secret
 	AuthType *AuthenticationMethodOptionsSasl `json:"authType,omitzero"`
 	// Select or create a secret that references your credentials
-	CredentialsSecret *string                   `json:"credentialsSecret,omitzero"`
-	Mechanism         *SaslMechanismOptionsSasl `json:"mechanism,omitzero"`
+	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
+	// SASL mechanism
+	Mechanism *SaslMechanismOptionsSasl `json:"mechanism,omitzero"`
 	// Location of keytab file for authentication principal
 	KeytabLocation *string `json:"keytabLocation,omitzero"`
 	// Authentication principal, such as `kafka_user@example.com`

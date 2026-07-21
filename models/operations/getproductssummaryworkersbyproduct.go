@@ -30,7 +30,7 @@ func (g *GetProductsSummaryWorkersByProductRequest) GetFilterExp() *string {
 
 type GetProductsSummaryWorkersByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of number objects.
+	// The requested number object in a single-item list.
 	CountedNumber *components.CountedNumber
 }
 

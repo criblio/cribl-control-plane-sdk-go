@@ -207,6 +207,12 @@ functionResponse := components.CreateFunctionResponseLookup(components.FunctionL
 functionResponse := components.CreateFunctionResponseMask(components.FunctionMask{/* values here */})
 ```
 
+### FunctionMetricsExport
+
+```go
+functionResponse := components.CreateFunctionResponseMetricsExport(components.FunctionMetricsExport{/* values here */})
+```
+
 ### FunctionMvExpand
 
 ```go
@@ -491,6 +497,8 @@ switch functionResponse.Type {
 		// functionResponse.FunctionLookup is populated
 	case components.FunctionResponseTypeMask:
 		// functionResponse.FunctionMask is populated
+	case components.FunctionResponseTypeMetricsExport:
+		// functionResponse.FunctionMetricsExport is populated
 	case components.FunctionResponseTypeMvExpand:
 		// functionResponse.FunctionMvExpand is populated
 	case components.FunctionResponseTypeMvPull:

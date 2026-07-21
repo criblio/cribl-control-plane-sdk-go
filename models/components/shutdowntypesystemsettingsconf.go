@@ -2,13 +2,15 @@
 
 package components
 
+// ShutdownTypeSystemSettingsConf - Graceful shutdown configuration.
 type ShutdownTypeSystemSettingsConf struct {
-	DrainTimeout float64 `json:"drainTimeout"`
+	// Maximum time in milliseconds to wait for in-flight events to drain before forcing a shutdown.
+	DrainTimeout int64 `json:"drainTimeout"`
 }
 
-func (s *ShutdownTypeSystemSettingsConf) GetDrainTimeout() float64 {
+func (s *ShutdownTypeSystemSettingsConf) GetDrainTimeout() int64 {
 	if s == nil {
-		return 0.0
+		return 0
 	}
 	return s.DrainTimeout
 }

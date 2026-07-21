@@ -7,17 +7,28 @@ import (
 )
 
 type AzureTypeHeartbeatMetadata struct {
-	Enabled        bool              `json:"enabled"`
-	Hostname       *string           `json:"hostname,omitzero"`
-	InstanceID     *string           `json:"instanceId,omitzero"`
-	Name           *string           `json:"name,omitzero"`
-	Region         *string           `json:"region,omitzero"`
-	ResourceGroup  *string           `json:"resourceGroup,omitzero"`
-	SubscriptionID *string           `json:"subscriptionId,omitzero"`
-	Tags           map[string]string `json:"tags,omitzero"`
-	Type           *string           `json:"type,omitzero"`
-	VMID           *string           `json:"vmId,omitzero"`
-	Zone           *string           `json:"zone,omitzero"`
+	// If <code>true</code>, the Azure metadata collector is enabled on the node. Otherwise, <code>false</code>.
+	Enabled bool `json:"enabled"`
+	// Azure VM hostname.
+	Hostname *string `json:"hostname,omitzero"`
+	// Azure instance ID.
+	InstanceID *string `json:"instanceId,omitzero"`
+	// Azure VM name.
+	Name *string `json:"name,omitzero"`
+	// Azure location or region.
+	Region *string `json:"region,omitzero"`
+	// Azure resource group name.
+	ResourceGroup *string `json:"resourceGroup,omitzero"`
+	// Azure subscription ID.
+	SubscriptionID *string `json:"subscriptionId,omitzero"`
+	// String-keyed tag map. Each property name is a tag key and the corresponding value is the tag's string value.
+	Tags map[string]string `json:"tags,omitzero"`
+	// Azure VM size or instance type.
+	Type *string `json:"type,omitzero"`
+	// Azure VM ID.
+	VMID *string `json:"vmId,omitzero"`
+	// Azure availability zone.
+	Zone *string `json:"zone,omitzero"`
 }
 
 func (a AzureTypeHeartbeatMetadata) MarshalJSON() ([]byte, error) {

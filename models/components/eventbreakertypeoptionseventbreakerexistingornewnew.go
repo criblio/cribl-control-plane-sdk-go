@@ -2,6 +2,7 @@
 
 package components
 
+// EventBreakerTypeOptionsEventBreakerExistingOrNewNew - Type of event-breaking rule to apply when creating a new inline ruleset.
 type EventBreakerTypeOptionsEventBreakerExistingOrNewNew string
 
 const (

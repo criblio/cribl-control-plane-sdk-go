@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionXMLUnrollID - Function ID
+// PipelineFunctionXMLUnrollID - Identifier of the Function. Always <code>xml_unroll</code>
 type PipelineFunctionXMLUnrollID string
 
 const (
@@ -32,6 +32,7 @@ func (e *PipelineFunctionXMLUnrollID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PipelineFunctionXMLUnrollConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionXMLUnrollConf struct {
 	// Path to array to unroll. Example: ^root\.child\.ElementToUnroll$
 	Unroll string `json:"unroll"`
@@ -83,18 +84,19 @@ func (p *PipelineFunctionXMLUnrollConf) GetPretty() *bool {
 }
 
 type PipelineFunctionXMLUnroll struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>xml_unroll</code>
 	ID PipelineFunctionXMLUnrollID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                         `json:"final,omitzero"`
-	Conf  PipelineFunctionXMLUnrollConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionXMLUnrollConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

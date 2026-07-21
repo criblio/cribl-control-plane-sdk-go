@@ -6,7 +6,9 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth - Kafka Schema Registry Authentication
 type KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth struct {
+	// Disabled
 	Disabled bool `json:"disabled"`
 	// URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
 	SchemaRegistryURL *string `json:"schemaRegistryURL,omitzero"`
@@ -17,8 +19,9 @@ type KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth struct {
 	// Maximum number of times to try fetching schemas from the Schema Registry
 	MaxRetries *float64 `json:"maxRetries,omitzero"`
 	// Credentials to use when authenticating with the schema registry
-	Auth *AuthType                                `json:"auth,omitzero"`
-	TLS  *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	Auth *AuthType `json:"auth,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// Used when __keySchemaIdOut is not present, to transform key values, leave blank if key transformation is not required by default.
 	DefaultKeySchemaID *float64 `json:"defaultKeySchemaId,omitzero"`
 	// Used when __valueSchemaIdOut is not present, to transform _raw, leave blank if value transformation is not required by default.

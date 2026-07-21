@@ -57,9 +57,10 @@ type DatabaseCollectorConf struct {
 	// An expression that resolves to the query string for selecting data from the database. Has access to the special ${earliest} and ${latest} variables, which will resolve to the Collector run's start and end time.
 	Query string `json:"query"`
 	// Enforces a basic query validation that allows only a single 'select' statement. Disable for more complex queries or when using semicolons. Caution: Disabling query validation allows DDL and DML statements to be executed, which could be destructive to your database.
-	QueryValidationEnabled *bool                                              `json:"queryValidationEnabled,omitzero"`
-	DefaultBreakers        *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
-	Scheduling             *DatabaseCollectorConfScheduling                   `json:"__scheduling,omitzero"`
+	QueryValidationEnabled *bool `json:"queryValidationEnabled,omitzero"`
+	// Hidden Default Breakers
+	DefaultBreakers *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
+	Scheduling      *DatabaseCollectorConfScheduling                   `json:"__scheduling,omitzero"`
 	// Binds 'query' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'query' at runtime.
 	TemplateQuery *string `json:"__template_query,omitzero"`
 }

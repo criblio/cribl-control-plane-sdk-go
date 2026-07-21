@@ -2,10 +2,14 @@
 
 package components
 
+// CustomLogoTypeSystemSettingsConf - Custom logo configuration for the Cribl UI login page and navigation bar.
 type CustomLogoTypeSystemSettingsConf struct {
-	Enabled         bool    `json:"enabled"`
+	// If <code>true</code>, display the custom logo in the UI. Otherwise, <code>false</code>.
+	Enabled bool `json:"enabled"`
+	// Description text displayed alongside the custom logo.
 	LogoDescription *string `json:"logoDescription,omitzero"`
-	LogoImage       *string `json:"logoImage,omitzero"`
+	// Custom logo image as a base64-encoded data URI (PNG or JPEG, maximum 2 MB).
+	LogoImage *string `json:"logoImage,omitzero"`
 }
 
 func (c *CustomLogoTypeSystemSettingsConf) GetEnabled() bool {

@@ -1,5 +1,7 @@
 # AuthenticationTypeElastic
 
+Authentication type
+
 ## Example Usage
 
 ```go

@@ -30,7 +30,7 @@ func (g *GetProductsWorkersByProductAndIDRequest) GetID() string {
 
 type GetProductsWorkersByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of MasterWorkerEntry objects.
+	// The requested MasterWorkerEntry object in a single-item list.
 	CountedMasterWorkerEntry *components.CountedMasterWorkerEntry
 }
 

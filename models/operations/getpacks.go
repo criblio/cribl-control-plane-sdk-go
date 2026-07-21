@@ -8,8 +8,12 @@ import (
 )
 
 type GetPacksRequest struct {
-	// Comma-separated list of additional properties to include in the response. When set, the response includes a count of the specified properties in the Pack. Available values are <code>inputs</code> and <code>outputs</code>.
+	// Comma-separated list of additional properties to include in the response. When set, the response includes a count of each specified property in each Pack. Supported values: <code>inputs</code>, <code>outputs</code>, <code>collectors</code>.
 	With *string `queryParam:"style=form,explode=true,name=with"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (g *GetPacksRequest) GetWith() *string {
@@ -19,10 +23,26 @@ func (g *GetPacksRequest) GetWith() *string {
 	return g.With
 }
 
+func (g *GetPacksRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetPacksRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
 type GetPacksResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of PackInfo objects.
-	CountedPackInfo *components.CountedPackInfo
+	// List of Pack objects.
+	PaginatedPackInfo *components.PaginatedPackInfo
+
+	Next func() (*GetPacksResponse, error)
 }
 
 func (g GetPacksResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +63,9 @@ func (g *GetPacksResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetPacksResponse) GetCountedPackInfo() *components.CountedPackInfo {
+func (g *GetPacksResponse) GetPaginatedPackInfo() *components.PaginatedPackInfo {
 	if g == nil {
 		return nil
 	}
-	return g.CountedPackInfo
+	return g.PaginatedPackInfo
 }

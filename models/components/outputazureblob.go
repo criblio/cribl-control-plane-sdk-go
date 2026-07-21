@@ -3,34 +3,10 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputAzureBlobType string
-
-const (
-	OutputAzureBlobTypeAzureBlob OutputAzureBlobType = "azure_blob"
-)
-
-func (e OutputAzureBlobType) ToPointer() *OutputAzureBlobType {
-	return &e
-}
-func (e *OutputAzureBlobType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "azure_blob":
-		*e = OutputAzureBlobType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputAzureBlobType: %v", v)
-	}
-}
-
+// OutputAzureBlobBlobAccessTier - Blob access tier
 type OutputAzureBlobBlobAccessTier string
 
 const (
@@ -63,15 +39,16 @@ func (e *OutputAzureBlobBlobAccessTier) IsExact() bool {
 
 type OutputAzureBlob struct {
 	// Unique ID for this output
-	ID   *string             `json:"id,omitzero"`
-	Type OutputAzureBlobType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsAzureblob `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The Azure Blob Storage container name. Name can include only lowercase letters, numbers, and hyphens. For dynamic container names, enter a JavaScript expression within quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myContainer-${C.env["CRIBL_WORKER_ID"]}`.
 	ContainerName string `json:"containerName"`
@@ -114,12 +91,16 @@ type OutputAzureBlob struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                          `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType             `json:"retrySettings,omitzero"`
-	Orphans              *OrphanFileRecoveryType        `json:"orphans,omitzero"`
-	AuthType             *AuthenticationMethodOptions   `json:"authType,omitzero"`
-	StorageClass         *OutputAzureBlobBlobAccessTier `json:"storageClass,omitzero"`
-	Description          *string                        `json:"description,omitzero"`
+	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
+	// Orphan file recovery
+	Orphans *OrphanFileRecoveryType `json:"orphans,omitzero"`
+	// Authentication method
+	AuthType *AuthenticationMethodOptions `json:"authType,omitzero"`
+	// Blob access tier
+	StorageClass *OutputAzureBlobBlobAccessTier `json:"storageClass,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`
 	// Compression level to apply before moving files to final destination
@@ -221,9 +202,9 @@ func (o *OutputAzureBlob) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputAzureBlob) GetType() OutputAzureBlobType {
+func (o *OutputAzureBlob) GetType() TypeOptionsAzureblob {
 	if o == nil {
-		return OutputAzureBlobType("")
+		return TypeOptionsAzureblob("")
 	}
 	return o.Type
 }

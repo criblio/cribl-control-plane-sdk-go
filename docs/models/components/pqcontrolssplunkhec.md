@@ -1,5 +1,7 @@
 # PqControlsSplunkHec
 
+Persistent queue controls.
+
 
 ## Fields
 

@@ -2,6 +2,7 @@
 
 package components
 
+// RestartResponseStatus - Result of the restart request for this Node (<code>Restarting</code> or <code>Error</code>).
 type RestartResponseStatus string
 
 const (
@@ -24,10 +25,14 @@ func (e *RestartResponseStatus) IsExact() bool {
 	return false
 }
 
+// RestartResponse - Result of a restart request for a Worker or Edge Node.
 type RestartResponse struct {
-	ID      string                `json:"id"`
-	Message *string               `json:"message,omitzero"`
-	Status  RestartResponseStatus `json:"status"`
+	// Unique identifier for the Worker or Edge Node (GUID).
+	ID string `json:"id"`
+	// Error message if the restart request failed for this Node.
+	Message *string `json:"message,omitzero"`
+	// Result of the restart request for this Node (<code>Restarting</code> or <code>Error</code>).
+	Status RestartResponseStatus `json:"status"`
 }
 
 func (r *RestartResponse) GetID() string {

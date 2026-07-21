@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputCloudflareR2Type - Connector type identifier.
 type OutputCloudflareR2Type string
 
 const (
@@ -31,34 +32,10 @@ func (e *OutputCloudflareR2Type) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// OutputCloudflareR2AuthenticationMethod - AWS authentication method. Choose Auto to use IAM roles.
-type OutputCloudflareR2AuthenticationMethod string
-
-const (
-	// OutputCloudflareR2AuthenticationMethodAuto Auto
-	OutputCloudflareR2AuthenticationMethodAuto OutputCloudflareR2AuthenticationMethod = "auto"
-	// OutputCloudflareR2AuthenticationMethodSecret Secret Key pair
-	OutputCloudflareR2AuthenticationMethodSecret OutputCloudflareR2AuthenticationMethod = "secret"
-)
-
-func (e OutputCloudflareR2AuthenticationMethod) ToPointer() *OutputCloudflareR2AuthenticationMethod {
-	return &e
-}
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *OutputCloudflareR2AuthenticationMethod) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "auto", "secret":
-			return true
-		}
-	}
-	return false
-}
-
 type OutputCloudflareR2 struct {
 	// Unique ID for this output
-	ID   *string                `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputCloudflareR2Type `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -66,10 +43,10 @@ type OutputCloudflareR2 struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
-	AwsAuthenticationMethod *OutputCloudflareR2AuthenticationMethod `json:"awsAuthenticationMethod,omitzero"`
+	AwsAuthenticationMethod *AuthenticationMethodOptionsAutoSecret `json:"awsAuthenticationMethod,omitzero"`
 	// Reuse connections between requests, which can improve performance
 	ReuseConnections *bool `json:"reuseConnections,omitzero"`
 	// Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
@@ -117,9 +94,10 @@ type OutputCloudflareR2 struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
-	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
+	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
+	// Orphan file recovery
+	Orphans *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Cloudflare R2 service URL (example: https://<ACCOUNT_ID>.r2.cloudflarestorage.com)
@@ -128,7 +106,8 @@ type OutputCloudflareR2 struct {
 	StorageClass *StorageClassOptionsReducedredundancyStandard `json:"storageClass,omitzero"`
 	// Server-side encryption to use for uploaded objects
 	ServerSideEncryption *ServerSideEncryptionForUploadedObjectsOptionsAes256 `json:"serverSideEncryption,omitzero"`
-	Description          *string                                              `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
@@ -246,7 +225,7 @@ func (o *OutputCloudflareR2) GetStreamtags() []string {
 	return o.Streamtags
 }
 
-func (o *OutputCloudflareR2) GetAwsAuthenticationMethod() *OutputCloudflareR2AuthenticationMethod {
+func (o *OutputCloudflareR2) GetAwsAuthenticationMethod() *AuthenticationMethodOptionsAutoSecret {
 	if o == nil {
 		return nil
 	}

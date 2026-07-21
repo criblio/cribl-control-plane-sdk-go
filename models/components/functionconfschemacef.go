@@ -7,6 +7,7 @@ import (
 )
 
 type Header struct {
+	// Name of the CEF header field. Header names are predefined by the CEF standard.
 	Name *string `json:"name,omitzero"`
 	// JavaScript expression to compute the value (can be constant)
 	Value string `json:"value"`
@@ -38,6 +39,7 @@ func (h *Header) GetValue() string {
 }
 
 type Extension struct {
+	// Name of the CEF extension field. Must contain only alphanumeric characters.
 	Name string `json:"name"`
 	// JavaScript expression to compute the value (can be constant)
 	Value string `json:"value"`

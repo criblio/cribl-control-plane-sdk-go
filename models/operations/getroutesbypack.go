@@ -21,7 +21,7 @@ func (g *GetRoutesByPackRequest) GetPack() string {
 
 type GetRoutesByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Routes objects
+	// List of Routing table objects.
 	CountedRoutes *components.CountedRoutes
 }
 

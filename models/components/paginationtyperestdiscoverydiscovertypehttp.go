@@ -10,6 +10,7 @@ import (
 )
 
 type RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Query string parameter that sets the page index to be returned. Example: /api/v1/query?term=cribl&page_size=100&page_number=0
 	PageField string `json:"pageField"`
@@ -167,6 +168,7 @@ func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestPage) GetLimit() *flo
 }
 
 type RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Query string parameter that sets the index from which to begin returning records. Example: /api/v1/query?term=cribl&limit=100&offset=0
 	OffsetField string `json:"offsetField"`
@@ -324,6 +326,7 @@ func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeRequestOffset) GetTotalPageF
 }
 
 type RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderLink struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Relation name used in the link header that refers to the next page in the result set. Example: rel="next" refers to the next page of results: <https://myHost/nextPage>; rel="next"
 	NextRelationAttribute string `json:"nextRelationAttribute"`
@@ -571,6 +574,7 @@ func (u RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttribu
 }
 
 type RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeader struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
 	Attribute RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseHeaderResponseAttributes `json:"attribute"`
@@ -827,6 +831,7 @@ func (u RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttribute
 }
 
 type RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Names of attributes within the response that contain next-page information
 	Attribute RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBodyResponseAttributes `json:"attribute"`
@@ -993,6 +998,7 @@ func (r *RestDiscoveryDiscoverTypeHTTPPaginationTypeResponseBody) GetTotalPageFi
 }
 
 type RestDiscoveryDiscoverTypeHTTPPaginationTypeNone struct {
+	// Pagination
 	Type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination `json:"type"`
 	// Maximum number of pages to retrieve for the discover task. Defaults to 50 pages. Set to 0 to retrieve all pages.
 	MaxPages *float64 `json:"maxPages,omitzero"`

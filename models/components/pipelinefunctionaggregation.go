@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionAggregationID - Function ID
+// PipelineFunctionAggregationID - Identifier of the Function. Always <code>aggregation</code>
 type PipelineFunctionAggregationID string
 
 const (
@@ -32,6 +32,39 @@ func (e *PipelineFunctionAggregationID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+type PipelineFunctionAggregationAdd struct {
+	// Name of the field to set or add to the event.
+	Name *string `json:"name,omitzero"`
+	// JavaScript expression to compute the value (can be constant)
+	Value string `json:"value"`
+}
+
+func (p PipelineFunctionAggregationAdd) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionAggregationAdd) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionAggregationAdd) GetName() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Name
+}
+
+func (p *PipelineFunctionAggregationAdd) GetValue() string {
+	if p == nil {
+		return ""
+	}
+	return p.Value
+}
+
+// PipelineFunctionAggregationConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionAggregationConf struct {
 	// Pass through the original events along with the aggregation events
 	Passthrough *bool `json:"passthrough,omitzero"`
@@ -58,7 +91,7 @@ type PipelineFunctionAggregationConf struct {
 	// Allows Cribl Search-specific aggregation configuration
 	SearchAggMode *string `json:"searchAggMode,omitzero"`
 	// Set of key-value pairs to evaluate and add/set
-	Add []AddConfFunctionConfSchemaAggregation `json:"add,omitzero"`
+	Add []PipelineFunctionAggregationAdd `json:"add,omitzero"`
 	// Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
 	ShouldTreatDotsAsLiterals *bool `json:"shouldTreatDotsAsLiterals,omitzero"`
 	// Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
@@ -166,7 +199,7 @@ func (p *PipelineFunctionAggregationConf) GetSearchAggMode() *string {
 	return p.SearchAggMode
 }
 
-func (p *PipelineFunctionAggregationConf) GetAdd() []AddConfFunctionConfSchemaAggregation {
+func (p *PipelineFunctionAggregationConf) GetAdd() []PipelineFunctionAggregationAdd {
 	if p == nil {
 		return nil
 	}
@@ -209,18 +242,19 @@ func (p *PipelineFunctionAggregationConf) GetIdleTimeLimit() *string {
 }
 
 type PipelineFunctionAggregation struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>aggregation</code>
 	ID PipelineFunctionAggregationID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                           `json:"final,omitzero"`
-	Conf  PipelineFunctionAggregationConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionAggregationConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

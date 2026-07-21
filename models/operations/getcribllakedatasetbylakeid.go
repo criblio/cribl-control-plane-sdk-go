@@ -38,6 +38,8 @@ type GetCriblLakeDatasetByLakeIDRequest struct {
 	Format *GetCriblLakeDatasetByLakeIDFormat `queryParam:"style=form,explode=true,name=format"`
 	// Exclude DDSS format datasets from the response.
 	ExcludeDDSS *bool `queryParam:"style=form,explode=true,name=excludeDDSS"`
+	// Exclude Netskope format datasets from the response.
+	ExcludeNetskope *bool `queryParam:"style=form,explode=true,name=excludeNetskope"`
 	// Exclude deleted datasets from the response.
 	ExcludeDeleted *bool `queryParam:"style=form,explode=true,name=excludeDeleted"`
 	// Exclude internal datasets (those with IDs starting with <code>cribl_</code>) from the response.
@@ -46,6 +48,10 @@ type GetCriblLakeDatasetByLakeIDRequest struct {
 	ExcludeBYOS *bool `queryParam:"style=form,explode=true,name=excludeBYOS"`
 	// Set to <code>true</code> to include storage metrics for each Lake Dataset. Otherwise, <code>false</code> (default). Requires a Cribl Lake metrics license.
 	IncludeMetrics *bool `queryParam:"style=form,explode=true,name=includeMetrics"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (g *GetCriblLakeDatasetByLakeIDRequest) GetLakeID() string {
@@ -76,6 +82,13 @@ func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeDDSS() *bool {
 	return g.ExcludeDDSS
 }
 
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeNetskope() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.ExcludeNetskope
+}
+
 func (g *GetCriblLakeDatasetByLakeIDRequest) GetExcludeDeleted() *bool {
 	if g == nil {
 		return nil
@@ -104,10 +117,26 @@ func (g *GetCriblLakeDatasetByLakeIDRequest) GetIncludeMetrics() *bool {
 	return g.IncludeMetrics
 }
 
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetCriblLakeDatasetByLakeIDRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
 type GetCriblLakeDatasetByLakeIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// List of CriblLakeDataset objects.
-	CountedCriblLakeDataset *components.CountedCriblLakeDataset
+	PaginatedCriblLakeDataset *components.PaginatedCriblLakeDataset
+
+	Next func() (*GetCriblLakeDatasetByLakeIDResponse, error)
 }
 
 func (g GetCriblLakeDatasetByLakeIDResponse) MarshalJSON() ([]byte, error) {
@@ -128,9 +157,9 @@ func (g *GetCriblLakeDatasetByLakeIDResponse) GetHTTPMeta() components.HTTPMetad
 	return g.HTTPMeta
 }
 
-func (g *GetCriblLakeDatasetByLakeIDResponse) GetCountedCriblLakeDataset() *components.CountedCriblLakeDataset {
+func (g *GetCriblLakeDatasetByLakeIDResponse) GetPaginatedCriblLakeDataset() *components.PaginatedCriblLakeDataset {
 	if g == nil {
 		return nil
 	}
-	return g.CountedCriblLakeDataset
+	return g.PaginatedCriblLakeDataset
 }

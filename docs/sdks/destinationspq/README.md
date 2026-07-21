@@ -13,7 +13,7 @@ Clear the persistent queue (PQ) for the specified Destination.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="deleteOutputPqById" method="delete" path="/system/outputs/{id}/pq" -->
+<!-- UsageSnippet language="go" operationID="deleteOutputPqById" method="delete" path="/system/outputs/{id}/pq" example="OutputClearPQResponseExamplesClearPQJobId" -->
 ```go
 package main
 
@@ -61,6 +61,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -118,5 +119,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

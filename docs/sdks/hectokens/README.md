@@ -37,8 +37,8 @@ func main() {
 
     res, err := s.Sources.HecTokens.Create(ctx, "<id>", components.AddHecTokenRequest{
         Enabled: criblcontrolplanesdkgo.Pointer(true),
-        Metadata: []components.EventBreakerRuleFields{
-            components.EventBreakerRuleFields{
+        Metadata: []components.MetadataConfAddHecTokenRequest{
+            components.MetadataConfAddHecTokenRequest{
                 Name: "fieldX",
                 Value: "valueX",
             },
@@ -92,6 +92,41 @@ func main() {
     }
 }
 ```
+### Example Usage: HecTokenResponseExamplesSplunkHecSource
+
+<!-- UsageSnippet language="go" operationID="createInputHecTokenById" method="post" path="/system/inputs/{id}/hectoken" example="HecTokenResponseExamplesSplunkHecSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.HecTokens.Create(ctx, "<id>", components.AddHecTokenRequest{
+        Token: "<value>",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputSplunkHec != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -110,6 +145,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -143,8 +179,8 @@ func main() {
 
     res, err := s.Sources.HecTokens.Update(ctx, "<id>", "<value>", components.UpdateHecTokenRequest{
         Enabled: criblcontrolplanesdkgo.Pointer(true),
-        Metadata: []components.EventBreakerRuleFields{
-            components.EventBreakerRuleFields{
+        Metadata: []components.MetadataConfAddHecTokenRequest{
+            components.MetadataConfAddHecTokenRequest{
                 Name: "fieldX",
                 Value: "valueX",
             },
@@ -196,16 +232,49 @@ func main() {
     }
 }
 ```
+### Example Usage: HecTokenResponseExamplesSplunkHecSource
+
+<!-- UsageSnippet language="go" operationID="updateInputHecTokenByIdAndToken" method="patch" path="/system/inputs/{id}/hectoken/{token}" example="HecTokenResponseExamplesSplunkHecSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Sources.HecTokens.Update(ctx, "<id>", "<value>", components.UpdateHecTokenRequest{})
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputSplunkHec != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
-| Parameter                                                                            | Type                                                                                 | Required                                                                             | Description                                                                          |
-| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
-| `ctx`                                                                                | [context.Context](https://pkg.go.dev/context#Context)                                | :heavy_check_mark:                                                                   | The context to use for the request.                                                  |
-| `id`                                                                                 | `string`                                                                             | :heavy_check_mark:                                                                   | The <code>id</code> of the Splunk HEC Source.                                        |
-| `token`                                                                              | `string`                                                                             | :heavy_check_mark:                                                                   | The HEC token value to update.                                                       |
-| `updateHecTokenRequest`                                                              | [components.UpdateHecTokenRequest](../../models/components/updatehectokenrequest.md) | :heavy_check_mark:                                                                   | UpdateHecTokenRequest object.                                                        |
-| `opts`                                                                               | [][operations.Option](../../models/operations/option.md)                             | :heavy_minus_sign:                                                                   | The options for this request.                                                        |
+| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                              | [context.Context](https://pkg.go.dev/context#Context)                                              | :heavy_check_mark:                                                                                 | The context to use for the request.                                                                |
+| `id`                                                                                               | `string`                                                                                           | :heavy_check_mark:                                                                                 | The <code>id</code> of the Splunk HEC Source.                                                      |
+| `token`                                                                                            | `string`                                                                                           | :heavy_check_mark:                                                                                 | The HEC token value whose metadata you want to update. Must match an existing token on the Source. |
+| `updateHecTokenRequest`                                                                            | [components.UpdateHecTokenRequest](../../models/components/updatehectokenrequest.md)               | :heavy_check_mark:                                                                                 | UpdateHecTokenRequest object.                                                                      |
+| `opts`                                                                                             | [][operations.Option](../../models/operations/option.md)                                           | :heavy_minus_sign:                                                                                 | The options for this request.                                                                      |
 
 ### Response
 
@@ -215,5 +284,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

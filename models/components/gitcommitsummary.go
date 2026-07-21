@@ -6,9 +6,12 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// Author of the Git commit, including email and display name.
 type Author struct {
+	// Email address of the commit author.
 	Email string `json:"email"`
-	Name  string `json:"name"`
+	// Display name of the commit author.
+	Name string `json:"name"`
 }
 
 func (a *Author) GetEmail() string {
@@ -25,39 +28,99 @@ func (a *Author) GetName() string {
 	return a.Name
 }
 
-type Summary struct {
-	Changes    float64 `json:"changes"`
-	Deletions  float64 `json:"deletions"`
-	Insertions float64 `json:"insertions"`
+// GitCommitSummaryFiles - Files affected by the commit, grouped by change type.
+type GitCommitSummaryFiles struct {
+	// Array of file paths that were created in the commit.
+	Created []string `json:"created,omitzero"`
+	// Array of file paths that were deleted in the commit.
+	Deleted []string `json:"deleted,omitzero"`
+	// Array of file paths that were modified in the commit.
+	Modified []string `json:"modified,omitzero"`
+	// Array of file rename operations, each containing the original path and the new path.
+	Renamed []GitFileRename `json:"renamed,omitzero"`
 }
 
-func (s *Summary) GetChanges() float64 {
+func (g GitCommitSummaryFiles) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *GitCommitSummaryFiles) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (g *GitCommitSummaryFiles) GetCreated() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Created
+}
+
+func (g *GitCommitSummaryFiles) GetDeleted() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Deleted
+}
+
+func (g *GitCommitSummaryFiles) GetModified() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Modified
+}
+
+func (g *GitCommitSummaryFiles) GetRenamed() []GitFileRename {
+	if g == nil {
+		return nil
+	}
+	return g.Renamed
+}
+
+// Summary of line changes in the commit.
+type Summary struct {
+	// Total number of lines changed (insertions plus deletions).
+	Changes int64 `json:"changes"`
+	// Number of lines deleted.
+	Deletions int64 `json:"deletions"`
+	// Number of lines inserted.
+	Insertions int64 `json:"insertions"`
+}
+
+func (s *Summary) GetChanges() int64 {
 	if s == nil {
-		return 0.0
+		return 0
 	}
 	return s.Changes
 }
 
-func (s *Summary) GetDeletions() float64 {
+func (s *Summary) GetDeletions() int64 {
 	if s == nil {
-		return 0.0
+		return 0
 	}
 	return s.Deletions
 }
 
-func (s *Summary) GetInsertions() float64 {
+func (s *Summary) GetInsertions() int64 {
 	if s == nil {
-		return 0.0
+		return 0
 	}
 	return s.Insertions
 }
 
 type GitCommitSummary struct {
-	Author  *Author                    `json:"author,omitzero"`
-	Branch  string                     `json:"branch"`
-	Commit  string                     `json:"commit"`
-	Files   *FilesTypeGitCommitSummary `json:"files,omitzero"`
-	Summary Summary                    `json:"summary"`
+	// Author of the Git commit, including email and display name.
+	Author *Author `json:"author,omitzero"`
+	// Name of the Git branch the commit was made on.
+	Branch string `json:"branch"`
+	// Full SHA-1 hash of the new commit.
+	Commit string `json:"commit"`
+	// Files affected by the commit, grouped by change type.
+	Files *GitCommitSummaryFiles `json:"files,omitzero"`
+	// Summary of line changes in the commit.
+	Summary Summary `json:"summary"`
 }
 
 func (g GitCommitSummary) MarshalJSON() ([]byte, error) {
@@ -92,7 +155,7 @@ func (g *GitCommitSummary) GetCommit() string {
 	return g.Commit
 }
 
-func (g *GitCommitSummary) GetFiles() *FilesTypeGitCommitSummary {
+func (g *GitCommitSummary) GetFiles() *GitCommitSummaryFiles {
 	if g == nil {
 		return nil
 	}

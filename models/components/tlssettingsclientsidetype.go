@@ -6,7 +6,9 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// TLSSettingsClientSideType - TLS settings (client side)
 type TLSSettingsClientSideType struct {
+	// Disabled
 	Disabled bool `json:"disabled"`
 	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's)
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`

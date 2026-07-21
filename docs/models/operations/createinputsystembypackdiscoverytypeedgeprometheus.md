@@ -26,3 +26,4 @@ custom := operations.CreateInputSystemByPackDiscoveryTypeEdgePrometheus("custom_
 | `CreateInputSystemByPackDiscoveryTypeEdgePrometheusK8sNode`           | k8s-node                                                              |
 | `CreateInputSystemByPackDiscoveryTypeEdgePrometheusK8sPods`           | k8s-pods                                                              |
 | `CreateInputSystemByPackDiscoveryTypeEdgePrometheusK8sServiceMonitor` | k8s-service-monitor                                                   |
+| `CreateInputSystemByPackDiscoveryTypeEdgePrometheusHTTPSd`            | http_sd                                                               |

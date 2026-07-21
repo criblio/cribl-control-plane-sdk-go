@@ -1,5 +1,7 @@
 # CreateOutputSystemByPackTelemetryType
 
+Telemetry type
+
 ## Example Usage
 
 ```go

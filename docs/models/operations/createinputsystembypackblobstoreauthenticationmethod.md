@@ -1,5 +1,7 @@
 # CreateInputSystemByPackBlobStoreAuthenticationMethod
 
+Authentication method
+
 ## Example Usage
 
 ```go

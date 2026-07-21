@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionWindowID - Function ID
+// PipelineFunctionWindowID - Identifier of the Function. Always <code>window</code>
 type PipelineFunctionWindowID string
 
 const (
@@ -32,6 +32,7 @@ func (e *PipelineFunctionWindowID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PipelineFunctionWindowConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionWindowConf struct {
 	// Identifies the unique ID, used for a event window
 	EventWindowID float64 `json:"eventWindowId"`
@@ -83,18 +84,19 @@ func (p *PipelineFunctionWindowConf) GetHeadEventCount() *float64 {
 }
 
 type PipelineFunctionWindow struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>window</code>
 	ID PipelineFunctionWindowID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                      `json:"final,omitzero"`
-	Conf  PipelineFunctionWindowConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionWindowConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

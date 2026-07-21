@@ -1,5 +1,7 @@
 # PqControlsGoogleCloudLogging
 
+Persistent queue controls.
+
 
 ## Fields
 

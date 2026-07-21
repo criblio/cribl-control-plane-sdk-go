@@ -9,7 +9,7 @@ import (
 
 type GetRoutesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Routes objects
+	// List of Routing table objects.
 	CountedRoutes *components.CountedRoutes
 }
 

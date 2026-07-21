@@ -1,5 +1,7 @@
 # CreateOutputBlobAccessTier
 
+Blob access tier
+
 ## Example Usage
 
 ```go

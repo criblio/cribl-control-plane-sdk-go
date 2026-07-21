@@ -23,3 +23,4 @@ custom := operations.CreateInputSystemByPackDiscoveryTypePrometheus("custom_valu
 | `CreateInputSystemByPackDiscoveryTypePrometheusStatic` | static                                                 |
 | `CreateInputSystemByPackDiscoveryTypePrometheusDNS`    | dns                                                    |
 | `CreateInputSystemByPackDiscoveryTypePrometheusEc2`    | ec2                                                    |
+| `CreateInputSystemByPackDiscoveryTypePrometheusHTTPSd` | http_sd                                                |

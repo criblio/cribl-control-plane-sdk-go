@@ -12,7 +12,7 @@ Get the Access Control List (ACL) for the specified Worker Group, Outpost Group,
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getConfigGroupAclByProductAndId" method="get" path="/products/{product}/groups/{id}/acl" -->
+<!-- UsageSnippet language="go" operationID="getProductsGroupsAclByProductAndId" method="get" path="/products/{product}/groups/{id}/acl" -->
 ```go
 package main
 
@@ -34,7 +34,7 @@ func main() {
         }),
     )
 
-    res, err := s.Groups.ACL.Get(ctx, components.ProductsCoreEdge, "<id>", components.RbacResourceMacros.ToPointer())
+    res, err := s.Groups.ACL.Get(ctx, components.ProductsCoreOutpost, "<id>", nil)
     if err != nil {
         log.Fatal(err)
     }
@@ -56,11 +56,12 @@ func main() {
 
 ### Response
 
-**[*operations.GetConfigGroupACLByProductAndIDResponse](../../models/operations/getconfiggroupaclbyproductandidresponse.md), error**
+**[*operations.GetProductsGroupsACLByProductAndIDResponse](../../models/operations/getproductsgroupsaclbyproductandidresponse.md), error**
 
 ### Errors
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

@@ -35,8 +35,8 @@ func newACL(rootSDK *CriblControlPlane, sdkConfig config.SDKConfiguration, hooks
 
 // Get the Access Control List for a Worker Group, Outpost Group, or Edge Fleet
 // Get the Access Control List (ACL) for the specified Worker Group, Outpost Group, or Edge Fleet.
-func (s *ACL) Get(ctx context.Context, product components.ProductsCore, id string, type_ *components.RbacResource, opts ...operations.Option) (*operations.GetConfigGroupACLByProductAndIDResponse, error) {
-	request := operations.GetConfigGroupACLByProductAndIDRequest{
+func (s *ACL) Get(ctx context.Context, product components.ProductsCore, id string, type_ *components.RbacResource, opts ...operations.Option) (*operations.GetProductsGroupsACLByProductAndIDResponse, error) {
+	request := operations.GetProductsGroupsACLByProductAndIDRequest{
 		Product: product,
 		ID:      id,
 		Type:    type_,
@@ -71,7 +71,7 @@ func (s *ACL) Get(ctx context.Context, product components.ProductsCore, id strin
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getConfigGroupAclByProductAndId",
+		OperationID:      "getProductsGroupsAclByProductAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -203,7 +203,7 @@ func (s *ACL) Get(ctx context.Context, product components.ProductsCore, id strin
 		}
 	}
 
-	res := &operations.GetConfigGroupACLByProductAndIDResponse{
+	res := &operations.GetProductsGroupsACLByProductAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -227,6 +227,31 @@ func (s *ACL) Get(ctx context.Context, product components.ProductsCore, id strin
 
 				res.CountedUserAccessControlList = &out
 			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -259,8 +284,6 @@ func (s *ACL) Get(ctx context.Context, product components.ProductsCore, id strin
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 401:
-		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {
