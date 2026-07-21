@@ -21,7 +21,7 @@ func (d *DeleteOutputPqByIDRequest) GetID() string {
 
 type DeleteOutputPqByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// A list of job ids for the background job that clears the persistent queue
+	// The job ID for the background job that clears the persistent queue.
 	CountedString *components.CountedString
 }
 

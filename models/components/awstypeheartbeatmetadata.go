@@ -7,12 +7,18 @@ import (
 )
 
 type AwsTypeHeartbeatMetadata struct {
-	Enabled    bool              `json:"enabled"`
-	InstanceID string            `json:"instanceId"`
-	Region     string            `json:"region"`
-	Tags       map[string]string `json:"tags,omitzero"`
-	Type       string            `json:"type"`
-	Zone       string            `json:"zone"`
+	// If <code>true</code>, the AWS metadata collector is enabled on the node. Otherwise, <code>false</code>.
+	Enabled bool `json:"enabled"`
+	// AWS EC2 instance ID.
+	InstanceID string `json:"instanceId"`
+	// AWS region name.
+	Region string `json:"region"`
+	// String-keyed tag map. Each property name is a tag key and the corresponding value is the tag's string value.
+	Tags map[string]string `json:"tags,omitzero"`
+	// AWS EC2 instance type.
+	Type string `json:"type"`
+	// AWS availability zone name.
+	Zone string `json:"zone"`
 }
 
 func (a AwsTypeHeartbeatMetadata) MarshalJSON() ([]byte, error) {

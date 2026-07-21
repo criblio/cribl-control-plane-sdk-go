@@ -223,6 +223,43 @@ func main() {
     }
 }
 ```
+### Example Usage: CaptureNdjsonResponseExamplesCapturedEvent
+
+<!-- UsageSnippet language="go" operationID="createSystemCapture" method="post" path="/system/capture" example="CaptureNdjsonResponseExamplesCapturedEvent" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.System.Captures.Create(ctx, components.CaptureParamsReq{})
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CapturedEvent != nil {
+        for res.CapturedEvent.Next() {
+            event, _ := res.CapturedEvent.Value()
+            log.Print(event)
+            // Handle the event
+	      }
+    }
+}
+```
 
 ### Parameters
 
@@ -240,5 +277,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

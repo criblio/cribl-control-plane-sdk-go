@@ -1,5 +1,7 @@
 # AuthenticationMethodGoogleCloudStorage
 
+Authentication method
+
 ## Example Usage
 
 ```go

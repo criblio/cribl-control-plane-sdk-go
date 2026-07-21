@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputMicrosoftFabricType - Connector type identifier.
 type OutputMicrosoftFabricType string
 
 const (
@@ -33,12 +34,15 @@ func (e *OutputMicrosoftFabricType) UnmarshalJSON(data []byte) error {
 
 // OutputMicrosoftFabricAuthentication - Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
 type OutputMicrosoftFabricAuthentication struct {
-	Disabled  bool                                      `json:"disabled"`
+	// Disabled
+	Disabled bool `json:"disabled"`
+	// SASL mechanism
 	Mechanism *SaslMechanismOptionsSaslOauthbearerPlain `json:"mechanism,omitzero"`
 	// The username for authentication. This should always be $ConnectionString.
 	Username *string `json:"username,omitzero"`
 	// Select or create a stored text secret corresponding to the SASL JASS Password Primary or Password Secondary
-	TextSecret           *string                          `json:"textSecret,omitzero"`
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Authentication method
 	ClientSecretAuthType *AuthenticationMethodOptionsAuth `json:"clientSecretAuthType,omitzero"`
 	// Select or create a stored text secret
 	ClientTextSecret *string `json:"clientTextSecret,omitzero"`
@@ -211,6 +215,7 @@ func (o *OutputMicrosoftFabricAuthentication) GetTemplateScope() *string {
 	return o.TemplateScope
 }
 
+// OutputMicrosoftFabricPqControls - Persistent queue controls.
 type OutputMicrosoftFabricPqControls struct {
 }
 
@@ -227,7 +232,8 @@ func (o *OutputMicrosoftFabricPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputMicrosoftFabric struct {
 	// Unique ID for this output
-	ID   *string                   `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputMicrosoftFabricType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -235,7 +241,7 @@ type OutputMicrosoftFabric struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Topic name from Fabric Eventstream's endpoint
 	Topic string `json:"topic"`
@@ -267,12 +273,14 @@ type OutputMicrosoftFabric struct {
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to bootstrap server. Using TLS is highly recommended.
 	Sasl *OutputMicrosoftFabricAuthentication `json:"sasl,omitzero"`
-	TLS  *TLSSettingsClientSideType           `json:"tls,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideType `json:"tls,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Bootstrap server from Fabric Eventstream's endpoint
-	BootstrapServer string  `json:"bootstrap_server"`
-	Description     *string `json:"description,omitzero"`
+	BootstrapServer string `json:"bootstrap_server"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -293,9 +301,10 @@ type OutputMicrosoftFabric struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                          `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputMicrosoftFabricPqControls `json:"pqControls,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputMicrosoftFabricPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.

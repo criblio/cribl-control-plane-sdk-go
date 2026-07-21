@@ -1,5 +1,7 @@
 # PqControlsSignalfx
 
+Persistent queue controls.
+
 
 ## Fields
 

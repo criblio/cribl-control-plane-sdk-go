@@ -1,5 +1,7 @@
 # PqControlsChronicle
 
+Persistent queue controls.
+
 
 ## Fields
 

@@ -7,6 +7,7 @@ import (
 )
 
 type FunctionConfSchemaSidlookupField struct {
+	// Name of the field to set or add to the event.
 	Name *string `json:"name,omitzero"`
 	// JavaScript expression to compute the value (can be constant)
 	Expr string `json:"expr"`

@@ -30,7 +30,7 @@ func (u *UpdatePacksRequest) GetRequestBody() any {
 
 type UpdatePacksResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// Pack file uploaded successfully
+	// Pack file uploaded successfully.
 	UploadPackResponse *components.UploadPackResponse
 }
 

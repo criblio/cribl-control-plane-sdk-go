@@ -9,6 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputAppscopeType - Connector type identifier.
 type InputAppscopeType string
 
 const (
@@ -105,6 +106,7 @@ func (i *InputAppscopeFilter) GetTransportURL() *string {
 	return i.TransportURL
 }
 
+// InputAppscopePersistence - Persistence
 type InputAppscopePersistence struct {
 	// Spool events and metrics on disk for Cribl Edge and Search
 	Enable *bool `json:"enable,omitzero"`
@@ -113,8 +115,9 @@ type InputAppscopePersistence struct {
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
 	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                  `json:"maxDataTime,omitzero"`
-	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
+	MaxDataTime *string `json:"maxDataTime,omitzero"`
+	// Data compression format
+	Compress *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/appscope
 	DestPath *string `json:"destPath,omitzero"`
 }
@@ -264,9 +267,11 @@ func (u InputAppscopeUNIXSocketPermissions) MarshalJSON() ([]byte, error) {
 
 type InputAppscopeInput struct {
 	// Unique ID for this input
-	ID       *string           `json:"id,omitzero"`
-	Type     InputAppscopeType `json:"type"`
-	Disabled *bool             `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type InputAppscopeType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -275,7 +280,7 @@ type InputAppscopeInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -299,17 +304,20 @@ type InputAppscopeInput struct {
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Toggle to Yes to specify a file-backed UNIX domain socket connection, instead of a network host and port.
-	EnableUnixPath *bool                     `json:"enableUnixPath,omitzero"`
-	Filter         *InputAppscopeFilter      `json:"filter,omitzero"`
-	Persistence    *InputAppscopePersistence `json:"persistence,omitzero"`
+	EnableUnixPath *bool                `json:"enableUnixPath,omitzero"`
+	Filter         *InputAppscopeFilter `json:"filter,omitzero"`
+	// Persistence
+	Persistence *InputAppscopePersistence `json:"persistence,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
-	Description *string                                     `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host *string `json:"host,omitzero"`
 	// Port to listen on
-	Port *float64                   `json:"port,omitzero"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port *float64 `json:"port,omitzero"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Path to the UNIX domain socket to listen on.
 	UnixSocketPath *string `json:"unixSocketPath,omitzero"`
 	// Permissions to set for socket e.g., 777. If empty, falls back to the runtime user's default permissions.

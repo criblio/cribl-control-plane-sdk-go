@@ -9,6 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputWebhookType2 - Connector type identifier.
 type OutputWebhookType2 string
 
 const (
@@ -94,6 +95,7 @@ func (e *OutputWebhookAuthenticationType2) IsExact() bool {
 	return false
 }
 
+// OutputWebhookPqControls2 - Persistent queue controls.
 type OutputWebhookPqControls2 struct {
 }
 
@@ -157,7 +159,8 @@ func (o *OutputWebhookURL2) GetTemplateURL() *string {
 
 type OutputWebhookWebhook2 struct {
 	// Unique ID for this output
-	ID   *string            `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputWebhookType2 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -165,7 +168,7 @@ type OutputWebhookWebhook2 struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The method to use when sending events
 	Method *MethodOptions `json:"method,omitzero"`
@@ -205,13 +208,15 @@ type OutputWebhookWebhook2 struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Authentication method to use for the HTTP request
-	AuthType *OutputWebhookAuthenticationType2                `json:"authType,omitzero"`
-	TLS      *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
+	AuthType *OutputWebhookAuthenticationType2 `json:"authType,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool   `json:"loadBalanced,omitzero"`
-	Description  *string `json:"description,omitzero"`
+	LoadBalanced *bool `json:"loadBalanced,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
 	CustomSourceExpression *string `json:"customSourceExpression,omitzero"`
 	// Whether to drop events when the source expression evaluates to null
@@ -248,11 +253,14 @@ type OutputWebhookWebhook2 struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                   `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputWebhookPqControls2 `json:"pqControls,omitzero"`
-	Username             *string                   `json:"username,omitzero"`
-	Password             *string                   `json:"password,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputWebhookPqControls2 `json:"pqControls,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -275,11 +283,20 @@ type OutputWebhookWebhook2 struct {
 	OauthParams []OauthParamConfInputServicenowTable `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []OauthHeaderConfInputServicenowTable `json:"oauthHeaders,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, @{product} will use the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// @{product} will update the stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, @{product} sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"refreshRequestParams,omitzero"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL *string `json:"url,omitzero"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool               `json:"excludeSelf,omitzero"`
-	Urls        []OutputWebhookURL2 `json:"urls"`
+	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
+	// Webhook URLs
+	Urls []OutputWebhookURL2 `json:"urls"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -294,6 +311,8 @@ type OutputWebhookWebhook2 struct {
 	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
 	TemplateSecret *string `json:"__template_secret,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
@@ -743,6 +762,34 @@ func (o *OutputWebhookWebhook2) GetOauthHeaders() []OauthHeaderConfInputServicen
 	return o.OauthHeaders
 }
 
+func (o *OutputWebhookWebhook2) GetRefreshTokenField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshTokenField
+}
+
+func (o *OutputWebhookWebhook2) GetRotateRefreshToken() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RotateRefreshToken
+}
+
+func (o *OutputWebhookWebhook2) GetRefreshURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshURL
+}
+
+func (o *OutputWebhookWebhook2) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshRequestParams
+}
+
 func (o *OutputWebhookWebhook2) GetURL() *string {
 	if o == nil {
 		return nil
@@ -813,6 +860,13 @@ func (o *OutputWebhookWebhook2) GetTemplateSecret() *string {
 	return o.TemplateSecret
 }
 
+func (o *OutputWebhookWebhook2) GetTemplateRefreshURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateRefreshURL
+}
+
 func (o *OutputWebhookWebhook2) GetTemplateURL() *string {
 	if o == nil {
 		return nil
@@ -823,6 +877,7 @@ func (o *OutputWebhookWebhook2) GetTemplateURL() *string {
 // #region class-body-outputwebhookwebhook2
 // #endregion class-body-outputwebhookwebhook2
 
+// OutputWebhookType1 - Connector type identifier.
 type OutputWebhookType1 string
 
 const (
@@ -908,6 +963,7 @@ func (e *OutputWebhookAuthenticationType1) IsExact() bool {
 	return false
 }
 
+// OutputWebhookPqControls1 - Persistent queue controls.
 type OutputWebhookPqControls1 struct {
 }
 
@@ -971,7 +1027,8 @@ func (o *OutputWebhookURL1) GetTemplateURL() *string {
 
 type OutputWebhookWebhook1 struct {
 	// Unique ID for this output
-	ID   *string            `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputWebhookType1 `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -979,7 +1036,7 @@ type OutputWebhookWebhook1 struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The method to use when sending events
 	Method *MethodOptions `json:"method,omitzero"`
@@ -1019,13 +1076,15 @@ type OutputWebhookWebhook1 struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Authentication method to use for the HTTP request
-	AuthType *OutputWebhookAuthenticationType1                `json:"authType,omitzero"`
-	TLS      *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
+	AuthType *OutputWebhookAuthenticationType1 `json:"authType,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
 	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool   `json:"loadBalanced,omitzero"`
-	Description  *string `json:"description,omitzero"`
+	LoadBalanced *bool `json:"loadBalanced,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
 	CustomSourceExpression *string `json:"customSourceExpression,omitzero"`
 	// Whether to drop events when the source expression evaluates to null
@@ -1062,11 +1121,14 @@ type OutputWebhookWebhook1 struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                   `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputWebhookPqControls1 `json:"pqControls,omitzero"`
-	Username             *string                   `json:"username,omitzero"`
-	Password             *string                   `json:"password,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputWebhookPqControls1 `json:"pqControls,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -1089,11 +1151,20 @@ type OutputWebhookWebhook1 struct {
 	OauthParams []OauthParamConfInputServicenowTable `json:"oauthParams,omitzero"`
 	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
 	OauthHeaders []OauthHeaderConfInputServicenowTable `json:"oauthHeaders,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, @{product} will use the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// @{product} will update the stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, @{product} sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"refreshRequestParams,omitzero"`
 	// URL of a webhook endpoint to send events to, such as http://localhost:10200
 	URL string `json:"url"`
 	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool               `json:"excludeSelf,omitzero"`
-	Urls        []OutputWebhookURL1 `json:"urls,omitzero"`
+	ExcludeSelf *bool `json:"excludeSelf,omitzero"`
+	// Webhook URLs
+	Urls []OutputWebhookURL1 `json:"urls,omitzero"`
 	// The interval in which to re-resolve any hostnames and pick up destinations from A records
 	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
 	// How far back in time to keep traffic stats for load balancing purposes
@@ -1108,6 +1179,8 @@ type OutputWebhookWebhook1 struct {
 	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
 	TemplateSecret *string `json:"__template_secret,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
 	TemplateURL *string `json:"__template_url,omitzero"`
 }
@@ -1557,6 +1630,34 @@ func (o *OutputWebhookWebhook1) GetOauthHeaders() []OauthHeaderConfInputServicen
 	return o.OauthHeaders
 }
 
+func (o *OutputWebhookWebhook1) GetRefreshTokenField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshTokenField
+}
+
+func (o *OutputWebhookWebhook1) GetRotateRefreshToken() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RotateRefreshToken
+}
+
+func (o *OutputWebhookWebhook1) GetRefreshURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshURL
+}
+
+func (o *OutputWebhookWebhook1) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshRequestParams
+}
+
 func (o *OutputWebhookWebhook1) GetURL() string {
 	if o == nil {
 		return ""
@@ -1625,6 +1726,13 @@ func (o *OutputWebhookWebhook1) GetTemplateSecret() *string {
 		return nil
 	}
 	return o.TemplateSecret
+}
+
+func (o *OutputWebhookWebhook1) GetTemplateRefreshURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateRefreshURL
 }
 
 func (o *OutputWebhookWebhook1) GetTemplateURL() *string {

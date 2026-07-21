@@ -375,6 +375,12 @@ input := components.CreateInputNetflow(components.InputNetflowInput{/* values he
 input := components.CreateInputSecurityLake(components.InputSecurityLakeInput{/* values here */})
 ```
 
+### InputBedrockS3Input
+
+```go
+input := components.CreateInputBedrockS3(components.InputBedrockS3Input{/* values here */})
+```
+
 ### InputServicenowTableInput
 
 ```go
@@ -391,6 +397,18 @@ input := components.CreateInputZscalerHec(components.InputZscalerHecInput{/* val
 
 ```go
 input := components.CreateInputCloudflareHec(components.InputCloudflareHecInput{/* values here */})
+```
+
+### InputSysdigHecInput
+
+```go
+input := components.CreateInputSysdigHec(components.InputSysdigHecInput{/* values here */})
+```
+
+### InputUpwindHecInput
+
+```go
+input := components.CreateInputUpwindHec(components.InputUpwindHecInput{/* values here */})
 ```
 
 ### InputOpenaiComplianceLogsInput
@@ -541,12 +559,18 @@ switch input.Type {
 		// input.InputNetflowInput is populated
 	case components.InputTypeSecurityLake:
 		// input.InputSecurityLakeInput is populated
+	case components.InputTypeBedrockS3:
+		// input.InputBedrockS3Input is populated
 	case components.InputTypeServicenowTable:
 		// input.InputServicenowTableInput is populated
 	case components.InputTypeZscalerHec:
 		// input.InputZscalerHecInput is populated
 	case components.InputTypeCloudflareHec:
 		// input.InputCloudflareHecInput is populated
+	case components.InputTypeSysdigHec:
+		// input.InputSysdigHecInput is populated
+	case components.InputTypeUpwindHec:
+		// input.InputUpwindHecInput is populated
 	case components.InputTypeOpenaiComplianceLogs:
 		// input.InputOpenaiComplianceLogsInput is populated
 	case components.InputTypeAnthropicCompliance:

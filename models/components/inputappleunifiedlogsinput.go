@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputAppleUnifiedLogsType - Connector type identifier.
 type InputAppleUnifiedLogsType string
 
 const (
@@ -58,9 +59,11 @@ func (e *InputAppleUnifiedLogsReadMode) IsExact() bool {
 
 type InputAppleUnifiedLogsInput struct {
 	// Unique ID for this input
-	ID       *string                   `json:"id,omitzero"`
-	Type     InputAppleUnifiedLogsType `json:"type"`
-	Disabled *bool                     `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type InputAppleUnifiedLogsType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -69,18 +72,19 @@ type InputAppleUnifiedLogsInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
 	Pq          *PqType                         `json:"pq,omitzero"`
-	// String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Predicate format reference](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Predicates/AdditionalChapters/Introduction.html) for more information.
+	// String to filter log entries, in NSPredicate format (e.g., subsystem == "com.apple.security" or process == "kernel"). See [Common Log Types and Predicates](https://docs.cribl.io/edge/sources-apple-unified-logs/#examples) for more information.
 	Predicate string `json:"predicate"`
 	// Read all log entries (historical and upcoming), or only upcoming, from the last entry
 	ReadMode *InputAppleUnifiedLogsReadMode `json:"readMode,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

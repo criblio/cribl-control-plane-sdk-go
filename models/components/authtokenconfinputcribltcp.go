@@ -9,7 +9,8 @@ import (
 type AuthTokenConfInputCriblTCP struct {
 	// Select or create a stored text secret
 	TokenSecret string `json:"tokenSecret"`
-	Enabled     *bool  `json:"enabled,omitzero"`
+	// Enable token
+	Enabled *bool `json:"enabled,omitzero"`
 	// Optional token description
 	Description *string `json:"description,omitzero"`
 }

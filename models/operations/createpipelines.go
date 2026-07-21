@@ -9,7 +9,7 @@ import (
 
 type CreatePipelinesResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Pipelines objects
+	// The created Pipeline object in a single-item list.
 	CountedPipeline *components.CountedPipeline
 }
 

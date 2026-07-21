@@ -9,6 +9,7 @@ import (
 )
 
 type SniSettings struct {
+	// If <code>true</code>, disable Server Name Indication (SNI) routing. Otherwise, <code>false</code>.
 	DisableSNIRouting bool `json:"disableSNIRouting"`
 }
 

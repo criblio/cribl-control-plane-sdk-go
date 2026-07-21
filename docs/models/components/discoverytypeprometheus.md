@@ -23,3 +23,4 @@ custom := components.DiscoveryTypePrometheus("custom_value")
 | `DiscoveryTypePrometheusStatic` | static                          |
 | `DiscoveryTypePrometheusDNS`    | dns                             |
 | `DiscoveryTypePrometheusEc2`    | ec2                             |
+| `DiscoveryTypePrometheusHTTPSd` | http_sd                         |

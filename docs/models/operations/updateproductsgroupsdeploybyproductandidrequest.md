@@ -1,0 +1,10 @@
+# UpdateProductsGroupsDeployByProductAndIDRequest
+
+
+## Fields
+
+| Field                                                                                               | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `Product`                                                                                           | [components.ProductsCore](../../models/components/productscore.md)                                  | :heavy_check_mark:                                                                                  | Name of the Cribl product that contains the Worker Group, Outpost Group, or Edge Fleet.             |
+| `ID`                                                                                                | `string`                                                                                            | :heavy_check_mark:                                                                                  | The <code>id</code> of the target Worker Group, Outpost Group, or Edge Fleet for commit deployment. |
+| `DeployRequest`                                                                                     | [components.DeployRequest](../../models/components/deployrequest.md)                                | :heavy_check_mark:                                                                                  | DeployRequest object.                                                                               |

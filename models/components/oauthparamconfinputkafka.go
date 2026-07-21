@@ -7,7 +7,9 @@ import (
 )
 
 type OauthParamConfInputKafka struct {
-	Name  string `json:"name"`
+	// Parameter Name
+	Name string `json:"name"`
+	// Parameter Value
 	Value string `json:"value"`
 }
 

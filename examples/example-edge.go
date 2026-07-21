@@ -115,7 +115,7 @@ func main() {
 	udpPort := float64(SYSLOG_PORT)
 	syslogSource := operations.CreateInputInputSyslogSyslog2{
 		ID:      "my-syslog-source",
-		Type:    operations.CreateInputInputSyslogType2Syslog,
+		Type:    components.TypeOptionsSyslogSyslog,
 		Host:    "0.0.0.0",
 		TCPPort: float64(SYSLOG_PORT),
 		UDPPort: &udpPort,
@@ -140,7 +140,7 @@ func main() {
 	apiKey := AWS_API_KEY
 	s3Destination := operations.CreateOutputOutputS3{
 		ID:             "my-s3-destination",
-		Type:           operations.CreateOutputTypeS3S3,
+		Type:           components.TypeOptionsS3S3,
 		Bucket:         AWS_BUCKET_NAME,
 		Region:         &region,
 		AwsSecretKey:   &secretKey,

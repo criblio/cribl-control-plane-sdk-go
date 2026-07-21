@@ -10,9 +10,12 @@ import (
 )
 
 type EventBreakerExistingOrNewNewTimestampTypeCurrent struct {
-	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Length *float64                                                  `json:"length,omitzero"`
-	Format *string                                                   `json:"format,omitzero"`
+	// Method to use for timestamp extraction. Use <code>auto</code> for automatic detection, <code>format</code> to specify a strptime format, or <code>current</code> to use the current system time.
+	Type TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
+	// Maximum number of characters to search for a timestamp value from the beginning of the match.
+	Length *float64 `json:"length,omitzero"`
+	// Strptime format string for parsing timestamps (for example, <code>%Y-%m-%d %H:%M:%S</code>).
+	Format *string `json:"format,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewTimestampTypeCurrent) MarshalJSON() ([]byte, error) {
@@ -48,9 +51,12 @@ func (e *EventBreakerExistingOrNewNewTimestampTypeCurrent) GetFormat() *string {
 }
 
 type EventBreakerExistingOrNewNewTimestampTypeFormat struct {
-	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Format string                                                    `json:"format"`
-	Length *float64                                                  `json:"length,omitzero"`
+	// Method to use for timestamp extraction. Use <code>auto</code> for automatic detection, <code>format</code> to specify a strptime format, or <code>current</code> to use the current system time.
+	Type TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
+	// Strptime format string for parsing timestamps (for example, <code>%Y-%m-%d %H:%M:%S</code>).
+	Format string `json:"format"`
+	// Maximum number of characters to search for a timestamp value from the beginning of the match.
+	Length *float64 `json:"length,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewTimestampTypeFormat) MarshalJSON() ([]byte, error) {
@@ -86,9 +92,12 @@ func (e *EventBreakerExistingOrNewNewTimestampTypeFormat) GetLength() *float64 {
 }
 
 type EventBreakerExistingOrNewNewTimestampTypeAuto struct {
-	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Length float64                                                   `json:"length"`
-	Format *string                                                   `json:"format,omitzero"`
+	// Method to use for timestamp extraction. Use <code>auto</code> for automatic detection, <code>format</code> to specify a strptime format, or <code>current</code> to use the current system time.
+	Type TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
+	// Maximum number of characters to search for a timestamp value from the beginning of the match.
+	Length float64 `json:"length"`
+	// Strptime format string for parsing timestamps (for example, <code>%Y-%m-%d %H:%M:%S</code>).
+	Format *string `json:"format,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewTimestampTypeAuto) MarshalJSON() ([]byte, error) {
@@ -132,6 +141,7 @@ const (
 	TimestampFormatTypeEventBreakerExistingOrNewNewTypeUnknown TimestampFormatTypeEventBreakerExistingOrNewNewType = "UNKNOWN"
 )
 
+// TimestampFormatTypeEventBreakerExistingOrNewNew - Configuration for extracting and parsing timestamps from events.
 type TimestampFormatTypeEventBreakerExistingOrNewNew struct {
 	EventBreakerExistingOrNewNewTimestampTypeAuto    *EventBreakerExistingOrNewNewTimestampTypeAuto    `queryParam:"inline" union:"member"`
 	EventBreakerExistingOrNewNewTimestampTypeFormat  *EventBreakerExistingOrNewNewTimestampTypeFormat  `queryParam:"inline" union:"member"`

@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// FunctionHandlebarsID - Identifier of the Function. Always <code>handlebars</code>
 type FunctionHandlebarsID string
 
 const (
@@ -32,20 +33,34 @@ func (e *FunctionHandlebarsID) UnmarshalJSON(data []byte) error {
 }
 
 type FunctionHandlebars struct {
-	Filename      string               `json:"__filename"`
-	AsyncTimeout  *float64             `json:"asyncTimeout,omitzero"`
-	CriblVersion  *string              `json:"cribl_version,omitzero"`
-	Disabled      *bool                `json:"disabled,omitzero"`
-	Group         string               `json:"group"`
-	HandleSignals *bool                `json:"handleSignals,omitzero"`
-	ID            FunctionHandlebarsID `json:"id"`
-	LoadTime      float64              `json:"loadTime"`
-	ModTime       float64              `json:"modTime"`
-	Name          string               `json:"name"`
-	Sync          *bool                `json:"sync,omitzero"`
-	Uischema      map[string]any       `json:"uischema"`
-	Version       string               `json:"version"`
-	Schema        map[string]any       `json:"schema,omitzero"`
+	// Path to the JavaScript file that implements the Function.
+	Filename string `json:"__filename"`
+	// Maximum time, in milliseconds, that the Function is allowed to run asynchronously before timing out.
+	AsyncTimeout *float64 `json:"asyncTimeout,omitzero"`
+	// Minimum Cribl version required by the Function, if applicable.
+	CriblVersion *string `json:"cribl_version,omitzero"`
+	// If <code>true</code>, the Function is disabled and will not execute in a Pipeline. Otherwise, <code>false</code>.
+	Disabled *bool `json:"disabled,omitzero"`
+	// Category group the Function belongs to.
+	Group string `json:"group"`
+	// If <code>true</code>, the Function handles stream signals such as <code>flush</code> and <code>close</code>. Otherwise, <code>false</code>.
+	HandleSignals *bool `json:"handleSignals,omitzero"`
+	// Identifier of the Function. Always <code>handlebars</code>
+	ID FunctionHandlebarsID `json:"id"`
+	// Time the Function module was loaded, in milliseconds since the Unix epoch.
+	LoadTime float64 `json:"loadTime"`
+	// Time the Function module was last modified, in milliseconds since the Unix epoch.
+	ModTime float64 `json:"modTime"`
+	// Display name of the Function.
+	Name string `json:"name"`
+	// If <code>true</code>, the Function executes synchronously. Otherwise, <code>false</code>.
+	Sync *bool `json:"sync,omitzero"`
+	// UI Schema that controls how the Function's configuration form is rendered.
+	Uischema map[string]any `json:"uischema"`
+	// Version string of the Function.
+	Version string `json:"version"`
+	// JSON Schema document that describes the Function configuration.
+	Schema map[string]any `json:"schema,omitzero"`
 }
 
 func (f FunctionHandlebars) MarshalJSON() ([]byte, error) {

@@ -2,39 +2,31 @@
 
 package components
 
-// TypeOptions - Parser or formatter type to use
+import (
+	"encoding/json"
+	"fmt"
+)
+
+// TypeOptions - Connector type identifier.
 type TypeOptions string
 
 const (
-	// TypeOptionsCsv CSV
-	TypeOptionsCsv TypeOptions = "csv"
-	// TypeOptionsElff Extended Log File Format
-	TypeOptionsElff TypeOptions = "elff"
-	// TypeOptionsClf Common Log Format
-	TypeOptionsClf TypeOptions = "clf"
-	// TypeOptionsKvp Key=Value Pairs
-	TypeOptionsKvp TypeOptions = "kvp"
-	// TypeOptionsJSON JSON Object
-	TypeOptionsJSON TypeOptions = "json"
-	// TypeOptionsDelim Delimited values
-	TypeOptionsDelim TypeOptions = "delim"
-	// TypeOptionsRegex Regular Expression
-	TypeOptionsRegex TypeOptions = "regex"
-	// TypeOptionsGrok Grok
-	TypeOptionsGrok TypeOptions = "grok"
+	TypeOptionsKafka TypeOptions = "kafka"
 )
 
 func (e TypeOptions) ToPointer() *TypeOptions {
 	return &e
 }
-
-// IsExact returns true if the value matches a known enum value, false otherwise.
-func (e *TypeOptions) IsExact() bool {
-	if e != nil {
-		switch *e {
-		case "csv", "elff", "clf", "kvp", "json", "delim", "regex", "grok":
-			return true
-		}
+func (e *TypeOptions) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
 	}
-	return false
+	switch v {
+	case "kafka":
+		*e = TypeOptions(v)
+		return nil
+	default:
+		return fmt.Errorf("invalid value for TypeOptions: %v", v)
+	}
 }

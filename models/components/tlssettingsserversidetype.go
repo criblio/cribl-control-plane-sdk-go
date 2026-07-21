@@ -6,7 +6,9 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// TLSSettingsServerSideType - TLS settings (server side)
 type TLSSettingsServerSideType struct {
+	// If true, TLS is disabled on this connection.
 	Disabled *bool `json:"disabled,omitzero"`
 	// Require clients to present their certificates. Used to perform client authentication using SSL certs.
 	RequestCert *bool `json:"requestCert,omitzero"`
@@ -23,8 +25,10 @@ type TLSSettingsServerSideType struct {
 	// Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitzero"`
 	// Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-	CaPath     *string                      `json:"caPath,omitzero"`
+	CaPath *string `json:"caPath,omitzero"`
+	// Minimum TLS version
 	MinVersion *MinimumTLSVersionOptionsTLS `json:"minVersion,omitzero"`
+	// Maximum TLS version
 	MaxVersion *MaximumTLSVersionOptionsTLS `json:"maxVersion,omitzero"`
 }
 

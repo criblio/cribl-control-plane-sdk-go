@@ -9,7 +9,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionSerdeID - Function ID
+// PipelineFunctionSerdeID - Identifier of the Function. Always <code>serde</code>
 type PipelineFunctionSerdeID string
 
 const (
@@ -31,6 +31,45 @@ func (e *PipelineFunctionSerdeID) UnmarshalJSON(data []byte) error {
 	default:
 		return fmt.Errorf("invalid value for PipelineFunctionSerdeID: %v", v)
 	}
+}
+
+// SerdeTypeGrokType - Parser or formatter type to use.
+type SerdeTypeGrokType string
+
+const (
+	// SerdeTypeGrokTypeAuto Auto
+	SerdeTypeGrokTypeAuto SerdeTypeGrokType = "auto"
+	// SerdeTypeGrokTypeCsv CSV
+	SerdeTypeGrokTypeCsv SerdeTypeGrokType = "csv"
+	// SerdeTypeGrokTypeElff Extended Log File Format
+	SerdeTypeGrokTypeElff SerdeTypeGrokType = "elff"
+	// SerdeTypeGrokTypeClf Common Log Format
+	SerdeTypeGrokTypeClf SerdeTypeGrokType = "clf"
+	// SerdeTypeGrokTypeKvp Key=Value Pairs
+	SerdeTypeGrokTypeKvp SerdeTypeGrokType = "kvp"
+	// SerdeTypeGrokTypeJSON JSON Object
+	SerdeTypeGrokTypeJSON SerdeTypeGrokType = "json"
+	// SerdeTypeGrokTypeDelim Delimited values
+	SerdeTypeGrokTypeDelim SerdeTypeGrokType = "delim"
+	// SerdeTypeGrokTypeRegex Regular Expression
+	SerdeTypeGrokTypeRegex SerdeTypeGrokType = "regex"
+	// SerdeTypeGrokTypeGrok Grok
+	SerdeTypeGrokTypeGrok SerdeTypeGrokType = "grok"
+)
+
+func (e SerdeTypeGrokType) ToPointer() *SerdeTypeGrokType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SerdeTypeGrokType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "csv", "elff", "clf", "kvp", "json", "delim", "regex", "grok":
+			return true
+		}
+	}
+	return false
 }
 
 // SerdeTypeGrokOperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
@@ -59,17 +98,20 @@ func (e *SerdeTypeGrokOperationMode) IsExact() bool {
 }
 
 type SerdeTypeGrok struct {
-	// Parser or formatter type to use
-	Type TypeOptions `json:"type"`
-	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     string                         `json:"pattern"`
-	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
-	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
-	Mode SerdeTypeGrokOperationMode `json:"mode"`
+	// Parser or formatter type to use.
+	Type SerdeTypeGrokType `json:"type"`
 	// Field containing text to be parsed
 	SrcField *string `json:"srcField,omitzero"`
 	// Name of the field to add fields to. Extract mode only.
 	DstField *string `json:"dstField,omitzero"`
+	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
+	Pattern string `json:"pattern"`
+	// Additional Grok patterns to apply to the source field.
+	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
+	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+	Mode SerdeTypeGrokOperationMode `json:"mode"`
+	// Keep the detected datatype field and set isParsed to true on each event. Enable this when events are bound for downstream Cribl Search processing.
+	TagDatatype *bool `json:"tagDatatype,omitzero"`
 	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
 	Keep []string `json:"keep,omitzero"`
 	// List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
@@ -83,7 +125,8 @@ type SerdeTypeGrok struct {
 	// The fields to be extracted, listed in order. Will auto-generate if empty.
 	Fields []string `json:"fields,omitzero"`
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     *string                       `json:"regex,omitzero"`
+	Regex *string `json:"regex,omitzero"`
+	// Additional regex patterns to apply for field extraction.
 	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
 	Iterations *float64 `json:"iterations,omitzero"`
@@ -104,11 +147,25 @@ func (s *SerdeTypeGrok) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *SerdeTypeGrok) GetType() TypeOptions {
+func (s *SerdeTypeGrok) GetType() SerdeTypeGrokType {
 	if s == nil {
-		return TypeOptions("")
+		return SerdeTypeGrokType("")
 	}
 	return s.Type
+}
+
+func (s *SerdeTypeGrok) GetSrcField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SrcField
+}
+
+func (s *SerdeTypeGrok) GetDstField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.DstField
 }
 
 func (s *SerdeTypeGrok) GetPattern() string {
@@ -132,18 +189,11 @@ func (s *SerdeTypeGrok) GetMode() SerdeTypeGrokOperationMode {
 	return s.Mode
 }
 
-func (s *SerdeTypeGrok) GetSrcField() *string {
+func (s *SerdeTypeGrok) GetTagDatatype() *bool {
 	if s == nil {
 		return nil
 	}
-	return s.SrcField
-}
-
-func (s *SerdeTypeGrok) GetDstField() *string {
-	if s == nil {
-		return nil
-	}
-	return s.DstField
+	return s.TagDatatype
 }
 
 func (s *SerdeTypeGrok) GetKeep() []string {
@@ -223,6 +273,45 @@ func (s *SerdeTypeGrok) GetOverwrite() *bool {
 	return s.Overwrite
 }
 
+// SerdeTypeRegexType - Parser or formatter type to use.
+type SerdeTypeRegexType string
+
+const (
+	// SerdeTypeRegexTypeAuto Auto
+	SerdeTypeRegexTypeAuto SerdeTypeRegexType = "auto"
+	// SerdeTypeRegexTypeCsv CSV
+	SerdeTypeRegexTypeCsv SerdeTypeRegexType = "csv"
+	// SerdeTypeRegexTypeElff Extended Log File Format
+	SerdeTypeRegexTypeElff SerdeTypeRegexType = "elff"
+	// SerdeTypeRegexTypeClf Common Log Format
+	SerdeTypeRegexTypeClf SerdeTypeRegexType = "clf"
+	// SerdeTypeRegexTypeKvp Key=Value Pairs
+	SerdeTypeRegexTypeKvp SerdeTypeRegexType = "kvp"
+	// SerdeTypeRegexTypeJSON JSON Object
+	SerdeTypeRegexTypeJSON SerdeTypeRegexType = "json"
+	// SerdeTypeRegexTypeDelim Delimited values
+	SerdeTypeRegexTypeDelim SerdeTypeRegexType = "delim"
+	// SerdeTypeRegexTypeRegex Regular Expression
+	SerdeTypeRegexTypeRegex SerdeTypeRegexType = "regex"
+	// SerdeTypeRegexTypeGrok Grok
+	SerdeTypeRegexTypeGrok SerdeTypeRegexType = "grok"
+)
+
+func (e SerdeTypeRegexType) ToPointer() *SerdeTypeRegexType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SerdeTypeRegexType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "csv", "elff", "clf", "kvp", "json", "delim", "regex", "grok":
+			return true
+		}
+	}
+	return false
+}
+
 // SerdeTypeRegexOperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 type SerdeTypeRegexOperationMode string
 
@@ -249,10 +338,15 @@ func (e *SerdeTypeRegexOperationMode) IsExact() bool {
 }
 
 type SerdeTypeRegex struct {
-	// Parser or formatter type to use
-	Type TypeOptions `json:"type"`
+	// Parser or formatter type to use.
+	Type SerdeTypeRegexType `json:"type"`
+	// Field containing text to be parsed
+	SrcField *string `json:"srcField,omitzero"`
+	// Name of the field to add fields to. Extract mode only.
+	DstField *string `json:"dstField,omitzero"`
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     string                        `json:"regex"`
+	Regex string `json:"regex"`
+	// Additional regex patterns to apply for field extraction.
 	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
 	Iterations *float64 `json:"iterations,omitzero"`
@@ -262,10 +356,8 @@ type SerdeTypeRegex struct {
 	Overwrite *bool `json:"overwrite,omitzero"`
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 	Mode SerdeTypeRegexOperationMode `json:"mode"`
-	// Field containing text to be parsed
-	SrcField *string `json:"srcField,omitzero"`
-	// Name of the field to add fields to. Extract mode only.
-	DstField *string `json:"dstField,omitzero"`
+	// Keep the detected datatype field and set isParsed to true on each event. Enable this when events are bound for downstream Cribl Search processing.
+	TagDatatype *bool `json:"tagDatatype,omitzero"`
 	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
 	Keep []string `json:"keep,omitzero"`
 	// List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
@@ -279,7 +371,8 @@ type SerdeTypeRegex struct {
 	// The fields to be extracted, listed in order. Will auto-generate if empty.
 	Fields []string `json:"fields,omitzero"`
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     *string                        `json:"pattern,omitzero"`
+	Pattern *string `json:"pattern,omitzero"`
+	// Additional Grok patterns to apply to the source field.
 	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
 }
 
@@ -294,11 +387,25 @@ func (s *SerdeTypeRegex) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *SerdeTypeRegex) GetType() TypeOptions {
+func (s *SerdeTypeRegex) GetType() SerdeTypeRegexType {
 	if s == nil {
-		return TypeOptions("")
+		return SerdeTypeRegexType("")
 	}
 	return s.Type
+}
+
+func (s *SerdeTypeRegex) GetSrcField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SrcField
+}
+
+func (s *SerdeTypeRegex) GetDstField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.DstField
 }
 
 func (s *SerdeTypeRegex) GetRegex() string {
@@ -343,18 +450,11 @@ func (s *SerdeTypeRegex) GetMode() SerdeTypeRegexOperationMode {
 	return s.Mode
 }
 
-func (s *SerdeTypeRegex) GetSrcField() *string {
+func (s *SerdeTypeRegex) GetTagDatatype() *bool {
 	if s == nil {
 		return nil
 	}
-	return s.SrcField
-}
-
-func (s *SerdeTypeRegex) GetDstField() *string {
-	if s == nil {
-		return nil
-	}
-	return s.DstField
+	return s.TagDatatype
 }
 
 func (s *SerdeTypeRegex) GetKeep() []string {
@@ -413,6 +513,45 @@ func (s *SerdeTypeRegex) GetPatternList() []PatternListConfSerdeTypeGrok {
 	return s.PatternList
 }
 
+// SerdeTypeJSONType - Parser or formatter type to use.
+type SerdeTypeJSONType string
+
+const (
+	// SerdeTypeJSONTypeAuto Auto
+	SerdeTypeJSONTypeAuto SerdeTypeJSONType = "auto"
+	// SerdeTypeJSONTypeCsv CSV
+	SerdeTypeJSONTypeCsv SerdeTypeJSONType = "csv"
+	// SerdeTypeJSONTypeElff Extended Log File Format
+	SerdeTypeJSONTypeElff SerdeTypeJSONType = "elff"
+	// SerdeTypeJSONTypeClf Common Log Format
+	SerdeTypeJSONTypeClf SerdeTypeJSONType = "clf"
+	// SerdeTypeJSONTypeKvp Key=Value Pairs
+	SerdeTypeJSONTypeKvp SerdeTypeJSONType = "kvp"
+	// SerdeTypeJSONTypeJSON JSON Object
+	SerdeTypeJSONTypeJSON SerdeTypeJSONType = "json"
+	// SerdeTypeJSONTypeDelim Delimited values
+	SerdeTypeJSONTypeDelim SerdeTypeJSONType = "delim"
+	// SerdeTypeJSONTypeRegex Regular Expression
+	SerdeTypeJSONTypeRegex SerdeTypeJSONType = "regex"
+	// SerdeTypeJSONTypeGrok Grok
+	SerdeTypeJSONTypeGrok SerdeTypeJSONType = "grok"
+)
+
+func (e SerdeTypeJSONType) ToPointer() *SerdeTypeJSONType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SerdeTypeJSONType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "csv", "elff", "clf", "kvp", "json", "delim", "regex", "grok":
+			return true
+		}
+	}
+	return false
+}
+
 // SerdeTypeJSONOperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 type SerdeTypeJSONOperationMode string
 
@@ -439,8 +578,12 @@ func (e *SerdeTypeJSONOperationMode) IsExact() bool {
 }
 
 type SerdeTypeJSON struct {
-	// Parser or formatter type to use
-	Type TypeOptions `json:"type"`
+	// Parser or formatter type to use.
+	Type SerdeTypeJSONType `json:"type"`
+	// Field containing text to be parsed
+	SrcField *string `json:"srcField,omitzero"`
+	// Name of the field to add fields to. Extract mode only.
+	DstField *string `json:"dstField,omitzero"`
 	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
 	Keep []string `json:"keep,omitzero"`
 	// List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
@@ -449,10 +592,8 @@ type SerdeTypeJSON struct {
 	FieldFilterExpr *string `json:"fieldFilterExpr,omitzero"`
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 	Mode SerdeTypeJSONOperationMode `json:"mode"`
-	// Field containing text to be parsed
-	SrcField *string `json:"srcField,omitzero"`
-	// Name of the field to add fields to. Extract mode only.
-	DstField *string `json:"dstField,omitzero"`
+	// Keep the detected datatype field and set isParsed to true on each event. Enable this when events are bound for downstream Cribl Search processing.
+	TagDatatype *bool `json:"tagDatatype,omitzero"`
 	// A list of characters that may be present in a key name, even though they are normally separator or control characters
 	AllowedKeyChars []string `json:"allowedKeyChars,omitzero"`
 	// A list of characters that may be present in a value, even though they are normally separator or control characters
@@ -460,7 +601,8 @@ type SerdeTypeJSON struct {
 	// The fields to be extracted, listed in order. Will auto-generate if empty.
 	Fields []string `json:"fields,omitzero"`
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     *string                       `json:"regex,omitzero"`
+	Regex *string `json:"regex,omitzero"`
+	// Additional regex patterns to apply for field extraction.
 	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
 	Iterations *float64 `json:"iterations,omitzero"`
@@ -469,7 +611,8 @@ type SerdeTypeJSON struct {
 	// Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
 	Overwrite *bool `json:"overwrite,omitzero"`
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     *string                        `json:"pattern,omitzero"`
+	Pattern *string `json:"pattern,omitzero"`
+	// Additional Grok patterns to apply to the source field.
 	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
 }
 
@@ -484,11 +627,25 @@ func (s *SerdeTypeJSON) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *SerdeTypeJSON) GetType() TypeOptions {
+func (s *SerdeTypeJSON) GetType() SerdeTypeJSONType {
 	if s == nil {
-		return TypeOptions("")
+		return SerdeTypeJSONType("")
 	}
 	return s.Type
+}
+
+func (s *SerdeTypeJSON) GetSrcField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SrcField
+}
+
+func (s *SerdeTypeJSON) GetDstField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.DstField
 }
 
 func (s *SerdeTypeJSON) GetKeep() []string {
@@ -519,18 +676,11 @@ func (s *SerdeTypeJSON) GetMode() SerdeTypeJSONOperationMode {
 	return s.Mode
 }
 
-func (s *SerdeTypeJSON) GetSrcField() *string {
+func (s *SerdeTypeJSON) GetTagDatatype() *bool {
 	if s == nil {
 		return nil
 	}
-	return s.SrcField
-}
-
-func (s *SerdeTypeJSON) GetDstField() *string {
-	if s == nil {
-		return nil
-	}
-	return s.DstField
+	return s.TagDatatype
 }
 
 func (s *SerdeTypeJSON) GetAllowedKeyChars() []string {
@@ -603,6 +753,45 @@ func (s *SerdeTypeJSON) GetPatternList() []PatternListConfSerdeTypeGrok {
 	return s.PatternList
 }
 
+// SerdeTypeCsvType - Parser or formatter type to use.
+type SerdeTypeCsvType string
+
+const (
+	// SerdeTypeCsvTypeAuto Auto
+	SerdeTypeCsvTypeAuto SerdeTypeCsvType = "auto"
+	// SerdeTypeCsvTypeCsv CSV
+	SerdeTypeCsvTypeCsv SerdeTypeCsvType = "csv"
+	// SerdeTypeCsvTypeElff Extended Log File Format
+	SerdeTypeCsvTypeElff SerdeTypeCsvType = "elff"
+	// SerdeTypeCsvTypeClf Common Log Format
+	SerdeTypeCsvTypeClf SerdeTypeCsvType = "clf"
+	// SerdeTypeCsvTypeKvp Key=Value Pairs
+	SerdeTypeCsvTypeKvp SerdeTypeCsvType = "kvp"
+	// SerdeTypeCsvTypeJSON JSON Object
+	SerdeTypeCsvTypeJSON SerdeTypeCsvType = "json"
+	// SerdeTypeCsvTypeDelim Delimited values
+	SerdeTypeCsvTypeDelim SerdeTypeCsvType = "delim"
+	// SerdeTypeCsvTypeRegex Regular Expression
+	SerdeTypeCsvTypeRegex SerdeTypeCsvType = "regex"
+	// SerdeTypeCsvTypeGrok Grok
+	SerdeTypeCsvTypeGrok SerdeTypeCsvType = "grok"
+)
+
+func (e SerdeTypeCsvType) ToPointer() *SerdeTypeCsvType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SerdeTypeCsvType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "csv", "elff", "clf", "kvp", "json", "delim", "regex", "grok":
+			return true
+		}
+	}
+	return false
+}
+
 // SerdeTypeCsvOperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 type SerdeTypeCsvOperationMode string
 
@@ -629,8 +818,12 @@ func (e *SerdeTypeCsvOperationMode) IsExact() bool {
 }
 
 type SerdeTypeCsv struct {
-	// Parser or formatter type to use
-	Type TypeOptions `json:"type"`
+	// Parser or formatter type to use.
+	Type SerdeTypeCsvType `json:"type"`
+	// Field containing text to be parsed
+	SrcField *string `json:"srcField,omitzero"`
+	// Name of the field to add fields to. Extract mode only.
+	DstField *string `json:"dstField,omitzero"`
 	// The fields to be extracted, listed in order. Will auto-generate if empty.
 	Fields []string `json:"fields,omitzero"`
 	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
@@ -641,16 +834,15 @@ type SerdeTypeCsv struct {
 	FieldFilterExpr *string `json:"fieldFilterExpr,omitzero"`
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 	Mode SerdeTypeCsvOperationMode `json:"mode"`
-	// Field containing text to be parsed
-	SrcField *string `json:"srcField,omitzero"`
-	// Name of the field to add fields to. Extract mode only.
-	DstField *string `json:"dstField,omitzero"`
+	// Keep the detected datatype field and set isParsed to true on each event. Enable this when events are bound for downstream Cribl Search processing.
+	TagDatatype *bool `json:"tagDatatype,omitzero"`
 	// A list of characters that may be present in a key name, even though they are normally separator or control characters
 	AllowedKeyChars []string `json:"allowedKeyChars,omitzero"`
 	// A list of characters that may be present in a value, even though they are normally separator or control characters
 	AllowedValueChars []string `json:"allowedValueChars,omitzero"`
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     *string                       `json:"regex,omitzero"`
+	Regex *string `json:"regex,omitzero"`
+	// Additional regex patterns to apply for field extraction.
 	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
 	Iterations *float64 `json:"iterations,omitzero"`
@@ -659,7 +851,8 @@ type SerdeTypeCsv struct {
 	// Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
 	Overwrite *bool `json:"overwrite,omitzero"`
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     *string                        `json:"pattern,omitzero"`
+	Pattern *string `json:"pattern,omitzero"`
+	// Additional Grok patterns to apply to the source field.
 	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
 }
 
@@ -674,11 +867,25 @@ func (s *SerdeTypeCsv) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *SerdeTypeCsv) GetType() TypeOptions {
+func (s *SerdeTypeCsv) GetType() SerdeTypeCsvType {
 	if s == nil {
-		return TypeOptions("")
+		return SerdeTypeCsvType("")
 	}
 	return s.Type
+}
+
+func (s *SerdeTypeCsv) GetSrcField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SrcField
+}
+
+func (s *SerdeTypeCsv) GetDstField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.DstField
 }
 
 func (s *SerdeTypeCsv) GetFields() []string {
@@ -716,18 +923,11 @@ func (s *SerdeTypeCsv) GetMode() SerdeTypeCsvOperationMode {
 	return s.Mode
 }
 
-func (s *SerdeTypeCsv) GetSrcField() *string {
+func (s *SerdeTypeCsv) GetTagDatatype() *bool {
 	if s == nil {
 		return nil
 	}
-	return s.SrcField
-}
-
-func (s *SerdeTypeCsv) GetDstField() *string {
-	if s == nil {
-		return nil
-	}
-	return s.DstField
+	return s.TagDatatype
 }
 
 func (s *SerdeTypeCsv) GetAllowedKeyChars() []string {
@@ -793,6 +993,45 @@ func (s *SerdeTypeCsv) GetPatternList() []PatternListConfSerdeTypeGrok {
 	return s.PatternList
 }
 
+// SerdeTypeDelimType - Parser or formatter type to use.
+type SerdeTypeDelimType string
+
+const (
+	// SerdeTypeDelimTypeAuto Auto
+	SerdeTypeDelimTypeAuto SerdeTypeDelimType = "auto"
+	// SerdeTypeDelimTypeCsv CSV
+	SerdeTypeDelimTypeCsv SerdeTypeDelimType = "csv"
+	// SerdeTypeDelimTypeElff Extended Log File Format
+	SerdeTypeDelimTypeElff SerdeTypeDelimType = "elff"
+	// SerdeTypeDelimTypeClf Common Log Format
+	SerdeTypeDelimTypeClf SerdeTypeDelimType = "clf"
+	// SerdeTypeDelimTypeKvp Key=Value Pairs
+	SerdeTypeDelimTypeKvp SerdeTypeDelimType = "kvp"
+	// SerdeTypeDelimTypeJSON JSON Object
+	SerdeTypeDelimTypeJSON SerdeTypeDelimType = "json"
+	// SerdeTypeDelimTypeDelim Delimited values
+	SerdeTypeDelimTypeDelim SerdeTypeDelimType = "delim"
+	// SerdeTypeDelimTypeRegex Regular Expression
+	SerdeTypeDelimTypeRegex SerdeTypeDelimType = "regex"
+	// SerdeTypeDelimTypeGrok Grok
+	SerdeTypeDelimTypeGrok SerdeTypeDelimType = "grok"
+)
+
+func (e SerdeTypeDelimType) ToPointer() *SerdeTypeDelimType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SerdeTypeDelimType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "csv", "elff", "clf", "kvp", "json", "delim", "regex", "grok":
+			return true
+		}
+	}
+	return false
+}
+
 // SerdeTypeDelimOperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 type SerdeTypeDelimOperationMode string
 
@@ -819,8 +1058,12 @@ func (e *SerdeTypeDelimOperationMode) IsExact() bool {
 }
 
 type SerdeTypeDelim struct {
-	// Parser or formatter type to use
-	Type TypeOptions `json:"type"`
+	// Parser or formatter type to use.
+	Type SerdeTypeDelimType `json:"type"`
+	// Field containing text to be parsed
+	SrcField *string `json:"srcField,omitzero"`
+	// Name of the field to add fields to. Extract mode only.
+	DstField *string `json:"dstField,omitzero"`
 	// The fields to be extracted, listed in order. Will auto-generate if empty.
 	Fields []string `json:"fields,omitzero"`
 	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
@@ -839,16 +1082,15 @@ type SerdeTypeDelim struct {
 	NullValue *string `json:"nullValue,omitzero"`
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 	Mode SerdeTypeDelimOperationMode `json:"mode"`
-	// Field containing text to be parsed
-	SrcField *string `json:"srcField,omitzero"`
-	// Name of the field to add fields to. Extract mode only.
-	DstField *string `json:"dstField,omitzero"`
+	// Keep the detected datatype field and set isParsed to true on each event. Enable this when events are bound for downstream Cribl Search processing.
+	TagDatatype *bool `json:"tagDatatype,omitzero"`
 	// A list of characters that may be present in a key name, even though they are normally separator or control characters
 	AllowedKeyChars []string `json:"allowedKeyChars,omitzero"`
 	// A list of characters that may be present in a value, even though they are normally separator or control characters
 	AllowedValueChars []string `json:"allowedValueChars,omitzero"`
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     *string                       `json:"regex,omitzero"`
+	Regex *string `json:"regex,omitzero"`
+	// Additional regex patterns to apply for field extraction.
 	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
 	Iterations *float64 `json:"iterations,omitzero"`
@@ -857,7 +1099,8 @@ type SerdeTypeDelim struct {
 	// Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
 	Overwrite *bool `json:"overwrite,omitzero"`
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     *string                        `json:"pattern,omitzero"`
+	Pattern *string `json:"pattern,omitzero"`
+	// Additional Grok patterns to apply to the source field.
 	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
 }
 
@@ -872,11 +1115,25 @@ func (s *SerdeTypeDelim) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *SerdeTypeDelim) GetType() TypeOptions {
+func (s *SerdeTypeDelim) GetType() SerdeTypeDelimType {
 	if s == nil {
-		return TypeOptions("")
+		return SerdeTypeDelimType("")
 	}
 	return s.Type
+}
+
+func (s *SerdeTypeDelim) GetSrcField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SrcField
+}
+
+func (s *SerdeTypeDelim) GetDstField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.DstField
 }
 
 func (s *SerdeTypeDelim) GetFields() []string {
@@ -942,18 +1199,11 @@ func (s *SerdeTypeDelim) GetMode() SerdeTypeDelimOperationMode {
 	return s.Mode
 }
 
-func (s *SerdeTypeDelim) GetSrcField() *string {
+func (s *SerdeTypeDelim) GetTagDatatype() *bool {
 	if s == nil {
 		return nil
 	}
-	return s.SrcField
-}
-
-func (s *SerdeTypeDelim) GetDstField() *string {
-	if s == nil {
-		return nil
-	}
-	return s.DstField
+	return s.TagDatatype
 }
 
 func (s *SerdeTypeDelim) GetAllowedKeyChars() []string {
@@ -1019,6 +1269,45 @@ func (s *SerdeTypeDelim) GetPatternList() []PatternListConfSerdeTypeGrok {
 	return s.PatternList
 }
 
+// SerdeTypeKvpType - Parser or formatter type to use.
+type SerdeTypeKvpType string
+
+const (
+	// SerdeTypeKvpTypeAuto Auto
+	SerdeTypeKvpTypeAuto SerdeTypeKvpType = "auto"
+	// SerdeTypeKvpTypeCsv CSV
+	SerdeTypeKvpTypeCsv SerdeTypeKvpType = "csv"
+	// SerdeTypeKvpTypeElff Extended Log File Format
+	SerdeTypeKvpTypeElff SerdeTypeKvpType = "elff"
+	// SerdeTypeKvpTypeClf Common Log Format
+	SerdeTypeKvpTypeClf SerdeTypeKvpType = "clf"
+	// SerdeTypeKvpTypeKvp Key=Value Pairs
+	SerdeTypeKvpTypeKvp SerdeTypeKvpType = "kvp"
+	// SerdeTypeKvpTypeJSON JSON Object
+	SerdeTypeKvpTypeJSON SerdeTypeKvpType = "json"
+	// SerdeTypeKvpTypeDelim Delimited values
+	SerdeTypeKvpTypeDelim SerdeTypeKvpType = "delim"
+	// SerdeTypeKvpTypeRegex Regular Expression
+	SerdeTypeKvpTypeRegex SerdeTypeKvpType = "regex"
+	// SerdeTypeKvpTypeGrok Grok
+	SerdeTypeKvpTypeGrok SerdeTypeKvpType = "grok"
+)
+
+func (e SerdeTypeKvpType) ToPointer() *SerdeTypeKvpType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SerdeTypeKvpType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "csv", "elff", "clf", "kvp", "json", "delim", "regex", "grok":
+			return true
+		}
+	}
+	return false
+}
+
 // SerdeTypeKvpOperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 type SerdeTypeKvpOperationMode string
 
@@ -1045,8 +1334,12 @@ func (e *SerdeTypeKvpOperationMode) IsExact() bool {
 }
 
 type SerdeTypeKvp struct {
-	// Parser or formatter type to use
-	Type TypeOptions `json:"type"`
+	// Parser or formatter type to use.
+	Type SerdeTypeKvpType `json:"type"`
+	// Field containing text to be parsed
+	SrcField *string `json:"srcField,omitzero"`
+	// Name of the field to add fields to. Extract mode only.
+	DstField *string `json:"dstField,omitzero"`
 	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
 	Keep []string `json:"keep,omitzero"`
 	// List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
@@ -1061,14 +1354,13 @@ type SerdeTypeKvp struct {
 	AllowedValueChars []string `json:"allowedValueChars,omitzero"`
 	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
 	Mode SerdeTypeKvpOperationMode `json:"mode"`
-	// Field containing text to be parsed
-	SrcField *string `json:"srcField,omitzero"`
-	// Name of the field to add fields to. Extract mode only.
-	DstField *string `json:"dstField,omitzero"`
+	// Keep the detected datatype field and set isParsed to true on each event. Enable this when events are bound for downstream Cribl Search processing.
+	TagDatatype *bool `json:"tagDatatype,omitzero"`
 	// The fields to be extracted, listed in order. Will auto-generate if empty.
 	Fields []string `json:"fields,omitzero"`
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     *string                       `json:"regex,omitzero"`
+	Regex *string `json:"regex,omitzero"`
+	// Additional regex patterns to apply for field extraction.
 	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
 	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
 	Iterations *float64 `json:"iterations,omitzero"`
@@ -1077,7 +1369,8 @@ type SerdeTypeKvp struct {
 	// Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
 	Overwrite *bool `json:"overwrite,omitzero"`
 	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-	Pattern     *string                        `json:"pattern,omitzero"`
+	Pattern *string `json:"pattern,omitzero"`
+	// Additional Grok patterns to apply to the source field.
 	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
 }
 
@@ -1092,11 +1385,25 @@ func (s *SerdeTypeKvp) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (s *SerdeTypeKvp) GetType() TypeOptions {
+func (s *SerdeTypeKvp) GetType() SerdeTypeKvpType {
 	if s == nil {
-		return TypeOptions("")
+		return SerdeTypeKvpType("")
 	}
 	return s.Type
+}
+
+func (s *SerdeTypeKvp) GetSrcField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.SrcField
+}
+
+func (s *SerdeTypeKvp) GetDstField() *string {
+	if s == nil {
+		return nil
+	}
+	return s.DstField
 }
 
 func (s *SerdeTypeKvp) GetKeep() []string {
@@ -1148,18 +1455,11 @@ func (s *SerdeTypeKvp) GetMode() SerdeTypeKvpOperationMode {
 	return s.Mode
 }
 
-func (s *SerdeTypeKvp) GetSrcField() *string {
+func (s *SerdeTypeKvp) GetTagDatatype() *bool {
 	if s == nil {
 		return nil
 	}
-	return s.SrcField
-}
-
-func (s *SerdeTypeKvp) GetDstField() *string {
-	if s == nil {
-		return nil
-	}
-	return s.DstField
+	return s.TagDatatype
 }
 
 func (s *SerdeTypeKvp) GetFields() []string {
@@ -1218,9 +1518,232 @@ func (s *SerdeTypeKvp) GetPatternList() []PatternListConfSerdeTypeGrok {
 	return s.PatternList
 }
 
+// SerdeTypeAutoType - Parser or formatter type to use.
+type SerdeTypeAutoType string
+
+const (
+	// SerdeTypeAutoTypeAuto Auto
+	SerdeTypeAutoTypeAuto SerdeTypeAutoType = "auto"
+	// SerdeTypeAutoTypeCsv CSV
+	SerdeTypeAutoTypeCsv SerdeTypeAutoType = "csv"
+	// SerdeTypeAutoTypeElff Extended Log File Format
+	SerdeTypeAutoTypeElff SerdeTypeAutoType = "elff"
+	// SerdeTypeAutoTypeClf Common Log Format
+	SerdeTypeAutoTypeClf SerdeTypeAutoType = "clf"
+	// SerdeTypeAutoTypeKvp Key=Value Pairs
+	SerdeTypeAutoTypeKvp SerdeTypeAutoType = "kvp"
+	// SerdeTypeAutoTypeJSON JSON Object
+	SerdeTypeAutoTypeJSON SerdeTypeAutoType = "json"
+	// SerdeTypeAutoTypeDelim Delimited values
+	SerdeTypeAutoTypeDelim SerdeTypeAutoType = "delim"
+	// SerdeTypeAutoTypeRegex Regular Expression
+	SerdeTypeAutoTypeRegex SerdeTypeAutoType = "regex"
+	// SerdeTypeAutoTypeGrok Grok
+	SerdeTypeAutoTypeGrok SerdeTypeAutoType = "grok"
+)
+
+func (e SerdeTypeAutoType) ToPointer() *SerdeTypeAutoType {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SerdeTypeAutoType) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "auto", "csv", "elff", "clf", "kvp", "json", "delim", "regex", "grok":
+			return true
+		}
+	}
+	return false
+}
+
+// SerdeTypeAutoOperationMode - Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+type SerdeTypeAutoOperationMode string
+
+const (
+	// SerdeTypeAutoOperationModeExtract Extract
+	SerdeTypeAutoOperationModeExtract SerdeTypeAutoOperationMode = "extract"
+	// SerdeTypeAutoOperationModeReserialize Reserialize
+	SerdeTypeAutoOperationModeReserialize SerdeTypeAutoOperationMode = "reserialize"
+)
+
+func (e SerdeTypeAutoOperationMode) ToPointer() *SerdeTypeAutoOperationMode {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SerdeTypeAutoOperationMode) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "extract", "reserialize":
+			return true
+		}
+	}
+	return false
+}
+
+type SerdeTypeAuto struct {
+	// Parser or formatter type to use.
+	Type SerdeTypeAutoType `json:"type"`
+	// Keep the detected datatype field and set isParsed to true on each event. Enable this when events are bound for downstream Cribl Search processing.
+	TagDatatype *bool `json:"tagDatatype,omitzero"`
+	// Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
+	Mode SerdeTypeAutoOperationMode `json:"mode"`
+	// List of fields to keep. Supports wildcards (*). Takes precedence over 'Fields to remove'.
+	Keep []string `json:"keep,omitzero"`
+	// List of fields to remove. Supports wildcards (*). Cannot remove fields that match 'Fields to keep'.
+	Remove []string `json:"remove,omitzero"`
+	// Expression evaluated against {index, name, value} context. Return truthy to keep a field, or falsy to remove it.
+	FieldFilterExpr *string `json:"fieldFilterExpr,omitzero"`
+	// A list of characters that may be present in a key name, even though they are normally separator or control characters
+	AllowedKeyChars []string `json:"allowedKeyChars,omitzero"`
+	// A list of characters that may be present in a value, even though they are normally separator or control characters
+	AllowedValueChars []string `json:"allowedValueChars,omitzero"`
+	// The fields to be extracted, listed in order. Will auto-generate if empty.
+	Fields []string `json:"fields,omitzero"`
+	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as(?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
+	Regex *string `json:"regex,omitzero"`
+	// Additional regex patterns to apply for field extraction.
+	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
+	// The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
+	Iterations *float64 `json:"iterations,omitzero"`
+	// JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
+	FieldNameExpression *string `json:"fieldNameExpression,omitzero"`
+	// Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
+	Overwrite *bool `json:"overwrite,omitzero"`
+	// Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
+	Pattern *string `json:"pattern,omitzero"`
+	// Additional Grok patterns to apply to the source field.
+	PatternList []PatternListConfSerdeTypeGrok `json:"patternList,omitzero"`
+}
+
+func (s SerdeTypeAuto) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(s, "", false)
+}
+
+func (s *SerdeTypeAuto) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &s, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (s *SerdeTypeAuto) GetType() SerdeTypeAutoType {
+	if s == nil {
+		return SerdeTypeAutoType("")
+	}
+	return s.Type
+}
+
+func (s *SerdeTypeAuto) GetTagDatatype() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.TagDatatype
+}
+
+func (s *SerdeTypeAuto) GetMode() SerdeTypeAutoOperationMode {
+	if s == nil {
+		return SerdeTypeAutoOperationMode("")
+	}
+	return s.Mode
+}
+
+func (s *SerdeTypeAuto) GetKeep() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Keep
+}
+
+func (s *SerdeTypeAuto) GetRemove() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Remove
+}
+
+func (s *SerdeTypeAuto) GetFieldFilterExpr() *string {
+	if s == nil {
+		return nil
+	}
+	return s.FieldFilterExpr
+}
+
+func (s *SerdeTypeAuto) GetAllowedKeyChars() []string {
+	if s == nil {
+		return nil
+	}
+	return s.AllowedKeyChars
+}
+
+func (s *SerdeTypeAuto) GetAllowedValueChars() []string {
+	if s == nil {
+		return nil
+	}
+	return s.AllowedValueChars
+}
+
+func (s *SerdeTypeAuto) GetFields() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
+}
+
+func (s *SerdeTypeAuto) GetRegex() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Regex
+}
+
+func (s *SerdeTypeAuto) GetRegexList() []RegexListConfSerdeTypeRegex {
+	if s == nil {
+		return nil
+	}
+	return s.RegexList
+}
+
+func (s *SerdeTypeAuto) GetIterations() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.Iterations
+}
+
+func (s *SerdeTypeAuto) GetFieldNameExpression() *string {
+	if s == nil {
+		return nil
+	}
+	return s.FieldNameExpression
+}
+
+func (s *SerdeTypeAuto) GetOverwrite() *bool {
+	if s == nil {
+		return nil
+	}
+	return s.Overwrite
+}
+
+func (s *SerdeTypeAuto) GetPattern() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Pattern
+}
+
+func (s *SerdeTypeAuto) GetPatternList() []PatternListConfSerdeTypeGrok {
+	if s == nil {
+		return nil
+	}
+	return s.PatternList
+}
+
 type PipelineFunctionSerdeConfType string
 
 const (
+	PipelineFunctionSerdeConfTypeAuto    PipelineFunctionSerdeConfType = "auto"
 	PipelineFunctionSerdeConfTypeKvp     PipelineFunctionSerdeConfType = "kvp"
 	PipelineFunctionSerdeConfTypeDelim   PipelineFunctionSerdeConfType = "delim"
 	PipelineFunctionSerdeConfTypeCsv     PipelineFunctionSerdeConfType = "csv"
@@ -1230,7 +1753,9 @@ const (
 	PipelineFunctionSerdeConfTypeUnknown PipelineFunctionSerdeConfType = "UNKNOWN"
 )
 
+// PipelineFunctionSerdeConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionSerdeConf struct {
+	SerdeTypeAuto  *SerdeTypeAuto  `queryParam:"inline" union:"member"`
 	SerdeTypeKvp   *SerdeTypeKvp   `queryParam:"inline" union:"member"`
 	SerdeTypeDelim *SerdeTypeDelim `queryParam:"inline" union:"member"`
 	SerdeTypeCsv   *SerdeTypeCsv   `queryParam:"inline" union:"member"`
@@ -1242,10 +1767,22 @@ type PipelineFunctionSerdeConf struct {
 	Type PipelineFunctionSerdeConfType
 }
 
+func CreatePipelineFunctionSerdeConfAuto(auto SerdeTypeAuto) PipelineFunctionSerdeConf {
+	typ := PipelineFunctionSerdeConfTypeAuto
+
+	typStr := SerdeTypeAutoType(typ)
+	auto.Type = typStr
+
+	return PipelineFunctionSerdeConf{
+		SerdeTypeAuto: &auto,
+		Type:          typ,
+	}
+}
+
 func CreatePipelineFunctionSerdeConfKvp(kvp SerdeTypeKvp) PipelineFunctionSerdeConf {
 	typ := PipelineFunctionSerdeConfTypeKvp
 
-	typStr := TypeOptions(typ)
+	typStr := SerdeTypeKvpType(typ)
 	kvp.Type = typStr
 
 	return PipelineFunctionSerdeConf{
@@ -1257,7 +1794,7 @@ func CreatePipelineFunctionSerdeConfKvp(kvp SerdeTypeKvp) PipelineFunctionSerdeC
 func CreatePipelineFunctionSerdeConfDelim(delim SerdeTypeDelim) PipelineFunctionSerdeConf {
 	typ := PipelineFunctionSerdeConfTypeDelim
 
-	typStr := TypeOptions(typ)
+	typStr := SerdeTypeDelimType(typ)
 	delim.Type = typStr
 
 	return PipelineFunctionSerdeConf{
@@ -1269,7 +1806,7 @@ func CreatePipelineFunctionSerdeConfDelim(delim SerdeTypeDelim) PipelineFunction
 func CreatePipelineFunctionSerdeConfCsv(csv SerdeTypeCsv) PipelineFunctionSerdeConf {
 	typ := PipelineFunctionSerdeConfTypeCsv
 
-	typStr := TypeOptions(typ)
+	typStr := SerdeTypeCsvType(typ)
 	csv.Type = typStr
 
 	return PipelineFunctionSerdeConf{
@@ -1281,7 +1818,7 @@ func CreatePipelineFunctionSerdeConfCsv(csv SerdeTypeCsv) PipelineFunctionSerdeC
 func CreatePipelineFunctionSerdeConfJSON(json SerdeTypeJSON) PipelineFunctionSerdeConf {
 	typ := PipelineFunctionSerdeConfTypeJSON
 
-	typStr := TypeOptions(typ)
+	typStr := SerdeTypeJSONType(typ)
 	json.Type = typStr
 
 	return PipelineFunctionSerdeConf{
@@ -1293,7 +1830,7 @@ func CreatePipelineFunctionSerdeConfJSON(json SerdeTypeJSON) PipelineFunctionSer
 func CreatePipelineFunctionSerdeConfRegex(regex SerdeTypeRegex) PipelineFunctionSerdeConf {
 	typ := PipelineFunctionSerdeConfTypeRegex
 
-	typStr := TypeOptions(typ)
+	typStr := SerdeTypeRegexType(typ)
 	regex.Type = typStr
 
 	return PipelineFunctionSerdeConf{
@@ -1305,7 +1842,7 @@ func CreatePipelineFunctionSerdeConfRegex(regex SerdeTypeRegex) PipelineFunction
 func CreatePipelineFunctionSerdeConfGrok(grok SerdeTypeGrok) PipelineFunctionSerdeConf {
 	typ := PipelineFunctionSerdeConfTypeGrok
 
-	typStr := TypeOptions(typ)
+	typStr := SerdeTypeGrokType(typ)
 	grok.Type = typStr
 
 	return PipelineFunctionSerdeConf{
@@ -1348,6 +1885,15 @@ func (u *PipelineFunctionSerdeConf) UnmarshalJSON(data []byte) error {
 	}
 
 	switch dis.Type {
+	case "auto":
+		serdeTypeAuto := new(SerdeTypeAuto)
+		if err := utils.UnmarshalJSON(data, &serdeTypeAuto, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == auto) type SerdeTypeAuto within PipelineFunctionSerdeConf: %w", string(data), err)
+		}
+
+		u.SerdeTypeAuto = serdeTypeAuto
+		u.Type = PipelineFunctionSerdeConfTypeAuto
+		return nil
 	case "kvp":
 		serdeTypeKvp := new(SerdeTypeKvp)
 		if err := utils.UnmarshalJSON(data, &serdeTypeKvp, "", true, nil); err != nil {
@@ -1411,6 +1957,10 @@ func (u *PipelineFunctionSerdeConf) UnmarshalJSON(data []byte) error {
 }
 
 func (u PipelineFunctionSerdeConf) MarshalJSON() ([]byte, error) {
+	if u.SerdeTypeAuto != nil {
+		return utils.MarshalJSON(u.SerdeTypeAuto, "", true)
+	}
+
 	if u.SerdeTypeKvp != nil {
 		return utils.MarshalJSON(u.SerdeTypeKvp, "", true)
 	}
@@ -1442,18 +1992,19 @@ func (u PipelineFunctionSerdeConf) MarshalJSON() ([]byte, error) {
 }
 
 type PipelineFunctionSerde struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>serde</code>
 	ID PipelineFunctionSerdeID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                     `json:"final,omitzero"`
-	Conf  PipelineFunctionSerdeConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionSerdeConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 
@@ -1508,6 +2059,10 @@ func (p *PipelineFunctionSerde) GetConf() PipelineFunctionSerdeConf {
 		return PipelineFunctionSerdeConf{}
 	}
 	return p.Conf
+}
+
+func (p *PipelineFunctionSerde) GetConfAuto() *SerdeTypeAuto {
+	return p.GetConf().SerdeTypeAuto
 }
 
 func (p *PipelineFunctionSerde) GetConfKvp() *SerdeTypeKvp {

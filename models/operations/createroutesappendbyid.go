@@ -30,7 +30,7 @@ func (c *CreateRoutesAppendByIDRequest) GetRequestBody() []components.RouteConfI
 
 type CreateRoutesAppendByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// The created Routes object in a single-item list.
+	// The updated Routing table object in a single-item list.
 	CountedRoutes *components.CountedRoutes
 }
 

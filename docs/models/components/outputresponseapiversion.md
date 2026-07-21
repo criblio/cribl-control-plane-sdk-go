@@ -1,5 +1,7 @@
 # OutputResponseAPIVersion
 
+API version
+
 ## Example Usage
 
 ```go

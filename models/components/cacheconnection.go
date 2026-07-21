@@ -8,14 +8,13 @@ import (
 
 type CacheConnection struct {
 	// Accelerated fields (materialized columns) for the cache connection.
-	AcceleratedFields []string                       `json:"acceleratedFields,omitzero"`
-	BackfillStatus    *CacheConnectionBackfillStatus `json:"backfillStatus,omitzero"`
-	// Identifier of the Lakehouse cache referenced by the Dataset.
+	AcceleratedFields []string `json:"acceleratedFields,omitzero"`
+	// Unique identifier for the Lakehouse cache referenced by the Dataset.
 	CacheRef string `json:"cacheRef"`
-	// Timestamp when the continuous data feed to the Lakehouse cache started, in Unix time (milliseconds).
+	// Timestamp (in Unix time) when the continuous data feed to the Lakehouse cache started, in milliseconds.
 	CreatedAt               float64                  `json:"createdAt"`
 	LakehouseConnectionType *LakehouseConnectionType `json:"lakehouseConnectionType,omitzero"`
-	// Query identifier of the active Lakehouse migration. Omitted if no migration is in progress.
+	// Unique identifier for the active Lakehouse migration query. Omitted if no migration is in progress.
 	MigrationQueryID *string `json:"migrationQueryId,omitzero"`
 	// Retention period for the Lakehouse cache connection, in days.
 	RetentionInDays float64 `json:"retentionInDays"`
@@ -37,13 +36,6 @@ func (c *CacheConnection) GetAcceleratedFields() []string {
 		return nil
 	}
 	return c.AcceleratedFields
-}
-
-func (c *CacheConnection) GetBackfillStatus() *CacheConnectionBackfillStatus {
-	if c == nil {
-		return nil
-	}
-	return c.BackfillStatus
 }
 
 func (c *CacheConnection) GetCacheRef() string {

@@ -39,7 +39,7 @@ func (g *GetCriblLakeDatasetByLakeIDAndIDRequest) GetIncludeMetrics() *bool {
 
 type GetCriblLakeDatasetByLakeIDAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of CriblLakeDataset objects.
+	// The requested CriblLakeDataset object in a single-item list.
 	CountedCriblLakeDataset *components.CountedCriblLakeDataset
 }
 

@@ -10,6 +10,10 @@ import (
 type GetOutputSystemByPackRequest struct {
 	// Type of Destination to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
 	Type *components.DestinationType `queryParam:"style=form,explode=true,name=type"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
 }
@@ -21,6 +25,20 @@ func (g *GetOutputSystemByPackRequest) GetType() *components.DestinationType {
 	return g.Type
 }
 
+func (g *GetOutputSystemByPackRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetOutputSystemByPackRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
 func (g *GetOutputSystemByPackRequest) GetPack() string {
 	if g == nil {
 		return ""
@@ -30,8 +48,10 @@ func (g *GetOutputSystemByPackRequest) GetPack() string {
 
 type GetOutputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination objects
-	CountedOutputResponse *components.CountedOutputResponse
+	// List of Destination objects.
+	PaginatedOutputResponse *components.PaginatedOutputResponse
+
+	Next func() (*GetOutputSystemByPackResponse, error)
 }
 
 func (g GetOutputSystemByPackResponse) MarshalJSON() ([]byte, error) {
@@ -52,9 +72,9 @@ func (g *GetOutputSystemByPackResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetOutputSystemByPackResponse) GetCountedOutputResponse() *components.CountedOutputResponse {
+func (g *GetOutputSystemByPackResponse) GetPaginatedOutputResponse() *components.PaginatedOutputResponse {
 	if g == nil {
 		return nil
 	}
-	return g.CountedOutputResponse
+	return g.PaginatedOutputResponse
 }

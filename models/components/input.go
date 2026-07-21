@@ -74,9 +74,12 @@ const (
 	InputTypeWizWebhook           InputType = "wiz_webhook"
 	InputTypeNetflow              InputType = "netflow"
 	InputTypeSecurityLake         InputType = "security_lake"
+	InputTypeBedrockS3            InputType = "bedrock_s3"
 	InputTypeServicenowTable      InputType = "servicenow_table"
 	InputTypeZscalerHec           InputType = "zscaler_hec"
 	InputTypeCloudflareHec        InputType = "cloudflare_hec"
+	InputTypeSysdigHec            InputType = "sysdig_hec"
+	InputTypeUpwindHec            InputType = "upwind_hec"
 	InputTypeOpenaiComplianceLogs InputType = "openai_compliance_logs"
 	InputTypeAnthropicCompliance  InputType = "anthropic_compliance"
 	InputTypeOkta                 InputType = "okta"
@@ -145,9 +148,12 @@ type Input struct {
 	InputWizWebhookInput           *InputWizWebhookInput           `queryParam:"inline" union:"member"`
 	InputNetflowInput              *InputNetflowInput              `queryParam:"inline" union:"member"`
 	InputSecurityLakeInput         *InputSecurityLakeInput         `queryParam:"inline" union:"member"`
+	InputBedrockS3Input            *InputBedrockS3Input            `queryParam:"inline" union:"member"`
 	InputServicenowTableInput      *InputServicenowTableInput      `queryParam:"inline" union:"member"`
 	InputZscalerHecInput           *InputZscalerHecInput           `queryParam:"inline" union:"member"`
 	InputCloudflareHecInput        *InputCloudflareHecInput        `queryParam:"inline" union:"member"`
+	InputSysdigHecInput            *InputSysdigHecInput            `queryParam:"inline" union:"member"`
+	InputUpwindHecInput            *InputUpwindHecInput            `queryParam:"inline" union:"member"`
 	InputOpenaiComplianceLogsInput *InputOpenaiComplianceLogsInput `queryParam:"inline" union:"member"`
 	InputAnthropicComplianceInput  *InputAnthropicComplianceInput  `queryParam:"inline" union:"member"`
 	InputOktaInput                 *InputOktaInput                 `queryParam:"inline" union:"member"`
@@ -170,7 +176,7 @@ func CreateInputCollection(collection InputCollectionInput) Input {
 func CreateInputKafka(kafka InputKafkaInput) Input {
 	typ := InputTypeKafka
 
-	typStr := InputKafkaType(typ)
+	typStr := TypeOptions(typ)
 	kafka.Type = typStr
 
 	return Input{
@@ -182,7 +188,7 @@ func CreateInputKafka(kafka InputKafkaInput) Input {
 func CreateInputMsk(msk InputMskInput) Input {
 	typ := InputTypeMsk
 
-	typStr := InputMskType(typ)
+	typStr := TypeOptionsMsk(typ)
 	msk.Type = typStr
 
 	return Input{
@@ -206,7 +212,7 @@ func CreateInputHTTP(http InputHTTPInput) Input {
 func CreateInputSplunk(splunk InputSplunkInput) Input {
 	typ := InputTypeSplunk
 
-	typStr := InputSplunkType(typ)
+	typStr := TypeOptionsSplunk(typ)
 	splunk.Type = typStr
 
 	return Input{
@@ -242,7 +248,7 @@ func CreateInputSplunkHec(splunkHec InputSplunkHecInput) Input {
 func CreateInputAzureBlob(azureBlob InputAzureBlobInput) Input {
 	typ := InputTypeAzureBlob
 
-	typStr := InputAzureBlobType(typ)
+	typStr := TypeOptionsAzureblob(typ)
 	azureBlob.Type = typStr
 
 	return Input{
@@ -266,7 +272,7 @@ func CreateInputElastic(elastic InputElasticInput) Input {
 func CreateInputConfluentCloud(confluentCloud InputConfluentCloudInput) Input {
 	typ := InputTypeConfluentCloud
 
-	typStr := InputConfluentCloudType(typ)
+	typStr := TypeOptionsConfluentcloud(typ)
 	confluentCloud.Type = typStr
 
 	return Input{
@@ -311,7 +317,7 @@ func CreateInputPrometheusRw(prometheusRw InputPrometheusRwInput) Input {
 func CreateInputPrometheus(prometheus InputPrometheusInput) Input {
 	typ := InputTypePrometheus
 
-	typStr := InputPrometheusType(typ)
+	typStr := TypeOptionsPrometheus(typ)
 	prometheus.Type = typStr
 
 	return Input{
@@ -431,7 +437,7 @@ func CreateInputFirehose(firehose InputFirehoseInput) Input {
 func CreateInputGooglePubsub(googlePubsub InputGooglePubsubInput) Input {
 	typ := InputTypeGooglePubsub
 
-	typStr := InputGooglePubsubType(typ)
+	typStr := TypeOptionsGooglepubsub(typ)
 	googlePubsub.Type = typStr
 
 	return Input{
@@ -455,7 +461,7 @@ func CreateInputCribl(cribl InputCriblInput) Input {
 func CreateInputCriblTCP(criblTCP InputCriblTCPInput) Input {
 	typ := InputTypeCriblTCP
 
-	typStr := InputCriblTCPType(typ)
+	typStr := TypeOptionsCribltcp(typ)
 	criblTCP.Type = typStr
 
 	return Input{
@@ -491,7 +497,7 @@ func CreateInputCriblLakeHTTP(criblLakeHTTP InputCriblLakeHTTPInput) Input {
 func CreateInputTcpjson(tcpjson InputTcpjsonInput) Input {
 	typ := InputTypeTcpjson
 
-	typStr := InputTcpjsonType(typ)
+	typStr := TypeOptionsTcpjson(typ)
 	tcpjson.Type = typStr
 
 	return Input{
@@ -623,7 +629,7 @@ func CreateInputHTTPRaw(httpRaw InputHTTPRawInput) Input {
 func CreateInputKinesis(kinesis InputKinesisInput) Input {
 	typ := InputTypeKinesis
 
-	typStr := InputKinesisType(typ)
+	typStr := TypeOptionsKinesis(typ)
 	kinesis.Type = typStr
 
 	return Input{
@@ -659,7 +665,7 @@ func CreateInputMetrics(metrics InputMetricsInput) Input {
 func CreateInputS3(s3 InputS3Input) Input {
 	typ := InputTypeS3
 
-	typStr := InputS3Type(typ)
+	typStr := TypeOptionsS3(typ)
 	s3.Type = typStr
 
 	return Input{
@@ -683,7 +689,7 @@ func CreateInputS3Inventory(s3Inventory InputS3InventoryInput) Input {
 func CreateInputSnmp(snmp InputSnmpInput) Input {
 	typ := InputTypeSnmp
 
-	typStr := InputSnmpType(typ)
+	typStr := TypeOptionsSnmp(typ)
 	snmp.Type = typStr
 
 	return Input{
@@ -719,7 +725,7 @@ func CreateInputModelDrivenTelemetry(modelDrivenTelemetry InputModelDrivenTeleme
 func CreateInputSqs(sqs InputSqsInput) Input {
 	typ := InputTypeSqs
 
-	typStr := InputSqsType(typ)
+	typStr := TypeOptionsSqs(typ)
 	sqs.Type = typStr
 
 	return Input{
@@ -872,7 +878,7 @@ func CreateInputWizWebhook(wizWebhook InputWizWebhookInput) Input {
 func CreateInputNetflow(netflow InputNetflowInput) Input {
 	typ := InputTypeNetflow
 
-	typStr := InputNetflowType(typ)
+	typStr := TypeOptionsNetflow(typ)
 	netflow.Type = typStr
 
 	return Input{
@@ -884,12 +890,24 @@ func CreateInputNetflow(netflow InputNetflowInput) Input {
 func CreateInputSecurityLake(securityLake InputSecurityLakeInput) Input {
 	typ := InputTypeSecurityLake
 
-	typStr := InputSecurityLakeType(typ)
+	typStr := TypeOptionsSecuritylake(typ)
 	securityLake.Type = typStr
 
 	return Input{
 		InputSecurityLakeInput: &securityLake,
 		Type:                   typ,
+	}
+}
+
+func CreateInputBedrockS3(bedrockS3 InputBedrockS3Input) Input {
+	typ := InputTypeBedrockS3
+
+	typStr := InputBedrockS3Type(typ)
+	bedrockS3.Type = typStr
+
+	return Input{
+		InputBedrockS3Input: &bedrockS3,
+		Type:                typ,
 	}
 }
 
@@ -926,6 +944,30 @@ func CreateInputCloudflareHec(cloudflareHec InputCloudflareHecInput) Input {
 	return Input{
 		InputCloudflareHecInput: &cloudflareHec,
 		Type:                    typ,
+	}
+}
+
+func CreateInputSysdigHec(sysdigHec InputSysdigHecInput) Input {
+	typ := InputTypeSysdigHec
+
+	typStr := InputSysdigHecType(typ)
+	sysdigHec.Type = typStr
+
+	return Input{
+		InputSysdigHecInput: &sysdigHec,
+		Type:                typ,
+	}
+}
+
+func CreateInputUpwindHec(upwindHec InputUpwindHecInput) Input {
+	typ := InputTypeUpwindHec
+
+	typStr := InputUpwindHecType(typ)
+	upwindHec.Type = typStr
+
+	return Input{
+		InputUpwindHecInput: &upwindHec,
+		Type:                typ,
 	}
 }
 
@@ -1535,6 +1577,15 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 		u.InputSecurityLakeInput = inputSecurityLakeInput
 		u.Type = InputTypeSecurityLake
 		return nil
+	case "bedrock_s3":
+		inputBedrockS3Input := new(InputBedrockS3Input)
+		if err := utils.UnmarshalJSON(data, &inputBedrockS3Input, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == bedrock_s3) type InputBedrockS3Input within Input: %w", string(data), err)
+		}
+
+		u.InputBedrockS3Input = inputBedrockS3Input
+		u.Type = InputTypeBedrockS3
+		return nil
 	case "servicenow_table":
 		inputServicenowTableInput := new(InputServicenowTableInput)
 		if err := utils.UnmarshalJSON(data, &inputServicenowTableInput, "", true, nil); err != nil {
@@ -1561,6 +1612,24 @@ func (u *Input) UnmarshalJSON(data []byte) error {
 
 		u.InputCloudflareHecInput = inputCloudflareHecInput
 		u.Type = InputTypeCloudflareHec
+		return nil
+	case "sysdig_hec":
+		inputSysdigHecInput := new(InputSysdigHecInput)
+		if err := utils.UnmarshalJSON(data, &inputSysdigHecInput, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == sysdig_hec) type InputSysdigHecInput within Input: %w", string(data), err)
+		}
+
+		u.InputSysdigHecInput = inputSysdigHecInput
+		u.Type = InputTypeSysdigHec
+		return nil
+	case "upwind_hec":
+		inputUpwindHecInput := new(InputUpwindHecInput)
+		if err := utils.UnmarshalJSON(data, &inputUpwindHecInput, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == upwind_hec) type InputUpwindHecInput within Input: %w", string(data), err)
+		}
+
+		u.InputUpwindHecInput = inputUpwindHecInput
+		u.Type = InputTypeUpwindHec
 		return nil
 	case "openai_compliance_logs":
 		inputOpenaiComplianceLogsInput := new(InputOpenaiComplianceLogsInput)
@@ -1843,6 +1912,10 @@ func (u Input) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.InputSecurityLakeInput, "", true)
 	}
 
+	if u.InputBedrockS3Input != nil {
+		return utils.MarshalJSON(u.InputBedrockS3Input, "", true)
+	}
+
 	if u.InputServicenowTableInput != nil {
 		return utils.MarshalJSON(u.InputServicenowTableInput, "", true)
 	}
@@ -1853,6 +1926,14 @@ func (u Input) MarshalJSON() ([]byte, error) {
 
 	if u.InputCloudflareHecInput != nil {
 		return utils.MarshalJSON(u.InputCloudflareHecInput, "", true)
+	}
+
+	if u.InputSysdigHecInput != nil {
+		return utils.MarshalJSON(u.InputSysdigHecInput, "", true)
+	}
+
+	if u.InputUpwindHecInput != nil {
+		return utils.MarshalJSON(u.InputUpwindHecInput, "", true)
 	}
 
 	if u.InputOpenaiComplianceLogsInput != nil {

@@ -6,10 +6,15 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// TagsTypePackInstallInfo - Categorization tags for the Pack.
 type TagsTypePackInstallInfo struct {
-	DataType   []string `json:"dataType,omitzero"`
-	Domain     []string `json:"domain,omitzero"`
+	// List of data type tags for the Pack.
+	DataType []string `json:"dataType,omitzero"`
+	// List of domain tags for the Pack.
+	Domain []string `json:"domain,omitzero"`
+	// List of stream tags for routing and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
+	// List of technology tags for the Pack.
 	Technology []string `json:"technology,omitzero"`
 }
 

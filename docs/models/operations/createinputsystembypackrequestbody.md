@@ -377,6 +377,12 @@ createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRe
 createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodySecurityLake(operations.CreateInputSystemByPackInputSecurityLake{/* values here */})
 ```
 
+### CreateInputSystemByPackInputBedrockS3
+
+```go
+createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyBedrockS3(operations.CreateInputSystemByPackInputBedrockS3{/* values here */})
+```
+
 ### CreateInputSystemByPackInputServicenowTable
 
 ```go
@@ -393,6 +399,18 @@ createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRe
 
 ```go
 createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyCloudflareHec(operations.CreateInputSystemByPackInputCloudflareHec{/* values here */})
+```
+
+### CreateInputSystemByPackInputSysdigHec
+
+```go
+createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodySysdigHec(operations.CreateInputSystemByPackInputSysdigHec{/* values here */})
+```
+
+### CreateInputSystemByPackInputUpwindHec
+
+```go
+createInputSystemByPackRequestBody := operations.CreateCreateInputSystemByPackRequestBodyUpwindHec(operations.CreateInputSystemByPackInputUpwindHec{/* values here */})
 ```
 
 ### CreateInputSystemByPackInputOpenaiComplianceLogs
@@ -543,12 +561,18 @@ switch createInputSystemByPackRequestBody.Type {
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputNetflow is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeSecurityLake:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputSecurityLake is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeBedrockS3:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputBedrockS3 is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeServicenowTable:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputServicenowTable is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeZscalerHec:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputZscalerHec is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeCloudflareHec:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputCloudflareHec is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeSysdigHec:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputSysdigHec is populated
+	case operations.CreateInputSystemByPackRequestBodyTypeUpwindHec:
+		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputUpwindHec is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeOpenaiComplianceLogs:
 		// createInputSystemByPackRequestBody.CreateInputSystemByPackInputOpenaiComplianceLogs is populated
 	case operations.CreateInputSystemByPackRequestBodyTypeAnthropicCompliance:

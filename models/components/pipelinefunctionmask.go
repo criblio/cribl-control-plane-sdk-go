@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionMaskID - Function ID
+// PipelineFunctionMaskID - Identifier of the Function. Always <code>mask</code>
 type PipelineFunctionMaskID string
 
 const (
@@ -73,14 +73,48 @@ func (p *PipelineFunctionMaskRule) GetDisabled() *bool {
 	return p.Disabled
 }
 
+type PipelineFunctionMaskFlag struct {
+	// Name of the field to set when one or more masking rules match.
+	Name *string `json:"name,omitzero"`
+	// JavaScript expression to compute the value (can be constant)
+	Value string `json:"value"`
+}
+
+func (p PipelineFunctionMaskFlag) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(p, "", false)
+}
+
+func (p *PipelineFunctionMaskFlag) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &p, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (p *PipelineFunctionMaskFlag) GetName() *string {
+	if p == nil {
+		return nil
+	}
+	return p.Name
+}
+
+func (p *PipelineFunctionMaskFlag) GetValue() string {
+	if p == nil {
+		return ""
+	}
+	return p.Value
+}
+
+// PipelineFunctionMaskConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionMaskConf struct {
+	// List of masking rules, each specifying a regex to match and an expression to replace matched content.
 	Rules []PipelineFunctionMaskRule `json:"rules"`
 	// Fields on which to apply the masking rules. Supports * wildcards, except when used on internal fields.
 	Fields []string `json:"fields,omitzero"`
 	// Depth to which the Mask Function will search for fields to mask
 	Depth *int64 `json:"depth,omitzero"`
 	// Fields to evaluate if one or more masking rules are matched
-	Flags []AddConfFunctionConfSchemaAggregation `json:"flags,omitzero"`
+	Flags []PipelineFunctionMaskFlag `json:"flags,omitzero"`
 }
 
 func (p PipelineFunctionMaskConf) MarshalJSON() ([]byte, error) {
@@ -115,7 +149,7 @@ func (p *PipelineFunctionMaskConf) GetDepth() *int64 {
 	return p.Depth
 }
 
-func (p *PipelineFunctionMaskConf) GetFlags() []AddConfFunctionConfSchemaAggregation {
+func (p *PipelineFunctionMaskConf) GetFlags() []PipelineFunctionMaskFlag {
 	if p == nil {
 		return nil
 	}
@@ -123,18 +157,19 @@ func (p *PipelineFunctionMaskConf) GetFlags() []AddConfFunctionConfSchemaAggrega
 }
 
 type PipelineFunctionMask struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>mask</code>
 	ID PipelineFunctionMaskID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                    `json:"final,omitzero"`
-	Conf  PipelineFunctionMaskConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionMaskConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

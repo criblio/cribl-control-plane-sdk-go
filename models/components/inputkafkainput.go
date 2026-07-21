@@ -3,39 +3,16 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type InputKafkaType string
-
-const (
-	InputKafkaTypeKafka InputKafkaType = "kafka"
-)
-
-func (e InputKafkaType) ToPointer() *InputKafkaType {
-	return &e
-}
-func (e *InputKafkaType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "kafka":
-		*e = InputKafkaType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputKafkaType: %v", v)
-	}
-}
-
 type InputKafkaInput struct {
 	// Unique ID for this input
-	ID       *string        `json:"id,omitzero"`
-	Type     InputKafkaType `json:"type"`
-	Disabled *bool          `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptions `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -44,7 +21,7 @@ type InputKafkaInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -56,7 +33,8 @@ type InputKafkaInput struct {
 	// The consumer group to which this instance belongs. Defaults to 'Cribl'.
 	GroupID *string `json:"groupId,omitzero"`
 	// Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
-	FromBeginning       *bool                                  `json:"fromBeginning,omitzero"`
+	FromBeginning *bool `json:"fromBeginning,omitzero"`
+	// Kafka Schema Registry Authentication
 	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationType `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
@@ -75,8 +53,9 @@ type InputKafkaInput struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *AuthenticationType                      `json:"sasl,omitzero"`
-	TLS  *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	Sasl *AuthenticationType `json:"sasl,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	//       Timeout used to detect client failures when using Kafka's group-management facilities.
 	//       If the client sends no heartbeats to the broker before the timeout expires,
 	//       the broker will remove the client from the group and initiate a rebalance.
@@ -98,8 +77,9 @@ type InputKafkaInput struct {
 	// Maximum number of network errors before the consumer re-creates a socket
 	MaxSocketErrors *float64 `json:"maxSocketErrors,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -130,9 +110,9 @@ func (i *InputKafkaInput) GetID() *string {
 	return i.ID
 }
 
-func (i *InputKafkaInput) GetType() InputKafkaType {
+func (i *InputKafkaInput) GetType() TypeOptions {
 	if i == nil {
-		return InputKafkaType("")
+		return TypeOptions("")
 	}
 	return i.Type
 }

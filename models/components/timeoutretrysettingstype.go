@@ -7,6 +7,7 @@ import (
 )
 
 type TimeoutRetrySettingsType struct {
+	// Retry timed-out HTTP requests
 	TimeoutRetry bool `json:"timeoutRetry"`
 	// How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
 	InitialBackoff *float64 `json:"initialBackoff,omitzero"`

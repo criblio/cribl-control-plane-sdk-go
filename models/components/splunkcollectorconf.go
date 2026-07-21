@@ -41,6 +41,7 @@ func (e *SplunkAuthenticationTokenSecretAuthentication) IsExact() bool {
 }
 
 type SplunkAuthenticationTokenSecretCollectRequestParam struct {
+	// Parameter Name
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
 	Value string `json:"value"`
@@ -72,6 +73,7 @@ func (s *SplunkAuthenticationTokenSecretCollectRequestParam) GetValue() string {
 }
 
 type SplunkAuthenticationTokenSecretCollectRequestHeader struct {
+	// Header Name
 	Name string `json:"name"`
 	// JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
 	Value string `json:"value"`
@@ -468,7 +470,8 @@ type SplunkAuthenticationTokenSecret struct {
 	Password *string `json:"password,omitzero"`
 	// Select or create a stored secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
-	Token             *string `json:"token,omitzero"`
+	// Bearer token
+	Token *string `json:"token,omitzero"`
 	// URL to use for login API call. This call is expected to be a POST.
 	LoginURL *string `json:"loginUrl,omitzero"`
 	// Template for POST body to send with login request. ${username} and ${password} are used to specify location of these attributes in the message.
@@ -765,6 +768,7 @@ func (e *SplunkAuthenticationTokenAuthentication) IsExact() bool {
 }
 
 type SplunkAuthenticationTokenCollectRequestParam struct {
+	// Parameter Name
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
 	Value string `json:"value"`
@@ -796,6 +800,7 @@ func (s *SplunkAuthenticationTokenCollectRequestParam) GetValue() string {
 }
 
 type SplunkAuthenticationTokenCollectRequestHeader struct {
+	// Header Name
 	Name string `json:"name"`
 	// JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
 	Value string `json:"value"`
@@ -1157,7 +1162,8 @@ func (u SplunkAuthenticationTokenRetryRules) MarshalJSON() ([]byte, error) {
 type SplunkAuthenticationToken struct {
 	// Authentication method for Discover and Collect REST calls
 	Authentication SplunkAuthenticationTokenAuthentication `json:"authentication"`
-	Token          string                                  `json:"token"`
+	// Bearer token
+	Token string `json:"token"`
 	// Search head base URL. Can be an expression. Default is https://localhost:8089.
 	SearchHead string `json:"searchHead"`
 	// Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
@@ -1489,6 +1495,7 @@ func (e *SplunkAuthenticationBasicSecretAuthentication) IsExact() bool {
 }
 
 type SplunkAuthenticationBasicSecretCollectRequestParam struct {
+	// Parameter Name
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
 	Value string `json:"value"`
@@ -1520,6 +1527,7 @@ func (s *SplunkAuthenticationBasicSecretCollectRequestParam) GetValue() string {
 }
 
 type SplunkAuthenticationBasicSecretCollectRequestHeader struct {
+	// Header Name
 	Name string `json:"name"`
 	// JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
 	Value string `json:"value"`
@@ -1914,7 +1922,8 @@ type SplunkAuthenticationBasicSecret struct {
 	Username *string `json:"username,omitzero"`
 	// Basic authentication password
 	Password *string `json:"password,omitzero"`
-	Token    *string `json:"token,omitzero"`
+	// Bearer token
+	Token *string `json:"token,omitzero"`
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitzero"`
 	// URL to use for login API call. This call is expected to be a POST.
@@ -2213,6 +2222,7 @@ func (e *SplunkAuthenticationBasicAuthentication) IsExact() bool {
 }
 
 type SplunkAuthenticationBasicCollectRequestParam struct {
+	// Parameter Name
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
 	Value string `json:"value"`
@@ -2244,6 +2254,7 @@ func (s *SplunkAuthenticationBasicCollectRequestParam) GetValue() string {
 }
 
 type SplunkAuthenticationBasicCollectRequestHeader struct {
+	// Header Name
 	Name string `json:"name"`
 	// JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
 	Value string `json:"value"`
@@ -2638,7 +2649,8 @@ type SplunkAuthenticationBasic struct {
 	RetryRules         *SplunkAuthenticationBasicRetryRules `json:"retryRules,omitzero"`
 	// Select or create a stored secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
-	Token             *string `json:"token,omitzero"`
+	// Bearer token
+	Token *string `json:"token,omitzero"`
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitzero"`
 	// URL to use for login API call. This call is expected to be a POST.
@@ -2937,6 +2949,7 @@ func (e *SplunkAuthenticationNoneAuthentication) IsExact() bool {
 }
 
 type SplunkAuthenticationNoneCollectRequestParam struct {
+	// Parameter Name
 	Name string `json:"name"`
 	// JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
 	Value string `json:"value"`
@@ -2968,6 +2981,7 @@ func (s *SplunkAuthenticationNoneCollectRequestParam) GetValue() string {
 }
 
 type SplunkAuthenticationNoneCollectRequestHeader struct {
+	// Header Name
 	Name string `json:"name"`
 	// JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
 	Value string `json:"value"`
@@ -3362,7 +3376,8 @@ type SplunkAuthenticationNone struct {
 	Password *string `json:"password,omitzero"`
 	// Select or create a stored secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
-	Token             *string `json:"token,omitzero"`
+	// Bearer token
+	Token *string `json:"token,omitzero"`
 	// Select or create a stored secret that references your Bearer token
 	TokenSecret *string `json:"tokenSecret,omitzero"`
 	// URL to use for login API call. This call is expected to be a POST.

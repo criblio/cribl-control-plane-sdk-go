@@ -9,6 +9,9 @@ import (
 
 // HealthServerStatusError - Health status of the Leader or Worker Node.
 type HealthServerStatusError struct {
+	// Whether this node is currently the captain (job scheduling coordinator) in a Collectors HA deployment.
+	IsCaptain *bool                          `json:"isCaptain,omitzero"`
+	Overlay   components.HealthOverlayStatus `json:"overlay"`
 	// Leader Node role: <code>primary</code> or <code>standby</code>.
 	Role *components.Role `json:"role,omitzero"`
 	// Timestamp (in Unix time) when the Cribl process started.

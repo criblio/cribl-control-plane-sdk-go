@@ -377,6 +377,12 @@ createInputRequest := operations.CreateCreateInputRequestNetflow(operations.Crea
 createInputRequest := operations.CreateCreateInputRequestSecurityLake(operations.CreateInputInputSecurityLake{/* values here */})
 ```
 
+### CreateInputInputBedrockS3
+
+```go
+createInputRequest := operations.CreateCreateInputRequestBedrockS3(operations.CreateInputInputBedrockS3{/* values here */})
+```
+
 ### CreateInputInputServicenowTable
 
 ```go
@@ -393,6 +399,18 @@ createInputRequest := operations.CreateCreateInputRequestZscalerHec(operations.C
 
 ```go
 createInputRequest := operations.CreateCreateInputRequestCloudflareHec(operations.CreateInputInputCloudflareHec{/* values here */})
+```
+
+### CreateInputInputSysdigHec
+
+```go
+createInputRequest := operations.CreateCreateInputRequestSysdigHec(operations.CreateInputInputSysdigHec{/* values here */})
+```
+
+### CreateInputInputUpwindHec
+
+```go
+createInputRequest := operations.CreateCreateInputRequestUpwindHec(operations.CreateInputInputUpwindHec{/* values here */})
 ```
 
 ### CreateInputInputOpenaiComplianceLogs
@@ -543,12 +561,18 @@ switch createInputRequest.Type {
 		// createInputRequest.CreateInputInputNetflow is populated
 	case operations.CreateInputRequestTypeSecurityLake:
 		// createInputRequest.CreateInputInputSecurityLake is populated
+	case operations.CreateInputRequestTypeBedrockS3:
+		// createInputRequest.CreateInputInputBedrockS3 is populated
 	case operations.CreateInputRequestTypeServicenowTable:
 		// createInputRequest.CreateInputInputServicenowTable is populated
 	case operations.CreateInputRequestTypeZscalerHec:
 		// createInputRequest.CreateInputInputZscalerHec is populated
 	case operations.CreateInputRequestTypeCloudflareHec:
 		// createInputRequest.CreateInputInputCloudflareHec is populated
+	case operations.CreateInputRequestTypeSysdigHec:
+		// createInputRequest.CreateInputInputSysdigHec is populated
+	case operations.CreateInputRequestTypeUpwindHec:
+		// createInputRequest.CreateInputInputUpwindHec is populated
 	case operations.CreateInputRequestTypeOpenaiComplianceLogs:
 		// createInputRequest.CreateInputInputOpenaiComplianceLogs is populated
 	case operations.CreateInputRequestTypeAnthropicCompliance:

@@ -48,7 +48,7 @@ func (g *GetOutputStatusSystemOutputsByPackAndIDRequest) GetPack() string {
 
 type GetOutputStatusSystemOutputsByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// Destination status object
+	// The requested Destination status object in a single-item list.
 	CountedOutputStatus *components.CountedOutputStatus
 }
 

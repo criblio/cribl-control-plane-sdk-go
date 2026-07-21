@@ -30,7 +30,7 @@ func (c *CreateOutputTestByIDRequest) GetOutputTestRequest() components.OutputTe
 
 type CreateOutputTestByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// Destination test result
+	// Destination test result.
 	CountedOutputTestResponse *components.CountedOutputTestResponse
 }
 

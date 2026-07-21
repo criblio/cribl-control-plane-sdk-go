@@ -8,8 +8,10 @@ import (
 
 type AuthTokenConfOutputCriblHTTP struct {
 	// Select or create a stored text secret
-	TokenSecret string  `json:"tokenSecret"`
-	Enabled     *bool   `json:"enabled,omitzero"`
+	TokenSecret string `json:"tokenSecret"`
+	// Enable token
+	Enabled *bool `json:"enabled,omitzero"`
+	// Description
 	Description *string `json:"description,omitzero"`
 }
 

@@ -15,7 +15,7 @@ Actions related to Packs
 
 ## Install
 
-Install a Pack.<br><br> To install an uploaded Pack, provide the <code>source</code> value from the <code>PUT /packs</code> response as the <code>source</code> parameter in the request body.<br><br> To install a Pack by importing from a URL, provide the direct URL location of the <code>.crbl</code> file for the Pack as the <code>source</code> parameter in the request body.<br><br> To install a Pack by importing from a Git repository, provide <code>git+<repo-url></code> as the <code>source</code> parameter in the request body.<br><br> If you do not include the <code>source</code> parameter in the request body, an empty Pack is created.
+Install a Pack.<br/><br/>To install an uploaded Pack, provide the <code>source</code> value from the <code>PUT /packs</code> response as the <code>source</code> parameter in the request body.<br/><br/>To install a Pack by importing from a URL, provide the direct URL location of the <code>.crbl</code> file for the Pack as the <code>source</code> parameter in the request body.<br/><br/>To install a Pack by importing from a Git repository, provide <code>git+&lt;repo-url&gt;</code> as the <code>source</code> parameter in the request body.<br/><br/>If you do not include the <code>source</code> parameter in the request body, an empty Pack is created.
 
 ### Example Usage: PackInstallExamplesEmptyPack
 
@@ -51,7 +51,7 @@ func main() {
             Author: criblcontrolplanesdkgo.Pointer("<value>"),
             Description: criblcontrolplanesdkgo.Pointer("crowded that truly sideboard ample yahoo gracious enraged"),
             Source: criblcontrolplanesdkgo.Pointer("<value>"),
-            Tags: &components.TagsTypePackInstallInfo{
+            Tags: &components.Tags1{
                 DataType: []string{
                     "double",
                     "boolean",
@@ -60,13 +60,13 @@ func main() {
                     "delectable-transom.com",
                     "radiant-sightseeing.info",
                 },
+                Technology: []string{
+                    "<value 1>",
+                },
                 Streamtags: []string{
                     "<value 1>",
                     "<value 2>",
                     "<value 3>",
-                },
-                Technology: []string{
-                    "<value 1>",
                 },
             },
             AllowCustomFunctions: criblcontrolplanesdkgo.Pointer(false),
@@ -235,33 +235,9 @@ func main() {
     }
 }
 ```
+### Example Usage: PackInstallResponseExamplesInstalledFromURL
 
-### Parameters
-
-| Parameter                                                                          | Type                                                                               | Required                                                                           | Description                                                                        |
-| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| `ctx`                                                                              | [context.Context](https://pkg.go.dev/context#Context)                              | :heavy_check_mark:                                                                 | The context to use for the request.                                                |
-| `request`                                                                          | [components.PackRequestBodyUnion](../../models/components/packrequestbodyunion.md) | :heavy_check_mark:                                                                 | The request object to use for the request.                                         |
-| `opts`                                                                             | [][operations.Option](../../models/operations/option.md)                           | :heavy_minus_sign:                                                                 | The options for this request.                                                      |
-
-### Response
-
-**[*operations.CreatePacksResponse](../../models/operations/createpacksresponse.md), error**
-
-### Errors
-
-| Error Type         | Status Code        | Content Type       |
-| ------------------ | ------------------ | ------------------ |
-| apierrors.Error    | 500                | application/json   |
-| apierrors.APIError | 4XX, 5XX           | \*/\*              |
-
-## List
-
-Get a list of all Packs.
-
-### Example Usage
-
-<!-- UsageSnippet language="go" operationID="getPacks" method="get" path="/packs" -->
+<!-- UsageSnippet language="go" operationID="createPacks" method="post" path="/packs" example="PackInstallResponseExamplesInstalledFromURL" -->
 ```go
 package main
 
@@ -283,11 +259,26 @@ func main() {
         }),
     )
 
-    res, err := s.Packs.List(ctx, criblcontrolplanesdkgo.Pointer("<value>"))
+    res, err := s.Packs.Install(ctx, components.CreatePackRequestBodyUnionPackRequestBody2(
+        components.PackRequestBody2{
+            Version: criblcontrolplanesdkgo.Pointer("1.0.0"),
+            Source: "<value>",
+            Tags: &components.Tags2{
+                Domain: []string{
+                    "security",
+                    "observability",
+                },
+                Technology: []string{
+                    "aws",
+                    "splunk",
+                },
+            },
+        },
+    ))
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedPackInfo != nil {
+    if res.CountedPackInstallInfo != nil {
         // handle response
     }
 }
@@ -295,11 +286,83 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                     | Type                                                                                                                                                                                                                          | Required                                                                                                                                                                                                                      | Description                                                                                                                                                                                                                   |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ctx`                                                                                                                                                                                                                         | [context.Context](https://pkg.go.dev/context#Context)                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                            | The context to use for the request.                                                                                                                                                                                           |
-| `with`                                                                                                                                                                                                                        | `*string`                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                            | Comma-separated list of additional properties to include in the response. When set, the response includes a count of the specified properties in the Pack. Available values are <code>inputs</code> and <code>outputs</code>. |
-| `opts`                                                                                                                                                                                                                        | [][operations.Option](../../models/operations/option.md)                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                            | The options for this request.                                                                                                                                                                                                 |
+| Parameter                                                                          | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `ctx`                                                                              | [context.Context](https://pkg.go.dev/context#Context)                              | :heavy_check_mark:                                                                 | The context to use for the request.                                                |
+| `request`                                                                          | [components.PackRequestBodyUnion](../../models/components/packrequestbodyunion.md) | :heavy_check_mark:                                                                 | The request object to use for the request.                                         |
+| `opts`                                                                             | [][operations.Option](../../models/operations/option.md)                           | :heavy_minus_sign:                                                                 | The options for this request.                                                      |
+
+### Response
+
+**[*operations.CreatePacksResponse](../../models/operations/createpacksresponse.md), error**
+
+### Errors
+
+| Error Type         | Status Code        | Content Type       |
+| ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
+| apierrors.Error    | 500                | application/json   |
+| apierrors.APIError | 4XX, 5XX           | \*/\*              |
+
+## List
+
+Get a list of all Packs.
+
+### Example Usage
+
+<!-- UsageSnippet language="go" operationID="getPacks" method="get" path="/packs" example="PackListResponseExamplesPackList" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.List(ctx, nil, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.PaginatedPackInfo != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                             | Required                                                                                                                                                                                                                                         | Description                                                                                                                                                                                                                                      |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ctx`                                                                                                                                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                                               | The context to use for the request.                                                                                                                                                                                                              |
+| `with`                                                                                                                                                                                                                                           | `*string`                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                               | Comma-separated list of additional properties to include in the response. When set, the response includes a count of each specified property in each Pack. Supported values: <code>inputs</code>, <code>outputs</code>, <code>collectors</code>. |
+| `offset`                                                                                                                                                                                                                                         | `*int64`                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                               | Pagination offset                                                                                                                                                                                                                                |
+| `limit`                                                                                                                                                                                                                                          | `*int64`                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                               | Maximum number of items to return                                                                                                                                                                                                                |
+| `opts`                                                                                                                                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                               | The options for this request.                                                                                                                                                                                                                    |
 
 ### Response
 
@@ -309,6 +372,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -318,7 +382,7 @@ Upload a Pack file. Returns the <code>source</code> ID needed to install the Pac
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="updatePacks" method="put" path="/packs" -->
+<!-- UsageSnippet language="go" operationID="updatePacks" method="put" path="/packs" example="PackUploadResponseExamplesUploadedPack" -->
 ```go
 package main
 
@@ -372,6 +436,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -379,9 +444,42 @@ func main() {
 
 Get the specified Pack.
 
-### Example Usage
+### Example Usage: PackGetResponseExamplesEmptyPack
 
-<!-- UsageSnippet language="go" operationID="getPacksById" method="get" path="/packs/{id}" -->
+<!-- UsageSnippet language="go" operationID="getPacksById" method="get" path="/packs/{id}" example="PackGetResponseExamplesEmptyPack" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPackInfo != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: PackGetResponseExamplesInstalledPack
+
+<!-- UsageSnippet language="go" operationID="getPacksById" method="get" path="/packs/{id}" example="PackGetResponseExamplesInstalledPack" -->
 ```go
 package main
 
@@ -415,11 +513,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack to get.                  |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                                     | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                         | [context.Context](https://pkg.go.dev/context#Context)                                         | :heavy_check_mark:                                                                            | The context to use for the request.                                                           |
+| `id`                                                                                          | `string`                                                                                      | :heavy_check_mark:                                                                            | The <code>id</code> of the Pack to get. Use the <code>id</code> field from the list response. |
+| `opts`                                                                                        | [][operations.Option](../../models/operations/option.md)                                      | :heavy_minus_sign:                                                                            | The options for this request.                                                                 |
 
 ### Response
 
@@ -429,6 +527,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -436,7 +535,7 @@ func main() {
 
 Upgrade the specified Pack.<br/><br/>If the Pack includes any user-modified versions of default Cribl Knowledge resources such as lookups, copy the modified files locally for safekeeping before upgrading the Pack. Copy the modified files back to the upgraded Pack after you install it with <code>POST /packs</code> to overwrite the default versions in the Pack.<br/><br/>After you upgrade the Pack, update any Routes, Pipelines, Sources, and Destinations that use the previous Pack version so that they reference the upgraded Pack.
 
-### Example Usage
+### Example Usage: PackUpgradeExamplesUpgradeFromURL
 
 <!-- UsageSnippet language="go" operationID="updatePacksById" method="patch" path="/packs/{id}" example="PackUpgradeExamplesUpgradeFromURL" -->
 ```go
@@ -471,15 +570,50 @@ func main() {
     }
 }
 ```
+### Example Usage: PackUpgradeResponseExamplesUpgraded
+
+<!-- UsageSnippet language="go" operationID="updatePacksById" method="patch" path="/packs/{id}" example="PackUpgradeResponseExamplesUpgraded" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Update(ctx, "<id>", components.PackUpgradeRequest{
+        Source: "<value>",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedPackInfo != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
-| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
-| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| `ctx`                                                                          | [context.Context](https://pkg.go.dev/context#Context)                          | :heavy_check_mark:                                                             | The context to use for the request.                                            |
-| `id`                                                                           | `string`                                                                       | :heavy_check_mark:                                                             | The <code>id</code> of the Pack to upgrade.                                    |
-| `packUpgradeRequest`                                                           | [components.PackUpgradeRequest](../../models/components/packupgraderequest.md) | :heavy_check_mark:                                                             | PackUpgradeRequest object.                                                     |
-| `opts`                                                                         | [][operations.Option](../../models/operations/option.md)                       | :heavy_minus_sign:                                                             | The options for this request.                                                  |
+| Parameter                                                                                         | Type                                                                                              | Required                                                                                          | Description                                                                                       |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                             | [context.Context](https://pkg.go.dev/context#Context)                                             | :heavy_check_mark:                                                                                | The context to use for the request.                                                               |
+| `id`                                                                                              | `string`                                                                                          | :heavy_check_mark:                                                                                | The <code>id</code> of the Pack to upgrade. Use the <code>id</code> field from the list response. |
+| `packUpgradeRequest`                                                                              | [components.PackUpgradeRequest](../../models/components/packupgraderequest.md)                    | :heavy_check_mark:                                                                                | PackUpgradeRequest object.                                                                        |
+| `opts`                                                                                            | [][operations.Option](../../models/operations/option.md)                                          | :heavy_minus_sign:                                                                                | The options for this request.                                                                     |
 
 ### Response
 
@@ -489,6 +623,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -498,7 +633,7 @@ Uninstall the specified Pack.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="deletePacksById" method="delete" path="/packs/{id}" -->
+<!-- UsageSnippet language="go" operationID="deletePacksById" method="delete" path="/packs/{id}" example="PackDeleteResponseExamplesUninstalled" -->
 ```go
 package main
 
@@ -532,11 +667,11 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `id`                                                     | `string`                                                 | :heavy_check_mark:                                       | The <code>id</code> of the Pack to uninstall.            |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         |
+| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                               | [context.Context](https://pkg.go.dev/context#Context)                                               | :heavy_check_mark:                                                                                  | The context to use for the request.                                                                 |
+| `id`                                                                                                | `string`                                                                                            | :heavy_check_mark:                                                                                  | The <code>id</code> of the Pack to uninstall. Use the <code>id</code> field from the list response. |
+| `opts`                                                                                              | [][operations.Option](../../models/operations/option.md)                                            | :heavy_minus_sign:                                                                                  | The options for this request.                                                                       |
 
 ### Response
 
@@ -546,5 +681,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

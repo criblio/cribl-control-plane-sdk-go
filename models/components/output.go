@@ -12,165 +12,177 @@ import (
 type OutputType string
 
 const (
-	OutputTypeDefault                OutputType = "default"
-	OutputTypeWebhook                OutputType = "webhook"
-	OutputTypeSentinel               OutputType = "sentinel"
-	OutputTypeDevnull                OutputType = "devnull"
-	OutputTypeSyslog                 OutputType = "syslog"
-	OutputTypeSplunk                 OutputType = "splunk"
-	OutputTypeSplunkLb               OutputType = "splunk_lb"
-	OutputTypeSplunkHec              OutputType = "splunk_hec"
-	OutputTypeWizHec                 OutputType = "wiz_hec"
-	OutputTypeTcpjson                OutputType = "tcpjson"
-	OutputTypeWavefront              OutputType = "wavefront"
-	OutputTypeSignalfx               OutputType = "signalfx"
-	OutputTypeFilesystem             OutputType = "filesystem"
-	OutputTypeS3                     OutputType = "s3"
-	OutputTypeAzureBlob              OutputType = "azure_blob"
-	OutputTypeAzureDataExplorer      OutputType = "azure_data_explorer"
-	OutputTypeAzureLogs              OutputType = "azure_logs"
-	OutputTypeKinesis                OutputType = "kinesis"
-	OutputTypeHoneycomb              OutputType = "honeycomb"
-	OutputTypeAzureEventhub          OutputType = "azure_eventhub"
-	OutputTypeGoogleChronicle        OutputType = "google_chronicle"
-	OutputTypeGoogleCloudStorage     OutputType = "google_cloud_storage"
-	OutputTypeGoogleCloudLogging     OutputType = "google_cloud_logging"
-	OutputTypeGooglePubsub           OutputType = "google_pubsub"
-	OutputTypeExabeam                OutputType = "exabeam"
-	OutputTypeKafka                  OutputType = "kafka"
-	OutputTypeConfluentCloud         OutputType = "confluent_cloud"
-	OutputTypeMsk                    OutputType = "msk"
-	OutputTypeElastic                OutputType = "elastic"
-	OutputTypeElasticCloud           OutputType = "elastic_cloud"
-	OutputTypeNewrelic               OutputType = "newrelic"
-	OutputTypeNewrelicEvents         OutputType = "newrelic_events"
-	OutputTypeInfluxdb               OutputType = "influxdb"
-	OutputTypeCloudwatch             OutputType = "cloudwatch"
-	OutputTypeMinio                  OutputType = "minio"
-	OutputTypeStatsd                 OutputType = "statsd"
-	OutputTypeStatsdExt              OutputType = "statsd_ext"
-	OutputTypeGraphite               OutputType = "graphite"
-	OutputTypeRouter                 OutputType = "router"
-	OutputTypeSns                    OutputType = "sns"
-	OutputTypeSqs                    OutputType = "sqs"
-	OutputTypeSnmp                   OutputType = "snmp"
-	OutputTypeSumoLogic              OutputType = "sumo_logic"
-	OutputTypeDatadog                OutputType = "datadog"
-	OutputTypeGrafanaCloud           OutputType = "grafana_cloud"
-	OutputTypeLoki                   OutputType = "loki"
-	OutputTypePrometheus             OutputType = "prometheus"
-	OutputTypeRing                   OutputType = "ring"
-	OutputTypeOpenTelemetry          OutputType = "open_telemetry"
-	OutputTypeServiceNow             OutputType = "service_now"
-	OutputTypeDataset                OutputType = "dataset"
-	OutputTypeCriblTCP               OutputType = "cribl_tcp"
-	OutputTypeCriblHTTP              OutputType = "cribl_http"
-	OutputTypeCriblSearchEngine      OutputType = "cribl_search_engine"
-	OutputTypeHumioHec               OutputType = "humio_hec"
-	OutputTypeCrowdstrikeNextGenSiem OutputType = "crowdstrike_next_gen_siem"
-	OutputTypeDlS3                   OutputType = "dl_s3"
-	OutputTypeSecurityLake           OutputType = "security_lake"
-	OutputTypeCriblLake              OutputType = "cribl_lake"
-	OutputTypeDiskSpool              OutputType = "disk_spool"
-	OutputTypeClickHouse             OutputType = "click_house"
-	OutputTypeLocalSearchStorage     OutputType = "local_search_storage"
-	OutputTypeXsiam                  OutputType = "xsiam"
-	OutputTypeNetflow                OutputType = "netflow"
-	OutputTypeDynatraceHTTP          OutputType = "dynatrace_http"
-	OutputTypeDynatraceOtlp          OutputType = "dynatrace_otlp"
-	OutputTypeSentinelOneAiSiem      OutputType = "sentinel_one_ai_siem"
-	OutputTypeChronicle              OutputType = "chronicle"
-	OutputTypeDatabricks             OutputType = "databricks"
-	OutputTypeMicrosoftFabric        OutputType = "microsoft_fabric"
-	OutputTypeCloudflareR2           OutputType = "cloudflare_r2"
-	OutputTypeNutanixObjects         OutputType = "nutanix_objects"
-	OutputTypeStorjS3                OutputType = "storj_s3"
-	OutputTypeAlphasocS3             OutputType = "alphasoc_s3"
-	OutputTypeDellS3                 OutputType = "dell_s3"
-	OutputTypeCloudianS3             OutputType = "cloudian_s3"
-	OutputTypeScalityS3              OutputType = "scality_s3"
-	OutputTypeAlibabaCloudS3         OutputType = "alibaba_cloud_s3"
+	OutputTypeDefault                  OutputType = "default"
+	OutputTypeWebhook                  OutputType = "webhook"
+	OutputTypeSentinel                 OutputType = "sentinel"
+	OutputTypeDevnull                  OutputType = "devnull"
+	OutputTypeSyslog                   OutputType = "syslog"
+	OutputTypeSplunk                   OutputType = "splunk"
+	OutputTypeSplunkLb                 OutputType = "splunk_lb"
+	OutputTypeSplunkHec                OutputType = "splunk_hec"
+	OutputTypeWizHec                   OutputType = "wiz_hec"
+	OutputTypeTcpjson                  OutputType = "tcpjson"
+	OutputTypeWavefront                OutputType = "wavefront"
+	OutputTypeSignalfx                 OutputType = "signalfx"
+	OutputTypeFilesystem               OutputType = "filesystem"
+	OutputTypeS3                       OutputType = "s3"
+	OutputTypeAzureBlob                OutputType = "azure_blob"
+	OutputTypeAzureDataExplorer        OutputType = "azure_data_explorer"
+	OutputTypeAzureLogs                OutputType = "azure_logs"
+	OutputTypeKinesis                  OutputType = "kinesis"
+	OutputTypeHoneycomb                OutputType = "honeycomb"
+	OutputTypeAzureEventhub            OutputType = "azure_eventhub"
+	OutputTypeGoogleBigquery           OutputType = "google_bigquery"
+	OutputTypeGoogleChronicle          OutputType = "google_chronicle"
+	OutputTypeGoogleCloudStorage       OutputType = "google_cloud_storage"
+	OutputTypeGoogleCloudLogging       OutputType = "google_cloud_logging"
+	OutputTypeGoogleCloudObservability OutputType = "google_cloud_observability"
+	OutputTypeGooglePubsub             OutputType = "google_pubsub"
+	OutputTypeExabeam                  OutputType = "exabeam"
+	OutputTypeKafka                    OutputType = "kafka"
+	OutputTypeConfluentCloud           OutputType = "confluent_cloud"
+	OutputTypeMsk                      OutputType = "msk"
+	OutputTypeElastic                  OutputType = "elastic"
+	OutputTypeElasticCloud             OutputType = "elastic_cloud"
+	OutputTypeNewrelic                 OutputType = "newrelic"
+	OutputTypeNewrelicEvents           OutputType = "newrelic_events"
+	OutputTypeInfluxdb                 OutputType = "influxdb"
+	OutputTypeCloudwatch               OutputType = "cloudwatch"
+	OutputTypeMinio                    OutputType = "minio"
+	OutputTypeStatsd                   OutputType = "statsd"
+	OutputTypeStatsdExt                OutputType = "statsd_ext"
+	OutputTypeGraphite                 OutputType = "graphite"
+	OutputTypeRouter                   OutputType = "router"
+	OutputTypeSns                      OutputType = "sns"
+	OutputTypeSqs                      OutputType = "sqs"
+	OutputTypeSnmp                     OutputType = "snmp"
+	OutputTypeSumoLogic                OutputType = "sumo_logic"
+	OutputTypeDatadog                  OutputType = "datadog"
+	OutputTypeGrafanaCloud             OutputType = "grafana_cloud"
+	OutputTypeLoki                     OutputType = "loki"
+	OutputTypeAmazonManagedPrometheus  OutputType = "amazon_managed_prometheus"
+	OutputTypePrometheus               OutputType = "prometheus"
+	OutputTypeRing                     OutputType = "ring"
+	OutputTypeOpenTelemetry            OutputType = "open_telemetry"
+	OutputTypeServiceNow               OutputType = "service_now"
+	OutputTypeDataset                  OutputType = "dataset"
+	OutputTypeCriblTCP                 OutputType = "cribl_tcp"
+	OutputTypeCriblHTTP                OutputType = "cribl_http"
+	OutputTypeCriblSearchEngine        OutputType = "cribl_search_engine"
+	OutputTypeHumioHec                 OutputType = "humio_hec"
+	OutputTypeCrowdstrikeNextGenSiem   OutputType = "crowdstrike_next_gen_siem"
+	OutputTypeDlS3                     OutputType = "dl_s3"
+	OutputTypeSecurityLake             OutputType = "security_lake"
+	OutputTypeCriblLake                OutputType = "cribl_lake"
+	OutputTypeDiskSpool                OutputType = "disk_spool"
+	OutputTypeClickHouse               OutputType = "click_house"
+	OutputTypeCustomerMetricsStorage   OutputType = "customer_metrics_storage"
+	OutputTypeLocalSearchStorage       OutputType = "local_search_storage"
+	OutputTypeXsiam                    OutputType = "xsiam"
+	OutputTypeNetflow                  OutputType = "netflow"
+	OutputTypeDynatraceHTTP            OutputType = "dynatrace_http"
+	OutputTypeDynatraceOtlp            OutputType = "dynatrace_otlp"
+	OutputTypeSentinelOneAiSiem        OutputType = "sentinel_one_ai_siem"
+	OutputTypeChronicle                OutputType = "chronicle"
+	OutputTypeDatabricks               OutputType = "databricks"
+	OutputTypeSnowflakeStreaming       OutputType = "snowflake_streaming"
+	OutputTypeMicrosoftFabric          OutputType = "microsoft_fabric"
+	OutputTypeCloudflareR2             OutputType = "cloudflare_r2"
+	OutputTypeNutanixObjects           OutputType = "nutanix_objects"
+	OutputTypeStorjS3                  OutputType = "storj_s3"
+	OutputTypeAlphasocS3               OutputType = "alphasoc_s3"
+	OutputTypeDellS3                   OutputType = "dell_s3"
+	OutputTypeCloudianS3               OutputType = "cloudian_s3"
+	OutputTypeScalityS3                OutputType = "scality_s3"
+	OutputTypeAlibabaCloudS3           OutputType = "alibaba_cloud_s3"
+	OutputTypeIbmCloudS3               OutputType = "ibm_cloud_s3"
 )
 
 type Output struct {
-	OutputDefault                *OutputDefault                `queryParam:"inline" union:"member"`
-	OutputWebhook                *OutputWebhook                `queryParam:"inline" union:"member"`
-	OutputSentinel               *OutputSentinel               `queryParam:"inline" union:"member"`
-	OutputDevnull                *OutputDevnull                `queryParam:"inline" union:"member"`
-	OutputSyslog                 *OutputSyslog                 `queryParam:"inline" union:"member"`
-	OutputSplunk                 *OutputSplunk                 `queryParam:"inline" union:"member"`
-	OutputSplunkLb               *OutputSplunkLb               `queryParam:"inline" union:"member"`
-	OutputSplunkHec              *OutputSplunkHec              `queryParam:"inline" union:"member"`
-	OutputWizHec                 *OutputWizHec                 `queryParam:"inline" union:"member"`
-	OutputTcpjson                *OutputTcpjson                `queryParam:"inline" union:"member"`
-	OutputWavefront              *OutputWavefront              `queryParam:"inline" union:"member"`
-	OutputSignalfx               *OutputSignalfx               `queryParam:"inline" union:"member"`
-	OutputFilesystem             *OutputFilesystem             `queryParam:"inline" union:"member"`
-	OutputS3                     *OutputS3                     `queryParam:"inline" union:"member"`
-	OutputAzureBlob              *OutputAzureBlob              `queryParam:"inline" union:"member"`
-	OutputAzureDataExplorer      *OutputAzureDataExplorer      `queryParam:"inline" union:"member"`
-	OutputAzureLogs              *OutputAzureLogs              `queryParam:"inline" union:"member"`
-	OutputKinesis                *OutputKinesis                `queryParam:"inline" union:"member"`
-	OutputHoneycomb              *OutputHoneycomb              `queryParam:"inline" union:"member"`
-	OutputAzureEventhub          *OutputAzureEventhub          `queryParam:"inline" union:"member"`
-	OutputGoogleChronicle        *OutputGoogleChronicle        `queryParam:"inline" union:"member"`
-	OutputGoogleCloudStorage     *OutputGoogleCloudStorage     `queryParam:"inline" union:"member"`
-	OutputGoogleCloudLogging     *OutputGoogleCloudLogging     `queryParam:"inline" union:"member"`
-	OutputGooglePubsub           *OutputGooglePubsub           `queryParam:"inline" union:"member"`
-	OutputExabeam                *OutputExabeam                `queryParam:"inline" union:"member"`
-	OutputKafka                  *OutputKafka                  `queryParam:"inline" union:"member"`
-	OutputConfluentCloud         *OutputConfluentCloud         `queryParam:"inline" union:"member"`
-	OutputMsk                    *OutputMsk                    `queryParam:"inline" union:"member"`
-	OutputElastic                *OutputElastic                `queryParam:"inline" union:"member"`
-	OutputElasticCloud           *OutputElasticCloud           `queryParam:"inline" union:"member"`
-	OutputNewrelic               *OutputNewrelic               `queryParam:"inline" union:"member"`
-	OutputNewrelicEvents         *OutputNewrelicEvents         `queryParam:"inline" union:"member"`
-	OutputInfluxdb               *OutputInfluxdb               `queryParam:"inline" union:"member"`
-	OutputCloudwatch             *OutputCloudwatch             `queryParam:"inline" union:"member"`
-	OutputMinio                  *OutputMinio                  `queryParam:"inline" union:"member"`
-	OutputStatsd                 *OutputStatsd                 `queryParam:"inline" union:"member"`
-	OutputStatsdExt              *OutputStatsdExt              `queryParam:"inline" union:"member"`
-	OutputGraphite               *OutputGraphite               `queryParam:"inline" union:"member"`
-	OutputRouter                 *OutputRouter                 `queryParam:"inline" union:"member"`
-	OutputSns                    *OutputSns                    `queryParam:"inline" union:"member"`
-	OutputSqs                    *OutputSqs                    `queryParam:"inline" union:"member"`
-	OutputSnmp                   *OutputSnmp                   `queryParam:"inline" union:"member"`
-	OutputSumoLogic              *OutputSumoLogic              `queryParam:"inline" union:"member"`
-	OutputDatadog                *OutputDatadog                `queryParam:"inline" union:"member"`
-	OutputGrafanaCloud           *OutputGrafanaCloud           `queryParam:"inline" union:"member"`
-	OutputLoki                   *OutputLoki                   `queryParam:"inline" union:"member"`
-	OutputPrometheus             *OutputPrometheus             `queryParam:"inline" union:"member"`
-	OutputRing                   *OutputRing                   `queryParam:"inline" union:"member"`
-	OutputOpenTelemetry          *OutputOpenTelemetry          `queryParam:"inline" union:"member"`
-	OutputServiceNow             *OutputServiceNow             `queryParam:"inline" union:"member"`
-	OutputDataset                *OutputDataset                `queryParam:"inline" union:"member"`
-	OutputCriblTCP               *OutputCriblTCP               `queryParam:"inline" union:"member"`
-	OutputCriblHTTP              *OutputCriblHTTP              `queryParam:"inline" union:"member"`
-	OutputCriblSearchEngine      *OutputCriblSearchEngine      `queryParam:"inline" union:"member"`
-	OutputHumioHec               *OutputHumioHec               `queryParam:"inline" union:"member"`
-	OutputCrowdstrikeNextGenSiem *OutputCrowdstrikeNextGenSiem `queryParam:"inline" union:"member"`
-	OutputDlS3                   *OutputDlS3                   `queryParam:"inline" union:"member"`
-	OutputSecurityLake           *OutputSecurityLake           `queryParam:"inline" union:"member"`
-	OutputCriblLake              *OutputCriblLake              `queryParam:"inline" union:"member"`
-	OutputDiskSpool              *OutputDiskSpool              `queryParam:"inline" union:"member"`
-	OutputClickHouse             *OutputClickHouse             `queryParam:"inline" union:"member"`
-	OutputLocalSearchStorage     *OutputLocalSearchStorage     `queryParam:"inline" union:"member"`
-	OutputXsiam                  *OutputXsiam                  `queryParam:"inline" union:"member"`
-	OutputNetflow                *OutputNetflow                `queryParam:"inline" union:"member"`
-	OutputDynatraceHTTP          *OutputDynatraceHTTP          `queryParam:"inline" union:"member"`
-	OutputDynatraceOtlp          *OutputDynatraceOtlp          `queryParam:"inline" union:"member"`
-	OutputSentinelOneAiSiem      *OutputSentinelOneAiSiem      `queryParam:"inline" union:"member"`
-	OutputChronicle              *OutputChronicle              `queryParam:"inline" union:"member"`
-	OutputDatabricks             *OutputDatabricks             `queryParam:"inline" union:"member"`
-	OutputMicrosoftFabric        *OutputMicrosoftFabric        `queryParam:"inline" union:"member"`
-	OutputCloudflareR2           *OutputCloudflareR2           `queryParam:"inline" union:"member"`
-	OutputNutanixObjects         *OutputNutanixObjects         `queryParam:"inline" union:"member"`
-	OutputStorjS3                *OutputStorjS3                `queryParam:"inline" union:"member"`
-	OutputAlphasocS3             *OutputAlphasocS3             `queryParam:"inline" union:"member"`
-	OutputDellS3                 *OutputDellS3                 `queryParam:"inline" union:"member"`
-	OutputCloudianS3             *OutputCloudianS3             `queryParam:"inline" union:"member"`
-	OutputScalityS3              *OutputScalityS3              `queryParam:"inline" union:"member"`
-	OutputAlibabaCloudS3         *OutputAlibabaCloudS3         `queryParam:"inline" union:"member"`
+	OutputDefault                  *OutputDefault                  `queryParam:"inline" union:"member"`
+	OutputWebhook                  *OutputWebhook                  `queryParam:"inline" union:"member"`
+	OutputSentinel                 *OutputSentinel                 `queryParam:"inline" union:"member"`
+	OutputDevnull                  *OutputDevnull                  `queryParam:"inline" union:"member"`
+	OutputSyslog                   *OutputSyslog                   `queryParam:"inline" union:"member"`
+	OutputSplunk                   *OutputSplunk                   `queryParam:"inline" union:"member"`
+	OutputSplunkLb                 *OutputSplunkLb                 `queryParam:"inline" union:"member"`
+	OutputSplunkHec                *OutputSplunkHec                `queryParam:"inline" union:"member"`
+	OutputWizHec                   *OutputWizHec                   `queryParam:"inline" union:"member"`
+	OutputTcpjson                  *OutputTcpjson                  `queryParam:"inline" union:"member"`
+	OutputWavefront                *OutputWavefront                `queryParam:"inline" union:"member"`
+	OutputSignalfx                 *OutputSignalfx                 `queryParam:"inline" union:"member"`
+	OutputFilesystem               *OutputFilesystem               `queryParam:"inline" union:"member"`
+	OutputS3                       *OutputS3                       `queryParam:"inline" union:"member"`
+	OutputAzureBlob                *OutputAzureBlob                `queryParam:"inline" union:"member"`
+	OutputAzureDataExplorer        *OutputAzureDataExplorer        `queryParam:"inline" union:"member"`
+	OutputAzureLogs                *OutputAzureLogs                `queryParam:"inline" union:"member"`
+	OutputKinesis                  *OutputKinesis                  `queryParam:"inline" union:"member"`
+	OutputHoneycomb                *OutputHoneycomb                `queryParam:"inline" union:"member"`
+	OutputAzureEventhub            *OutputAzureEventhub            `queryParam:"inline" union:"member"`
+	OutputGoogleBigquery           *OutputGoogleBigquery           `queryParam:"inline" union:"member"`
+	OutputGoogleChronicle          *OutputGoogleChronicle          `queryParam:"inline" union:"member"`
+	OutputGoogleCloudStorage       *OutputGoogleCloudStorage       `queryParam:"inline" union:"member"`
+	OutputGoogleCloudLogging       *OutputGoogleCloudLogging       `queryParam:"inline" union:"member"`
+	OutputGoogleCloudObservability *OutputGoogleCloudObservability `queryParam:"inline" union:"member"`
+	OutputGooglePubsub             *OutputGooglePubsub             `queryParam:"inline" union:"member"`
+	OutputExabeam                  *OutputExabeam                  `queryParam:"inline" union:"member"`
+	OutputKafka                    *OutputKafka                    `queryParam:"inline" union:"member"`
+	OutputConfluentCloud           *OutputConfluentCloud           `queryParam:"inline" union:"member"`
+	OutputMsk                      *OutputMsk                      `queryParam:"inline" union:"member"`
+	OutputElastic                  *OutputElastic                  `queryParam:"inline" union:"member"`
+	OutputElasticCloud             *OutputElasticCloud             `queryParam:"inline" union:"member"`
+	OutputNewrelic                 *OutputNewrelic                 `queryParam:"inline" union:"member"`
+	OutputNewrelicEvents           *OutputNewrelicEvents           `queryParam:"inline" union:"member"`
+	OutputInfluxdb                 *OutputInfluxdb                 `queryParam:"inline" union:"member"`
+	OutputCloudwatch               *OutputCloudwatch               `queryParam:"inline" union:"member"`
+	OutputMinio                    *OutputMinio                    `queryParam:"inline" union:"member"`
+	OutputStatsd                   *OutputStatsd                   `queryParam:"inline" union:"member"`
+	OutputStatsdExt                *OutputStatsdExt                `queryParam:"inline" union:"member"`
+	OutputGraphite                 *OutputGraphite                 `queryParam:"inline" union:"member"`
+	OutputRouter                   *OutputRouter                   `queryParam:"inline" union:"member"`
+	OutputSns                      *OutputSns                      `queryParam:"inline" union:"member"`
+	OutputSqs                      *OutputSqs                      `queryParam:"inline" union:"member"`
+	OutputSnmp                     *OutputSnmp                     `queryParam:"inline" union:"member"`
+	OutputSumoLogic                *OutputSumoLogic                `queryParam:"inline" union:"member"`
+	OutputDatadog                  *OutputDatadog                  `queryParam:"inline" union:"member"`
+	OutputGrafanaCloud             *OutputGrafanaCloud             `queryParam:"inline" union:"member"`
+	OutputLoki                     *OutputLoki                     `queryParam:"inline" union:"member"`
+	OutputAmazonManagedPrometheus  *OutputAmazonManagedPrometheus  `queryParam:"inline" union:"member"`
+	OutputPrometheus               *OutputPrometheus               `queryParam:"inline" union:"member"`
+	OutputRing                     *OutputRing                     `queryParam:"inline" union:"member"`
+	OutputOpenTelemetry            *OutputOpenTelemetry            `queryParam:"inline" union:"member"`
+	OutputServiceNow               *OutputServiceNow               `queryParam:"inline" union:"member"`
+	OutputDataset                  *OutputDataset                  `queryParam:"inline" union:"member"`
+	OutputCriblTCP                 *OutputCriblTCP                 `queryParam:"inline" union:"member"`
+	OutputCriblHTTP                *OutputCriblHTTP                `queryParam:"inline" union:"member"`
+	OutputCriblSearchEngine        *OutputCriblSearchEngine        `queryParam:"inline" union:"member"`
+	OutputHumioHec                 *OutputHumioHec                 `queryParam:"inline" union:"member"`
+	OutputCrowdstrikeNextGenSiem   *OutputCrowdstrikeNextGenSiem   `queryParam:"inline" union:"member"`
+	OutputDlS3                     *OutputDlS3                     `queryParam:"inline" union:"member"`
+	OutputSecurityLake             *OutputSecurityLake             `queryParam:"inline" union:"member"`
+	OutputCriblLake                *OutputCriblLake                `queryParam:"inline" union:"member"`
+	OutputDiskSpool                *OutputDiskSpool                `queryParam:"inline" union:"member"`
+	OutputClickHouse               *OutputClickHouse               `queryParam:"inline" union:"member"`
+	OutputCustomerMetricsStorage   *OutputCustomerMetricsStorage   `queryParam:"inline" union:"member"`
+	OutputLocalSearchStorage       *OutputLocalSearchStorage       `queryParam:"inline" union:"member"`
+	OutputXsiam                    *OutputXsiam                    `queryParam:"inline" union:"member"`
+	OutputNetflow                  *OutputNetflow                  `queryParam:"inline" union:"member"`
+	OutputDynatraceHTTP            *OutputDynatraceHTTP            `queryParam:"inline" union:"member"`
+	OutputDynatraceOtlp            *OutputDynatraceOtlp            `queryParam:"inline" union:"member"`
+	OutputSentinelOneAiSiem        *OutputSentinelOneAiSiem        `queryParam:"inline" union:"member"`
+	OutputChronicle                *OutputChronicle                `queryParam:"inline" union:"member"`
+	OutputDatabricks               *OutputDatabricks               `queryParam:"inline" union:"member"`
+	OutputSnowflakeStreaming       *OutputSnowflakeStreaming       `queryParam:"inline" union:"member"`
+	OutputMicrosoftFabric          *OutputMicrosoftFabric          `queryParam:"inline" union:"member"`
+	OutputCloudflareR2             *OutputCloudflareR2             `queryParam:"inline" union:"member"`
+	OutputNutanixObjects           *OutputNutanixObjects           `queryParam:"inline" union:"member"`
+	OutputStorjS3                  *OutputStorjS3                  `queryParam:"inline" union:"member"`
+	OutputAlphasocS3               *OutputAlphasocS3               `queryParam:"inline" union:"member"`
+	OutputDellS3                   *OutputDellS3                   `queryParam:"inline" union:"member"`
+	OutputCloudianS3               *OutputCloudianS3               `queryParam:"inline" union:"member"`
+	OutputScalityS3                *OutputScalityS3                `queryParam:"inline" union:"member"`
+	OutputAlibabaCloudS3           *OutputAlibabaCloudS3           `queryParam:"inline" union:"member"`
+	OutputIbmCloudS3               *OutputIbmCloudS3               `queryParam:"inline" union:"member"`
 
 	Type OutputType
 }
@@ -223,7 +235,7 @@ func CreateOutputDevnull(devnull OutputDevnull) Output {
 func CreateOutputSyslog(syslog OutputSyslog) Output {
 	typ := OutputTypeSyslog
 
-	typStr := OutputSyslogType(typ)
+	typStr := TypeOptionsSyslog(typ)
 	syslog.Type = typStr
 
 	return Output{
@@ -235,7 +247,7 @@ func CreateOutputSyslog(syslog OutputSyslog) Output {
 func CreateOutputSplunk(splunk OutputSplunk) Output {
 	typ := OutputTypeSplunk
 
-	typStr := OutputSplunkType(typ)
+	typStr := TypeOptionsSplunk(typ)
 	splunk.Type = typStr
 
 	return Output{
@@ -283,7 +295,7 @@ func CreateOutputWizHec(wizHec OutputWizHec) Output {
 func CreateOutputTcpjson(tcpjson OutputTcpjson) Output {
 	typ := OutputTypeTcpjson
 
-	typStr := OutputTcpjsonType(typ)
+	typStr := TypeOptionsTcpjson(typ)
 	tcpjson.Type = typStr
 
 	return Output{
@@ -331,7 +343,7 @@ func CreateOutputFilesystem(filesystem OutputFilesystem) Output {
 func CreateOutputS3(s3 OutputS3) Output {
 	typ := OutputTypeS3
 
-	typStr := OutputS3Type(typ)
+	typStr := TypeOptionsS3(typ)
 	s3.Type = typStr
 
 	return Output{
@@ -343,7 +355,7 @@ func CreateOutputS3(s3 OutputS3) Output {
 func CreateOutputAzureBlob(azureBlob OutputAzureBlob) Output {
 	typ := OutputTypeAzureBlob
 
-	typStr := OutputAzureBlobType(typ)
+	typStr := TypeOptionsAzureblob(typ)
 	azureBlob.Type = typStr
 
 	return Output{
@@ -379,7 +391,7 @@ func CreateOutputAzureLogs(azureLogs OutputAzureLogs) Output {
 func CreateOutputKinesis(kinesis OutputKinesis) Output {
 	typ := OutputTypeKinesis
 
-	typStr := OutputKinesisType(typ)
+	typStr := TypeOptionsKinesis(typ)
 	kinesis.Type = typStr
 
 	return Output{
@@ -409,6 +421,18 @@ func CreateOutputAzureEventhub(azureEventhub OutputAzureEventhub) Output {
 	return Output{
 		OutputAzureEventhub: &azureEventhub,
 		Type:                typ,
+	}
+}
+
+func CreateOutputGoogleBigquery(googleBigquery OutputGoogleBigquery) Output {
+	typ := OutputTypeGoogleBigquery
+
+	typStr := OutputGoogleBigqueryType(typ)
+	googleBigquery.Type = typStr
+
+	return Output{
+		OutputGoogleBigquery: &googleBigquery,
+		Type:                 typ,
 	}
 }
 
@@ -448,10 +472,22 @@ func CreateOutputGoogleCloudLogging(googleCloudLogging OutputGoogleCloudLogging)
 	}
 }
 
+func CreateOutputGoogleCloudObservability(googleCloudObservability OutputGoogleCloudObservability) Output {
+	typ := OutputTypeGoogleCloudObservability
+
+	typStr := OutputGoogleCloudObservabilityType(typ)
+	googleCloudObservability.Type = typStr
+
+	return Output{
+		OutputGoogleCloudObservability: &googleCloudObservability,
+		Type:                           typ,
+	}
+}
+
 func CreateOutputGooglePubsub(googlePubsub OutputGooglePubsub) Output {
 	typ := OutputTypeGooglePubsub
 
-	typStr := OutputGooglePubsubType(typ)
+	typStr := TypeOptionsGooglepubsub(typ)
 	googlePubsub.Type = typStr
 
 	return Output{
@@ -475,7 +511,7 @@ func CreateOutputExabeam(exabeam OutputExabeam) Output {
 func CreateOutputKafka(kafka OutputKafka) Output {
 	typ := OutputTypeKafka
 
-	typStr := OutputKafkaType(typ)
+	typStr := TypeOptions(typ)
 	kafka.Type = typStr
 
 	return Output{
@@ -487,7 +523,7 @@ func CreateOutputKafka(kafka OutputKafka) Output {
 func CreateOutputConfluentCloud(confluentCloud OutputConfluentCloud) Output {
 	typ := OutputTypeConfluentCloud
 
-	typStr := OutputConfluentCloudType(typ)
+	typStr := TypeOptionsConfluentcloud(typ)
 	confluentCloud.Type = typStr
 
 	return Output{
@@ -499,7 +535,7 @@ func CreateOutputConfluentCloud(confluentCloud OutputConfluentCloud) Output {
 func CreateOutputMsk(msk OutputMsk) Output {
 	typ := OutputTypeMsk
 
-	typStr := OutputMskType(typ)
+	typStr := TypeOptionsMsk(typ)
 	msk.Type = typStr
 
 	return Output{
@@ -655,7 +691,7 @@ func CreateOutputSns(sns OutputSns) Output {
 func CreateOutputSqs(sqs OutputSqs) Output {
 	typ := OutputTypeSqs
 
-	typStr := OutputSqsType(typ)
+	typStr := TypeOptionsSqs(typ)
 	sqs.Type = typStr
 
 	return Output{
@@ -667,7 +703,7 @@ func CreateOutputSqs(sqs OutputSqs) Output {
 func CreateOutputSnmp(snmp OutputSnmp) Output {
 	typ := OutputTypeSnmp
 
-	typStr := OutputSnmpType(typ)
+	typStr := TypeOptionsSnmp(typ)
 	snmp.Type = typStr
 
 	return Output{
@@ -721,10 +757,22 @@ func CreateOutputLoki(loki OutputLoki) Output {
 	}
 }
 
+func CreateOutputAmazonManagedPrometheus(amazonManagedPrometheus OutputAmazonManagedPrometheus) Output {
+	typ := OutputTypeAmazonManagedPrometheus
+
+	typStr := OutputAmazonManagedPrometheusType(typ)
+	amazonManagedPrometheus.Type = typStr
+
+	return Output{
+		OutputAmazonManagedPrometheus: &amazonManagedPrometheus,
+		Type:                          typ,
+	}
+}
+
 func CreateOutputPrometheus(prometheus OutputPrometheus) Output {
 	typ := OutputTypePrometheus
 
-	typStr := OutputPrometheusType(typ)
+	typStr := TypeOptionsPrometheus(typ)
 	prometheus.Type = typStr
 
 	return Output{
@@ -784,7 +832,7 @@ func CreateOutputDataset(dataset OutputDataset) Output {
 func CreateOutputCriblTCP(criblTCP OutputCriblTCP) Output {
 	typ := OutputTypeCriblTCP
 
-	typStr := OutputCriblTCPType(typ)
+	typStr := TypeOptionsCribltcp(typ)
 	criblTCP.Type = typStr
 
 	return Output{
@@ -856,7 +904,7 @@ func CreateOutputDlS3(dlS3 OutputDlS3) Output {
 func CreateOutputSecurityLake(securityLake OutputSecurityLake) Output {
 	typ := OutputTypeSecurityLake
 
-	typStr := OutputSecurityLakeType(typ)
+	typStr := TypeOptionsSecuritylake(typ)
 	securityLake.Type = typStr
 
 	return Output{
@@ -901,6 +949,18 @@ func CreateOutputClickHouse(clickHouse OutputClickHouse) Output {
 	}
 }
 
+func CreateOutputCustomerMetricsStorage(customerMetricsStorage OutputCustomerMetricsStorage) Output {
+	typ := OutputTypeCustomerMetricsStorage
+
+	typStr := OutputCustomerMetricsStorageType(typ)
+	customerMetricsStorage.Type = typStr
+
+	return Output{
+		OutputCustomerMetricsStorage: &customerMetricsStorage,
+		Type:                         typ,
+	}
+}
+
 func CreateOutputLocalSearchStorage(localSearchStorage OutputLocalSearchStorage) Output {
 	typ := OutputTypeLocalSearchStorage
 
@@ -928,7 +988,7 @@ func CreateOutputXsiam(xsiam OutputXsiam) Output {
 func CreateOutputNetflow(netflow OutputNetflow) Output {
 	typ := OutputTypeNetflow
 
-	typStr := OutputNetflowType(typ)
+	typStr := TypeOptionsNetflow(typ)
 	netflow.Type = typStr
 
 	return Output{
@@ -994,6 +1054,18 @@ func CreateOutputDatabricks(databricks OutputDatabricks) Output {
 	return Output{
 		OutputDatabricks: &databricks,
 		Type:             typ,
+	}
+}
+
+func CreateOutputSnowflakeStreaming(snowflakeStreaming OutputSnowflakeStreaming) Output {
+	typ := OutputTypeSnowflakeStreaming
+
+	typStr := OutputSnowflakeStreamingType(typ)
+	snowflakeStreaming.Type = typStr
+
+	return Output{
+		OutputSnowflakeStreaming: &snowflakeStreaming,
+		Type:                     typ,
 	}
 }
 
@@ -1102,6 +1174,18 @@ func CreateOutputAlibabaCloudS3(alibabaCloudS3 OutputAlibabaCloudS3) Output {
 	return Output{
 		OutputAlibabaCloudS3: &alibabaCloudS3,
 		Type:                 typ,
+	}
+}
+
+func CreateOutputIbmCloudS3(ibmCloudS3 OutputIbmCloudS3) Output {
+	typ := OutputTypeIbmCloudS3
+
+	typStr := OutputIbmCloudS3Type(typ)
+	ibmCloudS3.Type = typStr
+
+	return Output{
+		OutputIbmCloudS3: &ibmCloudS3,
+		Type:             typ,
 	}
 }
 
@@ -1297,6 +1381,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputAzureEventhub = outputAzureEventhub
 		u.Type = OutputTypeAzureEventhub
 		return nil
+	case "google_bigquery":
+		outputGoogleBigquery := new(OutputGoogleBigquery)
+		if err := utils.UnmarshalJSON(data, &outputGoogleBigquery, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == google_bigquery) type OutputGoogleBigquery within Output: %w", string(data), err)
+		}
+
+		u.OutputGoogleBigquery = outputGoogleBigquery
+		u.Type = OutputTypeGoogleBigquery
+		return nil
 	case "google_chronicle":
 		outputGoogleChronicle := new(OutputGoogleChronicle)
 		if err := utils.UnmarshalJSON(data, &outputGoogleChronicle, "", true, nil); err != nil {
@@ -1323,6 +1416,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 
 		u.OutputGoogleCloudLogging = outputGoogleCloudLogging
 		u.Type = OutputTypeGoogleCloudLogging
+		return nil
+	case "google_cloud_observability":
+		outputGoogleCloudObservability := new(OutputGoogleCloudObservability)
+		if err := utils.UnmarshalJSON(data, &outputGoogleCloudObservability, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == google_cloud_observability) type OutputGoogleCloudObservability within Output: %w", string(data), err)
+		}
+
+		u.OutputGoogleCloudObservability = outputGoogleCloudObservability
+		u.Type = OutputTypeGoogleCloudObservability
 		return nil
 	case "google_pubsub":
 		outputGooglePubsub := new(OutputGooglePubsub)
@@ -1531,6 +1633,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputLoki = outputLoki
 		u.Type = OutputTypeLoki
 		return nil
+	case "amazon_managed_prometheus":
+		outputAmazonManagedPrometheus := new(OutputAmazonManagedPrometheus)
+		if err := utils.UnmarshalJSON(data, &outputAmazonManagedPrometheus, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == amazon_managed_prometheus) type OutputAmazonManagedPrometheus within Output: %w", string(data), err)
+		}
+
+		u.OutputAmazonManagedPrometheus = outputAmazonManagedPrometheus
+		u.Type = OutputTypeAmazonManagedPrometheus
+		return nil
 	case "prometheus":
 		outputPrometheus := new(OutputPrometheus)
 		if err := utils.UnmarshalJSON(data, &outputPrometheus, "", true, nil); err != nil {
@@ -1666,6 +1777,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 		u.OutputClickHouse = outputClickHouse
 		u.Type = OutputTypeClickHouse
 		return nil
+	case "customer_metrics_storage":
+		outputCustomerMetricsStorage := new(OutputCustomerMetricsStorage)
+		if err := utils.UnmarshalJSON(data, &outputCustomerMetricsStorage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == customer_metrics_storage) type OutputCustomerMetricsStorage within Output: %w", string(data), err)
+		}
+
+		u.OutputCustomerMetricsStorage = outputCustomerMetricsStorage
+		u.Type = OutputTypeCustomerMetricsStorage
+		return nil
 	case "local_search_storage":
 		outputLocalSearchStorage := new(OutputLocalSearchStorage)
 		if err := utils.UnmarshalJSON(data, &outputLocalSearchStorage, "", true, nil); err != nil {
@@ -1737,6 +1857,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 
 		u.OutputDatabricks = outputDatabricks
 		u.Type = OutputTypeDatabricks
+		return nil
+	case "snowflake_streaming":
+		outputSnowflakeStreaming := new(OutputSnowflakeStreaming)
+		if err := utils.UnmarshalJSON(data, &outputSnowflakeStreaming, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == snowflake_streaming) type OutputSnowflakeStreaming within Output: %w", string(data), err)
+		}
+
+		u.OutputSnowflakeStreaming = outputSnowflakeStreaming
+		u.Type = OutputTypeSnowflakeStreaming
 		return nil
 	case "microsoft_fabric":
 		outputMicrosoftFabric := new(OutputMicrosoftFabric)
@@ -1818,6 +1947,15 @@ func (u *Output) UnmarshalJSON(data []byte) error {
 
 		u.OutputAlibabaCloudS3 = outputAlibabaCloudS3
 		u.Type = OutputTypeAlibabaCloudS3
+		return nil
+	case "ibm_cloud_s3":
+		outputIbmCloudS3 := new(OutputIbmCloudS3)
+		if err := utils.UnmarshalJSON(data, &outputIbmCloudS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == ibm_cloud_s3) type OutputIbmCloudS3 within Output: %w", string(data), err)
+		}
+
+		u.OutputIbmCloudS3 = outputIbmCloudS3
+		u.Type = OutputTypeIbmCloudS3
 		return nil
 	}
 
@@ -1905,6 +2043,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.OutputAzureEventhub, "", true)
 	}
 
+	if u.OutputGoogleBigquery != nil {
+		return utils.MarshalJSON(u.OutputGoogleBigquery, "", true)
+	}
+
 	if u.OutputGoogleChronicle != nil {
 		return utils.MarshalJSON(u.OutputGoogleChronicle, "", true)
 	}
@@ -1915,6 +2057,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputGoogleCloudLogging != nil {
 		return utils.MarshalJSON(u.OutputGoogleCloudLogging, "", true)
+	}
+
+	if u.OutputGoogleCloudObservability != nil {
+		return utils.MarshalJSON(u.OutputGoogleCloudObservability, "", true)
 	}
 
 	if u.OutputGooglePubsub != nil {
@@ -2009,6 +2155,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.OutputLoki, "", true)
 	}
 
+	if u.OutputAmazonManagedPrometheus != nil {
+		return utils.MarshalJSON(u.OutputAmazonManagedPrometheus, "", true)
+	}
+
 	if u.OutputPrometheus != nil {
 		return utils.MarshalJSON(u.OutputPrometheus, "", true)
 	}
@@ -2069,6 +2219,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.OutputClickHouse, "", true)
 	}
 
+	if u.OutputCustomerMetricsStorage != nil {
+		return utils.MarshalJSON(u.OutputCustomerMetricsStorage, "", true)
+	}
+
 	if u.OutputLocalSearchStorage != nil {
 		return utils.MarshalJSON(u.OutputLocalSearchStorage, "", true)
 	}
@@ -2099,6 +2253,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputDatabricks != nil {
 		return utils.MarshalJSON(u.OutputDatabricks, "", true)
+	}
+
+	if u.OutputSnowflakeStreaming != nil {
+		return utils.MarshalJSON(u.OutputSnowflakeStreaming, "", true)
 	}
 
 	if u.OutputMicrosoftFabric != nil {
@@ -2135,6 +2293,10 @@ func (u Output) MarshalJSON() ([]byte, error) {
 
 	if u.OutputAlibabaCloudS3 != nil {
 		return utils.MarshalJSON(u.OutputAlibabaCloudS3, "", true)
+	}
+
+	if u.OutputIbmCloudS3 != nil {
+		return utils.MarshalJSON(u.OutputIbmCloudS3, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type Output: all fields are null")

@@ -9,12 +9,52 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol - Authentication protocol for the SNMPv3 user.
+type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol string
+
+const (
+	// SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocolNone None
+	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocolNone SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol = "none"
+	// SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocolMd5 MD5
+	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocolMd5 SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol = "md5"
+	// SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocolSha SHA1
+	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocolSha SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol = "sha"
+	// SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocolSha224 SHA224
+	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocolSha224 SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol = "sha224"
+	// SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocolSha256 SHA256
+	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocolSha256 SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol = "sha256"
+	// SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocolSha384 SHA384
+	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocolSha384 SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol = "sha384"
+	// SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocolSha512 SHA512
+	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocolSha512 SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol = "sha512"
+)
+
+func (e SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol) ToPointer() *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "md5", "sha", "sha224", "sha256", "sha384", "sha512":
+			return true
+		}
+	}
+	return false
+}
+
 type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone struct {
-	PrivProtocol *string                              `json:"privProtocol,omitzero"`
-	PrivKey      string                               `json:"privKey"`
-	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
-	AuthKey      string                               `json:"authKey"`
-	Name         string                               `json:"name"`
+	// Privacy protocol for SNMPv3 encryption.
+	PrivProtocol *string `json:"privProtocol,omitzero"`
+	// Privacy key for SNMPv3 encryption. Required when a privacy protocol is selected.
+	PrivKey string `json:"privKey"`
+	// Authentication protocol for the SNMPv3 user.
+	AuthProtocol *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol `json:"authProtocol,omitzero"`
+	// Authentication key for SNMPv3 user. Required when an authentication protocol is selected.
+	AuthKey string `json:"authKey"`
+	// Username for the SNMPv3 user.
+	Name string `json:"name"`
 }
 
 func (s SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) MarshalJSON() ([]byte, error) {
@@ -42,7 +82,7 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetPrivK
 	return s.PrivKey
 }
 
-func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetAuthProtocol() *AuthenticationProtocolOptionsV3User {
+func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetAuthProtocol() *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNoneAuthenticationProtocol {
 	if s == nil {
 		return nil
 	}
@@ -66,11 +106,50 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetName(
 // #region class-body-snmptrapserializev3userauthprotocolnotnoneprivprotocolnotnone
 // #endregion class-body-snmptrapserializev3userauthprotocolnotnoneprivprotocolnotnone
 
+// SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol - Authentication protocol for the SNMPv3 user.
+type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol string
+
+const (
+	// SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocolNone None
+	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocolNone SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol = "none"
+	// SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocolMd5 MD5
+	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocolMd5 SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol = "md5"
+	// SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocolSha SHA1
+	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocolSha SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol = "sha"
+	// SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocolSha224 SHA224
+	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocolSha224 SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol = "sha224"
+	// SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocolSha256 SHA256
+	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocolSha256 SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol = "sha256"
+	// SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocolSha384 SHA384
+	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocolSha384 SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol = "sha384"
+	// SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocolSha512 SHA512
+	SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocolSha512 SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol = "sha512"
+)
+
+func (e SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol) ToPointer() *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "md5", "sha", "sha224", "sha256", "sha384", "sha512":
+			return true
+		}
+	}
+	return false
+}
+
 type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone struct {
-	PrivProtocol *string                              `json:"privProtocol,omitzero"`
-	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
-	AuthKey      string                               `json:"authKey"`
-	Name         string                               `json:"name"`
+	// Privacy protocol for SNMPv3 encryption.
+	PrivProtocol *string `json:"privProtocol,omitzero"`
+	// Authentication protocol for the SNMPv3 user.
+	AuthProtocol *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol `json:"authProtocol,omitzero"`
+	// Authentication key for SNMPv3 user. Required when an authentication protocol is selected.
+	AuthKey string `json:"authKey"`
+	// Username for the SNMPv3 user.
+	Name string `json:"name"`
 }
 
 func (s SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) MarshalJSON() ([]byte, error) {
@@ -91,7 +170,7 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) GetPrivProt
 	return s.PrivProtocol
 }
 
-func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) GetAuthProtocol() *AuthenticationProtocolOptionsV3User {
+func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) GetAuthProtocol() *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNoneAuthenticationProtocol {
 	if s == nil {
 		return nil
 	}
@@ -296,10 +375,48 @@ func (u SnmpTrapSerializeV3UserAuthProtocolNotNone) MarshalJSON() ([]byte, error
 	return nil, errors.New("could not marshal union type SnmpTrapSerializeV3UserAuthProtocolNotNone: all fields are null")
 }
 
+// SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocol - Authentication protocol for the SNMPv3 user.
+type SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocol string
+
+const (
+	// SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocolNone None
+	SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocolNone SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocol = "none"
+	// SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocolMd5 MD5
+	SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocolMd5 SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocol = "md5"
+	// SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocolSha SHA1
+	SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocolSha SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocol = "sha"
+	// SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocolSha224 SHA224
+	SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocolSha224 SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocol = "sha224"
+	// SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocolSha256 SHA256
+	SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocolSha256 SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocol = "sha256"
+	// SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocolSha384 SHA384
+	SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocolSha384 SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocol = "sha384"
+	// SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocolSha512 SHA512
+	SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocolSha512 SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocol = "sha512"
+)
+
+func (e SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocol) ToPointer() *SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocol {
+	return &e
+}
+
+// IsExact returns true if the value matches a known enum value, false otherwise.
+func (e *SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocol) IsExact() bool {
+	if e != nil {
+		switch *e {
+		case "none", "md5", "sha", "sha224", "sha256", "sha384", "sha512":
+			return true
+		}
+	}
+	return false
+}
+
 type SnmpTrapSerializeV3UserAuthProtocolNone struct {
-	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
-	Name         *string                              `json:"name,omitzero"`
-	PrivProtocol *string                              `json:"privProtocol,omitzero"`
+	// Authentication protocol for the SNMPv3 user.
+	AuthProtocol *SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocol `json:"authProtocol,omitzero"`
+	// Username for the SNMPv3 user.
+	Name *string `json:"name,omitzero"`
+	// Privacy protocol for SNMPv3 encryption.
+	PrivProtocol *string `json:"privProtocol,omitzero"`
 }
 
 func (s SnmpTrapSerializeV3UserAuthProtocolNone) MarshalJSON() ([]byte, error) {
@@ -313,7 +430,7 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNone) UnmarshalJSON(data []byte) err
 	return nil
 }
 
-func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetAuthProtocol() *AuthenticationProtocolOptionsV3User {
+func (s *SnmpTrapSerializeV3UserAuthProtocolNone) GetAuthProtocol() *SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocol {
 	if s == nil {
 		return nil
 	}
@@ -350,6 +467,7 @@ const (
 	V3UserTypeUnknown V3UserType = "UNKNOWN"
 )
 
+// V3User - SNMPv3 user configuration, including authentication and privacy protocol settings.
 type V3User struct {
 	SnmpTrapSerializeV3UserAuthProtocolNone    *SnmpTrapSerializeV3UserAuthProtocolNone    `queryParam:"inline" union:"member"`
 	SnmpTrapSerializeV3UserAuthProtocolNotNone *SnmpTrapSerializeV3UserAuthProtocolNotNone `queryParam:"inline" union:"member"`
@@ -361,7 +479,7 @@ type V3User struct {
 func CreateV3UserNone(none SnmpTrapSerializeV3UserAuthProtocolNone) V3User {
 	typ := V3UserTypeNone
 
-	typStr := AuthenticationProtocolOptionsV3User(typ)
+	typStr := SnmpTrapSerializeV3UserAuthProtocolNoneAuthenticationProtocol(typ)
 	none.AuthProtocol = &typStr
 
 	return V3User{
@@ -548,8 +666,9 @@ type FunctionConfSchemaSnmpTrapSerialize struct {
 	// Prevent event serialization if any required fields are missing. When disabled, @{product} will attempt to serialize the event even if required fields are missing, which could cause unexpected behavior at the downstream receiver.
 	Strict *bool `json:"strict,omitzero"`
 	// When disabled, `snmpSerializeErrors` will be set on the event, and the `__snmpRaw` field will be removed to prevent @{product} from sending the event from the SNMP Trap Destination
-	DropFailedEvents *bool   `json:"dropFailedEvents,omitzero"`
-	V3User           *V3User `json:"v3User,omitzero"`
+	DropFailedEvents *bool `json:"dropFailedEvents,omitzero"`
+	// SNMPv3 user configuration, including authentication and privacy protocol settings.
+	V3User *V3User `json:"v3User,omitzero"`
 }
 
 func (f FunctionConfSchemaSnmpTrapSerialize) MarshalJSON() ([]byte, error) {

@@ -21,8 +21,8 @@ func (d *DeleteDatabaseConnectionConfigByIDRequest) GetID() string {
 
 type DeleteDatabaseConnectionConfigByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// The deleted DatabaseConnectionConfig object in a single-item list.
-	CountedDatabaseConnectionConfig *components.CountedDatabaseConnectionConfig
+	// The deleted Database Connection in a response envelope with <code>count</code> and <code>items</code>.
+	DatabaseConnectionResponseEnvelope *components.DatabaseConnectionResponseEnvelope
 }
 
 func (d DeleteDatabaseConnectionConfigByIDResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +43,9 @@ func (d *DeleteDatabaseConnectionConfigByIDResponse) GetHTTPMeta() components.HT
 	return d.HTTPMeta
 }
 
-func (d *DeleteDatabaseConnectionConfigByIDResponse) GetCountedDatabaseConnectionConfig() *components.CountedDatabaseConnectionConfig {
+func (d *DeleteDatabaseConnectionConfigByIDResponse) GetDatabaseConnectionResponseEnvelope() *components.DatabaseConnectionResponseEnvelope {
 	if d == nil {
 		return nil
 	}
-	return d.CountedDatabaseConnectionConfig
+	return d.DatabaseConnectionResponseEnvelope
 }

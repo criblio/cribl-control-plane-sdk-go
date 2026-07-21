@@ -6,6 +6,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// TLSOptionsTypeRedisDeploymentTypeStandalone - TLS settings for encrypting the connection to Redis.
 type TLSOptionsTypeRedisDeploymentTypeStandalone struct {
 	// Reject certificates that are not authorized by a CA in the 'CA certificate path', or by another trusted CA (such as the system's CA)
 	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`

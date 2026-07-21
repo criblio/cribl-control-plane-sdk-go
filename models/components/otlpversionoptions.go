@@ -2,11 +2,10 @@
 
 package components
 
+// OtlpVersionOptions - The version of OTLP Protobuf definitions to use when structuring data to send
 type OtlpVersionOptions string
 
 const (
-	// OtlpVersionOptionsZeroDot10Dot0 0.10.0
-	OtlpVersionOptionsZeroDot10Dot0 OtlpVersionOptions = "0.10.0"
 	// OtlpVersionOptionsOneDot3Dot1 1.3.1
 	OtlpVersionOptionsOneDot3Dot1 OtlpVersionOptions = "1.3.1"
 )
@@ -19,7 +18,7 @@ func (e OtlpVersionOptions) ToPointer() *OtlpVersionOptions {
 func (e *OtlpVersionOptions) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "0.10.0", "1.3.1":
+		case "1.3.1":
 			return true
 		}
 	}

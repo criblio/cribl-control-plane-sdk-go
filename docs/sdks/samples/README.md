@@ -13,7 +13,7 @@ Get sample event data for the specified Destination to validate the configuratio
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getOutputSamplesById" method="get" path="/system/outputs/{id}/samples" -->
+<!-- UsageSnippet language="go" operationID="getOutputSamplesById" method="get" path="/system/outputs/{id}/samples" example="OutputSamplesResponseExamplesSampleEvents" -->
 ```go
 package main
 
@@ -61,6 +61,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -155,6 +156,76 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputTestResponseExamplesFailedTest
+
+<!-- UsageSnippet language="go" operationID="createOutputTestById" method="post" path="/system/outputs/{id}/test" example="OutputTestResponseExamplesFailedTest" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Samples.Create(ctx, "<id>", components.OutputTestRequest{
+        Events: []map[string]any{},
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputTestResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputTestResponseExamplesSuccessfulTest
+
+<!-- UsageSnippet language="go" operationID="createOutputTestById" method="post" path="/system/outputs/{id}/test" example="OutputTestResponseExamplesSuccessfulTest" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Samples.Create(ctx, "<id>", components.OutputTestRequest{
+        Events: []map[string]any{},
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputTestResponse != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -173,5 +244,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

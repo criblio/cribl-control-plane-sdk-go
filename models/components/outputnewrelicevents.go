@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputNewrelicEventsType - Connector type identifier.
 type OutputNewrelicEventsType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputNewrelicEventsType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputNewrelicEventsPqControls - Persistent queue controls.
 type OutputNewrelicEventsPqControls struct {
 }
 
@@ -47,7 +49,8 @@ func (o *OutputNewrelicEventsPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputNewrelicEvents struct {
 	// Unique ID for this output
-	ID   *string                  `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputNewrelicEventsType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -55,7 +58,7 @@ type OutputNewrelicEvents struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Which New Relic region endpoint to use.
 	Region *RegionOptions `json:"region,omitzero"`
@@ -95,9 +98,10 @@ type OutputNewrelicEvents struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Enter API key directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptionsAPI `json:"authType,omitzero"`
-	Description *string                         `json:"description,omitzero"`
-	CustomURL   *string                         `json:"customUrl,omitzero"`
+	AuthType *AuthenticationMethodOptionsAPI `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	CustomURL   *string `json:"customUrl,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -118,9 +122,10 @@ type OutputNewrelicEvents struct {
 	PqCompress *CompressionOptionsPq `json:"pqCompress,omitzero"`
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 1MB.
-	PqMaxBufferSizeBytes *string                         `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputNewrelicEventsPqControls `json:"pqControls,omitzero"`
+	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputNewrelicEventsPqControls `json:"pqControls,omitzero"`
 	// New Relic API key. Can be overridden using __newRelic_apiKey field.
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret

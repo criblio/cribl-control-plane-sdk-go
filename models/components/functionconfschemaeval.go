@@ -7,6 +7,7 @@ import (
 )
 
 type FunctionConfSchemaEvalAdd struct {
+	// Name of the field to set or add to the event.
 	Name *string `json:"name,omitzero"`
 	// JavaScript expression to compute the value (can be constant)
 	Value string `json:"value"`

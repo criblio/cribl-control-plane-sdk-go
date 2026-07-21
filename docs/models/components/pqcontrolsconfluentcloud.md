@@ -1,5 +1,7 @@
 # PqControlsConfluentCloud
 
+Persistent queue controls.
+
 
 ## Fields
 

@@ -8,7 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionMvPullID - Function ID
+// PipelineFunctionMvPullID - Identifier of the Function. Always <code>mv_pull</code>
 type PipelineFunctionMvPullID string
 
 const (
@@ -32,6 +32,7 @@ func (e *PipelineFunctionMvPullID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PipelineFunctionMvPullConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionMvPullConf struct {
 	// Field name of the array within events that contains the data objects of interest. Can be a path.
 	ArrayPath string `json:"arrayPath"`
@@ -92,18 +93,19 @@ func (p *PipelineFunctionMvPullConf) GetDeleteOriginal() *bool {
 }
 
 type PipelineFunctionMvPull struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>mv_pull</code>
 	ID PipelineFunctionMvPullID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                      `json:"final,omitzero"`
-	Conf  PipelineFunctionMvPullConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionMvPullConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

@@ -1,5 +1,7 @@
 # JobTypeOptionsRunnableJobCollection
 
+Job type
+
 ## Example Usage
 
 ```go

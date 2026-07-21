@@ -2,6 +2,7 @@
 
 package components
 
+// MaximumTLSVersionOptionsTLS - Maximum TLS version
 type MaximumTLSVersionOptionsTLS string
 
 const (

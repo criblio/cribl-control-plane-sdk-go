@@ -51,12 +51,29 @@ func (e *HealthServerStatusStatus) IsExact() bool {
 
 // HealthServerStatus - Health status of the Leader or Worker Node.
 type HealthServerStatus struct {
+	// Whether this node is currently the captain (job scheduling coordinator) in a Collectors HA deployment.
+	IsCaptain *bool               `json:"isCaptain,omitzero"`
+	Overlay   HealthOverlayStatus `json:"overlay"`
 	// Leader Node role: <code>primary</code> or <code>standby</code>.
 	Role *Role `json:"role,omitzero"`
 	// Timestamp (in Unix time) when the Cribl process started.
 	StartTime int64 `json:"startTime"`
 	// Health state: <code>healthy</code>, <code>standby</code>, or <code>shutting down</code>.
 	Status HealthServerStatusStatus `json:"status"`
+}
+
+func (h *HealthServerStatus) GetIsCaptain() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.IsCaptain
+}
+
+func (h *HealthServerStatus) GetOverlay() HealthOverlayStatus {
+	if h == nil {
+		return HealthOverlayStatus{}
+	}
+	return h.Overlay
 }
 
 func (h *HealthServerStatus) GetRole() *Role {

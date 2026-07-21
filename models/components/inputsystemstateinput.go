@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputSystemStateType - Connector type identifier.
 type InputSystemStateType string
 
 const (
@@ -33,6 +34,7 @@ func (e *InputSystemStateType) UnmarshalJSON(data []byte) error {
 
 // InputSystemStateHostsFile - Creates events based on entries collected from the hosts file
 type InputSystemStateHostsFile struct {
+	// Enabled
 	Enable *bool `json:"enable,omitzero"`
 }
 
@@ -56,6 +58,7 @@ func (i *InputSystemStateHostsFile) GetEnable() *bool {
 
 // InputSystemStateInterfaces - Creates events for each of the host’s network interfaces
 type InputSystemStateInterfaces struct {
+	// Enabled
 	Enable *bool `json:"enable,omitzero"`
 }
 
@@ -79,6 +82,7 @@ func (i *InputSystemStateInterfaces) GetEnable() *bool {
 
 // InputSystemStateDisksAndFileSystems - Creates events for physical disks, partitions, and file systems
 type InputSystemStateDisksAndFileSystems struct {
+	// Enabled
 	Enable *bool `json:"enable,omitzero"`
 }
 
@@ -102,6 +106,7 @@ func (i *InputSystemStateDisksAndFileSystems) GetEnable() *bool {
 
 // InputSystemStateHostInfo - Creates events based on the host system’s current state
 type InputSystemStateHostInfo struct {
+	// Enabled
 	Enable *bool `json:"enable,omitzero"`
 }
 
@@ -125,6 +130,7 @@ func (i *InputSystemStateHostInfo) GetEnable() *bool {
 
 // InputSystemStateRoutes - Creates events based on entries collected from the host’s network routes
 type InputSystemStateRoutes struct {
+	// Enabled
 	Enable *bool `json:"enable,omitzero"`
 }
 
@@ -148,6 +154,7 @@ func (i *InputSystemStateRoutes) GetEnable() *bool {
 
 // InputSystemStateDNS - Creates events for DNS resolvers and search entries
 type InputSystemStateDNS struct {
+	// Enabled
 	Enable *bool `json:"enable,omitzero"`
 }
 
@@ -171,6 +178,7 @@ func (i *InputSystemStateDNS) GetEnable() *bool {
 
 // InputSystemStateUsersAndGroups - Creates events for local users and groups
 type InputSystemStateUsersAndGroups struct {
+	// Enabled
 	Enable *bool `json:"enable,omitzero"`
 }
 
@@ -194,6 +202,7 @@ func (i *InputSystemStateUsersAndGroups) GetEnable() *bool {
 
 // InputSystemStateFirewall - Creates events for Firewall rules entries
 type InputSystemStateFirewall struct {
+	// Enabled
 	Enable *bool `json:"enable,omitzero"`
 }
 
@@ -217,6 +226,7 @@ func (i *InputSystemStateFirewall) GetEnable() *bool {
 
 // InputSystemStateServices - Creates events from the list of services
 type InputSystemStateServices struct {
+	// Enabled
 	Enable *bool `json:"enable,omitzero"`
 }
 
@@ -240,6 +250,7 @@ func (i *InputSystemStateServices) GetEnable() *bool {
 
 // InputSystemStateListeningPorts - Creates events from list of listening ports
 type InputSystemStateListeningPorts struct {
+	// Enabled
 	Enable *bool `json:"enable,omitzero"`
 }
 
@@ -263,6 +274,7 @@ func (i *InputSystemStateListeningPorts) GetEnable() *bool {
 
 // InputSystemStateLoggedInUsers - Creates events from list of logged-in users
 type InputSystemStateLoggedInUsers struct {
+	// Enabled
 	Enable *bool `json:"enable,omitzero"`
 }
 
@@ -405,8 +417,9 @@ type InputSystemStatePersistence struct {
 	// Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
 	MaxDataSize *string `json:"maxDataSize,omitzero"`
 	// Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-	MaxDataTime *string                                  `json:"maxDataTime,omitzero"`
-	Compress    *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
+	MaxDataTime *string `json:"maxDataTime,omitzero"`
+	// Data compression format
+	Compress *DataCompressionFormatOptionsPersistence `json:"compress,omitzero"`
 	// Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
 	DestPath *string `json:"destPath,omitzero"`
 }
@@ -466,9 +479,11 @@ func (i *InputSystemStatePersistence) GetDestPath() *string {
 
 type InputSystemStateInput struct {
 	// Unique ID for this input
-	ID       *string              `json:"id,omitzero"`
-	Type     InputSystemStateType `json:"type"`
-	Disabled *bool                `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type InputSystemStateType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -477,7 +492,7 @@ type InputSystemStateInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -491,8 +506,9 @@ type InputSystemStateInput struct {
 	// Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
 	DisableNativeModule *bool `json:"disableNativeModule,omitzero"`
 	// Enable only to collect LastLog data via legacy implementation. This option will be removed in a future release. Please contact Support before enabling. [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
-	DisableNativeLastLogModule *bool   `json:"disableNativeLastLogModule,omitzero"`
-	Description                *string `json:"description,omitzero"`
+	DisableNativeLastLogModule *bool `json:"disableNativeLastLogModule,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

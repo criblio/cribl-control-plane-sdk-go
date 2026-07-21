@@ -1,5 +1,7 @@
 # AuthenticationTypeDynatraceHTTP
 
+Authentication type
+
 ## Example Usage
 
 ```go

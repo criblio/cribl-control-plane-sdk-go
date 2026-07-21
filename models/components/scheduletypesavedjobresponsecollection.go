@@ -17,8 +17,9 @@ type ScheduleTypeSavedJobResponseCollection struct {
 	// A cron schedule on which to run this job
 	CronSchedule *string `json:"cronSchedule,omitzero"`
 	// The maximum number of instances of this scheduled job that may be running at any time
-	MaxConcurrentRuns *float64                                           `json:"maxConcurrentRuns,omitzero"`
-	Run               *RunSettingsTypeSavedJobResponseCollectionSchedule `json:"run,omitzero"`
+	MaxConcurrentRuns *float64 `json:"maxConcurrentRuns,omitzero"`
+	// Run settings
+	Run *RunSettingsTypeSavedJobResponseCollectionSchedule `json:"run,omitzero"`
 }
 
 func (s ScheduleTypeSavedJobResponseCollection) MarshalJSON() ([]byte, error) {

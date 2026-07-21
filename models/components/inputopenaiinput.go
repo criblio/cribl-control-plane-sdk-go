@@ -8,6 +8,7 @@ import (
 	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputOpenaiType - Connector type identifier.
 type InputOpenaiType string
 
 const (
@@ -45,6 +46,7 @@ func (i *InputOpenaiManageState) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// InputOpenaiPaginationType - Pagination type
 type InputOpenaiPaginationType string
 
 const (
@@ -100,6 +102,7 @@ func (e *InputOpenaiLogLevel) IsExact() bool {
 }
 
 type InputOpenaiContentConfig struct {
+	// Enabled
 	Disabled *bool `json:"disabled,omitzero"`
 	// Track collection progress between consecutive scheduled executions.
 	StateTracking *bool `json:"stateTracking,omitzero"`
@@ -109,10 +112,13 @@ type InputOpenaiContentConfig struct {
 	StateMergeExpression *string                 `json:"stateMergeExpression,omitzero"`
 	ManageState          *InputOpenaiManageState `json:"manageState,omitzero"`
 	// Query-string parameters to send with this endpoint
-	RequestParams          []RequestParamConfInputOpenai `json:"requestParams"`
-	PaginationType         InputOpenaiPaginationType     `json:"paginationType"`
-	PaginationAttribute    []string                      `json:"paginationAttribute,omitzero"`
-	PaginationLastPageExpr *string                       `json:"paginationLastPageExpr,omitzero"`
+	RequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"requestParams"`
+	// Pagination type
+	PaginationType InputOpenaiPaginationType `json:"paginationType"`
+	// Pagination attributes
+	PaginationAttribute []string `json:"paginationAttribute,omitzero"`
+	// Last page expression
+	PaginationLastPageExpr *string `json:"paginationLastPageExpr,omitzero"`
 	// Maximum number of pages to retrieve per collection task. Set to 0 only when unlimited pagination is required.
 	MaxPages *float64 `json:"maxPages,omitzero"`
 	// Used only for RFC 5988 link-header pagination
@@ -179,9 +185,9 @@ func (i *InputOpenaiContentConfig) GetManageState() *InputOpenaiManageState {
 	return i.ManageState
 }
 
-func (i *InputOpenaiContentConfig) GetRequestParams() []RequestParamConfInputOpenai {
+func (i *InputOpenaiContentConfig) GetRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
 	if i == nil {
-		return []RequestParamConfInputOpenai{}
+		return []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret{}
 	}
 	return i.RequestParams
 }
@@ -272,9 +278,11 @@ func (i *InputOpenaiContentConfig) GetEndpointMetadata() []MetadataConfInputColl
 
 type InputOpenaiInput struct {
 	// Unique ID for this input
-	ID       *string         `json:"id,omitzero"`
-	Type     InputOpenaiType `json:"type"`
-	Disabled *bool           `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type InputOpenaiType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -283,7 +291,7 @@ type InputOpenaiInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -291,11 +299,13 @@ type InputOpenaiInput struct {
 	// Optional `OpenAI-Organization` request header value, typically `org-xxxxxxxxxxxxxxxxxxxxxxxx`
 	OpenaiOrganization *string `json:"openaiOrganization,omitzero"`
 	// Optional `OpenAI-Project` request header value, typically `proj_xxxxxxxxxxxxxxxxxxxxxxxx`
-	OpenaiProject *string                    `json:"openaiProject,omitzero"`
+	OpenaiProject *string `json:"openaiProject,omitzero"`
+	// Content Types
 	ContentConfig []InputOpenaiContentConfig `json:"contentConfig"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
-	APIKey         *string  `json:"apiKey,omitzero"`
+	// API key
+	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored API key. Visit [OpenAI's organization admin keys page](https://platform.openai.com/settings/organization/admin-keys) to create an organization admin key.
 	TextSecret string `json:"textSecret"`
 	// How often workers should check in with the scheduler to keep job subscription alive
@@ -307,9 +317,10 @@ type InputOpenaiInput struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	RetryRules  *RetryRulesType               `json:"retryRules,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata   []MetadataConfInputCollection `json:"metadata,omitzero"`
+	RetryRules *RetryRulesType               `json:"retryRules,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

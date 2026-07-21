@@ -2,12 +2,18 @@
 
 package components
 
+// SslTypeSystemSettingsConfAPI - TLS configuration for the API server.
 type SslTypeSystemSettingsConfAPI struct {
-	CaPath      *string `json:"caPath,omitzero"`
-	CertPath    string  `json:"certPath"`
-	Disabled    bool    `json:"disabled"`
-	Passphrase  string  `json:"passphrase"`
-	PrivKeyPath string  `json:"privKeyPath"`
+	// Filesystem path to the PEM-encoded Certificate Authority (CA) certificate for client authentication.
+	CaPath *string `json:"caPath,omitzero"`
+	// Filesystem path to the PEM-encoded TLS certificate.
+	CertPath string `json:"certPath"`
+	// If <code>true</code>, TLS is disabled for the API server. Otherwise, <code>false</code>.
+	Disabled bool `json:"disabled"`
+	// Passphrase to decrypt the TLS private key, if encrypted.
+	Passphrase string `json:"passphrase"`
+	// Filesystem path to the PEM-encoded TLS private key.
+	PrivKeyPath string `json:"privKeyPath"`
 }
 
 func (s *SslTypeSystemSettingsConfAPI) GetCaPath() *string {

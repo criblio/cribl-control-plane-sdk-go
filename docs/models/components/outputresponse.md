@@ -125,6 +125,12 @@ outputResponse := components.CreateOutputResponseHoneycomb(components.OutputResp
 outputResponse := components.CreateOutputResponseAzureEventhub(components.OutputResponseOutputAzureEventhub{/* values here */})
 ```
 
+### OutputResponseOutputGoogleBigquery
+
+```go
+outputResponse := components.CreateOutputResponseGoogleBigquery(components.OutputResponseOutputGoogleBigquery{/* values here */})
+```
+
 ### OutputResponseOutputGoogleChronicle
 
 ```go
@@ -141,6 +147,12 @@ outputResponse := components.CreateOutputResponseGoogleCloudStorage(components.O
 
 ```go
 outputResponse := components.CreateOutputResponseGoogleCloudLogging(components.OutputResponseOutputGoogleCloudLogging{/* values here */})
+```
+
+### OutputResponseOutputGoogleCloudObservability
+
+```go
+outputResponse := components.CreateOutputResponseGoogleCloudObservability(components.OutputResponseOutputGoogleCloudObservability{/* values here */})
 ```
 
 ### OutputResponseOutputGooglePubsub
@@ -281,6 +293,12 @@ outputResponse := components.CreateOutputResponseGrafanaCloud(components.OutputR
 outputResponse := components.CreateOutputResponseLoki(components.OutputResponseOutputLoki{/* values here */})
 ```
 
+### OutputResponseOutputAmazonManagedPrometheus
+
+```go
+outputResponse := components.CreateOutputResponseAmazonManagedPrometheus(components.OutputResponseOutputAmazonManagedPrometheus{/* values here */})
+```
+
 ### OutputResponseOutputPrometheus
 
 ```go
@@ -371,6 +389,12 @@ outputResponse := components.CreateOutputResponseDiskSpool(components.OutputResp
 outputResponse := components.CreateOutputResponseClickHouse(components.OutputResponseOutputClickHouse{/* values here */})
 ```
 
+### OutputResponseOutputCustomerMetricsStorage
+
+```go
+outputResponse := components.CreateOutputResponseCustomerMetricsStorage(components.OutputResponseOutputCustomerMetricsStorage{/* values here */})
+```
+
 ### OutputResponseOutputLocalSearchStorage
 
 ```go
@@ -417,6 +441,12 @@ outputResponse := components.CreateOutputResponseChronicle(components.OutputResp
 
 ```go
 outputResponse := components.CreateOutputResponseDatabricks(components.OutputResponseOutputDatabricks{/* values here */})
+```
+
+### OutputResponseOutputSnowflakeStreaming
+
+```go
+outputResponse := components.CreateOutputResponseSnowflakeStreaming(components.OutputResponseOutputSnowflakeStreaming{/* values here */})
 ```
 
 ### OutputResponseOutputMicrosoftFabric
@@ -473,6 +503,12 @@ outputResponse := components.CreateOutputResponseScalityS3(components.OutputResp
 outputResponse := components.CreateOutputResponseAlibabaCloudS3(components.OutputResponseOutputAlibabaCloudS3{/* values here */})
 ```
 
+### OutputResponseOutputIbmCloudS3
+
+```go
+outputResponse := components.CreateOutputResponseIbmCloudS3(components.OutputResponseOutputIbmCloudS3{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -487,9 +523,9 @@ switch outputResponse.Type {
 		// outputResponse.OutputResponseOutputSentinel is populated
 	case components.OutputResponseTypeDevnullValue:
 		// outputResponse.OutputResponseOutputDevnull is populated
-	case components.OutputResponseTypeSyslogValue:
+	case components.OutputResponseTypeSyslog:
 		// outputResponse.OutputResponseOutputSyslog is populated
-	case components.OutputResponseTypeSplunkValue:
+	case components.OutputResponseTypeSplunk:
 		// outputResponse.OutputResponseOutputSplunk is populated
 	case components.OutputResponseTypeSplunkLbValue:
 		// outputResponse.OutputResponseOutputSplunkLb is populated
@@ -497,7 +533,7 @@ switch outputResponse.Type {
 		// outputResponse.OutputResponseOutputSplunkHec is populated
 	case components.OutputResponseTypeWizHecValue:
 		// outputResponse.OutputResponseOutputWizHec is populated
-	case components.OutputResponseTypeTcpjsonValue:
+	case components.OutputResponseTypeTcpjson:
 		// outputResponse.OutputResponseOutputTcpjson is populated
 	case components.OutputResponseTypeWavefrontValue:
 		// outputResponse.OutputResponseOutputWavefront is populated
@@ -505,35 +541,39 @@ switch outputResponse.Type {
 		// outputResponse.OutputResponseOutputSignalfx is populated
 	case components.OutputResponseTypeFilesystemValue:
 		// outputResponse.OutputResponseOutputFilesystem is populated
-	case components.OutputResponseTypeS3Value:
+	case components.OutputResponseTypeS3:
 		// outputResponse.OutputResponseOutputS3 is populated
-	case components.OutputResponseTypeAzureBlobValue:
+	case components.OutputResponseTypeAzureBlob:
 		// outputResponse.OutputResponseOutputAzureBlob is populated
 	case components.OutputResponseTypeAzureDataExplorerValue:
 		// outputResponse.OutputResponseOutputAzureDataExplorer is populated
 	case components.OutputResponseTypeAzureLogsValue:
 		// outputResponse.OutputResponseOutputAzureLogs is populated
-	case components.OutputResponseTypeKinesisValue:
+	case components.OutputResponseTypeKinesis:
 		// outputResponse.OutputResponseOutputKinesis is populated
 	case components.OutputResponseTypeHoneycombValue:
 		// outputResponse.OutputResponseOutputHoneycomb is populated
 	case components.OutputResponseTypeAzureEventhubValue:
 		// outputResponse.OutputResponseOutputAzureEventhub is populated
+	case components.OutputResponseTypeGoogleBigqueryValue:
+		// outputResponse.OutputResponseOutputGoogleBigquery is populated
 	case components.OutputResponseTypeGoogleChronicleValue:
 		// outputResponse.OutputResponseOutputGoogleChronicle is populated
 	case components.OutputResponseTypeGoogleCloudStorageValue:
 		// outputResponse.OutputResponseOutputGoogleCloudStorage is populated
 	case components.OutputResponseTypeGoogleCloudLoggingValue:
 		// outputResponse.OutputResponseOutputGoogleCloudLogging is populated
-	case components.OutputResponseTypeGooglePubsubValue:
+	case components.OutputResponseTypeGoogleCloudObservabilityValue:
+		// outputResponse.OutputResponseOutputGoogleCloudObservability is populated
+	case components.OutputResponseTypeGooglePubsub:
 		// outputResponse.OutputResponseOutputGooglePubsub is populated
 	case components.OutputResponseTypeExabeamValue:
 		// outputResponse.OutputResponseOutputExabeam is populated
-	case components.OutputResponseTypeKafkaValue:
+	case components.OutputResponseTypeKafka:
 		// outputResponse.OutputResponseOutputKafka is populated
-	case components.OutputResponseTypeConfluentCloudValue:
+	case components.OutputResponseTypeConfluentCloud:
 		// outputResponse.OutputResponseOutputConfluentCloud is populated
-	case components.OutputResponseTypeMskValue:
+	case components.OutputResponseTypeMsk:
 		// outputResponse.OutputResponseOutputMsk is populated
 	case components.OutputResponseTypeElasticValue:
 		// outputResponse.OutputResponseOutputElastic is populated
@@ -559,9 +599,9 @@ switch outputResponse.Type {
 		// outputResponse.OutputResponseOutputRouter is populated
 	case components.OutputResponseTypeSnsValue:
 		// outputResponse.OutputResponseOutputSns is populated
-	case components.OutputResponseTypeSqsValue:
+	case components.OutputResponseTypeSqs:
 		// outputResponse.OutputResponseOutputSqs is populated
-	case components.OutputResponseTypeSnmpValue:
+	case components.OutputResponseTypeSnmp:
 		// outputResponse.OutputResponseOutputSnmp is populated
 	case components.OutputResponseTypeSumoLogicValue:
 		// outputResponse.OutputResponseOutputSumoLogic is populated
@@ -571,7 +611,9 @@ switch outputResponse.Type {
 		// outputResponse.OutputResponseOutputGrafanaCloudUnion is populated
 	case components.OutputResponseTypeLokiValue:
 		// outputResponse.OutputResponseOutputLoki is populated
-	case components.OutputResponseTypePrometheusValue:
+	case components.OutputResponseTypeAmazonManagedPrometheusValue:
+		// outputResponse.OutputResponseOutputAmazonManagedPrometheus is populated
+	case components.OutputResponseTypePrometheus:
 		// outputResponse.OutputResponseOutputPrometheus is populated
 	case components.OutputResponseTypeRingValue:
 		// outputResponse.OutputResponseOutputRing is populated
@@ -581,7 +623,7 @@ switch outputResponse.Type {
 		// outputResponse.OutputResponseOutputServiceNow is populated
 	case components.OutputResponseTypeDatasetValue:
 		// outputResponse.OutputResponseOutputDataset is populated
-	case components.OutputResponseTypeCriblTCPValue:
+	case components.OutputResponseTypeCriblTCP:
 		// outputResponse.OutputResponseOutputCriblTCP is populated
 	case components.OutputResponseTypeCriblHTTPValue:
 		// outputResponse.OutputResponseOutputCriblHTTP is populated
@@ -593,7 +635,7 @@ switch outputResponse.Type {
 		// outputResponse.OutputResponseOutputCrowdstrikeNextGenSiem is populated
 	case components.OutputResponseTypeDlS3Value:
 		// outputResponse.OutputResponseOutputDlS3 is populated
-	case components.OutputResponseTypeSecurityLakeValue:
+	case components.OutputResponseTypeSecurityLake:
 		// outputResponse.OutputResponseOutputSecurityLake is populated
 	case components.OutputResponseTypeCriblLakeValue:
 		// outputResponse.OutputResponseOutputCriblLake is populated
@@ -601,11 +643,13 @@ switch outputResponse.Type {
 		// outputResponse.OutputResponseOutputDiskSpool is populated
 	case components.OutputResponseTypeClickHouseValue:
 		// outputResponse.OutputResponseOutputClickHouse is populated
+	case components.OutputResponseTypeCustomerMetricsStorageValue:
+		// outputResponse.OutputResponseOutputCustomerMetricsStorage is populated
 	case components.OutputResponseTypeLocalSearchStorageValue:
 		// outputResponse.OutputResponseOutputLocalSearchStorage is populated
 	case components.OutputResponseTypeXsiamValue:
 		// outputResponse.OutputResponseOutputXsiam is populated
-	case components.OutputResponseTypeNetflowValue:
+	case components.OutputResponseTypeNetflow:
 		// outputResponse.OutputResponseOutputNetflow is populated
 	case components.OutputResponseTypeDynatraceHTTPValue:
 		// outputResponse.OutputResponseOutputDynatraceHTTP is populated
@@ -617,6 +661,8 @@ switch outputResponse.Type {
 		// outputResponse.OutputResponseOutputChronicle is populated
 	case components.OutputResponseTypeDatabricksValue:
 		// outputResponse.OutputResponseOutputDatabricks is populated
+	case components.OutputResponseTypeSnowflakeStreamingValue:
+		// outputResponse.OutputResponseOutputSnowflakeStreaming is populated
 	case components.OutputResponseTypeMicrosoftFabricValue:
 		// outputResponse.OutputResponseOutputMicrosoftFabric is populated
 	case components.OutputResponseTypeCloudflareR2Value:
@@ -635,6 +681,8 @@ switch outputResponse.Type {
 		// outputResponse.OutputResponseOutputScalityS3 is populated
 	case components.OutputResponseTypeAlibabaCloudS3Value:
 		// outputResponse.OutputResponseOutputAlibabaCloudS3 is populated
+	case components.OutputResponseTypeIbmCloudS3Value:
+		// outputResponse.OutputResponseOutputIbmCloudS3 is populated
 	default:
 		// Unknown type - use outputResponse.GetUnknownRaw() for raw JSON
 }

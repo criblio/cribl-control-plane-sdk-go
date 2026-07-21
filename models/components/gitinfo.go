@@ -36,6 +36,7 @@ const (
 	RemoteTypeRemoteEnum RemoteType = "remote_enum"
 )
 
+// Remote - URL of the configured remote Git repository, with credentials redacted. <code>false</code> if no remote is configured.
 type Remote struct {
 	Str        *string     `queryParam:"inline" union:"member"`
 	RemoteEnum *RemoteEnum `queryParam:"inline" union:"member"`
@@ -119,8 +120,10 @@ func (u Remote) MarshalJSON() ([]byte, error) {
 }
 
 type GitInfo struct {
-	Remote     Remote `json:"remote"`
-	Versioning bool   `json:"versioning"`
+	// URL of the configured remote Git repository, with credentials redacted. <code>false</code> if no remote is configured.
+	Remote Remote `json:"remote"`
+	// If <code>true</code>, Git versioning is enabled for this Cribl instance. Otherwise, <code>false</code>.
+	Versioning bool `json:"versioning"`
 }
 
 func (g *GitInfo) GetRemote() Remote {

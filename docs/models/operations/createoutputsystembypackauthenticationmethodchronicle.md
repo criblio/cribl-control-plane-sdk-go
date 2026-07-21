@@ -1,5 +1,7 @@
 # CreateOutputSystemByPackAuthenticationMethodChronicle
 
+Authentication method
+
 ## Example Usage
 
 ```go
