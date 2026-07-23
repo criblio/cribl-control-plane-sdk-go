@@ -86,7 +86,7 @@ func main() {
 	sendToRoutes := true
 	tcpJSONSource := operations.CreateInputInputTcpjson{
 		ID:           "my-tcp-json",
-		Type:         operations.CreateInputTypeTcpjsonTcpjson,
+		Type:         components.TypeOptionsTcpjsonTcpjson,
 		Host:         "0.0.0.0",
 		Port:         float64(PORT),
 		AuthType:     &authType,
