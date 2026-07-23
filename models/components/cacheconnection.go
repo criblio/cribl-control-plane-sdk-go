@@ -3,13 +3,12 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type CacheConnection struct {
 	// Accelerated fields (materialized columns) for the cache connection.
-	AcceleratedFields []string                       `json:"acceleratedFields,omitzero"`
-	BackfillStatus    *CacheConnectionBackfillStatus `json:"backfillStatus,omitzero"`
+	AcceleratedFields []string `json:"acceleratedFields,omitzero"`
 	// Unique identifier for the Lakehouse cache referenced by the Dataset.
 	CacheRef string `json:"cacheRef"`
 	// Timestamp (in Unix time) when the continuous data feed to the Lakehouse cache started, in milliseconds.
@@ -37,13 +36,6 @@ func (c *CacheConnection) GetAcceleratedFields() []string {
 		return nil
 	}
 	return c.AcceleratedFields
-}
-
-func (c *CacheConnection) GetBackfillStatus() *CacheConnectionBackfillStatus {
-	if c == nil {
-		return nil
-	}
-	return c.BackfillStatus
 }
 
 func (c *CacheConnection) GetCacheRef() string {

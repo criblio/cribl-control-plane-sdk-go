@@ -6,10 +6,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionEventBreakerID - Function ID
+// PipelineFunctionEventBreakerID - Identifier of the Function. Always <code>event_breaker</code>
 type PipelineFunctionEventBreakerID string
 
 const (
@@ -33,6 +33,7 @@ func (e *PipelineFunctionEventBreakerID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// EventBreakerExistingOrNewExistingExistingOrNew - Whether to use an existing event breaker ruleset or create a new one inline.
 type EventBreakerExistingOrNewExistingExistingOrNew string
 
 const (
@@ -58,16 +59,20 @@ func (e *EventBreakerExistingOrNewExistingExistingOrNew) IsExact() bool {
 }
 
 type EventBreakerExistingOrNewExisting struct {
+	// Whether to use an existing event breaker ruleset or create a new one inline.
 	ExistingOrNew EventBreakerExistingOrNewExistingExistingOrNew `json:"existingOrNew"`
-	ExistingRule  *string                                        `json:"existingRule,omitzero"`
+	// ID of an existing event breaker ruleset to apply.
+	ExistingRule *string `json:"existingRule,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool                                                `json:"shouldMarkCriblBreaker,omitzero"`
-	RuleType               *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
+	// Event Breaker type
+	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string `json:"timestampAnchorRegex,omitzero"`
+	// Timestamp format
+	Timestamp *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -178,6 +183,7 @@ func (e *EventBreakerExistingOrNewExisting) GetTimestampLatest() *string {
 	return e.TimestampLatest
 }
 
+// EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew - Whether to use an existing event breaker ruleset or create a new one inline.
 type EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew string
 
 const (
@@ -203,6 +209,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew) IsExact() bool {
 }
 
 type EventBreakerExistingOrNewNewRuleTypeCsv struct {
+	// Event Breaker type
 	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// Delimiter character to use to split values
 	Delimiter string `json:"delimiter"`
@@ -211,13 +218,15 @@ type EventBreakerExistingOrNewNewRuleTypeCsv struct {
 	// Character used to escape the quote character in field values
 	EscapeChar string `json:"escapeChar"`
 	// Optional timestamp field name in extracted events
-	TimeField     *string                                              `json:"timeField,omitzero"`
+	TimeField *string `json:"timeField,omitzero"`
+	// Whether to use an existing event breaker ruleset or create a new one inline.
 	ExistingOrNew EventBreakerExistingOrNewNewRuleTypeCsvExistingOrNew `json:"existingOrNew"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string `json:"timestampAnchorRegex,omitzero"`
+	// Timestamp format
+	Timestamp *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -225,8 +234,9 @@ type EventBreakerExistingOrNewNewRuleTypeCsv struct {
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
 	TimestampLatest *string `json:"timestampLatest,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool   `json:"shouldMarkCriblBreaker,omitzero"`
-	ExistingRule           *string `json:"existingRule,omitzero"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
+	// ID of an existing event breaker ruleset to apply.
+	ExistingRule *string `json:"existingRule,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeCsv) MarshalJSON() ([]byte, error) {
@@ -359,6 +369,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeCsv) GetExistingRule() *string {
 	return e.ExistingRule
 }
 
+// EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew - Whether to use an existing event breaker ruleset or create a new one inline.
 type EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew string
 
 const (
@@ -384,6 +395,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew) IsExact() bool
 }
 
 type EventBreakerExistingOrNewNewRuleTypeHeader struct {
+	// Event Breaker type
 	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// Field delimiter regex
 	DelimiterRegex string `json:"delimiterRegex"`
@@ -394,13 +406,15 @@ type EventBreakerExistingOrNewNewRuleTypeHeader struct {
 	// Representation of a null value. Null fields are not added to events.
 	NullFieldVal *string `json:"nullFieldVal,omitzero"`
 	// Clean field names by replacing non [a-zA-Z0-9] characters with _
-	CleanFields   *bool                                                   `json:"cleanFields,omitzero"`
+	CleanFields *bool `json:"cleanFields,omitzero"`
+	// Whether to use an existing event breaker ruleset or create a new one inline.
 	ExistingOrNew EventBreakerExistingOrNewNewRuleTypeHeaderExistingOrNew `json:"existingOrNew"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string `json:"timestampAnchorRegex,omitzero"`
+	// Timestamp format
+	Timestamp *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -408,8 +422,9 @@ type EventBreakerExistingOrNewNewRuleTypeHeader struct {
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
 	TimestampLatest *string `json:"timestampLatest,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool   `json:"shouldMarkCriblBreaker,omitzero"`
-	ExistingRule           *string `json:"existingRule,omitzero"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
+	// ID of an existing event breaker ruleset to apply.
+	ExistingRule *string `json:"existingRule,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeHeader) MarshalJSON() ([]byte, error) {
@@ -549,6 +564,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeHeader) GetExistingRule() *string {
 	return e.ExistingRule
 }
 
+// EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew - Whether to use an existing event breaker ruleset or create a new one inline.
 type EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew string
 
 const (
@@ -574,6 +590,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew) IsExact() b
 }
 
 type EventBreakerExistingOrNewNewRuleTypeJSONArray struct {
+	// Event Breaker type
 	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// The path to an array in a JSON event with records to extract, such as Records or level1.level2.events. Leave blank if result itself is an array, such as [{...},{...}]
 	JSONArrayField *string `json:"jsonArrayField,omitzero"`
@@ -584,13 +601,15 @@ type EventBreakerExistingOrNewNewRuleTypeJSONArray struct {
 	// List of fields to remove from the output events. Supports * wildcards. Enclose field names containing special characters in single or double quotes.
 	FieldsToRemove []string `json:"fieldsToRemove,omitzero"`
 	// Optional path to timestamp field in extracted events, such as eventTime or level1.level2.eventTime.
-	JSONTimeField *string                                                    `json:"jsonTimeField,omitzero"`
+	JSONTimeField *string `json:"jsonTimeField,omitzero"`
+	// Whether to use an existing event breaker ruleset or create a new one inline.
 	ExistingOrNew EventBreakerExistingOrNewNewRuleTypeJSONArrayExistingOrNew `json:"existingOrNew"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string `json:"timestampAnchorRegex,omitzero"`
+	// Timestamp format
+	Timestamp *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -598,8 +617,9 @@ type EventBreakerExistingOrNewNewRuleTypeJSONArray struct {
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
 	TimestampLatest *string `json:"timestampLatest,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool   `json:"shouldMarkCriblBreaker,omitzero"`
-	ExistingRule           *string `json:"existingRule,omitzero"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
+	// ID of an existing event breaker ruleset to apply.
+	ExistingRule *string `json:"existingRule,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeJSONArray) MarshalJSON() ([]byte, error) {
@@ -739,6 +759,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONArray) GetExistingRule() *strin
 	return e.ExistingRule
 }
 
+// EventBreakerExistingOrNewNewRuleTypeJSONExistingOrNew - Whether to use an existing event breaker ruleset or create a new one inline.
 type EventBreakerExistingOrNewNewRuleTypeJSONExistingOrNew string
 
 const (
@@ -764,13 +785,16 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSONExistingOrNew) IsExact() bool {
 }
 
 type EventBreakerExistingOrNewNewRuleTypeJSON struct {
-	RuleType      *EventBreakerTypeOptionsEventBreakerExistingOrNewNew  `json:"ruleType,omitzero"`
+	// Event Breaker type
+	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
+	// Whether to use an existing event breaker ruleset or create a new one inline.
 	ExistingOrNew EventBreakerExistingOrNewNewRuleTypeJSONExistingOrNew `json:"existingOrNew"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string `json:"timestampAnchorRegex,omitzero"`
+	// Timestamp format
+	Timestamp *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -778,8 +802,9 @@ type EventBreakerExistingOrNewNewRuleTypeJSON struct {
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
 	TimestampLatest *string `json:"timestampLatest,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool   `json:"shouldMarkCriblBreaker,omitzero"`
-	ExistingRule           *string `json:"existingRule,omitzero"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
+	// ID of an existing event breaker ruleset to apply.
+	ExistingRule *string `json:"existingRule,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeJSON) MarshalJSON() ([]byte, error) {
@@ -884,6 +909,7 @@ func (e *EventBreakerExistingOrNewNewRuleTypeJSON) GetExistingRule() *string {
 	return e.ExistingRule
 }
 
+// EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew - Whether to use an existing event breaker ruleset or create a new one inline.
 type EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew string
 
 const (
@@ -909,15 +935,18 @@ func (e *EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew) IsExact() bool 
 }
 
 type EventBreakerExistingOrNewNewRuleTypeRegex struct {
+	// Event Breaker type
 	RuleType *EventBreakerTypeOptionsEventBreakerExistingOrNewNew `json:"ruleType,omitzero"`
 	// The regex used to break the stream into events at the beginning of the match. Matched content will be consumed, unless you use a lookahead regex such as (?=pattern) to keep it. Do NOT use capturing groups in the pattern.
-	EventBreakerRegex string                                                 `json:"eventBreakerRegex"`
-	ExistingOrNew     EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew `json:"existingOrNew"`
+	EventBreakerRegex string `json:"eventBreakerRegex"`
+	// Whether to use an existing event breaker ruleset or create a new one inline.
+	ExistingOrNew EventBreakerExistingOrNewNewRuleTypeRegexExistingOrNew `json:"existingOrNew"`
 	// The maximum number of bytes that an event can be before being flushed to the Pipelines
 	MaxEventBytes *float64 `json:"maxEventBytes,omitzero"`
 	// Regex to match before attempting timestamp extraction. Use $ (end of string anchor) to not perform extraction.
-	TimestampAnchorRegex *string                                          `json:"timestampAnchorRegex,omitzero"`
-	Timestamp            *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
+	TimestampAnchorRegex *string `json:"timestampAnchorRegex,omitzero"`
+	// Timestamp format
+	Timestamp *TimestampFormatTypeEventBreakerExistingOrNewNew `json:"timestamp,omitzero"`
 	// Timezone to assign to timestamps without timezone info
 	TimestampTimezone *string `json:"timestampTimezone,omitzero"`
 	// The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to current time.
@@ -925,8 +954,9 @@ type EventBreakerExistingOrNewNewRuleTypeRegex struct {
 	// The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to current time.
 	TimestampLatest *string `json:"timestampLatest,omitzero"`
 	// Add this Function name to the cribl_breaker field
-	ShouldMarkCriblBreaker *bool   `json:"shouldMarkCriblBreaker,omitzero"`
-	ExistingRule           *string `json:"existingRule,omitzero"`
+	ShouldMarkCriblBreaker *bool `json:"shouldMarkCriblBreaker,omitzero"`
+	// ID of an existing event breaker ruleset to apply.
+	ExistingRule *string `json:"existingRule,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewRuleTypeRegex) MarshalJSON() ([]byte, error) {
@@ -1242,6 +1272,7 @@ const (
 	PipelineFunctionEventBreakerConfTypeUnknown  PipelineFunctionEventBreakerConfType = "UNKNOWN"
 )
 
+// PipelineFunctionEventBreakerConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionEventBreakerConf struct {
 	EventBreakerExistingOrNewNew      *EventBreakerExistingOrNewNew      `queryParam:"inline" union:"member"`
 	EventBreakerExistingOrNewExisting *EventBreakerExistingOrNewExisting `queryParam:"inline" union:"member"`
@@ -1347,18 +1378,19 @@ func (u PipelineFunctionEventBreakerConf) MarshalJSON() ([]byte, error) {
 }
 
 type PipelineFunctionEventBreaker struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>event_breaker</code>
 	ID PipelineFunctionEventBreakerID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                            `json:"final,omitzero"`
-	Conf  PipelineFunctionEventBreakerConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionEventBreakerConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

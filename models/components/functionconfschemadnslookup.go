@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 // ResourceRecordType - The DNS record type (RR) to return. Defaults to 'A'.
@@ -50,6 +50,7 @@ func (e *ResourceRecordType) IsExact() bool {
 }
 
 type DNSLookupField struct {
+	// Lookup field name
 	InFieldName *string `json:"inFieldName,omitzero"`
 	// The DNS record type (RR) to return. Defaults to 'A'.
 	ResourceRecordType *ResourceRecordType `json:"resourceRecordType,omitzero"`
@@ -121,6 +122,7 @@ func (r *ReverseLookupField) GetOutFieldName() *string {
 	return r.OutFieldName
 }
 
+// LogLevelForFailedLookups - Log level to use when a DNS lookup fails.
 type LogLevelForFailedLookups string
 
 const (
@@ -167,7 +169,8 @@ type FunctionConfSchemaDNSLookup struct {
 	// If unable to resolve a DNS short name, make a DNS.lookup() call to resolve it. Caution: This might degrade performance in unrelated areas of @{product}.
 	LookupFallback *bool `json:"lookupFallback,omitzero"`
 	// Specify fallback values for the DNS resolver to use when it cannot resolve a DNS short name
-	DomainOverrides      []string                  `json:"domainOverrides,omitzero"`
+	DomainOverrides []string `json:"domainOverrides,omitzero"`
+	// Log level to use when a DNS lookup fails.
 	LookupFailLogLevel   *LogLevelForFailedLookups `json:"lookupFailLogLevel,omitzero"`
 	AdditionalProperties map[string]any            `additionalProperties:"true" json:"-"`
 }

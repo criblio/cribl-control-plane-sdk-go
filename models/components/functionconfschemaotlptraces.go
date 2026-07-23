@@ -3,12 +3,14 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type FunctionConfSchemaOtlpTraces struct {
-	DropNonTraceEvents *bool               `json:"dropNonTraceEvents,omitzero"`
-	OtlpVersion        *OtlpVersionOptions `json:"otlpVersion,omitzero"`
+	// Drop events that are not OTLP trace spans.
+	DropNonTraceEvents *bool `json:"dropNonTraceEvents,omitzero"`
+	// OTLP version
+	OtlpVersion *OtlpVersionOptions `json:"otlpVersion,omitzero"`
 	// Batch OTLP traces by shared top-level `resource` attributes
 	BatchOTLPTraces *bool `json:"batchOTLPTraces,omitzero"`
 	// Number of spans after which a batch will be sent, regardless of the timeout
@@ -18,7 +20,7 @@ type FunctionConfSchemaOtlpTraces struct {
 	// Maximum batch size. Enter 0 for no maximum.
 	SendBatchMaxSize *float64 `json:"sendBatchMaxSize,omitzero"`
 	// When set, this processor will create one batcher instance per distinct combination of values in the metadata
-	MetadataKeys []any `json:"metadataKeys,omitzero"`
+	MetadataKeys []string `json:"metadataKeys,omitzero"`
 	// Limit the number of unique combinations of metadata key values that will be processed over the lifetime of the process. After the limit is reached, events with new metadata key value combinations will be dropped.
 	MetadataCardinalityLimit *float64 `json:"metadataCardinalityLimit,omitzero"`
 }
@@ -76,7 +78,7 @@ func (f *FunctionConfSchemaOtlpTraces) GetSendBatchMaxSize() *float64 {
 	return f.SendBatchMaxSize
 }
 
-func (f *FunctionConfSchemaOtlpTraces) GetMetadataKeys() []any {
+func (f *FunctionConfSchemaOtlpTraces) GetMetadataKeys() []string {
 	if f == nil {
 		return nil
 	}

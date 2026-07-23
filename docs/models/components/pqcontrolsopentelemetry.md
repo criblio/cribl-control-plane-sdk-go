@@ -1,5 +1,7 @@
 # PqControlsOpenTelemetry
 
+Persistent queue controls.
+
 
 ## Fields
 

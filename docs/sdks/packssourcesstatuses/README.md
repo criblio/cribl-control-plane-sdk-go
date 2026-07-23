@@ -11,18 +11,18 @@
 
 List status information and optional metrics for all configured Sources in the Worker Group or Edge Fleet within the specified Pack.
 
-### Example Usage
+### Example Usage: InputStatusResponseExamplesGreenSource
 
-<!-- UsageSnippet language="go" operationID="getInputStatusSystemInputsByPack" method="get" path="/p/{pack}/system/status/inputs" -->
+<!-- UsageSnippet language="go" operationID="getInputStatusSystemInputsByPack" method="get" path="/p/{pack}/system/status/inputs" example="InputStatusResponseExamplesGreenSource" -->
 ```go
 package main
 
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -42,7 +42,55 @@ func main() {
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedInputStatus != nil {
+    if res.PaginatedInputStatus != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+### Example Usage: InputStatusResponseExamplesYellowSource
+
+<!-- UsageSnippet language="go" operationID="getInputStatusSystemInputsByPack" method="get" path="/p/{pack}/system/status/inputs" example="InputStatusResponseExamplesYellowSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Sources.Statuses.List(ctx, operations.GetInputStatusSystemInputsByPackRequest{
+        Pack: "<value>",
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.PaginatedInputStatus != nil {
         for {
             // handle items
 
@@ -76,6 +124,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -83,17 +132,50 @@ func main() {
 
 Get the status and optional metrics for the specified Source within the specified Pack.
 
-### Example Usage
+### Example Usage: InputStatusResponseExamplesGreenSource
 
-<!-- UsageSnippet language="go" operationID="getInputStatusSystemInputsByPackAndId" method="get" path="/p/{pack}/system/status/inputs/{id}" -->
+<!-- UsageSnippet language="go" operationID="getInputStatusSystemInputsByPackAndId" method="get" path="/p/{pack}/system/status/inputs/{id}" example="InputStatusResponseExamplesGreenSource" -->
 ```go
 package main
 
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Sources.Statuses.Get(ctx, "<id>", "<value>", nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedInputStatus != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: InputStatusResponseExamplesYellowSource
+
+<!-- UsageSnippet language="go" operationID="getInputStatusSystemInputsByPackAndId" method="get" path="/p/{pack}/system/status/inputs/{id}" example="InputStatusResponseExamplesYellowSource" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -136,5 +218,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

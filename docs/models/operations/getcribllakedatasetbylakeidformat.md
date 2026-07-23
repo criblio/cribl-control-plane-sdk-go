@@ -6,7 +6,7 @@ Filter datasets by format. Set to <code>ddss</code> to return only DDSS datasets
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 )
 
 value := operations.GetCriblLakeDatasetByLakeIDFormatDdss

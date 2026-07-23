@@ -6,7 +6,7 @@ Authentication method for Discover and Collect REST calls. You can specify API k
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 value := components.RestCollectMethodGetAuthenticationNone

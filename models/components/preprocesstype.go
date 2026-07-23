@@ -3,10 +3,11 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type PreprocessType struct {
+	// Disabled
 	Disabled bool `json:"disabled"`
 	// Command to feed the data through (via stdin) and process its output (stdout)
 	Command *string `json:"command,omitzero"`

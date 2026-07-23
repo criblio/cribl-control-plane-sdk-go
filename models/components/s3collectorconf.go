@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 // S3AwsAuthenticationMethodSecretPartitioningScheme - Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.

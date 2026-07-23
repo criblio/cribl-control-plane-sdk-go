@@ -6,9 +6,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// NumerifyFormatNoneFormat - Numeric format to apply after type conversion.
 type NumerifyFormatNoneFormat string
 
 const (
@@ -38,6 +39,7 @@ func (e *NumerifyFormatNoneFormat) IsExact() bool {
 }
 
 type NumerifyFormatNone struct {
+	// Numeric format to apply after type conversion.
 	Format *NumerifyFormatNoneFormat `json:"format,omitzero"`
 	// Depth to which the Numerify Function will search within a nested event. Depth greater than 5 (the default) could decrease performance.
 	Depth *int64 `json:"depth,omitzero"`
@@ -95,6 +97,7 @@ func (n *NumerifyFormatNone) GetDigits() *float64 {
 	return n.Digits
 }
 
+// NumerifyFormatFixFormat - Numeric format to apply after type conversion.
 type NumerifyFormatFixFormat string
 
 const (
@@ -124,6 +127,7 @@ func (e *NumerifyFormatFixFormat) IsExact() bool {
 }
 
 type NumerifyFormatFix struct {
+	// Numeric format to apply after type conversion.
 	Format *NumerifyFormatFixFormat `json:"format,omitzero"`
 	// Number of digits after the decimal point, between 0 and 20. If left blank, defaults to 2.
 	Digits *float64 `json:"digits,omitzero"`

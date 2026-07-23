@@ -4,7 +4,7 @@
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 value := components.DestinationTypeDefault
@@ -59,10 +59,12 @@ custom := components.DestinationType("custom_value")
 | `DestinationTypeDatadog`                  | datadog                                   |
 | `DestinationTypeWebhook`                  | webhook                                   |
 | `DestinationTypePrometheus`               | prometheus                                |
+| `DestinationTypeAmazonManagedPrometheus`  | amazon_managed_prometheus                 |
 | `DestinationTypeGooglePubsub`             | google_pubsub                             |
 | `DestinationTypeGoogleChronicle`          | google_chronicle                          |
 | `DestinationTypeChronicle`                | chronicle                                 |
 | `DestinationTypeGoogleCloudObservability` | google_cloud_observability                |
+| `DestinationTypeGoogleBigquery`           | google_bigquery                           |
 | `DestinationTypeGrafanaCloud`             | grafana_cloud                             |
 | `DestinationTypeLoki`                     | loki                                      |
 | `DestinationTypeOpenTelemetry`            | open_telemetry                            |
@@ -84,6 +86,7 @@ custom := components.DestinationType("custom_value")
 | `DestinationTypeExabeam`                  | exabeam                                   |
 | `DestinationTypeDiskSpool`                | disk_spool                                |
 | `DestinationTypeClickHouse`               | click_house                               |
+| `DestinationTypeCustomerMetricsStorage`   | customer_metrics_storage                  |
 | `DestinationTypeLocalSearchStorage`       | local_search_storage                      |
 | `DestinationTypeXsiam`                    | xsiam                                     |
 | `DestinationTypeNetflow`                  | netflow                                   |
@@ -97,3 +100,5 @@ custom := components.DestinationType("custom_value")
 | `DestinationTypeCloudianS3`               | cloudian_s3                               |
 | `DestinationTypeScalityS3`                | scality_s3                                |
 | `DestinationTypeAlibabaCloudS3`           | alibaba_cloud_s3                          |
+| `DestinationTypeSnowflakeStreaming`       | snowflake_streaming                       |
+| `DestinationTypeIbmCloudS3`               | ibm_cloud_s3                              |

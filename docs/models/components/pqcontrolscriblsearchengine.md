@@ -1,5 +1,7 @@
 # PqControlsCriblSearchEngine
 
+Persistent queue controls.
+
 
 ## Fields
 

@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type CreateInputSystemHecTokenByPackAndIDRequest struct {
@@ -39,7 +39,7 @@ func (c *CreateInputSystemHecTokenByPackAndIDRequest) GetAddHecTokenRequest() co
 
 type CreateInputSystemHecTokenByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// the updated Splunk HEC Source with the new HEC token
+	// The updated Splunk HEC Source with the new HEC token.
 	CountedInputSplunkHec *components.CountedInputSplunkHec
 }
 

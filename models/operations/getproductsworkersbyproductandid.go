@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetProductsWorkersByProductAndIDRequest struct {
@@ -30,7 +30,7 @@ func (g *GetProductsWorkersByProductAndIDRequest) GetID() string {
 
 type GetProductsWorkersByProductAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of MasterWorkerEntry objects.
+	// The requested MasterWorkerEntry object in a single-item list.
 	CountedMasterWorkerEntry *components.CountedMasterWorkerEntry
 }
 

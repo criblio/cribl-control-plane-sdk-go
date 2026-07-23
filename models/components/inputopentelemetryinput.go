@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputOpenTelemetryType - Source type identifier.
 type InputOpenTelemetryType string
 
 const (
@@ -112,6 +113,7 @@ func (e *InputOpenTelemetryAuthenticationType) IsExact() bool {
 	return false
 }
 
+// InputOpenTelemetryAuthMethodsExtAuthenticationType - Authentication type
 type InputOpenTelemetryAuthMethodsExtAuthenticationType string
 
 const (
@@ -141,17 +143,22 @@ func (e *InputOpenTelemetryAuthMethodsExtAuthenticationType) IsExact() bool {
 }
 
 type InputOpenTelemetryAuthMethodsExt struct {
+	// Authentication type
 	AuthType InputOpenTelemetryAuthMethodsExtAuthenticationType `json:"authType"`
 	// Bearer token for Authorization header
-	Token       *string `json:"token,omitzero"`
+	Token *string `json:"token,omitzero"`
+	// Description
 	Description *string `json:"description,omitzero"`
 	// Fields to add to events referencing this auth method
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Enabled  *bool                         `json:"enabled,omitzero"`
+	// Enable
+	Enabled *bool `json:"enabled,omitzero"`
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
-	Username    *string `json:"username,omitzero"`
-	Password    *string `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Select or create a secret that references your credentials
 	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
 }
@@ -232,9 +239,11 @@ func (i *InputOpenTelemetryAuthMethodsExt) GetCredentialsSecret() *string {
 
 type InputOpenTelemetryInput struct {
 	// Unique ID for this input
-	ID       *string                `json:"id,omitzero"`
-	Type     InputOpenTelemetryType `json:"type"`
-	Disabled *bool                  `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputOpenTelemetryType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -243,7 +252,7 @@ type InputOpenTelemetryInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -251,8 +260,9 @@ type InputOpenTelemetryInput struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -285,9 +295,12 @@ type InputOpenTelemetryInput struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
 	MaxActiveCxn *float64 `json:"maxActiveCxn,omitzero"`
-	Description  *string  `json:"description,omitzero"`
-	Username     *string  `json:"username,omitzero"`
-	Password     *string  `json:"password,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials

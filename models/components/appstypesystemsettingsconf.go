@@ -2,7 +2,9 @@
 
 package components
 
+// AppsTypeSystemSettingsConf - App configuration.
 type AppsTypeSystemSettingsConf struct {
+	// If <code>true</code>, enable Apps. Otherwise, <code>false</code>.
 	Enabled bool `json:"enabled"`
 }
 

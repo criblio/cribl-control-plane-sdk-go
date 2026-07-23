@@ -5,9 +5,10 @@ package components
 import (
 	"errors"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// RunSettingsTypeRunnableJobCollectionScheduleType - Resource type identifier.
 type RunSettingsTypeRunnableJobCollectionScheduleType string
 
 const (
@@ -209,7 +210,9 @@ func (u RunSettingsTypeRunnableJobCollectionScheduleLatest) MarshalJSON() ([]byt
 	return nil, errors.New("could not marshal union type RunSettingsTypeRunnableJobCollectionScheduleLatest: all fields are null")
 }
 
+// RunSettingsTypeRunnableJobCollectionSchedule - Run settings
 type RunSettingsTypeRunnableJobCollectionSchedule struct {
+	// Resource type identifier.
 	Type *RunSettingsTypeRunnableJobCollectionScheduleType `json:"type,omitzero"`
 	// Reschedule tasks that failed with non-fatal errors
 	RescheduleDroppedTasks *bool `json:"rescheduleDroppedTasks,omitzero"`
@@ -220,7 +223,8 @@ type RunSettingsTypeRunnableJobCollectionSchedule struct {
 	// Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
 	JobTimeout *string `json:"jobTimeout,omitzero"`
 	// Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
-	Mode          string  `json:"mode"`
+	Mode string `json:"mode"`
+	// Time range
 	TimeRangeType *string `json:"timeRangeType,omitzero"`
 	// Earliest time to collect data for the selected timezone
 	Earliest *RunSettingsTypeRunnableJobCollectionScheduleEarliest `json:"earliest,omitzero"`

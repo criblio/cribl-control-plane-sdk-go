@@ -12,8 +12,8 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/criblio/cribl-control-plane-sdk-go/optionalnullable"
-	"github.com/criblio/cribl-control-plane-sdk-go/types"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/optionalnullable"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/types"
 )
 
 func PopulateQueryParams(_ context.Context, req *http.Request, queryParams interface{}, globals interface{}, allowEmptyValue map[string]struct{}) error {

@@ -3,12 +3,12 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type UpdatePacksByIDRequest struct {
-	// The <code>id</code> of the Pack to upgrade.
+	// The <code>id</code> of the Pack to upgrade. Use the <code>id</code> field from the list response.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 	// PackUpgradeRequest object.
 	PackUpgradeRequest components.PackUpgradeRequest `request:"mediaType=application/json"`
@@ -30,7 +30,7 @@ func (u *UpdatePacksByIDRequest) GetPackUpgradeRequest() components.PackUpgradeR
 
 type UpdatePacksByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// The updated PackInfo object in a single-item list.
+	// The upgraded Pack object in a single-item list.
 	CountedPackInfo *components.CountedPackInfo
 }
 

@@ -2,6 +2,7 @@
 
 package components
 
+// SaslMechanismOptionsSasl - SASL mechanism
 type SaslMechanismOptionsSasl string
 
 const (

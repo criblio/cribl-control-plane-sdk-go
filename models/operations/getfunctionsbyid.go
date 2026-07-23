@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetFunctionsByIDRequest struct {
@@ -21,7 +21,7 @@ func (g *GetFunctionsByIDRequest) GetID() string {
 
 type GetFunctionsByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Function objects
+	// The requested Function object in a single-item list.
 	CountedFunctionResponse *components.CountedFunctionResponse
 }
 

@@ -3,13 +3,18 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type GitFile struct {
+	// If <code>true</code>, this file is automatically included in commits without being explicitly listed. Otherwise, <code>false</code>.
+	AutoIncludedInCommit *bool `json:"autoIncludedInCommit,omitzero"`
+	// When this entry is a directory, nested files and subdirectories. Each array element matches this same object shape (recursive file tree).
 	Children []GitFile `json:"children,omitzero"`
-	Name     string    `json:"name"`
-	State    *string   `json:"state,omitzero"`
+	// Path of the file relative to the configuration root.
+	Name string `json:"name"`
+	// Git status code for the file: <code>M</code> for modified, <code>A</code> for added, or <code>D</code> for deleted.
+	State *string `json:"state,omitzero"`
 }
 
 func (g GitFile) MarshalJSON() ([]byte, error) {
@@ -21,6 +26,13 @@ func (g *GitFile) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (g *GitFile) GetAutoIncludedInCommit() *bool {
+	if g == nil {
+		return nil
+	}
+	return g.AutoIncludedInCommit
 }
 
 func (g *GitFile) GetChildren() []GitFile {

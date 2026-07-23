@@ -3,8 +3,8 @@
 package criblcontrolplanesdkgo
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/config"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/hooks"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/config"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/hooks"
 )
 
 type System struct {

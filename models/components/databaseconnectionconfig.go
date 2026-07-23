@@ -2,25 +2,53 @@
 
 package components
 
+import (
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+)
+
 type DatabaseConnectionConfig struct {
-	AuthType          string                 `json:"authType"`
-	ConfigObj         *string                `json:"configObj,omitzero"`
-	ConnectionString  *string                `json:"connectionString,omitzero"`
-	ConnectionTimeout *float64               `json:"connectionTimeout,omitzero"`
-	CredsSecrets      *string                `json:"credsSecrets,omitzero"`
-	DatabaseType      DatabaseConnectionType `json:"databaseType"`
-	Description       string                 `json:"description"`
-	ID                string                 `json:"id"`
-	Password          *string                `json:"password,omitzero"`
-	RequestTimeout    *float64               `json:"requestTimeout,omitzero"`
-	Tags              *string                `json:"tags,omitzero"`
-	TextSecret        *string                `json:"textSecret,omitzero"`
-	User              *string                `json:"user,omitzero"`
+	AuthType DatabaseConnectionAuthType `json:"authType"`
+	// JSON configuration object for advanced SQL Server connection settings.
+	ConfigObj *string `json:"configObj,omitzero"`
+	// Database connection string with embedded credentials or server information.
+	ConnectionString *string `json:"connectionString,omitzero"`
+	// Maximum time (in milliseconds) to wait when establishing the database connection.
+	ConnectionTimeout *int64 `json:"connectionTimeout,omitzero"`
+	// Name of the stored credentials secret containing username and password. Used with Oracle connections.
+	CredsSecrets *string                `json:"credsSecrets,omitzero"`
+	DatabaseType DatabaseConnectionType `json:"databaseType"`
+	// Brief description of the Database Connection.
+	Description string `json:"description"`
+	// Unique identifier for the Database Connection.
+	ID string `json:"id"`
+	// Database password for authentication. Used with Oracle connections.
+	Password *string `json:"password,omitzero"`
+	// Maximum time (in milliseconds) to wait for a database query to complete. Applies to SQL Server connections only.
+	RequestTimeout *int64 `json:"requestTimeout,omitzero"`
+	// Comma-separated list of tags for categorizing and filtering Database Connections.
+	Tags *string `json:"tags,omitzero"`
+	// Name of the stored text secret containing the connection string.
+	TextSecret *string `json:"textSecret,omitzero"`
+	// TLS client connection settings.
+	TLS *TLSClientParams `json:"tls,omitzero"`
+	// Database username for authentication. Used with Oracle connections.
+	User *string `json:"user,omitzero"`
 }
 
-func (d *DatabaseConnectionConfig) GetAuthType() string {
+func (d DatabaseConnectionConfig) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(d, "", false)
+}
+
+func (d *DatabaseConnectionConfig) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &d, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (d *DatabaseConnectionConfig) GetAuthType() DatabaseConnectionAuthType {
 	if d == nil {
-		return ""
+		return DatabaseConnectionAuthType("")
 	}
 	return d.AuthType
 }
@@ -39,7 +67,7 @@ func (d *DatabaseConnectionConfig) GetConnectionString() *string {
 	return d.ConnectionString
 }
 
-func (d *DatabaseConnectionConfig) GetConnectionTimeout() *float64 {
+func (d *DatabaseConnectionConfig) GetConnectionTimeout() *int64 {
 	if d == nil {
 		return nil
 	}
@@ -81,7 +109,7 @@ func (d *DatabaseConnectionConfig) GetPassword() *string {
 	return d.Password
 }
 
-func (d *DatabaseConnectionConfig) GetRequestTimeout() *float64 {
+func (d *DatabaseConnectionConfig) GetRequestTimeout() *int64 {
 	if d == nil {
 		return nil
 	}
@@ -100,6 +128,13 @@ func (d *DatabaseConnectionConfig) GetTextSecret() *string {
 		return nil
 	}
 	return d.TextSecret
+}
+
+func (d *DatabaseConnectionConfig) GetTLS() *TLSClientParams {
+	if d == nil {
+		return nil
+	}
+	return d.TLS
 }
 
 func (d *DatabaseConnectionConfig) GetUser() *string {

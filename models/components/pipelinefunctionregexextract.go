@@ -5,10 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionRegexExtractID - Function ID
+// PipelineFunctionRegexExtractID - Identifier of the Function. Always <code>regex_extract</code>
 type PipelineFunctionRegexExtractID string
 
 const (
@@ -32,9 +32,11 @@ func (e *PipelineFunctionRegexExtractID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PipelineFunctionRegexExtractConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionRegexExtractConf struct {
 	// Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-	Regex     string                        `json:"regex"`
+	Regex string `json:"regex"`
+	// Additional regex patterns to apply for field extraction.
 	RegexList []RegexListConfSerdeTypeRegex `json:"regexList,omitzero"`
 	// Field on which to perform regex field extraction
 	Source *string `json:"source,omitzero"`
@@ -100,18 +102,19 @@ func (p *PipelineFunctionRegexExtractConf) GetOverwrite() *bool {
 }
 
 type PipelineFunctionRegexExtract struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>regex_extract</code>
 	ID PipelineFunctionRegexExtractID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                            `json:"final,omitzero"`
-	Conf  PipelineFunctionRegexExtractConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionRegexExtractConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

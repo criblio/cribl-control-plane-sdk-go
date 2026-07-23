@@ -3,33 +3,8 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type InputPrometheusType string
-
-const (
-	InputPrometheusTypePrometheus InputPrometheusType = "prometheus"
-)
-
-func (e InputPrometheusType) ToPointer() *InputPrometheusType {
-	return &e
-}
-func (e *InputPrometheusType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "prometheus":
-		*e = InputPrometheusType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputPrometheusType: %v", v)
-	}
-}
 
 // InputPrometheusDiscoveryType - Target discovery mechanism. Use static to manually enter a list of targets.
 type InputPrometheusDiscoveryType string
@@ -85,9 +60,11 @@ func (e *InputPrometheusMetricsProtocol) IsExact() bool {
 
 type InputPrometheusInput struct {
 	// Unique ID for this input
-	ID       *string             `json:"id,omitzero"`
-	Type     InputPrometheusType `json:"type"`
-	Disabled *bool               `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsPrometheus `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -96,7 +73,7 @@ type InputPrometheusInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -128,8 +105,9 @@ type InputPrometheusInput struct {
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Enter credentials directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptionsSasl `json:"authType,omitzero"`
-	Description *string                          `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsSasl `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// List of Prometheus targets to pull metrics from. Values can be in URL or host[:port] format. For example: http://localhost:9090/metrics, localhost:9090, or localhost. In cases where just host[:port] is specified, the endpoint will resolve to 'http://host[:port]/metrics'.
 	TargetList []string `json:"targetList,omitzero"`
 	// DNS record type to resolve
@@ -144,14 +122,16 @@ type InputPrometheusInput struct {
 	ScrapePath *string `json:"scrapePath,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	AwsAPIKey               *string                                     `json:"awsApiKey,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Use public IP address for discovered targets. Disable to use the private IP address.
 	UsePublicIP *bool `json:"usePublicIp,omitzero"`
 	// Filter to apply when searching for EC2 instances
 	SearchFilter []SearchFilterConfInputPrometheus `json:"searchFilter,omitzero"`
-	AwsSecretKey *string                           `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Region where the EC2 is located
 	Region *string `json:"region,omitzero"`
 	// EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.
@@ -169,7 +149,7 @@ type InputPrometheusInput struct {
 	// URL to fetch target groups from (must be http or https)
 	HTTPDiscoveryURL *string `json:"httpDiscoveryUrl,omitzero"`
 	// Extra headers to send with the discovery request
-	HTTPDiscoveryHeaders []HTTPDiscoveryHeaderConfInputPrometheus `json:"httpDiscoveryHeaders,omitzero"`
+	HTTPDiscoveryHeaders []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"httpDiscoveryHeaders,omitzero"`
 	// Reject TLS certificates that cannot be verified for the discovery endpoint. Falls back to the source-level setting if not specified.
 	HTTPDiscoveryRejectUnauthorized *bool `json:"httpDiscoveryRejectUnauthorized,omitzero"`
 	// Maximum size of the HTTP SD response body. Responses exceeding this limit will be rejected. Defaults to 20 MB.
@@ -230,9 +210,9 @@ func (i *InputPrometheusInput) GetID() *string {
 	return i.ID
 }
 
-func (i *InputPrometheusInput) GetType() InputPrometheusType {
+func (i *InputPrometheusInput) GetType() TypeOptionsPrometheus {
 	if i == nil {
-		return InputPrometheusType("")
+		return TypeOptionsPrometheus("")
 	}
 	return i.Type
 }
@@ -538,7 +518,7 @@ func (i *InputPrometheusInput) GetHTTPDiscoveryURL() *string {
 	return i.HTTPDiscoveryURL
 }
 
-func (i *InputPrometheusInput) GetHTTPDiscoveryHeaders() []HTTPDiscoveryHeaderConfInputPrometheus {
+func (i *InputPrometheusInput) GetHTTPDiscoveryHeaders() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
 	if i == nil {
 		return nil
 	}

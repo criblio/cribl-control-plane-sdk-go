@@ -6,793 +6,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
-
-type CreateOutputSystemByPackOutputWebhookWebhook1 struct {
-	// Unique ID for this output
-	ID   string                                     `json:"id"`
-	Type CreateOutputSystemByPackOutputWebhookType1 `json:"type"`
-	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitzero"`
-	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitzero"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitzero"`
-	// The method to use when sending events
-	Method *components.MethodOptions `json:"method,omitzero"`
-	// How to format events before sending out
-	Format *CreateOutputSystemByPackOutputWebhookFormat1 `json:"format,omitzero"`
-	// Disable to close the connection immediately after sending the outgoing request
-	KeepAlive *bool `json:"keepAlive,omitzero"`
-	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitzero"`
-	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
-	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
-	// Compress the payload body before sending
-	Compress *bool `json:"compress,omitzero"`
-	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
-	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
-	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
-	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
-	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
-	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
-	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
-	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
-	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitzero"`
-	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
-	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	// Authentication method to use for the HTTP request
-	AuthType *CreateOutputSystemByPackOutputWebhookAuthenticationType1   `json:"authType,omitzero"`
-	TLS      *components.TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
-	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
-	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
-	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool   `json:"loadBalanced,omitzero"`
-	Description  *string `json:"description,omitzero"`
-	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
-	CustomSourceExpression *string `json:"customSourceExpression,omitzero"`
-	// Whether to drop events when the source expression evaluates to null
-	CustomDropWhenNull *bool `json:"customDropWhenNull,omitzero"`
-	// Delimiter string to insert between individual events. Defaults to newline character.
-	CustomEventDelimiter *string `json:"customEventDelimiter,omitzero"`
-	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
-	CustomContentType *string `json:"customContentType,omitzero"`
-	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
-	CustomPayloadExpression *string `json:"customPayloadExpression,omitzero"`
-	// HTTP content-type header value
-	AdvancedContentType *string `json:"advancedContentType,omitzero"`
-	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatEventCode *string `json:"formatEventCode,omitzero"`
-	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatPayloadCode *string `json:"formatPayloadCode,omitzero"`
-	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
-	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
-	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
-	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitzero"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitzero"`
-	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
-	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                                           `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputSystemByPackOutputWebhookPqControls1 `json:"pqControls,omitzero"`
-	Username             *string                                           `json:"username,omitzero"`
-	Password             *string                                           `json:"password,omitzero"`
-	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitzero"`
-	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
-	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitzero"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitzero"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitzero"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.OauthParamConfInputServicenowTable `json:"oauthParams,omitzero"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.OauthHeaderConfInputServicenowTable `json:"oauthHeaders,omitzero"`
-	// URL of a webhook endpoint to send events to, such as http://localhost:10200
-	URL string `json:"url"`
-	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool                                       `json:"excludeSelf,omitzero"`
-	Urls        []CreateOutputSystemByPackOutputWebhookURL1 `json:"urls,omitzero"`
-	// The interval in which to re-resolve any hostnames and pick up destinations from A records
-	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
-	// How far back in time to keep traffic stats for load balancing purposes
-	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
-	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
-	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
-	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
-	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
-	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitzero"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitzero"`
-}
-
-func (c CreateOutputSystemByPackOutputWebhookWebhook1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetID() string {
-	if c == nil {
-		return ""
-	}
-	return c.ID
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetType() CreateOutputSystemByPackOutputWebhookType1 {
-	if c == nil {
-		return CreateOutputSystemByPackOutputWebhookType1("")
-	}
-	return c.Type
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPipeline() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Pipeline
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetSystemFields() []string {
-	if c == nil {
-		return nil
-	}
-	return c.SystemFields
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetEnvironment() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Environment
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetStreamtags() []string {
-	if c == nil {
-		return nil
-	}
-	return c.Streamtags
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetMethod() *components.MethodOptions {
-	if c == nil {
-		return nil
-	}
-	return c.Method
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetFormat() *CreateOutputSystemByPackOutputWebhookFormat1 {
-	if c == nil {
-		return nil
-	}
-	return c.Format
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetKeepAlive() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.KeepAlive
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetConcurrency() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.Concurrency
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetMaxPayloadSizeKB() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.MaxPayloadSizeKB
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetMaxPayloadEvents() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.MaxPayloadEvents
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetCompress() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Compress
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetRejectUnauthorized() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.RejectUnauthorized
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTimeoutSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.TimeoutSec
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetFlushPeriodSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.FlushPeriodSec
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
-	if c == nil {
-		return nil
-	}
-	return c.ExtraHTTPHeaders
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetUseRoundRobinDNS() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.UseRoundRobinDNS
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
-	if c == nil {
-		return nil
-	}
-	return c.FailedRequestLoggingMode
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetSafeHeaders() []string {
-	if c == nil {
-		return nil
-	}
-	return c.SafeHeaders
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
-	if c == nil {
-		return nil
-	}
-	return c.ResponseRetrySettings
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
-	if c == nil {
-		return nil
-	}
-	return c.TimeoutRetrySettings
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetResponseHonorRetryAfterHeader() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.ResponseHonorRetryAfterHeader
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetOnBackpressure() *components.BackpressureBehaviorOptions {
-	if c == nil {
-		return nil
-	}
-	return c.OnBackpressure
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetAuthType() *CreateOutputSystemByPackOutputWebhookAuthenticationType1 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthType
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPathExtended {
-	if c == nil {
-		return nil
-	}
-	return c.TLS
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTotalMemoryLimitKB() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.TotalMemoryLimitKB
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetLoadBalanced() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.LoadBalanced
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetDescription() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Description
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetCustomSourceExpression() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CustomSourceExpression
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetCustomDropWhenNull() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.CustomDropWhenNull
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetCustomEventDelimiter() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CustomEventDelimiter
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetCustomContentType() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CustomContentType
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetCustomPayloadExpression() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CustomPayloadExpression
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetAdvancedContentType() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AdvancedContentType
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetFormatEventCode() *string {
-	if c == nil {
-		return nil
-	}
-	return c.FormatEventCode
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetFormatPayloadCode() *string {
-	if c == nil {
-		return nil
-	}
-	return c.FormatPayloadCode
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqStrictOrdering() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.PqStrictOrdering
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqRatePerSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.PqRatePerSec
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqMode() *components.ModeOptions {
-	if c == nil {
-		return nil
-	}
-	return c.PqMode
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqMaxBufferSize() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxBufferSize
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqMaxBackpressureSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxBackpressureSec
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqMaxFileSize() *string {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxFileSize
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqMaxSize() *string {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxSize
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqPath() *string {
-	if c == nil {
-		return nil
-	}
-	return c.PqPath
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqCompress() *components.CompressionOptionsPq {
-	if c == nil {
-		return nil
-	}
-	return c.PqCompress
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
-	if c == nil {
-		return nil
-	}
-	return c.PqOnBackpressure
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqMaxBufferSizeBytes() *string {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxBufferSizeBytes
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPqControls() *CreateOutputSystemByPackOutputWebhookPqControls1 {
-	if c == nil {
-		return nil
-	}
-	return c.PqControls
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetUsername() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Username
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetPassword() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Password
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetToken() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Token
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetCredentialsSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CredentialsSecret
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTextSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TextSecret
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginURL
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetSecretParamName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.SecretParamName
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Secret
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTokenAttributeName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenAttributeName
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTokenTimeoutSecs() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.TokenTimeoutSecs
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetOauthParams() []components.OauthParamConfInputServicenowTable {
-	if c == nil {
-		return nil
-	}
-	return c.OauthParams
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetOauthHeaders() []components.OauthHeaderConfInputServicenowTable {
-	if c == nil {
-		return nil
-	}
-	return c.OauthHeaders
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetURL() string {
-	if c == nil {
-		return ""
-	}
-	return c.URL
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetExcludeSelf() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.ExcludeSelf
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetUrls() []CreateOutputSystemByPackOutputWebhookURL1 {
-	if c == nil {
-		return nil
-	}
-	return c.Urls
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetDNSResolvePeriodSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.DNSResolvePeriodSec
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetLoadBalanceStatsPeriodSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.LoadBalanceStatsPeriodSec
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTemplateStreamtags() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateStreamtags
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTemplateFailedRequestLoggingMode() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateFailedRequestLoggingMode
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTemplateOnBackpressure() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateOnBackpressure
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTemplateLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateLoginURL
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTemplateSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateSecret
-}
-
-func (c *CreateOutputSystemByPackOutputWebhookWebhook1) GetTemplateURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateURL
-}
-
-// #region class-body-createoutputsystembypackoutputwebhookwebhook1
-// #endregion class-body-createoutputsystembypackoutputwebhookwebhook1
-
-type CreateOutputSystemByPackOutputWebhookUnionType string
-
-const (
-	CreateOutputSystemByPackOutputWebhookUnionTypeCreateOutputSystemByPackOutputWebhookWebhook1 CreateOutputSystemByPackOutputWebhookUnionType = "createOutputSystemByPack_OutputWebhook_Webhook_1"
-	CreateOutputSystemByPackOutputWebhookUnionTypeCreateOutputSystemByPackOutputWebhookWebhook2 CreateOutputSystemByPackOutputWebhookUnionType = "createOutputSystemByPack_OutputWebhook_Webhook_2"
-)
-
-type CreateOutputSystemByPackOutputWebhookUnion struct {
-	CreateOutputSystemByPackOutputWebhookWebhook1 *CreateOutputSystemByPackOutputWebhookWebhook1 `queryParam:"inline" union:"member"`
-	CreateOutputSystemByPackOutputWebhookWebhook2 *CreateOutputSystemByPackOutputWebhookWebhook2 `queryParam:"inline" union:"member"`
-
-	Type CreateOutputSystemByPackOutputWebhookUnionType
-}
-
-func CreateCreateOutputSystemByPackOutputWebhookUnionCreateOutputSystemByPackOutputWebhookWebhook1(createOutputSystemByPackOutputWebhookWebhook1 CreateOutputSystemByPackOutputWebhookWebhook1) CreateOutputSystemByPackOutputWebhookUnion {
-	typ := CreateOutputSystemByPackOutputWebhookUnionTypeCreateOutputSystemByPackOutputWebhookWebhook1
-
-	return CreateOutputSystemByPackOutputWebhookUnion{
-		CreateOutputSystemByPackOutputWebhookWebhook1: &createOutputSystemByPackOutputWebhookWebhook1,
-		Type: typ,
-	}
-}
-
-func CreateCreateOutputSystemByPackOutputWebhookUnionCreateOutputSystemByPackOutputWebhookWebhook2(createOutputSystemByPackOutputWebhookWebhook2 CreateOutputSystemByPackOutputWebhookWebhook2) CreateOutputSystemByPackOutputWebhookUnion {
-	typ := CreateOutputSystemByPackOutputWebhookUnionTypeCreateOutputSystemByPackOutputWebhookWebhook2
-
-	return CreateOutputSystemByPackOutputWebhookUnion{
-		CreateOutputSystemByPackOutputWebhookWebhook2: &createOutputSystemByPackOutputWebhookWebhook2,
-		Type: typ,
-	}
-}
-
-func (u *CreateOutputSystemByPackOutputWebhookUnion) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var createOutputSystemByPackOutputWebhookWebhook1 CreateOutputSystemByPackOutputWebhookWebhook1 = CreateOutputSystemByPackOutputWebhookWebhook1{}
-	if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputWebhookWebhook1, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  CreateOutputSystemByPackOutputWebhookUnionTypeCreateOutputSystemByPackOutputWebhookWebhook1,
-			Value: &createOutputSystemByPackOutputWebhookWebhook1,
-		})
-	}
-
-	var createOutputSystemByPackOutputWebhookWebhook2 CreateOutputSystemByPackOutputWebhookWebhook2 = CreateOutputSystemByPackOutputWebhookWebhook2{}
-	if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputWebhookWebhook2, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  CreateOutputSystemByPackOutputWebhookUnionTypeCreateOutputSystemByPackOutputWebhookWebhook2,
-			Value: &createOutputSystemByPackOutputWebhookWebhook2,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputSystemByPackOutputWebhookUnion", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputSystemByPackOutputWebhookUnion", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(CreateOutputSystemByPackOutputWebhookUnionType)
-	switch best.Type {
-	case CreateOutputSystemByPackOutputWebhookUnionTypeCreateOutputSystemByPackOutputWebhookWebhook1:
-		u.CreateOutputSystemByPackOutputWebhookWebhook1 = best.Value.(*CreateOutputSystemByPackOutputWebhookWebhook1)
-		return nil
-	case CreateOutputSystemByPackOutputWebhookUnionTypeCreateOutputSystemByPackOutputWebhookWebhook2:
-		u.CreateOutputSystemByPackOutputWebhookWebhook2 = best.Value.(*CreateOutputSystemByPackOutputWebhookWebhook2)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputSystemByPackOutputWebhookUnion", string(data))
-}
-
-func (u CreateOutputSystemByPackOutputWebhookUnion) MarshalJSON() ([]byte, error) {
-	if u.CreateOutputSystemByPackOutputWebhookWebhook1 != nil {
-		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputWebhookWebhook1, "", true)
-	}
-
-	if u.CreateOutputSystemByPackOutputWebhookWebhook2 != nil {
-		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputWebhookWebhook2, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type CreateOutputSystemByPackOutputWebhookUnion: all fields are null")
-}
-
-type CreateOutputSystemByPackTypeDefault string
-
-const (
-	CreateOutputSystemByPackTypeDefaultDefault CreateOutputSystemByPackTypeDefault = "default"
-)
-
-func (e CreateOutputSystemByPackTypeDefault) ToPointer() *CreateOutputSystemByPackTypeDefault {
-	return &e
-}
-func (e *CreateOutputSystemByPackTypeDefault) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "default":
-		*e = CreateOutputSystemByPackTypeDefault(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CreateOutputSystemByPackTypeDefault: %v", v)
-	}
-}
 
 type CreateOutputSystemByPackOutputDefault struct {
 	// Unique ID for this output
-	ID   string                              `json:"id"`
+	ID string `json:"id"`
+	// Connector type identifier.
 	Type CreateOutputSystemByPackTypeDefault `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -800,7 +21,7 @@ type CreateOutputSystemByPackOutputDefault struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// ID of the default output. This will be used whenever a nonexistent/deleted output is referenced.
 	DefaultID *string `json:"defaultId"`
@@ -898,6 +119,7 @@ const (
 	CreateOutputSystemByPackRequestBodyTypeKinesis                  CreateOutputSystemByPackRequestBodyType = "kinesis"
 	CreateOutputSystemByPackRequestBodyTypeHoneycomb                CreateOutputSystemByPackRequestBodyType = "honeycomb"
 	CreateOutputSystemByPackRequestBodyTypeAzureEventhub            CreateOutputSystemByPackRequestBodyType = "azure_eventhub"
+	CreateOutputSystemByPackRequestBodyTypeGoogleBigquery           CreateOutputSystemByPackRequestBodyType = "google_bigquery"
 	CreateOutputSystemByPackRequestBodyTypeGoogleChronicle          CreateOutputSystemByPackRequestBodyType = "google_chronicle"
 	CreateOutputSystemByPackRequestBodyTypeGoogleCloudStorage       CreateOutputSystemByPackRequestBodyType = "google_cloud_storage"
 	CreateOutputSystemByPackRequestBodyTypeGoogleCloudLogging       CreateOutputSystemByPackRequestBodyType = "google_cloud_logging"
@@ -925,6 +147,7 @@ const (
 	CreateOutputSystemByPackRequestBodyTypeDatadog                  CreateOutputSystemByPackRequestBodyType = "datadog"
 	CreateOutputSystemByPackRequestBodyTypeGrafanaCloud             CreateOutputSystemByPackRequestBodyType = "grafana_cloud"
 	CreateOutputSystemByPackRequestBodyTypeLoki                     CreateOutputSystemByPackRequestBodyType = "loki"
+	CreateOutputSystemByPackRequestBodyTypeAmazonManagedPrometheus  CreateOutputSystemByPackRequestBodyType = "amazon_managed_prometheus"
 	CreateOutputSystemByPackRequestBodyTypePrometheus               CreateOutputSystemByPackRequestBodyType = "prometheus"
 	CreateOutputSystemByPackRequestBodyTypeRing                     CreateOutputSystemByPackRequestBodyType = "ring"
 	CreateOutputSystemByPackRequestBodyTypeOpenTelemetry            CreateOutputSystemByPackRequestBodyType = "open_telemetry"
@@ -940,6 +163,7 @@ const (
 	CreateOutputSystemByPackRequestBodyTypeCriblLake                CreateOutputSystemByPackRequestBodyType = "cribl_lake"
 	CreateOutputSystemByPackRequestBodyTypeDiskSpool                CreateOutputSystemByPackRequestBodyType = "disk_spool"
 	CreateOutputSystemByPackRequestBodyTypeClickHouse               CreateOutputSystemByPackRequestBodyType = "click_house"
+	CreateOutputSystemByPackRequestBodyTypeCustomerMetricsStorage   CreateOutputSystemByPackRequestBodyType = "customer_metrics_storage"
 	CreateOutputSystemByPackRequestBodyTypeLocalSearchStorage       CreateOutputSystemByPackRequestBodyType = "local_search_storage"
 	CreateOutputSystemByPackRequestBodyTypeXsiam                    CreateOutputSystemByPackRequestBodyType = "xsiam"
 	CreateOutputSystemByPackRequestBodyTypeNetflow                  CreateOutputSystemByPackRequestBodyType = "netflow"
@@ -948,6 +172,7 @@ const (
 	CreateOutputSystemByPackRequestBodyTypeSentinelOneAiSiem        CreateOutputSystemByPackRequestBodyType = "sentinel_one_ai_siem"
 	CreateOutputSystemByPackRequestBodyTypeChronicle                CreateOutputSystemByPackRequestBodyType = "chronicle"
 	CreateOutputSystemByPackRequestBodyTypeDatabricks               CreateOutputSystemByPackRequestBodyType = "databricks"
+	CreateOutputSystemByPackRequestBodyTypeSnowflakeStreaming       CreateOutputSystemByPackRequestBodyType = "snowflake_streaming"
 	CreateOutputSystemByPackRequestBodyTypeMicrosoftFabric          CreateOutputSystemByPackRequestBodyType = "microsoft_fabric"
 	CreateOutputSystemByPackRequestBodyTypeCloudflareR2             CreateOutputSystemByPackRequestBodyType = "cloudflare_r2"
 	CreateOutputSystemByPackRequestBodyTypeNutanixObjects           CreateOutputSystemByPackRequestBodyType = "nutanix_objects"
@@ -957,6 +182,7 @@ const (
 	CreateOutputSystemByPackRequestBodyTypeCloudianS3               CreateOutputSystemByPackRequestBodyType = "cloudian_s3"
 	CreateOutputSystemByPackRequestBodyTypeScalityS3                CreateOutputSystemByPackRequestBodyType = "scality_s3"
 	CreateOutputSystemByPackRequestBodyTypeAlibabaCloudS3           CreateOutputSystemByPackRequestBodyType = "alibaba_cloud_s3"
+	CreateOutputSystemByPackRequestBodyTypeIbmCloudS3               CreateOutputSystemByPackRequestBodyType = "ibm_cloud_s3"
 )
 
 // CreateOutputSystemByPackRequestBody - Output object.
@@ -981,6 +207,7 @@ type CreateOutputSystemByPackRequestBody struct {
 	CreateOutputSystemByPackOutputKinesis                  *CreateOutputSystemByPackOutputKinesis                  `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputHoneycomb                *CreateOutputSystemByPackOutputHoneycomb                `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputAzureEventhub            *CreateOutputSystemByPackOutputAzureEventhub            `queryParam:"inline" union:"member"`
+	CreateOutputSystemByPackOutputGoogleBigquery           *CreateOutputSystemByPackOutputGoogleBigquery           `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputGoogleChronicle          *CreateOutputSystemByPackOutputGoogleChronicle          `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputGoogleCloudStorage       *CreateOutputSystemByPackOutputGoogleCloudStorage       `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputGoogleCloudLogging       *CreateOutputSystemByPackOutputGoogleCloudLogging       `queryParam:"inline" union:"member"`
@@ -1008,6 +235,7 @@ type CreateOutputSystemByPackRequestBody struct {
 	CreateOutputSystemByPackOutputDatadog                  *CreateOutputSystemByPackOutputDatadog                  `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputGrafanaCloudUnion        *CreateOutputSystemByPackOutputGrafanaCloudUnion        `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputLoki                     *CreateOutputSystemByPackOutputLoki                     `queryParam:"inline" union:"member"`
+	CreateOutputSystemByPackOutputAmazonManagedPrometheus  *CreateOutputSystemByPackOutputAmazonManagedPrometheus  `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputPrometheus               *CreateOutputSystemByPackOutputPrometheus               `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputRing                     *CreateOutputSystemByPackOutputRing                     `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputOpenTelemetry            *CreateOutputSystemByPackOutputOpenTelemetry            `queryParam:"inline" union:"member"`
@@ -1023,6 +251,7 @@ type CreateOutputSystemByPackRequestBody struct {
 	CreateOutputSystemByPackOutputCriblLake                *CreateOutputSystemByPackOutputCriblLake                `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputDiskSpool                *CreateOutputSystemByPackOutputDiskSpool                `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputClickHouse               *CreateOutputSystemByPackOutputClickHouse               `queryParam:"inline" union:"member"`
+	CreateOutputSystemByPackOutputCustomerMetricsStorage   *CreateOutputSystemByPackOutputCustomerMetricsStorage   `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputLocalSearchStorage       *CreateOutputSystemByPackOutputLocalSearchStorage       `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputXsiam                    *CreateOutputSystemByPackOutputXsiam                    `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputNetflow                  *CreateOutputSystemByPackOutputNetflow                  `queryParam:"inline" union:"member"`
@@ -1031,6 +260,7 @@ type CreateOutputSystemByPackRequestBody struct {
 	CreateOutputSystemByPackOutputSentinelOneAiSiem        *CreateOutputSystemByPackOutputSentinelOneAiSiem        `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputChronicle                *CreateOutputSystemByPackOutputChronicle                `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputDatabricks               *CreateOutputSystemByPackOutputDatabricks               `queryParam:"inline" union:"member"`
+	CreateOutputSystemByPackOutputSnowflakeStreaming       *CreateOutputSystemByPackOutputSnowflakeStreaming       `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputMicrosoftFabric          *CreateOutputSystemByPackOutputMicrosoftFabric          `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputCloudflareR2             *CreateOutputSystemByPackOutputCloudflareR2             `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputNutanixObjects           *CreateOutputSystemByPackOutputNutanixObjects           `queryParam:"inline" union:"member"`
@@ -1040,6 +270,7 @@ type CreateOutputSystemByPackRequestBody struct {
 	CreateOutputSystemByPackOutputCloudianS3               *CreateOutputSystemByPackOutputCloudianS3               `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputScalityS3                *CreateOutputSystemByPackOutputScalityS3                `queryParam:"inline" union:"member"`
 	CreateOutputSystemByPackOutputAlibabaCloudS3           *CreateOutputSystemByPackOutputAlibabaCloudS3           `queryParam:"inline" union:"member"`
+	CreateOutputSystemByPackOutputIbmCloudS3               *CreateOutputSystemByPackOutputIbmCloudS3               `queryParam:"inline" union:"member"`
 
 	Type CreateOutputSystemByPackRequestBodyType
 }
@@ -1092,7 +323,7 @@ func CreateCreateOutputSystemByPackRequestBodyDevnull(devnull CreateOutputSystem
 func CreateCreateOutputSystemByPackRequestBodySyslog(syslog CreateOutputSystemByPackOutputSyslog) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeSyslog
 
-	typStr := CreateOutputSystemByPackTypeSyslog(typ)
+	typStr := components.TypeOptionsSyslog(typ)
 	syslog.Type = typStr
 
 	return CreateOutputSystemByPackRequestBody{
@@ -1104,7 +335,7 @@ func CreateCreateOutputSystemByPackRequestBodySyslog(syslog CreateOutputSystemBy
 func CreateCreateOutputSystemByPackRequestBodySplunk(splunk CreateOutputSystemByPackOutputSplunk) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeSplunk
 
-	typStr := CreateOutputSystemByPackTypeSplunk(typ)
+	typStr := components.TypeOptionsSplunk(typ)
 	splunk.Type = typStr
 
 	return CreateOutputSystemByPackRequestBody{
@@ -1152,7 +383,7 @@ func CreateCreateOutputSystemByPackRequestBodyWizHec(wizHec CreateOutputSystemBy
 func CreateCreateOutputSystemByPackRequestBodyTcpjson(tcpjson CreateOutputSystemByPackOutputTcpjson) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeTcpjson
 
-	typStr := CreateOutputSystemByPackTypeTcpjson(typ)
+	typStr := components.TypeOptionsTcpjson(typ)
 	tcpjson.Type = typStr
 
 	return CreateOutputSystemByPackRequestBody{
@@ -1200,7 +431,7 @@ func CreateCreateOutputSystemByPackRequestBodyFilesystem(filesystem CreateOutput
 func CreateCreateOutputSystemByPackRequestBodyS3(s3 CreateOutputSystemByPackOutputS3) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeS3
 
-	typStr := CreateOutputSystemByPackTypeS3(typ)
+	typStr := components.TypeOptionsS3(typ)
 	s3.Type = typStr
 
 	return CreateOutputSystemByPackRequestBody{
@@ -1212,7 +443,7 @@ func CreateCreateOutputSystemByPackRequestBodyS3(s3 CreateOutputSystemByPackOutp
 func CreateCreateOutputSystemByPackRequestBodyAzureBlob(azureBlob CreateOutputSystemByPackOutputAzureBlob) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeAzureBlob
 
-	typStr := CreateOutputSystemByPackTypeAzureBlob(typ)
+	typStr := components.TypeOptionsAzureblob(typ)
 	azureBlob.Type = typStr
 
 	return CreateOutputSystemByPackRequestBody{
@@ -1248,7 +479,7 @@ func CreateCreateOutputSystemByPackRequestBodyAzureLogs(azureLogs CreateOutputSy
 func CreateCreateOutputSystemByPackRequestBodyKinesis(kinesis CreateOutputSystemByPackOutputKinesis) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeKinesis
 
-	typStr := CreateOutputSystemByPackTypeKinesis(typ)
+	typStr := components.TypeOptionsKinesis(typ)
 	kinesis.Type = typStr
 
 	return CreateOutputSystemByPackRequestBody{
@@ -1277,6 +508,18 @@ func CreateCreateOutputSystemByPackRequestBodyAzureEventhub(azureEventhub Create
 
 	return CreateOutputSystemByPackRequestBody{
 		CreateOutputSystemByPackOutputAzureEventhub: &azureEventhub,
+		Type: typ,
+	}
+}
+
+func CreateCreateOutputSystemByPackRequestBodyGoogleBigquery(googleBigquery CreateOutputSystemByPackOutputGoogleBigquery) CreateOutputSystemByPackRequestBody {
+	typ := CreateOutputSystemByPackRequestBodyTypeGoogleBigquery
+
+	typStr := CreateOutputSystemByPackTypeGoogleBigquery(typ)
+	googleBigquery.Type = typStr
+
+	return CreateOutputSystemByPackRequestBody{
+		CreateOutputSystemByPackOutputGoogleBigquery: &googleBigquery,
 		Type: typ,
 	}
 }
@@ -1332,7 +575,7 @@ func CreateCreateOutputSystemByPackRequestBodyGoogleCloudObservability(googleClo
 func CreateCreateOutputSystemByPackRequestBodyGooglePubsub(googlePubsub CreateOutputSystemByPackOutputGooglePubsub) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeGooglePubsub
 
-	typStr := CreateOutputSystemByPackTypeGooglePubsub(typ)
+	typStr := components.TypeOptionsGooglepubsub(typ)
 	googlePubsub.Type = typStr
 
 	return CreateOutputSystemByPackRequestBody{
@@ -1356,7 +599,7 @@ func CreateCreateOutputSystemByPackRequestBodyExabeam(exabeam CreateOutputSystem
 func CreateCreateOutputSystemByPackRequestBodyKafka(kafka CreateOutputSystemByPackOutputKafka) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeKafka
 
-	typStr := CreateOutputSystemByPackTypeKafka(typ)
+	typStr := components.TypeOptions(typ)
 	kafka.Type = typStr
 
 	return CreateOutputSystemByPackRequestBody{
@@ -1368,7 +611,7 @@ func CreateCreateOutputSystemByPackRequestBodyKafka(kafka CreateOutputSystemByPa
 func CreateCreateOutputSystemByPackRequestBodyConfluentCloud(confluentCloud CreateOutputSystemByPackOutputConfluentCloud) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeConfluentCloud
 
-	typStr := CreateOutputSystemByPackTypeConfluentCloud(typ)
+	typStr := components.TypeOptionsConfluentcloud(typ)
 	confluentCloud.Type = typStr
 
 	return CreateOutputSystemByPackRequestBody{
@@ -1380,7 +623,7 @@ func CreateCreateOutputSystemByPackRequestBodyConfluentCloud(confluentCloud Crea
 func CreateCreateOutputSystemByPackRequestBodyMsk(msk CreateOutputSystemByPackOutputMsk) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeMsk
 
-	typStr := CreateOutputSystemByPackTypeMsk(typ)
+	typStr := components.TypeOptionsMsk(typ)
 	msk.Type = typStr
 
 	return CreateOutputSystemByPackRequestBody{
@@ -1536,7 +779,7 @@ func CreateCreateOutputSystemByPackRequestBodySns(sns CreateOutputSystemByPackOu
 func CreateCreateOutputSystemByPackRequestBodySqs(sqs CreateOutputSystemByPackOutputSqs) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeSqs
 
-	typStr := CreateOutputSystemByPackTypeSqs(typ)
+	typStr := components.TypeOptionsSqs(typ)
 	sqs.Type = typStr
 
 	return CreateOutputSystemByPackRequestBody{
@@ -1548,7 +791,7 @@ func CreateCreateOutputSystemByPackRequestBodySqs(sqs CreateOutputSystemByPackOu
 func CreateCreateOutputSystemByPackRequestBodySnmp(snmp CreateOutputSystemByPackOutputSnmp) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeSnmp
 
-	typStr := CreateOutputSystemByPackTypeSnmp(typ)
+	typStr := components.TypeOptionsSnmp(typ)
 	snmp.Type = typStr
 
 	return CreateOutputSystemByPackRequestBody{
@@ -1602,10 +845,22 @@ func CreateCreateOutputSystemByPackRequestBodyLoki(loki CreateOutputSystemByPack
 	}
 }
 
+func CreateCreateOutputSystemByPackRequestBodyAmazonManagedPrometheus(amazonManagedPrometheus CreateOutputSystemByPackOutputAmazonManagedPrometheus) CreateOutputSystemByPackRequestBody {
+	typ := CreateOutputSystemByPackRequestBodyTypeAmazonManagedPrometheus
+
+	typStr := CreateOutputSystemByPackTypeAmazonManagedPrometheus(typ)
+	amazonManagedPrometheus.Type = typStr
+
+	return CreateOutputSystemByPackRequestBody{
+		CreateOutputSystemByPackOutputAmazonManagedPrometheus: &amazonManagedPrometheus,
+		Type: typ,
+	}
+}
+
 func CreateCreateOutputSystemByPackRequestBodyPrometheus(prometheus CreateOutputSystemByPackOutputPrometheus) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypePrometheus
 
-	typStr := CreateOutputSystemByPackTypePrometheus(typ)
+	typStr := components.TypeOptionsPrometheus(typ)
 	prometheus.Type = typStr
 
 	return CreateOutputSystemByPackRequestBody{
@@ -1665,7 +920,7 @@ func CreateCreateOutputSystemByPackRequestBodyDataset(dataset CreateOutputSystem
 func CreateCreateOutputSystemByPackRequestBodyCriblTCP(criblTCP CreateOutputSystemByPackOutputCriblTCP) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeCriblTCP
 
-	typStr := CreateOutputSystemByPackTypeCriblTCP(typ)
+	typStr := components.TypeOptionsCribltcp(typ)
 	criblTCP.Type = typStr
 
 	return CreateOutputSystemByPackRequestBody{
@@ -1737,7 +992,7 @@ func CreateCreateOutputSystemByPackRequestBodyDlS3(dlS3 CreateOutputSystemByPack
 func CreateCreateOutputSystemByPackRequestBodySecurityLake(securityLake CreateOutputSystemByPackOutputSecurityLake) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeSecurityLake
 
-	typStr := CreateOutputSystemByPackTypeSecurityLake(typ)
+	typStr := components.TypeOptionsSecuritylake(typ)
 	securityLake.Type = typStr
 
 	return CreateOutputSystemByPackRequestBody{
@@ -1782,6 +1037,18 @@ func CreateCreateOutputSystemByPackRequestBodyClickHouse(clickHouse CreateOutput
 	}
 }
 
+func CreateCreateOutputSystemByPackRequestBodyCustomerMetricsStorage(customerMetricsStorage CreateOutputSystemByPackOutputCustomerMetricsStorage) CreateOutputSystemByPackRequestBody {
+	typ := CreateOutputSystemByPackRequestBodyTypeCustomerMetricsStorage
+
+	typStr := CreateOutputSystemByPackTypeCustomerMetricsStorage(typ)
+	customerMetricsStorage.Type = typStr
+
+	return CreateOutputSystemByPackRequestBody{
+		CreateOutputSystemByPackOutputCustomerMetricsStorage: &customerMetricsStorage,
+		Type: typ,
+	}
+}
+
 func CreateCreateOutputSystemByPackRequestBodyLocalSearchStorage(localSearchStorage CreateOutputSystemByPackOutputLocalSearchStorage) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeLocalSearchStorage
 
@@ -1809,7 +1076,7 @@ func CreateCreateOutputSystemByPackRequestBodyXsiam(xsiam CreateOutputSystemByPa
 func CreateCreateOutputSystemByPackRequestBodyNetflow(netflow CreateOutputSystemByPackOutputNetflow) CreateOutputSystemByPackRequestBody {
 	typ := CreateOutputSystemByPackRequestBodyTypeNetflow
 
-	typStr := CreateOutputSystemByPackTypeNetflow(typ)
+	typStr := components.TypeOptionsNetflow(typ)
 	netflow.Type = typStr
 
 	return CreateOutputSystemByPackRequestBody{
@@ -1875,6 +1142,18 @@ func CreateCreateOutputSystemByPackRequestBodyDatabricks(databricks CreateOutput
 	return CreateOutputSystemByPackRequestBody{
 		CreateOutputSystemByPackOutputDatabricks: &databricks,
 		Type:                                     typ,
+	}
+}
+
+func CreateCreateOutputSystemByPackRequestBodySnowflakeStreaming(snowflakeStreaming CreateOutputSystemByPackOutputSnowflakeStreaming) CreateOutputSystemByPackRequestBody {
+	typ := CreateOutputSystemByPackRequestBodyTypeSnowflakeStreaming
+
+	typStr := CreateOutputSystemByPackTypeSnowflakeStreaming(typ)
+	snowflakeStreaming.Type = typStr
+
+	return CreateOutputSystemByPackRequestBody{
+		CreateOutputSystemByPackOutputSnowflakeStreaming: &snowflakeStreaming,
+		Type: typ,
 	}
 }
 
@@ -1983,6 +1262,18 @@ func CreateCreateOutputSystemByPackRequestBodyAlibabaCloudS3(alibabaCloudS3 Crea
 	return CreateOutputSystemByPackRequestBody{
 		CreateOutputSystemByPackOutputAlibabaCloudS3: &alibabaCloudS3,
 		Type: typ,
+	}
+}
+
+func CreateCreateOutputSystemByPackRequestBodyIbmCloudS3(ibmCloudS3 CreateOutputSystemByPackOutputIbmCloudS3) CreateOutputSystemByPackRequestBody {
+	typ := CreateOutputSystemByPackRequestBodyTypeIbmCloudS3
+
+	typStr := CreateOutputSystemByPackTypeIbmCloudS3(typ)
+	ibmCloudS3.Type = typStr
+
+	return CreateOutputSystemByPackRequestBody{
+		CreateOutputSystemByPackOutputIbmCloudS3: &ibmCloudS3,
+		Type:                                     typ,
 	}
 }
 
@@ -2177,6 +1468,15 @@ func (u *CreateOutputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 
 		u.CreateOutputSystemByPackOutputAzureEventhub = createOutputSystemByPackOutputAzureEventhub
 		u.Type = CreateOutputSystemByPackRequestBodyTypeAzureEventhub
+		return nil
+	case "google_bigquery":
+		createOutputSystemByPackOutputGoogleBigquery := new(CreateOutputSystemByPackOutputGoogleBigquery)
+		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputGoogleBigquery, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == google_bigquery) type CreateOutputSystemByPackOutputGoogleBigquery within CreateOutputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateOutputSystemByPackOutputGoogleBigquery = createOutputSystemByPackOutputGoogleBigquery
+		u.Type = CreateOutputSystemByPackRequestBodyTypeGoogleBigquery
 		return nil
 	case "google_chronicle":
 		createOutputSystemByPackOutputGoogleChronicle := new(CreateOutputSystemByPackOutputGoogleChronicle)
@@ -2421,6 +1721,15 @@ func (u *CreateOutputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 		u.CreateOutputSystemByPackOutputLoki = createOutputSystemByPackOutputLoki
 		u.Type = CreateOutputSystemByPackRequestBodyTypeLoki
 		return nil
+	case "amazon_managed_prometheus":
+		createOutputSystemByPackOutputAmazonManagedPrometheus := new(CreateOutputSystemByPackOutputAmazonManagedPrometheus)
+		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputAmazonManagedPrometheus, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == amazon_managed_prometheus) type CreateOutputSystemByPackOutputAmazonManagedPrometheus within CreateOutputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateOutputSystemByPackOutputAmazonManagedPrometheus = createOutputSystemByPackOutputAmazonManagedPrometheus
+		u.Type = CreateOutputSystemByPackRequestBodyTypeAmazonManagedPrometheus
+		return nil
 	case "prometheus":
 		createOutputSystemByPackOutputPrometheus := new(CreateOutputSystemByPackOutputPrometheus)
 		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputPrometheus, "", true, nil); err != nil {
@@ -2556,6 +1865,15 @@ func (u *CreateOutputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 		u.CreateOutputSystemByPackOutputClickHouse = createOutputSystemByPackOutputClickHouse
 		u.Type = CreateOutputSystemByPackRequestBodyTypeClickHouse
 		return nil
+	case "customer_metrics_storage":
+		createOutputSystemByPackOutputCustomerMetricsStorage := new(CreateOutputSystemByPackOutputCustomerMetricsStorage)
+		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputCustomerMetricsStorage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == customer_metrics_storage) type CreateOutputSystemByPackOutputCustomerMetricsStorage within CreateOutputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateOutputSystemByPackOutputCustomerMetricsStorage = createOutputSystemByPackOutputCustomerMetricsStorage
+		u.Type = CreateOutputSystemByPackRequestBodyTypeCustomerMetricsStorage
+		return nil
 	case "local_search_storage":
 		createOutputSystemByPackOutputLocalSearchStorage := new(CreateOutputSystemByPackOutputLocalSearchStorage)
 		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputLocalSearchStorage, "", true, nil); err != nil {
@@ -2627,6 +1945,15 @@ func (u *CreateOutputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 
 		u.CreateOutputSystemByPackOutputDatabricks = createOutputSystemByPackOutputDatabricks
 		u.Type = CreateOutputSystemByPackRequestBodyTypeDatabricks
+		return nil
+	case "snowflake_streaming":
+		createOutputSystemByPackOutputSnowflakeStreaming := new(CreateOutputSystemByPackOutputSnowflakeStreaming)
+		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputSnowflakeStreaming, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == snowflake_streaming) type CreateOutputSystemByPackOutputSnowflakeStreaming within CreateOutputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateOutputSystemByPackOutputSnowflakeStreaming = createOutputSystemByPackOutputSnowflakeStreaming
+		u.Type = CreateOutputSystemByPackRequestBodyTypeSnowflakeStreaming
 		return nil
 	case "microsoft_fabric":
 		createOutputSystemByPackOutputMicrosoftFabric := new(CreateOutputSystemByPackOutputMicrosoftFabric)
@@ -2708,6 +2035,15 @@ func (u *CreateOutputSystemByPackRequestBody) UnmarshalJSON(data []byte) error {
 
 		u.CreateOutputSystemByPackOutputAlibabaCloudS3 = createOutputSystemByPackOutputAlibabaCloudS3
 		u.Type = CreateOutputSystemByPackRequestBodyTypeAlibabaCloudS3
+		return nil
+	case "ibm_cloud_s3":
+		createOutputSystemByPackOutputIbmCloudS3 := new(CreateOutputSystemByPackOutputIbmCloudS3)
+		if err := utils.UnmarshalJSON(data, &createOutputSystemByPackOutputIbmCloudS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == ibm_cloud_s3) type CreateOutputSystemByPackOutputIbmCloudS3 within CreateOutputSystemByPackRequestBody: %w", string(data), err)
+		}
+
+		u.CreateOutputSystemByPackOutputIbmCloudS3 = createOutputSystemByPackOutputIbmCloudS3
+		u.Type = CreateOutputSystemByPackRequestBodyTypeIbmCloudS3
 		return nil
 	}
 
@@ -2793,6 +2129,10 @@ func (u CreateOutputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 
 	if u.CreateOutputSystemByPackOutputAzureEventhub != nil {
 		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputAzureEventhub, "", true)
+	}
+
+	if u.CreateOutputSystemByPackOutputGoogleBigquery != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputGoogleBigquery, "", true)
 	}
 
 	if u.CreateOutputSystemByPackOutputGoogleChronicle != nil {
@@ -2903,6 +2243,10 @@ func (u CreateOutputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputLoki, "", true)
 	}
 
+	if u.CreateOutputSystemByPackOutputAmazonManagedPrometheus != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputAmazonManagedPrometheus, "", true)
+	}
+
 	if u.CreateOutputSystemByPackOutputPrometheus != nil {
 		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputPrometheus, "", true)
 	}
@@ -2963,6 +2307,10 @@ func (u CreateOutputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputClickHouse, "", true)
 	}
 
+	if u.CreateOutputSystemByPackOutputCustomerMetricsStorage != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputCustomerMetricsStorage, "", true)
+	}
+
 	if u.CreateOutputSystemByPackOutputLocalSearchStorage != nil {
 		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputLocalSearchStorage, "", true)
 	}
@@ -2993,6 +2341,10 @@ func (u CreateOutputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 
 	if u.CreateOutputSystemByPackOutputDatabricks != nil {
 		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputDatabricks, "", true)
+	}
+
+	if u.CreateOutputSystemByPackOutputSnowflakeStreaming != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputSnowflakeStreaming, "", true)
 	}
 
 	if u.CreateOutputSystemByPackOutputMicrosoftFabric != nil {
@@ -3029,6 +2381,10 @@ func (u CreateOutputSystemByPackRequestBody) MarshalJSON() ([]byte, error) {
 
 	if u.CreateOutputSystemByPackOutputAlibabaCloudS3 != nil {
 		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputAlibabaCloudS3, "", true)
+	}
+
+	if u.CreateOutputSystemByPackOutputIbmCloudS3 != nil {
+		return utils.MarshalJSON(u.CreateOutputSystemByPackOutputIbmCloudS3, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type CreateOutputSystemByPackRequestBody: all fields are null")
@@ -3133,6 +2489,10 @@ func (c *CreateOutputSystemByPackRequest) GetRequestBodyHoneycomb() *CreateOutpu
 
 func (c *CreateOutputSystemByPackRequest) GetRequestBodyAzureEventhub() *CreateOutputSystemByPackOutputAzureEventhub {
 	return c.GetRequestBody().CreateOutputSystemByPackOutputAzureEventhub
+}
+
+func (c *CreateOutputSystemByPackRequest) GetRequestBodyGoogleBigquery() *CreateOutputSystemByPackOutputGoogleBigquery {
+	return c.GetRequestBody().CreateOutputSystemByPackOutputGoogleBigquery
 }
 
 func (c *CreateOutputSystemByPackRequest) GetRequestBodyGoogleChronicle() *CreateOutputSystemByPackOutputGoogleChronicle {
@@ -3243,6 +2603,10 @@ func (c *CreateOutputSystemByPackRequest) GetRequestBodyLoki() *CreateOutputSyst
 	return c.GetRequestBody().CreateOutputSystemByPackOutputLoki
 }
 
+func (c *CreateOutputSystemByPackRequest) GetRequestBodyAmazonManagedPrometheus() *CreateOutputSystemByPackOutputAmazonManagedPrometheus {
+	return c.GetRequestBody().CreateOutputSystemByPackOutputAmazonManagedPrometheus
+}
+
 func (c *CreateOutputSystemByPackRequest) GetRequestBodyPrometheus() *CreateOutputSystemByPackOutputPrometheus {
 	return c.GetRequestBody().CreateOutputSystemByPackOutputPrometheus
 }
@@ -3303,6 +2667,10 @@ func (c *CreateOutputSystemByPackRequest) GetRequestBodyClickHouse() *CreateOutp
 	return c.GetRequestBody().CreateOutputSystemByPackOutputClickHouse
 }
 
+func (c *CreateOutputSystemByPackRequest) GetRequestBodyCustomerMetricsStorage() *CreateOutputSystemByPackOutputCustomerMetricsStorage {
+	return c.GetRequestBody().CreateOutputSystemByPackOutputCustomerMetricsStorage
+}
+
 func (c *CreateOutputSystemByPackRequest) GetRequestBodyLocalSearchStorage() *CreateOutputSystemByPackOutputLocalSearchStorage {
 	return c.GetRequestBody().CreateOutputSystemByPackOutputLocalSearchStorage
 }
@@ -3333,6 +2701,10 @@ func (c *CreateOutputSystemByPackRequest) GetRequestBodyChronicle() *CreateOutpu
 
 func (c *CreateOutputSystemByPackRequest) GetRequestBodyDatabricks() *CreateOutputSystemByPackOutputDatabricks {
 	return c.GetRequestBody().CreateOutputSystemByPackOutputDatabricks
+}
+
+func (c *CreateOutputSystemByPackRequest) GetRequestBodySnowflakeStreaming() *CreateOutputSystemByPackOutputSnowflakeStreaming {
+	return c.GetRequestBody().CreateOutputSystemByPackOutputSnowflakeStreaming
 }
 
 func (c *CreateOutputSystemByPackRequest) GetRequestBodyMicrosoftFabric() *CreateOutputSystemByPackOutputMicrosoftFabric {
@@ -3371,9 +2743,13 @@ func (c *CreateOutputSystemByPackRequest) GetRequestBodyAlibabaCloudS3() *Create
 	return c.GetRequestBody().CreateOutputSystemByPackOutputAlibabaCloudS3
 }
 
+func (c *CreateOutputSystemByPackRequest) GetRequestBodyIbmCloudS3() *CreateOutputSystemByPackOutputIbmCloudS3 {
+	return c.GetRequestBody().CreateOutputSystemByPackOutputIbmCloudS3
+}
+
 type CreateOutputSystemByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// the created Destination object
+	// The created Destination object in a single-item list.
 	CountedOutputResponse *components.CountedOutputResponse
 }
 

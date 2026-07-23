@@ -3,9 +3,10 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// PqTypePqControls - Management controls for the persistent queue.
 type PqTypePqControls struct {
 }
 
@@ -21,7 +22,7 @@ func (p *PqTypePqControls) UnmarshalJSON(data []byte) error {
 }
 
 type PqType struct {
-	// With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+	// With Smart mode (deprecated), PQ will write events to the filesystem only when it detects backpressure from the processing engine. Smart mode will have no new development starting July 2026, followed by End of Support and feature removal (auto-migrating to Always On) in January 2027. We recommend using Always On mode instead. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 	Mode *ModeOptionsPq `json:"mode,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
 	MaxBufferSizeBytes *string `json:"maxBufferSizeBytes,omitzero"`
@@ -36,8 +37,11 @@ type PqType struct {
 	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
 	Path *string `json:"path,omitzero"`
 	// Codec to use to compress the persisted data
-	Compress   *CompressionOptionsPq `json:"compress,omitzero"`
-	PqControls *PqTypePqControls     `json:"pqControls,omitzero"`
+	Compress *CompressionOptionsPq `json:"compress,omitzero"`
+	// Whether to block or drop events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+	OnBackpressure *QueueFullBehaviorOptionsPq `json:"onBackpressure,omitzero"`
+	// Management controls for the persistent queue.
+	PqControls *PqTypePqControls `json:"pqControls,omitzero"`
 }
 
 func (p PqType) MarshalJSON() ([]byte, error) {
@@ -105,6 +109,13 @@ func (p *PqType) GetCompress() *CompressionOptionsPq {
 		return nil
 	}
 	return p.Compress
+}
+
+func (p *PqType) GetOnBackpressure() *QueueFullBehaviorOptionsPq {
+	if p == nil {
+		return nil
+	}
+	return p.OnBackpressure
 }
 
 func (p *PqType) GetPqControls() *PqTypePqControls {

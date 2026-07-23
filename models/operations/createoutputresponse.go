@@ -6,793 +6,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
-
-type CreateOutputOutputWebhookWebhook1 struct {
-	// Unique ID for this output
-	ID   string                         `json:"id"`
-	Type CreateOutputOutputWebhookType1 `json:"type"`
-	// Pipeline to process data before sending out to this output
-	Pipeline *string `json:"pipeline,omitzero"`
-	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
-	SystemFields []string `json:"systemFields,omitzero"`
-	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
-	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags []string `json:"streamtags,omitzero"`
-	// The method to use when sending events
-	Method *components.MethodOptions `json:"method,omitzero"`
-	// How to format events before sending out
-	Format *CreateOutputOutputWebhookFormat1 `json:"format,omitzero"`
-	// Disable to close the connection immediately after sending the outgoing request
-	KeepAlive *bool `json:"keepAlive,omitzero"`
-	// Maximum number of ongoing requests before blocking
-	Concurrency *float64 `json:"concurrency,omitzero"`
-	// Maximum size, in KB, of the request body
-	MaxPayloadSizeKB *float64 `json:"maxPayloadSizeKB,omitzero"`
-	// Maximum number of events to include in the request body. Default is 0 (unlimited).
-	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
-	// Compress the payload body before sending
-	Compress *bool `json:"compress,omitzero"`
-	// Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
-	//         Enabled by default. When this setting is also present in TLS Settings (Client Side),
-	//         that value will take precedence.
-	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
-	// Amount of time, in seconds, to wait for a request to complete before canceling it
-	TimeoutSec *float64 `json:"timeoutSec,omitzero"`
-	// Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
-	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
-	// Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).
-	ExtraHTTPHeaders []components.ExtraHTTPHeaderConfInputElastic `json:"extraHttpHeaders,omitzero"`
-	// Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
-	UseRoundRobinDNS *bool `json:"useRoundRobinDns,omitzero"`
-	// Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
-	FailedRequestLoggingMode *components.FailedRequestLoggingModeOptions `json:"failedRequestLoggingMode,omitzero"`
-	// List of headers that are safe to log in plain text
-	SafeHeaders []string `json:"safeHeaders,omitzero"`
-	// Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
-	ResponseRetrySettings []components.ResponseRetrySettingConfOutputWebhook `json:"responseRetrySettings,omitzero"`
-	TimeoutRetrySettings  *components.TimeoutRetrySettingsType               `json:"timeoutRetrySettings,omitzero"`
-	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
-	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
-	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *components.BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	// Authentication method to use for the HTTP request
-	AuthType *CreateOutputOutputWebhookAuthenticationType1               `json:"authType,omitzero"`
-	TLS      *components.TLSSettingsClientSideTypeCaPathCertPathExtended `json:"tls,omitzero"`
-	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
-	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
-	// Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.
-	LoadBalanced *bool   `json:"loadBalanced,omitzero"`
-	Description  *string `json:"description,omitzero"`
-	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
-	CustomSourceExpression *string `json:"customSourceExpression,omitzero"`
-	// Whether to drop events when the source expression evaluates to null
-	CustomDropWhenNull *bool `json:"customDropWhenNull,omitzero"`
-	// Delimiter string to insert between individual events. Defaults to newline character.
-	CustomEventDelimiter *string `json:"customEventDelimiter,omitzero"`
-	// Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.
-	CustomContentType *string `json:"customContentType,omitzero"`
-	// Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.
-	CustomPayloadExpression *string `json:"customPayloadExpression,omitzero"`
-	// HTTP content-type header value
-	AdvancedContentType *string `json:"advancedContentType,omitzero"`
-	// Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatEventCode *string `json:"formatEventCode,omitzero"`
-	// Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.
-	FormatPayloadCode *string `json:"formatPayloadCode,omitzero"`
-	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
-	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
-	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
-	PqRatePerSec *float64 `json:"pqRatePerSec,omitzero"`
-	// In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-	PqMode *components.ModeOptions `json:"pqMode,omitzero"`
-	// Maximum number of events to hold in memory before writing the events to disk. Deprecated and only supported in workers < v4.17.0. Use pqMaxBufferSizeBytes instead.
-	PqMaxBufferSize *float64 `json:"pqMaxBufferSize,omitzero"`
-	// How long (in seconds) to wait for backpressure to resolve before engaging the queue
-	PqMaxBackpressureSec *float64 `json:"pqMaxBackpressureSec,omitzero"`
-	// The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
-	PqMaxFileSize *string `json:"pqMaxFileSize,omitzero"`
-	// The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-	PqMaxSize *string `json:"pqMaxSize,omitzero"`
-	// The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
-	PqPath *string `json:"pqPath,omitzero"`
-	// Codec to use to compress the persisted data
-	PqCompress *components.CompressionOptionsPq `json:"pqCompress,omitzero"`
-	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
-	PqOnBackpressure *components.QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
-	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                               `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *CreateOutputOutputWebhookPqControls1 `json:"pqControls,omitzero"`
-	Username             *string                               `json:"username,omitzero"`
-	Password             *string                               `json:"password,omitzero"`
-	// Bearer token to include in the authorization header
-	Token *string `json:"token,omitzero"`
-	// Select or create a secret that references your credentials
-	CredentialsSecret *string `json:"credentialsSecret,omitzero"`
-	// Select or create a stored text secret
-	TextSecret *string `json:"textSecret,omitzero"`
-	// URL for OAuth
-	LoginURL *string `json:"loginUrl,omitzero"`
-	// Secret parameter name to pass in request body
-	SecretParamName *string `json:"secretParamName,omitzero"`
-	// Secret parameter value to pass in request body
-	Secret *string `json:"secret,omitzero"`
-	// Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
-	TokenAttributeName *string `json:"tokenAttributeName,omitzero"`
-	// JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
-	AuthHeaderExpr *string `json:"authHeaderExpr,omitzero"`
-	// How often the OAuth token should be refreshed.
-	TokenTimeoutSecs *float64 `json:"tokenTimeoutSecs,omitzero"`
-	// Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthParams []components.OauthParamConfInputServicenowTable `json:"oauthParams,omitzero"`
-	// Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
-	OauthHeaders []components.OauthHeaderConfInputServicenowTable `json:"oauthHeaders,omitzero"`
-	// URL of a webhook endpoint to send events to, such as http://localhost:10200
-	URL string `json:"url"`
-	// Exclude all IPs of the current host from the list of any resolved hostnames
-	ExcludeSelf *bool                           `json:"excludeSelf,omitzero"`
-	Urls        []CreateOutputOutputWebhookURL1 `json:"urls,omitzero"`
-	// The interval in which to re-resolve any hostnames and pick up destinations from A records
-	DNSResolvePeriodSec *float64 `json:"dnsResolvePeriodSec,omitzero"`
-	// How far back in time to keep traffic stats for load balancing purposes
-	LoadBalanceStatsPeriodSec *float64 `json:"loadBalanceStatsPeriodSec,omitzero"`
-	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
-	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
-	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.
-	TemplateFailedRequestLoggingMode *string `json:"__template_failedRequestLoggingMode,omitzero"`
-	// Binds 'onBackpressure' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'onBackpressure' at runtime.
-	TemplateOnBackpressure *string `json:"__template_onBackpressure,omitzero"`
-	// Binds 'loginUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'loginUrl' at runtime.
-	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
-	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
-	TemplateSecret *string `json:"__template_secret,omitzero"`
-	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.
-	TemplateURL *string `json:"__template_url,omitzero"`
-}
-
-func (c CreateOutputOutputWebhookWebhook1) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(c, "", false)
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
-		return err
-	}
-	return nil
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetID() string {
-	if c == nil {
-		return ""
-	}
-	return c.ID
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetType() CreateOutputOutputWebhookType1 {
-	if c == nil {
-		return CreateOutputOutputWebhookType1("")
-	}
-	return c.Type
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetPipeline() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Pipeline
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetSystemFields() []string {
-	if c == nil {
-		return nil
-	}
-	return c.SystemFields
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetEnvironment() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Environment
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetStreamtags() []string {
-	if c == nil {
-		return nil
-	}
-	return c.Streamtags
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetMethod() *components.MethodOptions {
-	if c == nil {
-		return nil
-	}
-	return c.Method
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetFormat() *CreateOutputOutputWebhookFormat1 {
-	if c == nil {
-		return nil
-	}
-	return c.Format
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetKeepAlive() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.KeepAlive
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetConcurrency() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.Concurrency
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetMaxPayloadSizeKB() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.MaxPayloadSizeKB
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetMaxPayloadEvents() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.MaxPayloadEvents
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetCompress() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.Compress
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetRejectUnauthorized() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.RejectUnauthorized
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetTimeoutSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.TimeoutSec
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetFlushPeriodSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.FlushPeriodSec
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetExtraHTTPHeaders() []components.ExtraHTTPHeaderConfInputElastic {
-	if c == nil {
-		return nil
-	}
-	return c.ExtraHTTPHeaders
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetUseRoundRobinDNS() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.UseRoundRobinDNS
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetFailedRequestLoggingMode() *components.FailedRequestLoggingModeOptions {
-	if c == nil {
-		return nil
-	}
-	return c.FailedRequestLoggingMode
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetSafeHeaders() []string {
-	if c == nil {
-		return nil
-	}
-	return c.SafeHeaders
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetResponseRetrySettings() []components.ResponseRetrySettingConfOutputWebhook {
-	if c == nil {
-		return nil
-	}
-	return c.ResponseRetrySettings
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetTimeoutRetrySettings() *components.TimeoutRetrySettingsType {
-	if c == nil {
-		return nil
-	}
-	return c.TimeoutRetrySettings
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetResponseHonorRetryAfterHeader() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.ResponseHonorRetryAfterHeader
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetOnBackpressure() *components.BackpressureBehaviorOptions {
-	if c == nil {
-		return nil
-	}
-	return c.OnBackpressure
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetAuthType() *CreateOutputOutputWebhookAuthenticationType1 {
-	if c == nil {
-		return nil
-	}
-	return c.AuthType
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetTLS() *components.TLSSettingsClientSideTypeCaPathCertPathExtended {
-	if c == nil {
-		return nil
-	}
-	return c.TLS
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetTotalMemoryLimitKB() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.TotalMemoryLimitKB
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetLoadBalanced() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.LoadBalanced
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetDescription() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Description
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetCustomSourceExpression() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CustomSourceExpression
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetCustomDropWhenNull() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.CustomDropWhenNull
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetCustomEventDelimiter() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CustomEventDelimiter
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetCustomContentType() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CustomContentType
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetCustomPayloadExpression() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CustomPayloadExpression
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetAdvancedContentType() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AdvancedContentType
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetFormatEventCode() *string {
-	if c == nil {
-		return nil
-	}
-	return c.FormatEventCode
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetFormatPayloadCode() *string {
-	if c == nil {
-		return nil
-	}
-	return c.FormatPayloadCode
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetPqStrictOrdering() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.PqStrictOrdering
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetPqRatePerSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.PqRatePerSec
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetPqMode() *components.ModeOptions {
-	if c == nil {
-		return nil
-	}
-	return c.PqMode
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetPqMaxBufferSize() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxBufferSize
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetPqMaxBackpressureSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxBackpressureSec
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetPqMaxFileSize() *string {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxFileSize
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetPqMaxSize() *string {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxSize
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetPqPath() *string {
-	if c == nil {
-		return nil
-	}
-	return c.PqPath
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetPqCompress() *components.CompressionOptionsPq {
-	if c == nil {
-		return nil
-	}
-	return c.PqCompress
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetPqOnBackpressure() *components.QueueFullBehaviorOptions {
-	if c == nil {
-		return nil
-	}
-	return c.PqOnBackpressure
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetPqMaxBufferSizeBytes() *string {
-	if c == nil {
-		return nil
-	}
-	return c.PqMaxBufferSizeBytes
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetPqControls() *CreateOutputOutputWebhookPqControls1 {
-	if c == nil {
-		return nil
-	}
-	return c.PqControls
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetUsername() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Username
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetPassword() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Password
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetToken() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Token
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetCredentialsSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.CredentialsSecret
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetTextSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TextSecret
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.LoginURL
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetSecretParamName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.SecretParamName
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Secret
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetTokenAttributeName() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TokenAttributeName
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetAuthHeaderExpr() *string {
-	if c == nil {
-		return nil
-	}
-	return c.AuthHeaderExpr
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetTokenTimeoutSecs() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.TokenTimeoutSecs
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetOauthParams() []components.OauthParamConfInputServicenowTable {
-	if c == nil {
-		return nil
-	}
-	return c.OauthParams
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetOauthHeaders() []components.OauthHeaderConfInputServicenowTable {
-	if c == nil {
-		return nil
-	}
-	return c.OauthHeaders
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetURL() string {
-	if c == nil {
-		return ""
-	}
-	return c.URL
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetExcludeSelf() *bool {
-	if c == nil {
-		return nil
-	}
-	return c.ExcludeSelf
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetUrls() []CreateOutputOutputWebhookURL1 {
-	if c == nil {
-		return nil
-	}
-	return c.Urls
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetDNSResolvePeriodSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.DNSResolvePeriodSec
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetLoadBalanceStatsPeriodSec() *float64 {
-	if c == nil {
-		return nil
-	}
-	return c.LoadBalanceStatsPeriodSec
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetTemplateStreamtags() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateStreamtags
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetTemplateFailedRequestLoggingMode() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateFailedRequestLoggingMode
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetTemplateOnBackpressure() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateOnBackpressure
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetTemplateLoginURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateLoginURL
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetTemplateSecret() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateSecret
-}
-
-func (c *CreateOutputOutputWebhookWebhook1) GetTemplateURL() *string {
-	if c == nil {
-		return nil
-	}
-	return c.TemplateURL
-}
-
-// #region class-body-createoutputoutputwebhookwebhook1
-// #endregion class-body-createoutputoutputwebhookwebhook1
-
-type CreateOutputOutputWebhookUnionType string
-
-const (
-	CreateOutputOutputWebhookUnionTypeCreateOutputOutputWebhookWebhook1 CreateOutputOutputWebhookUnionType = "createOutput_OutputWebhook_Webhook_1"
-	CreateOutputOutputWebhookUnionTypeCreateOutputOutputWebhookWebhook2 CreateOutputOutputWebhookUnionType = "createOutput_OutputWebhook_Webhook_2"
-)
-
-type CreateOutputOutputWebhookUnion struct {
-	CreateOutputOutputWebhookWebhook1 *CreateOutputOutputWebhookWebhook1 `queryParam:"inline" union:"member"`
-	CreateOutputOutputWebhookWebhook2 *CreateOutputOutputWebhookWebhook2 `queryParam:"inline" union:"member"`
-
-	Type CreateOutputOutputWebhookUnionType
-}
-
-func CreateCreateOutputOutputWebhookUnionCreateOutputOutputWebhookWebhook1(createOutputOutputWebhookWebhook1 CreateOutputOutputWebhookWebhook1) CreateOutputOutputWebhookUnion {
-	typ := CreateOutputOutputWebhookUnionTypeCreateOutputOutputWebhookWebhook1
-
-	return CreateOutputOutputWebhookUnion{
-		CreateOutputOutputWebhookWebhook1: &createOutputOutputWebhookWebhook1,
-		Type:                              typ,
-	}
-}
-
-func CreateCreateOutputOutputWebhookUnionCreateOutputOutputWebhookWebhook2(createOutputOutputWebhookWebhook2 CreateOutputOutputWebhookWebhook2) CreateOutputOutputWebhookUnion {
-	typ := CreateOutputOutputWebhookUnionTypeCreateOutputOutputWebhookWebhook2
-
-	return CreateOutputOutputWebhookUnion{
-		CreateOutputOutputWebhookWebhook2: &createOutputOutputWebhookWebhook2,
-		Type:                              typ,
-	}
-}
-
-func (u *CreateOutputOutputWebhookUnion) UnmarshalJSON(data []byte) error {
-
-	var candidates []utils.UnionCandidate
-
-	// Collect all valid candidates
-	var createOutputOutputWebhookWebhook1 CreateOutputOutputWebhookWebhook1 = CreateOutputOutputWebhookWebhook1{}
-	if err := utils.UnmarshalJSON(data, &createOutputOutputWebhookWebhook1, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  CreateOutputOutputWebhookUnionTypeCreateOutputOutputWebhookWebhook1,
-			Value: &createOutputOutputWebhookWebhook1,
-		})
-	}
-
-	var createOutputOutputWebhookWebhook2 CreateOutputOutputWebhookWebhook2 = CreateOutputOutputWebhookWebhook2{}
-	if err := utils.UnmarshalJSON(data, &createOutputOutputWebhookWebhook2, "", true, nil); err == nil {
-		candidates = append(candidates, utils.UnionCandidate{
-			Type:  CreateOutputOutputWebhookUnionTypeCreateOutputOutputWebhookWebhook2,
-			Value: &createOutputOutputWebhookWebhook2,
-		})
-	}
-
-	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputOutputWebhookUnion", string(data))
-	}
-
-	// Pick the best candidate using multi-stage filtering
-	best := utils.PickBestUnionCandidate(candidates, data)
-	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputOutputWebhookUnion", string(data))
-	}
-
-	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(CreateOutputOutputWebhookUnionType)
-	switch best.Type {
-	case CreateOutputOutputWebhookUnionTypeCreateOutputOutputWebhookWebhook1:
-		u.CreateOutputOutputWebhookWebhook1 = best.Value.(*CreateOutputOutputWebhookWebhook1)
-		return nil
-	case CreateOutputOutputWebhookUnionTypeCreateOutputOutputWebhookWebhook2:
-		u.CreateOutputOutputWebhookWebhook2 = best.Value.(*CreateOutputOutputWebhookWebhook2)
-		return nil
-	}
-
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for CreateOutputOutputWebhookUnion", string(data))
-}
-
-func (u CreateOutputOutputWebhookUnion) MarshalJSON() ([]byte, error) {
-	if u.CreateOutputOutputWebhookWebhook1 != nil {
-		return utils.MarshalJSON(u.CreateOutputOutputWebhookWebhook1, "", true)
-	}
-
-	if u.CreateOutputOutputWebhookWebhook2 != nil {
-		return utils.MarshalJSON(u.CreateOutputOutputWebhookWebhook2, "", true)
-	}
-
-	return nil, errors.New("could not marshal union type CreateOutputOutputWebhookUnion: all fields are null")
-}
-
-type CreateOutputTypeDefault string
-
-const (
-	CreateOutputTypeDefaultDefault CreateOutputTypeDefault = "default"
-)
-
-func (e CreateOutputTypeDefault) ToPointer() *CreateOutputTypeDefault {
-	return &e
-}
-func (e *CreateOutputTypeDefault) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "default":
-		*e = CreateOutputTypeDefault(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for CreateOutputTypeDefault: %v", v)
-	}
-}
 
 type CreateOutputOutputDefault struct {
 	// Unique ID for this output
-	ID   string                  `json:"id"`
+	ID string `json:"id"`
+	// Connector type identifier.
 	Type CreateOutputTypeDefault `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -800,7 +21,7 @@ type CreateOutputOutputDefault struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// ID of the default output. This will be used whenever a nonexistent/deleted output is referenced.
 	DefaultID *string `json:"defaultId"`
@@ -898,6 +119,7 @@ const (
 	CreateOutputRequestTypeKinesis                  CreateOutputRequestType = "kinesis"
 	CreateOutputRequestTypeHoneycomb                CreateOutputRequestType = "honeycomb"
 	CreateOutputRequestTypeAzureEventhub            CreateOutputRequestType = "azure_eventhub"
+	CreateOutputRequestTypeGoogleBigquery           CreateOutputRequestType = "google_bigquery"
 	CreateOutputRequestTypeGoogleChronicle          CreateOutputRequestType = "google_chronicle"
 	CreateOutputRequestTypeGoogleCloudStorage       CreateOutputRequestType = "google_cloud_storage"
 	CreateOutputRequestTypeGoogleCloudLogging       CreateOutputRequestType = "google_cloud_logging"
@@ -925,6 +147,7 @@ const (
 	CreateOutputRequestTypeDatadog                  CreateOutputRequestType = "datadog"
 	CreateOutputRequestTypeGrafanaCloud             CreateOutputRequestType = "grafana_cloud"
 	CreateOutputRequestTypeLoki                     CreateOutputRequestType = "loki"
+	CreateOutputRequestTypeAmazonManagedPrometheus  CreateOutputRequestType = "amazon_managed_prometheus"
 	CreateOutputRequestTypePrometheus               CreateOutputRequestType = "prometheus"
 	CreateOutputRequestTypeRing                     CreateOutputRequestType = "ring"
 	CreateOutputRequestTypeOpenTelemetry            CreateOutputRequestType = "open_telemetry"
@@ -940,6 +163,7 @@ const (
 	CreateOutputRequestTypeCriblLake                CreateOutputRequestType = "cribl_lake"
 	CreateOutputRequestTypeDiskSpool                CreateOutputRequestType = "disk_spool"
 	CreateOutputRequestTypeClickHouse               CreateOutputRequestType = "click_house"
+	CreateOutputRequestTypeCustomerMetricsStorage   CreateOutputRequestType = "customer_metrics_storage"
 	CreateOutputRequestTypeLocalSearchStorage       CreateOutputRequestType = "local_search_storage"
 	CreateOutputRequestTypeXsiam                    CreateOutputRequestType = "xsiam"
 	CreateOutputRequestTypeNetflow                  CreateOutputRequestType = "netflow"
@@ -948,6 +172,7 @@ const (
 	CreateOutputRequestTypeSentinelOneAiSiem        CreateOutputRequestType = "sentinel_one_ai_siem"
 	CreateOutputRequestTypeChronicle                CreateOutputRequestType = "chronicle"
 	CreateOutputRequestTypeDatabricks               CreateOutputRequestType = "databricks"
+	CreateOutputRequestTypeSnowflakeStreaming       CreateOutputRequestType = "snowflake_streaming"
 	CreateOutputRequestTypeMicrosoftFabric          CreateOutputRequestType = "microsoft_fabric"
 	CreateOutputRequestTypeCloudflareR2             CreateOutputRequestType = "cloudflare_r2"
 	CreateOutputRequestTypeNutanixObjects           CreateOutputRequestType = "nutanix_objects"
@@ -957,6 +182,7 @@ const (
 	CreateOutputRequestTypeCloudianS3               CreateOutputRequestType = "cloudian_s3"
 	CreateOutputRequestTypeScalityS3                CreateOutputRequestType = "scality_s3"
 	CreateOutputRequestTypeAlibabaCloudS3           CreateOutputRequestType = "alibaba_cloud_s3"
+	CreateOutputRequestTypeIbmCloudS3               CreateOutputRequestType = "ibm_cloud_s3"
 )
 
 // CreateOutputRequest - Output object.
@@ -981,6 +207,7 @@ type CreateOutputRequest struct {
 	CreateOutputOutputKinesis                  *CreateOutputOutputKinesis                  `queryParam:"inline" union:"member"`
 	CreateOutputOutputHoneycomb                *CreateOutputOutputHoneycomb                `queryParam:"inline" union:"member"`
 	CreateOutputOutputAzureEventhub            *CreateOutputOutputAzureEventhub            `queryParam:"inline" union:"member"`
+	CreateOutputOutputGoogleBigquery           *CreateOutputOutputGoogleBigquery           `queryParam:"inline" union:"member"`
 	CreateOutputOutputGoogleChronicle          *CreateOutputOutputGoogleChronicle          `queryParam:"inline" union:"member"`
 	CreateOutputOutputGoogleCloudStorage       *CreateOutputOutputGoogleCloudStorage       `queryParam:"inline" union:"member"`
 	CreateOutputOutputGoogleCloudLogging       *CreateOutputOutputGoogleCloudLogging       `queryParam:"inline" union:"member"`
@@ -1008,6 +235,7 @@ type CreateOutputRequest struct {
 	CreateOutputOutputDatadog                  *CreateOutputOutputDatadog                  `queryParam:"inline" union:"member"`
 	CreateOutputOutputGrafanaCloudUnion        *CreateOutputOutputGrafanaCloudUnion        `queryParam:"inline" union:"member"`
 	CreateOutputOutputLoki                     *CreateOutputOutputLoki                     `queryParam:"inline" union:"member"`
+	CreateOutputOutputAmazonManagedPrometheus  *CreateOutputOutputAmazonManagedPrometheus  `queryParam:"inline" union:"member"`
 	CreateOutputOutputPrometheus               *CreateOutputOutputPrometheus               `queryParam:"inline" union:"member"`
 	CreateOutputOutputRing                     *CreateOutputOutputRing                     `queryParam:"inline" union:"member"`
 	CreateOutputOutputOpenTelemetry            *CreateOutputOutputOpenTelemetry            `queryParam:"inline" union:"member"`
@@ -1023,6 +251,7 @@ type CreateOutputRequest struct {
 	CreateOutputOutputCriblLake                *CreateOutputOutputCriblLake                `queryParam:"inline" union:"member"`
 	CreateOutputOutputDiskSpool                *CreateOutputOutputDiskSpool                `queryParam:"inline" union:"member"`
 	CreateOutputOutputClickHouse               *CreateOutputOutputClickHouse               `queryParam:"inline" union:"member"`
+	CreateOutputOutputCustomerMetricsStorage   *CreateOutputOutputCustomerMetricsStorage   `queryParam:"inline" union:"member"`
 	CreateOutputOutputLocalSearchStorage       *CreateOutputOutputLocalSearchStorage       `queryParam:"inline" union:"member"`
 	CreateOutputOutputXsiam                    *CreateOutputOutputXsiam                    `queryParam:"inline" union:"member"`
 	CreateOutputOutputNetflow                  *CreateOutputOutputNetflow                  `queryParam:"inline" union:"member"`
@@ -1031,6 +260,7 @@ type CreateOutputRequest struct {
 	CreateOutputOutputSentinelOneAiSiem        *CreateOutputOutputSentinelOneAiSiem        `queryParam:"inline" union:"member"`
 	CreateOutputOutputChronicle                *CreateOutputOutputChronicle                `queryParam:"inline" union:"member"`
 	CreateOutputOutputDatabricks               *CreateOutputOutputDatabricks               `queryParam:"inline" union:"member"`
+	CreateOutputOutputSnowflakeStreaming       *CreateOutputOutputSnowflakeStreaming       `queryParam:"inline" union:"member"`
 	CreateOutputOutputMicrosoftFabric          *CreateOutputOutputMicrosoftFabric          `queryParam:"inline" union:"member"`
 	CreateOutputOutputCloudflareR2             *CreateOutputOutputCloudflareR2             `queryParam:"inline" union:"member"`
 	CreateOutputOutputNutanixObjects           *CreateOutputOutputNutanixObjects           `queryParam:"inline" union:"member"`
@@ -1040,6 +270,7 @@ type CreateOutputRequest struct {
 	CreateOutputOutputCloudianS3               *CreateOutputOutputCloudianS3               `queryParam:"inline" union:"member"`
 	CreateOutputOutputScalityS3                *CreateOutputOutputScalityS3                `queryParam:"inline" union:"member"`
 	CreateOutputOutputAlibabaCloudS3           *CreateOutputOutputAlibabaCloudS3           `queryParam:"inline" union:"member"`
+	CreateOutputOutputIbmCloudS3               *CreateOutputOutputIbmCloudS3               `queryParam:"inline" union:"member"`
 
 	Type CreateOutputRequestType
 }
@@ -1092,7 +323,7 @@ func CreateCreateOutputRequestDevnull(devnull CreateOutputOutputDevnull) CreateO
 func CreateCreateOutputRequestSyslog(syslog CreateOutputOutputSyslog) CreateOutputRequest {
 	typ := CreateOutputRequestTypeSyslog
 
-	typStr := CreateOutputTypeSyslog(typ)
+	typStr := components.TypeOptionsSyslog(typ)
 	syslog.Type = typStr
 
 	return CreateOutputRequest{
@@ -1104,7 +335,7 @@ func CreateCreateOutputRequestSyslog(syslog CreateOutputOutputSyslog) CreateOutp
 func CreateCreateOutputRequestSplunk(splunk CreateOutputOutputSplunk) CreateOutputRequest {
 	typ := CreateOutputRequestTypeSplunk
 
-	typStr := CreateOutputTypeSplunk(typ)
+	typStr := components.TypeOptionsSplunk(typ)
 	splunk.Type = typStr
 
 	return CreateOutputRequest{
@@ -1152,7 +383,7 @@ func CreateCreateOutputRequestWizHec(wizHec CreateOutputOutputWizHec) CreateOutp
 func CreateCreateOutputRequestTcpjson(tcpjson CreateOutputOutputTcpjson) CreateOutputRequest {
 	typ := CreateOutputRequestTypeTcpjson
 
-	typStr := CreateOutputTypeTcpjson(typ)
+	typStr := components.TypeOptionsTcpjson(typ)
 	tcpjson.Type = typStr
 
 	return CreateOutputRequest{
@@ -1200,7 +431,7 @@ func CreateCreateOutputRequestFilesystem(filesystem CreateOutputOutputFilesystem
 func CreateCreateOutputRequestS3(s3 CreateOutputOutputS3) CreateOutputRequest {
 	typ := CreateOutputRequestTypeS3
 
-	typStr := CreateOutputTypeS3(typ)
+	typStr := components.TypeOptionsS3(typ)
 	s3.Type = typStr
 
 	return CreateOutputRequest{
@@ -1212,7 +443,7 @@ func CreateCreateOutputRequestS3(s3 CreateOutputOutputS3) CreateOutputRequest {
 func CreateCreateOutputRequestAzureBlob(azureBlob CreateOutputOutputAzureBlob) CreateOutputRequest {
 	typ := CreateOutputRequestTypeAzureBlob
 
-	typStr := CreateOutputTypeAzureBlob(typ)
+	typStr := components.TypeOptionsAzureblob(typ)
 	azureBlob.Type = typStr
 
 	return CreateOutputRequest{
@@ -1248,7 +479,7 @@ func CreateCreateOutputRequestAzureLogs(azureLogs CreateOutputOutputAzureLogs) C
 func CreateCreateOutputRequestKinesis(kinesis CreateOutputOutputKinesis) CreateOutputRequest {
 	typ := CreateOutputRequestTypeKinesis
 
-	typStr := CreateOutputTypeKinesis(typ)
+	typStr := components.TypeOptionsKinesis(typ)
 	kinesis.Type = typStr
 
 	return CreateOutputRequest{
@@ -1278,6 +509,18 @@ func CreateCreateOutputRequestAzureEventhub(azureEventhub CreateOutputOutputAzur
 	return CreateOutputRequest{
 		CreateOutputOutputAzureEventhub: &azureEventhub,
 		Type:                            typ,
+	}
+}
+
+func CreateCreateOutputRequestGoogleBigquery(googleBigquery CreateOutputOutputGoogleBigquery) CreateOutputRequest {
+	typ := CreateOutputRequestTypeGoogleBigquery
+
+	typStr := CreateOutputTypeGoogleBigquery(typ)
+	googleBigquery.Type = typStr
+
+	return CreateOutputRequest{
+		CreateOutputOutputGoogleBigquery: &googleBigquery,
+		Type:                             typ,
 	}
 }
 
@@ -1332,7 +575,7 @@ func CreateCreateOutputRequestGoogleCloudObservability(googleCloudObservability 
 func CreateCreateOutputRequestGooglePubsub(googlePubsub CreateOutputOutputGooglePubsub) CreateOutputRequest {
 	typ := CreateOutputRequestTypeGooglePubsub
 
-	typStr := CreateOutputTypeGooglePubsub(typ)
+	typStr := components.TypeOptionsGooglepubsub(typ)
 	googlePubsub.Type = typStr
 
 	return CreateOutputRequest{
@@ -1356,7 +599,7 @@ func CreateCreateOutputRequestExabeam(exabeam CreateOutputOutputExabeam) CreateO
 func CreateCreateOutputRequestKafka(kafka CreateOutputOutputKafka) CreateOutputRequest {
 	typ := CreateOutputRequestTypeKafka
 
-	typStr := CreateOutputTypeKafka(typ)
+	typStr := components.TypeOptions(typ)
 	kafka.Type = typStr
 
 	return CreateOutputRequest{
@@ -1368,7 +611,7 @@ func CreateCreateOutputRequestKafka(kafka CreateOutputOutputKafka) CreateOutputR
 func CreateCreateOutputRequestConfluentCloud(confluentCloud CreateOutputOutputConfluentCloud) CreateOutputRequest {
 	typ := CreateOutputRequestTypeConfluentCloud
 
-	typStr := CreateOutputTypeConfluentCloud(typ)
+	typStr := components.TypeOptionsConfluentcloud(typ)
 	confluentCloud.Type = typStr
 
 	return CreateOutputRequest{
@@ -1380,7 +623,7 @@ func CreateCreateOutputRequestConfluentCloud(confluentCloud CreateOutputOutputCo
 func CreateCreateOutputRequestMsk(msk CreateOutputOutputMsk) CreateOutputRequest {
 	typ := CreateOutputRequestTypeMsk
 
-	typStr := CreateOutputTypeMsk(typ)
+	typStr := components.TypeOptionsMsk(typ)
 	msk.Type = typStr
 
 	return CreateOutputRequest{
@@ -1536,7 +779,7 @@ func CreateCreateOutputRequestSns(sns CreateOutputOutputSns) CreateOutputRequest
 func CreateCreateOutputRequestSqs(sqs CreateOutputOutputSqs) CreateOutputRequest {
 	typ := CreateOutputRequestTypeSqs
 
-	typStr := CreateOutputTypeSqs(typ)
+	typStr := components.TypeOptionsSqs(typ)
 	sqs.Type = typStr
 
 	return CreateOutputRequest{
@@ -1548,7 +791,7 @@ func CreateCreateOutputRequestSqs(sqs CreateOutputOutputSqs) CreateOutputRequest
 func CreateCreateOutputRequestSnmp(snmp CreateOutputOutputSnmp) CreateOutputRequest {
 	typ := CreateOutputRequestTypeSnmp
 
-	typStr := CreateOutputTypeSnmp(typ)
+	typStr := components.TypeOptionsSnmp(typ)
 	snmp.Type = typStr
 
 	return CreateOutputRequest{
@@ -1602,10 +845,22 @@ func CreateCreateOutputRequestLoki(loki CreateOutputOutputLoki) CreateOutputRequ
 	}
 }
 
+func CreateCreateOutputRequestAmazonManagedPrometheus(amazonManagedPrometheus CreateOutputOutputAmazonManagedPrometheus) CreateOutputRequest {
+	typ := CreateOutputRequestTypeAmazonManagedPrometheus
+
+	typStr := CreateOutputTypeAmazonManagedPrometheus(typ)
+	amazonManagedPrometheus.Type = typStr
+
+	return CreateOutputRequest{
+		CreateOutputOutputAmazonManagedPrometheus: &amazonManagedPrometheus,
+		Type: typ,
+	}
+}
+
 func CreateCreateOutputRequestPrometheus(prometheus CreateOutputOutputPrometheus) CreateOutputRequest {
 	typ := CreateOutputRequestTypePrometheus
 
-	typStr := CreateOutputTypePrometheus(typ)
+	typStr := components.TypeOptionsPrometheus(typ)
 	prometheus.Type = typStr
 
 	return CreateOutputRequest{
@@ -1665,7 +920,7 @@ func CreateCreateOutputRequestDataset(dataset CreateOutputOutputDataset) CreateO
 func CreateCreateOutputRequestCriblTCP(criblTCP CreateOutputOutputCriblTCP) CreateOutputRequest {
 	typ := CreateOutputRequestTypeCriblTCP
 
-	typStr := CreateOutputTypeCriblTCP(typ)
+	typStr := components.TypeOptionsCribltcp(typ)
 	criblTCP.Type = typStr
 
 	return CreateOutputRequest{
@@ -1737,7 +992,7 @@ func CreateCreateOutputRequestDlS3(dlS3 CreateOutputOutputDlS3) CreateOutputRequ
 func CreateCreateOutputRequestSecurityLake(securityLake CreateOutputOutputSecurityLake) CreateOutputRequest {
 	typ := CreateOutputRequestTypeSecurityLake
 
-	typStr := CreateOutputTypeSecurityLake(typ)
+	typStr := components.TypeOptionsSecuritylake(typ)
 	securityLake.Type = typStr
 
 	return CreateOutputRequest{
@@ -1782,6 +1037,18 @@ func CreateCreateOutputRequestClickHouse(clickHouse CreateOutputOutputClickHouse
 	}
 }
 
+func CreateCreateOutputRequestCustomerMetricsStorage(customerMetricsStorage CreateOutputOutputCustomerMetricsStorage) CreateOutputRequest {
+	typ := CreateOutputRequestTypeCustomerMetricsStorage
+
+	typStr := CreateOutputTypeCustomerMetricsStorage(typ)
+	customerMetricsStorage.Type = typStr
+
+	return CreateOutputRequest{
+		CreateOutputOutputCustomerMetricsStorage: &customerMetricsStorage,
+		Type:                                     typ,
+	}
+}
+
 func CreateCreateOutputRequestLocalSearchStorage(localSearchStorage CreateOutputOutputLocalSearchStorage) CreateOutputRequest {
 	typ := CreateOutputRequestTypeLocalSearchStorage
 
@@ -1809,7 +1076,7 @@ func CreateCreateOutputRequestXsiam(xsiam CreateOutputOutputXsiam) CreateOutputR
 func CreateCreateOutputRequestNetflow(netflow CreateOutputOutputNetflow) CreateOutputRequest {
 	typ := CreateOutputRequestTypeNetflow
 
-	typStr := CreateOutputTypeNetflow(typ)
+	typStr := components.TypeOptionsNetflow(typ)
 	netflow.Type = typStr
 
 	return CreateOutputRequest{
@@ -1875,6 +1142,18 @@ func CreateCreateOutputRequestDatabricks(databricks CreateOutputOutputDatabricks
 	return CreateOutputRequest{
 		CreateOutputOutputDatabricks: &databricks,
 		Type:                         typ,
+	}
+}
+
+func CreateCreateOutputRequestSnowflakeStreaming(snowflakeStreaming CreateOutputOutputSnowflakeStreaming) CreateOutputRequest {
+	typ := CreateOutputRequestTypeSnowflakeStreaming
+
+	typStr := CreateOutputTypeSnowflakeStreaming(typ)
+	snowflakeStreaming.Type = typStr
+
+	return CreateOutputRequest{
+		CreateOutputOutputSnowflakeStreaming: &snowflakeStreaming,
+		Type:                                 typ,
 	}
 }
 
@@ -1983,6 +1262,18 @@ func CreateCreateOutputRequestAlibabaCloudS3(alibabaCloudS3 CreateOutputOutputAl
 	return CreateOutputRequest{
 		CreateOutputOutputAlibabaCloudS3: &alibabaCloudS3,
 		Type:                             typ,
+	}
+}
+
+func CreateCreateOutputRequestIbmCloudS3(ibmCloudS3 CreateOutputOutputIbmCloudS3) CreateOutputRequest {
+	typ := CreateOutputRequestTypeIbmCloudS3
+
+	typStr := CreateOutputTypeIbmCloudS3(typ)
+	ibmCloudS3.Type = typStr
+
+	return CreateOutputRequest{
+		CreateOutputOutputIbmCloudS3: &ibmCloudS3,
+		Type:                         typ,
 	}
 }
 
@@ -2177,6 +1468,15 @@ func (u *CreateOutputRequest) UnmarshalJSON(data []byte) error {
 
 		u.CreateOutputOutputAzureEventhub = createOutputOutputAzureEventhub
 		u.Type = CreateOutputRequestTypeAzureEventhub
+		return nil
+	case "google_bigquery":
+		createOutputOutputGoogleBigquery := new(CreateOutputOutputGoogleBigquery)
+		if err := utils.UnmarshalJSON(data, &createOutputOutputGoogleBigquery, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == google_bigquery) type CreateOutputOutputGoogleBigquery within CreateOutputRequest: %w", string(data), err)
+		}
+
+		u.CreateOutputOutputGoogleBigquery = createOutputOutputGoogleBigquery
+		u.Type = CreateOutputRequestTypeGoogleBigquery
 		return nil
 	case "google_chronicle":
 		createOutputOutputGoogleChronicle := new(CreateOutputOutputGoogleChronicle)
@@ -2421,6 +1721,15 @@ func (u *CreateOutputRequest) UnmarshalJSON(data []byte) error {
 		u.CreateOutputOutputLoki = createOutputOutputLoki
 		u.Type = CreateOutputRequestTypeLoki
 		return nil
+	case "amazon_managed_prometheus":
+		createOutputOutputAmazonManagedPrometheus := new(CreateOutputOutputAmazonManagedPrometheus)
+		if err := utils.UnmarshalJSON(data, &createOutputOutputAmazonManagedPrometheus, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == amazon_managed_prometheus) type CreateOutputOutputAmazonManagedPrometheus within CreateOutputRequest: %w", string(data), err)
+		}
+
+		u.CreateOutputOutputAmazonManagedPrometheus = createOutputOutputAmazonManagedPrometheus
+		u.Type = CreateOutputRequestTypeAmazonManagedPrometheus
+		return nil
 	case "prometheus":
 		createOutputOutputPrometheus := new(CreateOutputOutputPrometheus)
 		if err := utils.UnmarshalJSON(data, &createOutputOutputPrometheus, "", true, nil); err != nil {
@@ -2556,6 +1865,15 @@ func (u *CreateOutputRequest) UnmarshalJSON(data []byte) error {
 		u.CreateOutputOutputClickHouse = createOutputOutputClickHouse
 		u.Type = CreateOutputRequestTypeClickHouse
 		return nil
+	case "customer_metrics_storage":
+		createOutputOutputCustomerMetricsStorage := new(CreateOutputOutputCustomerMetricsStorage)
+		if err := utils.UnmarshalJSON(data, &createOutputOutputCustomerMetricsStorage, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == customer_metrics_storage) type CreateOutputOutputCustomerMetricsStorage within CreateOutputRequest: %w", string(data), err)
+		}
+
+		u.CreateOutputOutputCustomerMetricsStorage = createOutputOutputCustomerMetricsStorage
+		u.Type = CreateOutputRequestTypeCustomerMetricsStorage
+		return nil
 	case "local_search_storage":
 		createOutputOutputLocalSearchStorage := new(CreateOutputOutputLocalSearchStorage)
 		if err := utils.UnmarshalJSON(data, &createOutputOutputLocalSearchStorage, "", true, nil); err != nil {
@@ -2627,6 +1945,15 @@ func (u *CreateOutputRequest) UnmarshalJSON(data []byte) error {
 
 		u.CreateOutputOutputDatabricks = createOutputOutputDatabricks
 		u.Type = CreateOutputRequestTypeDatabricks
+		return nil
+	case "snowflake_streaming":
+		createOutputOutputSnowflakeStreaming := new(CreateOutputOutputSnowflakeStreaming)
+		if err := utils.UnmarshalJSON(data, &createOutputOutputSnowflakeStreaming, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == snowflake_streaming) type CreateOutputOutputSnowflakeStreaming within CreateOutputRequest: %w", string(data), err)
+		}
+
+		u.CreateOutputOutputSnowflakeStreaming = createOutputOutputSnowflakeStreaming
+		u.Type = CreateOutputRequestTypeSnowflakeStreaming
 		return nil
 	case "microsoft_fabric":
 		createOutputOutputMicrosoftFabric := new(CreateOutputOutputMicrosoftFabric)
@@ -2708,6 +2035,15 @@ func (u *CreateOutputRequest) UnmarshalJSON(data []byte) error {
 
 		u.CreateOutputOutputAlibabaCloudS3 = createOutputOutputAlibabaCloudS3
 		u.Type = CreateOutputRequestTypeAlibabaCloudS3
+		return nil
+	case "ibm_cloud_s3":
+		createOutputOutputIbmCloudS3 := new(CreateOutputOutputIbmCloudS3)
+		if err := utils.UnmarshalJSON(data, &createOutputOutputIbmCloudS3, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (Type == ibm_cloud_s3) type CreateOutputOutputIbmCloudS3 within CreateOutputRequest: %w", string(data), err)
+		}
+
+		u.CreateOutputOutputIbmCloudS3 = createOutputOutputIbmCloudS3
+		u.Type = CreateOutputRequestTypeIbmCloudS3
 		return nil
 	}
 
@@ -2793,6 +2129,10 @@ func (u CreateOutputRequest) MarshalJSON() ([]byte, error) {
 
 	if u.CreateOutputOutputAzureEventhub != nil {
 		return utils.MarshalJSON(u.CreateOutputOutputAzureEventhub, "", true)
+	}
+
+	if u.CreateOutputOutputGoogleBigquery != nil {
+		return utils.MarshalJSON(u.CreateOutputOutputGoogleBigquery, "", true)
 	}
 
 	if u.CreateOutputOutputGoogleChronicle != nil {
@@ -2903,6 +2243,10 @@ func (u CreateOutputRequest) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CreateOutputOutputLoki, "", true)
 	}
 
+	if u.CreateOutputOutputAmazonManagedPrometheus != nil {
+		return utils.MarshalJSON(u.CreateOutputOutputAmazonManagedPrometheus, "", true)
+	}
+
 	if u.CreateOutputOutputPrometheus != nil {
 		return utils.MarshalJSON(u.CreateOutputOutputPrometheus, "", true)
 	}
@@ -2963,6 +2307,10 @@ func (u CreateOutputRequest) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CreateOutputOutputClickHouse, "", true)
 	}
 
+	if u.CreateOutputOutputCustomerMetricsStorage != nil {
+		return utils.MarshalJSON(u.CreateOutputOutputCustomerMetricsStorage, "", true)
+	}
+
 	if u.CreateOutputOutputLocalSearchStorage != nil {
 		return utils.MarshalJSON(u.CreateOutputOutputLocalSearchStorage, "", true)
 	}
@@ -2993,6 +2341,10 @@ func (u CreateOutputRequest) MarshalJSON() ([]byte, error) {
 
 	if u.CreateOutputOutputDatabricks != nil {
 		return utils.MarshalJSON(u.CreateOutputOutputDatabricks, "", true)
+	}
+
+	if u.CreateOutputOutputSnowflakeStreaming != nil {
+		return utils.MarshalJSON(u.CreateOutputOutputSnowflakeStreaming, "", true)
 	}
 
 	if u.CreateOutputOutputMicrosoftFabric != nil {
@@ -3031,12 +2383,16 @@ func (u CreateOutputRequest) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.CreateOutputOutputAlibabaCloudS3, "", true)
 	}
 
+	if u.CreateOutputOutputIbmCloudS3 != nil {
+		return utils.MarshalJSON(u.CreateOutputOutputIbmCloudS3, "", true)
+	}
+
 	return nil, errors.New("could not marshal union type CreateOutputRequest: all fields are null")
 }
 
 type CreateOutputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// the created Destination object
+	// The created Destination object in a single-item list.
 	CountedOutputResponse *components.CountedOutputResponse
 }
 

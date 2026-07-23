@@ -3,13 +3,16 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type PipelineGroups struct {
-	Name        string  `json:"name"`
+	// Name of the group.
+	Name string `json:"name"`
+	// Brief description of the group.
 	Description *string `json:"description,omitzero"`
-	Disabled    *bool   `json:"disabled,omitzero"`
+	// If <code>true</code>, disable all items in the group. Otherwise, <code>false</code>.
+	Disabled *bool `json:"disabled,omitzero"`
 }
 
 func (p *PipelineGroups) GetName() string {
@@ -33,17 +36,20 @@ func (p *PipelineGroups) GetDisabled() *bool {
 	return p.Disabled
 }
 
+// PipelineConf - Configuration for the Pipeline, including functions and settings.
 type PipelineConf struct {
-	// Time (in ms) to wait for an async function to complete processing of a data item
+	// Timeout (in milliseconds) for asynchronous Pipeline functions.
 	AsyncFuncTimeout *int64 `json:"asyncFuncTimeout,omitzero"`
-	// The output destination for events processed by this Pipeline
-	Output      *string `json:"output,omitzero"`
+	// The output destination for events processed by this Pipeline.
+	Output *string `json:"output,omitzero"`
+	// Brief description of the Pipeline.
 	Description *string `json:"description,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
-	// List of Functions to pass data through
-	Functions []PipelineFunctionConf    `json:"functions,omitzero"`
-	Groups    map[string]PipelineGroups `json:"groups,omitzero"`
+	// List of Functions to pass data through the Pipeline.
+	Functions []PipelineFunctionConf `json:"functions,omitzero"`
+	// Named groups of Pipeline functions for organizational display in the UI.
+	Groups map[string]PipelineGroups `json:"groups,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
@@ -109,7 +115,9 @@ func (p *PipelineConf) GetTemplateStreamtags() *string {
 }
 
 type Pipeline struct {
-	ID   string       `json:"id"`
+	// Unique identifier for the Pipeline.
+	ID string `json:"id"`
+	// Configuration for the Pipeline, including functions and settings.
 	Conf PipelineConf `json:"conf"`
 }
 
@@ -127,17 +135,20 @@ func (p *Pipeline) GetConf() PipelineConf {
 	return p.Conf
 }
 
+// ConfInput - Configuration for the Pipeline, including functions and settings.
 type ConfInput struct {
-	// Time (in ms) to wait for an async function to complete processing of a data item
+	// Timeout (in milliseconds) for asynchronous Pipeline functions.
 	AsyncFuncTimeout *int64 `json:"asyncFuncTimeout,omitzero"`
-	// The output destination for events processed by this Pipeline
-	Output      *string `json:"output,omitzero"`
+	// The output destination for events processed by this Pipeline.
+	Output *string `json:"output,omitzero"`
+	// Brief description of the Pipeline.
 	Description *string `json:"description,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
-	// List of Functions to pass data through
+	// List of Functions to pass data through the Pipeline.
 	Functions []PipelineFunctionConfInput `json:"functions,omitzero"`
-	Groups    map[string]PipelineGroups   `json:"groups,omitzero"`
+	// Named groups of Pipeline functions for organizational display in the UI.
+	Groups map[string]PipelineGroups `json:"groups,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
@@ -203,7 +214,9 @@ func (c *ConfInput) GetTemplateStreamtags() *string {
 }
 
 type PipelineInput struct {
-	ID   string    `json:"id"`
+	// Unique identifier for the Pipeline.
+	ID string `json:"id"`
+	// Configuration for the Pipeline, including functions and settings.
 	Conf ConfInput `json:"conf"`
 }
 

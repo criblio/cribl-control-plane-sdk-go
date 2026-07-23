@@ -3,18 +3,19 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 // StatusType - Runtime status: health, metrics, and optional persistent-queue info. Fields may be absent when data is unavailable.
 type StatusType struct {
-	Error  *StatusError      `json:"error,omitzero"`
-	Health *HealthStringType `json:"health,omitzero"`
+	Error *StatusError `json:"error,omitzero"`
+	// Overall health status of the Source or Destination.
+	Health *HealthOptionsStatus `json:"health,omitzero"`
 	// Metrics data for the Source or Destination.
 	Metrics map[string]any  `json:"metrics,omitzero"`
 	Pq      *WorkerPQStatus `json:"pq,omitzero"`
 	// Timestamp (in Unix time) when the status was last updated.
-	Timestamp *float64 `json:"timestamp,omitzero"`
+	Timestamp *int64 `json:"timestamp,omitzero"`
 	// Set to prefer status from the LB process, not from the worker process.
 	UseStatusFromLB *bool `json:"useStatusFromLB,omitzero"`
 }
@@ -37,7 +38,7 @@ func (s *StatusType) GetError() *StatusError {
 	return s.Error
 }
 
-func (s *StatusType) GetHealth() *HealthStringType {
+func (s *StatusType) GetHealth() *HealthOptionsStatus {
 	if s == nil {
 		return nil
 	}
@@ -58,7 +59,7 @@ func (s *StatusType) GetPq() *WorkerPQStatus {
 	return s.Pq
 }
 
-func (s *StatusType) GetTimestamp() *float64 {
+func (s *StatusType) GetTimestamp() *int64 {
 	if s == nil {
 		return nil
 	}

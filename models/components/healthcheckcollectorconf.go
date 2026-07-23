@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type HealthCheckAuthenticationNoneHealthCheckRetryRulesTypeStatic struct {
@@ -248,8 +248,9 @@ type HealthCheckAuthenticationNone struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `json:"timeout,omitzero"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitzero"`
-	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Hidden Default Breakers
+	DefaultBreakers *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                 `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckAuthenticationNoneRetryRules `json:"retryRules,omitzero"`
@@ -283,6 +284,16 @@ type HealthCheckAuthenticationNone struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
 	AuthRequestParams []AuthRequestParamConfHealthCheckAuthenticationOauth `json:"authRequestParams,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauth `json:"refreshRequestParams,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
@@ -529,6 +540,41 @@ func (h *HealthCheckAuthenticationNone) GetAuthRequestParams() []AuthRequestPara
 		return nil
 	}
 	return h.AuthRequestParams
+}
+
+func (h *HealthCheckAuthenticationNone) GetRefreshTokenField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshTokenField
+}
+
+func (h *HealthCheckAuthenticationNone) GetRotateRefreshToken() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.RotateRefreshToken
+}
+
+func (h *HealthCheckAuthenticationNone) GetRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshURL
+}
+
+func (h *HealthCheckAuthenticationNone) GetTemplateRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateRefreshURL
+}
+
+func (h *HealthCheckAuthenticationNone) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauth {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshRequestParams
 }
 
 func (h *HealthCheckAuthenticationNone) GetTextSecret() *string {
@@ -2020,8 +2066,9 @@ type HealthCheckCollectMethodPostWithBody struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `json:"timeout,omitzero"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitzero"`
-	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Hidden Default Breakers
+	DefaultBreakers *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                        `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckCollectMethodPostWithBodyRetryRules `json:"retryRules,omitzero"`
@@ -2055,6 +2102,16 @@ type HealthCheckCollectMethodPostWithBody struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
 	AuthRequestParams []AuthRequestParamConfHealthCheckAuthenticationOauth `json:"authRequestParams,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauth `json:"refreshRequestParams,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
@@ -2308,6 +2365,41 @@ func (h *HealthCheckCollectMethodPostWithBody) GetAuthRequestParams() []AuthRequ
 		return nil
 	}
 	return h.AuthRequestParams
+}
+
+func (h *HealthCheckCollectMethodPostWithBody) GetRefreshTokenField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshTokenField
+}
+
+func (h *HealthCheckCollectMethodPostWithBody) GetRotateRefreshToken() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.RotateRefreshToken
+}
+
+func (h *HealthCheckCollectMethodPostWithBody) GetRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshURL
+}
+
+func (h *HealthCheckCollectMethodPostWithBody) GetTemplateRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateRefreshURL
+}
+
+func (h *HealthCheckCollectMethodPostWithBody) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauth {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshRequestParams
 }
 
 func (h *HealthCheckCollectMethodPostWithBody) GetTextSecret() *string {
@@ -3799,8 +3891,9 @@ type HealthCheckCollectMethodPost struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `json:"timeout,omitzero"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitzero"`
-	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Hidden Default Breakers
+	DefaultBreakers *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                                `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckCollectMethodPostRetryRules `json:"retryRules,omitzero"`
@@ -3834,6 +3927,16 @@ type HealthCheckCollectMethodPost struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
 	AuthRequestParams []AuthRequestParamConfHealthCheckAuthenticationOauth `json:"authRequestParams,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauth `json:"refreshRequestParams,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
@@ -4087,6 +4190,41 @@ func (h *HealthCheckCollectMethodPost) GetAuthRequestParams() []AuthRequestParam
 		return nil
 	}
 	return h.AuthRequestParams
+}
+
+func (h *HealthCheckCollectMethodPost) GetRefreshTokenField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshTokenField
+}
+
+func (h *HealthCheckCollectMethodPost) GetRotateRefreshToken() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.RotateRefreshToken
+}
+
+func (h *HealthCheckCollectMethodPost) GetRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshURL
+}
+
+func (h *HealthCheckCollectMethodPost) GetTemplateRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateRefreshURL
+}
+
+func (h *HealthCheckCollectMethodPost) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauth {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshRequestParams
 }
 
 func (h *HealthCheckCollectMethodPost) GetTextSecret() *string {
@@ -5610,8 +5748,9 @@ type HealthCheckCollectMethodGet struct {
 	// HTTP request inactivity timeout, use 0 to disable
 	Timeout *float64 `json:"timeout,omitzero"`
 	// Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-	RejectUnauthorized *bool                                              `json:"rejectUnauthorized,omitzero"`
-	DefaultBreakers    *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
+	RejectUnauthorized *bool `json:"rejectUnauthorized,omitzero"`
+	// Hidden Default Breakers
+	DefaultBreakers *HiddenDefaultBreakersOptionsDatabaseCollectorConf `json:"defaultBreakers,omitzero"`
 	// List of headers that are safe to log in plain text.
 	SafeHeaders []string                               `json:"safeHeaders,omitzero"`
 	RetryRules  *HealthCheckCollectMethodGetRetryRules `json:"retryRules,omitzero"`
@@ -5645,6 +5784,16 @@ type HealthCheckCollectMethodGet struct {
 	ClientSecretParamValue *string `json:"clientSecretParamValue,omitzero"`
 	// OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
 	AuthRequestParams []AuthRequestParamConfHealthCheckAuthenticationOauth `json:"authRequestParams,omitzero"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, the Collector uses the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// The Collector will update its stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, the Collector sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauth `json:"refreshRequestParams,omitzero"`
 	// Select or create a text secret that contains the client secret's value.
 	TextSecret *string `json:"textSecret,omitzero"`
 	// Binds 'collectUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'collectUrl' at runtime.
@@ -5898,6 +6047,41 @@ func (h *HealthCheckCollectMethodGet) GetAuthRequestParams() []AuthRequestParamC
 		return nil
 	}
 	return h.AuthRequestParams
+}
+
+func (h *HealthCheckCollectMethodGet) GetRefreshTokenField() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshTokenField
+}
+
+func (h *HealthCheckCollectMethodGet) GetRotateRefreshToken() *bool {
+	if h == nil {
+		return nil
+	}
+	return h.RotateRefreshToken
+}
+
+func (h *HealthCheckCollectMethodGet) GetRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshURL
+}
+
+func (h *HealthCheckCollectMethodGet) GetTemplateRefreshURL() *string {
+	if h == nil {
+		return nil
+	}
+	return h.TemplateRefreshURL
+}
+
+func (h *HealthCheckCollectMethodGet) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauth {
+	if h == nil {
+		return nil
+	}
+	return h.RefreshRequestParams
 }
 
 func (h *HealthCheckCollectMethodGet) GetTextSecret() *string {

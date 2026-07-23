@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type UpdateInputSystemByPackAndIDRequest struct {
@@ -285,6 +285,10 @@ func (u *UpdateInputSystemByPackAndIDRequest) GetInputSecurityLake() *components
 	return u.GetInput().InputSecurityLakeInput
 }
 
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputBedrockS3() *components.InputBedrockS3Input {
+	return u.GetInput().InputBedrockS3Input
+}
+
 func (u *UpdateInputSystemByPackAndIDRequest) GetInputServicenowTable() *components.InputServicenowTableInput {
 	return u.GetInput().InputServicenowTableInput
 }
@@ -295,6 +299,14 @@ func (u *UpdateInputSystemByPackAndIDRequest) GetInputZscalerHec() *components.I
 
 func (u *UpdateInputSystemByPackAndIDRequest) GetInputCloudflareHec() *components.InputCloudflareHecInput {
 	return u.GetInput().InputCloudflareHecInput
+}
+
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputSysdigHec() *components.InputSysdigHecInput {
+	return u.GetInput().InputSysdigHecInput
+}
+
+func (u *UpdateInputSystemByPackAndIDRequest) GetInputUpwindHec() *components.InputUpwindHecInput {
+	return u.GetInput().InputUpwindHecInput
 }
 
 func (u *UpdateInputSystemByPackAndIDRequest) GetInputOpenaiComplianceLogs() *components.InputOpenaiComplianceLogsInput {
@@ -311,7 +323,7 @@ func (u *UpdateInputSystemByPackAndIDRequest) GetInputOkta() *components.InputOk
 
 type UpdateInputSystemByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// the updated Source object
+	// The updated Source object in a single-item list.
 	CountedInputResponse *components.CountedInputResponse
 }
 

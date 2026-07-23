@@ -14,7 +14,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/criblio/cribl-control-plane-sdk-go/types"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/types"
 )
 
 func MarshalJSON(v interface{}, tag reflect.StructTag, topLevel bool) ([]byte, error) {

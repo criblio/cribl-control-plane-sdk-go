@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type RegexList struct {
@@ -31,7 +31,8 @@ func (r *RegexList) GetRegex() string {
 
 type FunctionConfSchemaRegexFilter struct {
 	// Regex to test against
-	Regex     *string     `json:"regex,omitzero"`
+	Regex *string `json:"regex,omitzero"`
+	// Additional regex patterns to test against the field.
 	RegexList []RegexList `json:"regexList,omitzero"`
 	// Name of the field to apply the regex on (defaults to _raw)
 	Field *string `json:"field,omitzero"`

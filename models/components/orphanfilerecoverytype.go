@@ -3,9 +3,10 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OrphanFileRecoveryType - Orphan file recovery
 type OrphanFileRecoveryType struct {
 	// Periodically scan the staging directory for files not tracked by any Worker manifest to recover them
 	Disabled *bool `json:"disabled,omitzero"`

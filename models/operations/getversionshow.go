@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetVersionShowRequest struct {
@@ -39,7 +39,7 @@ func (g *GetVersionShowRequest) GetDiffLineLimit() *int64 {
 
 type GetVersionShowResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of GitShowResult objects.
+	// The requested GitShowResult object in a single-item list.
 	CountedGitShowResult *components.CountedGitShowResult
 }
 

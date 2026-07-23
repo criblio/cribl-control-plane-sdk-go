@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputEventhubAmqpType - Connector type identifier.
 type InputEventhubAmqpType string
 
 const (
@@ -31,6 +32,7 @@ func (e *InputEventhubAmqpType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// InputEventhubAmqpAuthenticationMechanism - Authentication mechanism
 type InputEventhubAmqpAuthenticationMechanism string
 
 const (
@@ -106,9 +108,11 @@ func (i *InputEventhubAmqpCertificate) GetPassphrase() *string {
 }
 
 type InputEventhubAmqpAuth struct {
+	// Authentication mechanism
 	Mechanism InputEventhubAmqpAuthenticationMechanism `json:"mechanism"`
 	// Select or create a stored text secret
-	TextSecret           *string                          `json:"textSecret,omitzero"`
+	TextSecret *string `json:"textSecret,omitzero"`
+	// Authentication method
 	ClientSecretAuthType *AuthenticationMethodOptionsAuth `json:"clientSecretAuthType,omitzero"`
 	// Select or create a stored text secret
 	ClientTextSecret *string                       `json:"clientTextSecret,omitzero"`
@@ -233,6 +237,7 @@ func (i *InputEventhubAmqpAuth) GetTemplateFullyQualifiedNamespace() *string {
 	return i.TemplateFullyQualifiedNamespace
 }
 
+// InputEventhubAmqpAuthenticationMethod - Authentication method
 type InputEventhubAmqpAuthenticationMethod string
 
 const (
@@ -258,10 +263,12 @@ func (e *InputEventhubAmqpAuthenticationMethod) IsExact() bool {
 	return false
 }
 
+// InputEventhubAmqpAzureBlobStorage - Azure Blob Storage
 type InputEventhubAmqpAzureBlobStorage struct {
 	// Azure Blob Storage container used to store checkpoints. Must be 3–63 lowercase alphanumeric characters or hyphens.
-	ContainerName string                                 `json:"containerName"`
-	AuthType      *InputEventhubAmqpAuthenticationMethod `json:"authType,omitzero"`
+	ContainerName string `json:"containerName"`
+	// Authentication method
+	AuthType *InputEventhubAmqpAuthenticationMethod `json:"authType,omitzero"`
 	// Select or create a stored text secret
 	TextSecret *string `json:"textSecret,omitzero"`
 	// The name of your Azure storage account
@@ -397,6 +404,7 @@ func (i *InputEventhubAmqpAzureBlobStorage) GetTemplateAzureCloud() *string {
 }
 
 type InputEventhubAmqpCheckpointing struct {
+	// Azure Blob Storage
 	BlobStore InputEventhubAmqpAzureBlobStorage `json:"blobStore"`
 }
 
@@ -420,9 +428,11 @@ func (i *InputEventhubAmqpCheckpointing) GetBlobStore() InputEventhubAmqpAzureBl
 
 type InputEventhubAmqpInput struct {
 	// Unique ID for this input
-	ID       *string               `json:"id,omitzero"`
-	Type     InputEventhubAmqpType `json:"type"`
-	Disabled *bool                 `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type InputEventhubAmqpType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -431,7 +441,7 @@ type InputEventhubAmqpInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -465,8 +475,9 @@ type InputEventhubAmqpInput struct {
 	// Maximum time to wait for a connection to complete
 	ConnectionTimeoutInMs *int64 `json:"connectionTimeoutInMs,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

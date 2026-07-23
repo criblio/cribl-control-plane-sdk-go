@@ -3,13 +3,15 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type AuthTokenConfOutputCriblHTTP struct {
 	// Select or create a stored text secret
-	TokenSecret string  `json:"tokenSecret"`
-	Enabled     *bool   `json:"enabled,omitzero"`
+	TokenSecret string `json:"tokenSecret"`
+	// Enable token
+	Enabled *bool `json:"enabled,omitzero"`
+	// Description
 	Description *string `json:"description,omitzero"`
 }
 

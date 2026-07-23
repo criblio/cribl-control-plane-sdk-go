@@ -2,6 +2,7 @@
 
 package components
 
+// AuthenticationMethodOptions - Authentication method
 type AuthenticationMethodOptions string
 
 const (

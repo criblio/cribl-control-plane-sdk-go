@@ -1,5 +1,7 @@
 # PqControlsNewrelic
 
+Persistent queue controls.
+
 
 ## Fields
 

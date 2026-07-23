@@ -2,6 +2,7 @@
 
 package components
 
+// JobTypeOptionsRunnableJobCollection - Job type
 type JobTypeOptionsRunnableJobCollection string
 
 const (

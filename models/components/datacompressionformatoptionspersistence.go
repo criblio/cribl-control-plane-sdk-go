@@ -2,6 +2,7 @@
 
 package components
 
+// DataCompressionFormatOptionsPersistence - Data compression format
 type DataCompressionFormatOptionsPersistence string
 
 const (

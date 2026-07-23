@@ -3,10 +3,11 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type PrometheusAuthType struct {
+	// Authentication type
 	AuthType *AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret `json:"authType,omitzero"`
 	// Bearer token to include in the authorization header. In Grafana Cloud, this is generally built by concatenating the username and the API key, separated by a colon. Example: <your-username>:<your-api-key>
 	Token *string `json:"token,omitzero"`

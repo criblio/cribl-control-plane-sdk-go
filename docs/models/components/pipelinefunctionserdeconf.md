@@ -1,7 +1,15 @@
 # PipelineFunctionSerdeConf
 
+Configuration specific to the Pipeline Function.
+
 
 ## Supported Types
+
+### SerdeTypeAuto
+
+```go
+pipelineFunctionSerdeConf := components.CreatePipelineFunctionSerdeConfAuto(components.SerdeTypeAuto{/* values here */})
+```
 
 ### SerdeTypeKvp
 
@@ -45,6 +53,8 @@ Use the `Type` field to determine which variant is active, then access the corre
 
 ```go
 switch pipelineFunctionSerdeConf.Type {
+	case components.PipelineFunctionSerdeConfTypeAuto:
+		// pipelineFunctionSerdeConf.SerdeTypeAuto is populated
 	case components.PipelineFunctionSerdeConfTypeKvp:
 		// pipelineFunctionSerdeConf.SerdeTypeKvp is populated
 	case components.PipelineFunctionSerdeConfTypeDelim:

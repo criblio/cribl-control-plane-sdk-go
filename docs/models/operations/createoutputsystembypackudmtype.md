@@ -6,7 +6,7 @@ Defines the specific format for UDM events sent to Google SecOps. This must matc
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 )
 
 value := operations.CreateOutputSystemByPackUDMTypeEntities

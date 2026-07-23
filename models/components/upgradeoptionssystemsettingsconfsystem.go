@@ -2,11 +2,12 @@
 
 package components
 
+// UpgradeOptionsSystemSettingsConfSystem - Upgrade permission policy: <code>api</code> to allow upgrades from the UI or API or <code>false</code> to disable.
 type UpgradeOptionsSystemSettingsConfSystem string
 
 const (
-	UpgradeOptionsSystemSettingsConfSystemFalse UpgradeOptionsSystemSettingsConfSystem = "false"
 	UpgradeOptionsSystemSettingsConfSystemAPI   UpgradeOptionsSystemSettingsConfSystem = "api"
+	UpgradeOptionsSystemSettingsConfSystemFalse UpgradeOptionsSystemSettingsConfSystem = "false"
 )
 
 func (e UpgradeOptionsSystemSettingsConfSystem) ToPointer() *UpgradeOptionsSystemSettingsConfSystem {
@@ -17,7 +18,7 @@ func (e UpgradeOptionsSystemSettingsConfSystem) ToPointer() *UpgradeOptionsSyste
 func (e *UpgradeOptionsSystemSettingsConfSystem) IsExact() bool {
 	if e != nil {
 		switch *e {
-		case "false", "api":
+		case "api", "false":
 			return true
 		}
 	}

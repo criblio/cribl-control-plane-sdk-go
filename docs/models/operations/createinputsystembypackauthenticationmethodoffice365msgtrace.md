@@ -6,7 +6,7 @@ Select authentication method.
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 )
 
 value := operations.CreateInputSystemByPackAuthenticationMethodOffice365MsgTraceManual

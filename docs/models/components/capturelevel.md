@@ -6,7 +6,7 @@ Stage at which events are captured. <br><code>0</code> == Before pre-processing 
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 value := components.CaptureLevelBeforePreProcessingPipeline

@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type FunctionResponseType string
@@ -46,6 +46,7 @@ const (
 	FunctionResponseTypeLocalSearchTransformer         FunctionResponseType = "local_search_transformer"
 	FunctionResponseTypeLookup                         FunctionResponseType = "lookup"
 	FunctionResponseTypeMask                           FunctionResponseType = "mask"
+	FunctionResponseTypeMetricsExport                  FunctionResponseType = "metrics_export"
 	FunctionResponseTypeMvExpand                       FunctionResponseType = "mv_expand"
 	FunctionResponseTypeMvPull                         FunctionResponseType = "mv_pull"
 	FunctionResponseTypeNotificationPolicies           FunctionResponseType = "notification_policies"
@@ -119,6 +120,7 @@ type FunctionResponse struct {
 	FunctionLocalSearchTransformer         *FunctionLocalSearchTransformer         `queryParam:"inline" union:"member"`
 	FunctionLookup                         *FunctionLookup                         `queryParam:"inline" union:"member"`
 	FunctionMask                           *FunctionMask                           `queryParam:"inline" union:"member"`
+	FunctionMetricsExport                  *FunctionMetricsExport                  `queryParam:"inline" union:"member"`
 	FunctionMvExpand                       *FunctionMvExpand                       `queryParam:"inline" union:"member"`
 	FunctionMvPull                         *FunctionMvPull                         `queryParam:"inline" union:"member"`
 	FunctionNotificationPolicies           *FunctionNotificationPolicies           `queryParam:"inline" union:"member"`
@@ -564,6 +566,18 @@ func CreateFunctionResponseMask(mask FunctionMask) FunctionResponse {
 	return FunctionResponse{
 		FunctionMask: &mask,
 		Type:         typ,
+	}
+}
+
+func CreateFunctionResponseMetricsExport(metricsExport FunctionMetricsExport) FunctionResponse {
+	typ := FunctionResponseTypeMetricsExport
+
+	typStr := FunctionMetricsExportID(typ)
+	metricsExport.ID = typStr
+
+	return FunctionResponse{
+		FunctionMetricsExport: &metricsExport,
+		Type:                  typ,
 	}
 }
 
@@ -1327,6 +1341,15 @@ func (u *FunctionResponse) UnmarshalJSON(data []byte) error {
 		u.FunctionMask = functionMask
 		u.Type = FunctionResponseTypeMask
 		return nil
+	case "metrics_export":
+		functionMetricsExport := new(FunctionMetricsExport)
+		if err := utils.UnmarshalJSON(data, &functionMetricsExport, "", true, nil); err != nil {
+			return fmt.Errorf("could not unmarshal `%s` into expected (ID == metrics_export) type FunctionMetricsExport within FunctionResponse: %w", string(data), err)
+		}
+
+		u.FunctionMetricsExport = functionMetricsExport
+		u.Type = FunctionResponseTypeMetricsExport
+		return nil
 	case "mv_expand":
 		functionMvExpand := new(FunctionMvExpand)
 		if err := utils.UnmarshalJSON(data, &functionMvExpand, "", true, nil); err != nil {
@@ -1785,6 +1808,10 @@ func (u FunctionResponse) MarshalJSON() ([]byte, error) {
 
 	if u.FunctionMask != nil {
 		return utils.MarshalJSON(u.FunctionMask, "", true)
+	}
+
+	if u.FunctionMetricsExport != nil {
+		return utils.MarshalJSON(u.FunctionMetricsExport, "", true)
 	}
 
 	if u.FunctionMvExpand != nil {

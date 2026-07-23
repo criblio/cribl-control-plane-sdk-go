@@ -32,7 +32,7 @@ Complementary API reference documentation is available at https://docs.cribl.io/
 
 To add the SDK as a dependency to your project:
 ```bash
-go get github.com/criblio/cribl-control-plane-sdk-go
+go get github.com/Cribl-Community/cribl-control-plane-sdk-go
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -242,8 +242,8 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [DatabaseConnections](docs/sdks/databaseconnections/README.md)
 
-* [List](docs/sdks/databaseconnections/README.md#list) - List Database Connections
-* [Create](docs/sdks/databaseconnections/README.md#create) - Create Database Connection
+* [List](docs/sdks/databaseconnections/README.md#list) - List all Database Connections
+* [Create](docs/sdks/databaseconnections/README.md#create) - Create a Database Connection
 * [Get](docs/sdks/databaseconnections/README.md#get) - Get a Database Connection
 * [Update](docs/sdks/databaseconnections/README.md#update) - Update a Database Connection
 * [Delete](docs/sdks/databaseconnections/README.md#delete) - Delete a Database Connection
@@ -278,8 +278,8 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Groups](docs/sdks/groups/README.md)
 
-* [List](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
-* [Create](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+* [List](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets
+* [Create](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet
 * [Get](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
 * [Update](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
 * [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
@@ -318,7 +318,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 
-* [Get](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a specific product.
+* [Get](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a Cribl product
 
 ### [Packs](docs/sdks/packs/README.md)
 
@@ -364,7 +364,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [List](docs/sdks/packsroutes/README.md#list) - List all Routes within a Pack
 * [Get](docs/sdks/packsroutes/README.md#get) - Get a Routing table within a Pack
-* [Update](docs/sdks/packsroutes/README.md#update) - Update a Route within a Pack
+* [Update](docs/sdks/packsroutes/README.md#update) - Update a Routing table within a Pack
 * [Append](docs/sdks/packsroutes/README.md#append) - Add a Route to the end of the Routing table within a Pack
 
 #### [Packs.Sources](docs/sdks/packssources/README.md)
@@ -402,7 +402,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [List](docs/sdks/routes/README.md#list) - List all Routes
 * [Get](docs/sdks/routes/README.md#get) - Get a Routing table
-* [Update](docs/sdks/routes/README.md#update) - Update a Route
+* [Update](docs/sdks/routes/README.md#update) - Update a Routing table
 * [Append](docs/sdks/routes/README.md#append) - Add a Route to the end of the Routing table
 
 ### [Sources](docs/sdks/sources/README.md)
@@ -687,8 +687,8 @@ package main
 
 import (
 	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 	"log"
 	"os"
 )
@@ -740,9 +740,8 @@ package main
 
 import (
 	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 	"log"
 	"os"
 )
@@ -757,13 +756,11 @@ func main() {
 		}),
 	)
 
-	res, err := s.Packs.Sources.Statuses.List(ctx, operations.GetInputStatusSystemInputsByPackRequest{
-		Pack: "<value>",
-	})
+	res, err := s.Functions.List(ctx, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.CountedInputStatus != nil {
+	if res.PaginatedFunctionResponse != nil {
 		for {
 			// handle items
 
@@ -801,7 +798,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go"
 )
 
 var (

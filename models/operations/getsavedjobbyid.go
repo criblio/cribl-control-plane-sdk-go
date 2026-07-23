@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetSavedJobByIDRequest struct {
@@ -21,7 +21,7 @@ func (g *GetSavedJobByIDRequest) GetID() string {
 
 type GetSavedJobByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of SavedJobResponse objects.
+	// The requested Collector in a response envelope with <code>count</code> and <code>items</code>.
 	CountedSavedJobResponse *components.CountedSavedJobResponse
 }
 

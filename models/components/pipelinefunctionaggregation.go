@@ -5,10 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionAggregationID - Function ID
+// PipelineFunctionAggregationID - Identifier of the Function. Always <code>aggregation</code>
 type PipelineFunctionAggregationID string
 
 const (
@@ -32,6 +32,7 @@ func (e *PipelineFunctionAggregationID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PipelineFunctionAggregationConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionAggregationConf struct {
 	// Pass through the original events along with the aggregation events
 	Passthrough *bool `json:"passthrough,omitzero"`
@@ -209,18 +210,19 @@ func (p *PipelineFunctionAggregationConf) GetIdleTimeLimit() *string {
 }
 
 type PipelineFunctionAggregation struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>aggregation</code>
 	ID PipelineFunctionAggregationID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                           `json:"final,omitzero"`
-	Conf  PipelineFunctionAggregationConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionAggregationConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 
