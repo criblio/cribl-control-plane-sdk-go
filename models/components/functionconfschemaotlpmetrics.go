@@ -3,14 +3,16 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type FunctionConfSchemaOtlpMetrics struct {
 	// The prefixes of top-level attributes to add as resource attributes. Each attribute must match the regex pattern `^[a-zA-Z0-9_\.]+$`. Use Eval to copy nested attributes to the top level for matching.
-	ResourceAttributePrefixes []string            `json:"resourceAttributePrefixes,omitzero"`
-	DropNonMetricEvents       *bool               `json:"dropNonMetricEvents,omitzero"`
-	OtlpVersion               *OtlpVersionOptions `json:"otlpVersion,omitzero"`
+	ResourceAttributePrefixes []string `json:"resourceAttributePrefixes,omitzero"`
+	// Drop events that are not OTLP metric data points.
+	DropNonMetricEvents *bool `json:"dropNonMetricEvents,omitzero"`
+	// OTLP version
+	OtlpVersion *OtlpVersionOptions `json:"otlpVersion,omitzero"`
 	// Batch OTLP metrics by shared top-level `resource` attributes
 	BatchOTLPMetrics *bool `json:"batchOTLPMetrics,omitzero"`
 	// Number of metric data points after which a batch will be sent, regardless of the timeout
@@ -20,7 +22,7 @@ type FunctionConfSchemaOtlpMetrics struct {
 	// Maximum batch size. Enter 0 for no maximum.
 	SendBatchMaxSize *float64 `json:"sendBatchMaxSize,omitzero"`
 	// When set, this processor will create one batcher instance per distinct combination of values in the metadata
-	MetadataKeys []any `json:"metadataKeys,omitzero"`
+	MetadataKeys []string `json:"metadataKeys,omitzero"`
 	// Limit the number of unique combinations of metadata key values that will be processed over the lifetime of the process. After the limit is reached, events with new metadata key value combinations will be dropped.
 	MetadataCardinalityLimit *float64 `json:"metadataCardinalityLimit,omitzero"`
 }
@@ -85,7 +87,7 @@ func (f *FunctionConfSchemaOtlpMetrics) GetSendBatchMaxSize() *float64 {
 	return f.SendBatchMaxSize
 }
 
-func (f *FunctionConfSchemaOtlpMetrics) GetMetadataKeys() []any {
+func (f *FunctionConfSchemaOtlpMetrics) GetMetadataKeys() []string {
 	if f == nil {
 		return nil
 	}

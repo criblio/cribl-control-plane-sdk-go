@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetRoutesByPackAndIDRequest struct {
@@ -30,7 +30,7 @@ func (g *GetRoutesByPackAndIDRequest) GetPack() string {
 
 type GetRoutesByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Routes objects
+	// The requested Routing table object in a single-item list.
 	CountedRoutes *components.CountedRoutes
 }
 

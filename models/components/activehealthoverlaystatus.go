@@ -3,14 +3,10 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type ActiveHealthOverlayStatus struct {
-	// Binary version targeted by the active overlay.
-	BinaryVersion string `json:"binaryVersion"`
-	// Active overlay identifier.
-	OverlayID string `json:"overlayId"`
 	// Current overlay state.
 	//lint:ignore U1000 accessed via reflection for JSON marshaling
 	state string `const:"active" json:"state"`
@@ -25,20 +21,6 @@ func (a *ActiveHealthOverlayStatus) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
-}
-
-func (a *ActiveHealthOverlayStatus) GetBinaryVersion() string {
-	if a == nil {
-		return ""
-	}
-	return a.BinaryVersion
-}
-
-func (a *ActiveHealthOverlayStatus) GetOverlayID() string {
-	if a == nil {
-		return ""
-	}
-	return a.OverlayID
 }
 
 func (a *ActiveHealthOverlayStatus) GetState() string {

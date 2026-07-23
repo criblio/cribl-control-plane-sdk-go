@@ -3,13 +3,17 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetProductsSummaryByProductRequest struct {
 	// Name of the Cribl product to get the summary for.
 	Product components.ProductsBase `pathParam:"style=simple,explode=false,name=product"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (g *GetProductsSummaryByProductRequest) GetProduct() components.ProductsBase {
@@ -19,10 +23,26 @@ func (g *GetProductsSummaryByProductRequest) GetProduct() components.ProductsBas
 	return g.Product
 }
 
+func (g *GetProductsSummaryByProductRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetProductsSummaryByProductRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
 type GetProductsSummaryByProductResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
 	// List of DistributedSummary objects.
-	CountedDistributedSummary *components.CountedDistributedSummary
+	PaginatedDistributedSummary *components.PaginatedDistributedSummary
+
+	Next func() (*GetProductsSummaryByProductResponse, error)
 }
 
 func (g GetProductsSummaryByProductResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +63,9 @@ func (g *GetProductsSummaryByProductResponse) GetHTTPMeta() components.HTTPMetad
 	return g.HTTPMeta
 }
 
-func (g *GetProductsSummaryByProductResponse) GetCountedDistributedSummary() *components.CountedDistributedSummary {
+func (g *GetProductsSummaryByProductResponse) GetPaginatedDistributedSummary() *components.PaginatedDistributedSummary {
 	if g == nil {
 		return nil
 	}
-	return g.CountedDistributedSummary
+	return g.PaginatedDistributedSummary
 }

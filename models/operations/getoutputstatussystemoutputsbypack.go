@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetOutputStatusSystemOutputsByPackRequest struct {
@@ -57,8 +57,8 @@ func (g *GetOutputStatusSystemOutputsByPackRequest) GetPack() string {
 
 type GetOutputStatusSystemOutputsByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination status objects
-	CountedOutputStatus *components.CountedOutputStatus
+	// List of Destination status objects.
+	PaginatedOutputStatus *components.PaginatedOutputStatus
 
 	Next func() (*GetOutputStatusSystemOutputsByPackResponse, error)
 }
@@ -81,9 +81,9 @@ func (g *GetOutputStatusSystemOutputsByPackResponse) GetHTTPMeta() components.HT
 	return g.HTTPMeta
 }
 
-func (g *GetOutputStatusSystemOutputsByPackResponse) GetCountedOutputStatus() *components.CountedOutputStatus {
+func (g *GetOutputStatusSystemOutputsByPackResponse) GetPaginatedOutputStatus() *components.PaginatedOutputStatus {
 	if g == nil {
 		return nil
 	}
-	return g.CountedOutputStatus
+	return g.PaginatedOutputStatus
 }

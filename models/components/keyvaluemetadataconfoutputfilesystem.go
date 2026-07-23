@@ -3,11 +3,13 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type KeyValueMetadataConfOutputFilesystem struct {
-	Key   string `json:"key"`
+	// Key
+	Key string `json:"key"`
+	// Value
 	Value string `json:"value"`
 }
 

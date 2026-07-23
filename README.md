@@ -32,7 +32,7 @@ Complementary API reference documentation is available at https://docs.cribl.io/
 
 To add the SDK as a dependency to your project:
 ```bash
-go get github.com/criblio/cribl-control-plane-sdk-go
+go get github.com/Cribl-Community/cribl-control-plane-sdk-go
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -46,9 +46,9 @@ package main
 import (
 	"context"
 	"fmt"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 	"os"
 )
@@ -206,7 +206,7 @@ This SDK supports the following security schemes globally:
 
 To configure authentication on Cribl.Cloud and in hybrid deployments, use the `ClientOauth` security scheme. The SDK uses the OAuth credentials that you provide to obtain a Bearer token and refresh the token within its expiration window using the standard OAuth2 flow.
 
-In on-prem deployments, use the `BearerAuth` security scheme. The SDK uses the username/password credentials that you provide to obtain a Bearer token. Automatically refreshing the Bearer token within its expiration window requires a callback function as shown in the [On-Prem Authentication Example](https://github.com/criblio/cribl-control-plane-sdk-go/blob/main/examples/example-onprem-auth.go).
+In on-prem deployments, use the `BearerAuth` security scheme. The SDK uses the username/password credentials that you provide to obtain a Bearer token. Automatically refreshing the Bearer token within its expiration window requires a callback function as shown in the [On-Prem Authentication Example](https://github.com/Cribl-Community/cribl-control-plane-sdk-go/blob/main/examples/example-onprem-auth.go).
 
 Set the security scheme when initializing the SDK client instance using one of these optional parameters:
 - `WithSecurity`: Use for static security values (OAuth2 credentials that the SDK will manage automatically)
@@ -216,9 +216,9 @@ The SDK uses the selected scheme by default to authenticate with the API for all
 
 ### Authentication Examples
 
-The [Cribl.Cloud and Hybrid Authentication Example](https://github.com/criblio/cribl-control-plane-sdk-go/blob/main/examples/example-cloud-auth.go) demonstrates how to configure authentication on Cribl.Cloud and in hybrid deployments. To obtain the Client ID and Client Secret you'll need to initialize using the `ClientOauth` security schema, follow the [instructions for creating an API Credential](https://docs.cribl.io/cribl-as-code/sdks-auth/#sdks-auth-cloud) in the Cribl as Code documentation.
+The [Cribl.Cloud and Hybrid Authentication Example](https://github.com/Cribl-Community/cribl-control-plane-sdk-go/blob/main/examples/example-cloud-auth.go) demonstrates how to configure authentication on Cribl.Cloud and in hybrid deployments. To obtain the Client ID and Client Secret you'll need to initialize using the `ClientOauth` security schema, follow the [instructions for creating an API Credential](https://docs.cribl.io/cribl-as-code/sdks-auth/#sdks-auth-cloud) in the Cribl as Code documentation.
 
-The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-plane-sdk-go/blob/main/examples/example-onprem-auth.go) demonstrates how to configure authentication in on-prem deployments using your username and password.
+The [On-Prem Authentication Example](https://github.com/Cribl-Community/cribl-control-plane-sdk-go/blob/main/examples/example-onprem-auth.go) demonstrates how to configure authentication in on-prem deployments using your username and password.
 
 <!-- No Authentication [security] -->
 
@@ -242,8 +242,8 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [DatabaseConnections](docs/sdks/databaseconnections/README.md)
 
-* [List](docs/sdks/databaseconnections/README.md#list) - List Database Connections
-* [Create](docs/sdks/databaseconnections/README.md#create) - Create Database Connection
+* [List](docs/sdks/databaseconnections/README.md#list) - List all Database Connections
+* [Create](docs/sdks/databaseconnections/README.md#create) - Create a Database Connection
 * [Get](docs/sdks/databaseconnections/README.md#get) - Get a Database Connection
 * [Update](docs/sdks/databaseconnections/README.md#update) - Update a Database Connection
 * [Delete](docs/sdks/databaseconnections/README.md#delete) - Delete a Database Connection
@@ -278,8 +278,8 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 ### [Groups](docs/sdks/groups/README.md)
 
-* [List](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets for the specified Cribl product
-* [Create](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet for the specified Cribl product
+* [List](docs/sdks/groups/README.md#list) - List all Worker Groups, Outpost Groups, or Edge Fleets
+* [Create](docs/sdks/groups/README.md#create) - Create a Worker Group, Outpost Group, or Edge Fleet
 * [Get](docs/sdks/groups/README.md#get) - Get a Worker Group, Outpost Group, or Edge Fleet
 * [Update](docs/sdks/groups/README.md#update) - Update a Worker Group, Outpost Group, or Edge Fleet
 * [Delete](docs/sdks/groups/README.md#delete) - Delete a Worker Group, Outpost Group, or Edge Fleet
@@ -318,7 +318,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 #### [Nodes.Summaries](docs/sdks/summaries/README.md)
 
-* [Get](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a specific product.
+* [Get](docs/sdks/summaries/README.md#get) - Get a summary of the deployment for a Cribl product
 
 ### [Packs](docs/sdks/packs/README.md)
 
@@ -364,7 +364,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [List](docs/sdks/packsroutes/README.md#list) - List all Routes within a Pack
 * [Get](docs/sdks/packsroutes/README.md#get) - Get a Routing table within a Pack
-* [Update](docs/sdks/packsroutes/README.md#update) - Update a Route within a Pack
+* [Update](docs/sdks/packsroutes/README.md#update) - Update a Routing table within a Pack
 * [Append](docs/sdks/packsroutes/README.md#append) - Add a Route to the end of the Routing table within a Pack
 
 #### [Packs.Sources](docs/sdks/packssources/README.md)
@@ -402,7 +402,7 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [List](docs/sdks/routes/README.md#list) - List all Routes
 * [Get](docs/sdks/routes/README.md#get) - Get a Routing table
-* [Update](docs/sdks/routes/README.md#update) - Update a Route
+* [Update](docs/sdks/routes/README.md#update) - Update a Routing table
 * [Append](docs/sdks/routes/README.md#append) - Add a Route to the end of the Routing table
 
 ### [Sources](docs/sdks/sources/README.md)
@@ -482,10 +482,10 @@ package main
 
 import (
 	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
-	"github.com/criblio/cribl-control-plane-sdk-go/retry"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/retry"
 	"log"
 	"os"
 )
@@ -527,9 +527,9 @@ package main
 
 import (
 	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/retry"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/retry"
 	"log"
 	"os"
 )
@@ -588,9 +588,9 @@ package main
 import (
 	"context"
 	"errors"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/apierrors"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/apierrors"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 	"log"
 	"os"
 )
@@ -687,8 +687,8 @@ package main
 
 import (
 	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 	"log"
 	"os"
 )
@@ -740,9 +740,8 @@ package main
 
 import (
 	"context"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 	"log"
 	"os"
 )
@@ -757,13 +756,11 @@ func main() {
 		}),
 	)
 
-	res, err := s.Packs.Sources.Statuses.List(ctx, operations.GetInputStatusSystemInputsByPackRequest{
-		Pack: "<value>",
-	})
+	res, err := s.Functions.List(ctx, nil, nil, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if res.CountedInputStatus != nil {
+	if res.PaginatedFunctionResponse != nil {
 		for {
 			// handle items
 
@@ -801,7 +798,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go"
 )
 
 var (

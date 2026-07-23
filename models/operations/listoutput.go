@@ -3,13 +3,17 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type ListOutputRequest struct {
 	// Type of Destination to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported.
 	Type *components.DestinationType `queryParam:"style=form,explode=true,name=type"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (l *ListOutputRequest) GetType() *components.DestinationType {
@@ -19,10 +23,26 @@ func (l *ListOutputRequest) GetType() *components.DestinationType {
 	return l.Type
 }
 
+func (l *ListOutputRequest) GetOffset() *int64 {
+	if l == nil {
+		return nil
+	}
+	return l.Offset
+}
+
+func (l *ListOutputRequest) GetLimit() *int64 {
+	if l == nil {
+		return nil
+	}
+	return l.Limit
+}
+
 type ListOutputResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Destination objects
-	CountedOutputResponse *components.CountedOutputResponse
+	// List of Destination objects.
+	PaginatedOutputResponse *components.PaginatedOutputResponse
+
+	Next func() (*ListOutputResponse, error)
 }
 
 func (l ListOutputResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +63,9 @@ func (l *ListOutputResponse) GetHTTPMeta() components.HTTPMetadata {
 	return l.HTTPMeta
 }
 
-func (l *ListOutputResponse) GetCountedOutputResponse() *components.CountedOutputResponse {
+func (l *ListOutputResponse) GetPaginatedOutputResponse() *components.PaginatedOutputResponse {
 	if l == nil {
 		return nil
 	}
-	return l.CountedOutputResponse
+	return l.PaginatedOutputResponse
 }

@@ -6,15 +6,19 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone struct {
-	PrivProtocol *string                              `json:"privProtocol,omitzero"`
-	PrivKey      string                               `json:"privKey"`
+	PrivProtocol *string `json:"privProtocol,omitzero"`
+	// V3 privacy key
+	PrivKey string `json:"privKey"`
+	// Authentication protocol
 	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
-	AuthKey      string                               `json:"authKey"`
-	Name         string                               `json:"name"`
+	// V3 authentication key
+	AuthKey string `json:"authKey"`
+	// Username
+	Name string `json:"name"`
 }
 
 func (s SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) MarshalJSON() ([]byte, error) {
@@ -67,10 +71,13 @@ func (s *SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNotNone) GetName(
 // #endregion class-body-snmptrapserializev3userauthprotocolnotnoneprivprotocolnotnone
 
 type SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone struct {
-	PrivProtocol *string                              `json:"privProtocol,omitzero"`
+	PrivProtocol *string `json:"privProtocol,omitzero"`
+	// Authentication protocol
 	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
-	AuthKey      string                               `json:"authKey"`
-	Name         string                               `json:"name"`
+	// V3 authentication key
+	AuthKey string `json:"authKey"`
+	// Username
+	Name string `json:"name"`
 }
 
 func (s SnmpTrapSerializeV3UserAuthProtocolNotNonePrivProtocolNone) MarshalJSON() ([]byte, error) {
@@ -297,9 +304,11 @@ func (u SnmpTrapSerializeV3UserAuthProtocolNotNone) MarshalJSON() ([]byte, error
 }
 
 type SnmpTrapSerializeV3UserAuthProtocolNone struct {
+	// Authentication protocol
 	AuthProtocol *AuthenticationProtocolOptionsV3User `json:"authProtocol,omitzero"`
-	Name         *string                              `json:"name,omitzero"`
-	PrivProtocol *string                              `json:"privProtocol,omitzero"`
+	// Username
+	Name         *string `json:"name,omitzero"`
+	PrivProtocol *string `json:"privProtocol,omitzero"`
 }
 
 func (s SnmpTrapSerializeV3UserAuthProtocolNone) MarshalJSON() ([]byte, error) {
@@ -350,6 +359,7 @@ const (
 	V3UserTypeUnknown V3UserType = "UNKNOWN"
 )
 
+// V3User - SNMPv3 user configuration, including authentication and privacy protocol settings.
 type V3User struct {
 	SnmpTrapSerializeV3UserAuthProtocolNone    *SnmpTrapSerializeV3UserAuthProtocolNone    `queryParam:"inline" union:"member"`
 	SnmpTrapSerializeV3UserAuthProtocolNotNone *SnmpTrapSerializeV3UserAuthProtocolNotNone `queryParam:"inline" union:"member"`
@@ -548,8 +558,9 @@ type FunctionConfSchemaSnmpTrapSerialize struct {
 	// Prevent event serialization if any required fields are missing. When disabled, @{product} will attempt to serialize the event even if required fields are missing, which could cause unexpected behavior at the downstream receiver.
 	Strict *bool `json:"strict,omitzero"`
 	// When disabled, `snmpSerializeErrors` will be set on the event, and the `__snmpRaw` field will be removed to prevent @{product} from sending the event from the SNMP Trap Destination
-	DropFailedEvents *bool   `json:"dropFailedEvents,omitzero"`
-	V3User           *V3User `json:"v3User,omitzero"`
+	DropFailedEvents *bool `json:"dropFailedEvents,omitzero"`
+	// SNMPv3 user configuration, including authentication and privacy protocol settings.
+	V3User *V3User `json:"v3User,omitzero"`
 }
 
 func (f FunctionConfSchemaSnmpTrapSerialize) MarshalJSON() ([]byte, error) {

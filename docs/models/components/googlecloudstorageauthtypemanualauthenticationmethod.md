@@ -6,7 +6,7 @@ Enter account credentials manually, select a secret that references your credent
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 value := components.GoogleCloudStorageAuthTypeManualAuthenticationMethodAuto

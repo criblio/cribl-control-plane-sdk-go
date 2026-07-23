@@ -2,6 +2,7 @@
 
 package components
 
+// AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret - Authentication type
 type AuthenticationTypeOptionsPrometheusAuthBasicCredentialsSecret string
 
 const (

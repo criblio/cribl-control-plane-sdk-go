@@ -3,14 +3,14 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type UpdateInputHecTokenByIDAndTokenRequest struct {
 	// The <code>id</code> of the Splunk HEC Source.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
-	// The HEC token value to update.
+	// The HEC token value whose metadata you want to update. Must match an existing token on the Source.
 	Token string `pathParam:"style=simple,explode=false,name=token"`
 	// UpdateHecTokenRequest object.
 	UpdateHecTokenRequest components.UpdateHecTokenRequest `request:"mediaType=application/json"`
@@ -39,7 +39,7 @@ func (u *UpdateInputHecTokenByIDAndTokenRequest) GetUpdateHecTokenRequest() comp
 
 type UpdateInputHecTokenByIDAndTokenResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// the updated HEC token
+	// The updated Splunk HEC Source with the modified HEC token metadata.
 	CountedInputSplunkHec *components.CountedInputSplunkHec
 }
 

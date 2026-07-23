@@ -9,7 +9,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/criblio/cribl-control-plane-sdk-go/optionalnullable"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/optionalnullable"
 )
 
 func PopulateHeaders(_ context.Context, req *http.Request, headers interface{}, globals interface{}) {

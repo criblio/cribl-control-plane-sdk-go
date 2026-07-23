@@ -3,13 +3,13 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetVersionInfoResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of GitInfo objects.
+	// The requested GitInfo object in a single-item list.
 	CountedGitInfo *components.CountedGitInfo
 }
 

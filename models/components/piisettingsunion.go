@@ -5,10 +5,11 @@ package components
 import (
 	"errors"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type PiiSettings struct {
+	// If <code>true</code>, enable PII detection for events processed by the Cribl instance. Otherwise, <code>false</code>.
 	EnablePiiDetection bool `json:"enablePiiDetection"`
 }
 

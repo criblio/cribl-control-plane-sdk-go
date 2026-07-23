@@ -6,7 +6,7 @@ Select a schedule type; either an interval (in seconds) or a cron-style schedule
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 )
 
 value := operations.CreateInputSystemByPackScheduleTypeInterval

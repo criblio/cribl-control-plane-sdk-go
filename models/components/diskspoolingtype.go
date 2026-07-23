@@ -3,9 +3,10 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// DiskSpoolingType - Disk Spooling
 type DiskSpoolingType struct {
 	// Spool events on disk for Cribl Edge and Search. Default is disabled.
 	Enable *bool `json:"enable,omitzero"`

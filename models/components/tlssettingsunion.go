@@ -5,15 +5,20 @@ package components
 import (
 	"errors"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type TLSSettings struct {
-	DefaultCipherList  string `json:"defaultCipherList"`
-	DefaultEcdhCurve   string `json:"defaultEcdhCurve"`
-	MaxVersion         string `json:"maxVersion"`
-	MinVersion         string `json:"minVersion"`
-	RejectUnauthorized bool   `json:"rejectUnauthorized"`
+	// Cipher suite list to use for TLS connections. <code>DEFAULT</code> means the system default.
+	DefaultCipherList string `json:"defaultCipherList"`
+	// ECDH curve name for TLS key exchange. Use <code>auto</code> to let Node.js choose.
+	DefaultEcdhCurve string `json:"defaultEcdhCurve"`
+	// Maximum TLS protocol version to accept.
+	MaxVersion string `json:"maxVersion"`
+	// Minimum TLS protocol version to accept.
+	MinVersion string `json:"minVersion"`
+	// If <code>true</code>, reject TLS certificates that cannot be verified against a valid Certificate Authority. Otherwise, <code>false</code>.
+	RejectUnauthorized bool `json:"rejectUnauthorized"`
 }
 
 func (t TLSSettings) MarshalJSON() ([]byte, error) {

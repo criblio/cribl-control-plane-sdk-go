@@ -3,10 +3,12 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// TLSSettingsClientSideTypeCaPathCertPathExtended - TLS settings (client side)
 type TLSSettingsClientSideTypeCaPathCertPathExtended struct {
+	// Disabled
 	Disabled *bool `json:"disabled,omitzero"`
 	// Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
 	Servername *string `json:"servername,omitzero"`
@@ -19,8 +21,10 @@ type TLSSettingsClientSideTypeCaPathCertPathExtended struct {
 	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitzero"`
 	// Passphrase to use to decrypt private key
-	Passphrase *string                      `json:"passphrase,omitzero"`
+	Passphrase *string `json:"passphrase,omitzero"`
+	// Minimum TLS version
 	MinVersion *MinimumTLSVersionOptionsTLS `json:"minVersion,omitzero"`
+	// Maximum TLS version
 	MaxVersion *MaximumTLSVersionOptionsTLS `json:"maxVersion,omitzero"`
 }
 

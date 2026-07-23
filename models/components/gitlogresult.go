@@ -3,13 +3,20 @@
 package components
 
 type GitLogResult struct {
+	// Email address of the commit author.
 	AuthorEmail *string `json:"author_email,omitzero"`
-	AuthorName  *string `json:"author_name,omitzero"`
-	Body        *string `json:"body,omitzero"`
-	Date        *string `json:"date,omitzero"`
-	Hash        *string `json:"hash,omitzero"`
-	Message     *string `json:"message,omitzero"`
-	Refs        *string `json:"refs,omitzero"`
+	// Display name of the commit author.
+	AuthorName *string `json:"author_name,omitzero"`
+	// Body of the commit message, excluding the subject line.
+	Body *string `json:"body,omitzero"`
+	// Date and time of the commit in ISO 8601 format with timezone offset.
+	Date *string `json:"date,omitzero"`
+	// Full SHA-1 hash of the commit.
+	Hash *string `json:"hash,omitzero"`
+	// First line of the commit message (the subject).
+	Message *string `json:"message,omitzero"`
+	// Git refs (branches, tags) pointing to this commit.
+	Refs *string `json:"refs,omitzero"`
 }
 
 func (g *GitLogResult) GetAuthorEmail() *string {

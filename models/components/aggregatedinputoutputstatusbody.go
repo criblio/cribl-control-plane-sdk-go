@@ -3,18 +3,19 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type AggregatedInputOutputStatusBody struct {
-	Error        *StatusError     `json:"error,omitzero"`
-	Health       HealthStringType `json:"health"`
-	HealthCounts HealthCountType  `json:"healthCounts"`
+	Error *StatusError `json:"error,omitzero"`
+	// Overall health status of the Source or Destination.
+	Health       HealthOptionsStatus `json:"health"`
+	HealthCounts HealthCountType     `json:"healthCounts"`
 	// Metrics data for the Source or Destination, including base metrics, aggregated across all Worker Processes. For load-balanced Destinations, includes item-level metrics.
 	Metrics map[string]any      `json:"metrics,omitzero"`
 	Pq      *AggregatedPQStatus `json:"pq,omitzero"`
 	// Timestamp (in Unix time) when the status was last updated.
-	Timestamp float64 `json:"timestamp"`
+	Timestamp int64 `json:"timestamp"`
 }
 
 func (a AggregatedInputOutputStatusBody) MarshalJSON() ([]byte, error) {
@@ -35,9 +36,9 @@ func (a *AggregatedInputOutputStatusBody) GetError() *StatusError {
 	return a.Error
 }
 
-func (a *AggregatedInputOutputStatusBody) GetHealth() HealthStringType {
+func (a *AggregatedInputOutputStatusBody) GetHealth() HealthOptionsStatus {
 	if a == nil {
-		return HealthStringType("")
+		return HealthOptionsStatus("")
 	}
 	return a.Health
 }
@@ -63,9 +64,9 @@ func (a *AggregatedInputOutputStatusBody) GetPq() *AggregatedPQStatus {
 	return a.Pq
 }
 
-func (a *AggregatedInputOutputStatusBody) GetTimestamp() float64 {
+func (a *AggregatedInputOutputStatusBody) GetTimestamp() int64 {
 	if a == nil {
-		return 0.0
+		return 0
 	}
 	return a.Timestamp
 }

@@ -13,15 +13,15 @@ Get a list of all branches in the Git repository used for Cribl configuration.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getVersionBranch" method="get" path="/version/branch" -->
+<!-- UsageSnippet language="go" operationID="getVersionBranch" method="get" path="/version/branch" example="VersionBranchResponseExamplesListBranches" -->
 ```go
 package main
 
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -60,6 +60,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -69,15 +70,15 @@ Get the name of the Git branch that the Cribl configuration is checked out to. U
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getVersionCurrentBranch" method="get" path="/version/current-branch" -->
+<!-- UsageSnippet language="go" operationID="getVersionCurrentBranch" method="get" path="/version/current-branch" example="VersionCurrentBranchResponseExamplesCurrentBranch" -->
 ```go
 package main
 
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -116,5 +117,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

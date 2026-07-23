@@ -33,9 +33,9 @@ import (
 	"fmt"
 	"log"
 
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 )
 
 const (
@@ -94,7 +94,7 @@ func main() {
 	udpPort := float64(SYSLOG_PORT)
 	syslogSource := operations.CreateCreateInputInputSyslogUnionCreateInputInputSyslogSyslog2(operations.CreateInputInputSyslogSyslog2{
 		ID:      "my-syslog-source",
-		Type:    operations.CreateInputInputSyslogType2Syslog,
+		Type:    components.TypeOptionsSyslogSyslog,
 		Host:    "0.0.0.0",
 		TCPPort: float64(SYSLOG_PORT),
 		UDPPort: &udpPort,
@@ -118,7 +118,7 @@ func main() {
 	apiKey := AWS_API_KEY
 	s3Destination := operations.CreateOutputOutputS3{
 		ID:             "my-s3-destination",
-		Type:           operations.CreateOutputTypeS3S3,
+		Type:           components.TypeOptionsS3S3,
 		Bucket:         AWS_BUCKET_NAME,
 		StagePath:      "/tmp/cribl_stage",
 		Region:         &region,

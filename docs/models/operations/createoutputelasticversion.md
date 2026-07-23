@@ -6,7 +6,7 @@ Optional Elasticsearch version, used to format events. If not specified, will au
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 )
 
 value := operations.CreateOutputElasticVersionAuto

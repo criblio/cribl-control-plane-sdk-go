@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputNewrelicType - Connector type identifier.
 type OutputNewrelicType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputNewrelicType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputNewrelicFieldName - Name of the metadata field.
 type OutputNewrelicFieldName string
 
 const (
@@ -56,6 +58,7 @@ func (e *OutputNewrelicFieldName) IsExact() bool {
 }
 
 type OutputNewrelicMetadatum struct {
+	// Name of the metadata field.
 	Name OutputNewrelicFieldName `json:"name"`
 	// JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
 	Value string `json:"value"`
@@ -86,6 +89,7 @@ func (o *OutputNewrelicMetadatum) GetValue() string {
 	return o.Value
 }
 
+// OutputNewrelicPqControls - Persistent queue controls.
 type OutputNewrelicPqControls struct {
 }
 
@@ -102,7 +106,8 @@ func (o *OutputNewrelicPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputNewrelic struct {
 	// Unique ID for this output
-	ID   *string            `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputNewrelicType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -110,7 +115,7 @@ type OutputNewrelic struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Which New Relic region endpoint to use.
 	Region *RegionOptions `json:"region,omitzero"`
@@ -155,8 +160,9 @@ type OutputNewrelic struct {
 	AuthType *AuthenticationMethodOptionsAPI `json:"authType,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
-	Description        *string  `json:"description,omitzero"`
-	CustomURL          *string  `json:"customUrl,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	CustomURL   *string `json:"customUrl,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -178,8 +184,9 @@ type OutputNewrelic struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                   `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputNewrelicPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputNewrelicPqControls `json:"pqControls,omitzero"`
 	// New Relic API key. Can be overridden using __newRelic_apiKey field.
 	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored text secret

@@ -6,7 +6,7 @@ Default value for message facility. Will be overwritten by value of __facility i
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 value := components.OutputSyslogFacilityKern

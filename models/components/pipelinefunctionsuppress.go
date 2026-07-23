@@ -5,10 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionSuppressID - Function ID
+// PipelineFunctionSuppressID - Identifier of the Function. Always <code>suppress</code>
 type PipelineFunctionSuppressID string
 
 const (
@@ -32,6 +32,7 @@ func (e *PipelineFunctionSuppressID) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// PipelineFunctionSuppressConf - Configuration specific to the Pipeline Function.
 type PipelineFunctionSuppressConf struct {
 	// Suppression key expression used to uniquely identify events to suppress. For example, `${ip}:${port}` will use fields ip and port from each event to generate the key.
 	KeyExpr string `json:"keyExpr"`
@@ -110,18 +111,19 @@ func (p *PipelineFunctionSuppressConf) GetNumEventsIdleTimeoutTrigger() *float64
 }
 
 type PipelineFunctionSuppress struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>suppress</code>
 	ID PipelineFunctionSuppressID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
-	Final *bool                        `json:"final,omitzero"`
-	Conf  PipelineFunctionSuppressConf `json:"conf"`
-	// Group ID
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
+	Final *bool `json:"final,omitzero"`
+	// Configuration specific to the Pipeline Function.
+	Conf PipelineFunctionSuppressConf `json:"conf"`
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

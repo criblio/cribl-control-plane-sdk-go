@@ -6,7 +6,7 @@ Enter the data collection endpoint URL or the individual ID
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 )
 
 value := operations.CreateOutputSystemByPackEndpointConfigurationURL

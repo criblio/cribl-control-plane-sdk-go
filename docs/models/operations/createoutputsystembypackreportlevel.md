@@ -6,7 +6,7 @@ Level of ingestion status reporting. Defaults to FailuresOnly.
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 )
 
 value := operations.CreateOutputSystemByPackReportLevelFailuresOnly

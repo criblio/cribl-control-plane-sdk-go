@@ -3,7 +3,9 @@
 package components
 
 type DeployRequestLookupsLookup struct {
-	File    string `json:"file"`
+	// Unique identifier (file name) of the lookup to deploy.
+	File string `json:"file"`
+	// Version of the lookup file to deploy.
 	Version string `json:"version"`
 }
 
@@ -22,7 +24,9 @@ func (d *DeployRequestLookupsLookup) GetVersion() string {
 }
 
 type DeployRequestLookups struct {
-	Context string                       `json:"context"`
+	// Lookup context to deploy. Use <code>cribl</code> for the default context or a Pack <code>id</code> for Pack lookups.
+	Context string `json:"context"`
+	// List of lookup files to deploy in this context.
 	Lookups []DeployRequestLookupsLookup `json:"lookups"`
 }
 

@@ -3,10 +3,12 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// TLSSettingsClientSideTypeExtended - TLS settings (client side)
 type TLSSettingsClientSideTypeExtended struct {
+	// Disabled
 	Disabled *bool `json:"disabled,omitzero"`
 	// Reject certificates that are not authorized by a CA in the CA certificate path, or by another
 	//                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
@@ -20,8 +22,10 @@ type TLSSettingsClientSideTypeExtended struct {
 	// Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
 	CertPath *string `json:"certPath,omitzero"`
 	// Passphrase to use to decrypt private key
-	Passphrase *string                      `json:"passphrase,omitzero"`
+	Passphrase *string `json:"passphrase,omitzero"`
+	// Minimum TLS version
 	MinVersion *MinimumTLSVersionOptionsTLS `json:"minVersion,omitzero"`
+	// Maximum TLS version
 	MaxVersion *MaximumTLSVersionOptionsTLS `json:"maxVersion,omitzero"`
 }
 

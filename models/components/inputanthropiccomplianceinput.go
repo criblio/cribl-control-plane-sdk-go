@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputAnthropicComplianceType - Connector type identifier.
 type InputAnthropicComplianceType string
 
 const (
@@ -31,123 +32,713 @@ func (e *InputAnthropicComplianceType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-type InputAnthropicComplianceManageState struct {
+type InputAnthropicComplianceActivitiesManageState struct {
 }
 
-func (i InputAnthropicComplianceManageState) MarshalJSON() ([]byte, error) {
+func (i InputAnthropicComplianceActivitiesManageState) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputAnthropicComplianceManageState) UnmarshalJSON(data []byte) error {
+func (i *InputAnthropicComplianceActivitiesManageState) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-type InputAnthropicComplianceContentConfig struct {
-	ContentType        string  `json:"contentType"`
-	ContentDescription *string `json:"contentDescription,omitzero"`
-	Enabled            *bool   `json:"enabled,omitzero"`
+// InputAnthropicComplianceActivities - Activities
+type InputAnthropicComplianceActivities struct {
+	// Enabled
+	Enabled *bool `json:"enabled,omitzero"`
+	// Schedule on which to run this collection job
+	CronSchedule *string `json:"cronSchedule,omitzero"`
+	// Earliest time for data collection, relative to now
+	Earliest *string `json:"earliest,omitzero"`
+	// Latest time for data collection, relative to now
+	Latest *string `json:"latest,omitzero"`
+	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
 	// Track collection progress between consecutive scheduled executions
 	StateTracking *bool `json:"stateTracking,omitzero"`
 	// JavaScript expression that defines how to update the state from an event
 	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
 	// JavaScript expression that defines which state to keep when merging task state
-	StateMergeExpression *string                              `json:"stateMergeExpression,omitzero"`
-	ManageState          *InputAnthropicComplianceManageState `json:"manageState,omitzero"`
-	// Schedule on which to run this collection job
-	CronSchedule string `json:"cronSchedule"`
-	// Earliest time for data collection, relative to now
-	Earliest string `json:"earliest"`
-	// Latest time for data collection, relative to now
-	Latest string `json:"latest"`
-	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
-	JobTimeout *string `json:"jobTimeout,omitzero"`
+	StateMergeExpression *string                                        `json:"stateMergeExpression,omitzero"`
+	ManageState          *InputAnthropicComplianceActivitiesManageState `json:"manageState,omitzero"`
 }
 
-func (i InputAnthropicComplianceContentConfig) MarshalJSON() ([]byte, error) {
+func (i InputAnthropicComplianceActivities) MarshalJSON() ([]byte, error) {
 	return utils.MarshalJSON(i, "", false)
 }
 
-func (i *InputAnthropicComplianceContentConfig) UnmarshalJSON(data []byte) error {
+func (i *InputAnthropicComplianceActivities) UnmarshalJSON(data []byte) error {
 	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (i *InputAnthropicComplianceContentConfig) GetContentType() string {
-	if i == nil {
-		return ""
-	}
-	return i.ContentType
-}
-
-func (i *InputAnthropicComplianceContentConfig) GetContentDescription() *string {
-	if i == nil {
-		return nil
-	}
-	return i.ContentDescription
-}
-
-func (i *InputAnthropicComplianceContentConfig) GetEnabled() *bool {
+func (i *InputAnthropicComplianceActivities) GetEnabled() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.Enabled
 }
 
-func (i *InputAnthropicComplianceContentConfig) GetStateTracking() *bool {
+func (i *InputAnthropicComplianceActivities) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputAnthropicComplianceActivities) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputAnthropicComplianceActivities) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
+func (i *InputAnthropicComplianceActivities) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputAnthropicComplianceActivities) GetStateTracking() *bool {
 	if i == nil {
 		return nil
 	}
 	return i.StateTracking
 }
 
-func (i *InputAnthropicComplianceContentConfig) GetStateUpdateExpression() *string {
+func (i *InputAnthropicComplianceActivities) GetStateUpdateExpression() *string {
 	if i == nil {
 		return nil
 	}
 	return i.StateUpdateExpression
 }
 
-func (i *InputAnthropicComplianceContentConfig) GetStateMergeExpression() *string {
+func (i *InputAnthropicComplianceActivities) GetStateMergeExpression() *string {
 	if i == nil {
 		return nil
 	}
 	return i.StateMergeExpression
 }
 
-func (i *InputAnthropicComplianceContentConfig) GetManageState() *InputAnthropicComplianceManageState {
+func (i *InputAnthropicComplianceActivities) GetManageState() *InputAnthropicComplianceActivitiesManageState {
 	if i == nil {
 		return nil
 	}
 	return i.ManageState
 }
 
-func (i *InputAnthropicComplianceContentConfig) GetCronSchedule() string {
+type InputAnthropicComplianceChatsManageState struct {
+}
+
+func (i InputAnthropicComplianceChatsManageState) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAnthropicComplianceChatsManageState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+// InputAnthropicComplianceChats - Chats
+type InputAnthropicComplianceChats struct {
+	// Enabled
+	Enabled *bool `json:"enabled,omitzero"`
+	// Schedule on which to run this collection job
+	CronSchedule *string `json:"cronSchedule,omitzero"`
+	// Earliest time for data collection, relative to now
+	Earliest *string `json:"earliest,omitzero"`
+	// Latest time for data collection, relative to now
+	Latest *string `json:"latest,omitzero"`
+	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
+	// Track collection progress between consecutive scheduled executions
+	StateTracking *bool `json:"stateTracking,omitzero"`
+	// JavaScript expression that defines how to update the state from an event
+	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
+	// JavaScript expression that defines which state to keep when merging task state
+	StateMergeExpression *string                                   `json:"stateMergeExpression,omitzero"`
+	ManageState          *InputAnthropicComplianceChatsManageState `json:"manageState,omitzero"`
+}
+
+func (i InputAnthropicComplianceChats) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAnthropicComplianceChats) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAnthropicComplianceChats) GetEnabled() *bool {
 	if i == nil {
-		return ""
+		return nil
+	}
+	return i.Enabled
+}
+
+func (i *InputAnthropicComplianceChats) GetCronSchedule() *string {
+	if i == nil {
+		return nil
 	}
 	return i.CronSchedule
 }
 
-func (i *InputAnthropicComplianceContentConfig) GetEarliest() string {
+func (i *InputAnthropicComplianceChats) GetEarliest() *string {
 	if i == nil {
-		return ""
+		return nil
 	}
 	return i.Earliest
 }
 
-func (i *InputAnthropicComplianceContentConfig) GetLatest() string {
+func (i *InputAnthropicComplianceChats) GetLatest() *string {
 	if i == nil {
-		return ""
+		return nil
 	}
 	return i.Latest
 }
 
-func (i *InputAnthropicComplianceContentConfig) GetJobTimeout() *string {
+func (i *InputAnthropicComplianceChats) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputAnthropicComplianceChats) GetStateTracking() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.StateTracking
+}
+
+func (i *InputAnthropicComplianceChats) GetStateUpdateExpression() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StateUpdateExpression
+}
+
+func (i *InputAnthropicComplianceChats) GetStateMergeExpression() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StateMergeExpression
+}
+
+func (i *InputAnthropicComplianceChats) GetManageState() *InputAnthropicComplianceChatsManageState {
+	if i == nil {
+		return nil
+	}
+	return i.ManageState
+}
+
+type InputAnthropicComplianceProjectsManageState struct {
+}
+
+func (i InputAnthropicComplianceProjectsManageState) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAnthropicComplianceProjectsManageState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+// InputAnthropicComplianceProjects - Projects
+type InputAnthropicComplianceProjects struct {
+	// Enabled
+	Enabled *bool `json:"enabled,omitzero"`
+	// Schedule on which to run this collection job
+	CronSchedule *string `json:"cronSchedule,omitzero"`
+	// Earliest time for data collection, relative to now
+	Earliest *string `json:"earliest,omitzero"`
+	// Latest time for data collection, relative to now
+	Latest *string `json:"latest,omitzero"`
+	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
+	// Track collection progress between consecutive scheduled executions
+	StateTracking *bool `json:"stateTracking,omitzero"`
+	// JavaScript expression that defines how to update the state from an event
+	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
+	// JavaScript expression that defines which state to keep when merging task state
+	StateMergeExpression *string                                      `json:"stateMergeExpression,omitzero"`
+	ManageState          *InputAnthropicComplianceProjectsManageState `json:"manageState,omitzero"`
+}
+
+func (i InputAnthropicComplianceProjects) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAnthropicComplianceProjects) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAnthropicComplianceProjects) GetEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enabled
+}
+
+func (i *InputAnthropicComplianceProjects) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputAnthropicComplianceProjects) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputAnthropicComplianceProjects) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
+func (i *InputAnthropicComplianceProjects) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputAnthropicComplianceProjects) GetStateTracking() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.StateTracking
+}
+
+func (i *InputAnthropicComplianceProjects) GetStateUpdateExpression() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StateUpdateExpression
+}
+
+func (i *InputAnthropicComplianceProjects) GetStateMergeExpression() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StateMergeExpression
+}
+
+func (i *InputAnthropicComplianceProjects) GetManageState() *InputAnthropicComplianceProjectsManageState {
+	if i == nil {
+		return nil
+	}
+	return i.ManageState
+}
+
+type InputAnthropicComplianceChatMessagesManageState struct {
+}
+
+func (i InputAnthropicComplianceChatMessagesManageState) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAnthropicComplianceChatMessagesManageState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+// InputAnthropicComplianceChatMessages - Chat Messages
+type InputAnthropicComplianceChatMessages struct {
+	// Enabled
+	Enabled *bool `json:"enabled,omitzero"`
+	// Schedule on which to run this collection job
+	CronSchedule *string `json:"cronSchedule,omitzero"`
+	// Earliest time for data collection, relative to now
+	Earliest *string `json:"earliest,omitzero"`
+	// Latest time for data collection, relative to now
+	Latest *string `json:"latest,omitzero"`
+	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
+	// Track collection progress between consecutive scheduled executions
+	StateTracking *bool `json:"stateTracking,omitzero"`
+	// JavaScript expression that defines how to update the state from an event
+	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
+	// JavaScript expression that defines which state to keep when merging task state
+	StateMergeExpression *string                                          `json:"stateMergeExpression,omitzero"`
+	ManageState          *InputAnthropicComplianceChatMessagesManageState `json:"manageState,omitzero"`
+}
+
+func (i InputAnthropicComplianceChatMessages) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAnthropicComplianceChatMessages) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAnthropicComplianceChatMessages) GetEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enabled
+}
+
+func (i *InputAnthropicComplianceChatMessages) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputAnthropicComplianceChatMessages) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputAnthropicComplianceChatMessages) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
+func (i *InputAnthropicComplianceChatMessages) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputAnthropicComplianceChatMessages) GetStateTracking() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.StateTracking
+}
+
+func (i *InputAnthropicComplianceChatMessages) GetStateUpdateExpression() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StateUpdateExpression
+}
+
+func (i *InputAnthropicComplianceChatMessages) GetStateMergeExpression() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StateMergeExpression
+}
+
+func (i *InputAnthropicComplianceChatMessages) GetManageState() *InputAnthropicComplianceChatMessagesManageState {
+	if i == nil {
+		return nil
+	}
+	return i.ManageState
+}
+
+type InputAnthropicComplianceProjectDetailsManageState struct {
+}
+
+func (i InputAnthropicComplianceProjectDetailsManageState) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAnthropicComplianceProjectDetailsManageState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+// InputAnthropicComplianceProjectDetails - Project Details
+type InputAnthropicComplianceProjectDetails struct {
+	// Enabled
+	Enabled *bool `json:"enabled,omitzero"`
+	// Schedule on which to run this collection job
+	CronSchedule *string `json:"cronSchedule,omitzero"`
+	// Earliest time for data collection, relative to now
+	Earliest *string `json:"earliest,omitzero"`
+	// Latest time for data collection, relative to now
+	Latest *string `json:"latest,omitzero"`
+	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
+	// Track collection progress between consecutive scheduled executions
+	StateTracking *bool `json:"stateTracking,omitzero"`
+	// JavaScript expression that defines how to update the state from an event
+	StateUpdateExpression *string `json:"stateUpdateExpression,omitzero"`
+	// JavaScript expression that defines which state to keep when merging task state
+	StateMergeExpression *string                                            `json:"stateMergeExpression,omitzero"`
+	ManageState          *InputAnthropicComplianceProjectDetailsManageState `json:"manageState,omitzero"`
+}
+
+func (i InputAnthropicComplianceProjectDetails) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAnthropicComplianceProjectDetails) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAnthropicComplianceProjectDetails) GetEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enabled
+}
+
+func (i *InputAnthropicComplianceProjectDetails) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputAnthropicComplianceProjectDetails) GetEarliest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Earliest
+}
+
+func (i *InputAnthropicComplianceProjectDetails) GetLatest() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Latest
+}
+
+func (i *InputAnthropicComplianceProjectDetails) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+func (i *InputAnthropicComplianceProjectDetails) GetStateTracking() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.StateTracking
+}
+
+func (i *InputAnthropicComplianceProjectDetails) GetStateUpdateExpression() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StateUpdateExpression
+}
+
+func (i *InputAnthropicComplianceProjectDetails) GetStateMergeExpression() *string {
+	if i == nil {
+		return nil
+	}
+	return i.StateMergeExpression
+}
+
+func (i *InputAnthropicComplianceProjectDetails) GetManageState() *InputAnthropicComplianceProjectDetailsManageState {
+	if i == nil {
+		return nil
+	}
+	return i.ManageState
+}
+
+// InputAnthropicComplianceGroups - Groups
+type InputAnthropicComplianceGroups struct {
+	// Enabled
+	Enabled *bool `json:"enabled,omitzero"`
+	// Schedule on which to run this collection job
+	CronSchedule *string `json:"cronSchedule,omitzero"`
+	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
+}
+
+func (i InputAnthropicComplianceGroups) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAnthropicComplianceGroups) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAnthropicComplianceGroups) GetEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enabled
+}
+
+func (i *InputAnthropicComplianceGroups) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputAnthropicComplianceGroups) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+// InputAnthropicComplianceOrganizations - Organizations
+type InputAnthropicComplianceOrganizations struct {
+	// Enabled
+	Enabled *bool `json:"enabled,omitzero"`
+	// Schedule on which to run this collection job
+	CronSchedule *string `json:"cronSchedule,omitzero"`
+	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
+}
+
+func (i InputAnthropicComplianceOrganizations) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAnthropicComplianceOrganizations) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAnthropicComplianceOrganizations) GetEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enabled
+}
+
+func (i *InputAnthropicComplianceOrganizations) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputAnthropicComplianceOrganizations) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+// InputAnthropicComplianceOrganizationUsers - Organization Users
+type InputAnthropicComplianceOrganizationUsers struct {
+	// Enabled
+	Enabled *bool `json:"enabled,omitzero"`
+	// Schedule on which to run this collection job
+	CronSchedule *string `json:"cronSchedule,omitzero"`
+	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
+}
+
+func (i InputAnthropicComplianceOrganizationUsers) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAnthropicComplianceOrganizationUsers) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAnthropicComplianceOrganizationUsers) GetEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enabled
+}
+
+func (i *InputAnthropicComplianceOrganizationUsers) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputAnthropicComplianceOrganizationUsers) GetJobTimeout() *string {
+	if i == nil {
+		return nil
+	}
+	return i.JobTimeout
+}
+
+// InputAnthropicComplianceOrganizationRoles - Organization Roles
+type InputAnthropicComplianceOrganizationRoles struct {
+	// Enabled
+	Enabled *bool `json:"enabled,omitzero"`
+	// Schedule on which to run this collection job
+	CronSchedule *string `json:"cronSchedule,omitzero"`
+	// Maximum time the job is allowed to run (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+	JobTimeout *string `json:"jobTimeout,omitzero"`
+}
+
+func (i InputAnthropicComplianceOrganizationRoles) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(i, "", false)
+}
+
+func (i *InputAnthropicComplianceOrganizationRoles) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &i, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (i *InputAnthropicComplianceOrganizationRoles) GetEnabled() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.Enabled
+}
+
+func (i *InputAnthropicComplianceOrganizationRoles) GetCronSchedule() *string {
+	if i == nil {
+		return nil
+	}
+	return i.CronSchedule
+}
+
+func (i *InputAnthropicComplianceOrganizationRoles) GetJobTimeout() *string {
 	if i == nil {
 		return nil
 	}
@@ -156,9 +747,11 @@ func (i *InputAnthropicComplianceContentConfig) GetJobTimeout() *string {
 
 type InputAnthropicComplianceInput struct {
 	// Unique ID for this input
-	ID       *string                      `json:"id,omitzero"`
-	Type     InputAnthropicComplianceType `json:"type"`
-	Disabled *bool                        `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type InputAnthropicComplianceType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -167,15 +760,33 @@ type InputAnthropicComplianceInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
 	Pq          *PqType                         `json:"pq,omitzero"`
-	APIKey      *string                         `json:"apiKey,omitzero"`
+	// API key
+	APIKey *string `json:"apiKey,omitzero"`
 	// Select or create a stored Anthropic API key
-	TextSecret    string                                  `json:"textSecret"`
-	ContentConfig []InputAnthropicComplianceContentConfig `json:"contentConfig"`
+	TextSecret string `json:"textSecret"`
+	// Activities
+	Activities *InputAnthropicComplianceActivities `json:"activities,omitzero"`
+	// Chats
+	Chats *InputAnthropicComplianceChats `json:"chats,omitzero"`
+	// Projects
+	Projects *InputAnthropicComplianceProjects `json:"projects,omitzero"`
+	// Chat Messages
+	ChatMessages *InputAnthropicComplianceChatMessages `json:"chat_messages,omitzero"`
+	// Project Details
+	ProjectDetails *InputAnthropicComplianceProjectDetails `json:"project_details,omitzero"`
+	// Groups
+	Groups *InputAnthropicComplianceGroups `json:"groups,omitzero"`
+	// Organizations
+	Organizations *InputAnthropicComplianceOrganizations `json:"organizations,omitzero"`
+	// Organization Users
+	OrgUsers *InputAnthropicComplianceOrganizationUsers `json:"org_users,omitzero"`
+	// Organization Roles
+	OrgRoles *InputAnthropicComplianceOrganizationRoles `json:"org_roles,omitzero"`
 	// HTTP request inactivity timeout. Use 0 to disable.
 	RequestTimeout *float64 `json:"requestTimeout,omitzero"`
 	// How often workers should check in with the scheduler to keep job subscription alive
@@ -187,9 +798,10 @@ type InputAnthropicComplianceInput struct {
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
 	IgnoreGroupJobsLimit *bool `json:"ignoreGroupJobsLimit,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	RetryRules  *RetryRulesType               `json:"retryRules,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata   []MetadataConfInputCollection `json:"metadata,omitzero"`
+	RetryRules *RetryRulesType               `json:"retryRules,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -291,11 +903,67 @@ func (i *InputAnthropicComplianceInput) GetTextSecret() string {
 	return i.TextSecret
 }
 
-func (i *InputAnthropicComplianceInput) GetContentConfig() []InputAnthropicComplianceContentConfig {
+func (i *InputAnthropicComplianceInput) GetActivities() *InputAnthropicComplianceActivities {
 	if i == nil {
-		return []InputAnthropicComplianceContentConfig{}
+		return nil
 	}
-	return i.ContentConfig
+	return i.Activities
+}
+
+func (i *InputAnthropicComplianceInput) GetChats() *InputAnthropicComplianceChats {
+	if i == nil {
+		return nil
+	}
+	return i.Chats
+}
+
+func (i *InputAnthropicComplianceInput) GetProjects() *InputAnthropicComplianceProjects {
+	if i == nil {
+		return nil
+	}
+	return i.Projects
+}
+
+func (i *InputAnthropicComplianceInput) GetChatMessages() *InputAnthropicComplianceChatMessages {
+	if i == nil {
+		return nil
+	}
+	return i.ChatMessages
+}
+
+func (i *InputAnthropicComplianceInput) GetProjectDetails() *InputAnthropicComplianceProjectDetails {
+	if i == nil {
+		return nil
+	}
+	return i.ProjectDetails
+}
+
+func (i *InputAnthropicComplianceInput) GetGroups() *InputAnthropicComplianceGroups {
+	if i == nil {
+		return nil
+	}
+	return i.Groups
+}
+
+func (i *InputAnthropicComplianceInput) GetOrganizations() *InputAnthropicComplianceOrganizations {
+	if i == nil {
+		return nil
+	}
+	return i.Organizations
+}
+
+func (i *InputAnthropicComplianceInput) GetOrgUsers() *InputAnthropicComplianceOrganizationUsers {
+	if i == nil {
+		return nil
+	}
+	return i.OrgUsers
+}
+
+func (i *InputAnthropicComplianceInput) GetOrgRoles() *InputAnthropicComplianceOrganizationRoles {
+	if i == nil {
+		return nil
+	}
+	return i.OrgRoles
 }
 
 func (i *InputAnthropicComplianceInput) GetRequestTimeout() *float64 {

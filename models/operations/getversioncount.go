@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetVersionCountRequest struct {
@@ -21,7 +21,7 @@ func (g *GetVersionCountRequest) GetCommit() *string {
 
 type GetVersionCountResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of GitCountResult objects.
+	// The requested GitCountResult object in a single-item list.
 	CountedGitCountResult *components.CountedGitCountResult
 }
 

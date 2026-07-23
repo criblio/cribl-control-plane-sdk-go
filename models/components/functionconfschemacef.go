@@ -3,10 +3,11 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type Header struct {
+	// Name
 	Name *string `json:"name,omitzero"`
 	// JavaScript expression to compute the value (can be constant)
 	Value string `json:"value"`
@@ -38,6 +39,7 @@ func (h *Header) GetValue() string {
 }
 
 type Extension struct {
+	// Name
 	Name string `json:"name"`
 	// JavaScript expression to compute the value (can be constant)
 	Value string `json:"value"`

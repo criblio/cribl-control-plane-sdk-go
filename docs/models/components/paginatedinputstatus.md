@@ -1,0 +1,12 @@
+# PaginatedInputStatus
+
+
+## Fields
+
+| Field                                                              | Type                                                               | Required                                                           | Description                                                        |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `Items`                                                            | [][components.InputStatus](../../models/components/inputstatus.md) | :heavy_check_mark:                                                 | The pre-limited items in the list of results                       |
+| `Count`                                                            | `int64`                                                            | :heavy_check_mark:                                                 | Number of items present in the items array                         |
+| `Offset`                                                           | `*int64`                                                           | :heavy_minus_sign:                                                 | Pagination offset                                                  |
+| `Limit`                                                            | `*int64`                                                           | :heavy_minus_sign:                                                 | Pagination limit                                                   |
+| `TotalCount`                                                       | `*int64`                                                           | :heavy_minus_sign:                                                 | Total number of items available (present when limit is set)        |

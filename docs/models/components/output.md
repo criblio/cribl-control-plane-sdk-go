@@ -123,6 +123,12 @@ output := components.CreateOutputHoneycomb(components.OutputHoneycomb{/* values 
 output := components.CreateOutputAzureEventhub(components.OutputAzureEventhub{/* values here */})
 ```
 
+### OutputGoogleBigquery
+
+```go
+output := components.CreateOutputGoogleBigquery(components.OutputGoogleBigquery{/* values here */})
+```
+
 ### OutputGoogleChronicle
 
 ```go
@@ -285,6 +291,12 @@ output := components.CreateOutputGrafanaCloud(components.OutputGrafanaCloud{/* v
 output := components.CreateOutputLoki(components.OutputLoki{/* values here */})
 ```
 
+### OutputAmazonManagedPrometheus
+
+```go
+output := components.CreateOutputAmazonManagedPrometheus(components.OutputAmazonManagedPrometheus{/* values here */})
+```
+
 ### OutputPrometheus
 
 ```go
@@ -375,6 +387,12 @@ output := components.CreateOutputDiskSpool(components.OutputDiskSpool{/* values 
 output := components.CreateOutputClickHouse(components.OutputClickHouse{/* values here */})
 ```
 
+### OutputCustomerMetricsStorage
+
+```go
+output := components.CreateOutputCustomerMetricsStorage(components.OutputCustomerMetricsStorage{/* values here */})
+```
+
 ### OutputLocalSearchStorage
 
 ```go
@@ -421,6 +439,12 @@ output := components.CreateOutputChronicle(components.OutputChronicle{/* values 
 
 ```go
 output := components.CreateOutputDatabricks(components.OutputDatabricks{/* values here */})
+```
+
+### OutputSnowflakeStreaming
+
+```go
+output := components.CreateOutputSnowflakeStreaming(components.OutputSnowflakeStreaming{/* values here */})
 ```
 
 ### OutputMicrosoftFabric
@@ -477,6 +501,12 @@ output := components.CreateOutputScalityS3(components.OutputScalityS3{/* values 
 output := components.CreateOutputAlibabaCloudS3(components.OutputAlibabaCloudS3{/* values here */})
 ```
 
+### OutputIbmCloudS3
+
+```go
+output := components.CreateOutputIbmCloudS3(components.OutputIbmCloudS3{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -523,6 +553,8 @@ switch output.Type {
 		// output.OutputHoneycomb is populated
 	case components.OutputTypeAzureEventhub:
 		// output.OutputAzureEventhub is populated
+	case components.OutputTypeGoogleBigquery:
+		// output.OutputGoogleBigquery is populated
 	case components.OutputTypeGoogleChronicle:
 		// output.OutputGoogleChronicle is populated
 	case components.OutputTypeGoogleCloudStorage:
@@ -577,6 +609,8 @@ switch output.Type {
 		// output.OutputGrafanaCloud is populated
 	case components.OutputTypeLoki:
 		// output.OutputLoki is populated
+	case components.OutputTypeAmazonManagedPrometheus:
+		// output.OutputAmazonManagedPrometheus is populated
 	case components.OutputTypePrometheus:
 		// output.OutputPrometheus is populated
 	case components.OutputTypeRing:
@@ -607,6 +641,8 @@ switch output.Type {
 		// output.OutputDiskSpool is populated
 	case components.OutputTypeClickHouse:
 		// output.OutputClickHouse is populated
+	case components.OutputTypeCustomerMetricsStorage:
+		// output.OutputCustomerMetricsStorage is populated
 	case components.OutputTypeLocalSearchStorage:
 		// output.OutputLocalSearchStorage is populated
 	case components.OutputTypeXsiam:
@@ -623,6 +659,8 @@ switch output.Type {
 		// output.OutputChronicle is populated
 	case components.OutputTypeDatabricks:
 		// output.OutputDatabricks is populated
+	case components.OutputTypeSnowflakeStreaming:
+		// output.OutputSnowflakeStreaming is populated
 	case components.OutputTypeMicrosoftFabric:
 		// output.OutputMicrosoftFabric is populated
 	case components.OutputTypeCloudflareR2:
@@ -641,5 +679,7 @@ switch output.Type {
 		// output.OutputScalityS3 is populated
 	case components.OutputTypeAlibabaCloudS3:
 		// output.OutputAlibabaCloudS3 is populated
+	case components.OutputTypeIbmCloudS3:
+		// output.OutputIbmCloudS3 is populated
 }
 ```

@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputGoogleCloudObservabilityType - Connector type identifier.
 type OutputGoogleCloudObservabilityType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputGoogleCloudObservabilityType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputGoogleCloudObservabilityProtocol - Discriminator value.
 type OutputGoogleCloudObservabilityProtocol string
 
 const (
@@ -52,6 +54,7 @@ func (e *OutputGoogleCloudObservabilityProtocol) IsExact() bool {
 	return false
 }
 
+// OutputGoogleCloudObservabilityOtlpVersion - Discriminator value.
 type OutputGoogleCloudObservabilityOtlpVersion string
 
 const (
@@ -120,6 +123,7 @@ func (e *OutputGoogleCloudObservabilityGoogleAuthenticationMethod) IsExact() boo
 	return false
 }
 
+// OutputGoogleCloudObservabilityPqControls - Persistent queue controls.
 type OutputGoogleCloudObservabilityPqControls struct {
 }
 
@@ -136,7 +140,8 @@ func (o *OutputGoogleCloudObservabilityPqControls) UnmarshalJSON(data []byte) er
 
 type OutputGoogleCloudObservability struct {
 	// Unique ID for this output
-	ID   *string                            `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputGoogleCloudObservabilityType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -144,9 +149,11 @@ type OutputGoogleCloudObservability struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags  []string                                   `json:"streamtags,omitzero"`
-	Protocol    *OutputGoogleCloudObservabilityProtocol    `json:"protocol,omitzero"`
+	// Metadata tags used for categorization and filtering.
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Discriminator value.
+	Protocol *OutputGoogleCloudObservabilityProtocol `json:"protocol,omitzero"`
+	// Discriminator value.
 	OtlpVersion *OutputGoogleCloudObservabilityOtlpVersion `json:"otlpVersion,omitzero"`
 	// Fixed Google Cloud Observability gRPC endpoint. All three signals share this transport; the OTLP service path determines whether the call lands on traces, metrics, or logs.
 	Endpoint *OutputGoogleCloudObservabilityEndpoint `json:"endpoint,omitzero"`
@@ -171,13 +178,15 @@ type OutputGoogleCloudObservability struct {
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// How often the sender should ping the peer to keep the connection open
-	KeepAliveTime *float64                           `json:"keepAliveTime,omitzero"`
-	TLS           *TLSSettingsClientSideTypeExtended `json:"tls,omitzero"`
+	KeepAliveTime *float64 `json:"keepAliveTime,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeExtended `json:"tls,omitzero"`
 	// Max number of events to include in the request body. Default is 0 (unlimited). Use to keep outgoing data points within GCO request limits. For metrics, combine with the OTLP Metrics function batchSize.
 	MaxPayloadEvents *float64 `json:"maxPayloadEvents,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	Description    *string                      `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Select or create a stored text secret
 	Secret *string `json:"secret,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
@@ -201,8 +210,9 @@ type OutputGoogleCloudObservability struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                                   `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputGoogleCloudObservabilityPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputGoogleCloudObservabilityPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'failedRequestLoggingMode' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'failedRequestLoggingMode' at runtime.

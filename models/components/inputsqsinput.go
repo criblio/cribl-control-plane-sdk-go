@@ -3,33 +3,8 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type InputSqsType string
-
-const (
-	InputSqsTypeSqs InputSqsType = "sqs"
-)
-
-func (e InputSqsType) ToPointer() *InputSqsType {
-	return &e
-}
-func (e *InputSqsType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "sqs":
-		*e = InputSqsType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for InputSqsType: %v", v)
-	}
-}
 
 // InputSqsQueueType - The queue type used (or created)
 type InputSqsQueueType string
@@ -58,9 +33,11 @@ func (e *InputSqsQueueType) IsExact() bool {
 
 type InputSqsInput struct {
 	// Unique ID for this input
-	ID       *string      `json:"id,omitzero"`
-	Type     InputSqsType `json:"type"`
-	Disabled *bool        `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsSqs `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -69,7 +46,7 @@ type InputSqsInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -84,7 +61,8 @@ type InputSqsInput struct {
 	CreateQueue *bool `json:"createQueue,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitzero"`
 	// SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
@@ -109,8 +87,10 @@ type InputSqsInput struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
 	PollTimeout *float64 `json:"pollTimeout,omitzero"`
-	Description *string  `json:"description,omitzero"`
-	AwsAPIKey   *string  `json:"awsApiKey,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// How many receiver processes to run. The higher the number, the better the throughput - at the expense of CPU overhead.
@@ -157,9 +137,9 @@ func (i *InputSqsInput) GetID() *string {
 	return i.ID
 }
 
-func (i *InputSqsInput) GetType() InputSqsType {
+func (i *InputSqsInput) GetType() TypeOptionsSqs {
 	if i == nil {
-		return InputSqsType("")
+		return TypeOptionsSqs("")
 	}
 	return i.Type
 }

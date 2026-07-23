@@ -5,10 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
-// PipelineFunctionFoldkeysID - Function ID
+// PipelineFunctionFoldkeysID - Identifier of the Function. Always <code>foldkeys</code>
 type PipelineFunctionFoldkeysID string
 
 const (
@@ -33,18 +33,18 @@ func (e *PipelineFunctionFoldkeysID) UnmarshalJSON(data []byte) error {
 }
 
 type PipelineFunctionFoldkeys struct {
-	// Filter that selects data to be fed through this Function
+	// JavaScript expression that selects data to pass through the Function.
 	Filter *string `json:"filter,omitzero"`
-	// Function ID
+	// Identifier of the Function. Always <code>foldkeys</code>
 	ID PipelineFunctionFoldkeysID `json:"id"`
-	// Simple description of this step
+	// Brief description of the Pipeline function.
 	Description *string `json:"description,omitzero"`
-	// If true, data will not be pushed through this function
+	// If <code>true</code>, disable the Pipeline function so that events are not passed through it. Otherwise, <code>false</code>.
 	Disabled *bool `json:"disabled,omitzero"`
-	// If enabled, stops the results of this Function from being passed to the downstream Functions
+	// If <code>true</code>, stop passing events to downstream Pipeline Functions after the Function executes. Otherwise, <code>false</code>.
 	Final *bool                      `json:"final,omitzero"`
 	Conf  FunctionConfSchemaFoldkeys `json:"conf"`
-	// Group ID
+	// Unique identifier of the group that contains the Pipeline Function.
 	GroupID *string `json:"groupId,omitzero"`
 }
 

@@ -1,5 +1,7 @@
 # PqControlsPrometheus
 
+Persistent queue controls.
+
 
 ## Fields
 

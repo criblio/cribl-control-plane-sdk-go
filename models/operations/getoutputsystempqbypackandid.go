@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetOutputSystemPqByPackAndIDRequest struct {
@@ -30,7 +30,7 @@ func (g *GetOutputSystemPqByPackAndIDRequest) GetPack() string {
 
 type GetOutputSystemPqByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// information about the latest PQ clear job for the Destination
+	// Information about the latest job to clear the PQ for the Destination.
 	CountedJobInfo *components.CountedJobInfo
 }
 

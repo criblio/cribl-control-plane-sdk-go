@@ -6,7 +6,7 @@ Compression level to apply before moving files to final destination
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 value := components.CompressionLevelOptionsBestSpeed

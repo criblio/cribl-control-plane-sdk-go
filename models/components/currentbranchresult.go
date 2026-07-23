@@ -3,6 +3,7 @@
 package components
 
 type CurrentBranchResult struct {
+	// Name of the Git branch that the Cribl configuration is currently checked out to.
 	Branch string `json:"branch"`
 }
 

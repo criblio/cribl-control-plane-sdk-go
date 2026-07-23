@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetInputStatusRequest struct {
@@ -48,8 +48,8 @@ func (g *GetInputStatusRequest) GetLimit() *int64 {
 
 type GetInputStatusResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Source status objects
-	CountedInputStatus *components.CountedInputStatus
+	// List of Source status objects.
+	PaginatedInputStatus *components.PaginatedInputStatus
 
 	Next func() (*GetInputStatusResponse, error)
 }
@@ -72,9 +72,9 @@ func (g *GetInputStatusResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetInputStatusResponse) GetCountedInputStatus() *components.CountedInputStatus {
+func (g *GetInputStatusResponse) GetPaginatedInputStatus() *components.PaginatedInputStatus {
 	if g == nil {
 		return nil
 	}
-	return g.CountedInputStatus
+	return g.PaginatedInputStatus
 }

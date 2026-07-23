@@ -6,13 +6,13 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/config"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/hooks"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/apierrors"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
-	"github.com/criblio/cribl-control-plane-sdk-go/retry"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/config"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/hooks"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/apierrors"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/retry"
 	"net/http"
 )
 
@@ -32,8 +32,8 @@ func newConfigsVersions(rootSDK *CriblControlPlane, sdkConfig config.SDKConfigur
 
 // Get the configuration version for a Worker Group, Outpost Group, or Edge Fleet
 // Get the configuration version for the specified Worker Group, Outpost Group, or Edge Fleet.
-func (s *ConfigsVersions) Get(ctx context.Context, product components.ProductsCore, id string, opts ...operations.Option) (*operations.GetConfigGroupConfigVersionByProductAndIDResponse, error) {
-	request := operations.GetConfigGroupConfigVersionByProductAndIDRequest{
+func (s *ConfigsVersions) Get(ctx context.Context, product components.ProductsCore, id string, opts ...operations.Option) (*operations.GetProductsGroupsConfigVersionByProductAndIDResponse, error) {
+	request := operations.GetProductsGroupsConfigVersionByProductAndIDRequest{
 		Product: product,
 		ID:      id,
 	}
@@ -67,7 +67,7 @@ func (s *ConfigsVersions) Get(ctx context.Context, product components.ProductsCo
 		SDKConfiguration: s.sdkConfiguration,
 		BaseURL:          baseURL,
 		Context:          ctx,
-		OperationID:      "getConfigGroupConfigVersionByProductAndId",
+		OperationID:      "getProductsGroupsConfigVersionByProductAndId",
 		OAuth2Scopes:     []string{},
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
@@ -195,7 +195,7 @@ func (s *ConfigsVersions) Get(ctx context.Context, product components.ProductsCo
 		}
 	}
 
-	res := &operations.GetConfigGroupConfigVersionByProductAndIDResponse{
+	res := &operations.GetProductsGroupsConfigVersionByProductAndIDResponse{
 		HTTPMeta: components.HTTPMetadata{
 			Request:  req,
 			Response: httpRes,
@@ -219,6 +219,31 @@ func (s *ConfigsVersions) Get(ctx context.Context, product components.ProductsCo
 
 				res.CountedString = &out
 			}
+		default:
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
+	case httpRes.StatusCode == 401:
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := utils.ConsumeRawBody(httpRes)
+			if err != nil {
+				return nil, err
+			}
+
+			var out apierrors.Error
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			out.HTTPMeta = components.HTTPMetadata{
+				Request:  req,
+				Response: httpRes,
+			}
+			return nil, &out
 		default:
 			rawBody, err := utils.ConsumeRawBody(httpRes)
 			if err != nil {
@@ -251,8 +276,6 @@ func (s *ConfigsVersions) Get(ctx context.Context, product components.ProductsCo
 			}
 			return nil, apierrors.NewAPIError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
 		}
-	case httpRes.StatusCode == 401:
-		fallthrough
 	case httpRes.StatusCode >= 400 && httpRes.StatusCode < 500:
 		rawBody, err := utils.ConsumeRawBody(httpRes)
 		if err != nil {

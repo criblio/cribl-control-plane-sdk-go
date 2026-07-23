@@ -1,5 +1,7 @@
 # PqControlsKinesis
 
+Persistent queue controls.
+
 
 ## Fields
 

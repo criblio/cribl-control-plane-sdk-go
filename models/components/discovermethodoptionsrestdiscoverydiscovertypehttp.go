@@ -2,6 +2,7 @@
 
 package components
 
+// DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP - Discover method
 type DiscoverMethodOptionsRestDiscoveryDiscoverTypeHTTP string
 
 const (

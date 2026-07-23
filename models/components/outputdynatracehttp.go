@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputDynatraceHTTPType - Connector type identifier.
 type OutputDynatraceHTTPType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputDynatraceHTTPType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputDynatraceHTTPAuthenticationType - Authentication type
 type OutputDynatraceHTTPAuthenticationType string
 
 const (
@@ -80,6 +82,7 @@ func (e *OutputDynatraceHTTPFormat) IsExact() bool {
 	return false
 }
 
+// OutputDynatraceHTTPEndpoint - Endpoint
 type OutputDynatraceHTTPEndpoint string
 
 const (
@@ -106,6 +109,7 @@ func (e *OutputDynatraceHTTPEndpoint) IsExact() bool {
 	return false
 }
 
+// OutputDynatraceHTTPTelemetryType - Telemetry type
 type OutputDynatraceHTTPTelemetryType string
 
 const (
@@ -130,6 +134,7 @@ func (e *OutputDynatraceHTTPTelemetryType) IsExact() bool {
 	return false
 }
 
+// OutputDynatraceHTTPPqControls - Persistent queue controls.
 type OutputDynatraceHTTPPqControls struct {
 }
 
@@ -146,7 +151,8 @@ func (o *OutputDynatraceHTTPPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputDynatraceHTTP struct {
 	// Unique ID for this output
-	ID   *string                 `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputDynatraceHTTPType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -154,7 +160,7 @@ type OutputDynatraceHTTP struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The method to use when sending events
 	Method *MethodOptions `json:"method,omitzero"`
@@ -190,15 +196,19 @@ type OutputDynatraceHTTP struct {
 	// Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
-	OnBackpressure *BackpressureBehaviorOptions           `json:"onBackpressure,omitzero"`
-	AuthType       *OutputDynatraceHTTPAuthenticationType `json:"authType,omitzero"`
+	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
+	// Authentication type
+	AuthType *OutputDynatraceHTTPAuthenticationType `json:"authType,omitzero"`
 	// How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
-	Format        OutputDynatraceHTTPFormat        `json:"format"`
-	Endpoint      OutputDynatraceHTTPEndpoint      `json:"endpoint"`
+	Format OutputDynatraceHTTPFormat `json:"format"`
+	// Endpoint
+	Endpoint OutputDynatraceHTTPEndpoint `json:"endpoint"`
+	// Telemetry type
 	TelemetryType OutputDynatraceHTTPTelemetryType `json:"telemetryType"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
-	Description        *string  `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -220,8 +230,9 @@ type OutputDynatraceHTTP struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                        `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputDynatraceHTTPPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputDynatraceHTTPPqControls `json:"pqControls,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a stored text secret

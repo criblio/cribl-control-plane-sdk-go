@@ -2,6 +2,7 @@
 
 package components
 
+// SaslMechanismOptionsSaslOauthbearerPlain - SASL mechanism
 type SaslMechanismOptionsSaslOauthbearerPlain string
 
 const (

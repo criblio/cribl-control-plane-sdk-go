@@ -3,15 +3,20 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type UpgradeSettings struct {
-	AutomaticUpgradeCheckPeriod *string              `json:"automaticUpgradeCheckPeriod,omitzero"`
-	DisableAutomaticUpgrade     *bool                `json:"disableAutomaticUpgrade,omitzero"`
-	EnableLegacyEdgeUpgrade     *bool                `json:"enableLegacyEdgeUpgrade,omitzero"`
-	PackageUrls                 []UpgradePackageUrls `json:"packageUrls,omitzero"`
-	UpgradeSource               *string              `json:"upgradeSource,omitzero"`
+	// How frequently to check for available upgrades. Value is a duration string such as <code>24h</code>.
+	AutomaticUpgradeCheckPeriod *string `json:"automaticUpgradeCheckPeriod,omitzero"`
+	// If <code>true</code>, automatic upgrades are disabled. Otherwise, <code>false</code>.
+	DisableAutomaticUpgrade *bool `json:"disableAutomaticUpgrade,omitzero"`
+	// If <code>true</code>, enable the legacy upgrade flow for Edge Nodes. Otherwise, <code>false</code>.
+	EnableLegacyEdgeUpgrade *bool `json:"enableLegacyEdgeUpgrade,omitzero"`
+	// List of custom package URLs to use for manual upgrades.
+	PackageUrls []UpgradePackageUrls `json:"packageUrls,omitzero"`
+	// Upgrade source: <code>cribl</code> for official Cribl packages or <code>custom</code> for a custom package URL.
+	UpgradeSource *string `json:"upgradeSource,omitzero"`
 }
 
 func (u UpgradeSettings) MarshalJSON() ([]byte, error) {

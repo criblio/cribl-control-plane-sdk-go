@@ -6,7 +6,7 @@ How to format events before sending. Defaults to JSON. Plaintext is not currentl
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 )
 
 value := operations.CreateOutputFormatDynatraceHTTPJSONArray

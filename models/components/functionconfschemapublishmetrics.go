@@ -3,9 +3,10 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// FunctionConfSchemaPublishMetricsMetricType - Metric Type
 type FunctionConfSchemaPublishMetricsMetricType string
 
 const (
@@ -42,8 +43,9 @@ type FunctionConfSchemaPublishMetricsField struct {
 	// The name of the field in the event that contains the metric value
 	InFieldName string `json:"inFieldName"`
 	// JavaScript expression to evaluate the metric field name. Defaults to Event Field Name.
-	OutFieldExpr *string                                    `json:"outFieldExpr,omitzero"`
-	MetricType   FunctionConfSchemaPublishMetricsMetricType `json:"metricType"`
+	OutFieldExpr *string `json:"outFieldExpr,omitzero"`
+	// Metric Type
+	MetricType FunctionConfSchemaPublishMetricsMetricType `json:"metricType"`
 }
 
 func (f FunctionConfSchemaPublishMetricsField) MarshalJSON() ([]byte, error) {

@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputGoogleCloudLoggingType - Connector type identifier.
 type OutputGoogleCloudLoggingType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputGoogleCloudLoggingType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputGoogleCloudLoggingLogLocationType - Log location type
 type OutputGoogleCloudLoggingLogLocationType string
 
 const (
@@ -84,6 +86,7 @@ func (e *OutputGoogleCloudLoggingPayloadFormat) IsExact() bool {
 	return false
 }
 
+// OutputGoogleCloudLoggingPqControls - Persistent queue controls.
 type OutputGoogleCloudLoggingPqControls struct {
 }
 
@@ -100,7 +103,8 @@ func (o *OutputGoogleCloudLoggingPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputGoogleCloudLogging struct {
 	// Unique ID for this output
-	ID   *string                      `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputGoogleCloudLoggingType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -108,12 +112,14 @@ type OutputGoogleCloudLogging struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
-	Streamtags      []string                                `json:"streamtags,omitzero"`
+	// Metadata tags used for categorization and filtering.
+	Streamtags []string `json:"streamtags,omitzero"`
+	// Log location type
 	LogLocationType OutputGoogleCloudLoggingLogLocationType `json:"logLocationType"`
 	// JavaScript expression to compute the value of the log name. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
 	LogNameExpression string `json:"logNameExpression"`
-	SanitizeLogNames  *bool  `json:"sanitizeLogNames,omitzero"`
+	// Validate and correct log name
+	SanitizeLogNames *bool `json:"sanitizeLogNames,omitzero"`
 	// Format to use when sending payload. Defaults to Text.
 	PayloadFormat *OutputGoogleCloudLoggingPayloadFormat `json:"payloadFormat,omitzero"`
 	// Labels to apply to the log entry
@@ -206,7 +212,8 @@ type OutputGoogleCloudLogging struct {
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
-	Description        *string  `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// JavaScript expression to compute the value of the folder ID with which log entries should be associated. If Validate and correct log name is enabled, invalid characters (characters other than alphanumerics, forward-slashes, underscores, hyphens, and periods) will be replaced with an underscore.
 	LogLocationExpression string `json:"logLocationExpression"`
 	// JavaScript expression to compute the value of the payload. Must evaluate to a JavaScript object value. If an invalid value is encountered it will result in the default value instead. Defaults to the entire event.
@@ -232,8 +239,9 @@ type OutputGoogleCloudLogging struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                             `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputGoogleCloudLoggingPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputGoogleCloudLoggingPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'logLocationType' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'logLocationType' at runtime.

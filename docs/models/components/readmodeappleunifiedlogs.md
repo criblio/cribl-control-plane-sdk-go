@@ -6,7 +6,7 @@ Read all log entries (historical and upcoming), or only upcoming, from the last 
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 value := components.ReadModeAppleUnifiedLogsOldest

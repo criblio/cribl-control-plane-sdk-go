@@ -3,10 +3,11 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type FunctionConfSchemaGenStats struct {
+	// List of field names from which to generate statistics.
 	Fields []string `json:"fields,omitzero"`
 }
 

@@ -5,13 +5,16 @@ package components
 import (
 	"errors"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type RollbackSettings struct {
-	RollbackEnabled bool     `json:"rollbackEnabled"`
-	RollbackRetries *float64 `json:"rollbackRetries,omitzero"`
-	RollbackTimeout *float64 `json:"rollbackTimeout,omitzero"`
+	// If <code>true</code>, enable automatic rollback if an upgrade fails. Otherwise, <code>false</code>.
+	RollbackEnabled bool `json:"rollbackEnabled"`
+	// Number of times to retry a rollback before marking it as failed.
+	RollbackRetries *int64 `json:"rollbackRetries,omitzero"`
+	// Maximum duration in milliseconds to wait for a rollback to complete before marking it as failed.
+	RollbackTimeout *int64 `json:"rollbackTimeout,omitzero"`
 }
 
 func (r RollbackSettings) MarshalJSON() ([]byte, error) {
@@ -32,14 +35,14 @@ func (r *RollbackSettings) GetRollbackEnabled() bool {
 	return r.RollbackEnabled
 }
 
-func (r *RollbackSettings) GetRollbackRetries() *float64 {
+func (r *RollbackSettings) GetRollbackRetries() *int64 {
 	if r == nil {
 		return nil
 	}
 	return r.RollbackRetries
 }
 
-func (r *RollbackSettings) GetRollbackTimeout() *float64 {
+func (r *RollbackSettings) GetRollbackTimeout() *int64 {
 	if r == nil {
 		return nil
 	}

@@ -3,11 +3,13 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type SaslExtensionConfInputKafka struct {
-	Name  string `json:"name"`
+	// Field Name
+	Name string `json:"name"`
+	// Field Value
 	Value string `json:"value"`
 }
 

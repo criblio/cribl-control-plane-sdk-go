@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 // TaskErrorDetail - Task error details. May include a nested <code>reason</code> for wrapped errors and additional properties from the original error.

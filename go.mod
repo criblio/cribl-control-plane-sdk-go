@@ -1,4 +1,4 @@
-module github.com/criblio/cribl-control-plane-sdk-go
+module github.com/Cribl-Community/cribl-control-plane-sdk-go
 
 go 1.25.10
 

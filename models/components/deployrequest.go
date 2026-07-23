@@ -3,12 +3,14 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type DeployRequest struct {
+	// Optional list of lookup file deployments to include with the commit deployment.
 	Lookups []DeployRequestLookups `json:"lookups,omitzero"`
-	Version string                 `json:"version"`
+	// Commit hash to deploy to the Worker Group, Outpost Group, or Edge Fleet.
+	Version string `json:"version"`
 }
 
 func (d DeployRequest) MarshalJSON() ([]byte, error) {

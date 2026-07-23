@@ -6,7 +6,7 @@ When set to JSON, the event is automatically formatted with required fields befo
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 value := components.RequestFormatOptionsJSON

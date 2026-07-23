@@ -1,5 +1,7 @@
 # PqControlsDynatraceOtlp
 
+Persistent queue controls.
+
 
 ## Fields
 

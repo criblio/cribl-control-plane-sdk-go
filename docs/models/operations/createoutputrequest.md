@@ -125,6 +125,12 @@ createOutputRequest := operations.CreateCreateOutputRequestHoneycomb(operations.
 createOutputRequest := operations.CreateCreateOutputRequestAzureEventhub(operations.CreateOutputOutputAzureEventhub{/* values here */})
 ```
 
+### CreateOutputOutputGoogleBigquery
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestGoogleBigquery(operations.CreateOutputOutputGoogleBigquery{/* values here */})
+```
+
 ### CreateOutputOutputGoogleChronicle
 
 ```go
@@ -287,6 +293,12 @@ createOutputRequest := operations.CreateCreateOutputRequestGrafanaCloud(operatio
 createOutputRequest := operations.CreateCreateOutputRequestLoki(operations.CreateOutputOutputLoki{/* values here */})
 ```
 
+### CreateOutputOutputAmazonManagedPrometheus
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestAmazonManagedPrometheus(operations.CreateOutputOutputAmazonManagedPrometheus{/* values here */})
+```
+
 ### CreateOutputOutputPrometheus
 
 ```go
@@ -377,6 +389,12 @@ createOutputRequest := operations.CreateCreateOutputRequestDiskSpool(operations.
 createOutputRequest := operations.CreateCreateOutputRequestClickHouse(operations.CreateOutputOutputClickHouse{/* values here */})
 ```
 
+### CreateOutputOutputCustomerMetricsStorage
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestCustomerMetricsStorage(operations.CreateOutputOutputCustomerMetricsStorage{/* values here */})
+```
+
 ### CreateOutputOutputLocalSearchStorage
 
 ```go
@@ -423,6 +441,12 @@ createOutputRequest := operations.CreateCreateOutputRequestChronicle(operations.
 
 ```go
 createOutputRequest := operations.CreateCreateOutputRequestDatabricks(operations.CreateOutputOutputDatabricks{/* values here */})
+```
+
+### CreateOutputOutputSnowflakeStreaming
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestSnowflakeStreaming(operations.CreateOutputOutputSnowflakeStreaming{/* values here */})
 ```
 
 ### CreateOutputOutputMicrosoftFabric
@@ -479,6 +503,12 @@ createOutputRequest := operations.CreateCreateOutputRequestScalityS3(operations.
 createOutputRequest := operations.CreateCreateOutputRequestAlibabaCloudS3(operations.CreateOutputOutputAlibabaCloudS3{/* values here */})
 ```
 
+### CreateOutputOutputIbmCloudS3
+
+```go
+createOutputRequest := operations.CreateCreateOutputRequestIbmCloudS3(operations.CreateOutputOutputIbmCloudS3{/* values here */})
+```
+
 ## Union Discrimination
 
 Use the `Type` field to determine which variant is active, then access the corresponding field:
@@ -525,6 +555,8 @@ switch createOutputRequest.Type {
 		// createOutputRequest.CreateOutputOutputHoneycomb is populated
 	case operations.CreateOutputRequestTypeAzureEventhub:
 		// createOutputRequest.CreateOutputOutputAzureEventhub is populated
+	case operations.CreateOutputRequestTypeGoogleBigquery:
+		// createOutputRequest.CreateOutputOutputGoogleBigquery is populated
 	case operations.CreateOutputRequestTypeGoogleChronicle:
 		// createOutputRequest.CreateOutputOutputGoogleChronicle is populated
 	case operations.CreateOutputRequestTypeGoogleCloudStorage:
@@ -579,6 +611,8 @@ switch createOutputRequest.Type {
 		// createOutputRequest.CreateOutputOutputGrafanaCloudUnion is populated
 	case operations.CreateOutputRequestTypeLoki:
 		// createOutputRequest.CreateOutputOutputLoki is populated
+	case operations.CreateOutputRequestTypeAmazonManagedPrometheus:
+		// createOutputRequest.CreateOutputOutputAmazonManagedPrometheus is populated
 	case operations.CreateOutputRequestTypePrometheus:
 		// createOutputRequest.CreateOutputOutputPrometheus is populated
 	case operations.CreateOutputRequestTypeRing:
@@ -609,6 +643,8 @@ switch createOutputRequest.Type {
 		// createOutputRequest.CreateOutputOutputDiskSpool is populated
 	case operations.CreateOutputRequestTypeClickHouse:
 		// createOutputRequest.CreateOutputOutputClickHouse is populated
+	case operations.CreateOutputRequestTypeCustomerMetricsStorage:
+		// createOutputRequest.CreateOutputOutputCustomerMetricsStorage is populated
 	case operations.CreateOutputRequestTypeLocalSearchStorage:
 		// createOutputRequest.CreateOutputOutputLocalSearchStorage is populated
 	case operations.CreateOutputRequestTypeXsiam:
@@ -625,6 +661,8 @@ switch createOutputRequest.Type {
 		// createOutputRequest.CreateOutputOutputChronicle is populated
 	case operations.CreateOutputRequestTypeDatabricks:
 		// createOutputRequest.CreateOutputOutputDatabricks is populated
+	case operations.CreateOutputRequestTypeSnowflakeStreaming:
+		// createOutputRequest.CreateOutputOutputSnowflakeStreaming is populated
 	case operations.CreateOutputRequestTypeMicrosoftFabric:
 		// createOutputRequest.CreateOutputOutputMicrosoftFabric is populated
 	case operations.CreateOutputRequestTypeCloudflareR2:
@@ -643,5 +681,7 @@ switch createOutputRequest.Type {
 		// createOutputRequest.CreateOutputOutputScalityS3 is populated
 	case operations.CreateOutputRequestTypeAlibabaCloudS3:
 		// createOutputRequest.CreateOutputOutputAlibabaCloudS3 is populated
+	case operations.CreateOutputRequestTypeIbmCloudS3:
+		// createOutputRequest.CreateOutputOutputIbmCloudS3 is populated
 }
 ```

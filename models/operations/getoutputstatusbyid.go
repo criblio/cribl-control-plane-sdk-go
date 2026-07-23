@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetOutputStatusByIDRequest struct {
@@ -39,7 +39,7 @@ func (g *GetOutputStatusByIDRequest) GetType() *bool {
 
 type GetOutputStatusByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// Destination status object
+	// The requested Destination status object in a single-item list.
 	CountedOutputStatus *components.CountedOutputStatus
 }
 

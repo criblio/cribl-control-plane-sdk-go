@@ -3,12 +3,14 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type ConnectionConfInputCollection struct {
+	// Pipeline or Pack to process data before sending to the Destination.
 	Pipeline *string `json:"pipeline,omitzero"`
-	Output   *string `json:"output,omitzero"`
+	// Destination to send data to when not using Routes.
+	Output *string `json:"output,omitzero"`
 }
 
 func (c ConnectionConfInputCollection) MarshalJSON() ([]byte, error) {

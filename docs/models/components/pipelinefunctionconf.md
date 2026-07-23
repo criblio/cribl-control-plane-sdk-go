@@ -207,6 +207,12 @@ pipelineFunctionConf := components.CreatePipelineFunctionConfLookup(components.P
 pipelineFunctionConf := components.CreatePipelineFunctionConfMask(components.PipelineFunctionMask{/* values here */})
 ```
 
+### PipelineFunctionMetricsExport
+
+```go
+pipelineFunctionConf := components.CreatePipelineFunctionConfMetricsExport(components.PipelineFunctionMetricsExport{/* values here */})
+```
+
 ### PipelineFunctionMvExpand
 
 ```go
@@ -491,6 +497,8 @@ switch pipelineFunctionConf.Type {
 		// pipelineFunctionConf.PipelineFunctionLookup is populated
 	case components.PipelineFunctionConfTypeMask:
 		// pipelineFunctionConf.PipelineFunctionMask is populated
+	case components.PipelineFunctionConfTypeMetricsExport:
+		// pipelineFunctionConf.PipelineFunctionMetricsExport is populated
 	case components.PipelineFunctionConfTypeMvExpand:
 		// pipelineFunctionConf.PipelineFunctionMvExpand is populated
 	case components.PipelineFunctionConfTypeMvPull:

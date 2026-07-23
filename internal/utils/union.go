@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/criblio/cribl-control-plane-sdk-go/types"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/types"
 )
 
 // UnionCandidate represents a candidate type during union deserialization

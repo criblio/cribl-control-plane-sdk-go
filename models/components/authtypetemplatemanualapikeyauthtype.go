@@ -3,12 +3,15 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type AuthTypeTemplatemanualAPIKeyAuthType struct {
-	Disabled bool    `json:"disabled"`
+	// Authentication Disabled
+	Disabled bool `json:"disabled"`
+	// Username
 	Username *string `json:"username,omitzero"`
+	// Password
 	Password *string `json:"password,omitzero"`
 	// Enter credentials directly, or select a stored secret
 	AuthType *AuthenticationMethodOptionsAuthManualManualAPIKey `json:"authType,omitzero"`

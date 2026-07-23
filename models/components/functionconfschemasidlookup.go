@@ -3,10 +3,11 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type FunctionConfSchemaSidlookupField struct {
+	// Name
 	Name *string `json:"name,omitzero"`
 	// JavaScript expression to compute the value (can be constant)
 	Expr string `json:"expr"`

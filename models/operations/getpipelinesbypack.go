@@ -3,13 +3,31 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetPipelinesByPackRequest struct {
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 	// The <code>id</code> of the Pack.
 	Pack string `pathParam:"style=simple,explode=false,name=pack"`
+}
+
+func (g *GetPipelinesByPackRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetPipelinesByPackRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
 }
 
 func (g *GetPipelinesByPackRequest) GetPack() string {
@@ -21,8 +39,10 @@ func (g *GetPipelinesByPackRequest) GetPack() string {
 
 type GetPipelinesByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Pipeline objects
-	CountedPipeline *components.CountedPipeline
+	// List of Pipeline objects.
+	PaginatedPipeline *components.PaginatedPipeline
+
+	Next func() (*GetPipelinesByPackResponse, error)
 }
 
 func (g GetPipelinesByPackResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +63,9 @@ func (g *GetPipelinesByPackResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetPipelinesByPackResponse) GetCountedPipeline() *components.CountedPipeline {
+func (g *GetPipelinesByPackResponse) GetPaginatedPipeline() *components.PaginatedPipeline {
 	if g == nil {
 		return nil
 	}
-	return g.CountedPipeline
+	return g.PaginatedPipeline
 }

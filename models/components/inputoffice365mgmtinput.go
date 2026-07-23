@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputOffice365MgmtType - Connector type identifier.
 type InputOffice365MgmtType string
 
 const (
@@ -35,11 +36,13 @@ type InputOffice365MgmtContentConfig struct {
 	// Microsoft 365 Management Activity API Content Type
 	ContentType *string `json:"contentType,omitzero"`
 	// If interval type is minutes the value entered must evenly divisible by 60 or save will fail
-	Description *string  `json:"description,omitzero"`
-	Interval    *float64 `json:"interval,omitzero"`
+	Description *string `json:"description,omitzero"`
+	// Interval
+	Interval *float64 `json:"interval,omitzero"`
 	// Collector runtime Log Level
 	LogLevel *LogLevelOptionsContentConfigItems `json:"logLevel,omitzero"`
-	Enabled  *bool                              `json:"enabled,omitzero"`
+	// Enabled
+	Enabled *bool `json:"enabled,omitzero"`
 }
 
 func (i InputOffice365MgmtContentConfig) MarshalJSON() ([]byte, error) {
@@ -93,9 +96,11 @@ func (i *InputOffice365MgmtContentConfig) GetEnabled() *bool {
 
 type InputOffice365MgmtInput struct {
 	// Unique ID for this input
-	ID       *string                `json:"id,omitzero"`
-	Type     InputOffice365MgmtType `json:"type"`
-	Disabled *bool                  `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type InputOffice365MgmtType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -104,7 +109,7 @@ type InputOffice365MgmtInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -137,8 +142,9 @@ type InputOffice365MgmtInput struct {
 	IngestionLag *float64                         `json:"ingestionLag,omitzero"`
 	RetryRules   *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
 	// Enter client secret directly, or select a stored secret
-	AuthType    *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
-	Description *string                                  `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsManualSecret `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Microsoft 365 Azure client secret
 	ClientSecret *string `json:"clientSecret,omitzero"`
 	// Select or create a stored text secret

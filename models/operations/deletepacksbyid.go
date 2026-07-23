@@ -3,12 +3,12 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type DeletePacksByIDRequest struct {
-	// The <code>id</code> of the Pack to uninstall.
+	// The <code>id</code> of the Pack to uninstall. Use the <code>id</code> field from the list response.
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
@@ -21,7 +21,7 @@ func (d *DeletePacksByIDRequest) GetID() string {
 
 type DeletePacksByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// The deleted PackUninstallInfo object in a single-item list.
+	// The uninstalled Pack object in a single-item list.
 	CountedPackUninstallInfo *components.CountedPackUninstallInfo
 }
 
