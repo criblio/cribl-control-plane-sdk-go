@@ -2,6 +2,7 @@
 
 package components
 
+// AuthenticationMethodOptionsSaslCertificateManual - Authentication method
 type AuthenticationMethodOptionsSaslCertificateManual string
 
 const (

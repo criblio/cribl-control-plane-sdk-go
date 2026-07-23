@@ -3,34 +3,10 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputSplunkType string
-
-const (
-	OutputSplunkTypeSplunk OutputSplunkType = "splunk"
-)
-
-func (e OutputSplunkType) ToPointer() *OutputSplunkType {
-	return &e
-}
-func (e *OutputSplunkType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "splunk":
-		*e = OutputSplunkType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSplunkType: %v", v)
-	}
-}
-
+// OutputSplunkPqControls - Persistent queue controls.
 type OutputSplunkPqControls struct {
 }
 
@@ -47,15 +23,16 @@ func (o *OutputSplunkPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputSplunk struct {
 	// Unique ID for this output
-	ID   *string          `json:"id,omitzero"`
-	Type OutputSplunkType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsSplunk `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The hostname of the receiver
 	Host string `json:"host"`
@@ -68,8 +45,9 @@ type OutputSplunk struct {
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64                                 `json:"writeTimeout,omitzero"`
-	TLS          *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	WriteTimeout *float64 `json:"writeTimeout,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// Output metrics in multiple-metric format in a single event. Supported in Splunk 8.0 and above.
 	EnableMultiMetrics *bool `json:"enableMultiMetrics,omitzero"`
 	// Check if indexer is shutting down and stop sending data. This helps minimize data loss during shutdown.
@@ -81,8 +59,9 @@ type OutputSplunk struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
-	Description *string                                     `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Maximum number of times healthcheck can fail before we close connection. If set to 0 (disabled), and the connection to Splunk is forcibly closed, some data loss might occur.
 	MaxFailedHealthChecks *float64 `json:"maxFailedHealthChecks,omitzero"`
 	// Controls whether the sender should send compressed data to the server. Select 'Disabled' to reject compressed connections or 'Always' to ignore server's configuration and send compressed data.
@@ -108,8 +87,9 @@ type OutputSplunk struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                 `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputSplunkPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputSplunkPqControls `json:"pqControls,omitzero"`
 	// Shared secret token to use when establishing a connection to a Splunk indexer.
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
@@ -148,9 +128,9 @@ func (o *OutputSplunk) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputSplunk) GetType() OutputSplunkType {
+func (o *OutputSplunk) GetType() TypeOptionsSplunk {
 	if o == nil {
-		return OutputSplunkType("")
+		return TypeOptionsSplunk("")
 	}
 	return o.Type
 }

@@ -31,9 +31,9 @@ import (
 	"fmt"
 	"log"
 
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 )
 
 const (
@@ -99,7 +99,7 @@ func main() {
 	sendToRoutes := true
 	tcpJSONSource := operations.CreateInputInputTcpjson{
 		ID:           "my-tcp-json",
-		Type:         operations.CreateInputTypeTcpjsonTcpjson,
+		Type:         components.TypeOptionsTcpjsonTcpjson,
 		Host:         "0.0.0.0",
 		Port:         float64(PORT),
 		AuthType:     &authType,
@@ -121,7 +121,7 @@ func main() {
 	apiKey := AWS_API_KEY
 	s3Destination := operations.CreateOutputOutputS3{
 		ID:             "my-s3-destination",
-		Type:           operations.CreateOutputTypeS3S3,
+		Type:           components.TypeOptionsS3S3,
 		Bucket:         AWS_BUCKET_NAME,
 		StagePath:      "/tmp/cribl_stage",
 		Region:         &region,

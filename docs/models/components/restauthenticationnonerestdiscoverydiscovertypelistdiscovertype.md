@@ -6,7 +6,7 @@ Defines how task discovery will be performed. Each entry returned by the Discove
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 value := components.RestAuthenticationNoneRestDiscoveryDiscoverTypeListDiscoverTypeHTTP

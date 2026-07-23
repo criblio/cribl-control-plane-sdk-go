@@ -1,5 +1,7 @@
 # PqControlsStatsdExt
 
+Persistent queue controls.
+
 
 ## Fields
 

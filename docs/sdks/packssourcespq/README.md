@@ -13,15 +13,15 @@ Clear the persistent queue (PQ) for the specified Source within the specified Pa
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="deleteInputSystemPqByPackAndId" method="delete" path="/p/{pack}/system/inputs/{id}/pq" -->
+<!-- UsageSnippet language="go" operationID="deleteInputSystemPqByPackAndId" method="delete" path="/p/{pack}/system/inputs/{id}/pq" example="ClearPQResponseExamplesClearPQJob" -->
 ```go
 package main
 
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -62,6 +62,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -71,15 +72,15 @@ Get information about the latest job to clear the persistent queue (PQ) for the 
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getInputSystemPqByPackAndId" method="get" path="/p/{pack}/system/inputs/{id}/pq" -->
+<!-- UsageSnippet language="go" operationID="getInputSystemPqByPackAndId" method="get" path="/p/{pack}/system/inputs/{id}/pq" example="PQStatusResponseExamplesCompletedJob" -->
 ```go
 package main
 
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -120,5 +121,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

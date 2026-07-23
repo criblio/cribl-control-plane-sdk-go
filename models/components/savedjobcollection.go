@@ -3,14 +3,16 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type SavedJobCollection struct {
 	// Unique ID for this Job
-	ID          *string                             `json:"id,omitzero"`
-	Description *string                             `json:"description,omitzero"`
-	Type        JobTypeOptionsRunnableJobCollection `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Description
+	Description *string `json:"description,omitzero"`
+	// Job type
+	Type JobTypeOptionsRunnableJobCollection `json:"type"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
 	TTL *string `json:"ttl,omitzero"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
@@ -23,13 +25,13 @@ type SavedJobCollection struct {
 	Environment *string `json:"environment,omitzero"`
 	// Configuration for a scheduled job
 	Schedule *ScheduleTypeSavedJobResponseCollection `json:"schedule,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// If enabled, tasks are created and run by the same Worker Node
 	WorkerAffinity *bool `json:"workerAffinity,omitzero"`
 	// Collector configuration
-	Collector Collector                                                         `json:"collector"`
-	Input     *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint `json:"input,omitzero"`
+	Collector Collector                       `json:"collector"`
+	Input     *InputTypeRunnableJobCollection `json:"input,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 }
@@ -169,7 +171,7 @@ func (s *SavedJobCollection) GetCollectorSplunk() *CollectorSplunk {
 	return s.GetCollector().CollectorSplunk
 }
 
-func (s *SavedJobCollection) GetInput() *RunnableJobCollectionTypeCollectionWithBreakerRulesetsConstraint {
+func (s *SavedJobCollection) GetInput() *InputTypeRunnableJobCollection {
 	if s == nil {
 		return nil
 	}

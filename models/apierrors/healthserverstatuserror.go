@@ -4,12 +4,14 @@ package apierrors
 
 import (
 	"encoding/json"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 // HealthServerStatusError - Health status of the Leader or Worker Node.
 type HealthServerStatusError struct {
-	Overlay components.HealthOverlayStatus `json:"overlay"`
+	// Whether this node is currently the captain (job scheduling coordinator) in a Collectors HA deployment.
+	IsCaptain *bool                          `json:"isCaptain,omitzero"`
+	Overlay   components.HealthOverlayStatus `json:"overlay"`
 	// Leader Node role: <code>primary</code> or <code>standby</code>.
 	Role *components.Role `json:"role,omitzero"`
 	// Timestamp (in Unix time) when the Cribl process started.

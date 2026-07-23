@@ -1,13 +1,15 @@
 # UpgradeOptionsSystemSettingsConfSystem
 
+Upgrade permission policy: <code>api</code> to allow upgrades from the UI or API or <code>false</code> to disable.
+
 ## Example Usage
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
-value := components.UpgradeOptionsSystemSettingsConfSystemFalse
+value := components.UpgradeOptionsSystemSettingsConfSystemAPI
 
 // Open enum: custom values can be created with a direct type cast
 custom := components.UpgradeOptionsSystemSettingsConfSystem("custom_value")
@@ -18,5 +20,5 @@ custom := components.UpgradeOptionsSystemSettingsConfSystem("custom_value")
 
 | Name                                          | Value                                         |
 | --------------------------------------------- | --------------------------------------------- |
-| `UpgradeOptionsSystemSettingsConfSystemFalse` | false                                         |
 | `UpgradeOptionsSystemSettingsConfSystemAPI`   | api                                           |
+| `UpgradeOptionsSystemSettingsConfSystemFalse` | false                                         |

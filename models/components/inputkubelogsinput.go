@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputKubeLogsType - Connector type identifier.
 type InputKubeLogsType string
 
 const (
@@ -65,9 +66,11 @@ func (i *InputKubeLogsRule) GetDescription() *string {
 
 type InputKubeLogsInput struct {
 	// Unique ID for this input
-	ID       *string           `json:"id,omitzero"`
-	Type     InputKubeLogsType `json:"type"`
-	Disabled *bool             `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type InputKubeLogsType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -76,7 +79,7 @@ type InputKubeLogsInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -92,15 +95,17 @@ type InputKubeLogsInput struct {
 	// Internal flag to disable LB worker payload reassembly.
 	LBDisableAssembly *bool `json:"__LBDisableAssembly,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Persistence *DiskSpoolingType             `json:"persistence,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Disk Spooling
+	Persistence *DiskSpoolingType `json:"persistence,omitzero"`
 	// A list of event-breaking rulesets that will be applied, in order, to the input data stream
 	BreakerRulesets []string `json:"breakerRulesets,omitzero"`
 	// How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
 	StaleChannelFlushMs *float64 `json:"staleChannelFlushMs,omitzero"`
 	// Load balance traffic across all Worker Processes
-	EnableLoadBalancing *bool   `json:"enableLoadBalancing,omitzero"`
-	Description         *string `json:"description,omitzero"`
+	EnableLoadBalancing *bool `json:"enableLoadBalancing,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

@@ -3,8 +3,10 @@
 package components
 
 type UpgradePackageUrls struct {
+	// URL of the hash file used to verify the package download.
 	PackageHashURL *string `json:"packageHashUrl,omitzero"`
-	PackageURL     string  `json:"packageUrl"`
+	// URL of the upgrade package file.
+	PackageURL string `json:"packageUrl"`
 }
 
 func (u *UpgradePackageUrls) GetPackageHashURL() *string {

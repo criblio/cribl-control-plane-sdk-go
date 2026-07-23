@@ -3,21 +3,24 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 // AuthenticationTypeUse - Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
 type AuthenticationTypeUse struct {
+	// Disabled
 	Disabled bool `json:"disabled"`
 	// Enter password directly, or select a stored secret
 	AuthType *AuthenticationMethodOptionsSaslManualSecret `json:"authType,omitzero"`
 	// Connection-string primary key, or connection-string secondary key, from the Event Hubs workspace
 	Password *string `json:"password,omitzero"`
 	// Select or create a stored text secret
-	TextSecret *string                                   `json:"textSecret,omitzero"`
-	Mechanism  *SaslMechanismOptionsSaslOauthbearerPlain `json:"mechanism,omitzero"`
+	TextSecret *string `json:"textSecret,omitzero"`
+	// SASL mechanism
+	Mechanism *SaslMechanismOptionsSaslOauthbearerPlain `json:"mechanism,omitzero"`
 	// The username for authentication. For Event Hubs, this should always be $ConnectionString.
-	Username             *string                                           `json:"username,omitzero"`
+	Username *string `json:"username,omitzero"`
+	// Authentication method
 	ClientSecretAuthType *AuthenticationMethodOptionsSaslCertificateManual `json:"clientSecretAuthType,omitzero"`
 	// client_secret to pass in the OAuth request parameter
 	ClientSecret *string `json:"clientSecret,omitzero"`

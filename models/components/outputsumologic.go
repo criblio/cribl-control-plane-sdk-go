@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputSumoLogicType - Connector type identifier.
 type OutputSumoLogicType string
 
 const (
@@ -56,6 +57,7 @@ func (e *OutputSumoLogicDataFormat) IsExact() bool {
 	return false
 }
 
+// OutputSumoLogicPqControls - Persistent queue controls.
 type OutputSumoLogicPqControls struct {
 }
 
@@ -72,7 +74,8 @@ func (o *OutputSumoLogicPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputSumoLogic struct {
 	// Unique ID for this output
-	ID   *string             `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputSumoLogicType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -80,7 +83,7 @@ type OutputSumoLogic struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Sumo Logic HTTP collector URL to which events should be sent
 	URL string `json:"url"`
@@ -123,7 +126,8 @@ type OutputSumoLogic struct {
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
 	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
-	Description        *string  `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
 	PqStrictOrdering *bool `json:"pqStrictOrdering,omitzero"`
 	// Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
@@ -145,8 +149,9 @@ type OutputSumoLogic struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                    `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputSumoLogicPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputSumoLogicPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'url' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'url' at runtime.

@@ -6,7 +6,7 @@ How to handle events when the queue is exerting backpressure (full capacity or l
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 value := components.QueueFullBehaviorOptionsBlock

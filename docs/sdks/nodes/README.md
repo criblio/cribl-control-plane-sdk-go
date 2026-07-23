@@ -15,15 +15,15 @@ Get a count of all Worker, Edge, or Outpost Nodes for the specified Cribl produc
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getProductsSummaryWorkersByProduct" method="get" path="/products/{product}/summary/workers" -->
+<!-- UsageSnippet language="go" operationID="getProductsSummaryWorkersByProduct" method="get" path="/products/{product}/summary/workers" example="ProductWorkersCountResponseExamplesCountedWorkerNodes" -->
 ```go
 package main
 
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -37,7 +37,7 @@ func main() {
         }),
     )
 
-    res, err := s.Nodes.Count(ctx, components.ProductsCoreEdge, nil)
+    res, err := s.Nodes.Count(ctx, components.ProductsCoreOutpost, criblcontrolplanesdkgo.Pointer("group==\"default\""))
     if err != nil {
         log.Fatal(err)
     }
@@ -49,12 +49,12 @@ func main() {
 
 ### Parameters
 
-| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       |
-| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| `ctx`                                                                             | [context.Context](https://pkg.go.dev/context#Context)                             | :heavy_check_mark:                                                                | The context to use for the request.                                               |
-| `product`                                                                         | [components.ProductsCore](../../models/components/productscore.md)                | :heavy_check_mark:                                                                | Name of the Cribl product to get the count of Worker, Edge, or Outpost Nodes for. |
-| `filterExp`                                                                       | `*string`                                                                         | :heavy_minus_sign:                                                                | Filter expression to evaluate against Nodes for inclusion in the response.        |
-| `opts`                                                                            | [][operations.Option](../../models/operations/option.md)                          | :heavy_minus_sign:                                                                | The options for this request.                                                     |
+| Parameter                                                                         | Type                                                                              | Required                                                                          | Description                                                                       | Example                                                                           |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `ctx`                                                                             | [context.Context](https://pkg.go.dev/context#Context)                             | :heavy_check_mark:                                                                | The context to use for the request.                                               |                                                                                   |
+| `product`                                                                         | [components.ProductsCore](../../models/components/productscore.md)                | :heavy_check_mark:                                                                | Name of the Cribl product to get the count of Worker, Edge, or Outpost Nodes for. |                                                                                   |
+| `filterExp`                                                                       | `*string`                                                                         | :heavy_minus_sign:                                                                | Filter expression to evaluate against Nodes for inclusion in the response.        | group=="default"                                                                  |
+| `opts`                                                                            | [][operations.Option](../../models/operations/option.md)                          | :heavy_minus_sign:                                                                | The options for this request.                                                     |                                                                                   |
 
 ### Response
 
@@ -64,6 +64,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -73,16 +74,16 @@ Get detailed metadata for Worker, Edge, or Outpost Nodes for the specified Cribl
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getProductsWorkersByProduct" method="get" path="/products/{product}/workers" -->
+<!-- UsageSnippet language="go" operationID="getProductsWorkersByProduct" method="get" path="/products/{product}/workers" example="WorkersListResponseExamplesWorkerNode" -->
 ```go
 package main
 
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -98,11 +99,13 @@ func main() {
 
     res, err := s.Nodes.List(ctx, operations.GetProductsWorkersByProductRequest{
         Product: components.ProductsCoreStream,
+        FilterExp: criblcontrolplanesdkgo.Pointer("group==\"default\""),
+        Filter: criblcontrolplanesdkgo.Pointer("%7B%22field%22%3A%22group%22%2C%22op%22%3A%22is%22%2C%22value%22%3A%22default%22%7D"),
     })
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedMasterWorkerEntry != nil {
+    if res.PaginatedMasterWorkerEntry != nil {
         for {
             // handle items
 
@@ -136,6 +139,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -145,15 +149,15 @@ Get detailed metadata for the specified Worker, Edge, or Outpost Node for the sp
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getProductsWorkersByProductAndId" method="get" path="/products/{product}/workers/{id}" -->
+<!-- UsageSnippet language="go" operationID="getProductsWorkersByProductAndId" method="get" path="/products/{product}/workers/{id}" example="GetProductWorkerByIdResponseExamplesOneWorker" -->
 ```go
 package main
 
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -167,7 +171,7 @@ func main() {
         }),
     )
 
-    res, err := s.Nodes.Get(ctx, components.ProductsCoreStream, "<id>")
+    res, err := s.Nodes.Get(ctx, components.ProductsCoreEdge, "<id>")
     if err != nil {
         log.Fatal(err)
     }
@@ -194,6 +198,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -201,7 +206,81 @@ func main() {
 
 Restart all Worker, Edge, or Outpost Nodes for the specified Cribl product.
 
-### Example Usage
+### Example Usage: RestartProductWorkersResponseExamplesRestartingWorkers
+
+<!-- UsageSnippet language="go" operationID="updateProductsWorkersRestartByProduct" method="patch" path="/products/{product}/workers/restart" example="RestartProductWorkersResponseExamplesRestartingWorkers" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Nodes.Restart(ctx, components.ProductsCoreOutpost, components.RestartRequest{
+        Guids: []string{
+            "<value 1>",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRestartResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: RestartProductWorkersResponseExamplesRestartingWorkersWithError
+
+<!-- UsageSnippet language="go" operationID="updateProductsWorkersRestartByProduct" method="patch" path="/products/{product}/workers/restart" example="RestartProductWorkersResponseExamplesRestartingWorkersWithError" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Nodes.Restart(ctx, components.ProductsCoreOutpost, components.RestartRequest{
+        Guids: []string{
+            "<value 1>",
+        },
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedRestartResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: RestartWorkersExamplesRestartWorkers
 
 <!-- UsageSnippet language="go" operationID="updateProductsWorkersRestartByProduct" method="patch" path="/products/{product}/workers/restart" example="RestartWorkersExamplesRestartWorkers" -->
 ```go
@@ -210,8 +289,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -258,5 +337,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

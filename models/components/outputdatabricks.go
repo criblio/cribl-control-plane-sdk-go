@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputDatabricksType - Connector type identifier.
 type OutputDatabricksType string
 
 const (
@@ -33,7 +34,8 @@ func (e *OutputDatabricksType) UnmarshalJSON(data []byte) error {
 
 type OutputDatabricks struct {
 	// Unique ID for this output
-	ID   *string              `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputDatabricksType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -41,7 +43,7 @@ type OutputDatabricks struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Optional path to prepend to files before uploading.
 	DestPath *string `json:"destPath,omitzero"`
@@ -78,9 +80,10 @@ type OutputDatabricks struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
-	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
+	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
+	// Orphan file recovery
+	Orphans *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Unique identifier for the Databricks workspace. Used to construct the OAuth login URL and API base URL.
 	WorkspaceID string `json:"workspaceId"`
 	// Hostname for the Databricks workspace. Override this to connect to government or secure cloud environments (e.g. cloud.databricks.us, cloud.databricks.mil, azuredatabricks.net).
@@ -98,7 +101,8 @@ type OutputDatabricks struct {
 	// OAuth client secret for Unity Catalog authentication
 	ClientTextSecret string `json:"clientTextSecret"`
 	// Amount of time, in seconds, to wait for a request to complete before canceling it.
-	TimeoutSec  *int64  `json:"timeoutSec,omitzero"`
+	TimeoutSec *int64 `json:"timeoutSec,omitzero"`
+	// Optional description for this configuration.
 	Description *string `json:"description,omitzero"`
 	// Data compression format to apply to HTTP content before it is delivered
 	Compress *CompressionOptionsHTTP `json:"compress,omitzero"`

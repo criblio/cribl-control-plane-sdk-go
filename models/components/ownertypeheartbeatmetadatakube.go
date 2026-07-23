@@ -3,7 +3,9 @@
 package components
 
 type OwnerTypeHeartbeatMetadataKube struct {
+	// Kubernetes owner resource kind.
 	Kind string `json:"kind"`
+	// Kubernetes owner resource name.
 	Name string `json:"name"`
 }
 

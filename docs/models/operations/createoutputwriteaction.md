@@ -6,7 +6,7 @@ Action to use when writing events. Must be set to `Create` when writing to a dat
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 )
 
 value := operations.CreateOutputWriteActionIndex

@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputCriblHTTPType - Source type identifier.
 type InputCriblHTTPType string
 
 const (
@@ -33,9 +34,11 @@ func (e *InputCriblHTTPType) UnmarshalJSON(data []byte) error {
 
 type InputCriblHTTPInput struct {
 	// Unique ID for this input
-	ID       *string            `json:"id,omitzero"`
-	Type     InputCriblHTTPType `json:"type"`
-	Disabled *bool              `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputCriblHTTPType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -44,7 +47,7 @@ type InputCriblHTTPInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -55,7 +58,8 @@ type InputCriblHTTPInput struct {
 	Port float64 `json:"port"`
 	// Shared secrets to be used by connected environments to authorize connections. These tokens should be installed in Cribl HTTP destinations in connected environments.
 	AuthTokens []AuthTokenConfInputCriblTCP `json:"authTokens,omitzero"`
-	TLS        *TLSSettingsServerSideType   `json:"tls,omitzero"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -79,8 +83,9 @@ type InputCriblHTTPInput struct {
 	// Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
 	IPDenylistRegex *string `json:"ipDenylistRegex,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

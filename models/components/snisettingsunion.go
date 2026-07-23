@@ -5,10 +5,11 @@ package components
 import (
 	"errors"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type SniSettings struct {
+	// If <code>true</code>, disable Server Name Indication (SNI) routing. Otherwise, <code>false</code>.
 	DisableSNIRouting bool `json:"disableSNIRouting"`
 }
 

@@ -6,13 +6,16 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type EventBreakerExistingOrNewNewTimestampTypeCurrent struct {
-	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Length *float64                                                  `json:"length,omitzero"`
-	Format *string                                                   `json:"format,omitzero"`
+	// Timestamp type
+	Type TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
+	// Length
+	Length *float64 `json:"length,omitzero"`
+	// Format
+	Format *string `json:"format,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewTimestampTypeCurrent) MarshalJSON() ([]byte, error) {
@@ -48,9 +51,12 @@ func (e *EventBreakerExistingOrNewNewTimestampTypeCurrent) GetFormat() *string {
 }
 
 type EventBreakerExistingOrNewNewTimestampTypeFormat struct {
-	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Format string                                                    `json:"format"`
-	Length *float64                                                  `json:"length,omitzero"`
+	// Timestamp type
+	Type TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
+	// Format
+	Format string `json:"format"`
+	// Length
+	Length *float64 `json:"length,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewTimestampTypeFormat) MarshalJSON() ([]byte, error) {
@@ -86,9 +92,12 @@ func (e *EventBreakerExistingOrNewNewTimestampTypeFormat) GetLength() *float64 {
 }
 
 type EventBreakerExistingOrNewNewTimestampTypeAuto struct {
-	Type   TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
-	Length float64                                                   `json:"length"`
-	Format *string                                                   `json:"format,omitzero"`
+	// Timestamp type
+	Type TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp `json:"type"`
+	// Length
+	Length float64 `json:"length"`
+	// Format
+	Format *string `json:"format,omitzero"`
 }
 
 func (e EventBreakerExistingOrNewNewTimestampTypeAuto) MarshalJSON() ([]byte, error) {
@@ -132,6 +141,7 @@ const (
 	TimestampFormatTypeEventBreakerExistingOrNewNewTypeUnknown TimestampFormatTypeEventBreakerExistingOrNewNewType = "UNKNOWN"
 )
 
+// TimestampFormatTypeEventBreakerExistingOrNewNew - Timestamp format
 type TimestampFormatTypeEventBreakerExistingOrNewNew struct {
 	EventBreakerExistingOrNewNewTimestampTypeAuto    *EventBreakerExistingOrNewNewTimestampTypeAuto    `queryParam:"inline" union:"member"`
 	EventBreakerExistingOrNewNewTimestampTypeFormat  *EventBreakerExistingOrNewNewTimestampTypeFormat  `queryParam:"inline" union:"member"`

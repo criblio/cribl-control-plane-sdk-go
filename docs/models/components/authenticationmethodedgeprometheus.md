@@ -6,7 +6,7 @@ Enter credentials directly, or select a stored secret
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 value := components.AuthenticationMethodEdgePrometheusManual

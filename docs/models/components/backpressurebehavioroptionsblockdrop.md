@@ -6,7 +6,7 @@ How to handle events when all receivers are exerting backpressure
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 value := components.BackpressureBehaviorOptionsBlockDropBlock

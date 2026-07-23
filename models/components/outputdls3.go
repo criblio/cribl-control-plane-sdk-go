@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputDlS3Type - Connector type identifier.
 type OutputDlS3Type string
 
 const (
@@ -33,7 +34,8 @@ func (e *OutputDlS3Type) UnmarshalJSON(data []byte) error {
 
 type OutputDlS3 struct {
 	// Unique ID for this output
-	ID   *string        `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputDlS3Type `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -41,7 +43,7 @@ type OutputDlS3 struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
 	Endpoint *string `json:"endpoint,omitzero"`
@@ -102,9 +104,10 @@ type OutputDlS3 struct {
 	// How to handle events when disk space is below the global 'Min free disk space' limit
 	OnDiskFullBackpressure *DiskSpaceProtectionOptions `json:"onDiskFullBackpressure,omitzero"`
 	// Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
-	ForceCloseOnShutdown *bool                   `json:"forceCloseOnShutdown,omitzero"`
-	RetrySettings        *RetrySettingsType      `json:"retrySettings,omitzero"`
-	Orphans              *OrphanFileRecoveryType `json:"orphans,omitzero"`
+	ForceCloseOnShutdown *bool              `json:"forceCloseOnShutdown,omitzero"`
+	RetrySettings        *RetrySettingsType `json:"retrySettings,omitzero"`
+	// Orphan file recovery
+	Orphans *OrphanFileRecoveryType `json:"orphans,omitzero"`
 	// Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
 	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Object ACL to assign to uploaded objects
@@ -117,7 +120,8 @@ type OutputDlS3 struct {
 	KmsKeyID *string `json:"kmsKeyId,omitzero"`
 	// List of fields to partition the path by, in addition to time, which is included automatically. The effective partition will be YYYY/MM/DD/HH/<list/of/fields>.
 	PartitioningFields []string `json:"partitioningFields,omitzero"`
-	Description        *string  `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
 	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key

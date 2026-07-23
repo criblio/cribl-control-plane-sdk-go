@@ -4,8 +4,8 @@ package operations
 
 import (
 	"errors"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/retry"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/retry"
 	"time"
 )
 

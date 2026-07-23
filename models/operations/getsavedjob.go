@@ -3,13 +3,17 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetSavedJobRequest struct {
-	// Filter by collector type
+	// Filter by collector type.
 	CollectorType *components.CollectorType `queryParam:"style=form,explode=true,name=collectorType"`
+	// Pagination offset
+	Offset *int64 `queryParam:"style=form,explode=true,name=offset"`
+	// Maximum number of items to return
+	Limit *int64 `queryParam:"style=form,explode=true,name=limit"`
 }
 
 func (g *GetSavedJobRequest) GetCollectorType() *components.CollectorType {
@@ -19,10 +23,26 @@ func (g *GetSavedJobRequest) GetCollectorType() *components.CollectorType {
 	return g.CollectorType
 }
 
+func (g *GetSavedJobRequest) GetOffset() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Offset
+}
+
+func (g *GetSavedJobRequest) GetLimit() *int64 {
+	if g == nil {
+		return nil
+	}
+	return g.Limit
+}
+
 type GetSavedJobResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// List of SavedJobResponse objects.
-	CountedSavedJobResponse *components.CountedSavedJobResponse
+	// The list of Collectors in a response envelope with <code>count</code> and <code>items</code>.
+	PaginatedSavedJobResponse *components.PaginatedSavedJobResponse
+
+	Next func() (*GetSavedJobResponse, error)
 }
 
 func (g GetSavedJobResponse) MarshalJSON() ([]byte, error) {
@@ -43,9 +63,9 @@ func (g *GetSavedJobResponse) GetHTTPMeta() components.HTTPMetadata {
 	return g.HTTPMeta
 }
 
-func (g *GetSavedJobResponse) GetCountedSavedJobResponse() *components.CountedSavedJobResponse {
+func (g *GetSavedJobResponse) GetPaginatedSavedJobResponse() *components.PaginatedSavedJobResponse {
 	if g == nil {
 		return nil
 	}
-	return g.CountedSavedJobResponse
+	return g.PaginatedSavedJobResponse
 }

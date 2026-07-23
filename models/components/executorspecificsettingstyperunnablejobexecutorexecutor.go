@@ -3,9 +3,10 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor - Executor-specific settings
 type ExecutorSpecificSettingsTypeRunnableJobExecutorExecutor struct {
 }
 

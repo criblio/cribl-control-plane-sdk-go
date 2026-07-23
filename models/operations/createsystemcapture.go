@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	"github.com/criblio/cribl-control-plane-sdk-go/types/jsonl"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/types/jsonl"
 )
 
 type CreateSystemCaptureResponse struct {

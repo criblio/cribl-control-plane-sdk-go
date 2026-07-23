@@ -2,6 +2,7 @@
 
 package components
 
+// TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp - Timestamp type
 type TimestampTypeOptionsEventBreakerExistingOrNewNewTimestamp string
 
 const (

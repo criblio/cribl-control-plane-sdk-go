@@ -3,14 +3,16 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type SavedJobScheduledSearch struct {
 	// Unique ID for this Job
-	ID          *string                             `json:"id,omitzero"`
-	Description *string                             `json:"description,omitzero"`
-	Type        JobTypeOptionsRunnableJobCollection `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Description
+	Description *string `json:"description,omitzero"`
+	// Job type
+	Type JobTypeOptionsRunnableJobCollection `json:"type"`
 	// Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
 	TTL *string `json:"ttl,omitzero"`
 	// When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
@@ -23,7 +25,7 @@ type SavedJobScheduledSearch struct {
 	Environment *string `json:"environment,omitzero"`
 	// Configuration for a scheduled job
 	Schedule *ScheduleTypeSavedJobResponseCollection `json:"schedule,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Identifies which search query to run
 	SavedQueryID string `json:"savedQueryId"`

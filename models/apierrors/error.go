@@ -4,12 +4,16 @@ package apierrors
 
 import (
 	"encoding/json"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type Error struct {
-	// Error message
-	Message  *string                 `json:"message,omitzero"`
+	// Always "error" for API error responses.
+	Status string `const:"error" json:"status"`
+	// Human-readable message describing the error.
+	Message string `json:"message"`
+	// Optional structured details about the error (e.g. validation failures).
+	Details  any                     `json:"details,omitzero"`
 	HTTPMeta components.HTTPMetadata `json:"-"`
 }
 

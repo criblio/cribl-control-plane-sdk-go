@@ -3,34 +3,10 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputMskType string
-
-const (
-	OutputMskTypeMsk OutputMskType = "msk"
-)
-
-func (e OutputMskType) ToPointer() *OutputMskType {
-	return &e
-}
-func (e *OutputMskType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "msk":
-		*e = OutputMskType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputMskType: %v", v)
-	}
-}
-
+// OutputMskPqControls - Persistent queue controls.
 type OutputMskPqControls struct {
 }
 
@@ -47,15 +23,16 @@ func (o *OutputMskPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputMsk struct {
 	// Unique ID for this output
-	ID   *string       `json:"id,omitzero"`
-	Type OutputMskType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsMsk `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Enter each Kafka bootstrap server you want to use. Specify hostname and port, e.g., mykafkabroker:9092, or just hostname, in which case @{product} will assign port 9092.
 	Brokers []string `json:"brokers"`
@@ -72,7 +49,8 @@ type OutputMsk struct {
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
 	FlushEventCount *float64 `json:"flushEventCount,omitzero"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                                            `json:"flushPeriodSec,omitzero"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
+	// Kafka Schema Registry Authentication
 	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
@@ -92,7 +70,8 @@ type OutputMsk struct {
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod"`
-	AwsSecretKey            *string                                    `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// Region where the MSK cluster is located
 	Region string `json:"region"`
 	// MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
@@ -108,12 +87,15 @@ type OutputMsk struct {
 	// External ID to use when assuming role
 	AssumeRoleExternalID *string `json:"assumeRoleExternalId,omitzero"`
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
-	DurationSeconds *float64                                 `json:"durationSeconds,omitzero"`
-	TLS             *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	Description    *string                      `json:"description,omitzero"`
-	AwsAPIKey      *string                      `json:"awsApiKey,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
 	AwsSecret *string `json:"awsSecret,omitzero"`
 	// Select a set of Protobuf definitions for the events you want to send
@@ -141,8 +123,9 @@ type OutputMsk struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string              `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputMskPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputMskPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'topic' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'topic' at runtime.
@@ -185,9 +168,9 @@ func (o *OutputMsk) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputMsk) GetType() OutputMskType {
+func (o *OutputMsk) GetType() TypeOptionsMsk {
 	if o == nil {
-		return OutputMskType("")
+		return TypeOptionsMsk("")
 	}
 	return o.Type
 }

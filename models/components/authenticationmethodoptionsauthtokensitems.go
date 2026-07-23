@@ -6,8 +6,8 @@ package components
 type AuthenticationMethodOptionsAuthTokensItems string
 
 const (
-	AuthenticationMethodOptionsAuthTokensItemsManual AuthenticationMethodOptionsAuthTokensItems = "manual"
-	AuthenticationMethodOptionsAuthTokensItemsSecret AuthenticationMethodOptionsAuthTokensItems = "secret"
+	AuthenticationMethodOptionsAuthTokensItemsManual      AuthenticationMethodOptionsAuthTokensItems = "manual"
+	AuthenticationMethodOptionsAuthTokensItemsSecretValue AuthenticationMethodOptionsAuthTokensItems = "secret"
 )
 
 func (e AuthenticationMethodOptionsAuthTokensItems) ToPointer() *AuthenticationMethodOptionsAuthTokensItems {

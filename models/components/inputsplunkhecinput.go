@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputSplunkHecType - Source type identifier.
 type InputSplunkHecType string
 
 const (
@@ -37,8 +38,9 @@ type InputSplunkHecAuthToken struct {
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
 	// Shared secret to be provided by any client (Authorization: <token>)
-	Token   string `json:"token"`
-	Enabled *bool  `json:"enabled,omitzero"`
+	Token string `json:"token"`
+	// If true, the token is active and can be used for authentication.
+	Enabled *bool `json:"enabled,omitzero"`
 	// Optional token description
 	Description *string `json:"description,omitzero"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
@@ -109,9 +111,11 @@ func (i *InputSplunkHecAuthToken) GetMetadata() []MetadataConfInputCollection {
 
 type InputSplunkHecInput struct {
 	// Unique ID for this input
-	ID       *string            `json:"id,omitzero"`
-	Type     InputSplunkHecType `json:"type"`
-	Disabled *bool              `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputSplunkHecType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -120,7 +124,7 @@ type InputSplunkHecInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -130,8 +134,9 @@ type InputSplunkHecInput struct {
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []InputSplunkHecAuthToken  `json:"authTokens,omitzero"`
-	TLS        *TLSSettingsServerSideType `json:"tls,omitzero"`
+	AuthTokens []InputSplunkHecAuthToken `json:"authTokens,omitzero"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -175,8 +180,9 @@ type InputSplunkHecInput struct {
 	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
 	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
-	Description      *string `json:"description,omitzero"`
+	EmitTokenMetrics *bool `json:"emitTokenMetrics,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -496,9 +502,11 @@ func (i *InputSplunkHecInput) GetTemplateSplunkHecAPI() *string {
 
 type InputSplunkHec struct {
 	// Unique ID for this input
-	ID       *string            `json:"id,omitzero"`
-	Type     InputSplunkHecType `json:"type"`
-	Disabled *bool              `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputSplunkHecType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -507,7 +515,7 @@ type InputSplunkHec struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Read-only metadata that records how the Source was created. Preserved on update when omitted from the request body. Cannot be set on create.
 	CriblSourceProvenance *InputCollectionOriginDataSourceDiscoveryWithDestinationArnConstraint `json:"criblSourceProvenance,omitzero"`
@@ -519,8 +527,9 @@ type InputSplunkHec struct {
 	// Port to listen on
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
-	AuthTokens []InputSplunkHecAuthToken  `json:"authTokens,omitzero"`
-	TLS        *TLSSettingsServerSideType `json:"tls,omitzero"`
+	AuthTokens []InputSplunkHecAuthToken `json:"authTokens,omitzero"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -564,8 +573,9 @@ type InputSplunkHec struct {
 	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
 	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
 	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
-	Description      *string `json:"description,omitzero"`
+	EmitTokenMetrics *bool `json:"emitTokenMetrics,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

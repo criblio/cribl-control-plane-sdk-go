@@ -2,6 +2,7 @@
 
 package components
 
+// EventBreakerTypeOptionsEventBreakerExistingOrNewNew - Event Breaker type
 type EventBreakerTypeOptionsEventBreakerExistingOrNewNew string
 
 const (

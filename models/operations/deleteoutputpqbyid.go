@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type DeleteOutputPqByIDRequest struct {
@@ -21,7 +21,7 @@ func (d *DeleteOutputPqByIDRequest) GetID() string {
 
 type DeleteOutputPqByIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// A list of job ids for the background job that clears the persistent queue
+	// The job ID for the background job that clears the persistent queue.
 	CountedString *components.CountedString
 }
 

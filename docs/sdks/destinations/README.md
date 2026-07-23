@@ -16,17 +16,17 @@ Actions related to Destinations
 
 Get a list of all Destinations.
 
-### Example Usage
+### Example Usage: OutputResponseExamplesS3Destination
 
-<!-- UsageSnippet language="go" operationID="listOutput" method="get" path="/system/outputs" -->
+<!-- UsageSnippet language="go" operationID="listOutput" method="get" path="/system/outputs" example="OutputResponseExamplesS3Destination" -->
 ```go
 package main
 
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -40,12 +40,159 @@ func main() {
         }),
     )
 
-    res, err := s.Destinations.List(ctx, nil)
+    res, err := s.Destinations.List(ctx, nil, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedOutputResponse != nil {
-        // handle response
+    if res.PaginatedOutputResponse != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSnowflakeStreamingDestination
+
+<!-- UsageSnippet language="go" operationID="listOutput" method="get" path="/system/outputs" example="OutputResponseExamplesSnowflakeStreamingDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.List(ctx, nil, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.PaginatedOutputResponse != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSplunkHecDestination
+
+<!-- UsageSnippet language="go" operationID="listOutput" method="get" path="/system/outputs" example="OutputResponseExamplesSplunkHecDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.List(ctx, nil, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.PaginatedOutputResponse != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSyslogDestination
+
+<!-- UsageSnippet language="go" operationID="listOutput" method="get" path="/system/outputs" example="OutputResponseExamplesSyslogDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.List(ctx, nil, nil, nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.PaginatedOutputResponse != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
@@ -56,6 +203,8 @@ func main() {
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `ctx`                                                                                                                                                            | [context.Context](https://pkg.go.dev/context#Context)                                                                                                            | :heavy_check_mark:                                                                                                                                               | The context to use for the request.                                                                                                                              |
 | `type_`                                                                                                                                                          | [*components.DestinationType](../../models/components/destinationtype.md)                                                                                        | :heavy_minus_sign:                                                                                                                                               | Type of Destination to include in the results. Each request can include only one <code>type</code> parameter; multiple parameters per request are not supported. |
+| `offset`                                                                                                                                                         | `*int64`                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                               | Pagination offset                                                                                                                                                |
+| `limit`                                                                                                                                                          | `*int64`                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                               | Maximum number of items to return                                                                                                                                |
 | `opts`                                                                                                                                                           | [][operations.Option](../../models/operations/option.md)                                                                                                         | :heavy_minus_sign:                                                                                                                                               | The options for this request.                                                                                                                                    |
 
 ### Response
@@ -66,6 +215,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -82,9 +232,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -115,6 +265,48 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputCreateExamplesAmazonManagedPrometheus
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesAmazonManagedPrometheus" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestAmazonManagedPrometheus(
+        operations.CreateOutputOutputAmazonManagedPrometheus{
+            ID: "amazon-managed-prometheus-output",
+            Type: operations.CreateOutputTypeAmazonManagedPrometheusAmazonManagedPrometheus,
+            URL: "https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-example/api/v1/remote_write",
+            AwsAuthenticationMethod: components.AuthenticationMethodOptionsAutoSecretAuto,
+            Region: "us-east-1",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputCreateExamplesAzureBlob
 
 <!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesAzureBlob" -->
@@ -124,9 +316,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -143,7 +335,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestAzureBlob(
         operations.CreateOutputOutputAzureBlob{
             ID: "azure-blob-output",
-            Type: operations.CreateOutputTypeAzureBlobAzureBlob,
+            Type: components.TypeOptionsAzureblobAzureBlob,
             ContainerName: "my-container",
             StagePath: "/tmp/staging",
         },
@@ -165,9 +357,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -216,9 +408,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -259,9 +451,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -302,9 +494,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -345,9 +537,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -387,9 +579,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -429,9 +621,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -471,9 +663,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -490,7 +682,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestConfluentCloud(
         operations.CreateOutputOutputConfluentCloud{
             ID: "confluent-cloud-output",
-            Type: operations.CreateOutputTypeConfluentCloudConfluentCloud,
+            Type: components.TypeOptionsConfluentcloudConfluentCloud,
             Brokers: []string{
                 "pkc-xxxxx.us-east-1.aws.confluent.cloud:9092",
             },
@@ -514,9 +706,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -553,9 +745,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -592,9 +784,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -718,9 +910,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -737,7 +929,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestCriblTCP(
         operations.CreateOutputOutputCriblTCP{
             ID: "cribl-tcp-output",
-            Type: operations.CreateOutputTypeCriblTCPCriblTCP,
+            Type: components.TypeOptionsCribltcpCriblTCP,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](10090.0),
         },
@@ -759,9 +951,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -793,6 +985,48 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputCreateExamplesCustomerMetricsStorage
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesCustomerMetricsStorage" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestCustomerMetricsStorage(
+        operations.CreateOutputOutputCustomerMetricsStorage{
+            ID: "customer-metrics-storage-output",
+            Type: operations.CreateOutputTypeCustomerMetricsStorageCustomerMetricsStorage,
+            URL: "http://localhost:8123/",
+            Database: "default",
+            TableName: "mytable",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputCreateExamplesDatabricks
 
 <!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesDatabricks" -->
@@ -802,9 +1036,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -848,9 +1082,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -888,9 +1122,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -927,9 +1161,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -966,9 +1200,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1008,9 +1242,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1052,9 +1286,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1096,9 +1330,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1136,9 +1370,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1177,9 +1411,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1221,9 +1455,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1252,6 +1486,49 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputCreateExamplesGoogleBigQuery
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesGoogleBigQuery" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestGoogleBigquery(
+        operations.CreateOutputOutputGoogleBigquery{
+            ID: "google-bigquery-output",
+            Type: operations.CreateOutputTypeGoogleBigqueryGoogleBigquery,
+            ProjectID: "my-project",
+            DatasetID: "my-dataset",
+            TableID: "my-table",
+            GoogleAuthMethod: operations.CreateOutputGoogleAuthenticationMethodGoogleBigqueryAuto,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputCreateExamplesGoogleChronicle
 
 <!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesGoogleChronicle" -->
@@ -1261,9 +1538,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1303,9 +1580,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1345,9 +1622,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1365,7 +1642,7 @@ func main() {
         operations.CreateOutputOutputGoogleCloudObservability{
             ID: "google-cloud-observability-output",
             Type: operations.CreateOutputTypeGoogleCloudObservabilityGoogleCloudObservability,
-            GoogleAuthMethod: operations.CreateOutputGoogleAuthenticationMethodAuto,
+            GoogleAuthMethod: operations.CreateOutputGoogleAuthenticationMethodGoogleCloudObservabilityAuto,
         },
     ))
     if err != nil {
@@ -1385,9 +1662,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1428,9 +1705,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1447,7 +1724,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestGooglePubsub(
         operations.CreateOutputOutputGooglePubsub{
             ID: "google-pubsub-output",
-            Type: operations.CreateOutputTypeGooglePubsubGooglePubsub,
+            Type: components.TypeOptionsGooglepubsubGooglePubsub,
             TopicName: "my-topic",
         },
     ))
@@ -1468,9 +1745,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1510,9 +1787,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1552,9 +1829,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1592,9 +1869,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1635,9 +1912,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1676,9 +1953,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1695,7 +1972,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestKafka(
         operations.CreateOutputOutputKafka{
             ID: "kafka-output",
-            Type: operations.CreateOutputTypeKafkaKafka,
+            Type: components.TypeOptionsKafka,
             Brokers: []string{
                 "localhost:9092",
             },
@@ -1719,9 +1996,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1738,7 +2015,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestKinesis(
         operations.CreateOutputOutputKinesis{
             ID: "kinesis-output",
-            Type: operations.CreateOutputTypeKinesisKinesis,
+            Type: components.TypeOptionsKinesisKinesis,
             StreamName: "my-stream",
             Region: "us-east-1",
         },
@@ -1760,9 +2037,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1802,9 +2079,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1842,9 +2119,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1883,9 +2160,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1925,9 +2202,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1944,7 +2221,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestMsk(
         operations.CreateOutputOutputMsk{
             ID: "msk-output",
-            Type: operations.CreateOutputTypeMskMsk,
+            Type: components.TypeOptionsMskMsk,
             Brokers: []string{
                 "b-1.example.xxxxx.c2.kafka.us-east-1.amazonaws.com:9092",
             },
@@ -1970,9 +2247,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -1989,7 +2266,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestNetflow(
         operations.CreateOutputOutputNetflow{
             ID: "netflow-output",
-            Type: operations.CreateOutputTypeNetflowNetflow,
+            Type: components.TypeOptionsNetflowNetflow,
             Hosts: []operations.CreateOutputHostNetflow{
                 operations.CreateOutputHostNetflow{
                     Host: "localhost",
@@ -2015,9 +2292,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2055,9 +2332,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2097,9 +2374,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2139,9 +2416,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2179,9 +2456,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2198,7 +2475,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestPrometheus(
         operations.CreateOutputOutputPrometheus{
             ID: "prometheus-output",
-            Type: operations.CreateOutputTypePrometheusPrometheus,
+            Type: components.TypeOptionsPrometheusPrometheus,
             URL: "http://localhost:9091/api/v1/write",
         },
     ))
@@ -2219,9 +2496,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2258,9 +2535,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2303,9 +2580,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2322,7 +2599,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestS3(
         operations.CreateOutputOutputS3{
             ID: "s3-output",
-            Type: operations.CreateOutputTypeS3S3,
+            Type: components.TypeOptionsS3S3,
             Bucket: "my-bucket",
             Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
             StagePath: "/tmp/staging",
@@ -2345,9 +2622,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2364,7 +2641,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSecurityLake(
         operations.CreateOutputOutputSecurityLake{
             ID: "security-lake-output",
-            Type: operations.CreateOutputTypeSecurityLakeSecurityLake,
+            Type: components.TypeOptionsSecuritylakeSecurityLake,
             AssumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
             Bucket: "my-bucket",
             Region: "us-east-1",
@@ -2390,9 +2667,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2434,9 +2711,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2475,9 +2752,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2518,9 +2795,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2559,9 +2836,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2578,13 +2855,60 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSnmp(
         operations.CreateOutputOutputSnmp{
             ID: "snmp-output",
-            Type: operations.CreateOutputTypeSnmpSnmp,
+            Type: components.TypeOptionsSnmpSnmp,
             Hosts: []operations.CreateOutputHostSnmp{
                 operations.CreateOutputHostSnmp{
                     Host: "192.168.1.1",
                     Port: 161.0,
                 },
             },
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputCreateExamplesSnowflakeStreaming
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesSnowflakeStreaming" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSnowflakeStreaming(
+        operations.CreateOutputOutputSnowflakeStreaming{
+            ID: "snowflake-streaming-output",
+            Type: operations.CreateOutputTypeSnowflakeStreamingSnowflakeStreaming,
+            AccountIdentifier: "MYORG-MYACCOUNT",
+            User: "STREAMING_USER",
+            Pem: operations.CreateOutputPrivateKey{
+                KeyName: "my-snowflake-private-key",
+            },
+            Database: "EVENTS_DB",
+            Schema: "PUBLIC",
+            Table: "RAW_EVENTS",
         },
     ))
     if err != nil {
@@ -2604,9 +2928,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2646,9 +2970,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2665,7 +2989,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSplunk(
         operations.CreateOutputOutputSplunk{
             ID: "splunk-output",
-            Type: operations.CreateOutputTypeSplunkSplunk,
+            Type: components.TypeOptionsSplunkSplunk,
             Host: "localhost",
             Port: 9997.0,
         },
@@ -2687,9 +3011,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2726,9 +3050,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2771,9 +3095,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2790,7 +3114,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSqs(
         operations.CreateOutputOutputSqs{
             ID: "sqs-output",
-            Type: operations.CreateOutputTypeSqsSqs,
+            Type: components.TypeOptionsSqsSqs,
             QueueName: "my-queue",
             QueueType: operations.CreateOutputQueueTypeStandard,
             Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
@@ -2813,9 +3137,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2855,9 +3179,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2897,9 +3221,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2939,9 +3263,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2979,9 +3303,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -2998,7 +3322,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestSyslog(
         operations.CreateOutputOutputSyslog{
             ID: "syslog-output",
-            Type: operations.CreateOutputTypeSyslogSyslog,
+            Type: components.TypeOptionsSyslogSyslog,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](514.0),
         },
@@ -3020,9 +3344,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -3039,7 +3363,7 @@ func main() {
     res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestTcpjson(
         operations.CreateOutputOutputTcpjson{
             ID: "tcpjson-output",
-            Type: operations.CreateOutputTypeTcpjsonTcpjson,
+            Type: components.TypeOptionsTcpjsonTcpjson,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](10090.0),
         },
@@ -3061,9 +3385,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -3102,9 +3426,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -3144,9 +3468,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -3188,9 +3512,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -3227,9 +3551,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -3269,9 +3593,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -3311,9 +3635,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -3344,6 +3668,48 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputCreateExamplesibmCloudS3
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesibmCloudS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestIbmCloudS3(
+        operations.CreateOutputOutputIbmCloudS3{
+            ID: "ibm-cloud-s3-output",
+            Type: operations.CreateOutputTypeIbmCloudS3IbmCloudS3,
+            Endpoint: "https://s3.us-south.cloud-object-storage.appdomain.cloud",
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: OutputCreateExamplesscalityS3
 
 <!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputCreateExamplesscalityS3" -->
@@ -3353,9 +3719,9 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 	"log"
 )
 
@@ -3386,6 +3752,168 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputResponseExamplesS3Destination
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputResponseExamplesS3Destination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestCriblLake(
+        operations.CreateOutputOutputCriblLake{
+            ID: "<id>",
+            Type: operations.CreateOutputTypeCriblLakeCriblLake,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSnowflakeStreamingDestination
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputResponseExamplesSnowflakeStreamingDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestCloudianS3(
+        operations.CreateOutputOutputCloudianS3{
+            ID: "<id>",
+            Type: operations.CreateOutputTypeCloudianS3CloudianS3,
+            Endpoint: "<value>",
+            Bucket: "<value>",
+            StagePath: "<value>",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSplunkHecDestination
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputResponseExamplesSplunkHecDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestDataset(
+        operations.CreateOutputOutputDataset{
+            ID: "<id>",
+            Type: operations.CreateOutputTypeDatasetDataset,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSyslogDestination
+
+<!-- UsageSnippet language="go" operationID="createOutput" method="post" path="/system/outputs" example="OutputResponseExamplesSyslogDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Create(ctx, operations.CreateCreateOutputRequestWebhook(
+        operations.CreateCreateOutputOutputWebhookUnionCreateOutputOutputWebhookWebhook2(
+            operations.CreateOutputOutputWebhookWebhook2{
+                ID: "<id>",
+                Type: operations.CreateOutputOutputWebhookType2Webhook,
+                Urls: []operations.CreateOutputOutputWebhookURL2{},
+            },
+        ),
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -3403,6 +3931,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -3410,17 +3939,116 @@ func main() {
 
 Get the specified Destination.
 
-### Example Usage
+### Example Usage: OutputResponseExamplesS3Destination
 
-<!-- UsageSnippet language="go" operationID="getOutputById" method="get" path="/system/outputs/{id}" -->
+<!-- UsageSnippet language="go" operationID="getOutputById" method="get" path="/system/outputs/{id}" example="OutputResponseExamplesS3Destination" -->
 ```go
 package main
 
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSnowflakeStreamingDestination
+
+<!-- UsageSnippet language="go" operationID="getOutputById" method="get" path="/system/outputs/{id}" example="OutputResponseExamplesSnowflakeStreamingDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSplunkHecDestination
+
+<!-- UsageSnippet language="go" operationID="getOutputById" method="get" path="/system/outputs/{id}" example="OutputResponseExamplesSplunkHecDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSyslogDestination
+
+<!-- UsageSnippet language="go" operationID="getOutputById" method="get" path="/system/outputs/{id}" example="OutputResponseExamplesSyslogDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -3460,6 +4088,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -3476,8 +4105,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -3517,8 +4146,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -3535,7 +4164,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputAzureBlob(
         components.OutputAzureBlob{
             ID: criblcontrolplanesdkgo.Pointer("azure-blob-output"),
-            Type: components.OutputAzureBlobTypeAzureBlob,
+            Type: components.TypeOptionsAzureblobAzureBlob,
             ContainerName: "my-container",
             StagePath: "/tmp/staging",
         },
@@ -3557,8 +4186,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -3607,8 +4236,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -3649,8 +4278,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -3691,8 +4320,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -3733,8 +4362,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -3774,8 +4403,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -3815,8 +4444,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -3856,8 +4485,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -3874,7 +4503,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputConfluentCloud(
         components.OutputConfluentCloud{
             ID: criblcontrolplanesdkgo.Pointer("confluent-cloud-output"),
-            Type: components.OutputConfluentCloudTypeConfluentCloud,
+            Type: components.TypeOptionsConfluentcloudConfluentCloud,
             Brokers: []string{
                 "pkc-xxxxx.us-east-1.aws.confluent.cloud:9092",
             },
@@ -3898,8 +4527,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -3936,8 +4565,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -3974,8 +4603,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4099,8 +4728,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4117,7 +4746,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputCriblTCP(
         components.OutputCriblTCP{
             ID: criblcontrolplanesdkgo.Pointer("cribl-tcp-output"),
-            Type: components.OutputCriblTCPTypeCriblTCP,
+            Type: components.TypeOptionsCribltcpCriblTCP,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](10090.0),
         },
@@ -4139,8 +4768,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4181,8 +4810,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4226,8 +4855,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4265,8 +4894,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4303,8 +4932,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4341,8 +4970,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4382,8 +5011,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4425,8 +5054,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4468,8 +5097,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4507,8 +5136,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4547,8 +5176,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4590,8 +5219,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4629,8 +5258,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4670,8 +5299,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4711,8 +5340,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4753,8 +5382,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4771,7 +5400,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputGooglePubsub(
         components.OutputGooglePubsub{
             ID: criblcontrolplanesdkgo.Pointer("google-pubsub-output"),
-            Type: components.OutputGooglePubsubTypeGooglePubsub,
+            Type: components.TypeOptionsGooglepubsubGooglePubsub,
             TopicName: "my-topic",
         },
     ))
@@ -4792,8 +5421,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4833,8 +5462,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4874,8 +5503,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4913,8 +5542,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4955,8 +5584,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -4995,8 +5624,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5013,7 +5642,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputKafka(
         components.OutputKafka{
             ID: criblcontrolplanesdkgo.Pointer("kafka-output"),
-            Type: components.OutputKafkaTypeKafka,
+            Type: components.TypeOptionsKafka,
             Brokers: []string{
                 "localhost:9092",
             },
@@ -5037,8 +5666,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5055,7 +5684,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputKinesis(
         components.OutputKinesis{
             ID: criblcontrolplanesdkgo.Pointer("kinesis-output"),
-            Type: components.OutputKinesisTypeKinesis,
+            Type: components.TypeOptionsKinesisKinesis,
             StreamName: "my-stream",
             Region: "us-east-1",
         },
@@ -5077,8 +5706,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5118,8 +5747,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5157,8 +5786,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5197,8 +5826,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5238,8 +5867,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5256,7 +5885,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputMsk(
         components.OutputMsk{
             ID: criblcontrolplanesdkgo.Pointer("msk-output"),
-            Type: components.OutputMskTypeMsk,
+            Type: components.TypeOptionsMskMsk,
             Brokers: []string{
                 "b-1.example.xxxxx.c2.kafka.us-east-1.amazonaws.com:9092",
             },
@@ -5282,8 +5911,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5300,7 +5929,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputNetflow(
         components.OutputNetflow{
             ID: criblcontrolplanesdkgo.Pointer("netflow-output"),
-            Type: components.OutputNetflowTypeNetflow,
+            Type: components.TypeOptionsNetflowNetflow,
             Hosts: []components.OutputNetflowHost{
                 components.OutputNetflowHost{
                     Host: "localhost",
@@ -5326,8 +5955,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5365,8 +5994,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5406,8 +6035,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5447,8 +6076,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5486,8 +6115,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5504,7 +6133,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputPrometheus(
         components.OutputPrometheus{
             ID: criblcontrolplanesdkgo.Pointer("prometheus-output"),
-            Type: components.OutputPrometheusTypePrometheus,
+            Type: components.TypeOptionsPrometheusPrometheus,
             URL: "http://localhost:9091/api/v1/write",
         },
     ))
@@ -5525,8 +6154,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5563,8 +6192,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5607,8 +6236,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5625,7 +6254,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputS3(
         components.OutputS3{
             ID: criblcontrolplanesdkgo.Pointer("s3-output"),
-            Type: components.OutputS3TypeS3,
+            Type: components.TypeOptionsS3S3,
             Bucket: "my-bucket",
             Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
             StagePath: "/tmp/staging",
@@ -5648,8 +6277,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5666,7 +6295,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSecurityLake(
         components.OutputSecurityLake{
             ID: criblcontrolplanesdkgo.Pointer("security-lake-output"),
-            Type: components.OutputSecurityLakeTypeSecurityLake,
+            Type: components.TypeOptionsSecuritylakeSecurityLake,
             AssumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
             Bucket: "my-bucket",
             Region: "us-east-1",
@@ -5692,8 +6321,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5735,8 +6364,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5775,8 +6404,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5817,8 +6446,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5857,8 +6486,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5875,7 +6504,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSnmp(
         components.OutputSnmp{
             ID: criblcontrolplanesdkgo.Pointer("snmp-output"),
-            Type: components.OutputSnmpTypeSnmp,
+            Type: components.TypeOptionsSnmpSnmp,
             Hosts: []components.OutputSnmpHost{
                 components.OutputSnmpHost{
                     Host: "192.168.1.1",
@@ -5901,8 +6530,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5942,8 +6571,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -5960,7 +6589,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSplunk(
         components.OutputSplunk{
             ID: criblcontrolplanesdkgo.Pointer("splunk-output"),
-            Type: components.OutputSplunkTypeSplunk,
+            Type: components.TypeOptionsSplunkSplunk,
             Host: "localhost",
             Port: 9997.0,
         },
@@ -5982,8 +6611,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6020,8 +6649,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6064,8 +6693,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6082,7 +6711,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSqs(
         components.OutputSqs{
             ID: criblcontrolplanesdkgo.Pointer("sqs-output"),
-            Type: components.OutputSqsTypeSqs,
+            Type: components.TypeOptionsSqsSqs,
             QueueName: "my-queue",
             QueueType: components.OutputSqsQueueTypeStandard,
             Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
@@ -6105,8 +6734,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6146,8 +6775,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6187,8 +6816,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6228,8 +6857,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6267,8 +6896,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6285,7 +6914,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSyslog(
         components.OutputSyslog{
             ID: criblcontrolplanesdkgo.Pointer("syslog-output"),
-            Type: components.OutputSyslogTypeSyslog,
+            Type: components.TypeOptionsSyslogSyslog,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](514.0),
         },
@@ -6307,8 +6936,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6325,7 +6954,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputTcpjson(
         components.OutputTcpjson{
             ID: criblcontrolplanesdkgo.Pointer("tcpjson-output"),
-            Type: components.OutputTcpjsonTypeTcpjson,
+            Type: components.TypeOptionsTcpjsonTcpjson,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](10090.0),
         },
@@ -6347,8 +6976,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6387,8 +7016,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6428,8 +7057,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6471,8 +7100,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6509,8 +7138,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6550,8 +7179,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6591,8 +7220,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6632,8 +7261,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6673,8 +7302,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6703,6 +7332,164 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputResponseExamplesS3Destination
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputResponseExamplesS3Destination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputGoogleChronicle(
+        components.OutputGoogleChronicle{
+            Type: components.OutputGoogleChronicleTypeGoogleChronicle,
+            LogFormatType: components.OutputGoogleChronicleSendEventsAsUnstructured,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSnowflakeStreamingDestination
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputResponseExamplesSnowflakeStreamingDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputGoogleBigquery(
+        components.OutputGoogleBigquery{
+            Type: components.OutputGoogleBigqueryTypeGoogleBigquery,
+            ProjectID: "<id>",
+            DatasetID: "<id>",
+            TableID: "<id>",
+            GoogleAuthMethod: components.OutputGoogleBigqueryGoogleAuthenticationMethodAuto,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSplunkHecDestination
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputResponseExamplesSplunkHecDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputGoogleCloudObservability(
+        components.OutputGoogleCloudObservability{
+            Type: components.OutputGoogleCloudObservabilityTypeGoogleCloudObservability,
+            GoogleAuthMethod: components.OutputGoogleCloudObservabilityGoogleAuthenticationMethodAuto,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSyslogDestination
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="OutputResponseExamplesSyslogDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputKafka(
+        components.OutputKafka{
+            Type: components.TypeOptionsKafka,
+            Brokers: []string{
+                "<value 1>",
+            },
+            Topic: "<value>",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: UpdateOutputExamplesAlphasocS3
 
 <!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesAlphasocS3" -->
@@ -6712,8 +7499,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6744,6 +7531,47 @@ func main() {
     }
 }
 ```
+### Example Usage: UpdateOutputExamplesAmazonManagedPrometheus
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesAmazonManagedPrometheus" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputAmazonManagedPrometheus(
+        components.OutputAmazonManagedPrometheus{
+            ID: criblcontrolplanesdkgo.Pointer("amazon-managed-prometheus-output"),
+            Type: components.OutputAmazonManagedPrometheusTypeAmazonManagedPrometheus,
+            URL: "https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-example/api/v1/remote_write",
+            AwsAuthenticationMethod: components.AuthenticationMethodOptionsAutoSecretAuto,
+            Region: "us-east-1",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: UpdateOutputExamplesAzureBlob
 
 <!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesAzureBlob" -->
@@ -6753,8 +7581,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6771,7 +7599,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputAzureBlob(
         components.OutputAzureBlob{
             ID: criblcontrolplanesdkgo.Pointer("azure-blob-output"),
-            Type: components.OutputAzureBlobTypeAzureBlob,
+            Type: components.TypeOptionsAzureblobAzureBlob,
             ContainerName: "my-container",
             StagePath: "/tmp/staging",
         },
@@ -6793,8 +7621,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6843,8 +7671,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6885,8 +7713,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6927,8 +7755,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -6969,8 +7797,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7010,8 +7838,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7051,8 +7879,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7092,8 +7920,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7110,7 +7938,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputConfluentCloud(
         components.OutputConfluentCloud{
             ID: criblcontrolplanesdkgo.Pointer("confluent-cloud-output"),
-            Type: components.OutputConfluentCloudTypeConfluentCloud,
+            Type: components.TypeOptionsConfluentcloudConfluentCloud,
             Brokers: []string{
                 "pkc-xxxxx.us-east-1.aws.confluent.cloud:9092",
             },
@@ -7134,8 +7962,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7172,8 +8000,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7210,8 +8038,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7335,8 +8163,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7353,7 +8181,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputCriblTCP(
         components.OutputCriblTCP{
             ID: criblcontrolplanesdkgo.Pointer("cribl-tcp-output"),
-            Type: components.OutputCriblTCPTypeCriblTCP,
+            Type: components.TypeOptionsCribltcpCriblTCP,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](10090.0),
         },
@@ -7375,8 +8203,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7408,6 +8236,47 @@ func main() {
     }
 }
 ```
+### Example Usage: UpdateOutputExamplesCustomerMetricsStorage
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesCustomerMetricsStorage" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputCustomerMetricsStorage(
+        components.OutputCustomerMetricsStorage{
+            ID: criblcontrolplanesdkgo.Pointer("customer-metrics-storage-output"),
+            Type: components.OutputCustomerMetricsStorageTypeCustomerMetricsStorage,
+            URL: "http://localhost:8123/",
+            Database: "default",
+            TableName: "mytable",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: UpdateOutputExamplesDatabricks
 
 <!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesDatabricks" -->
@@ -7417,8 +8286,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7462,8 +8331,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7501,8 +8370,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7539,8 +8408,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7578,8 +8447,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7616,8 +8485,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7657,8 +8526,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7700,8 +8569,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7743,8 +8612,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7782,8 +8651,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7822,8 +8691,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7865,8 +8734,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7895,6 +8764,48 @@ func main() {
     }
 }
 ```
+### Example Usage: UpdateOutputExamplesGoogleBigQuery
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesGoogleBigQuery" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputGoogleBigquery(
+        components.OutputGoogleBigquery{
+            ID: criblcontrolplanesdkgo.Pointer("google-bigquery-output"),
+            Type: components.OutputGoogleBigqueryTypeGoogleBigquery,
+            ProjectID: "my-project",
+            DatasetID: "my-dataset",
+            TableID: "my-table",
+            GoogleAuthMethod: components.OutputGoogleBigqueryGoogleAuthenticationMethodAuto,
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: UpdateOutputExamplesGoogleChronicle
 
 <!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesGoogleChronicle" -->
@@ -7904,8 +8815,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7945,8 +8856,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -7986,8 +8897,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8025,8 +8936,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8067,8 +8978,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8085,7 +8996,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputGooglePubsub(
         components.OutputGooglePubsub{
             ID: criblcontrolplanesdkgo.Pointer("google-pubsub-output"),
-            Type: components.OutputGooglePubsubTypeGooglePubsub,
+            Type: components.TypeOptionsGooglepubsubGooglePubsub,
             TopicName: "my-topic",
         },
     ))
@@ -8106,8 +9017,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8147,8 +9058,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8188,8 +9099,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8227,8 +9138,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8269,8 +9180,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8309,8 +9220,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8327,7 +9238,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputKafka(
         components.OutputKafka{
             ID: criblcontrolplanesdkgo.Pointer("kafka-output"),
-            Type: components.OutputKafkaTypeKafka,
+            Type: components.TypeOptionsKafka,
             Brokers: []string{
                 "localhost:9092",
             },
@@ -8351,8 +9262,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8369,7 +9280,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputKinesis(
         components.OutputKinesis{
             ID: criblcontrolplanesdkgo.Pointer("kinesis-output"),
-            Type: components.OutputKinesisTypeKinesis,
+            Type: components.TypeOptionsKinesisKinesis,
             StreamName: "my-stream",
             Region: "us-east-1",
         },
@@ -8391,8 +9302,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8432,8 +9343,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8471,8 +9382,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8511,8 +9422,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8552,8 +9463,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8570,7 +9481,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputMsk(
         components.OutputMsk{
             ID: criblcontrolplanesdkgo.Pointer("msk-output"),
-            Type: components.OutputMskTypeMsk,
+            Type: components.TypeOptionsMskMsk,
             Brokers: []string{
                 "b-1.example.xxxxx.c2.kafka.us-east-1.amazonaws.com:9092",
             },
@@ -8596,8 +9507,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8614,7 +9525,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputNetflow(
         components.OutputNetflow{
             ID: criblcontrolplanesdkgo.Pointer("netflow-output"),
-            Type: components.OutputNetflowTypeNetflow,
+            Type: components.TypeOptionsNetflowNetflow,
             Hosts: []components.OutputNetflowHost{
                 components.OutputNetflowHost{
                     Host: "localhost",
@@ -8640,8 +9551,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8679,8 +9590,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8720,8 +9631,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8761,8 +9672,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8800,8 +9711,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8818,7 +9729,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputPrometheus(
         components.OutputPrometheus{
             ID: criblcontrolplanesdkgo.Pointer("prometheus-output"),
-            Type: components.OutputPrometheusTypePrometheus,
+            Type: components.TypeOptionsPrometheusPrometheus,
             URL: "http://localhost:9091/api/v1/write",
         },
     ))
@@ -8839,8 +9750,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8877,8 +9788,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8921,8 +9832,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8939,7 +9850,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputS3(
         components.OutputS3{
             ID: criblcontrolplanesdkgo.Pointer("s3-output"),
-            Type: components.OutputS3TypeS3,
+            Type: components.TypeOptionsS3S3,
             Bucket: "my-bucket",
             Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
             StagePath: "/tmp/staging",
@@ -8962,8 +9873,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -8980,7 +9891,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSecurityLake(
         components.OutputSecurityLake{
             ID: criblcontrolplanesdkgo.Pointer("security-lake-output"),
-            Type: components.OutputSecurityLakeTypeSecurityLake,
+            Type: components.TypeOptionsSecuritylakeSecurityLake,
             AssumeRoleArn: "arn:aws:iam::123456789012:role/my-role",
             Bucket: "my-bucket",
             Region: "us-east-1",
@@ -9006,8 +9917,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9049,8 +9960,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9089,8 +10000,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9131,8 +10042,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9171,8 +10082,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9189,13 +10100,59 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSnmp(
         components.OutputSnmp{
             ID: criblcontrolplanesdkgo.Pointer("snmp-output"),
-            Type: components.OutputSnmpTypeSnmp,
+            Type: components.TypeOptionsSnmpSnmp,
             Hosts: []components.OutputSnmpHost{
                 components.OutputSnmpHost{
                     Host: "192.168.1.1",
                     Port: 161.0,
                 },
             },
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: UpdateOutputExamplesSnowflakeStreaming
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesSnowflakeStreaming" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSnowflakeStreaming(
+        components.OutputSnowflakeStreaming{
+            ID: criblcontrolplanesdkgo.Pointer("snowflake-streaming-output"),
+            Type: components.OutputSnowflakeStreamingTypeSnowflakeStreaming,
+            AccountIdentifier: "MYORG-MYACCOUNT",
+            User: "STREAMING_USER",
+            Pem: components.OutputSnowflakeStreamingPrivateKey{
+                KeyName: "my-snowflake-private-key",
+            },
+            Database: "EVENTS_DB",
+            Schema: "PUBLIC",
+            Table: "RAW_EVENTS",
         },
     ))
     if err != nil {
@@ -9215,8 +10172,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9256,8 +10213,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9274,7 +10231,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSplunk(
         components.OutputSplunk{
             ID: criblcontrolplanesdkgo.Pointer("splunk-output"),
-            Type: components.OutputSplunkTypeSplunk,
+            Type: components.TypeOptionsSplunkSplunk,
             Host: "localhost",
             Port: 9997.0,
         },
@@ -9296,8 +10253,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9334,8 +10291,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9378,8 +10335,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9396,7 +10353,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSqs(
         components.OutputSqs{
             ID: criblcontrolplanesdkgo.Pointer("sqs-output"),
-            Type: components.OutputSqsTypeSqs,
+            Type: components.TypeOptionsSqsSqs,
             QueueName: "my-queue",
             QueueType: components.OutputSqsQueueTypeStandard,
             Region: criblcontrolplanesdkgo.Pointer("us-east-1"),
@@ -9419,8 +10376,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9460,8 +10417,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9501,8 +10458,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9542,8 +10499,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9581,8 +10538,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9599,7 +10556,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputSyslog(
         components.OutputSyslog{
             ID: criblcontrolplanesdkgo.Pointer("syslog-output"),
-            Type: components.OutputSyslogTypeSyslog,
+            Type: components.TypeOptionsSyslogSyslog,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](514.0),
         },
@@ -9621,8 +10578,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9639,7 +10596,7 @@ func main() {
     res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputTcpjson(
         components.OutputTcpjson{
             ID: criblcontrolplanesdkgo.Pointer("tcpjson-output"),
-            Type: components.OutputTcpjsonTypeTcpjson,
+            Type: components.TypeOptionsTcpjsonTcpjson,
             Host: criblcontrolplanesdkgo.Pointer("localhost"),
             Port: criblcontrolplanesdkgo.Pointer[float64](10090.0),
         },
@@ -9661,8 +10618,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9701,8 +10658,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9742,8 +10699,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9785,8 +10742,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9823,8 +10780,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9864,8 +10821,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9905,8 +10862,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9937,6 +10894,47 @@ func main() {
     }
 }
 ```
+### Example Usage: UpdateOutputExamplesibmCloudS3
+
+<!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesibmCloudS3" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Update(ctx, "<id>", components.CreateOutputIbmCloudS3(
+        components.OutputIbmCloudS3{
+            ID: criblcontrolplanesdkgo.Pointer("ibm-cloud-s3-output"),
+            Type: components.OutputIbmCloudS3TypeIbmCloudS3,
+            Endpoint: "https://s3.us-south.cloud-object-storage.appdomain.cloud",
+            Bucket: "my-bucket",
+            StagePath: "/tmp/staging",
+        },
+    ))
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
 ### Example Usage: UpdateOutputExamplesscalityS3
 
 <!-- UsageSnippet language="go" operationID="updateOutputById" method="patch" path="/system/outputs/{id}" example="UpdateOutputExamplesscalityS3" -->
@@ -9946,8 +10944,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -9996,6 +10994,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -10003,17 +11002,116 @@ func main() {
 
 Delete the specified Destination.
 
-### Example Usage
+### Example Usage: OutputResponseExamplesS3Destination
 
-<!-- UsageSnippet language="go" operationID="deleteOutputById" method="delete" path="/system/outputs/{id}" -->
+<!-- UsageSnippet language="go" operationID="deleteOutputById" method="delete" path="/system/outputs/{id}" example="OutputResponseExamplesS3Destination" -->
 ```go
 package main
 
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Delete(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSnowflakeStreamingDestination
+
+<!-- UsageSnippet language="go" operationID="deleteOutputById" method="delete" path="/system/outputs/{id}" example="OutputResponseExamplesSnowflakeStreamingDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Delete(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSplunkHecDestination
+
+<!-- UsageSnippet language="go" operationID="deleteOutputById" method="delete" path="/system/outputs/{id}" example="OutputResponseExamplesSplunkHecDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Destinations.Delete(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputResponseExamplesSyslogDestination
+
+<!-- UsageSnippet language="go" operationID="deleteOutputById" method="delete" path="/system/outputs/{id}" example="OutputResponseExamplesSyslogDestination" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -10053,5 +11151,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

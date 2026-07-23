@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputEventhubType - Connector type identifier.
 type InputEventhubType string
 
 const (
@@ -33,9 +34,11 @@ func (e *InputEventhubType) UnmarshalJSON(data []byte) error {
 
 type InputEventhubInput struct {
 	// Unique ID for this input
-	ID       *string           `json:"id,omitzero"`
-	Type     InputEventhubType `json:"type"`
-	Disabled *bool             `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type InputEventhubType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -44,7 +47,7 @@ type InputEventhubInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -74,8 +77,9 @@ type InputEventhubInput struct {
 	// Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
 	ReauthenticationThreshold *float64 `json:"reauthenticationThreshold,omitzero"`
 	// Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
-	Sasl *AuthenticationTypeUse     `json:"sasl,omitzero"`
-	TLS  *TLSSettingsClientSideType `json:"tls,omitzero"`
+	Sasl *AuthenticationTypeUse `json:"sasl,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideType `json:"tls,omitzero"`
 	// Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities. If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance. Value must be lower than rebalanceTimeout. See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
 	SessionTimeout *float64 `json:"sessionTimeout,omitzero"`
 	// Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins. If the timeout is exceeded, the coordinator broker will remove the worker from the group. See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
@@ -95,8 +99,9 @@ type InputEventhubInput struct {
 	// Minimize duplicate events by starting only one consumer for each topic partition
 	MinimizeDuplicates *bool `json:"minimizeDuplicates,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

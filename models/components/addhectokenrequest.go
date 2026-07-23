@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type AddHecTokenRequest struct {
@@ -14,7 +14,7 @@ type AddHecTokenRequest struct {
 	// If <code>true</code>, the HEC token is enabled. Otherwise, <code>false</code>.
 	Enabled *bool `json:"enabled,omitzero"`
 	// Array of key-value pairs to associate with the HEC token for tagging, categorization, or providing additional context. Each item in the array is an object with a <code>name</code> and a <code>value</code>.
-	Metadata []EventBreakerRuleFields `json:"metadata,omitzero"`
+	Metadata []MetadataConfAddHecTokenRequest `json:"metadata,omitzero"`
 	// The HEC token value to add to the Splunk HEC Source.
 	Token string `json:"token"`
 }
@@ -51,7 +51,7 @@ func (a *AddHecTokenRequest) GetEnabled() *bool {
 	return a.Enabled
 }
 
-func (a *AddHecTokenRequest) GetMetadata() []EventBreakerRuleFields {
+func (a *AddHecTokenRequest) GetMetadata() []MetadataConfAddHecTokenRequest {
 	if a == nil {
 		return nil
 	}

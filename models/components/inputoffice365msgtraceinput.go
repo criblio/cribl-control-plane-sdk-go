@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputOffice365MsgTraceType - Connector type identifier.
 type InputOffice365MsgTraceType string
 
 const (
@@ -59,9 +60,11 @@ func (e *InputOffice365MsgTraceAuthenticationMethod) IsExact() bool {
 
 type InputOffice365MsgTraceInput struct {
 	// Unique ID for this input
-	ID       *string                    `json:"id,omitzero"`
-	Type     InputOffice365MsgTraceType `json:"type"`
-	Disabled *bool                      `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type InputOffice365MsgTraceType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -70,7 +73,7 @@ type InputOffice365MsgTraceInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -106,9 +109,10 @@ type InputOffice365MsgTraceInput struct {
 	// Maximum number of times a task can be rescheduled
 	MaxTaskReschedule *float64 `json:"maxTaskReschedule,omitzero"`
 	// Log Level (verbosity) for collection runtime behavior.
-	LogLevel    *LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
-	RetryRules  *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
-	Description *string                          `json:"description,omitzero"`
+	LogLevel   *LogLevelOptionsDebugError       `json:"logLevel,omitzero"`
+	RetryRules *RetryRulesTypeCodesEnableHeader `json:"retryRules,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Username to run Message Trace API call.
 	Username *string `json:"username,omitzero"`
 	// Password to run Message Trace API call.

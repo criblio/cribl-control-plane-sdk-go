@@ -6,7 +6,7 @@ Data to log when a request fails. All headers are redacted by default, unless li
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 value := components.FailedRequestLoggingModeOptionsPayload

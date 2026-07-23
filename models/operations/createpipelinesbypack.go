@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type CreatePipelinesByPackRequest struct {
@@ -30,7 +30,7 @@ func (c *CreatePipelinesByPackRequest) GetPipeline() components.PipelineInput {
 
 type CreatePipelinesByPackResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Pipelines objects
+	// The created Pipeline object in a single-item list.
 	CountedPipeline *components.CountedPipeline
 }
 

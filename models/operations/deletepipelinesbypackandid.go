@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type DeletePipelinesByPackAndIDRequest struct {
@@ -30,7 +30,7 @@ func (d *DeletePipelinesByPackAndIDRequest) GetPack() string {
 
 type DeletePipelinesByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// a list of Pipeline objects
+	// The deleted Pipeline object in a single-item list.
 	CountedPipeline *components.CountedPipeline
 }
 

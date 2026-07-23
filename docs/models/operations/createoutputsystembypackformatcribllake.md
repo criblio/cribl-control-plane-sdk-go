@@ -4,7 +4,7 @@
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 )
 
 value := operations.CreateOutputSystemByPackFormatCriblLakeJSON
@@ -16,9 +16,8 @@ custom := operations.CreateOutputSystemByPackFormatCriblLake("custom_value")
 
 ## Values
 
-| Name                                              | Value                                             |
-| ------------------------------------------------- | ------------------------------------------------- |
-| `CreateOutputSystemByPackFormatCriblLakeJSON`     | json                                              |
-| `CreateOutputSystemByPackFormatCriblLakeParquet`  | parquet                                           |
-| `CreateOutputSystemByPackFormatCriblLakeDdss`     | ddss                                              |
-| `CreateOutputSystemByPackFormatCriblLakeNetskope` | netskope                                          |
+| Name                                             | Value                                            |
+| ------------------------------------------------ | ------------------------------------------------ |
+| `CreateOutputSystemByPackFormatCriblLakeJSON`    | json                                             |
+| `CreateOutputSystemByPackFormatCriblLakeParquet` | parquet                                          |
+| `CreateOutputSystemByPackFormatCriblLakeRaw`     | raw                                              |

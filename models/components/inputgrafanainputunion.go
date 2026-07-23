@@ -6,9 +6,10 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputGrafanaType2 - Source type identifier.
 type InputGrafanaType2 string
 
 const (
@@ -35,8 +36,10 @@ func (e *InputGrafanaType2) UnmarshalJSON(data []byte) error {
 type PrometheusAuth2 struct {
 	// Remote Write authentication type
 	AuthType *AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
-	Username *string                                  `json:"username,omitzero"`
-	Password *string                                  `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -104,8 +107,10 @@ func (p *PrometheusAuth2) GetTextSecret() *string {
 type LokiAuth2 struct {
 	// Loki logs authentication type
 	AuthType *AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
-	Username *string                            `json:"username,omitzero"`
-	Password *string                            `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -172,9 +177,11 @@ func (l *LokiAuth2) GetTextSecret() *string {
 
 type InputGrafanaGrafanaInput2 struct {
 	// Unique ID for this input
-	ID       *string           `json:"id,omitzero"`
-	Type     InputGrafanaType2 `json:"type"`
-	Disabled *bool             `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputGrafanaType2 `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -183,7 +190,7 @@ type InputGrafanaGrafanaInput2 struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -191,8 +198,9 @@ type InputGrafanaGrafanaInput2 struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -222,8 +230,9 @@ type InputGrafanaGrafanaInput2 struct {
 	PrometheusAuth *PrometheusAuth2 `json:"prometheusAuth,omitzero"`
 	LokiAuth       *LokiAuth2       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -504,6 +513,7 @@ func (i *InputGrafanaGrafanaInput2) GetTemplateLokiAPI() *string {
 // #region class-body-inputgrafanagrafanainput2
 // #endregion class-body-inputgrafanagrafanainput2
 
+// InputGrafanaType1 - Source type identifier.
 type InputGrafanaType1 string
 
 const (
@@ -530,8 +540,10 @@ func (e *InputGrafanaType1) UnmarshalJSON(data []byte) error {
 type PrometheusAuth1 struct {
 	// Remote Write authentication type
 	AuthType *AuthenticationTypeOptionsPrometheusAuth `json:"authType,omitzero"`
-	Username *string                                  `json:"username,omitzero"`
-	Password *string                                  `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -599,8 +611,10 @@ func (p *PrometheusAuth1) GetTextSecret() *string {
 type LokiAuth1 struct {
 	// Loki logs authentication type
 	AuthType *AuthenticationTypeOptionsLokiAuth `json:"authType,omitzero"`
-	Username *string                            `json:"username,omitzero"`
-	Password *string                            `json:"password,omitzero"`
+	// Username
+	Username *string `json:"username,omitzero"`
+	// Password
+	Password *string `json:"password,omitzero"`
 	// Bearer token to include in the authorization header
 	Token *string `json:"token,omitzero"`
 	// Select or create a secret that references your credentials
@@ -667,9 +681,11 @@ func (l *LokiAuth1) GetTextSecret() *string {
 
 type InputGrafanaGrafanaInput1 struct {
 	// Unique ID for this input
-	ID       *string           `json:"id,omitzero"`
-	Type     InputGrafanaType1 `json:"type"`
-	Disabled *bool             `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputGrafanaType1 `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -678,7 +694,7 @@ type InputGrafanaGrafanaInput1 struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -686,8 +702,9 @@ type InputGrafanaGrafanaInput1 struct {
 	// Address to bind on. Defaults to 0.0.0.0 (all addresses).
 	Host string `json:"host"`
 	// Port to listen on
-	Port float64                    `json:"port"`
-	TLS  *TLSSettingsServerSideType `json:"tls,omitzero"`
+	Port float64 `json:"port"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -717,8 +734,9 @@ type InputGrafanaGrafanaInput1 struct {
 	PrometheusAuth *PrometheusAuth1 `json:"prometheusAuth,omitzero"`
 	LokiAuth       *LokiAuth1       `json:"lokiAuth,omitzero"`
 	// Fields to add to events from this input
-	Metadata    []MetadataConfInputCollection `json:"metadata,omitzero"`
-	Description *string                       `json:"description,omitzero"`
+	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

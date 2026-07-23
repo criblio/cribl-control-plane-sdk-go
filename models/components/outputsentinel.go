@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// OutputSentinelType - Connector type identifier.
 type OutputSentinelType string
 
 const (
@@ -31,6 +32,7 @@ func (e *OutputSentinelType) UnmarshalJSON(data []byte) error {
 	}
 }
 
+// OutputSentinelAuthType - Discriminator value.
 type OutputSentinelAuthType string
 
 const (
@@ -101,6 +103,7 @@ func (e *OutputSentinelFormat) IsExact() bool {
 	return false
 }
 
+// OutputSentinelPqControls - Persistent queue controls.
 type OutputSentinelPqControls struct {
 }
 
@@ -117,7 +120,8 @@ func (o *OutputSentinelPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputSentinel struct {
 	// Unique ID for this output
-	ID   *string            `json:"id,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
 	Type OutputSentinelType `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
@@ -125,7 +129,7 @@ type OutputSentinel struct {
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Disable to close the connection immediately after sending the outgoing request
 	KeepAlive *bool `json:"keepAlive,omitzero"`
@@ -160,11 +164,20 @@ type OutputSentinel struct {
 	ResponseHonorRetryAfterHeader *bool `json:"responseHonorRetryAfterHeader,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	AuthType       *OutputSentinelAuthType      `json:"authType,omitzero"`
+	// Discriminator value.
+	AuthType *OutputSentinelAuthType `json:"authType,omitzero"`
 	// URL for OAuth
 	LoginURL string `json:"loginUrl"`
 	// Secret parameter value to pass in request body
 	Secret string `json:"secret"`
+	// Field name in the token response that contains a refresh token (example: 'refresh_token'). When set, @{product} will use the refresh token to obtain new access tokens without re-sending credentials.
+	RefreshTokenField *string `json:"refreshTokenField,omitzero"`
+	// @{product} will update the stored value on each successful refresh. Enable if the server issues a new refresh token on every use.
+	RotateRefreshToken *bool `json:"rotateRefreshToken,omitzero"`
+	// Override the refresh endpoint URL if it differs from the Login URL. Defaults to Login URL.
+	RefreshURL *string `json:"refreshUrl,omitzero"`
+	// Parameters to include in the refresh token request body. Most servers require 'client_id' here. If not set, @{product} sends only grant_type, refresh_token, and client_secret.
+	RefreshRequestParams []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret `json:"refreshRequestParams,omitzero"`
 	// JavaScript expression to compute the Client ID for the Azure application. Can be a constant.
 	ClientID string `json:"client_id"`
 	// Scope to pass in the OAuth request
@@ -172,9 +185,10 @@ type OutputSentinel struct {
 	// Enter the data collection endpoint URL or the individual ID
 	EndpointURLConfiguration OutputSentinelEndpointConfiguration `json:"endpointURLConfiguration"`
 	// Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
-	TotalMemoryLimitKB *float64              `json:"totalMemoryLimitKB,omitzero"`
-	Description        *string               `json:"description,omitzero"`
-	Format             *OutputSentinelFormat `json:"format,omitzero"`
+	TotalMemoryLimitKB *float64 `json:"totalMemoryLimitKB,omitzero"`
+	// Optional description for this configuration.
+	Description *string               `json:"description,omitzero"`
+	Format      *OutputSentinelFormat `json:"format,omitzero"`
 	// Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.
 	CustomSourceExpression *string `json:"customSourceExpression,omitzero"`
 	// Whether to drop events when the source expression evaluates to null
@@ -212,8 +226,9 @@ type OutputSentinel struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                   `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputSentinelPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputSentinelPqControls `json:"pqControls,omitzero"`
 	// URL to send events to. Can be overwritten by an event's __url field.
 	URL *string `json:"url,omitzero"`
 	// Immutable ID for the Data Collection Rule (DCR)
@@ -232,6 +247,8 @@ type OutputSentinel struct {
 	TemplateLoginURL *string `json:"__template_loginUrl,omitzero"`
 	// Binds 'secret' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'secret' at runtime.
 	TemplateSecret *string `json:"__template_secret,omitzero"`
+	// Binds 'refreshUrl' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'refreshUrl' at runtime.
+	TemplateRefreshURL *string `json:"__template_refreshUrl,omitzero"`
 	// Binds 'client_id' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'client_id' at runtime.
 	TemplateClientID *string `json:"__template_client_id,omitzero"`
 	// Binds 'scope' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'scope' at runtime.
@@ -430,6 +447,34 @@ func (o *OutputSentinel) GetSecret() string {
 		return ""
 	}
 	return o.Secret
+}
+
+func (o *OutputSentinel) GetRefreshTokenField() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshTokenField
+}
+
+func (o *OutputSentinel) GetRotateRefreshToken() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.RotateRefreshToken
+}
+
+func (o *OutputSentinel) GetRefreshURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshURL
+}
+
+func (o *OutputSentinel) GetRefreshRequestParams() []RefreshRequestParamConfHealthCheckAuthenticationOauthSecret {
+	if o == nil {
+		return nil
+	}
+	return o.RefreshRequestParams
 }
 
 func (o *OutputSentinel) GetClientID() string {
@@ -675,6 +720,13 @@ func (o *OutputSentinel) GetTemplateSecret() *string {
 		return nil
 	}
 	return o.TemplateSecret
+}
+
+func (o *OutputSentinel) GetTemplateRefreshURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.TemplateRefreshURL
 }
 
 func (o *OutputSentinel) GetTemplateClientID() *string {

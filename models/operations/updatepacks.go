@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type UpdatePacksRequest struct {
@@ -30,7 +30,7 @@ func (u *UpdatePacksRequest) GetRequestBody() any {
 
 type UpdatePacksResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// Pack file uploaded successfully
+	// Pack file uploaded successfully.
 	UploadPackResponse *components.UploadPackResponse
 }
 

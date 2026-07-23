@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputMetricsType - Connector type identifier.
 type InputMetricsType string
 
 const (
@@ -33,9 +34,11 @@ func (e *InputMetricsType) UnmarshalJSON(data []byte) error {
 
 type InputMetricsInput struct {
 	// Unique ID for this input
-	ID       *string          `json:"id,omitzero"`
-	Type     InputMetricsType `json:"type"`
-	Disabled *bool            `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type InputMetricsType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -44,7 +47,7 @@ type InputMetricsInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -60,13 +63,15 @@ type InputMetricsInput struct {
 	// Regex matching IP addresses that are allowed to send data
 	IPWhitelistRegex *string `json:"ipWhitelistRegex,omitzero"`
 	// Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
-	EnableProxyHeader *bool                      `json:"enableProxyHeader,omitzero"`
-	TLS               *TLSSettingsServerSideType `json:"tls,omitzero"`
+	EnableProxyHeader *bool `json:"enableProxyHeader,omitzero"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
 	UDPSocketRxBufSize *float64 `json:"udpSocketRxBufSize,omitzero"`
-	Description        *string  `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.

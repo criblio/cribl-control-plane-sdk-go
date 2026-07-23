@@ -3,12 +3,13 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type AuthTokensExtConfInputHTTP struct {
 	// Shared secret to be provided by any client (Authorization: <token>)
-	Token       string  `json:"token"`
+	Token string `json:"token"`
+	// Description
 	Description *string `json:"description,omitzero"`
 	// Fields to add to events referencing this token
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`

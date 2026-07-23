@@ -13,15 +13,15 @@ Get sample event data for the specified Destination to validate the configuratio
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getOutputSystemSamplesByPackAndId" method="get" path="/p/{pack}/system/outputs/{id}/samples" -->
+<!-- UsageSnippet language="go" operationID="getOutputSystemSamplesByPackAndId" method="get" path="/p/{pack}/system/outputs/{id}/samples" example="OutputSamplesResponseExamplesSampleEvents" -->
 ```go
 package main
 
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -62,6 +62,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -78,8 +79,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -124,8 +125,8 @@ package main
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -156,6 +157,76 @@ func main() {
     }
 }
 ```
+### Example Usage: OutputTestResponseExamplesFailedTest
+
+<!-- UsageSnippet language="go" operationID="createOutputSystemTestByPackAndId" method="post" path="/p/{pack}/system/outputs/{id}/test" example="OutputTestResponseExamplesFailedTest" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Samples.Create(ctx, "<id>", "<value>", components.OutputTestRequest{
+        Events: []map[string]any{},
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputTestResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: OutputTestResponseExamplesSuccessfulTest
+
+<!-- UsageSnippet language="go" operationID="createOutputSystemTestByPackAndId" method="post" path="/p/{pack}/system/outputs/{id}/test" example="OutputTestResponseExamplesSuccessfulTest" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Packs.Destinations.Samples.Create(ctx, "<id>", "<value>", components.OutputTestRequest{
+        Events: []map[string]any{},
+    })
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedOutputTestResponse != nil {
+        // handle response
+    }
+}
+```
 
 ### Parameters
 
@@ -175,5 +246,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

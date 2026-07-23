@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 type GetOutputSystemSamplesByPackAndIDRequest struct {
@@ -30,7 +30,7 @@ func (g *GetOutputSystemSamplesByPackAndIDRequest) GetPack() string {
 
 type GetOutputSystemSamplesByPackAndIDResponse struct {
 	HTTPMeta components.HTTPMetadata `json:"-"`
-	// Sample event data for the Destination
+	// Sample event data for the Destination.
 	CountedOutputSamplesResponse *components.CountedOutputSamplesResponse
 }
 

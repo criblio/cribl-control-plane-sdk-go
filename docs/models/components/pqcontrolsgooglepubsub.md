@@ -1,5 +1,7 @@
 # PqControlsGooglePubsub
 
+Persistent queue controls.
+
 
 ## Fields
 

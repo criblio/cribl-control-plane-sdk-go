@@ -2,6 +2,7 @@
 
 package components
 
+// OtlpVersionOptions - OTLP version
 type OtlpVersionOptions string
 
 const (

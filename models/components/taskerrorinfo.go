@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 // TaskErrorInfo - Serialized error object that describes why a job entered its current <code>state</code>. Includes <code>message</code> and may include a nested <code>reason</code> for wrapped errors.

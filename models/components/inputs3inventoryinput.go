@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputS3InventoryType - Connector type identifier.
 type InputS3InventoryType string
 
 const (
@@ -33,9 +34,11 @@ func (e *InputS3InventoryType) UnmarshalJSON(data []byte) error {
 
 type InputS3InventoryInput struct {
 	// Unique ID for this input
-	ID       *string              `json:"id,omitzero"`
-	Type     InputS3InventoryType `json:"type"`
-	Disabled *bool                `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type InputS3InventoryType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -44,7 +47,7 @@ type InputS3InventoryInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -57,7 +60,8 @@ type InputS3InventoryInput struct {
 	AwsAccountID *string `json:"awsAccountId,omitzero"`
 	// AWS authentication method. Choose Auto to use IAM roles.
 	AwsAuthenticationMethod *AuthenticationMethodOptionsS3CollectorConf `json:"awsAuthenticationMethod,omitzero"`
-	AwsSecretKey            *string                                     `json:"awsSecretKey,omitzero"`
+	// Secret key
+	AwsSecretKey *string `json:"awsSecretKey,omitzero"`
 	// AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
 	Region *string `json:"region,omitzero"`
 	// S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
@@ -91,7 +95,11 @@ type InputS3InventoryInput struct {
 	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
 	DurationSeconds *float64 `json:"durationSeconds,omitzero"`
 	// Use Assume Role credentials when accessing Amazon SQS
-	EnableSQSAssumeRole *bool           `json:"enableSQSAssumeRole,omitzero"`
+	EnableSQSAssumeRole *bool `json:"enableSQSAssumeRole,omitzero"`
+	// Use the same credential settings for S3 and SQS
+	SharedCredentials *bool `json:"sharedCredentials,omitzero"`
+	// Use the same settings for S3 and SQS
+	SharedAssumeRoleArn *bool           `json:"sharedAssumeRoleArn,omitzero"`
 	Preprocess          *PreprocessType `json:"preprocess,omitzero"`
 	// Fields to add to events from this input
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
@@ -107,11 +115,25 @@ type InputS3InventoryInput struct {
 	// Maximum download size (KB) of each manifest or checksum file. Manifest files larger than this size will not be read.        Defaults to 4096.
 	MaxManifestSizeKB *int64 `json:"maxManifestSizeKB,omitzero"`
 	// If set to Yes, each inventory file in the manifest will be validated against its checksum. Defaults to false
-	ValidateInventoryFiles *bool   `json:"validateInventoryFiles,omitzero"`
-	Description            *string `json:"description,omitzero"`
-	AwsAPIKey              *string `json:"awsApiKey,omitzero"`
+	ValidateInventoryFiles *bool `json:"validateInventoryFiles,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
+	// Access key
+	AwsAPIKey *string `json:"awsApiKey,omitzero"`
 	// Select or create a stored secret that references your access key and secret key
-	AwsSecret          *string                    `json:"awsSecret,omitzero"`
+	AwsSecret *string `json:"awsSecret,omitzero"`
+	// Amazon Resource Name (ARN) of the role to assume
+	SQSAssumeRoleArn *string `json:"SQSAssumeRoleArn,omitzero"`
+	// External ID to use when assuming role
+	SQSAssumeRoleExternalID *string `json:"SQSAssumeRoleExternalId,omitzero"`
+	// Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+	SQSDurationSeconds *float64 `json:"SQSDurationSeconds,omitzero"`
+	// Choose Auto to use IAM roles
+	SQSAwsAuthenticationMethod *SqsAuthenticationMethodOptions `json:"SQSAwsAuthenticationMethod,omitzero"`
+	// Select or create a stored secret that references your access key and secret key
+	SQSAwsSecret *string `json:"SQSAwsSecret,omitzero"`
+	// SQS secret key
+	SQSAwsSecretKey    *string                    `json:"SQSAwsSecretKey,omitzero"`
 	TagAfterProcessing *TagAfterProcessingOptions `json:"tagAfterProcessing,omitzero"`
 	// The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
 	ProcessedTagKey *string `json:"processedTagKey,omitzero"`
@@ -137,6 +159,12 @@ type InputS3InventoryInput struct {
 	TemplateAssumeRoleExternalID *string `json:"__template_assumeRoleExternalId,omitzero"`
 	// Binds 'awsApiKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'awsApiKey' at runtime.
 	TemplateAwsAPIKey *string `json:"__template_awsApiKey,omitzero"`
+	// Binds 'SQSAssumeRoleArn' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'SQSAssumeRoleArn' at runtime.
+	TemplateSQSAssumeRoleArn *string `json:"__template_SQSAssumeRoleArn,omitzero"`
+	// Binds 'SQSAssumeRoleExternalId' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'SQSAssumeRoleExternalId' at runtime.
+	TemplateSQSAssumeRoleExternalID *string `json:"__template_SQSAssumeRoleExternalId,omitzero"`
+	// Binds 'SQSAwsSecretKey' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'SQSAwsSecretKey' at runtime.
+	TemplateSQSAwsSecretKey *string `json:"__template_SQSAwsSecretKey,omitzero"`
 }
 
 func (i InputS3InventoryInput) MarshalJSON() ([]byte, error) {
@@ -374,6 +402,20 @@ func (i *InputS3InventoryInput) GetEnableSQSAssumeRole() *bool {
 	return i.EnableSQSAssumeRole
 }
 
+func (i *InputS3InventoryInput) GetSharedCredentials() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SharedCredentials
+}
+
+func (i *InputS3InventoryInput) GetSharedAssumeRoleArn() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.SharedAssumeRoleArn
+}
+
 func (i *InputS3InventoryInput) GetPreprocess() *PreprocessType {
 	if i == nil {
 		return nil
@@ -456,6 +498,48 @@ func (i *InputS3InventoryInput) GetAwsSecret() *string {
 		return nil
 	}
 	return i.AwsSecret
+}
+
+func (i *InputS3InventoryInput) GetSQSAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SQSAssumeRoleArn
+}
+
+func (i *InputS3InventoryInput) GetSQSAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SQSAssumeRoleExternalID
+}
+
+func (i *InputS3InventoryInput) GetSQSDurationSeconds() *float64 {
+	if i == nil {
+		return nil
+	}
+	return i.SQSDurationSeconds
+}
+
+func (i *InputS3InventoryInput) GetSQSAwsAuthenticationMethod() *SqsAuthenticationMethodOptions {
+	if i == nil {
+		return nil
+	}
+	return i.SQSAwsAuthenticationMethod
+}
+
+func (i *InputS3InventoryInput) GetSQSAwsSecret() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SQSAwsSecret
+}
+
+func (i *InputS3InventoryInput) GetSQSAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.SQSAwsSecretKey
 }
 
 func (i *InputS3InventoryInput) GetTagAfterProcessing() *TagAfterProcessingOptions {
@@ -547,6 +631,27 @@ func (i *InputS3InventoryInput) GetTemplateAwsAPIKey() *string {
 		return nil
 	}
 	return i.TemplateAwsAPIKey
+}
+
+func (i *InputS3InventoryInput) GetTemplateSQSAssumeRoleArn() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateSQSAssumeRoleArn
+}
+
+func (i *InputS3InventoryInput) GetTemplateSQSAssumeRoleExternalID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateSQSAssumeRoleExternalID
+}
+
+func (i *InputS3InventoryInput) GetTemplateSQSAwsSecretKey() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateSQSAwsSecretKey
 }
 
 // #region class-body-inputs3inventoryinput

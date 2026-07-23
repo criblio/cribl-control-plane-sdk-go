@@ -3,33 +3,8 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
-
-type OutputSyslogType string
-
-const (
-	OutputSyslogTypeSyslog OutputSyslogType = "syslog"
-)
-
-func (e OutputSyslogType) ToPointer() *OutputSyslogType {
-	return &e
-}
-func (e *OutputSyslogType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "syslog":
-		*e = OutputSyslogType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputSyslogType: %v", v)
-	}
-}
 
 // OutputSyslogProtocol - The network protocol to use for sending out syslog messages
 type OutputSyslogProtocol string
@@ -208,6 +183,7 @@ func (e *OutputSyslogTimestampFormat) IsExact() bool {
 	return false
 }
 
+// OutputSyslogPqControls - Persistent queue controls.
 type OutputSyslogPqControls struct {
 }
 
@@ -224,15 +200,16 @@ func (o *OutputSyslogPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputSyslog struct {
 	// Unique ID for this output
-	ID   *string          `json:"id,omitzero"`
-	Type OutputSyslogType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsSyslog `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// The network protocol to use for sending out syslog messages
 	Protocol *OutputSyslogProtocol `json:"protocol,omitzero"`
@@ -251,8 +228,9 @@ type OutputSyslog struct {
 	// Prefix messages with the byte count of the message. If disabled, no prefix will be set, and the message will be appended with a \n.
 	OctetCountFraming *bool `json:"octetCountFraming,omitzero"`
 	// Use to troubleshoot issues with sending data
-	LogFailedRequests *bool   `json:"logFailedRequests,omitzero"`
-	Description       *string `json:"description,omitzero"`
+	LogFailedRequests *bool `json:"logFailedRequests,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// For optimal performance, enable load balancing even if you have one hostname, as it can expand to multiple IPs.  If this setting is disabled, consider enabling round-robin DNS.
 	LoadBalanced *bool `json:"loadBalanced,omitzero"`
 	// The hostname of the receiver
@@ -272,8 +250,9 @@ type OutputSyslog struct {
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
-	WriteTimeout *float64                                 `json:"writeTimeout,omitzero"`
-	TLS          *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	WriteTimeout *float64 `json:"writeTimeout,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Maximum size of syslog messages. Make sure this value is less than or equal to the MTU to avoid UDP packet fragmentation.
@@ -303,8 +282,9 @@ type OutputSyslog struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                 `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputSyslogPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputSyslogPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'host' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'host' at runtime.
@@ -333,9 +313,9 @@ func (o *OutputSyslog) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputSyslog) GetType() OutputSyslogType {
+func (o *OutputSyslog) GetType() TypeOptionsSyslog {
 	if o == nil {
-		return OutputSyslogType("")
+		return TypeOptionsSyslog("")
 	}
 	return o.Type
 }

@@ -6,7 +6,7 @@ Further defines how to handle multiple matches: return the first match, the most
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 value := components.MatchTypeFirst

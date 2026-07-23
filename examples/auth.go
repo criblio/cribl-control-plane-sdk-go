@@ -18,8 +18,8 @@ import (
 	"os"
 	"time"
 
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 	"github.com/joho/godotenv"
 )
 

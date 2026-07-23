@@ -15,15 +15,15 @@ Get a list of all Functions.
 
 ### Example Usage
 
-<!-- UsageSnippet language="go" operationID="getFunctions" method="get" path="/functions" -->
+<!-- UsageSnippet language="go" operationID="getFunctions" method="get" path="/functions" example="FunctionListResponseExamplesFunctionList" -->
 ```go
 package main
 
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -37,22 +37,37 @@ func main() {
         }),
     )
 
-    res, err := s.Functions.List(ctx)
+    res, err := s.Functions.List(ctx, nil, nil, nil)
     if err != nil {
         log.Fatal(err)
     }
-    if res.CountedFunctionResponse != nil {
-        // handle response
+    if res.PaginatedFunctionResponse != nil {
+        for {
+            // handle items
+
+            res, err = res.Next()
+
+            if err != nil {
+                // handle error
+            }
+
+            if res == nil {
+                break
+            }
+        }
     }
 }
 ```
 
 ### Parameters
 
-| Parameter                                                | Type                                                     | Required                                                 | Description                                              |
-| -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| `ctx`                                                    | [context.Context](https://pkg.go.dev/context#Context)    | :heavy_check_mark:                                       | The context to use for the request.                      |
-| `opts`                                                   | [][operations.Option](../../models/operations/option.md) | :heavy_minus_sign:                                       | The options for this request.                            |
+| Parameter                                                                                                 | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `ctx`                                                                                                     | [context.Context](https://pkg.go.dev/context#Context)                                                     | :heavy_check_mark:                                                                                        | The context to use for the request.                                                                       |
+| `showHidden`                                                                                              | `*bool`                                                                                                   | :heavy_minus_sign:                                                                                        | If <code>true</code>, include hidden Functions in the response. Otherwise, hidden Functions are excluded. |
+| `offset`                                                                                                  | `*int64`                                                                                                  | :heavy_minus_sign:                                                                                        | Pagination offset                                                                                         |
+| `limit`                                                                                                   | `*int64`                                                                                                  | :heavy_minus_sign:                                                                                        | Maximum number of items to return                                                                         |
+| `opts`                                                                                                    | [][operations.Option](../../models/operations/option.md)                                                  | :heavy_minus_sign:                                                                                        | The options for this request.                                                                             |
 
 ### Response
 
@@ -62,6 +77,7 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |
 
@@ -69,17 +85,50 @@ func main() {
 
 Get the specified Function.
 
-### Example Usage
+### Example Usage: FunctionResponseExamplesDropFunction
 
-<!-- UsageSnippet language="go" operationID="getFunctionsById" method="get" path="/functions/{id}" -->
+<!-- UsageSnippet language="go" operationID="getFunctionsById" method="get" path="/functions/{id}" example="FunctionResponseExamplesDropFunction" -->
 ```go
 package main
 
 import(
 	"context"
 	"os"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"log"
+)
+
+func main() {
+    ctx := context.Background()
+
+    s := criblcontrolplanesdkgo.New(
+        "https://api.example.com",
+        criblcontrolplanesdkgo.WithSecurity(components.Security{
+            BearerAuth: criblcontrolplanesdkgo.Pointer(os.Getenv("CRIBLCONTROLPLANE_BEARER_AUTH")),
+        }),
+    )
+
+    res, err := s.Functions.Get(ctx, "<id>")
+    if err != nil {
+        log.Fatal(err)
+    }
+    if res.CountedFunctionResponse != nil {
+        // handle response
+    }
+}
+```
+### Example Usage: FunctionResponseExamplesEvalFunction
+
+<!-- UsageSnippet language="go" operationID="getFunctionsById" method="get" path="/functions/{id}" example="FunctionResponseExamplesEvalFunction" -->
+```go
+package main
+
+import(
+	"context"
+	"os"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
 	"log"
 )
 
@@ -119,5 +168,6 @@ func main() {
 
 | Error Type         | Status Code        | Content Type       |
 | ------------------ | ------------------ | ------------------ |
+| apierrors.Error    | 401                | application/json   |
 | apierrors.Error    | 500                | application/json   |
 | apierrors.APIError | 4XX, 5XX           | \*/\*              |

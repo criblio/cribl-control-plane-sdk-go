@@ -5,9 +5,10 @@ package components
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
+// InputZscalerHecType - Source type identifier.
 type InputZscalerHecType string
 
 const (
@@ -37,8 +38,10 @@ type InputZscalerHecAuthToken struct {
 	// Select or create a stored text secret
 	TokenSecret *string `json:"tokenSecret,omitzero"`
 	// Shared secret to be provided by any client (Authorization: <token>)
-	Token       string  `json:"token"`
-	Enabled     *bool   `json:"enabled,omitzero"`
+	Token string `json:"token"`
+	// Enable token
+	Enabled *bool `json:"enabled,omitzero"`
+	// Description
 	Description *string `json:"description,omitzero"`
 	// Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank.
 	AllowedIndexesAtToken []string `json:"allowedIndexesAtToken,omitzero"`
@@ -108,9 +111,11 @@ func (i *InputZscalerHecAuthToken) GetMetadata() []MetadataConfInputCollection {
 
 type InputZscalerHecInput struct {
 	// Unique ID for this input
-	ID       *string             `json:"id,omitzero"`
-	Type     InputZscalerHecType `json:"type"`
-	Disabled *bool               `json:"disabled,omitzero"`
+	ID *string `json:"id,omitzero"`
+	// Source type identifier.
+	Type InputZscalerHecType `json:"type"`
+	// If true, the Source is disabled and will not collect data.
+	Disabled *bool `json:"disabled,omitzero"`
 	// Pipeline to process data from this Source before sending it through the Routes
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Select whether to send data to Routes, or directly to Destinations.
@@ -119,7 +124,7 @@ type InputZscalerHecInput struct {
 	Environment *string `json:"environment,omitzero"`
 	// Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
 	PqEnabled *bool `json:"pqEnabled,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Direct connections to Destinations, and optionally via a Pipeline or a Pack
 	Connections []ConnectionConfInputCollection `json:"connections,omitzero"`
@@ -130,7 +135,8 @@ type InputZscalerHecInput struct {
 	Port float64 `json:"port"`
 	// Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
 	AuthTokens []InputZscalerHecAuthToken `json:"authTokens,omitzero"`
-	TLS        *TLSSettingsServerSideType `json:"tls,omitzero"`
+	// TLS settings (server side)
+	TLS *TLSSettingsServerSideType `json:"tls,omitzero"`
 	// Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
 	MaxActiveReq *float64 `json:"maxActiveReq,omitzero"`
 	// Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
@@ -157,15 +163,16 @@ type InputZscalerHecInput struct {
 	Metadata []MetadataConfInputCollection `json:"metadata,omitzero"`
 	// List values allowed in HEC event index field. Leave blank to skip validation. Supports wildcards. The values here can expand index validation at the token level.
 	AllowedIndexes []string `json:"allowedIndexes,omitzero"`
-	// Whether to enable Zscaler HEC acknowledgements
-	HecAcks *bool `json:"hecAcks,omitzero"`
-	// Optionally, list HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
+	// HTTP origins to which @{product} should send CORS (cross-origin resource sharing) Access-Control-Allow-* headers. Supports wildcards.
 	AccessControlAllowOrigin []string `json:"accessControlAllowOrigin,omitzero"`
-	// Optionally, list HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
+	// HTTP headers that @{product} will send to allowed origins as "Access-Control-Allow-Headers" in a CORS preflight response. Use "*" to allow all headers.
 	AccessControlAllowHeaders []string `json:"accessControlAllowHeaders,omitzero"`
-	// Enable to emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
-	EmitTokenMetrics *bool   `json:"emitTokenMetrics,omitzero"`
-	Description      *string `json:"description,omitzero"`
+	// Emit per-token (<prefix>.http.perToken) and summary (<prefix>.http.summary) request metrics
+	EmitTokenMetrics *bool `json:"emitTokenMetrics,omitzero"`
+	// Whether HEC acknowledgements are enabled. Always true for Zscaler sources.
+	HecAcks *bool `json:"hecAcks,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Binds 'environment' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'environment' at runtime.
 	TemplateEnvironment *string `json:"__template_environment,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
@@ -176,6 +183,12 @@ type InputZscalerHecInput struct {
 	TemplatePort *string `json:"__template_port,omitzero"`
 	// Binds 'hecAPI' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'hecAPI' at runtime.
 	TemplateHecAPI *string `json:"__template_hecAPI,omitzero"`
+	// Binds 'allowedIndexes' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'allowedIndexes' at runtime.
+	TemplateAllowedIndexes *string `json:"__template_allowedIndexes,omitzero"`
+	// Binds 'accessControlAllowOrigin' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowOrigin' at runtime.
+	TemplateAccessControlAllowOrigin *string `json:"__template_accessControlAllowOrigin,omitzero"`
+	// Binds 'accessControlAllowHeaders' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'accessControlAllowHeaders' at runtime.
+	TemplateAccessControlAllowHeaders *string `json:"__template_accessControlAllowHeaders,omitzero"`
 }
 
 func (i InputZscalerHecInput) MarshalJSON() ([]byte, error) {
@@ -378,13 +391,6 @@ func (i *InputZscalerHecInput) GetAllowedIndexes() []string {
 	return i.AllowedIndexes
 }
 
-func (i *InputZscalerHecInput) GetHecAcks() *bool {
-	if i == nil {
-		return nil
-	}
-	return i.HecAcks
-}
-
 func (i *InputZscalerHecInput) GetAccessControlAllowOrigin() []string {
 	if i == nil {
 		return nil
@@ -404,6 +410,13 @@ func (i *InputZscalerHecInput) GetEmitTokenMetrics() *bool {
 		return nil
 	}
 	return i.EmitTokenMetrics
+}
+
+func (i *InputZscalerHecInput) GetHecAcks() *bool {
+	if i == nil {
+		return nil
+	}
+	return i.HecAcks
 }
 
 func (i *InputZscalerHecInput) GetDescription() *string {
@@ -446,4 +459,25 @@ func (i *InputZscalerHecInput) GetTemplateHecAPI() *string {
 		return nil
 	}
 	return i.TemplateHecAPI
+}
+
+func (i *InputZscalerHecInput) GetTemplateAllowedIndexes() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAllowedIndexes
+}
+
+func (i *InputZscalerHecInput) GetTemplateAccessControlAllowOrigin() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAccessControlAllowOrigin
+}
+
+func (i *InputZscalerHecInput) GetTemplateAccessControlAllowHeaders() *string {
+	if i == nil {
+		return nil
+	}
+	return i.TemplateAccessControlAllowHeaders
 }

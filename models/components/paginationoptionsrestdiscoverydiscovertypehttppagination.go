@@ -2,6 +2,7 @@
 
 package components
 
+// PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination - Pagination
 type PaginationOptionsRestDiscoveryDiscoverTypeHTTPPagination string
 
 const (

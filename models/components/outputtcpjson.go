@@ -3,34 +3,10 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputTcpjsonType string
-
-const (
-	OutputTcpjsonTypeTcpjson OutputTcpjsonType = "tcpjson"
-)
-
-func (e OutputTcpjsonType) ToPointer() *OutputTcpjsonType {
-	return &e
-}
-func (e *OutputTcpjsonType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "tcpjson":
-		*e = OutputTcpjsonType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputTcpjsonType: %v", v)
-	}
-}
-
+// OutputTcpjsonPqControls - Persistent queue controls.
 type OutputTcpjsonPqControls struct {
 }
 
@@ -47,15 +23,16 @@ func (o *OutputTcpjsonPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputTcpjson struct {
 	// Unique ID for this output
-	ID   *string           `json:"id,omitzero"`
-	Type OutputTcpjsonType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsTcpjson `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// Use load-balanced destinations
 	LoadBalanced *bool `json:"loadBalanced,omitzero"`
@@ -64,8 +41,9 @@ type OutputTcpjson struct {
 	// Use to troubleshoot issues with sending data
 	LogFailedRequests *bool `json:"logFailedRequests,omitzero"`
 	// Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
-	ThrottleRatePerSec *string                                  `json:"throttleRatePerSec,omitzero"`
-	TLS                *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	ThrottleRatePerSec *string `json:"throttleRatePerSec,omitzero"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// Amount of time (milliseconds) to wait for the connection to establish before retrying
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
 	// Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
@@ -77,8 +55,9 @@ type OutputTcpjson struct {
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
 	// Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
-	AuthType    *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
-	Description *string                                     `json:"description,omitzero"`
+	AuthType *AuthenticationMethodOptionsAuthTokensItems `json:"authType,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// The hostname of the receiver
 	Host *string `json:"host,omitzero"`
 	// The port to connect to on the provided host
@@ -114,8 +93,9 @@ type OutputTcpjson struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                  `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputTcpjsonPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputTcpjsonPqControls `json:"pqControls,omitzero"`
 	// Optional authentication token to include as part of the connection header
 	AuthToken *string `json:"authToken,omitzero"`
 	// Select or create a stored text secret
@@ -148,9 +128,9 @@ func (o *OutputTcpjson) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputTcpjson) GetType() OutputTcpjsonType {
+func (o *OutputTcpjson) GetType() TypeOptionsTcpjson {
 	if o == nil {
-		return OutputTcpjsonType("")
+		return TypeOptionsTcpjson("")
 	}
 	return o.Type
 }

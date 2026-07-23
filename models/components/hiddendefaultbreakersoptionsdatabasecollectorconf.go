@@ -2,6 +2,7 @@
 
 package components
 
+// HiddenDefaultBreakersOptionsDatabaseCollectorConf - Hidden Default Breakers
 type HiddenDefaultBreakersOptionsDatabaseCollectorConf string
 
 const (

@@ -6,7 +6,7 @@ The highest S2S protocol version to advertise during handshake
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/operations"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/operations"
 )
 
 value := operations.CreateInputMaxS2SVersionV3

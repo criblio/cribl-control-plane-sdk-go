@@ -2,6 +2,7 @@
 
 package components
 
+// AuthenticationProtocolOptionsV3User - Authentication protocol
 type AuthenticationProtocolOptionsV3User string
 
 const (

@@ -3,11 +3,13 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type OauthParamConfInputKafka struct {
-	Name  string `json:"name"`
+	// Parameter Name
+	Name string `json:"name"`
+	// Parameter Value
 	Value string `json:"value"`
 }
 

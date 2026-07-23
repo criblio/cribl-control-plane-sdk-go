@@ -3,34 +3,10 @@
 package components
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
-type OutputConfluentCloudType string
-
-const (
-	OutputConfluentCloudTypeConfluentCloud OutputConfluentCloudType = "confluent_cloud"
-)
-
-func (e OutputConfluentCloudType) ToPointer() *OutputConfluentCloudType {
-	return &e
-}
-func (e *OutputConfluentCloudType) UnmarshalJSON(data []byte) error {
-	var v string
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case "confluent_cloud":
-		*e = OutputConfluentCloudType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for OutputConfluentCloudType: %v", v)
-	}
-}
-
+// OutputConfluentCloudPqControls - Persistent queue controls.
 type OutputConfluentCloudPqControls struct {
 }
 
@@ -47,19 +23,21 @@ func (o *OutputConfluentCloudPqControls) UnmarshalJSON(data []byte) error {
 
 type OutputConfluentCloud struct {
 	// Unique ID for this output
-	ID   *string                  `json:"id,omitzero"`
-	Type OutputConfluentCloudType `json:"type"`
+	ID *string `json:"id,omitzero"`
+	// Connector type identifier.
+	Type TypeOptionsConfluentcloud `json:"type"`
 	// Pipeline to process data before sending out to this output
 	Pipeline *string `json:"pipeline,omitzero"`
 	// Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
 	SystemFields []string `json:"systemFields,omitzero"`
 	// Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
 	Environment *string `json:"environment,omitzero"`
-	// Tags for filtering and grouping in @{product}
+	// Metadata tags used for categorization and filtering.
 	Streamtags []string `json:"streamtags,omitzero"`
 	// List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092.
-	Brokers []string                                 `json:"brokers"`
-	TLS     *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
+	Brokers []string `json:"brokers"`
+	// TLS settings (client side)
+	TLS *TLSSettingsClientSideTypeCaPathCertPath `json:"tls,omitzero"`
 	// The topic to publish events to. Can be overridden using the __topicOut field.
 	Topic string `json:"topic"`
 	// Control the number of required acknowledgments.
@@ -73,7 +51,8 @@ type OutputConfluentCloud struct {
 	// The maximum number of events you want the Destination to allow in a batch before forcing a flush
 	FlushEventCount *float64 `json:"flushEventCount,omitzero"`
 	// The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
-	FlushPeriodSec      *float64                                                            `json:"flushPeriodSec,omitzero"`
+	FlushPeriodSec *float64 `json:"flushPeriodSec,omitzero"`
+	// Kafka Schema Registry Authentication
 	KafkaSchemaRegistry *KafkaSchemaRegistryAuthenticationTypeTemplateschemaRegistryURLAuth `json:"kafkaSchemaRegistry,omitzero"`
 	// Maximum time to wait for a connection to complete successfully
 	ConnectionTimeout *float64 `json:"connectionTimeout,omitzero"`
@@ -95,7 +74,8 @@ type OutputConfluentCloud struct {
 	Sasl *AuthenticationType `json:"sasl,omitzero"`
 	// How to handle events when all receivers are exerting backpressure
 	OnBackpressure *BackpressureBehaviorOptions `json:"onBackpressure,omitzero"`
-	Description    *string                      `json:"description,omitzero"`
+	// Optional description for this configuration.
+	Description *string `json:"description,omitzero"`
 	// Select a set of Protobuf definitions for the events you want to send
 	ProtobufLibraryID *string `json:"protobufLibraryId,omitzero"`
 	// Select the type of object you want the Protobuf definitions to use for event encoding
@@ -121,8 +101,9 @@ type OutputConfluentCloud struct {
 	// How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
 	PqOnBackpressure *QueueFullBehaviorOptions `json:"pqOnBackpressure,omitzero"`
 	// The maximum size to hold in memory before writing events to disk. Enter a numeral with units of KB, MB, etc. The minimum value is 64KB and the maximum value is 10MB.
-	PqMaxBufferSizeBytes *string                         `json:"pqMaxBufferSizeBytes,omitzero"`
-	PqControls           *OutputConfluentCloudPqControls `json:"pqControls,omitzero"`
+	PqMaxBufferSizeBytes *string `json:"pqMaxBufferSizeBytes,omitzero"`
+	// Persistent queue controls.
+	PqControls *OutputConfluentCloudPqControls `json:"pqControls,omitzero"`
 	// Binds 'streamtags' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'streamtags' at runtime.
 	TemplateStreamtags *string `json:"__template_streamtags,omitzero"`
 	// Binds 'brokers' to a variable for dynamic value resolution. Set to variable ID (pack-scoped) or 'cribl.'/'edge.' prefixed ID (group-scoped). Variable value overrides 'brokers' at runtime.
@@ -155,9 +136,9 @@ func (o *OutputConfluentCloud) GetID() *string {
 	return o.ID
 }
 
-func (o *OutputConfluentCloud) GetType() OutputConfluentCloudType {
+func (o *OutputConfluentCloud) GetType() TypeOptionsConfluentcloud {
 	if o == nil {
-		return OutputConfluentCloudType("")
+		return TypeOptionsConfluentcloud("")
 	}
 	return o.Type
 }

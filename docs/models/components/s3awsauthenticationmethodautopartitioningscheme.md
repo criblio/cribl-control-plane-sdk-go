@@ -6,7 +6,7 @@ Partitioning scheme used for this dataset. Using a known scheme like DDSS enable
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 value := components.S3AwsAuthenticationMethodAutoPartitioningSchemeNone

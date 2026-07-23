@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type HeartbeatMetadata struct {
@@ -11,7 +11,7 @@ type HeartbeatMetadata struct {
 	Azure  *AzureTypeHeartbeatMetadata  `json:"azure,omitzero"`
 	HostOs *HostOsTypeHeartbeatMetadata `json:"hostOs,omitzero"`
 	Kube   *KubeTypeHeartbeatMetadata   `json:"kube,omitzero"`
-	Os     *HostOsTypeHeartbeatMetadata `json:"os,omitzero"`
+	Os     *OsTypeHeartbeatMetadata     `json:"os,omitzero"`
 }
 
 func (h HeartbeatMetadata) MarshalJSON() ([]byte, error) {
@@ -53,7 +53,7 @@ func (h *HeartbeatMetadata) GetKube() *KubeTypeHeartbeatMetadata {
 	return h.Kube
 }
 
-func (h *HeartbeatMetadata) GetOs() *HostOsTypeHeartbeatMetadata {
+func (h *HeartbeatMetadata) GetOs() *OsTypeHeartbeatMetadata {
 	if h == nil {
 		return nil
 	}

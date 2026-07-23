@@ -3,7 +3,7 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 // ScheduleTypeRunnableJobCollection - Configuration for a scheduled job
@@ -17,8 +17,9 @@ type ScheduleTypeRunnableJobCollection struct {
 	// A cron schedule on which to run this job
 	CronSchedule *string `json:"cronSchedule,omitzero"`
 	// The maximum number of instances of this scheduled job that may be running at any time
-	MaxConcurrentRuns *float64                                      `json:"maxConcurrentRuns,omitzero"`
-	Run               *RunSettingsTypeRunnableJobCollectionSchedule `json:"run,omitzero"`
+	MaxConcurrentRuns *float64 `json:"maxConcurrentRuns,omitzero"`
+	// Run settings
+	Run *RunSettingsTypeRunnableJobCollectionSchedule `json:"run,omitzero"`
 }
 
 func (s ScheduleTypeRunnableJobCollection) MarshalJSON() ([]byte, error) {

@@ -6,7 +6,7 @@ Controls whether to support reading compressed data from a forwarder. Select 'Au
 
 ```go
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 value := components.InputSplunkCompressionDisabled

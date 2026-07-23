@@ -2,6 +2,7 @@
 
 package components
 
+// PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone - Privacy protocol
 type PrivacyProtocolOptionsSnmpTrapSerializeV3UserAuthProtocolNotNone string
 
 const (

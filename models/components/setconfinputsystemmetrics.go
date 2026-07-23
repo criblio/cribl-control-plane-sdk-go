@@ -3,13 +3,16 @@
 package components
 
 import (
-	"github.com/criblio/cribl-control-plane-sdk-go/internal/utils"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/internal/utils"
 )
 
 type SetConfInputSystemMetrics struct {
-	Name            string `json:"name"`
-	Filter          string `json:"filter"`
-	IncludeChildren *bool  `json:"includeChildren,omitzero"`
+	// Set Name
+	Name string `json:"name"`
+	// Filter Expression
+	Filter string `json:"filter"`
+	// Include Child Processes
+	IncludeChildren *bool `json:"includeChildren,omitzero"`
 }
 
 func (s SetConfInputSystemMetrics) MarshalJSON() ([]byte, error) {
