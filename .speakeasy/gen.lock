@@ -7,8 +7,8 @@ management:
   generationVersion: 2.916.4
   releaseVersion: 0.10.0-rc.3
   configChecksum: 68f0a4d95c592a79c45dbee58ef1e754
-  repoURL: https://github.com/criblio/cribl-control-plane-sdk-go.git
-  installationURL: https://github.com/criblio/cribl-control-plane-sdk-go
+  repoURL: https://github.com/Cribl-Community/cribl-control-plane-sdk-go.git
+  installationURL: https://github.com/Cribl-Community/cribl-control-plane-sdk-go
 persistentEdits:
   generation_id: f728941a-fb69-46db-957a-88830d1efe5e
   pristine_commit_hash: 6f04094ae4e8e9d2e82c16b1e9cfa72131675abe

@@ -27,9 +27,9 @@ import (
 	"strings"
 	"time"
 
-	criblcontrolplanesdkgo "github.com/criblio/cribl-control-plane-sdk-go"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/apierrors"
-	"github.com/criblio/cribl-control-plane-sdk-go/models/components"
+	criblcontrolplanesdkgo "github.com/Cribl-Community/cribl-control-plane-sdk-go"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/apierrors"
+	"github.com/Cribl-Community/cribl-control-plane-sdk-go/models/components"
 )
 
 // On-prem configuration: Replace the placeholder values

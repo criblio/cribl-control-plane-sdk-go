@@ -8,7 +8,7 @@ Based on:
 ### Generated
 - [go v0.0.2] .
 ### Releases
-- [Go v0.0.2] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.2 - .
+- [Go v0.0.2] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.2 - .
 
 ## 2025-07-14 12:19:35
 ### Changes
@@ -18,7 +18,7 @@ Based on:
 ### Generated
 - [go v0.0.3] .
 ### Releases
-- [Go v0.0.3] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.3 - .
+- [Go v0.0.3] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.3 - .
 
 ## 2025-07-17 01:19:07
 ### Changes
@@ -28,7 +28,7 @@ Based on:
 ### Generated
 - [go v0.0.6] .
 ### Releases
-- [Go v0.0.6] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.6 - .
+- [Go v0.0.6] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.6 - .
 
 ## 2025-07-17 18:36:39
 ### Changes
@@ -38,7 +38,7 @@ Based on:
 ### Generated
 - [go v0.0.7] .
 ### Releases
-- [Go v0.0.7] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.7 - .
+- [Go v0.0.7] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.7 - .
 
 ## 2025-07-22 01:18:49
 ### Changes
@@ -48,7 +48,7 @@ Based on:
 ### Generated
 - [go v0.0.10] .
 ### Releases
-- [Go v0.0.10] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.10 - .
+- [Go v0.0.10] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.10 - .
 
 ## 2025-07-23 01:19:46
 ### Changes
@@ -58,7 +58,7 @@ Based on:
 ### Generated
 - [go v0.0.12] .
 ### Releases
-- [Go v0.0.12] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.12 - .
+- [Go v0.0.12] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.12 - .
 
 ## 2025-07-24 09:11:34
 ### Changes
@@ -68,7 +68,7 @@ Based on:
 ### Generated
 - [go v0.0.13] .
 ### Releases
-- [Go v0.0.13] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.13 - .
+- [Go v0.0.13] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.13 - .
 
 ## 2025-07-24 14:54:35
 ### Changes
@@ -78,7 +78,7 @@ Based on:
 ### Generated
 - [go v0.0.15] .
 ### Releases
-- [Go v0.0.15] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.15 - .
+- [Go v0.0.15] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.15 - .
 
 ## 2025-07-24 16:31:32
 ### Changes
@@ -88,7 +88,7 @@ Based on:
 ### Generated
 - [go v0.0.16] .
 ### Releases
-- [Go v0.0.16] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.16 - .
+- [Go v0.0.16] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.16 - .
 
 ## 2025-07-25 17:08:49
 ### Changes
@@ -98,7 +98,7 @@ Based on:
 ### Generated
 - [go v0.0.17] .
 ### Releases
-- [Go v0.0.17] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.17 - .
+- [Go v0.0.17] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.17 - .
 
 ## 2025-07-27 20:29:17
 ### Changes
@@ -108,7 +108,7 @@ Based on:
 ### Generated
 - [go v0.0.18] .
 ### Releases
-- [Go v0.0.18] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.18 - .
+- [Go v0.0.18] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.18 - .
 
 ## 2025-07-29 01:28:01
 ### Changes
@@ -118,7 +118,7 @@ Based on:
 ### Generated
 - [go v0.0.19] .
 ### Releases
-- [Go v0.0.19] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.19 - .
+- [Go v0.0.19] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.19 - .
 
 ## 2025-07-30 06:51:22
 ### Changes
@@ -128,7 +128,7 @@ Based on:
 ### Generated
 - [go v0.0.20] .
 ### Releases
-- [Go v0.0.20] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.20 - .
+- [Go v0.0.20] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.20 - .
 
 ## 2025-08-01 01:27:48
 ### Changes
@@ -138,7 +138,7 @@ Based on:
 ### Generated
 - [go v0.0.21] .
 ### Releases
-- [Go v0.0.21] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.21 - .
+- [Go v0.0.21] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.21 - .
 
 ## 2025-08-01 19:55:20
 ### Changes
@@ -148,7 +148,7 @@ Based on:
 ### Generated
 - [go v0.0.22] .
 ### Releases
-- [Go v0.0.22] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.22 - .
+- [Go v0.0.22] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.22 - .
 
 ## 2025-08-06 06:37:32
 ### Changes
@@ -158,7 +158,7 @@ Based on:
 ### Generated
 - [go v0.0.25] .
 ### Releases
-- [Go v0.0.25] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.25 - .
+- [Go v0.0.25] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.25 - .
 
 ## 2025-08-07 15:50:31
 ### Changes
@@ -168,7 +168,7 @@ Based on:
 ### Generated
 - [go v0.0.26] .
 ### Releases
-- [Go v0.0.26] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.26 - .
+- [Go v0.0.26] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.26 - .
 
 ## 2025-08-12 01:13:47
 ### Changes
@@ -178,7 +178,7 @@ Based on:
 ### Generated
 - [go v0.0.27] .
 ### Releases
-- [Go v0.0.27] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.27 - .
+- [Go v0.0.27] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.27 - .
 
 ## 2025-08-12 11:13:53
 ### Changes
@@ -188,7 +188,7 @@ Based on:
 ### Generated
 - [go v0.0.28-alpha] .
 ### Releases
-- [Go v0.0.28-alpha] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.28-alpha - .
+- [Go v0.0.28-alpha] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.28-alpha - .
 
 ## 2025-08-13 11:18:07
 ### Changes
@@ -198,7 +198,7 @@ Based on:
 ### Generated
 - [go v0.0.28] .
 ### Releases
-- [Go v0.0.28] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.28 - .
+- [Go v0.0.28] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.28 - .
 
 ## 2025-08-14 13:55:22
 ### Changes
@@ -208,7 +208,7 @@ Based on:
 ### Generated
 - [go v0.0.29] .
 ### Releases
-- [Go v0.0.29] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.29 - .
+- [Go v0.0.29] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.29 - .
 
 ## 2025-08-18 11:47:33
 ### Changes
@@ -218,7 +218,7 @@ Based on:
 ### Generated
 - [go v0.0.30] .
 ### Releases
-- [Go v0.0.30] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.30 - .
+- [Go v0.0.30] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.30 - .
 
 ## 2025-08-18 19:12:57
 ### Changes
@@ -228,7 +228,7 @@ Based on:
 ### Generated
 - [go v0.0.31] .
 ### Releases
-- [Go v0.0.31] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.31 - .
+- [Go v0.0.31] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.31 - .
 
 ## 2025-08-20 06:35:20
 ### Changes
@@ -238,7 +238,7 @@ Based on:
 ### Generated
 - [go v0.0.32] .
 ### Releases
-- [Go v0.0.32] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.32 - .
+- [Go v0.0.32] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.32 - .
 
 ## 2025-08-20 11:58:42
 ### Changes
@@ -248,7 +248,7 @@ Based on:
 ### Generated
 - [go v0.0.33] .
 ### Releases
-- [Go v0.0.33] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.33 - .
+- [Go v0.0.33] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.33 - .
 
 ## 2025-08-20 13:39:43
 ### Changes
@@ -258,7 +258,7 @@ Based on:
 ### Generated
 - [go v0.0.34] .
 ### Releases
-- [Go v0.0.34] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.34 - .
+- [Go v0.0.34] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.34 - .
 
 ## 2025-08-20 16:47:26
 ### Changes
@@ -268,7 +268,7 @@ Based on:
 ### Generated
 - [go v0.0.35] .
 ### Releases
-- [Go v0.0.35] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.35 - .
+- [Go v0.0.35] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.35 - .
 
 ## 2025-08-21 09:19:29
 ### Changes
@@ -278,7 +278,7 @@ Based on:
 ### Generated
 - [go v0.0.36] .
 ### Releases
-- [Go v0.0.36] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.36 - .
+- [Go v0.0.36] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.36 - .
 
 ## 2025-08-21 16:12:31
 ### Changes
@@ -288,7 +288,7 @@ Based on:
 ### Generated
 - [go v0.0.37] .
 ### Releases
-- [Go v0.0.37] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.37 - .
+- [Go v0.0.37] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.37 - .
 
 ## 2025-08-25 16:05:17
 ### Changes
@@ -298,7 +298,7 @@ Based on:
 ### Generated
 - [go v0.0.38] .
 ### Releases
-- [Go v0.0.38] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.38 - .
+- [Go v0.0.38] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.38 - .
 
 ## 2025-08-26 16:49:25
 ### Changes
@@ -308,7 +308,7 @@ Based on:
 ### Generated
 - [go v0.0.39] .
 ### Releases
-- [Go v0.0.39] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.39 - .
+- [Go v0.0.39] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.39 - .
 
 ## 2025-09-01 09:52:51
 ### Changes
@@ -318,7 +318,7 @@ Based on:
 ### Generated
 - [go v0.0.40] .
 ### Releases
-- [Go v0.0.40] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.40 - .
+- [Go v0.0.40] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.40 - .
 
 ## 2025-09-03 09:39:30
 ### Changes
@@ -328,7 +328,7 @@ Based on:
 ### Generated
 - [go v0.0.41] .
 ### Releases
-- [Go v0.0.41] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.41 - .
+- [Go v0.0.41] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.41 - .
 
 ## 2025-09-03 14:28:58
 ### Changes
@@ -338,7 +338,7 @@ Based on:
 ### Generated
 - [go v0.0.42] .
 ### Releases
-- [Go v0.0.42] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.42 - .
+- [Go v0.0.42] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.42 - .
 
 ## 2025-09-04 16:44:55
 ### Changes
@@ -348,7 +348,7 @@ Based on:
 ### Generated
 - [go v0.0.43] .
 ### Releases
-- [Go v0.0.43] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.43 - .
+- [Go v0.0.43] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.43 - .
 
 ## 2025-09-05 16:04:53
 ### Changes
@@ -358,7 +358,7 @@ Based on:
 ### Generated
 - [go v0.0.44] .
 ### Releases
-- [Go v0.0.44] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.44 - .
+- [Go v0.0.44] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.44 - .
 
 ## 2025-09-09 07:05:10
 ### Changes
@@ -368,7 +368,7 @@ Based on:
 ### Generated
 - [go v0.0.45] .
 ### Releases
-- [Go v0.0.45] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.45 - .
+- [Go v0.0.45] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.45 - .
 
 ## 2025-09-12 10:35:33
 ### Changes
@@ -378,7 +378,7 @@ Based on:
 ### Generated
 - [go v0.0.46] .
 ### Releases
-- [Go v0.0.46] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.46 - .
+- [Go v0.0.46] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.46 - .
 
 ## 2025-09-19 12:22:02
 ### Changes
@@ -388,7 +388,7 @@ Based on:
 ### Generated
 - [go v0.0.47] .
 ### Releases
-- [Go v0.0.47] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.47 - .
+- [Go v0.0.47] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.47 - .
 
 ## 2025-09-19 13:00:07
 ### Changes
@@ -398,7 +398,7 @@ Based on:
 ### Generated
 - [go v0.0.48] .
 ### Releases
-- [Go v0.0.48] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.48 - .
+- [Go v0.0.48] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.48 - .
 
 ## 2025-09-26 14:08:42
 ### Changes
@@ -408,7 +408,7 @@ Based on:
 ### Generated
 - [go v0.0.49] .
 ### Releases
-- [Go v0.0.49] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.49 - .
+- [Go v0.0.49] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.49 - .
 
 ## 2025-10-03 06:51:14
 ### Changes
@@ -418,7 +418,7 @@ Based on:
 ### Generated
 - [go v0.0.50] .
 ### Releases
-- [Go v0.0.50] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.50 - .
+- [Go v0.0.50] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.50 - .
 
 ## 2025-10-09 12:05:24
 ### Changes
@@ -428,7 +428,7 @@ Based on:
 ### Generated
 - [go v0.0.51] .
 ### Releases
-- [Go v0.0.51] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.51 - .
+- [Go v0.0.51] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.51 - .
 
 ## 2025-10-10 08:23:11
 ### Changes
@@ -438,7 +438,7 @@ Based on:
 ### Generated
 - [go v0.0.52] .
 ### Releases
-- [Go v0.0.52] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.0.52 - .
+- [Go v0.0.52] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.0.52 - .
 
 ## 2025-10-10 12:26:24
 ### Changes
@@ -448,7 +448,7 @@ Based on:
 ### Generated
 - [go v0.1.0] .
 ### Releases
-- [Go v0.1.0] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.1.0 - .
+- [Go v0.1.0] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.1.0 - .
 
 ## 2025-10-23 12:53:20
 ### Changes
@@ -458,7 +458,7 @@ Based on:
 ### Generated
 - [go v0.2.0-rc.1] .
 ### Releases
-- [Go v0.2.0-rc.1] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.2.0-rc.1 - .
+- [Go v0.2.0-rc.1] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.2.0-rc.1 - .
 
 ## 2025-10-23 13:51:48
 ### Changes
@@ -468,7 +468,7 @@ Based on:
 ### Generated
 - [go v0.2.0] .
 ### Releases
-- [Go v0.2.0] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.2.0 - .
+- [Go v0.2.0] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.2.0 - .
 
 ## 2025-10-28 07:57:30
 ### Changes
@@ -478,7 +478,7 @@ Based on:
 ### Generated
 - [go v0.2.1] .
 ### Releases
-- [Go v0.2.1] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.2.1 - .
+- [Go v0.2.1] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.2.1 - .
 
 ## 2025-11-15 10:49:38
 ### Changes
@@ -488,7 +488,7 @@ Based on:
 ### Generated
 - [go v0.3.0-rc.1] .
 ### Releases
-- [Go v0.3.0-rc.1] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.3.0-rc.1 - .
+- [Go v0.3.0-rc.1] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.3.0-rc.1 - .
 
 ## 2025-11-18 23:30:07
 ### Changes
@@ -498,7 +498,7 @@ Based on:
 ### Generated
 - [go v0.3.0-rc.8] .
 ### Releases
-- [Go v0.3.0-rc.8] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.3.0-rc.8 - .
+- [Go v0.3.0-rc.8] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.3.0-rc.8 - .
 
 ## 2025-11-19 07:55:42
 ### Changes
@@ -508,7 +508,7 @@ Based on:
 ### Generated
 - [go v0.3.0] .
 ### Releases
-- [Go v0.3.0] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.3.0 - .
+- [Go v0.3.0] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.3.0 - .
 
 ## 2025-12-12 08:27:27
 ### Changes
@@ -518,7 +518,7 @@ Based on:
 ### Generated
 - [go v0.4.0-rc.17] .
 ### Releases
-- [Go v0.4.0-rc.17] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.4.0-rc.17 - .
+- [Go v0.4.0-rc.17] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.4.0-rc.17 - .
 
 ## 2025-12-12 10:01:25
 ### Changes
@@ -528,7 +528,7 @@ Based on:
 ### Generated
 - [go v0.4.0-rc.18] .
 ### Releases
-- [Go v0.4.0-rc.18] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.4.0-rc.18 - .
+- [Go v0.4.0-rc.18] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.4.0-rc.18 - .
 
 ## 2025-12-12 10:21:37
 ### Changes
@@ -538,7 +538,7 @@ Based on:
 ### Generated
 - [go v0.4.0-rc.21] .
 ### Releases
-- [Go v0.4.0-rc.21] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.4.0-rc.21 - .
+- [Go v0.4.0-rc.21] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.4.0-rc.21 - .
 
 ## 2025-12-12 14:46:44
 ### Changes
@@ -548,7 +548,7 @@ Based on:
 ### Generated
 - [go v0.4.0-rc.22] .
 ### Releases
-- [Go v0.4.0-rc.22] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.4.0-rc.22 - .
+- [Go v0.4.0-rc.22] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.4.0-rc.22 - .
 
 ## 2025-12-17 10:04:56
 ### Changes
@@ -558,7 +558,7 @@ Based on:
 ### Generated
 - [go v0.4.0] .
 ### Releases
-- [Go v0.4.0] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.4.0 - .
+- [Go v0.4.0] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.4.0 - .
 
 ## 2026-01-26 09:14:31
 ### Changes
@@ -568,7 +568,7 @@ Based on:
 ### Generated
 - [go v0.5.0-rc.36] .
 ### Releases
-- [Go v0.5.0-rc.36] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.5.0-rc.36 - .
+- [Go v0.5.0-rc.36] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.5.0-rc.36 - .
 
 ## 2026-01-27 08:33:53
 ### Changes
@@ -578,7 +578,7 @@ Based on:
 ### Generated
 - [go v0.5.0-rc.37] .
 ### Releases
-- [Go v0.5.0-rc.37] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.5.0-rc.37 - .
+- [Go v0.5.0-rc.37] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.5.0-rc.37 - .
 
 ## 2026-01-28 09:09:39
 ### Changes
@@ -588,7 +588,7 @@ Based on:
 ### Generated
 - [go v0.5.0] .
 ### Releases
-- [Go v0.5.0] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.5.0 - .
+- [Go v0.5.0] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.5.0 - .
 
 ## 2026-01-30 11:18:40
 ### Changes
@@ -598,7 +598,7 @@ Based on:
 ### Generated
 - [go v0.5.1] .
 ### Releases
-- [Go v0.5.1] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.5.1 - .
+- [Go v0.5.1] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.5.1 - .
 
 ## 2026-02-01 01:20:42
 ### Changes
@@ -608,7 +608,7 @@ Based on:
 ### Generated
 - [go v0.5.2] .
 ### Releases
-- [Go v0.5.2] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.5.2 - .
+- [Go v0.5.2] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.5.2 - .
 
 ## 2026-03-06 10:59:57
 ### Changes
@@ -618,7 +618,7 @@ Based on:
 ### Generated
 - [go v0.6.0-rc.42] .
 ### Releases
-- [Go v0.6.0-rc.42] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.6.0-rc.42 - .
+- [Go v0.6.0-rc.42] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.6.0-rc.42 - .
 
 ## 2026-03-11 07:41:12
 ### Changes
@@ -628,7 +628,7 @@ Based on:
 ### Generated
 - [go v0.6.0-rc.43] .
 ### Releases
-- [Go v0.6.0-rc.43] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.6.0-rc.43 - .
+- [Go v0.6.0-rc.43] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.6.0-rc.43 - .
 
 ## 2026-03-11 08:57:12
 ### Changes
@@ -638,7 +638,7 @@ Based on:
 ### Generated
 - [go v0.6.0] .
 ### Releases
-- [Go v0.6.0] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.6.0 - .
+- [Go v0.6.0] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.6.0 - .
 
 ## 2026-04-22 16:57:03
 ### Changes
@@ -648,7 +648,7 @@ Based on:
 ### Generated
 - [go v0.7.0-rc.22] .
 ### Releases
-- [Go v0.7.0-rc.22] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.7.0-rc.22 - .
+- [Go v0.7.0-rc.22] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.7.0-rc.22 - .
 
 ## 2026-04-22 18:07:41
 ### Changes
@@ -658,7 +658,7 @@ Based on:
 ### Generated
 - [go v0.7.0] .
 ### Releases
-- [Go v0.7.0] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.7.0 - .
+- [Go v0.7.0] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.7.0 - .
 
 ## 2026-05-20 13:59:00
 ### Changes
@@ -668,7 +668,7 @@ Based on:
 ### Generated
 - [go v0.8.0] .
 ### Releases
-- [Go v0.8.0] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.8.0 - .
+- [Go v0.8.0] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.8.0 - .
 
 ## 2026-05-22 15:02:39
 ### Changes
@@ -678,7 +678,7 @@ Based on:
 ### Generated
 - [go v0.8.1] .
 ### Releases
-- [Go v0.8.1] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.8.1 - .
+- [Go v0.8.1] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.8.1 - .
 
 ## 2026-06-24 14:30:21
 ### Changes
@@ -688,4 +688,4 @@ Based on:
 ### Generated
 - [go v0.9.0] .
 ### Releases
-- [Go v0.9.0] https://github.com/criblio/cribl-control-plane-sdk-go/releases/tag/v0.9.0 - .
+- [Go v0.9.0] https://github.com/Cribl-Community/cribl-control-plane-sdk-go/releases/tag/v0.9.0 - .
